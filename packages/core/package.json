@@ -1,17 +1,18 @@
 {
   "name": "@pm7/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Core styles and vanilla JavaScript for PM7 UI components",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/pm7.js",
+  "module": "dist/pm7.esm.js",
   "style": "dist/pm7.css",
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "echo 'Core package development mode'",
-    "build": "npm run build:css",
-    "build:css": "postcss src/styles/index.css -o dist/pm7.css"
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "postcss src/styles/index.css -o dist/pm7.css",
+    "build:js": "rollup -c rollup.config.mjs"
   },
   "keywords": [
     "pm7",

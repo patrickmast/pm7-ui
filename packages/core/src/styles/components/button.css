@@ -18,6 +18,8 @@
   cursor: pointer;
   border: var(--pm7-button-border-width) solid transparent;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
   
   /* Focus */
   --pm7-button-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
@@ -44,6 +46,9 @@
   pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed;
+  background-color: #E5E7EB !important;
+  color: #9CA3AF !important;
+  border-color: #E5E7EB !important;
 }
 
 /* Active state */
@@ -56,14 +61,14 @@
 /* Primary (default) */
 .pm7-button--primary,
 .pm7-button--default {
-  background-color: var(--pm7-primary);
+  background-color: #1C86EF;
   color: var(--pm7-primary-foreground);
   box-shadow: var(--pm7-button-shadow);
 }
 
 .pm7-button--primary:hover:not(:disabled),
 .pm7-button--default:hover:not(:disabled) {
-  background-color: var(--pm7-primary-hover);
+  background-color: #1976D2;
   box-shadow: var(--pm7-button-shadow-hover);
 }
 
@@ -215,4 +220,88 @@
 .pm7-button-group > .pm7-button:hover,
 .pm7-button-group > .pm7-button:focus {
   z-index: 1;
+}
+
+/* 6stars effect */
+.pm7-button__6stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  /* Faster transition for better responsiveness */
+  transition: opacity 0.15s ease;
+}
+
+.pm7-button--primary:hover .pm7-button__6stars,
+.pm7-button--default:hover .pm7-button__6stars {
+  opacity: 1;
+}
+
+.pm7-button__6stars .star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: pm7-star-float 3s linear infinite;
+  opacity: 0;
+}
+
+.pm7-button__6stars .star:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.pm7-button__6stars .star:nth-child(2) {
+  top: 80%;
+  left: 80%;
+  animation-delay: 0.5s;
+}
+
+.pm7-button__6stars .star:nth-child(3) {
+  top: 10%;
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.pm7-button__6stars .star:nth-child(4) {
+  top: 50%;
+  left: 20%;
+  animation-delay: 1.5s;
+}
+
+.pm7-button__6stars .star:nth-child(5) {
+  top: 60%;
+  left: 70%;
+  animation-delay: 2s;
+}
+
+.pm7-button__6stars .star:nth-child(6) {
+  top: 30%;
+  left: 90%;
+  animation-delay: 2.5s;
+}
+
+@keyframes pm7-star-float {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-80px) scale(1);
+  }
+  100% {
+    transform: translateY(-100px) scale(0);
+    opacity: 0;
+  }
 }

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <style>
+    .component-doc {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .component-doc h1 {
+      font-size: var(--pm7-text-4xl);
+      margin-bottom: 16px;
+    }
+    
+    .component-doc h2 {
+      font-size: var(--pm7-text-2xl);
+      margin-top: 48px;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    
+    .component-doc h3 {
+      font-size: var(--pm7-text-xl);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    
+    .component-doc p {
+      line-height: 1.7;
+      margin-bottom: 16px;
+      color: var(--pm7-text-secondary);
+    }
+    
+    .component-doc pre {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+    
+    .component-doc code {
+      font-family: var(--pm7-font-mono);
+      font-size: 0.875em;
+      background: var(--pm7-muted);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    
+    .component-doc pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .component-doc table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+    }
+    
+    .component-doc th,
+    .component-doc td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    
+    .component-doc th {
+      font-weight: 600;
+      background: var(--pm7-muted);
+    }
+    
+    .component-doc ul,
+    .component-doc ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+    
+    .component-doc li {
+      margin-bottom: 8px;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: var(--pm7-text-sm);
+    }
+    
+    .breadcrumb a {
+      color: var(--pm7-muted-foreground);
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      color: var(--pm7-primary);
+    }
+    
+    .breadcrumb span {
+      color: var(--pm7-muted-foreground);
+    }
+    
+    /* Live examples */
+    .live-example {
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 24px;
+      margin: 16px 0;
+      background: var(--pm7-background);
+    }
+    
+    .live-example + pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    
+    /* Toast demo buttons */
+    .toast-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7" width="32" height="32" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+        PM7 UI
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
+    <div class="breadcrumb">
+      <a href="/components/">Components</a>
+      <span>→</span>
+      <span>Toast</span>
+    </div>
+    
+    <div class="component-doc" id="doc-content">
+      <div style="text-align: center; padding: 40px;">
+        <div class="pm7-spinner" style="margin: 0 auto;"></div>
+        <p>Loading documentation...</p>
+      </div>
+    </div>
+    
+    <!-- Toast demo section -->
+    <div style="margin-top: 40px;">
+      <h2>Try it out</h2>
+      <div class="toast-demo-grid">
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Default Toast', description: 'This is a default toast message.'})">
+          Show Default Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Success!', description: 'Operation completed successfully.', variant: 'success'})">
+          Show Success Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Warning', description: 'Please review your input.', variant: 'warning'})">
+          Show Warning Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Error', description: 'Something went wrong.', variant: 'destructive'})">
+          Show Error Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Info', description: 'New updates available.', variant: 'info'})">
+          Show Info Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'With Action', description: 'Click the button below.', action: '<button class="pm7-button pm7-button--sm pm7-button--primary">Undo</button>'})">
+          Toast with Action
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { loadMarkdown } from '/scripts/markdown-loader.js';
+    import { showToast, closeToast, closeAllToasts } from '/packages/core/src/scripts/toast.js';
+    
+    // Make toast functions global
+    window.showToast = showToast;
+    window.closeToast = closeToast;
+    window.closeAllToasts = closeAllToasts;
+    
+    // Load component README
+    async function loadComponentDoc() {
+      const docContent = document.getElementById('doc-content');
+      const markdown = await loadMarkdown('/packages/core/src/components/toast/README.md');
+      
+      // Process the HTML - no live examples for toasts as they need JS
+      docContent.innerHTML = markdown;
+    }
+    
+    loadComponentDoc();
+  </script>
+  
+  <script type="module" src="/scripts/docs.js"></script>
+</body>
+</html>

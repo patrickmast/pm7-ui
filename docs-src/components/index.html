@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <style>
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .component-card {
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius-md);
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      display: block;
+    }
+    
+    .component-card:hover {
+      border-color: var(--pm7-primary);
+      box-shadow: var(--pm7-shadow-md);
+      transform: translateY(-2px);
+    }
+    
+    .component-card h3 {
+      margin: 0 0 8px 0;
+      color: var(--pm7-primary);
+    }
+    
+    .component-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+      font-size: var(--pm7-text-sm);
+    }
+    
+    .component-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    .component-status--ready {
+      background: var(--pm7-success);
+      color: var(--pm7-success-foreground);
+    }
+    
+    .component-status--beta {
+      background: var(--pm7-warning);
+      color: var(--pm7-warning-foreground);
+    }
+    
+    .component-status--soon {
+      background: var(--pm7-muted);
+      color: var(--pm7-muted-foreground);
+    }
+  </style>
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>Components</h1>
+    <p class="pm7-docs-lead">
+      Explore all PM7 UI components. Each component includes examples, code snippets, and API documentation.
+    </p>
+    
+    <div class="component-grid">
+      <!-- Button -->
+      <a href="/components/button-new.html" class="component-card">
+        <h3>Button</h3>
+        <p>Trigger actions with various styles and states</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Menu -->
+      <a href="/components/menu-new.html" class="component-card">
+        <h3>Menu / Dropdown</h3>
+        <p>Contextual overlays for displaying lists of links and actions</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Dialog -->
+      <a href="/components/dialog-new.html" class="component-card">
+        <h3>Dialog / Modal</h3>
+        <p>Modal dialogs for important interactions</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Card -->
+      <a href="/components/card-new.html" class="component-card">
+        <h3>Card</h3>
+        <p>Container for grouping related content</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Input -->
+      <a href="/components/input-new.html" class="component-card">
+        <h3>Input / Form Fields</h3>
+        <p>Text inputs, selects, checkboxes, and more</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Toast -->
+      <a href="/components/toast-new.html" class="component-card">
+        <h3>Toast</h3>
+        <p>Brief notifications and feedback messages</p>
+        <span class="component-status component-status--ready">Ready</span>
+      </a>
+      
+      <!-- Tabs -->
+      <a href="/components/tabs.html" class="component-card">
+        <h3>Tabs</h3>
+        <p>Organize content into tabbed sections</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+      
+      <!-- Table -->
+      <a href="/components/table.html" class="component-card">
+        <h3>Table</h3>
+        <p>Display data in rows and columns</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+      
+      <!-- Badge -->
+      <a href="/components/badge.html" class="component-card">
+        <h3>Badge</h3>
+        <p>Small count and labeling component</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+      
+      <!-- Progress -->
+      <a href="/components/progress.html" class="component-card">
+        <h3>Progress</h3>
+        <p>Show completion status of tasks</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+      
+      <!-- Tooltip -->
+      <a href="/components/tooltip.html" class="component-card">
+        <h3>Tooltip</h3>
+        <p>Helpful text on hover</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+      
+      <!-- Accordion -->
+      <a href="/components/accordion.html" class="component-card">
+        <h3>Accordion</h3>
+        <p>Collapsible content panels</p>
+        <span class="component-status component-status--soon">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+</body>
+</html>

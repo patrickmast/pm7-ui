@@ -20,12 +20,22 @@
   /* Status colors */
   --pm7-success: #22c55e;
   --pm7-success-foreground: #ffffff;
+  --pm7-success-light: #dcfce7;
+  --pm7-success-dark: #166534;
   --pm7-warning: #f59e0b;
   --pm7-warning-foreground: #ffffff;
+  --pm7-warning-light: #fef3c7;
+  --pm7-warning-dark: #92400e;
   --pm7-error: #ef4444;
   --pm7-error-foreground: #ffffff;
   --pm7-info: #3b82f6;
   --pm7-info-foreground: #ffffff;
+  --pm7-info-light: #dbeafe;
+  --pm7-info-dark: #1e40af;
+  
+  /* Destructive alias */
+  --pm7-destructive: var(--pm7-error);
+  --pm7-destructive-foreground: var(--pm7-error-foreground);
   
   /* Surface colors */
   --pm7-surface: #ffffff;
@@ -45,6 +55,9 @@
   /* Focus ring */
   --pm7-ring: var(--pm7-primary);
   --pm7-ring-offset: #ffffff;
+  
+  /* PM7 specific brand colors */
+  --pm7-primary-light: #e6f2ff;
 }
 
 /* Dark mode */
@@ -55,15 +68,23 @@
     --pm7-muted: #262626;
     --pm7-muted-foreground: #a3a3a3;
     
-    --pm7-border: #404040;
-    --pm7-border-hover: #525252;
+    --pm7-border: #525252;
+    --pm7-border-hover: #666666;
     
-    --pm7-surface: #23272f;
-    --pm7-surface-hover: #2a2e36;
-    --pm7-surface-active: #31353d;
+    --pm7-surface: #262626;
+    --pm7-surface-hover: #2a2a2a;
+    --pm7-surface-active: #303030;
     
     --pm7-menu-bg: var(--pm7-surface);
     --pm7-ring-offset: #000000;
+    
+    /* Status colors adjustments */
+    --pm7-success-light: #052e16;
+    --pm7-success-dark: #22c55e;
+    --pm7-warning-light: #451a03;
+    --pm7-warning-dark: #f59e0b;
+    --pm7-info-light: #1e3a8a;
+    --pm7-info-dark: #3b82f6;
   }
 }
 
@@ -74,13 +95,21 @@
   --pm7-muted: #262626;
   --pm7-muted-foreground: #a3a3a3;
   
-  --pm7-border: #404040;
-  --pm7-border-hover: #525252;
+  --pm7-border: #525252;
+  --pm7-border-hover: #666666;
   
-  --pm7-surface: #23272f;
-  --pm7-surface-hover: #2a2e36;
-  --pm7-surface-active: #31353d;
+  --pm7-surface: #262626;
+  --pm7-surface-hover: #2a2a2a;
+  --pm7-surface-active: #303030;
   
   --pm7-menu-bg: var(--pm7-surface);
   --pm7-ring-offset: #000000;
+  
+  /* Status colors adjustments */
+  --pm7-success-light: #052e16;
+  --pm7-success-dark: #22c55e;
+  --pm7-warning-light: #451a03;
+  --pm7-warning-dark: #f59e0b;
+  --pm7-info-light: #1e3a8a;
+  --pm7-info-dark: #3b82f6;
 }

@@ -11,6 +11,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'docs-src/index.html'),
         components: resolve(__dirname, 'docs-src/components.html'),
+        componentsIndex: resolve(__dirname, 'docs-src/components/index.html'),
+        componentsButton: resolve(__dirname, 'docs-src/components/button.html'),
         gettingStarted: resolve(__dirname, 'docs-src/getting-started.html'),
       },
     },

@@ -1,1 +1,195 @@
-/* PM7 Toast Component - Coming soon */
+/* PM7 Toast Component */
+
+/* Toast viewport - container for all toasts */
+.pm7-toast-viewport {
+  position: fixed;
+  top: var(--pm7-spacing-4);
+  right: var(--pm7-spacing-4);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm7-spacing-2);
+  pointer-events: none;
+  max-width: 420px;
+  width: 100%;
+}
+
+/* Individual toast */
+.pm7-toast {
+  background-color: var(--pm7-background);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius);
+  box-shadow: var(--pm7-shadow-md);
+  padding: var(--pm7-spacing-4);
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .pm7-toast {
+    background-color: #262626;
+    border-color: #525252;
+  }
+}
+
+/* Toast animations */
+@keyframes toast-slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-slide-out-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.pm7-toast[data-state="open"] {
+  animation: toast-slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pm7-toast[data-state="closed"] {
+  animation: toast-slide-out-right 0.2s ease-in forwards;
+}
+
+/* Toast header */
+.pm7-toast-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--pm7-spacing-2);
+}
+
+.pm7-toast-title {
+  font-weight: var(--pm7-font-semibold);
+  font-size: var(--pm7-text-sm);
+  margin: 0;
+  color: var(--pm7-foreground);
+}
+
+.pm7-toast-description {
+  font-size: var(--pm7-text-sm);
+  color: var(--pm7-muted-foreground);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Toast close button */
+.pm7-toast-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--pm7-radius-sm);
+  color: var(--pm7-muted-foreground);
+  cursor: pointer;
+  transition: background-color 200ms, color 200ms;
+  margin-left: var(--pm7-spacing-3);
+  flex-shrink: 0;
+}
+
+.pm7-toast-close:hover {
+  background-color: var(--pm7-muted);
+  color: var(--pm7-foreground);
+}
+
+/* Toast variants */
+.pm7-toast--default {
+  background-color: var(--pm7-background);
+  border-color: var(--pm7-border);
+}
+
+.pm7-toast--destructive {
+  background-color: var(--pm7-destructive);
+  border-color: var(--pm7-destructive);
+  color: var(--pm7-destructive-foreground);
+}
+
+.pm7-toast--destructive .pm7-toast-title,
+.pm7-toast--destructive .pm7-toast-description {
+  color: var(--pm7-destructive-foreground);
+}
+
+.pm7-toast--success {
+  background-color: var(--pm7-success-light);
+  border-color: var(--pm7-success);
+}
+
+.pm7-toast--success .pm7-toast-title {
+  color: var(--pm7-success-dark);
+}
+
+.pm7-toast--warning {
+  background-color: var(--pm7-warning-light);
+  border-color: var(--pm7-warning);
+}
+
+.pm7-toast--warning .pm7-toast-title {
+  color: var(--pm7-warning-dark);
+}
+
+.pm7-toast--info {
+  background-color: var(--pm7-info-light);
+  border-color: var(--pm7-info);
+}
+
+.pm7-toast--info .pm7-toast-title {
+  color: var(--pm7-info-dark);
+}
+
+/* Toast with action */
+.pm7-toast-action {
+  margin-top: var(--pm7-spacing-3);
+}
+
+.pm7-toast-action button {
+  font-size: var(--pm7-text-sm);
+}
+
+/* Progress bar */
+.pm7-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--pm7-primary);
+  transform-origin: left;
+  animation: toast-progress linear forwards;
+}
+
+@keyframes toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .pm7-toast-viewport {
+    left: var(--pm7-spacing-4);
+    right: var(--pm7-spacing-4);
+    max-width: none;
+  }
+}

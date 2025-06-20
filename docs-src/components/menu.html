@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <style>
+    .component-header {
+      border-bottom: 1px solid var(--pm7-border);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .component-section {
+      margin-bottom: 60px;
+    }
+    
+    .component-section h2 {
+      margin-bottom: 24px;
+    }
+    
+    .component-example {
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius-md);
+      padding: 24px;
+      margin-bottom: 16px;
+      min-height: 200px;
+    }
+    
+    .component-props {
+      overflow-x: auto;
+    }
+    
+    .component-props table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .component-props th,
+    .component-props td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    
+    .component-props th {
+      font-weight: 600;
+      background: var(--pm7-muted);
+    }
+    
+    .component-props code {
+      font-size: 0.875em;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: var(--pm7-text-sm);
+    }
+    
+    .breadcrumb a {
+      color: var(--pm7-muted-foreground);
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      color: var(--pm7-primary);
+    }
+    
+    .breadcrumb span {
+      color: var(--pm7-muted-foreground);
+    }
+  </style>
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
+    <div class="breadcrumb">
+      <a href="/components/">Components</a>
+      <span>→</span>
+      <span>Menu</span>
+    </div>
+    
+    <div class="component-header">
+      <h1>Menu / Dropdown</h1>
+      <p class="pm7-docs-lead">
+        Dropdown menus display a list of choices on temporary surfaces. They appear when users interact with a button, action, or other control.
+      </p>
+    </div>
+    
+    <!-- Basic Usage -->
+    <section class="component-section">
+      <h2>Basic Usage</h2>
+      <div class="component-example">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            Menu
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Profile</button>
+            <button class="pm7-menu-item">Settings</button>
+            <button class="pm7-menu-item">Help & Support</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Sign Out</button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="pm7-menu" data-pm7-menu&gt;
+  &lt;button class="pm7-menu-trigger pm7-button pm7-button--primary"&gt;
+    &lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+      &lt;line x1="3" y1="12" x2="21" y2="12"&gt;&lt;/line&gt;
+      &lt;line x1="3" y1="6" x2="21" y2="6"&gt;&lt;/line&gt;
+      &lt;line x1="3" y1="18" x2="21" y2="18"&gt;&lt;/line&gt;
+    &lt;/svg&gt;
+    Menu
+  &lt;/button&gt;
+  &lt;div class="pm7-menu-content"&gt;
+    &lt;button class="pm7-menu-item"&gt;Profile&lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;Settings&lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;Help & Support&lt;/button&gt;
+    &lt;div class="pm7-menu-separator"&gt;&lt;/div&gt;
+    &lt;button class="pm7-menu-item"&gt;Sign Out&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+    
+    <!-- Labels and Section Titles -->
+    <section class="component-section">
+      <h2>Labels and Section Titles</h2>
+      <p>Use labels to group menu items and section titles for prominent headings:</p>
+      <div class="component-example" style="min-height: auto; padding-bottom: 300px;">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+            </svg>
+            Settings
+          </button>
+          <div class="pm7-menu-content" style="width: 280px;">
+            <!-- Small label -->
+            <div class="pm7-menu-label">ACCOUNT</div>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Profile
+            </button>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+              </svg>
+              Settings
+            </button>
+            
+            <div class="pm7-menu-separator"></div>
+            
+            <!-- Small label -->
+            <div class="pm7-menu-label">PREFERENCES</div>
+            <button class="pm7-menu-item pm7-menu-item--switch" data-checked="false">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              Dark Mode
+              <div class="pm7-menu-switch"></div>
+            </button>
+            
+            <div class="pm7-menu-separator"></div>
+            
+            <!-- Large section title -->
+            <div class="pm7-menu-section-title" style="font-weight: 600; color: var(--pm7-foreground); font-size: 16px; padding: 12px 16px 8px; margin: 0;">Display Options</div>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-checked="true">
+              Comfortable
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--radio">
+              Compact
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--radio">
+              Spacious
+            </button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;!-- Small uppercase label --&gt;
+&lt;div class="pm7-menu-label"&gt;ACCOUNT&lt;/div&gt;
+&lt;button class="pm7-menu-item"&gt;Profile&lt;/button&gt;
+&lt;button class="pm7-menu-item"&gt;Settings&lt;/button&gt;
+
+&lt;!-- Large section title (like "Menu Alignment") --&gt;
+&lt;div class="pm7-menu-section-title" style="font-weight: 600; color: var(--pm7-foreground); font-size: 16px; padding: 12px 16px 8px;"&gt;
+  Display Options
+&lt;/div&gt;
+&lt;button class="pm7-menu-item pm7-menu-item--radio"&gt;Comfortable&lt;/button&gt;
+&lt;button class="pm7-menu-item pm7-menu-item--radio"&gt;Compact&lt;/button&gt;</code></pre>
+    </section>
+    
+    <!-- With Icons -->
+    <section class="component-section">
+      <h2>With Icons</h2>
+      <div class="component-example">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--primary">
+            Actions
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <div class="pm7-menu-label">Account</div>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              Profile
+            </button>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+              </svg>
+              Settings
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" disabled>
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Locked (disabled)
+            </button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="pm7-menu" data-pm7-menu&gt;
+  &lt;button class="pm7-menu-trigger pm7-button pm7-button--primary"&gt;
+    Actions
+    &lt;svg&gt;...&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="pm7-menu-content"&gt;
+    &lt;div class="pm7-menu-label"&gt;Account&lt;/div&gt;
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Profile
+    &lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Settings
+    &lt;/button&gt;
+    &lt;div class="pm7-menu-separator"&gt;&lt;/div&gt;
+    &lt;button class="pm7-menu-item" disabled&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Locked (disabled)
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+    
+    <!-- Menu Trigger Styles -->
+    <section class="component-section">
+      <h2>Menu Trigger Styles</h2>
+      <p>Menu triggers can have various styles. Here are common patterns:</p>
+      <div class="component-example" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; min-height: auto; padding-bottom: 160px;">
+        
+        <!-- Icon-only hamburger menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost" aria-label="Main menu" style="padding: 8px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Dashboard</button>
+            <button class="pm7-menu-item">Analytics</button>
+            <button class="pm7-menu-item">Reports</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Settings</button>
+          </div>
+        </div>
+        
+        <!-- User avatar menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger" style="background: transparent; border: none; cursor: pointer; padding: 4px; border-radius: 50%;">
+            <div style="width: 40px; height: 40px; background: var(--pm7-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;">
+              JD
+            </div>
+          </button>
+          <div class="pm7-menu-content pm7-menu-content--end">
+            <div class="pm7-menu-label">john.doe@example.com</div>
+            <button class="pm7-menu-item">My Profile</button>
+            <button class="pm7-menu-item">Preferences</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Sign Out</button>
+          </div>
+        </div>
+        
+        <!-- Button with dropdown arrow -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--secondary">
+            Export
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px;">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Export as PDF</button>
+            <button class="pm7-menu-item">Export as CSV</button>
+            <button class="pm7-menu-item">Export as Excel</button>
+          </div>
+        </div>
+        
+        <!-- Three dots menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost" aria-label="More options" style="padding: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="5" r="1"/>
+              <circle cx="12" cy="12" r="1"/>
+              <circle cx="12" cy="19" r="1"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content pm7-menu-content--end">
+            <button class="pm7-menu-item">Edit</button>
+            <button class="pm7-menu-item">Duplicate</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Delete</button>
+          </div>
+        </div>
+        
+        <!-- Link style menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger" style="background: transparent; border: none; color: var(--pm7-primary); cursor: pointer; text-decoration: underline; padding: 4px 8px; font-size: 14px;">
+            View all options
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Option 1</button>
+            <button class="pm7-menu-item">Option 2</button>
+            <button class="pm7-menu-item">Option 3</button>
+          </div>
+        </div>
+        
+      </div>
+      <pre><code>&lt;!-- Icon-only hamburger menu --&gt;
+&lt;button class="pm7-menu-trigger pm7-button pm7-button--ghost" aria-label="Main menu"&gt;
+  &lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;line x1="3" y1="12" x2="21" y2="12"&gt;&lt;/line&gt;
+    &lt;line x1="3" y1="6" x2="21" y2="6"&gt;&lt;/line&gt;
+    &lt;line x1="3" y1="18" x2="21" y2="18"&gt;&lt;/line&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- User avatar menu --&gt;
+&lt;button class="pm7-menu-trigger" style="background: transparent; border: none; cursor: pointer;"&gt;
+  &lt;div style="width: 40px; height: 40px; background: var(--pm7-primary); color: white; border-radius: 50%;"&gt;
+    JD
+  &lt;/div&gt;
+&lt;/button&gt;
+
+&lt;!-- Button with dropdown arrow --&gt;
+&lt;button class="pm7-menu-trigger pm7-button pm7-button--secondary"&gt;
+  Export
+  &lt;svg width="16" height="16"&gt;...&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- Three dots menu --&gt;
+&lt;button class="pm7-menu-trigger pm7-button pm7-button--ghost" aria-label="More options"&gt;
+  &lt;svg width="20" height="20"&gt;
+    &lt;circle cx="12" cy="5" r="1"/&gt;
+    &lt;circle cx="12" cy="12" r="1"/&gt;
+    &lt;circle cx="12" cy="19" r="1"/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- Link style menu --&gt;
+&lt;button class="pm7-menu-trigger" style="background: transparent; border: none; color: var(--pm7-primary); text-decoration: underline;"&gt;
+  View all options
+&lt;/button&gt;</code></pre>
+    </section>
+    
+    <!-- Alignment -->
+    <section class="component-section">
+      <h2>Alignment</h2>
+      <div class="component-example" style="display: flex; gap: 24px; justify-content: space-between; align-items: flex-start; min-height: auto; padding-bottom: 160px;">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="5" cy="12" r="1"/>
+              <circle cx="12" cy="12" r="1"/>
+              <circle cx="19" cy="12" r="1"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Option 1</button>
+            <button class="pm7-menu-item">Option 2</button>
+            <button class="pm7-menu-item">Option 3</button>
+          </div>
+        </div>
+        
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger" style="background: var(--pm7-accent); color: var(--pm7-accent-foreground); padding: 8px 16px; border-radius: var(--pm7-radius); border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            Options
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content pm7-menu-content--center">
+            <button class="pm7-menu-item">Option 1</button>
+            <button class="pm7-menu-item">Option 2</button>
+            <button class="pm7-menu-item">Option 3</button>
+          </div>
+        </div>
+        
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger" style="background: transparent; color: var(--pm7-primary); padding: 8px; border: none; cursor: pointer; text-decoration: underline;">
+            More actions
+          </button>
+          <div class="pm7-menu-content pm7-menu-content--end">
+            <button class="pm7-menu-item">Option 1</button>
+            <button class="pm7-menu-item">Option 2</button>
+            <button class="pm7-menu-item">Option 3</button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;!-- Left aligned (default) --&gt;
+&lt;div class="pm7-menu-content"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;!-- Right aligned --&gt;
+&lt;div class="pm7-menu-content pm7-menu-content--end"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;!-- Center aligned --&gt;
+&lt;div class="pm7-menu-content pm7-menu-content--center"&gt;
+  ...
+&lt;/div&gt;</code></pre>
+    </section>
+    
+    <!-- JavaScript -->
+    <section class="component-section">
+      <h2>JavaScript Initialization</h2>
+      <p>Menus with the <code>data-pm7-menu</code> attribute are automatically initialized. For manual initialization:</p>
+      <pre><code>&lt;script type="module"&gt;
+  import { PM7Menu } from '@pm7/core';
+  
+  // Manual initialization
+  const menuElement = document.querySelector('.pm7-menu');
+  const menu = new PM7Menu(menuElement);
+  
+  // Listen for menu item selection
+  menuElement.addEventListener('pm7-menu-select', (e) => {
+    console.log('Selected:', e.detail.item);
+  });
+&lt;/script&gt;</code></pre>
+    </section>
+    
+    <!-- CSS Classes -->
+    <section class="component-section">
+      <h2>CSS Classes</h2>
+      <div class="component-props">
+        <table>
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>pm7-menu</code></td>
+              <td>Container element for the menu</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-trigger</code></td>
+              <td>Button that opens the menu</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-content</code></td>
+              <td>Dropdown container</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-content--end</code></td>
+              <td>Right-align the dropdown</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-content--center</code></td>
+              <td>Center-align the dropdown</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-item</code></td>
+              <td>Menu item</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-item-icon</code></td>
+              <td>Icon within a menu item</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-separator</code></td>
+              <td>Horizontal separator</td>
+            </tr>
+            <tr>
+              <td><code>pm7-menu-label</code></td>
+              <td>Non-clickable label</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Accessibility -->
+    <section class="component-section">
+      <h2>Accessibility Features</h2>
+      <ul>
+        <li>Full keyboard navigation with arrow keys</li>
+        <li>Home/End keys jump to first/last item</li>
+        <li>Escape key closes the menu</li>
+        <li>Focus management and restoration</li>
+        <li>ARIA attributes for screen readers</li>
+        <li>Click outside to close</li>
+      </ul>
+    </section>
+    
+    <!-- Complete Example -->
+    <section class="component-section">
+      <h2>Standard Menu Example</h2>
+      <p>A standard menu with icons, submenus, and switches:</p>
+      <div class="component-example" style="min-height: auto; padding-bottom: 400px;">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost" style="padding: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content" style="width: 280px;">
+            <!-- Home -->
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </button>
+            
+            <!-- Profile -->
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Profile
+            </button>
+            
+            <!-- Settings -->
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+              </svg>
+              Settings
+            </button>
+            
+            <div class="pm7-menu-separator"></div>
+            
+            <!-- Language with submenu -->
+            <div class="pm7-menu-submenu-wrapper" style="position: relative;">
+              <button class="pm7-menu-item pm7-menu-item--has-submenu"
+                      onmouseenter="this.nextElementSibling.style.display='block'" 
+                      onmouseleave="setTimeout(() => { if (this.nextElementSibling && !this.nextElementSibling.matches(':hover')) this.nextElementSibling.style.display='none'; }, 100)">
+                <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇬🇧</span>
+                Language
+              </button>
+              <div class="pm7-menu-content pm7-submenu" 
+                   style="position: absolute; top: -8px; left: 100%; margin-left: 4px; display: none; width: 200px; z-index: 1000;"
+                   onmouseenter="this.style.display='block'"
+                   onmouseleave="this.style.display='none'">
+                <button class="pm7-menu-item">
+                  <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 8px;">🇬🇧</span>
+                  English
+                </button>
+                <button class="pm7-menu-item">
+                  <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 8px;">🇳🇱</span>
+                  Nederlands
+                </button>
+                <button class="pm7-menu-item">
+                  <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 8px;">🇩🇪</span>
+                  Deutsch
+                </button>
+                <button class="pm7-menu-item">
+                  <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 8px;">🇫🇷</span>
+                  Français
+                </button>
+                <button class="pm7-menu-item">
+                  <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; margin-right: 8px;">🇪🇸</span>
+                  Español
+                </button>
+              </div>
+            </div>
+            
+            <!-- Theme with toggle -->
+            <button class="pm7-menu-item pm7-menu-item--switch" data-checked="false">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              Theme: Light
+              <div class="pm7-menu-switch"></div>
+            </button>
+            
+            <!-- Separator before Menu Alignment -->
+            <div class="pm7-menu-separator"></div>
+            
+            <!-- Menu Alignment heading -->
+            <div class="pm7-menu-label" style="font-weight: 600; color: var(--pm7-foreground); text-transform: none; font-size: 16px; padding: 12px 16px 8px;">Menu Alignment</div>
+            
+            <!-- Start (left) alignment -->
+            <button class="pm7-menu-item pm7-menu-item--radio" data-checked="true">
+              Start (left)
+            </button>
+            
+            <!-- Center alignment -->
+            <button class="pm7-menu-item pm7-menu-item--radio">
+              Center
+            </button>
+            
+            <!-- End (right) alignment -->
+            <button class="pm7-menu-item pm7-menu-item--radio">
+              End (right)
+            </button>
+            
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="pm7-menu" data-pm7-menu&gt;
+  &lt;button class="pm7-menu-trigger pm7-button pm7-button--ghost"&gt;
+    &lt;svg&gt;...&lt;/svg&gt; &lt;!-- Hamburger icon --&gt;
+  &lt;/button&gt;
+  &lt;div class="pm7-menu-content" style="width: 280px;"&gt;
+    &lt;!-- Active/selected item --&gt;
+    &lt;button class="pm7-menu-item" style="background-color: var(--pm7-primary); color: white;"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Home
+    &lt;/button&gt;
+    
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Profile
+    &lt;/button&gt;
+    
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Settings
+    &lt;/button&gt;
+    
+    &lt;div class="pm7-menu-separator"&gt;&lt;/div&gt;
+    
+    &lt;!-- Submenu item --&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--has-submenu"&gt;
+      &lt;span&gt;🇬🇧&lt;/span&gt;
+      Language
+    &lt;/button&gt;
+    
+    &lt;!-- Switch item --&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--switch" data-checked="false"&gt;
+      &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+      Theme: Light
+      &lt;div class="pm7-menu-switch"&gt;&lt;/div&gt;
+    &lt;/button&gt;
+    
+    &lt;div class="pm7-menu-separator"&gt;&lt;/div&gt;
+    
+    &lt;!-- Section heading --&gt;
+    &lt;div class="pm7-menu-label" style="font-weight: 600; color: var(--pm7-foreground); text-transform: none; font-size: 16px;"&gt;
+      Menu Alignment
+    &lt;/div&gt;
+    
+    &lt;!-- Radio group --&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--radio" data-checked="true"&gt;
+      Start (left)
+    &lt;/button&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--radio"&gt;
+      Center
+    &lt;/button&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--radio"&gt;
+      End (right)
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+    
+    <!-- Active State Example -->
+    <section class="component-section">
+      <h2>Active/Selected State</h2>
+      <p>Show which item is currently active or selected:</p>
+      <div class="component-example" style="min-height: auto; padding-bottom: 200px;">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+            Navigation
+          </button>
+          <div class="pm7-menu-content">
+            <!-- Active item with data attribute -->
+            <button class="pm7-menu-item" data-active="true">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </button>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Profile
+            </button>
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+              </svg>
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;!-- Mark active item with data-active attribute --&gt;
+&lt;button class="pm7-menu-item" data-active="true"&gt;
+  &lt;svg class="pm7-menu-item-icon"&gt;...&lt;/svg&gt;
+  Home
+&lt;/button&gt;
+
+&lt;!-- Or use inline styles for custom active state --&gt;
+&lt;button class="pm7-menu-item" style="background-color: var(--pm7-primary); color: white;"&gt;
+  Home
+&lt;/button&gt;</code></pre>
+    </section>
+    
+    <!-- Submenu Example -->
+    <section class="component-section">
+      <h2>Submenu Example</h2>
+      <p>Menus can contain nested submenus:</p>
+      <div class="component-example" style="min-height: auto; padding-bottom: 200px;">
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost" style="padding: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </button>
+            
+            <div class="pm7-menu-separator"></div>
+            
+            <!-- Language submenu -->
+            <div class="pm7-menu-submenu-wrapper" style="position: relative;">
+              <button class="pm7-menu-item pm7-menu-item--has-submenu" 
+                      onmouseenter="this.nextElementSibling.style.display='block'" 
+                      onmouseleave="setTimeout(() => { if (!this.nextElementSibling.matches(':hover')) this.nextElementSibling.style.display='none'; }, 100)">
+                <span style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇬🇧</span>
+                Language
+              </button>
+              <div class="pm7-menu-content pm7-submenu" 
+                   style="position: absolute; top: -8px; left: 100%; margin-left: 4px; display: none; width: 200px;"
+                   onmouseenter="this.style.display='block'"
+                   onmouseleave="this.style.display='none'">
+                <button class="pm7-menu-item">
+                  <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇬🇧</span>
+                  English
+                </button>
+                <button class="pm7-menu-item">
+                  <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇳🇱</span>
+                  Nederlands
+                </button>
+                <button class="pm7-menu-item">
+                  <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇩🇪</span>
+                  Deutsch
+                </button>
+                <button class="pm7-menu-item">
+                  <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇫🇷</span>
+                  Français
+                </button>
+                <button class="pm7-menu-item">
+                  <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇪🇸</span>
+                  Español
+                </button>
+              </div>
+            </div>
+            
+            <button class="pm7-menu-item">
+              <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+              </svg>
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;!-- Submenu structure --&gt;
+&lt;div class="pm7-menu-submenu-wrapper" style="position: relative;"&gt;
+  &lt;button class="pm7-menu-item pm7-menu-item--has-submenu"&gt;
+    &lt;span&gt;🇬🇧&lt;/span&gt;
+    Language
+  &lt;/button&gt;
+  &lt;div class="pm7-menu-content pm7-submenu" style="position: absolute; top: -8px; left: 100%;"&gt;
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;span&gt;🇬🇧&lt;/span&gt; English
+    &lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;
+      &lt;span&gt;🇳🇱&lt;/span&gt; Nederlands
+    &lt;/button&gt;
+    &lt;!-- More language options --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+    
+    <!-- React Usage -->
+    <section class="component-section">
+      <h2>React Usage</h2>
+      <p>When using the React package (<code>@pm7/react</code>):</p>
+      <pre><code>import { Menu } from '@pm7/react';
+
+function App() {
+  const menuItems = [
+    { id: '1', label: 'Profile', onClick: () => {} },
+    { id: '2', label: 'Settings', onClick: () => {} },
+    { id: 'sep', type: 'separator' },
+    { id: '3', label: 'Sign Out', onClick: () => {} }
+  ];
+  
+  return (
+    &lt;Menu 
+      trigger={&lt;Button&gt;Open Menu&lt;/Button&gt;}
+      items={menuItems}
+      align="start"
+      onSelect={(item) => console.log('Selected:', item)}
+    /&gt;
+  );
+}</code></pre>
+    </section>
+  </div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  <script type="module">
+    import { PM7Menu } from '../../packages/core/src/scripts/menu.js';
+    
+    // Initialize all menus on the page
+    document.addEventListener('DOMContentLoaded', () => {
+      const menus = document.querySelectorAll('[data-pm7-menu]');
+      menus.forEach(menu => new PM7Menu(menu));
+    });
+  </script>
+</body>
+</html>
