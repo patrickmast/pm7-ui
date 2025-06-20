@@ -1,0 +1,86 @@
+/* PM7 Color Design Tokens */
+
+:root {
+  /* Primary colors */
+  --pm7-primary: #1C86EF;
+  --pm7-primary-hover: #1976D2;
+  --pm7-primary-active: #1565C0;
+  --pm7-primary-foreground: #ffffff;
+  
+  /* Neutral colors */
+  --pm7-background: #ffffff;
+  --pm7-foreground: #000000;
+  --pm7-muted: #f5f5f5;
+  --pm7-muted-foreground: #666666;
+  
+  /* Border colors */
+  --pm7-border: #d4d4d4;
+  --pm7-border-hover: #b0b0b0;
+  
+  /* Status colors */
+  --pm7-success: #22c55e;
+  --pm7-success-foreground: #ffffff;
+  --pm7-warning: #f59e0b;
+  --pm7-warning-foreground: #ffffff;
+  --pm7-error: #ef4444;
+  --pm7-error-foreground: #ffffff;
+  --pm7-info: #3b82f6;
+  --pm7-info-foreground: #ffffff;
+  
+  /* Surface colors */
+  --pm7-surface: #ffffff;
+  --pm7-surface-hover: #f9f9f9;
+  --pm7-surface-active: #f0f0f0;
+  
+  /* Text colors */
+  --pm7-text-primary: var(--pm7-foreground);
+  --pm7-text-secondary: var(--pm7-muted-foreground);
+  --pm7-text-disabled: #999999;
+  
+  /* Component specific */
+  --pm7-menu-bg: var(--pm7-surface);
+  --pm7-menu-hover: var(--pm7-primary);
+  --pm7-menu-hover-text: var(--pm7-primary-foreground);
+  
+  /* Focus ring */
+  --pm7-ring: var(--pm7-primary);
+  --pm7-ring-offset: #ffffff;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pm7-background: #1a1a1a;
+    --pm7-foreground: #ffffff;
+    --pm7-muted: #262626;
+    --pm7-muted-foreground: #a3a3a3;
+    
+    --pm7-border: #404040;
+    --pm7-border-hover: #525252;
+    
+    --pm7-surface: #23272f;
+    --pm7-surface-hover: #2a2e36;
+    --pm7-surface-active: #31353d;
+    
+    --pm7-menu-bg: var(--pm7-surface);
+    --pm7-ring-offset: #000000;
+  }
+}
+
+/* Dark mode class override */
+.dark {
+  --pm7-background: #1a1a1a;
+  --pm7-foreground: #ffffff;
+  --pm7-muted: #262626;
+  --pm7-muted-foreground: #a3a3a3;
+  
+  --pm7-border: #404040;
+  --pm7-border-hover: #525252;
+  
+  --pm7-surface: #23272f;
+  --pm7-surface-hover: #2a2e36;
+  --pm7-surface-active: #31353d;
+  
+  --pm7-menu-bg: var(--pm7-surface);
+  --pm7-ring-offset: #000000;
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@pm7/core",
+  "version": "0.1.0",
+  "description": "Core styles and vanilla JavaScript for PM7 UI components",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "style": "dist/pm7.css",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "echo 'Core package development mode'",
+    "build": "npm run build:css",
+    "build:css": "postcss src/styles/index.css -o dist/pm7.css"
+  },
+  "keywords": [
+    "pm7",
+    "ui",
+    "components",
+    "css",
+    "design-system"
+  ],
+  "author": "Patrick Mast",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^15.1.0",
+    "rollup": "^4.9.0",
+    "vite": "^5.0.0"
+  }
+}

@@ -1,0 +1,61 @@
+/* PM7 Root Styles */
+
+:root {
+  /* Apply font family */
+  font-family: var(--pm7-font-sans);
+  font-size: 16px;
+  line-height: var(--pm7-leading-normal);
+  font-weight: var(--pm7-font-normal);
+  
+  /* Text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Colors */
+  background-color: var(--pm7-background);
+  color: var(--pm7-foreground);
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--pm7-ring);
+  outline-offset: 2px;
+}
+
+/* Remove focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pm7-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pm7-border);
+  border-radius: var(--pm7-radius);
+  border: 3px solid var(--pm7-muted);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pm7-border-hover);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pm7-border) var(--pm7-muted);
+}

@@ -1,0 +1,218 @@
+/* PM7 Button Component */
+
+.pm7-button {
+  /* Base styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: var(--pm7-button-radius);
+  font-size: var(--pm7-button-font-size);
+  font-weight: var(--pm7-button-font-weight);
+  line-height: var(--pm7-button-line-height);
+  padding: var(--pm7-button-padding-y) var(--pm7-button-padding-x);
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  user-select: none;
+  cursor: pointer;
+  border: var(--pm7-button-border-width) solid transparent;
+  text-decoration: none;
+  
+  /* Focus */
+  --pm7-button-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
+}
+
+/* Remove button defaults */
+.pm7-button {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+/* Focus styles */
+.pm7-button:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--pm7-button-focus-shadow);
+}
+
+/* Disabled state */
+.pm7-button:disabled,
+.pm7-button[disabled],
+.pm7-button[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Active state */
+.pm7-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Button variants */
+
+/* Primary (default) */
+.pm7-button--primary,
+.pm7-button--default {
+  background-color: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+  box-shadow: var(--pm7-button-shadow);
+}
+
+.pm7-button--primary:hover:not(:disabled),
+.pm7-button--default:hover:not(:disabled) {
+  background-color: var(--pm7-primary-hover);
+  box-shadow: var(--pm7-button-shadow-hover);
+}
+
+.pm7-button--primary:active:not(:disabled),
+.pm7-button--default:active:not(:disabled) {
+  background-color: var(--pm7-primary-active);
+  box-shadow: var(--pm7-button-shadow-active);
+}
+
+/* Secondary */
+.pm7-button--secondary {
+  background-color: var(--pm7-muted);
+  color: var(--pm7-foreground);
+}
+
+.pm7-button--secondary:hover:not(:disabled) {
+  background-color: var(--pm7-muted-foreground);
+  color: var(--pm7-background);
+}
+
+/* Outline */
+.pm7-button--outline {
+  border-color: var(--pm7-border);
+  background-color: transparent;
+  color: var(--pm7-foreground);
+}
+
+.pm7-button--outline:hover:not(:disabled) {
+  background-color: var(--pm7-muted);
+  border-color: var(--pm7-border-hover);
+}
+
+/* Ghost */
+.pm7-button--ghost {
+  background-color: transparent;
+  color: var(--pm7-foreground);
+}
+
+.pm7-button--ghost:hover:not(:disabled) {
+  background-color: var(--pm7-muted);
+}
+
+/* Destructive */
+.pm7-button--destructive {
+  background-color: var(--pm7-error);
+  color: var(--pm7-error-foreground);
+}
+
+.pm7-button--destructive:hover:not(:disabled) {
+  background-color: var(--pm7-error);
+  opacity: 0.9;
+}
+
+/* Link */
+.pm7-button--link {
+  background-color: transparent;
+  color: var(--pm7-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 0;
+  height: auto;
+}
+
+.pm7-button--link:hover:not(:disabled) {
+  text-decoration: none;
+}
+
+/* Button sizes */
+
+/* Small */
+.pm7-button--sm {
+  height: 36px;
+  padding: var(--pm7-button-padding-y-sm) var(--pm7-button-padding-x-sm);
+  font-size: var(--pm7-text-sm);
+}
+
+/* Medium (default) */
+.pm7-button--md {
+  height: 40px;
+}
+
+/* Large */
+.pm7-button--lg {
+  height: 48px;
+  padding: var(--pm7-button-padding-y-lg) var(--pm7-button-padding-x-lg);
+  font-size: var(--pm7-text-base);
+}
+
+/* Icon button */
+.pm7-button--icon {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.pm7-button--icon.pm7-button--sm {
+  width: 36px;
+  height: 36px;
+}
+
+.pm7-button--icon.pm7-button--lg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Button with icon */
+.pm7-button > svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+.pm7-button > svg:first-child:not(:last-child) {
+  margin-right: var(--pm7-spacing-2);
+}
+
+.pm7-button > svg:last-child:not(:first-child) {
+  margin-left: var(--pm7-spacing-2);
+}
+
+/* Full width */
+.pm7-button--full {
+  width: 100%;
+}
+
+/* Button group */
+.pm7-button-group {
+  display: inline-flex;
+  isolation: isolate;
+}
+
+.pm7-button-group > .pm7-button {
+  border-radius: 0;
+  margin-right: -1px;
+  position: relative;
+}
+
+.pm7-button-group > .pm7-button:first-child {
+  border-top-left-radius: var(--pm7-button-radius);
+  border-bottom-left-radius: var(--pm7-button-radius);
+}
+
+.pm7-button-group > .pm7-button:last-child {
+  border-top-right-radius: var(--pm7-button-radius);
+  border-bottom-right-radius: var(--pm7-button-radius);
+  margin-right: 0;
+}
+
+.pm7-button-group > .pm7-button:hover,
+.pm7-button-group > .pm7-button:focus {
+  z-index: 1;
+}

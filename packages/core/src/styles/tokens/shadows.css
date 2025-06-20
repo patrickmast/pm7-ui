@@ -1,0 +1,49 @@
+/* PM7 Shadow Design Tokens */
+
+:root {
+  /* Shadow values */
+  --pm7-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --pm7-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --pm7-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --pm7-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --pm7-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --pm7-shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --pm7-shadow-none: 0 0 #0000;
+  
+  /* Component specific shadows */
+  --pm7-button-shadow: var(--pm7-shadow-sm);
+  --pm7-button-shadow-hover: var(--pm7-shadow);
+  --pm7-button-shadow-active: var(--pm7-shadow-none);
+  
+  --pm7-card-shadow: var(--pm7-shadow);
+  --pm7-card-shadow-hover: var(--pm7-shadow-md);
+  
+  --pm7-menu-shadow: var(--pm7-shadow-lg);
+  --pm7-dialog-shadow: var(--pm7-shadow-xl);
+  --pm7-toast-shadow: var(--pm7-shadow-lg);
+  
+  /* Focus shadow */
+  --pm7-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pm7-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+    --pm7-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+    --pm7-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+    --pm7-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+    --pm7-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+    --pm7-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+  }
+}
+
+.dark {
+  --pm7-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+  --pm7-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+  --pm7-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+  --pm7-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+  --pm7-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+  --pm7-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+}

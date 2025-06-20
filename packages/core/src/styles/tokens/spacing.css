@@ -1,0 +1,45 @@
+/* PM7 Spacing Design Tokens */
+
+:root {
+  /* Base spacing unit (4px) */
+  --pm7-spacing-unit: 0.25rem;
+  
+  /* Spacing scale */
+  --pm7-spacing-0: 0;
+  --pm7-spacing-1: calc(var(--pm7-spacing-unit) * 1);   /* 4px */
+  --pm7-spacing-2: calc(var(--pm7-spacing-unit) * 2);   /* 8px */
+  --pm7-spacing-3: calc(var(--pm7-spacing-unit) * 3);   /* 12px */
+  --pm7-spacing-4: calc(var(--pm7-spacing-unit) * 4);   /* 16px */
+  --pm7-spacing-5: calc(var(--pm7-spacing-unit) * 5);   /* 20px */
+  --pm7-spacing-6: calc(var(--pm7-spacing-unit) * 6);   /* 24px */
+  --pm7-spacing-8: calc(var(--pm7-spacing-unit) * 8);   /* 32px */
+  --pm7-spacing-10: calc(var(--pm7-spacing-unit) * 10); /* 40px */
+  --pm7-spacing-12: calc(var(--pm7-spacing-unit) * 12); /* 48px */
+  --pm7-spacing-16: calc(var(--pm7-spacing-unit) * 16); /* 64px */
+  --pm7-spacing-20: calc(var(--pm7-spacing-unit) * 20); /* 80px */
+  --pm7-spacing-24: calc(var(--pm7-spacing-unit) * 24); /* 96px */
+  
+  /* Component specific spacing */
+  --pm7-button-padding-x: var(--pm7-spacing-4);
+  --pm7-button-padding-y: var(--pm7-spacing-2);
+  --pm7-button-padding-x-sm: var(--pm7-spacing-3);
+  --pm7-button-padding-y-sm: var(--pm7-spacing-1);
+  --pm7-button-padding-x-lg: var(--pm7-spacing-6);
+  --pm7-button-padding-y-lg: var(--pm7-spacing-3);
+  
+  --pm7-menu-padding-x: var(--pm7-spacing-4);
+  --pm7-menu-padding-y: var(--pm7-spacing-2);
+  --pm7-menu-item-gap: var(--pm7-spacing-3);
+  
+  --pm7-card-padding: var(--pm7-spacing-6);
+  --pm7-card-padding-sm: var(--pm7-spacing-4);
+  --pm7-card-padding-lg: var(--pm7-spacing-8);
+  
+  --pm7-input-padding-x: var(--pm7-spacing-3);
+  --pm7-input-padding-y: var(--pm7-spacing-2);
+  
+  /* Layout spacing */
+  --pm7-container-padding: var(--pm7-spacing-4);
+  --pm7-section-gap: var(--pm7-spacing-8);
+  --pm7-element-gap: var(--pm7-spacing-4);
+}

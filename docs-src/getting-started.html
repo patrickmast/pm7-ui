@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">PM7 UI</a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html" class="active">Getting Started</a></li>
+        <li><a href="/components.html">Components</a></li>
+        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>Getting Started</h1>
+    <p class="pm7-docs-lead">Get up and running with PM7 UI in minutes.</p>
+    
+    <section style="margin-top: 60px;">
+      <h2>Installation</h2>
+      <p>PM7 UI is available as separate packages for different frameworks. Choose the one that fits your project:</p>
+      
+      <h3>For Vanilla HTML/CSS/JS Projects</h3>
+      <pre><code>npm install @pm7/core</code></pre>
+      <p>Or include via CDN:</p>
+      <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css"&gt;
+&lt;script src="https://unpkg.com/@pm7/core/dist/pm7.js"&gt;&lt;/script&gt;</code></pre>
+      
+      <h3>For React Projects</h3>
+      <pre><code>npm install @pm7/react</code></pre>
+      
+      <h3>For Vue Projects (Coming Soon)</h3>
+      <pre><code>npm install @pm7/vue</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Basic Usage</h2>
+      
+      <h3>Vanilla HTML/CSS</h3>
+      <p>1. Include the CSS file in your HTML:</p>
+      <pre><code>&lt;!-- In your HTML head --&gt;
+&lt;link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css"&gt;</code></pre>
+      
+      <p>2. Use PM7 components with class names:</p>
+      <pre><code>&lt;button class="pm7-button pm7-button--primary"&gt;
+  Click me
+&lt;/button&gt;
+
+&lt;div class="pm7-card"&gt;
+  &lt;h3 class="pm7-card-title"&gt;Card Title&lt;/h3&gt;
+  &lt;p class="pm7-card-content"&gt;Card content goes here.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      
+      <p>3. For interactive components, include the JavaScript:</p>
+      <pre><code>&lt;script type="module"&gt;
+  import { PM7Menu } from '@pm7/core';
+  
+  // Initialize menu component
+  const menuElement = document.querySelector('[data-pm7-menu]');
+  new PM7Menu(menuElement);
+&lt;/script&gt;</code></pre>
+      
+      <h3>React</h3>
+      <p>1. Import components in your React app:</p>
+      <pre><code>import { Button, Card, Menu } from '@pm7/react';
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Button variant="primary" onClick={() => alert('Clicked!')}&gt;
+        Click me
+      &lt;/Button&gt;
+      
+      &lt;Card&gt;
+        &lt;Card.Title&gt;Card Title&lt;/Card.Title&gt;
+        &lt;Card.Content&gt;Card content goes here.&lt;/Card.Content&gt;
+      &lt;/Card&gt;
+      
+      &lt;Menu
+        items={[
+          { label: 'Option 1', onClick: () => console.log('Option 1') },
+          { label: 'Option 2', onClick: () => console.log('Option 2') },
+        ]}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Customization</h2>
+      <p>PM7 UI uses CSS custom properties (variables) for theming. You can customize colors, spacing, and more:</p>
+      
+      <h3>Override CSS Variables</h3>
+      <pre><code>:root {
+  /* Custom primary color */
+  --pm7-primary: #your-color;
+  --pm7-primary-hover: #your-hover-color;
+  
+  /* Custom spacing */
+  --pm7-spacing-unit: 0.25rem;
+  
+  /* Custom fonts */
+  --pm7-font-sans: 'Your Font', sans-serif;
+}</code></pre>
+      
+      <h3>Dark Mode</h3>
+      <p>PM7 UI supports dark mode automatically using <code>prefers-color-scheme</code>. You can also toggle it manually:</p>
+      <pre><code>&lt;!-- Add 'dark' class to html or body --&gt;
+&lt;html class="dark"&gt;
+  ...
+&lt;/html&gt;</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Browser Support</h2>
+      <p>PM7 UI supports all modern browsers:</p>
+      <ul>
+        <li>Chrome (last 2 versions)</li>
+        <li>Firefox (last 2 versions)</li>
+        <li>Safari (last 2 versions)</li>
+        <li>Edge (last 2 versions)</li>
+      </ul>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Next Steps</h2>
+      <p>Now that you've installed PM7 UI, check out:</p>
+      <ul>
+        <li><a href="/components.html">Component documentation</a> - See all available components</li>
+        <li><a href="https://github.com/patrickmast/pm7-ui/tree/main/examples">Example projects</a> - Full working examples</li>
+        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub repository</a> - Source code and issues</li>
+      </ul>
+    </section>
+  </div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+</body>
+</html>
