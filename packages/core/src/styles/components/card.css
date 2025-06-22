@@ -3,9 +3,9 @@
 /* Base card */
 .pm7-card {
   background-color: var(--pm7-background);
-  border: var(--pm7-card-border-width) solid var(--pm7-border);
+  border: 1px solid #e0e0e0;
   border-radius: var(--pm7-card-radius);
-  box-shadow: var(--pm7-card-shadow);
+  padding: var(--pm7-card-padding);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -191,13 +191,11 @@
 
 /* Card variants */
 .pm7-card--outlined {
-  box-shadow: none;
-  border-width: var(--pm7-border-2);
+  border-width: var(--pm7-border-width-2);
 }
 
 .pm7-card--ghost {
   border: none;
-  box-shadow: none;
   background-color: transparent;
 }
 

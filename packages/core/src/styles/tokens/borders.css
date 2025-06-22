@@ -12,24 +12,24 @@
   --pm7-radius-full: 9999px;
   
   /* Border width */
-  --pm7-border-0: 0;
-  --pm7-border: 1px;
-  --pm7-border-2: 2px;
-  --pm7-border-4: 4px;
-  --pm7-border-8: 8px;
+  --pm7-border-width-0: 0;
+  --pm7-border-width: 1px;
+  --pm7-border-width-2: 2px;
+  --pm7-border-width-4: 4px;
+  --pm7-border-width-8: 8px;
   
   /* Component specific borders */
   --pm7-button-radius: var(--pm7-radius);
-  --pm7-button-border-width: var(--pm7-border);
+  --pm7-button-border-width: 1px;
   
   --pm7-menu-radius: var(--pm7-radius);
-  --pm7-menu-border-width: var(--pm7-border);
+  --pm7-menu-border-width: 1px;
   
   --pm7-card-radius: var(--pm7-radius-md);
-  --pm7-card-border-width: var(--pm7-border);
+  --pm7-card-border-width: 1px;
   
   --pm7-input-radius: var(--pm7-radius);
-  --pm7-input-border-width: var(--pm7-border);
+  --pm7-input-border-width: 1px;
   
   --pm7-dialog-radius: var(--pm7-radius-lg);
   --pm7-toast-radius: var(--pm7-radius);
