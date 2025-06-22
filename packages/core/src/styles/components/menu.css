@@ -65,6 +65,20 @@
   transform: translate3d(-50%, 0, 0);
 }
 
+/* Position above trigger when not enough space below */
+.pm7-menu-content--top {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+/* Start alignment (explicit left) */
+.pm7-menu-content--start {
+  left: 0;
+  right: auto;
+}
+
 /* Menu items */
 .pm7-menu-item {
   display: flex;
@@ -331,12 +345,21 @@
   z-index: 100;
 }
 
+/* Reset positioning for submenus - they should not inherit parent menu positioning */
+.pm7-submenu.pm7-menu-content--top {
+  top: -8px !important;
+  bottom: auto !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
 /* Show submenu on hover or when active */
 .pm7-menu-item--has-submenu:hover + .pm7-submenu,
 .pm7-menu-item--has-submenu[data-submenu-open="true"] + .pm7-submenu,
 .pm7-submenu:hover {
   display: block;
 }
+
 
 /* Dark mode submenu */
 @media (prefers-color-scheme: dark) {

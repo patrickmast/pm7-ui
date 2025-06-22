@@ -44,9 +44,18 @@
   padding: var(--pm7-card-padding);
   border-bottom: 1px solid var(--pm7-border);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--pm7-spacing-2);
+  text-align: center;
   flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .pm7-card-header {
+    align-items: flex-start;
+    text-align: left;
+  }
 }
 
 .pm7-card--no-padding .pm7-card-header {
@@ -61,7 +70,8 @@
   color: var(--pm7-foreground);
 }
 
-.pm7-card-description {
+.pm7-card-description,
+.pm7-card-subtitle {
   font-size: var(--pm7-text-sm);
   color: var(--pm7-muted-foreground);
   margin: var(--pm7-spacing-1) 0 0 0;
@@ -89,16 +99,63 @@
 /* Card footer */
 .pm7-card-footer {
   padding: var(--pm7-card-padding);
+  background-color: var(--pm7-card-footer-bg);
   border-top: 1px solid var(--pm7-border);
   display: flex;
-  align-items: center;
+  flex-direction: column-reverse;
+  align-items: stretch;
   justify-content: flex-end;
-  gap: var(--pm7-spacing-3);
+  gap: var(--pm7-spacing-2);
   flex-shrink: 0;
+  /* Full width footer with negative margins */
+  margin-left: calc(var(--pm7-card-padding) * -1);
+  margin-right: calc(var(--pm7-card-padding) * -1);
+  margin-bottom: calc(var(--pm7-card-padding) * -1);
+  margin-top: var(--pm7-card-padding);
+  /* Add padding to compensate for negative margins */
+  padding-left: var(--pm7-card-padding);
+  padding-right: var(--pm7-card-padding);
+  /* Round bottom corners */
+  border-bottom-left-radius: var(--pm7-card-radius);
+  border-bottom-right-radius: var(--pm7-card-radius);
+}
+
+@media (min-width: 640px) {
+  .pm7-card-footer {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pm7-spacing-3);
+  }
 }
 
 .pm7-card--no-padding .pm7-card-footer {
   padding: var(--pm7-card-padding);
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+/* Footer adjustments for different padding sizes */
+.pm7-card--sm .pm7-card-footer {
+  margin-left: calc(var(--pm7-card-padding-sm) * -1);
+  margin-right: calc(var(--pm7-card-padding-sm) * -1);
+  margin-bottom: calc(var(--pm7-card-padding-sm) * -1);
+  margin-top: var(--pm7-card-padding-sm);
+  padding-left: var(--pm7-card-padding-sm);
+  padding-right: var(--pm7-card-padding-sm);
+  padding-top: var(--pm7-card-padding-sm);
+  padding-bottom: var(--pm7-card-padding-sm);
+}
+
+.pm7-card--lg .pm7-card-footer {
+  margin-left: calc(var(--pm7-card-padding-lg) * -1);
+  margin-right: calc(var(--pm7-card-padding-lg) * -1);
+  margin-bottom: calc(var(--pm7-card-padding-lg) * -1);
+  margin-top: var(--pm7-card-padding-lg);
+  padding-left: var(--pm7-card-padding-lg);
+  padding-right: var(--pm7-card-padding-lg);
+  padding-top: var(--pm7-card-padding-lg);
+  padding-bottom: var(--pm7-card-padding-lg);
 }
 
 .pm7-card-footer--start {

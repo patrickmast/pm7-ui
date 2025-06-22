@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar">
+      <div class="pm7-docs-sidebar-content">
+        <h3>Components</h3>
+        <nav>
+          <ul>
+            <li><a href="/components/button.html">Button</a></li>
+            <li><a href="/components/card.html">Card</a></li>
+            <li><a href="/components/dialog.html">Dialog</a></li>
+            <li><a href="/components/icons.html">Icons</a></li>
+            <li><a href="/components/input.html">Input</a></li>
+            <li><a href="/components/menu.html">Menu</a></li>
+            <li><a href="/components/toast.html" class="active">Toast</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="pm7-docs-content">
+      <h1>Toast</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger pm7-tab-trigger--active" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content pm7-tab-content--active" id="overview-panel">
+          <section class="pm7-docs-section">
+            <h2>What is a Toast?</h2>
+            <p>Toasts provide brief notifications to the user. They appear temporarily and shouldn't interrupt the user experience.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To confirm an action (saved, deleted, updated)</li>
+              <li>To show non-critical errors or warnings</li>
+              <li>To notify about background processes</li>
+              <li>For system updates or status changes</li>
+              <li>To provide feedback after user actions</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple variants</strong> - Default, success, warning, error, and info</li>
+              <li><strong>Auto-dismiss</strong> - Configurable duration or persistent</li>
+              <li><strong>Action buttons</strong> - Optional actions like undo or retry</li>
+              <li><strong>Progress indicator</strong> - Shows time remaining</li>
+              <li><strong>Queueing</strong> - Multiple toasts stack nicely</li>
+              <li><strong>Programmatic control</strong> - Show, close, and manage via JavaScript</li>
+              <li><strong>Accessible</strong> - Screen reader announcements</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A toast consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The toast wrapper</li>
+              <li><strong>Title</strong> - Primary message</li>
+              <li><strong>Description</strong> - Additional details (optional)</li>
+              <li><strong>Close button</strong> - Manual dismiss option</li>
+              <li><strong>Action</strong> - Optional button for actions</li>
+              <li><strong>Progress bar</strong> - Visual countdown for auto-dismiss</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Toast Variants</h3>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Default Toast', description: 'This is a default toast message.'})">
+                  Default Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Success!', description: 'Operation completed successfully.', variant: 'success'})">
+                  Success Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Warning', description: 'Please review your input.', variant: 'warning'})">
+                  Warning Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Error', description: 'Something went wrong.', variant: 'destructive'})">
+                  Error Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Info', description: 'New updates available.', variant: 'info'})">
+                  Info Toast
+                </button>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Toast Features</h3>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Quick Message', duration: 2000})">
+                  2 Second Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Persistent Toast', description: 'This won\'t auto-dismiss', duration: 0})">
+                  Persistent Toast
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'With Action', description: 'Click the button below.', action: '<button class=\'pm7-button pm7-button--sm pm7-button--primary\' onclick=\'alert(\'Action clicked!\')\'>Undo</button>'})">
+                  Toast with Action
+                </button>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Common Patterns</h3>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--primary" onclick="simulateSave()">
+                  Save Changes
+                </button>
+                <button class="pm7-button pm7-button--destructive" onclick="simulateDelete()">
+                  Delete Item
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="simulateUpload()">
+                  Upload File
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showMultipleToasts()">
+                  Multiple Toasts
+                </button>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Toast Management</h3>
+              <div class="pm7-docs-preview">
+                <button class="pm7-button pm7-button--destructive pm7-button--outline" onclick="closeAllToasts()">
+                  Close All Toasts
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h2>Installation</h2>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h2>Basic Usage</h2>
+            <pre><code class="language-javascript">import { showToast } from '@pm7/core';
+
+// Show a simple toast
+showToast({
+  title: 'Success!',
+  description: 'Your changes have been saved.'
+});</code></pre>
+
+            <h2>Toast Variants</h2>
+            <pre><code class="language-javascript">// Default toast
+showToast({
+  title: 'Notification',
+  description: 'This is a default toast message.'
+});
+
+// Success toast
+showToast({
+  title: 'Success!',
+  description: 'Operation completed successfully.',
+  variant: 'success'
+});
+
+// Warning toast
+showToast({
+  title: 'Warning',
+  description: 'Please review your input.',
+  variant: 'warning'
+});
+
+// Error/Destructive toast
+showToast({
+  title: 'Error',
+  description: 'Something went wrong.',
+  variant: 'destructive'
+});
+
+// Info toast
+showToast({
+  title: 'Information',
+  description: 'New updates are available.',
+  variant: 'info'
+});</code></pre>
+
+            <h2>Advanced Options</h2>
+            <pre><code class="language-javascript">// Custom duration
+showToast({
+  title: 'Quick message',
+  duration: 3000  // 3 seconds
+});
+
+// Persistent toast
+showToast({
+  title: 'Action required',
+  description: 'Please complete your profile.',
+  duration: 0  // Won't auto-dismiss
+});
+
+// Toast with action
+showToast({
+  title: 'File deleted',
+  description: 'document.pdf has been deleted.',
+  action: '&lt;button class="pm7-button pm7-button--sm pm7-button--primary"&gt;Undo&lt;/button&gt;'
+});
+
+// Toast with callback
+showToast({
+  title: 'Saved',
+  description: 'Your preferences have been saved.',
+  onClose: () => {
+    console.log('Toast closed');
+  }
+});</code></pre>
+
+            <h2>Manual Control</h2>
+            <pre><code class="language-javascript">import { showToast, closeToast, closeAllToasts } from '@pm7/core';
+
+// Show toast and get ID
+const toastId = showToast({
+  title: 'Processing...',
+  duration: 0  // Don't auto-dismiss
+});
+
+// Close specific toast
+setTimeout(() => {
+  closeToast(toastId);
+}, 5000);
+
+// Close all toasts
+closeAllToasts();</code></pre>
+
+            <h2>API Reference</h2>
+            <h3>showToast(options)</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>Toast title</td>
+                </tr>
+                <tr>
+                  <td><code>description</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>Toast description</td>
+                </tr>
+                <tr>
+                  <td><code>variant</code></td>
+                  <td>string</td>
+                  <td>'default'</td>
+                  <td>Toast variant: 'default', 'success', 'warning', 'destructive', 'info'</td>
+                </tr>
+                <tr>
+                  <td><code>duration</code></td>
+                  <td>number</td>
+                  <td>5000</td>
+                  <td>Auto-dismiss duration in ms. Use 0 for persistent</td>
+                </tr>
+                <tr>
+                  <td><code>action</code></td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>HTML string for action buttons</td>
+                </tr>
+                <tr>
+                  <td><code>onClose</code></td>
+                  <td>function</td>
+                  <td>null</td>
+                  <td>Callback when toast is closed</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>CSS Classes</h2>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-toast-viewport</code></td>
+                  <td>Container for all toasts</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast</code></td>
+                  <td>Individual toast container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--default</code></td>
+                  <td>Default toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--success</code></td>
+                  <td>Success toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--warning</code></td>
+                  <td>Warning toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--destructive</code></td>
+                  <td>Error/destructive toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--info</code></td>
+                  <td>Info toast variant</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>React Usage</h2>
+            <pre><code class="language-jsx">import { useToast } from '@pm7/react';
+
+function MyComponent() {
+  const { toast } = useToast();
+
+  const handleSave = () => {
+    // Save logic...
+    toast({
+      title: 'Saved successfully',
+      description: 'Your changes have been saved.',
+      variant: 'success'
+    });
+  };
+
+  return (
+    &lt;button onClick={handleSave}&gt;Save&lt;/button&gt;
+  );
+}</code></pre>
+
+            <h2>Best Practices</h2>
+            <ul>
+              <li><strong>Keep it brief</strong> - Toast messages should be concise</li>
+              <li><strong>Non-blocking</strong> - Don't use toasts for critical information</li>
+              <li><strong>Appropriate variant</strong> - Use the correct variant for the message type</li>
+              <li><strong>Timing</strong> - Default 5 seconds is good for most messages</li>
+              <li><strong>Actionable</strong> - Include an action button when appropriate</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-card">
+              <h3>PM7 Toast Component</h3>
+              <p>Copy this link that can be used as documentation for working with this component:</p>
+              
+              <div class="pm7-docs-link-box">
+                <code id="doc-link">https://github.com/patrickmast/pm7-ui/blob/main/packages/core/src/components/toast/README.md</code>
+                <button class="pm7-button pm7-button--primary" onclick="copyDocLink()">
+                  📋 Copy
+                </button>
+              </div>
+              
+              <div class="pm7-docs-info pm7-docs-info--ai">
+                <h3>🤖 AI-Optimized Documentation</h3>
+                <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Toast implementation guidance.</p>
+                <p class="pm7-docs-note">Perfect voor ChatGPT, Claude, en andere AI code assistants</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+
+    // Demo functions
+    function simulateSave() {
+      showToast({
+        title: 'Changes saved',
+        description: 'Your changes have been saved successfully.',
+        variant: 'success'
+      });
+    }
+
+    function simulateDelete() {
+      showToast({
+        title: 'Item deleted',
+        description: 'The item has been permanently deleted.',
+        variant: 'destructive',
+        action: '<button class="pm7-button pm7-button--sm pm7-button--primary" onclick="showToast({title: \'Restored\', variant: \'success\'})">Undo</button>'
+      });
+    }
+
+    function simulateUpload() {
+      const uploadToast = showToast({
+        title: 'Uploading file...',
+        description: 'Please wait',
+        duration: 0
+      });
+
+      setTimeout(() => {
+        closeToast(uploadToast);
+        showToast({
+          title: 'Upload complete!',
+          description: 'document.pdf uploaded successfully',
+          variant: 'success',
+          action: '<button class="pm7-button pm7-button--sm pm7-button--primary">View</button>'
+        });
+      }, 3000);
+    }
+
+    function showMultipleToasts() {
+      const messages = [
+        { title: 'First notification', variant: 'info' },
+        { title: 'Second notification', variant: 'warning' },
+        { title: 'Third notification', variant: 'success' }
+      ];
+
+      messages.forEach((msg, index) => {
+        setTimeout(() => showToast(msg), index * 500);
+      });
+    }
+  </script>
+
+  <script type="module">
+    import { showToast, closeToast, closeAllToasts } from '/packages/core/src/scripts/toast.js';
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Make toast functions global for demo buttons
+    window.showToast = showToast;
+    window.closeToast = closeToast;
+    window.closeAllToasts = closeAllToasts;
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('toast');
+    });
+  </script>
+
+  <script src="/scripts/docs.js"></script>
+</body>
+</html>

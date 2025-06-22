@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar">
+      <div class="pm7-docs-sidebar-content">
+        <h3>Components</h3>
+        <nav>
+          <ul>
+            <li><a href="/components/button.html">Button</a></li>
+            <li><a href="/components/card.html" class="active">Card</a></li>
+            <li><a href="/components/dialog.html">Dialog</a></li>
+            <li><a href="/components/icons.html">Icons</a></li>
+            <li><a href="/components/input.html">Input</a></li>
+            <li><a href="/components/menu.html">Menu</a></li>
+            <li><a href="/components/toast.html">Toast</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="pm7-docs-content">
+      <h1>Card</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger pm7-tab-trigger--active" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content pm7-tab-content--active" id="overview-panel">
+          <section class="pm7-docs-section">
+            <h2>What is a Card?</h2>
+            <p>Cards are containers for displaying related content. They help organize information into digestible chunks and create visual hierarchy.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To group related information together</li>
+              <li>To create visual separation between different content sections</li>
+              <li>For displaying preview information that links to more details</li>
+              <li>In grid layouts for collections of items</li>
+              <li>For feature highlights or product showcases</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Flexible structure</strong> - Header, content, and footer sections</li>
+              <li><strong>Multiple variants</strong> - Default, outline, and ghost styles</li>
+              <li><strong>Clickable cards</strong> - Entire card can be interactive</li>
+              <li><strong>Image support</strong> - Built-in styling for card images</li>
+              <li><strong>Grid layout</strong> - Easy responsive card grids</li>
+              <li><strong>Composable</strong> - Mix and match card sections as needed</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A card typically consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The card wrapper with border and shadow</li>
+              <li><strong>Header</strong> - Optional title and description</li>
+              <li><strong>Content</strong> - Main body of the card</li>
+              <li><strong>Footer</strong> - Optional actions or metadata</li>
+              <li><strong>Image</strong> - Optional visual element</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Basic Card</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 400px;">
+                  <div class="pm7-card-header">
+                    <h3 class="pm7-card-title">Card Title</h3>
+                    <p class="pm7-card-description">Card description goes here</p>
+                  </div>
+                  <div class="pm7-card-content">
+                    <p>Card content goes here. This is where your main content lives.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Card with Footer</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 400px;">
+                  <div class="pm7-card-header">
+                    <h3 class="pm7-card-title">Monthly Report</h3>
+                    <p class="pm7-card-description">Sales performance overview</p>
+                  </div>
+                  <div class="pm7-card-content">
+                    <p>Your sales increased by 25% this month.</p>
+                  </div>
+                  <div class="pm7-card-footer">
+                    <button class="pm7-button pm7-button--outline pm7-button--sm">View Details</button>
+                    <button class="pm7-button pm7-button--primary pm7-button--sm">Download</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Card Variants</h3>
+              <div class="pm7-docs-preview" style="gap: 1rem;">
+                <div class="pm7-card" style="flex: 1;">
+                  <div class="pm7-card-content">
+                    <p><strong>Default</strong><br>Subtle shadow</p>
+                  </div>
+                </div>
+                <div class="pm7-card pm7-card--outline" style="flex: 1;">
+                  <div class="pm7-card-content">
+                    <p><strong>Outline</strong><br>Border only</p>
+                  </div>
+                </div>
+                <div class="pm7-card pm7-card--ghost" style="flex: 1;">
+                  <div class="pm7-card-content">
+                    <p><strong>Ghost</strong><br>No border/shadow</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Clickable Card</h3>
+              <div class="pm7-docs-preview">
+                <a href="#" class="pm7-card pm7-card--clickable" style="max-width: 400px; text-decoration: none; color: inherit;">
+                  <div class="pm7-card-header">
+                    <h3 class="pm7-card-title">Clickable Card</h3>
+                    <p class="pm7-card-description">This entire card is clickable</p>
+                  </div>
+                  <div class="pm7-card-content">
+                    <p>Click anywhere on this card to navigate.</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Card with Image</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 400px;">
+                  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop" alt="Mountains" class="pm7-card-image">
+                  <div class="pm7-card-header">
+                    <h3 class="pm7-card-title">Beautiful Landscape</h3>
+                    <p class="pm7-card-description">Captured in the mountains</p>
+                  </div>
+                  <div class="pm7-card-content">
+                    <p>This photo was taken during a hiking trip in the Alps.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Stats Card</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 300px;">
+                  <div class="pm7-card-header">
+                    <p class="pm7-card-description">Total Revenue</p>
+                    <h3 class="pm7-card-title" style="font-size: 2rem; margin: 0;">$45,231.89</h3>
+                  </div>
+                  <div class="pm7-card-content">
+                    <p style="color: var(--pm7-success); margin: 0;">+20.1% from last month</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Profile Card</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 300px; text-align: center;">
+                  <div class="pm7-card-content">
+                    <div style="width: 80px; height: 80px; background: var(--pm7-primary); color: white; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 600;">
+                      JD
+                    </div>
+                    <h3 class="pm7-card-title">Jane Doe</h3>
+                    <p class="pm7-card-description">Software Engineer</p>
+                    <div style="margin-top: 16px; display: flex; gap: 8px; justify-content: center;">
+                      <button class="pm7-button pm7-button--primary pm7-button--sm">Follow</button>
+                      <button class="pm7-button pm7-button--outline pm7-button--sm">Message</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Feature Card</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card pm7-card--clickable" style="max-width: 350px; cursor: pointer;">
+                  <div class="pm7-card-header">
+                    <div style="width: 48px; height: 48px; background: #e6f2ff; 
+                                border-radius: var(--pm7-radius); display: flex; 
+                                align-items: center; justify-content: center; margin-bottom: 16px;">
+                      <svg width="24" height="24" fill="none" stroke="#1C86EF" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                      </svg>
+                    </div>
+                    <h3 class="pm7-card-title">Advanced Analytics</h3>
+                    <p class="pm7-card-description">
+                      Get detailed insights into your application performance
+                    </p>
+                  </div>
+                  <div class="pm7-card-content">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="padding: 4px 0;">✓ Real-time monitoring</li>
+                      <li style="padding: 4px 0;">✓ Custom dashboards</li>
+                      <li style="padding: 4px 0;">✓ Export reports</li>
+                    </ul>
+                  </div>
+                  <div class="pm7-card-footer">
+                    <span style="color: var(--pm7-primary); font-weight: 500;">Learn more →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Card Grid</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card-grid" style="max-width: 900px;">
+                  <div class="pm7-card">
+                    <div class="pm7-card-header">
+                      <h3 class="pm7-card-title">Card 1</h3>
+                    </div>
+                    <div class="pm7-card-content">
+                      <p>First card in grid</p>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-card">
+                    <div class="pm7-card-header">
+                      <h3 class="pm7-card-title">Card 2</h3>
+                    </div>
+                    <div class="pm7-card-content">
+                      <p>Second card in grid</p>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-card">
+                    <div class="pm7-card-header">
+                      <h3 class="pm7-card-title">Card 3</h3>
+                    </div>
+                    <div class="pm7-card-content">
+                      <p>Third card in grid</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h2>Installation</h2>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h2>Basic Usage</h2>
+            <pre><code class="language-html">&lt;div class="pm7-card"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Card Title&lt;/h3&gt;
+    &lt;p class="pm7-card-description"&gt;Card description goes here&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Card content goes here.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h2>Card with Footer</h2>
+            <pre><code class="language-html">&lt;div class="pm7-card"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Monthly Report&lt;/h3&gt;
+    &lt;p class="pm7-card-description"&gt;Sales overview&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Your sales increased by 25% this month.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-footer"&gt;
+    &lt;button class="pm7-button pm7-button--outline"&gt;Details&lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;Download&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h2>CSS Classes</h2>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-card</code></td>
+                  <td>Base card container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--outline</code></td>
+                  <td>Outline variant (border only)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--ghost</code></td>
+                  <td>Ghost variant (no border/shadow)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--clickable</code></td>
+                  <td>Clickable card with hover effects</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-header</code></td>
+                  <td>Card header section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-title</code></td>
+                  <td>Card title</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-description</code></td>
+                  <td>Card description/subtitle</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-content</code></td>
+                  <td>Main card content area</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-footer</code></td>
+                  <td>Card footer section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-image</code></td>
+                  <td>Full-width card image</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid</code></td>
+                  <td>Grid container for cards</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Grid Layout</h2>
+            <pre><code class="language-html">&lt;div class="pm7-card-grid"&gt;
+  &lt;div class="pm7-card"&gt;...&lt;/div&gt;
+  &lt;div class="pm7-card"&gt;...&lt;/div&gt;
+  &lt;div class="pm7-card"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom columns --&gt;
+&lt;div class="pm7-card-grid pm7-card-grid--2"&gt;...&lt;/div&gt;
+&lt;div class="pm7-card-grid pm7-card-grid--3"&gt;...&lt;/div&gt;
+&lt;div class="pm7-card-grid pm7-card-grid--4"&gt;...&lt;/div&gt;</code></pre>
+
+            <h2>Best Practices</h2>
+            <ul>
+              <li><strong>Consistent sizing</strong> - Use grid layouts for equal-height cards</li>
+              <li><strong>Clear hierarchy</strong> - Use title, description, and content sections appropriately</li>
+              <li><strong>Actionable cards</strong> - Make entire card clickable when it represents a single action</li>
+              <li><strong>Spacing</strong> - Maintain consistent padding and margins</li>
+              <li><strong>Images</strong> - Use appropriate aspect ratios for card images</li>
+            </ul>
+
+            <h2>React Usage</h2>
+            <pre><code class="language-jsx">import { Card, CardHeader, CardTitle, CardDescription, 
+         CardContent, CardFooter } from '@pm7/react';
+
+function MyComponent() {
+  return (
+    &lt;Card variant="outline"&gt;
+      &lt;CardHeader&gt;
+        &lt;CardTitle&gt;Card Title&lt;/CardTitle&gt;
+        &lt;CardDescription&gt;Card description&lt;/CardDescription&gt;
+      &lt;/CardHeader&gt;
+      &lt;CardContent&gt;
+        &lt;p&gt;Card content goes here&lt;/p&gt;
+      &lt;/CardContent&gt;
+      &lt;CardFooter&gt;
+        &lt;Button variant="outline"&gt;Cancel&lt;/Button&gt;
+        &lt;Button&gt;Save&lt;/Button&gt;
+      &lt;/CardFooter&gt;
+    &lt;/Card&gt;
+  );
+}</code></pre>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-card">
+              <h3>PM7 Card Component</h3>
+              <p>Copy this link that can be used as documentation for working with this component:</p>
+              
+              <div class="pm7-docs-link-box">
+                <code id="doc-link">https://github.com/patrickmast/pm7-ui/blob/main/packages/core/src/components/card/README.md</code>
+                <button class="pm7-button pm7-button--primary" onclick="copyDocLink()">
+                  📋 Copy
+                </button>
+              </div>
+              
+              <div class="pm7-docs-info pm7-docs-info--ai">
+                <h3>🤖 AI-Optimized Documentation</h3>
+                <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Card implementation guidance.</p>
+                <p class="pm7-docs-note">Perfect voor ChatGPT, Claude, en andere AI code assistants</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    
+    /* Card grid responsiveness for demo */
+    @media (max-width: 768px) {
+      .pm7-card-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+  <script type="module">
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('card');
+    });
+  </script>
+
+  <script src="/scripts/docs.js"></script>
+</body>
+</html>

@@ -2,6 +2,20 @@
 export async function loadMarkdown(url) {
   try {
     const response = await fetch(url);
+    
+    // Check if response is OK
+    if (!response.ok) {
+      console.error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+      return `<p>Error loading documentation: ${response.status}</p>`;
+    }
+    
+    // Check if response is HTML (which means we got the fallback page)
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      console.error(`Got HTML response instead of markdown for ${url}`);
+      return '<p>Error: Documentation file not found. The server returned an HTML page instead of the markdown file.</p>';
+    }
+    
     const markdown = await response.text();
     
     // Convert markdown to HTML (basic conversion)
