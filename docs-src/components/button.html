@@ -327,13 +327,12 @@ function MyComponent() {
 
         <!-- Documentation Tab -->
         <div class="pm7-tab-content" id="documentation-panel">
-          <section class="pm7-docs-section">
-            <h3>PM7 Button Component</h3>
-            <p>Copy this link that can be used as documentation for working with this component:</p>
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
             
             <div class="pm7-card" style="background-color: #F8F9FA;">
-              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 1rem;">
-                <div style="flex: 1; position: relative; background: white; border-radius: var(--pm7-radius); padding: 0.5rem 1rem;">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: white; padding: 0.5rem 1rem;">
                   <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: white;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/button/README.md</code>
                   <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/button/README.md" 
                      target="_blank" 
@@ -347,14 +346,14 @@ function MyComponent() {
                     </svg>
                   </a>
                 </div>
-                <button class="pm7-button pm7-button--primary" onclick="copyDocLink()">
-                  📋 Copy
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
                 </button>
               </div>
             </div>
             
             <div class="pm7-docs-info pm7-docs-info--ai">
-              <h3>🤖 AI-Optimized Documentation</h3>
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
               <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Button implementation guidance.</p>
               <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
             </div>
