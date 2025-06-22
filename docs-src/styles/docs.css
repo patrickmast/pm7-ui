@@ -302,7 +302,7 @@ pre code {
 .pm7-docs-content h3 {
   font-size: var(--pm7-text-xl);
   font-weight: var(--pm7-font-semibold);
-  margin: var(--pm7-spacing-8) 0 var(--pm7-spacing-4);
+  margin: var(--pm7-spacing-4) 0 var(--pm7-spacing-4);
 }
 
 .pm7-docs-section {
@@ -371,7 +371,7 @@ pre code {
 
 .pm7-docs-info {
   margin-top: var(--pm7-spacing-4);
-  padding: var(--pm7-spacing-4);
+  padding: 0 var(--pm7-spacing-4) var(--pm7-spacing-4) var(--pm7-spacing-4);
   border-radius: var(--pm7-radius);
   background: var(--pm7-background);
   border: 1px solid var(--pm7-border);
