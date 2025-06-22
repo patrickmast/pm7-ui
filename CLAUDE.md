@@ -210,3 +210,21 @@ All component documentation pages follow a consistent 4-tab structure:
 ### Tab Implementation
 Components use the PM7 tab-selector component with default (underline) variant.
 The tab-selector styling exactly matches the pm7-ui-style-guide project specifications.
+
+## Dogfooding Rule for PM7 UI Documentation Site
+**CRITICAL**: The PM7 UI documentation site MUST use PM7 UI components throughout. This serves two purposes:
+1. **Testing**: We test our own components in real-world usage
+2. **Showcase**: We demonstrate best practices and component capabilities
+
+### Required Component Usage:
+- Use `pm7-card` instead of custom card classes like `pm7-docs-card`
+- Use `pm7-button` for all buttons
+- Use `pm7-input` for all form inputs
+- Use `pm7-dialog` for all modals/dialogs
+- Use `pm7-menu` for all dropdowns and menus
+- Use `pm7-toast` for all notifications
+
+### Implementation:
+- Replace ALL custom documentation-specific component classes with PM7 UI components
+- Add custom styling through additional classes or inline styles when needed
+- This applies to the entire documentation site, including navigation, sidebars, and content areas
