@@ -1,0 +1,228 @@
+/* PM7 Tab Selector Component */
+
+/* Container */
+.pm7-tab-selector {
+  width: 100%;
+}
+
+/* Tab list container */
+.pm7-tab-list {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0;
+  background-color: transparent;
+}
+
+/* Tab trigger */
+.pm7-tab-trigger {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #000000;
+  opacity: 0.7;
+  cursor: pointer;
+  position: relative;
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  font-size: var(--pm7-text-sm);
+  font-weight: var(--pm7-font-medium);
+  white-space: nowrap;
+  outline: none;
+  /* No transitions to match original */
+}
+
+.pm7-tab-trigger:hover {
+  opacity: 0.85;
+}
+
+.pm7-tab-trigger:focus-visible {
+  opacity: 0.85;
+}
+
+/* Active state */
+.pm7-tab-trigger[data-state="active"],
+.pm7-tab-trigger.pm7-tab-trigger--active {
+  opacity: 1;
+  border-bottom: 1px solid #1C86EF;
+  background-color: #f3f8ff;
+  margin-bottom: -1px;
+  border-radius: 4px 4px 0 0;
+  color: #1C86EF;
+}
+
+/* Remove the ::after pseudo element - we use border-bottom directly */
+.pm7-tab-trigger::after {
+  display: none;
+}
+
+/* Dark mode styles */
+.dark .pm7-tab-list {
+  border-bottom-color: #374151;
+}
+
+.dark .pm7-tab-trigger {
+  color: #FAFAFA;
+}
+
+.dark .pm7-tab-trigger[data-state="active"],
+.dark .pm7-tab-trigger.pm7-tab-trigger--active {
+  border-bottom: 1px solid #1C86EF;
+  background-color: rgba(28, 134, 239, 0.15);
+  color: #1C86EF;
+}
+
+/* Tab content */
+.pm7-tab-content {
+  padding-top: 0;
+  outline: none;
+}
+
+.pm7-tab-content[data-state="inactive"],
+.pm7-tab-content:not(.pm7-tab-content--active) {
+  display: none;
+}
+
+.pm7-tab-content[data-state="active"],
+.pm7-tab-content.pm7-tab-content--active {
+  display: block;
+}
+
+/* Variants */
+
+/* Underline variant (default) is the base style */
+
+/* Solid variant */
+.pm7-tab-selector--solid .pm7-tab-list {
+  border-bottom: none;
+  background-color: var(--pm7-muted);
+  padding: var(--pm7-spacing-1);
+  border-radius: var(--pm7-radius-md);
+  gap: var(--pm7-spacing-1);
+  margin-bottom: 1rem;
+}
+
+.pm7-tab-selector--solid .pm7-tab-trigger {
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+  border-radius: var(--pm7-radius);
+  transition: all 0.2s ease;
+  opacity: 1;
+  color: var(--pm7-muted-foreground);
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.pm7-tab-selector--solid .pm7-tab-trigger[data-state="active"],
+.pm7-tab-selector--solid .pm7-tab-trigger.pm7-tab-trigger--active {
+  background-color: var(--pm7-background);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: var(--pm7-foreground);
+  border-bottom: none;
+}
+
+/* Pills variant */
+.pm7-tab-selector--pills .pm7-tab-list {
+  border-bottom: none;
+  gap: var(--pm7-spacing-2);
+  margin-bottom: 1rem;
+}
+
+.pm7-tab-selector--pills .pm7-tab-trigger {
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  opacity: 1;
+  color: var(--pm7-muted-foreground);
+  border-bottom: 1px solid transparent;
+  margin-bottom: 0;
+}
+
+.pm7-tab-selector--pills .pm7-tab-trigger:hover {
+  background-color: var(--pm7-muted);
+  opacity: 1;
+}
+
+.pm7-tab-selector--pills .pm7-tab-trigger[data-state="active"],
+.pm7-tab-selector--pills .pm7-tab-trigger.pm7-tab-trigger--active {
+  background-color: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+  border-color: var(--pm7-primary);
+  border-bottom: 1px solid var(--pm7-primary);
+}
+
+/* Sizes */
+.pm7-tab-selector--sm .pm7-tab-trigger {
+  font-size: var(--pm7-text-xs);
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-1);
+}
+
+.pm7-tab-selector--lg .pm7-tab-trigger {
+  font-size: var(--pm7-text-base);
+  padding: var(--pm7-spacing-4) var(--pm7-spacing-1);
+}
+
+/* Full width */
+.pm7-tab-selector--full-width .pm7-tab-list {
+  justify-content: stretch;
+}
+
+.pm7-tab-selector--full-width .pm7-tab-trigger {
+  flex: 1;
+  text-align: center;
+}
+
+/* Icon support */
+.pm7-tab-trigger-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--pm7-spacing-2);
+  width: 1em;
+  height: 1em;
+}
+
+.pm7-tab-trigger-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Badge support */
+.pm7-tab-trigger-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--pm7-spacing-2);
+  padding: 0 var(--pm7-spacing-2);
+  min-width: 1.25rem;
+  height: 1.25rem;
+  font-size: var(--pm7-text-xs);
+  font-weight: var(--pm7-font-medium);
+  background-color: var(--pm7-muted);
+  color: var(--pm7-muted-foreground);
+  border-radius: 9999px;
+}
+
+.pm7-tab-trigger[data-state="active"] .pm7-tab-trigger-badge,
+.pm7-tab-trigger.pm7-tab-trigger--active .pm7-tab-trigger-badge {
+  background-color: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+}
+
+/* Disabled state */
+.pm7-tab-trigger:disabled,
+.pm7-tab-trigger[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* RTL support */
+[dir="rtl"] .pm7-tab-trigger-icon {
+  margin-right: 0;
+  margin-left: var(--pm7-spacing-2);
+}
+
+[dir="rtl"] .pm7-tab-trigger-badge {
+  margin-left: 0;
+  margin-right: var(--pm7-spacing-2);
+}

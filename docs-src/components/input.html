@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar">
+      <div class="pm7-docs-sidebar-content">
+        <h3>Components</h3>
+        <nav>
+          <ul>
+            <li><a href="/components/button.html">Button</a></li>
+            <li><a href="/components/card.html">Card</a></li>
+            <li><a href="/components/dialog.html">Dialog</a></li>
+            <li><a href="/components/icons.html">Icons</a></li>
+            <li><a href="/components/input.html" class="active">Input</a></li>
+            <li><a href="/components/menu.html">Menu</a></li>
+            <li><a href="/components/toast.html">Toast</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="pm7-docs-content">
+      <h1>Input</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger pm7-tab-trigger--active" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content pm7-tab-content--active" id="overview-panel">
+          <section class="pm7-docs-section">
+            <h2>What is an Input?</h2>
+            <p>Input fields allow users to enter text information. They come in various types and can be enhanced with labels, hints, and validation states.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To collect user information in forms</li>
+              <li>For search functionality</li>
+              <li>To enter settings or preferences</li>
+              <li>For authentication (username, password)</li>
+              <li>To capture numeric values, dates, or other specific data types</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple types</strong> - Text, email, password, number, date, and more</li>
+              <li><strong>Three sizes</strong> - Small, medium (default), and large</li>
+              <li><strong>Validation states</strong> - Error and success states with messages</li>
+              <li><strong>Icon support</strong> - Add icons to left or right of input</li>
+              <li><strong>Textarea</strong> - Multi-line text input with auto-resize option</li>
+              <li><strong>Select dropdown</strong> - Choose from predefined options</li>
+              <li><strong>Checkbox & Radio</strong> - For boolean and single-choice inputs</li>
+              <li><strong>Accessible</strong> - Full keyboard navigation and screen reader support</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A complete input field consists of:</p>
+            <ul>
+              <li><strong>Label</strong> - Describes the input purpose</li>
+              <li><strong>Input field</strong> - Where users enter data</li>
+              <li><strong>Helper text</strong> - Additional guidance or requirements</li>
+              <li><strong>Error/Success message</strong> - Validation feedback</li>
+              <li><strong>Icons</strong> - Visual indicators or actions</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Basic Input</h3>
+              <div class="pm7-docs-preview">
+                <input type="text" class="pm7-input" placeholder="Enter text...">
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Input with Label</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-form-group">
+                  <label for="demo-email" class="pm7-label">Email</label>
+                  <input type="email" id="demo-email" class="pm7-input" placeholder="Enter your email">
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Input Sizes</h3>
+              <div class="pm7-docs-preview" style="gap: 1rem;">
+                <input type="text" class="pm7-input pm7-input--sm" placeholder="Small input">
+                <input type="text" class="pm7-input" placeholder="Medium input">
+                <input type="text" class="pm7-input pm7-input--lg" placeholder="Large input">
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Input States</h3>
+              <div class="pm7-docs-preview" style="gap: 1rem;">
+                <div class="pm7-form-group">
+                  <label class="pm7-label">Normal</label>
+                  <input type="text" class="pm7-input" placeholder="Normal input">
+                </div>
+                
+                <div class="pm7-form-group">
+                  <label class="pm7-label">Disabled</label>
+                  <input type="text" class="pm7-input" placeholder="Disabled input" disabled>
+                </div>
+                
+                <div class="pm7-form-group">
+                  <label class="pm7-label">Error</label>
+                  <input type="text" class="pm7-input pm7-input--error" placeholder="Error input">
+                  <p class="pm7-error-text">This field is required</p>
+                </div>
+                
+                <div class="pm7-form-group">
+                  <label class="pm7-label">Success</label>
+                  <input type="text" class="pm7-input pm7-input--success" value="Valid input">
+                  <p class="pm7-success-text">Looking good!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Input Types</h3>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <input type="text" class="pm7-input" placeholder="Text">
+                <input type="email" class="pm7-input" placeholder="Email">
+                <input type="password" class="pm7-input" placeholder="Password">
+                <input type="number" class="pm7-input" placeholder="Number">
+                <input type="date" class="pm7-input">
+                <input type="search" class="pm7-input" placeholder="Search...">
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Input with Icons</h3>
+              <div class="pm7-docs-preview" style="gap: 1rem;">
+                <div class="pm7-input-group">
+                  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search...">
+                </div>
+                
+                <div class="pm7-input-group">
+                  <input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password" id="password-demo">
+                  <button type="button" class="pm7-input-icon pm7-input-icon--right" 
+                          style="background: none; border: none; cursor: pointer; padding: 0;"
+                          onclick="togglePasswordVisibility()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Textarea</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-form-group">
+                  <label for="demo-message" class="pm7-label">Message</label>
+                  <textarea id="demo-message" class="pm7-textarea" rows="4" placeholder="Type your message here..."></textarea>
+                  <p class="pm7-helper-text">Maximum 500 characters</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Select</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-form-group">
+                  <label for="demo-country" class="pm7-label">Country</label>
+                  <select id="demo-country" class="pm7-select">
+                    <option value="">Select country</option>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                    <option value="au">Australia</option>
+                    <option value="nl">Netherlands</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Checkbox and Radio</h3>
+              <div class="pm7-docs-preview" style="gap: 2rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <label class="pm7-checkbox">
+                    <input type="checkbox" class="pm7-checkbox-input">
+                    <span class="pm7-checkbox-label">Remember me</span>
+                  </label>
+                  <label class="pm7-checkbox">
+                    <input type="checkbox" class="pm7-checkbox-input" checked>
+                    <span class="pm7-checkbox-label">Send newsletter</span>
+                  </label>
+                </div>
+                
+                <div class="pm7-radio-group">
+                  <label class="pm7-radio">
+                    <input type="radio" name="demo-plan" value="basic" class="pm7-radio-input">
+                    <span class="pm7-radio-label">Basic Plan</span>
+                  </label>
+                  <label class="pm7-radio">
+                    <input type="radio" name="demo-plan" value="pro" class="pm7-radio-input" checked>
+                    <span class="pm7-radio-label">Pro Plan</span>
+                  </label>
+                  <label class="pm7-radio">
+                    <input type="radio" name="demo-plan" value="enterprise" class="pm7-radio-input">
+                    <span class="pm7-radio-label">Enterprise Plan</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Complete Form Example</h3>
+              <div class="pm7-docs-preview">
+                <form class="pm7-form" style="max-width: 400px;">
+                  <div class="pm7-form-group">
+                    <label for="demo-name" class="pm7-label">
+                      Full Name <span style="color: var(--pm7-destructive);">*</span>
+                    </label>
+                    <input type="text" id="demo-name" class="pm7-input" required>
+                  </div>
+                  
+                  <div class="pm7-form-group">
+                    <label for="demo-form-email" class="pm7-label">
+                      Email <span style="color: var(--pm7-destructive);">*</span>
+                    </label>
+                    <input type="email" id="demo-form-email" class="pm7-input" required>
+                    <p class="pm7-helper-text">We'll never share your email</p>
+                  </div>
+                  
+                  <div class="pm7-form-group">
+                    <label for="demo-bio" class="pm7-label">Bio</label>
+                    <textarea id="demo-bio" class="pm7-textarea" rows="3" placeholder="Tell us about yourself..."></textarea>
+                  </div>
+                  
+                  <div class="pm7-form-group">
+                    <label class="pm7-checkbox">
+                      <input type="checkbox" class="pm7-checkbox-input" required>
+                      <span class="pm7-checkbox-label">I agree to the terms and conditions</span>
+                    </label>
+                  </div>
+                  
+                  <button type="submit" class="pm7-button pm7-button--primary">
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h2>Installation</h2>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h2>Basic Usage</h2>
+            <pre><code class="language-html">&lt;!-- Basic input --&gt;
+&lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;
+
+&lt;!-- Input with label --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
+&lt;/div&gt;
+
+&lt;!-- Input with helper text --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="password" class="pm7-input"&gt;
+  &lt;p class="pm7-helper-text"&gt;Must be at least 8 characters&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h2>CSS Classes</h2>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-input</code></td>
+                  <td>Base input class</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--sm</code></td>
+                  <td>Small input size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--lg</code></td>
+                  <td>Large input size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--error</code></td>
+                  <td>Error state styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--success</code></td>
+                  <td>Success state styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--with-icon-left</code></td>
+                  <td>Input with left icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--with-icon-right</code></td>
+                  <td>Input with right icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-textarea</code></td>
+                  <td>Textarea styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-select</code></td>
+                  <td>Select dropdown styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-checkbox</code></td>
+                  <td>Checkbox container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-radio</code></td>
+                  <td>Radio container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-form-group</code></td>
+                  <td>Form field container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-label</code></td>
+                  <td>Form label</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-helper-text</code></td>
+                  <td>Helper text below input</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-error-text</code></td>
+                  <td>Error message text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-success-text</code></td>
+                  <td>Success message text</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Form Layout</h2>
+            <pre><code class="language-html">&lt;form class="pm7-form"&gt;
+  &lt;div class="pm7-form-group"&gt;
+    &lt;label for="name" class="pm7-label"&gt;Full Name&lt;/label&gt;
+    &lt;input type="text" id="name" class="pm7-input" required&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-form-group"&gt;
+    &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+    &lt;input type="email" id="email" class="pm7-input" required&gt;
+    &lt;p class="pm7-helper-text"&gt;We'll never share your email&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;button type="submit" class="pm7-button pm7-button--primary"&gt;
+    Submit
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+            <h2>Validation</h2>
+            <pre><code class="language-html">&lt;!-- Error state --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="username" class="pm7-label"&gt;Username&lt;/label&gt;
+  &lt;input type="text" id="username" class="pm7-input pm7-input--error"&gt;
+  &lt;p class="pm7-error-text"&gt;Username already taken&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Success state --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email-verify" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com"&gt;
+  &lt;p class="pm7-success-text"&gt;Email verified!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h2>React Usage</h2>
+            <pre><code class="language-jsx">import { Input, Label, FormGroup, HelperText } from '@pm7/react';
+
+function MyForm() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  return (
+    &lt;FormGroup&gt;
+      &lt;Label htmlFor="email"&gt;Email&lt;/Label&gt;
+      &lt;Input
+        id="email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        error={!!error}
+        placeholder="Enter your email"
+      /&gt;
+      {error && &lt;HelperText variant="error"&gt;{error}&lt;/HelperText&gt;}
+    &lt;/FormGroup&gt;
+  );
+}</code></pre>
+
+            <h2>Accessibility</h2>
+            <ul>
+              <li>Always associate labels with inputs using <code>for</code> attribute</li>
+              <li>Use semantic HTML5 input types</li>
+              <li>Mark required fields with <code>required</code> attribute</li>
+              <li>Provide clear error messages</li>
+              <li>Ensure proper keyboard navigation</li>
+              <li>Use <code>aria-describedby</code> for helper and error text</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-card">
+              <h3>PM7 Input Component</h3>
+              <p>Copy this link that can be used as documentation for working with this component:</p>
+              
+              <div class="pm7-docs-link-box">
+                <code id="doc-link">https://github.com/patrickmast/pm7-ui/blob/main/packages/core/src/components/input/README.md</code>
+                <button class="pm7-button pm7-button--primary" onclick="copyDocLink()">
+                  📋 Copy
+                </button>
+              </div>
+              
+              <div class="pm7-docs-info pm7-docs-info--ai">
+                <h3>🤖 AI-Optimized Documentation</h3>
+                <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Input implementation guidance.</p>
+                <p class="pm7-docs-note">Perfect voor ChatGPT, Claude, en andere AI code assistants</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('password-demo');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+
+  <script type="module">
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('input');
+    });
+  </script>
+
+  <script src="/scripts/docs.js"></script>
+</body>
+</html>

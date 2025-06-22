@@ -223,6 +223,190 @@ pre code {
   padding: 0;
 }
 
+/* Component Documentation Layout */
+.pm7-docs-layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.pm7-docs-sidebar {
+  width: 240px;
+  border-right: 1px solid var(--pm7-border);
+  background: var(--pm7-surface);
+}
+
+.pm7-docs-sidebar-content {
+  position: sticky;
+  top: 64px;
+  padding: var(--pm7-spacing-6);
+}
+
+.pm7-docs-sidebar h3 {
+  font-size: var(--pm7-text-sm);
+  font-weight: var(--pm7-font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pm7-text-secondary);
+  margin: 0 0 var(--pm7-spacing-4);
+}
+
+.pm7-docs-sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pm7-docs-sidebar li {
+  margin-bottom: var(--pm7-spacing-1);
+}
+
+.pm7-docs-sidebar a {
+  display: block;
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-3);
+  color: var(--pm7-text-secondary);
+  text-decoration: none;
+  border-radius: var(--pm7-radius);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pm7-docs-sidebar a:hover {
+  background: var(--pm7-muted);
+  color: var(--pm7-foreground);
+}
+
+.pm7-docs-sidebar a.active {
+  background: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+}
+
+.pm7-docs-content {
+  flex: 1;
+  padding: var(--pm7-spacing-8);
+  max-width: 900px;
+}
+
+.pm7-docs-content h1 {
+  font-size: var(--pm7-text-4xl);
+  font-weight: var(--pm7-font-bold);
+  margin: 0 0 var(--pm7-spacing-4);
+}
+
+.pm7-docs-content h2 {
+  font-size: var(--pm7-text-2xl);
+  font-weight: var(--pm7-font-semibold);
+  margin: var(--pm7-spacing-12) 0 var(--pm7-spacing-6);
+  padding-bottom: var(--pm7-spacing-2);
+  border-bottom: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-content h3 {
+  font-size: var(--pm7-text-xl);
+  font-weight: var(--pm7-font-semibold);
+  margin: var(--pm7-spacing-8) 0 var(--pm7-spacing-4);
+}
+
+.pm7-docs-section {
+  margin-bottom: var(--pm7-spacing-12);
+}
+
+/* Tab content specific styling */
+.pm7-tab-content .pm7-docs-section {
+  padding-top: var(--pm7-spacing-4);
+}
+
+/* Remove top margin from first heading in tab content */
+.pm7-tab-content .pm7-docs-section > h2:first-child,
+.pm7-tab-content .pm7-docs-section > h3:first-child,
+.pm7-tab-content .pm7-docs-section > .pm7-docs-example:first-child > h3:first-child,
+.pm7-tab-content .pm7-docs-section > .pm7-docs-card:first-child > h3:first-child {
+  margin-top: 0;
+}
+
+.pm7-docs-example {
+  margin-bottom: var(--pm7-spacing-8);
+}
+
+.pm7-docs-preview {
+  background: var(--pm7-muted);
+  padding: var(--pm7-spacing-8);
+  border-radius: var(--pm7-radius-md);
+  border: 1px solid var(--pm7-border);
+  margin-bottom: var(--pm7-spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.pm7-docs-code {
+  position: relative;
+}
+
+.pm7-docs-code pre {
+  margin: 0;
+}
+
+.pm7-docs-card {
+  background: var(--pm7-muted);
+  padding: var(--pm7-spacing-6);
+  border-radius: var(--pm7-radius-md);
+  border: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-link-box {
+  display: flex;
+  align-items: center;
+  gap: var(--pm7-spacing-4);
+  margin: var(--pm7-spacing-4) 0;
+  background: var(--pm7-background);
+  padding: var(--pm7-spacing-4);
+  border-radius: var(--pm7-radius);
+  border: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-link-box code {
+  flex: 1;
+  word-break: break-all;
+}
+
+.pm7-docs-info {
+  margin-top: var(--pm7-spacing-4);
+  padding: var(--pm7-spacing-4);
+  border-radius: var(--pm7-radius);
+  background: var(--pm7-background);
+  border: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-info--ai {
+  background: #e7f3ff;
+  border-color: #b3d9ff;
+  text-align: center;
+}
+
+.pm7-docs-note {
+  font-size: var(--pm7-text-sm);
+  color: var(--pm7-text-secondary);
+  font-style: italic;
+}
+
+.pm7-docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--pm7-spacing-4);
+}
+
+.pm7-docs-table th,
+.pm7-docs-table td {
+  text-align: left;
+  padding: var(--pm7-spacing-3);
+  border-bottom: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-table th {
+  font-weight: var(--pm7-font-semibold);
+  background: var(--pm7-muted);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .pm7-docs-hero h1 {
@@ -240,5 +424,24 @@ pre code {
   
   .pm7-docs-nav-menu {
     gap: var(--pm7-spacing-4);
+  }
+  
+  .pm7-docs-layout {
+    flex-direction: column;
+  }
+  
+  .pm7-docs-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--pm7-border);
+  }
+  
+  .pm7-docs-sidebar-content {
+    position: static;
+    padding: var(--pm7-spacing-4);
+  }
+  
+  .pm7-docs-content {
+    padding: var(--pm7-spacing-4);
   }
 }

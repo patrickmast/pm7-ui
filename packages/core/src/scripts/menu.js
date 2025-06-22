@@ -61,6 +61,15 @@ export class PM7Menu {
         this.trigger.focus();
       }
     });
+    
+    // Reposition on window resize/scroll
+    this.repositionHandler = () => {
+      if (this.isOpen) {
+        this.adjustPosition();
+      }
+    };
+    window.addEventListener('resize', this.repositionHandler);
+    window.addEventListener('scroll', this.repositionHandler, true);
   }
   
   toggle() {
@@ -78,6 +87,9 @@ export class PM7Menu {
     this.isOpen = true;
     this.content.classList.add('pm7-menu-content--open');
     this.trigger.setAttribute('aria-expanded', 'true');
+    
+    // Check viewport position and adjust if needed
+    this.adjustPosition();
     
     // Focus first item
     requestAnimationFrame(() => {
@@ -219,6 +231,53 @@ export class PM7Menu {
       bubbles: true
     });
     this.element.dispatchEvent(event);
+  }
+  
+  adjustPosition() {
+    // Get dimensions
+    const triggerRect = this.trigger.getBoundingClientRect();
+    const contentRect = this.content.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    
+    // Calculate space above and below
+    const spaceBelow = viewportHeight - triggerRect.bottom;
+    const spaceAbove = triggerRect.top;
+    
+    // Check vertical position
+    if (contentRect.height > spaceBelow && spaceAbove > spaceBelow) {
+      // Not enough space below, but more space above
+      this.content.classList.add('pm7-menu-content--top');
+    } else {
+      // Enough space below or more space below than above
+      this.content.classList.remove('pm7-menu-content--top');
+    }
+    
+    // Check horizontal position for end-aligned menus
+    if (this.content.classList.contains('pm7-menu-content--end')) {
+      const rightEdge = triggerRect.right;
+      if (rightEdge < contentRect.width) {
+        // Not enough space on the right, switch to left alignment
+        this.content.classList.remove('pm7-menu-content--end');
+        this.content.classList.add('pm7-menu-content--start');
+      }
+    }
+    
+    // Check horizontal position for center-aligned menus
+    if (this.content.classList.contains('pm7-menu-content--center')) {
+      const centerX = triggerRect.left + (triggerRect.width / 2);
+      const menuHalfWidth = contentRect.width / 2;
+      
+      if (centerX - menuHalfWidth < 0) {
+        // Would overflow on the left
+        this.content.classList.remove('pm7-menu-content--center');
+        this.content.classList.add('pm7-menu-content--start');
+      } else if (centerX + menuHalfWidth > viewportWidth) {
+        // Would overflow on the right
+        this.content.classList.remove('pm7-menu-content--center');
+        this.content.classList.add('pm7-menu-content--end');
+      }
+    }
   }
 }
 

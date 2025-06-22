@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icons - PM7 UI Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <nav class="pm7-docs-nav">
+    <div class="pm7-docs-nav-inner">
+      <a href="/" class="pm7-docs-logo">
+        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
+        <span style="vertical-align: middle;">PM7 UI</span>
+      </a>
+      <ul class="pm7-docs-nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/getting-started.html">Getting Started</a></li>
+        <li><a href="/components/">Components</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar">
+      <div class="pm7-docs-sidebar-content">
+        <h3>Components</h3>
+        <nav>
+          <ul>
+            <li><a href="/components/button.html">Button</a></li>
+            <li><a href="/components/card.html">Card</a></li>
+            <li><a href="/components/dialog.html">Dialog</a></li>
+            <li><a href="/components/icons.html" class="active">Icons</a></li>
+            <li><a href="/components/input.html">Input</a></li>
+            <li><a href="/components/menu.html">Menu</a></li>
+            <li><a href="/components/toast.html">Toast</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="pm7-docs-content">
+      <h1>Icons</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger pm7-tab-trigger--active" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content pm7-tab-content--active" id="overview-panel">
+          <section class="pm7-docs-section">
+            <h2>What are PM7 Icons?</h2>
+            <p>PM7 UI provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>For consistent menu triggers across PM7 applications</li>
+              <li>When you need a recognizable hamburger menu icon</li>
+              <li>To maintain brand consistency in navigation</li>
+              <li>For responsive mobile menu toggles</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Framework agnostic</strong> - Works with any JavaScript framework or vanilla JS</li>
+              <li><strong>Multiple formats</strong> - DOM element, HTML string, or data URI</li>
+              <li><strong>Customizable</strong> - Size and color options</li>
+              <li><strong>Optimized</strong> - Minimal SVG with clean code</li>
+              <li><strong>Accessible</strong> - Proper ARIA attributes included</li>
+              <li><strong>Consistent</strong> - Matches PM7 design language</li>
+            </ul>
+
+            <h3>Icon Specifications</h3>
+            <p>The hamburger menu icon features:</p>
+            <ul>
+              <li><strong>Default dimensions:</strong> 18×15 pixels</li>
+              <li><strong>Bar height:</strong> 2.5 pixels</li>
+              <li><strong>Bar spacing:</strong> 3.75 pixels between bars</li>
+              <li><strong>Corner radius:</strong> 1.25 pixels (rounded bars)</li>
+              <li><strong>Color:</strong> Inherits from currentColor by default</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Icon Sizes and Colors</h3>
+              <div class="pm7-docs-preview" style="gap: 1.5rem;">
+                <!-- Default size -->
+                <div class="icon-demo">
+                  <div id="icon-default"></div>
+                  <span class="icon-label">Default (18×15)</span>
+                </div>
+                
+                <!-- Small size -->
+                <div class="icon-demo">
+                  <div id="icon-small"></div>
+                  <span class="icon-label">Small (12×10)</span>
+                </div>
+                
+                <!-- Large size -->
+                <div class="icon-demo">
+                  <div id="icon-large"></div>
+                  <span class="icon-label">Large (24×20)</span>
+                </div>
+                
+                <!-- Primary color -->
+                <div class="icon-demo">
+                  <div id="icon-primary"></div>
+                  <span class="icon-label">Primary</span>
+                </div>
+                
+                <!-- Custom color -->
+                <div class="icon-demo">
+                  <div id="icon-custom"></div>
+                  <span class="icon-label">Custom</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>As HTML String</h3>
+              <div class="pm7-docs-preview">
+                <div id="icon-string"></div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>As CSS Background</h3>
+              <div class="pm7-docs-preview">
+                <button class="icon-button" id="css-icon-button">
+                  <span>Menu</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Integration with Components</h3>
+              <div class="pm7-docs-preview">
+                <button class="pm7-button pm7-button--outline icon-with-text">
+                  <span id="button-icon"></span>
+                  <span>Open Menu</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h2>Installation</h2>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h2>Import Methods</h2>
+            <pre><code class="language-javascript">// ES6 import
+import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
+
+// CommonJS
+const { createHamburgerIconElement } = require('@pm7/core');
+
+// Via CDN
+&lt;script src="https://unpkg.com/@pm7/core"&gt;&lt;/script&gt;</code></pre>
+
+            <h2>Usage Examples</h2>
+            
+            <h3>Create DOM Element</h3>
+            <pre><code class="language-javascript">import { createHamburgerIconElement } from '@pm7/core';
+
+// Default icon
+const icon = createHamburgerIconElement();
+document.getElementById('menu-trigger').appendChild(icon);
+
+// Custom size and color
+const customIcon = createHamburgerIconElement({
+  width: 24,
+  height: 20,
+  color: '#1C86EF',
+  className: 'menu-icon'
+});</code></pre>
+
+            <h3>Get HTML String</h3>
+            <pre><code class="language-javascript">import { createHamburgerIcon } from '@pm7/core';
+
+// Get icon as HTML string
+const iconHTML = createHamburgerIcon({
+  className: 'my-hamburger-icon'
+});
+
+// Use in template
+const button = `
+  &lt;button class="pm7-button"&gt;
+    ${iconHTML}
+    &lt;span&gt;Menu&lt;/span&gt;
+  &lt;/button&gt;
+`;</code></pre>
+
+            <h3>Use as CSS Background</h3>
+            <pre><code class="language-javascript">import { getHamburgerIconDataURI } from '@pm7/core';
+
+// Get data URI
+const dataURI = getHamburgerIconDataURI('%231C86EF');
+
+// Apply to element
+button.style.backgroundImage = `url(${dataURI})`;
+
+// Or use in CSS
+const style = `
+  .menu-button::before {
+    background-image: url(${dataURI});
+  }
+`;</code></pre>
+
+            <h2>API Reference</h2>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>width</code></td>
+                  <td>number</td>
+                  <td>18</td>
+                  <td>Icon width in pixels</td>
+                </tr>
+                <tr>
+                  <td><code>height</code></td>
+                  <td>number</td>
+                  <td>15</td>
+                  <td>Icon height in pixels</td>
+                </tr>
+                <tr>
+                  <td><code>color</code></td>
+                  <td>string</td>
+                  <td>'currentColor'</td>
+                  <td>Icon color (any valid CSS color)</td>
+                </tr>
+                <tr>
+                  <td><code>className</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>CSS class name to apply to the SVG</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>React Usage</h2>
+            <pre><code class="language-jsx">import { HamburgerIcon } from '@pm7/react';
+
+function MenuButton() {
+  return (
+    &lt;button className="pm7-button pm7-button--ghost"&gt;
+      &lt;HamburgerIcon width={16} height={13} /&gt;
+      &lt;span&gt;Menu&lt;/span&gt;
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+            <h2>Vue Usage</h2>
+            <pre><code class="language-vue">&lt;template&gt;
+  &lt;button class="pm7-button pm7-button--ghost"&gt;
+    &lt;hamburger-icon :width="16" :height="13" /&gt;
+    &lt;span&gt;Menu&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { HamburgerIcon } from '@pm7/vue';
+
+export default {
+  components: { HamburgerIcon }
+}
+&lt;/script&gt;</code></pre>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-card">
+              <h3>PM7 Icons Component</h3>
+              <p>Copy this link that can be used as documentation for working with this component:</p>
+              
+              <div class="pm7-docs-link-box">
+                <code id="doc-link">https://github.com/patrickmast/pm7-ui/blob/main/packages/core/src/icons/README.md</code>
+                <button class="pm7-button pm7-button--primary" onclick="copyDocLink()">
+                  📋 Copy
+                </button>
+              </div>
+              
+              <div class="pm7-docs-info pm7-docs-info--ai">
+                <h3>🤖 AI-Optimized Documentation</h3>
+                <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Icons implementation guidance.</p>
+                <p class="pm7-docs-note">Perfect voor ChatGPT, Claude, en andere AI code assistants</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+
+    /* Icon demo container */
+    .icon-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-label {
+      font-size: 12px;
+      color: var(--pm7-muted-foreground);
+    }
+
+    /* Icon button styling */
+    .icon-button {
+      background: white;
+      border: 1px solid var(--pm7-border);
+      padding: 8px 16px 8px 40px;
+      border-radius: var(--pm7-radius);
+      cursor: pointer;
+      position: relative;
+      font-size: 14px;
+      color: var(--pm7-foreground);
+      transition: all 0.2s;
+    }
+
+    .icon-button:hover {
+      background: var(--pm7-accent);
+      border-color: var(--pm7-border-hover);
+    }
+
+    .icon-button::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 15px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .icon-with-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+  <script type="module">
+    import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '/packages/core/src/scripts/index.js';
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('icons');
+      
+      // Default icon
+      const defaultIcon = createHamburgerIconElement();
+      document.getElementById('icon-default').appendChild(defaultIcon);
+
+      // Small icon
+      const smallIcon = createHamburgerIconElement({ width: 12, height: 10 });
+      document.getElementById('icon-small').appendChild(smallIcon);
+
+      // Large icon
+      const largeIcon = createHamburgerIconElement({ width: 24, height: 20 });
+      document.getElementById('icon-large').appendChild(largeIcon);
+
+      // Primary color icon
+      const primaryIcon = createHamburgerIconElement({ color: '#1C86EF' });
+      document.getElementById('icon-primary').appendChild(primaryIcon);
+
+      // Custom color icon
+      const customIcon = createHamburgerIconElement({ color: '#ef4444' });
+      document.getElementById('icon-custom').appendChild(customIcon);
+
+      // String example
+      const iconString = createHamburgerIcon({ className: 'demo-icon' });
+      document.getElementById('icon-string').innerHTML = iconString;
+
+      // CSS background example
+      const dataURI = getHamburgerIconDataURI('%231C86EF');
+      const style = document.createElement('style');
+      style.textContent = `.icon-button::before { background-image: url(${dataURI}); }`;
+      document.head.appendChild(style);
+
+      // Button with icon
+      const buttonIcon = createHamburgerIconElement({ width: 16, height: 13 });
+      document.getElementById('button-icon').appendChild(buttonIcon);
+    });
+  </script>
+
+  <script src="/scripts/docs.js"></script>
+</body>
+</html>

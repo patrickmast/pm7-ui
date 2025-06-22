@@ -18,6 +18,7 @@
 @import './components/card.css';
 @import './components/input.css';
 @import './components/toast.css';
+@import './components/tab-selector.css';
 
 /* Import utilities */
 @import './utilities/helpers.css';

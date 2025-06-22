@@ -52,6 +52,8 @@
   --pm7-menu-hover: var(--pm7-primary);
   --pm7-menu-hover-text: var(--pm7-primary-foreground);
   
+  --pm7-card-footer-bg: #f7fafc;
+  
   /* Focus ring */
   --pm7-ring: var(--pm7-primary);
   --pm7-ring-offset: #ffffff;
@@ -77,6 +79,8 @@
     
     --pm7-menu-bg: var(--pm7-surface);
     --pm7-ring-offset: #000000;
+    
+    --pm7-card-footer-bg: var(--pm7-surface);
     
     /* Status colors adjustments */
     --pm7-success-light: #052e16;
@@ -104,6 +108,8 @@
   
   --pm7-menu-bg: var(--pm7-surface);
   --pm7-ring-offset: #000000;
+  
+  --pm7-card-footer-bg: var(--pm7-surface);
   
   /* Status colors adjustments */
   --pm7-success-light: #052e16;
