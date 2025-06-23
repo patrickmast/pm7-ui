@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Icons - PM7 UI Components</title>
+  <title>Icons - pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
@@ -12,8 +12,8 @@
   <nav class="pm7-docs-nav">
     <div class="pm7-docs-nav-inner">
       <a href="/" class="pm7-docs-logo">
-        <img src="/dancing-patrick-logo.svg" alt="PM7 Logo" style="height: 32px; width: auto; vertical-align: middle; margin-right: 8px;">
-        <span style="vertical-align: middle;">PM7 UI</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: inline-block; vertical-align: middle; margin-right: 8px; fill: var(--pm7-primary);"><path d="M27 15a3 3 0 0 0-3-3h-5V3a3 3 0 1 0-6 0v9H8a3 3 0 0 0-3 3v6h2L6 32h20l-1-11h2zm-6 15v-6h-1v6h-6v-6h-1v6h-1v-8h-1v8H8.19l.909-10h13.802l.909 10zm4-11H7v-4c0-.551.449-1 1-1h7V3c0-.551.449-1 1-1s1 .449 1 1v11h7c.551 0 1 .449 1 1z"/></svg>
+        pm7-ui
       </a>
       <ul class="pm7-docs-nav-menu">
         <li><a href="/">Home</a></li>
@@ -56,8 +56,7 @@
         <!-- Overview Tab -->
         <div class="pm7-tab-content pm7-tab-content--active" id="overview-panel">
           <section class="pm7-docs-section">
-            <h2>What are PM7 Icons?</h2>
-            <p>PM7 UI provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.</p>
+            <p>pm7-ui provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.</p>
             
             <h3>When to use</h3>
             <ul>
@@ -145,10 +144,14 @@
 
             <div class="pm7-docs-example">
               <h3>Integration with Components</h3>
-              <div class="pm7-docs-preview">
+              <div class="pm7-docs-preview" style="gap: 1rem;">
                 <button class="pm7-button pm7-button--outline icon-with-text">
                   <span id="button-icon"></span>
                   <span>Open Menu</span>
+                </button>
+                
+                <button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu">
+                  <span id="icon-only"></span>
                 </button>
               </div>
             </div>
@@ -158,10 +161,10 @@
         <!-- Usage Tab -->
         <div class="pm7-tab-content" id="usage-panel">
           <section class="pm7-docs-section">
-            <h2>Installation</h2>
+            <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h2>Import Methods</h2>
+            <h3>Import Methods</h3>
             <pre><code class="language-javascript">// ES6 import
 import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
 
@@ -171,9 +174,9 @@ const { createHamburgerIconElement } = require('@pm7/core');
 // Via CDN
 &lt;script src="https://unpkg.com/@pm7/core"&gt;&lt;/script&gt;</code></pre>
 
-            <h2>Usage Examples</h2>
+            <h3>Usage Examples</h3>
             
-            <h3>Create DOM Element</h3>
+            <h4>Create DOM Element</h4>
             <pre><code class="language-javascript">import { createHamburgerIconElement } from '@pm7/core';
 
 // Default icon
@@ -188,7 +191,7 @@ const customIcon = createHamburgerIconElement({
   className: 'menu-icon'
 });</code></pre>
 
-            <h3>Get HTML String</h3>
+            <h4>Get HTML String</h4>
             <pre><code class="language-javascript">import { createHamburgerIcon } from '@pm7/core';
 
 // Get icon as HTML string
@@ -204,7 +207,7 @@ const button = `
   &lt;/button&gt;
 `;</code></pre>
 
-            <h3>Use as CSS Background</h3>
+            <h4>Use as CSS Background</h4>
             <pre><code class="language-javascript">import { getHamburgerIconDataURI } from '@pm7/core';
 
 // Get data URI
@@ -220,7 +223,7 @@ const style = `
   }
 `;</code></pre>
 
-            <h2>API Reference</h2>
+            <h3>API Reference</h3>
             <table class="pm7-docs-table">
               <thead>
                 <tr>
@@ -258,7 +261,7 @@ const style = `
               </tbody>
             </table>
 
-            <h2>React Usage</h2>
+            <h3>React Usage</h3>
             <pre><code class="language-jsx">import { HamburgerIcon } from '@pm7/react';
 
 function MenuButton() {
@@ -270,7 +273,7 @@ function MenuButton() {
   );
 }</code></pre>
 
-            <h2>Vue Usage</h2>
+            <h3>Vue Usage</h3>
             <pre><code class="language-vue">&lt;template&gt;
   &lt;button class="pm7-button pm7-button--ghost"&gt;
     &lt;hamburger-icon :width="16" :height="13" /&gt;
@@ -327,8 +330,7 @@ export default {
   </div>
 
   <style>
-
-    /* Icon demo container */
+    /* Icon specific styles */
     .icon-demo {
       display: flex;
       flex-direction: column;
@@ -396,13 +398,14 @@ export default {
   </script>
 
   <script type="module">
-    import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '/packages/core/src/scripts/index.js';
     import { initTabRouter } from '/scripts/tab-router.js';
+    import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '/packages/core/src/scripts/index.js';
     
     // Initialize tab routing
     document.addEventListener('DOMContentLoaded', () => {
       initTabRouter('icons');
       
+      // Initialize icons
       // Default icon
       const defaultIcon = createHamburgerIconElement();
       document.getElementById('icon-default').appendChild(defaultIcon);
@@ -436,9 +439,37 @@ export default {
       // Button with icon
       const buttonIcon = createHamburgerIconElement({ width: 16, height: 13 });
       document.getElementById('button-icon').appendChild(buttonIcon);
+      
+      // Icon only button
+      const iconOnly = createHamburgerIconElement();
+      document.getElementById('icon-only').appendChild(iconOnly);
     });
   </script>
 
   <script src="/scripts/docs.js"></script>
+
+  <footer class="pm7-footer">
+    <div class="pm7-footer-content">
+      <div class="pm7-footer-left">
+        <span>© 2025 pm7-ui</span>
+        <span class="pm7-footer-version">v1.0.0</span>
+      </div>
+      <div class="pm7-footer-center">
+        <span>By</span>
+        <a href="https://pm.ink" target="_blank" rel="noopener noreferrer" class="pm7-footer-logo-link">
+          <img src="/dancing-patrick-logo.svg" alt="pm.ink" class="pm7-footer-logo">
+          <span>pm.ink</span>
+        </a>
+      </div>
+      <div class="pm7-footer-right">
+        <a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer" class="pm7-footer-github">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

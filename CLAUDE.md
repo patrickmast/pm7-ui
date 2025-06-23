@@ -228,3 +228,12 @@ The tab-selector styling exactly matches the pm7-ui-style-guide project specific
 - Replace ALL custom documentation-specific component classes with PM7 UI components
 - Add custom styling through additional classes or inline styles when needed
 - This applies to the entire documentation site, including navigation, sidebars, and content areas
+
+## Project Memories
+
+### PM7 UI Style Guide Reference
+- Als ik het over "het" of "ons" "origineel project" he, dan bedoel ik "PM7 UI Style Guide" welke je hier kan vinden:
+  - Lokaal: /Users/patrickmast/Dev/pm7-ui-style-guide
+  - Online: https://tools-y0etdl1ve-pm7-projects.vercel.app
+  - Github: https://github.com/patrickmast/pm7-ui-style-guide
+- Dit project is daaruit voortgekomen en vormt een duidelijke verbetering van het origineel.
