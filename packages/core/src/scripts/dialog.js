@@ -29,14 +29,15 @@ export class PM7Dialog {
       });
     }
     
-    // Escape key
+    // Escape key - use bound function to allow proper removal
     this.handleEscape = (e) => {
       if (e.key === 'Escape' && this.isOpen) {
+        e.stopImmediatePropagation(); // Prevent other escape handlers
         this.close();
       }
     };
     
-    // Tab trap
+    // Tab trap - use bound function to allow proper removal
     this.handleTab = (e) => {
       if (e.key === 'Tab' && this.isOpen) {
         this.trapFocus(e);
@@ -301,3 +302,75 @@ export function alert(message, options = {}) {
     dialog.open();
   });
 }
+
+// Store ESC handlers to properly clean them up
+const escHandlers = new Map();
+
+// Simple helper functions for data-pm7-dialog elements
+export function openDialog(dialogId) {
+  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
+  if (!dialogElement) {
+    console.warn(`Dialog with id "${dialogId}" not found`);
+    return;
+  }
+  
+  dialogElement.setAttribute('data-state', 'open');
+  document.body.classList.add('pm7-dialog-open');
+  
+  // Add close handlers
+  const overlay = dialogElement.querySelector('.pm7-dialog-overlay');
+  const closeBtn = dialogElement.querySelector('.pm7-dialog-close');
+  
+  if (overlay) {
+    overlay.onclick = () => closeDialog(dialogId);
+  }
+  
+  if (closeBtn) {
+    closeBtn.onclick = () => closeDialog(dialogId);
+  }
+  
+  // ESC key handler - store it so we can remove it later
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeDialog(dialogId);
+    }
+  };
+  
+  // Remove any existing handler for this dialog
+  if (escHandlers.has(dialogId)) {
+    document.removeEventListener('keydown', escHandlers.get(dialogId));
+  }
+  
+  // Store and add new handler
+  escHandlers.set(dialogId, escHandler);
+  document.addEventListener('keydown', escHandler);
+}
+
+export function closeDialog(dialogId) {
+  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
+  if (!dialogElement) return;
+  
+  // Add closing state for animation
+  dialogElement.setAttribute('data-state', 'closing');
+  dialogElement.classList.remove('pm7-dialog--open');
+  
+  // Wait for animation to complete before removing
+  setTimeout(() => {
+    dialogElement.setAttribute('data-state', 'closed');
+    
+    // Check if any other dialogs are open
+    const openDialogs = document.querySelectorAll('.pm7-dialog[data-state="open"]');
+    if (openDialogs.length === 0) {
+      document.body.classList.remove('pm7-dialog-open');
+    }
+  }, 200); // Match transition duration
+  
+  // Remove ESC handler for this dialog
+  if (escHandlers.has(dialogId)) {
+    document.removeEventListener('keydown', escHandlers.get(dialogId));
+    escHandlers.delete(dialogId);
+  }
+}
+
+// Don't automatically pollute global scope
+// Consumers should explicitly assign these if needed

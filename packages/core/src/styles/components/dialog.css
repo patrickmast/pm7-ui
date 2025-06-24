@@ -27,10 +27,27 @@
   inset: 0;
   z-index: 100;
   display: none;
+  pointer-events: none; /* Prevent blocking when hidden */
 }
 
-.pm7-dialog[data-state="open"] {
+.pm7-dialog[data-state="open"],
+.pm7-dialog--open {
   display: block;
+  pointer-events: auto; /* Re-enable when visible */
+}
+
+/* Closing state - keep visible for animation */
+.pm7-dialog[data-state="closing"] {
+  display: block;
+  pointer-events: none;
+}
+
+/* Ensure content stays centered during close */
+.pm7-dialog[data-state="closing"] .pm7-dialog-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms, visibility 200ms;
+  transform: translate(-50%, -50%);
 }
 
 /* Dialog content */
@@ -39,7 +56,7 @@
   left: 50%;
   top: 50%;
   z-index: 101;
-  transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -50%);
   max-width: 90vw;
   max-height: 90vh;
   background-color: var(--pm7-background);
@@ -48,7 +65,7 @@
   box-shadow: var(--pm7-dialog-shadow);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 200ms, transform 200ms, visibility 200ms;
+  transition: opacity 200ms, visibility 200ms;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -66,7 +83,6 @@
 .pm7-dialog[data-state="open"] .pm7-dialog-content {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
 }
 
 /* Dialog sizes */
@@ -193,6 +209,22 @@
 /* Prevent body scroll when dialog is open */
 body.pm7-dialog-open {
   overflow: hidden;
+}
+
+/* Dialog icon */
+.pm7-dialog-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--pm7-spacing-4);
+}
+
+/* Dialog subtitle */
+.pm7-dialog-subtitle {
+  font-size: 14px;
+  color: var(--pm7-muted-foreground);
+  margin-top: var(--pm7-spacing-1);
+  line-height: 1.4;
 }
 
 /* Animation for shake effect */

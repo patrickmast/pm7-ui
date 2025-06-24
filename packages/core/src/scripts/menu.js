@@ -3,9 +3,15 @@
  * Handles dropdown menus with keyboard navigation and accessibility
  */
 export class PM7Menu {
-  static instances = new Set();
+  static instances = new Map(); // Changed to Map to store by element
   
   constructor(element) {
+    // Check if this element already has a menu instance
+    if (PM7Menu.instances.has(element)) {
+      console.warn('[PM7Menu] Element already has a menu instance, returning existing');
+      return PM7Menu.instances.get(element);
+    }
+    
     this.element = element;
     this.trigger = element.querySelector('.pm7-menu-trigger');
     this.content = element.querySelector('.pm7-menu-content');
@@ -18,8 +24,11 @@ export class PM7Menu {
       return;
     }
     
-    // Add this instance to the static set
-    PM7Menu.instances.add(this);
+    // Store this instance by element
+    PM7Menu.instances.set(element, this);
+    
+    // Store reference on element for easy access
+    element.PM7Menu = this;
     
     this.init();
   }
@@ -54,13 +63,14 @@ export class PM7Menu {
       item.setAttribute('tabindex', '-1');
     });
     
-    // Close on escape
-    document.addEventListener('keydown', (e) => {
+    // Close on escape - bind to instance for proper cleanup
+    this.escapeHandler = (e) => {
       if (e.key === 'Escape' && this.isOpen) {
+        e.stopPropagation(); // Don't trigger other escape handlers
         this.close();
         this.trigger.focus();
       }
-    });
+    };
     
     // Reposition on window resize/scroll
     this.repositionHandler = () => {
@@ -78,7 +88,7 @@ export class PM7Menu {
   
   open() {
     // Close all other open menus
-    PM7Menu.instances.forEach(instance => {
+    PM7Menu.instances.forEach((instance, element) => {
       if (instance !== this && instance.isOpen) {
         instance.close();
       }
@@ -87,6 +97,9 @@ export class PM7Menu {
     this.isOpen = true;
     this.content.classList.add('pm7-menu-content--open');
     this.trigger.setAttribute('aria-expanded', 'true');
+    
+    // Add escape handler when menu opens
+    document.addEventListener('keydown', this.escapeHandler);
     
     // Check viewport position and adjust if needed
     this.adjustPosition();
@@ -103,6 +116,9 @@ export class PM7Menu {
     this.content.classList.remove('pm7-menu-content--open');
     this.trigger.setAttribute('aria-expanded', 'false');
     this.currentIndex = -1;
+    
+    // Remove escape handler when menu closes
+    document.removeEventListener('keydown', this.escapeHandler);
     
     // Remove focus from items
     this.items.forEach(item => item.setAttribute('tabindex', '-1'));
@@ -283,18 +299,34 @@ export class PM7Menu {
 
 // Auto-initialize menus with data attribute
 // Use more efficient initialization
-if (typeof document !== 'undefined') {
+if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
+  // Prevent multiple initializations
+  window.__PM7_MENU_INIT__ = true;
+  
   const initMenus = () => {
+    console.log('[PM7Menu] Auto-init: Checking for menus...');
     const menus = document.querySelectorAll('[data-pm7-menu]:not([data-pm7-menu-initialized])');
-    menus.forEach(menu => {
-      new PM7Menu(menu);
-      menu.setAttribute('data-pm7-menu-initialized', 'true');
+    console.log(`[PM7Menu] Auto-init: Found ${menus.length} uninitialized menus`);
+    menus.forEach((menu, index) => {
+      console.log(`[PM7Menu] Auto-init: Initializing menu ${index + 1}/${menus.length}`);
+      try {
+        new PM7Menu(menu);
+        menu.setAttribute('data-pm7-menu-initialized', 'true');
+      } catch (error) {
+        console.error(`[PM7Menu] Auto-init: Error initializing menu ${index + 1}:`, error);
+      }
     });
+    console.log('[PM7Menu] Auto-init: Complete');
   };
   
   if (document.readyState === 'loading') {
+    console.log('[PM7Menu] Auto-init: Document still loading, waiting for DOMContentLoaded');
     document.addEventListener('DOMContentLoaded', initMenus, { once: true });
   } else {
-    initMenus();
+    console.log('[PM7Menu] Auto-init: Document ready, initializing now');
+    // Use setTimeout to avoid blocking
+    setTimeout(initMenus, 0);
   }
+} else if (window.__PM7_MENU_INIT__) {
+  console.log('[PM7Menu] Auto-init: Already initialized, skipping');
 }
