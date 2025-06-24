@@ -43,7 +43,7 @@
   border: 1px solid #d4d4d4;
   border-radius: var(--pm7-menu-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  /* NO ANIMATIONS - instant show/hide */
+  /* Hard display none/block */
   display: none;
 }
 
@@ -52,6 +52,7 @@
 .pm7-menu-content[data-state="open"] {
   display: block;
 }
+
 
 /* Menu alignment */
 .pm7-menu-content--end {
@@ -98,16 +99,22 @@
   border: none;
   width: 100%;
   text-align: left;
-  /* NO TRANSITIONS for instant feedback */
 }
 
-.pm7-menu-item:hover {
+.pm7-menu-item:not(.pm7-menu-item--clicking):hover {
   background-color: var(--pm7-menu-hover);
   color: var(--pm7-menu-hover-text);
   /* Original PM7 shadow effect */
   box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px;
   position: relative;
   z-index: 1;
+}
+
+/* Remove all effects when clicking */
+.pm7-menu-item--clicking {
+  background-color: transparent !important;
+  color: var(--pm7-foreground) !important;
+  box-shadow: none !important;
 }
 
 /* Active/selected state */

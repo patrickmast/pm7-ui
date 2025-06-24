@@ -53,6 +53,16 @@ export class PM7Menu {
     
     // Menu item clicks
     this.items.forEach((item, index) => {
+      // Use mousedown to remove hover state INSTANTLY
+      item.addEventListener('mousedown', (e) => {
+        if (!item.disabled && !item.hasAttribute('disabled') && !item.classList.contains('pm7-menu-item--has-submenu')) {
+          // Remove all hover effects immediately
+          item.classList.add('pm7-menu-item--clicking');
+          // Mark that we're clicking
+          this._clickingItem = true;
+        }
+      });
+      
       item.addEventListener('click', (e) => {
         if (!item.disabled && !item.hasAttribute('disabled')) {
           this.handleItemClick(e, item);
@@ -121,7 +131,12 @@ export class PM7Menu {
     document.removeEventListener('keydown', this.escapeHandler);
     
     // Remove focus from items
-    this.items.forEach(item => item.setAttribute('tabindex', '-1'));
+    this.items.forEach(item => {
+      item.setAttribute('tabindex', '-1');
+      // Remove clicking class from all items
+      item.classList.remove('pm7-menu-item--clicking');
+    });
+    
   }
   
   handleTriggerKeyDown(e) {
@@ -210,6 +225,12 @@ export class PM7Menu {
   }
   
   handleItemClick(e, item) {
+    // Close menu immediately for regular items (not submenus)
+    if (!item.classList.contains('pm7-menu-item--has-submenu')) {
+      this.close();
+      this.trigger.focus();
+    }
+    
     // Handle checkbox items
     if (item.classList.contains('pm7-menu-item--checkbox')) {
       const isChecked = item.getAttribute('data-checked') === 'true';
@@ -233,12 +254,6 @@ export class PM7Menu {
       const isOpen = item.getAttribute('data-submenu-open') === 'true';
       item.setAttribute('data-submenu-open', !isOpen);
       return; // Don't close the main menu
-    }
-    
-    // Close menu for regular items
-    if (!item.classList.contains('pm7-menu-item--has-submenu')) {
-      this.close();
-      this.trigger.focus();
     }
     
     // Dispatch custom event
