@@ -13,6 +13,16 @@ body {
   line-height: var(--pm7-leading-normal);
 }
 
+/* Prevent flash of unstyled content */
+#header-placeholder,
+#footer-placeholder {
+  min-height: 64px; /* Match header height */
+}
+
+#footer-placeholder {
+  min-height: 80px; /* Approximate footer height */
+}
+
 /* Navigation */
 .pm7-docs-nav {
   position: sticky;
@@ -31,6 +41,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 64px;
+  position: relative;
 }
 
 .pm7-docs-logo {
@@ -38,6 +49,26 @@ body {
   font-weight: var(--pm7-font-bold);
   color: var(--pm7-primary);
   text-decoration: none;
+  margin-left: var(--pm7-spacing-4);
+  padding-left: 30px;
+  white-space: nowrap;
+}
+
+/* Ensure menu has its own space */
+.pm7-docs-header-menu {
+  position: relative;
+  z-index: 10;
+  margin-right: auto; /* Push everything else to the right */
+}
+
+@media (max-width: 768px) {
+  .pm7-docs-logo {
+    font-size: var(--pm7-text-lg);
+  }
+  
+  .pm7-docs-nav-menu {
+    display: none; /* Hide nav menu on mobile */
+  }
 }
 
 .pm7-docs-nav-menu {
@@ -88,6 +119,12 @@ body {
   font-size: var(--pm7-text-xl);
   color: var(--pm7-text-secondary);
   margin: 0 0 var(--pm7-spacing-8);
+  text-align: left;
+}
+
+/* Hero variant - centered */
+.pm7-docs-lead--hero {
+  text-align: center;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -238,53 +275,24 @@ pre code {
 }
 
 .pm7-docs-sidebar {
-  width: 180px;
+  width: 200px;
   border-right: 1px solid var(--pm7-border);
   background: var(--pm7-surface);
 }
 
-.pm7-docs-sidebar-content {
-  position: sticky;
-  top: 64px;
-  padding: var(--pm7-spacing-6);
-}
-
-.pm7-docs-sidebar h3 {
-  font-size: var(--pm7-text-sm);
-  font-weight: var(--pm7-font-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--pm7-text-secondary);
-  margin: 0 0 var(--pm7-spacing-4);
-}
-
-.pm7-docs-sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.pm7-docs-sidebar li {
-  margin-bottom: var(--pm7-spacing-1);
-}
-
-.pm7-docs-sidebar a {
-  display: block;
+/* Ensure PM7 buttons in sidebar don't have default button height */
+.pm7-docs-sidebar .pm7-button {
+  height: auto;
   padding: var(--pm7-spacing-2) var(--pm7-spacing-3);
-  color: var(--pm7-text-secondary);
-  text-decoration: none;
-  border-radius: var(--pm7-radius);
-  transition: background-color 0.2s, color 0.2s;
+  font-weight: normal;
+  text-align: left;
+  font-size: var(--pm7-text-base);
 }
 
-.pm7-docs-sidebar a:hover {
-  background: var(--pm7-muted);
-  color: var(--pm7-foreground);
-}
-
-.pm7-docs-sidebar a.active {
-  background: var(--pm7-primary);
-  color: var(--pm7-primary-foreground);
+/* Override card padding for sidebar */
+.pm7-docs-sidebar .pm7-card {
+  background: transparent;
+  border: none;
 }
 
 .pm7-docs-content {
@@ -466,7 +474,12 @@ pre code {
   color: var(--pm7-text-secondary);
 }
 
-.pm7-footer-left,
+.pm7-footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--pm7-spacing-1);
+}
+
 .pm7-footer-center,
 .pm7-footer-right {
   display: flex;
@@ -486,7 +499,7 @@ pre code {
 .pm7-footer-logo-link {
   display: flex;
   align-items: center;
-  gap: var(--pm7-spacing-2);
+  gap: var(--pm7-spacing-1);
   color: var(--pm7-primary);
   text-decoration: none;
   transition: opacity 0.2s;
@@ -513,6 +526,11 @@ pre code {
 
 .pm7-footer-github:hover {
   opacity: 1;
+  color: #000000;
+}
+
+.pm7-footer-github:hover svg {
+  fill: #000000;
 }
 
 /* Footer Responsive */
@@ -526,4 +544,132 @@ pre code {
   .pm7-footer-center {
     display: none;
   }
+}
+
+/* PM7 Menu in Documentation Header */
+.pm7-docs-header-menu {
+  position: absolute;
+  left: var(--pm7-spacing-4);
+}
+
+.pm7-docs-menu-trigger {
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pm7-border);
+}
+
+.pm7-docs-menu-trigger:hover {
+  border-color: var(--pm7-primary);
+}
+
+/* Note: Menu items should start in neutral state, no active styling in dropdown */
+
+/* Mobile sidebar adjustments */
+@media (max-width: 768px) {
+  /* Mobile sidebar toggle */
+  .pm7-mobile-sidebar-toggle {
+    display: flex;
+    margin-bottom: var(--pm7-spacing-4);
+  }
+  
+  .pm7-docs-sidebar {
+    position: fixed;
+    top: 64px;
+    left: -200px;
+    height: calc(100vh - 64px);
+    transition: left 0.3s ease;
+    z-index: 100;
+  }
+  
+  .pm7-docs-sidebar.active {
+    left: 0;
+  }
+  
+  /* Overlay for mobile menu */
+  .pm7-mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 90;
+  }
+  
+  .pm7-mobile-overlay.active {
+    display: block;
+  }
+}
+
+/* Version Dialog Styles */
+.pm7-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pm7-spacing-4);
+}
+
+.pm7-dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.pm7-dialog-content {
+  position: relative;
+  background: var(--pm7-background);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius-md);
+  box-shadow: var(--pm7-shadow-lg);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  z-index: 10000;
+}
+
+.pm7-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pm7-spacing-6);
+  border-bottom: 1px solid var(--pm7-border);
+}
+
+.pm7-dialog-title {
+  margin: 0;
+  font-size: var(--pm7-text-xl);
+  font-weight: var(--pm7-font-semibold);
+}
+
+.pm7-dialog-close {
+  background: none;
+  border: none;
+  padding: var(--pm7-spacing-2);
+  cursor: pointer;
+  color: var(--pm7-text-secondary);
+  transition: color 0.2s;
+}
+
+.pm7-dialog-close:hover {
+  color: var(--pm7-foreground);
+}
+
+.pm7-dialog-body {
+  padding: var(--pm7-spacing-6);
 }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isolation Test - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+</head>
+<body>
+  <h1>Isolation Test</h1>
+  
+  <div id="log" style="background: #f5f5f5; padding: 20px; margin: 20px 0; font-family: monospace; white-space: pre-wrap;"></div>
+  
+  <button onclick="test1()">Test 1: Load Menu Only</button>
+  <button onclick="test2()">Test 2: Load Dialog Only</button>
+  <button onclick="test3()">Test 3: Load Both (Menu First)</button>
+  <button onclick="test4()">Test 4: Load Both (Dialog First)</button>
+  
+  <script>
+    const log = (msg) => {
+      const logEl = document.getElementById('log');
+      logEl.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+      console.log(msg);
+    };
+    
+    let animationFrameId;
+    let timeoutId;
+    
+    // Override requestAnimationFrame to detect infinite loops
+    const originalRAF = window.requestAnimationFrame;
+    let rafCount = 0;
+    window.requestAnimationFrame = function(callback) {
+      rafCount++;
+      if (rafCount > 100) {
+        log('⚠️ WARNING: Too many requestAnimationFrame calls!');
+      }
+      return originalRAF.call(window, callback);
+    };
+    
+    // Override setTimeout to detect issues
+    const originalSetTimeout = window.setTimeout;
+    let timeoutCount = 0;
+    window.setTimeout = function(callback, delay) {
+      timeoutCount++;
+      log(`setTimeout called (#${timeoutCount}, delay: ${delay}ms)`);
+      return originalSetTimeout.call(window, callback, delay);
+    };
+    
+    window.test1 = async function() {
+      log('\n=== TEST 1: Loading Menu Only ===');
+      rafCount = 0;
+      timeoutCount = 0;
+      
+      try {
+        const module = await import('/packages/core/src/scripts/menu.js');
+        log('✓ Menu loaded');
+        
+        // Wait a bit to see if anything happens
+        await new Promise(resolve => originalSetTimeout(resolve, 1000));
+        log(`RAF count: ${rafCount}, Timeout count: ${timeoutCount}`);
+        log('✓ No hang detected');
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+    
+    window.test2 = async function() {
+      log('\n=== TEST 2: Loading Dialog Only ===');
+      rafCount = 0;
+      timeoutCount = 0;
+      
+      try {
+        const module = await import('/packages/core/src/scripts/dialog.js');
+        log('✓ Dialog loaded');
+        
+        // Wait a bit to see if anything happens
+        await new Promise(resolve => originalSetTimeout(resolve, 1000));
+        log(`RAF count: ${rafCount}, Timeout count: ${timeoutCount}`);
+        log('✓ No hang detected');
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+    
+    window.test3 = async function() {
+      log('\n=== TEST 3: Loading Both (Menu First) ===');
+      rafCount = 0;
+      timeoutCount = 0;
+      
+      try {
+        const menu = await import('/packages/core/src/scripts/menu.js');
+        log('✓ Menu loaded');
+        
+        const dialog = await import('/packages/core/src/scripts/dialog.js');
+        log('✓ Dialog loaded');
+        
+        // Wait a bit to see if anything happens
+        await new Promise(resolve => originalSetTimeout(resolve, 1000));
+        log(`RAF count: ${rafCount}, Timeout count: ${timeoutCount}`);
+        log('✓ No hang detected');
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+    
+    window.test4 = async function() {
+      log('\n=== TEST 4: Loading Both (Dialog First) ===');
+      rafCount = 0;
+      timeoutCount = 0;
+      
+      try {
+        const dialog = await import('/packages/core/src/scripts/dialog.js');
+        log('✓ Dialog loaded');
+        
+        const menu = await import('/packages/core/src/scripts/menu.js');
+        log('✓ Menu loaded');
+        
+        // Wait a bit to see if anything happens
+        await new Promise(resolve => originalSetTimeout(resolve, 1000));
+        log(`RAF count: ${rafCount}, Timeout count: ${timeoutCount}`);
+        log('✓ No hang detected');
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+  </script>
+</body>
+</html>

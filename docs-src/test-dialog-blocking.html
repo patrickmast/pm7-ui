@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Dialog Blocking</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <h1>Test Dialog Blocking</h1>
+  <button id="test" style="padding: 20px; margin: 20px;">Test Hover Here</button>
+  <div id="status" style="margin: 20px; padding: 20px; background: #f0f0f0;"></div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  
+  <script>
+    const status = document.getElementById('status');
+    const testBtn = document.getElementById('test');
+    
+    // Add hover listener before any dialogs
+    testBtn.addEventListener('mouseenter', () => {
+      status.innerHTML += '<div>✓ Hover detected at ' + new Date().toLocaleTimeString() + '</div>';
+    });
+    
+    // Check for dialogs every 500ms
+    setInterval(() => {
+      const dialogs = document.querySelectorAll('.pm7-dialog, [data-pm7-dialog]');
+      const info = [];
+      
+      dialogs.forEach((dialog, i) => {
+        const style = window.getComputedStyle(dialog);
+        const rect = dialog.getBoundingClientRect();
+        info.push({
+          index: i,
+          id: dialog.getAttribute('data-pm7-dialog') || 'unknown',
+          display: style.display,
+          visibility: style.visibility,
+          zIndex: style.zIndex,
+          position: style.position,
+          pointerEvents: style.pointerEvents,
+          dataState: dialog.getAttribute('data-state'),
+          classes: dialog.className,
+          covering: rect.width > 0 && rect.height > 0 && style.display !== 'none'
+        });
+      });
+      
+      if (info.length > 0) {
+        // Check if any dialog is blocking
+        const blocking = info.find(d => 
+          d.covering && 
+          d.pointerEvents !== 'none' &&
+          d.display !== 'none'
+        );
+        
+        if (blocking) {
+          status.innerHTML = '<div style="color: red;">❌ BLOCKING DIALOG FOUND: ' + JSON.stringify(blocking, null, 2) + '</div>';
+        } else {
+          const summary = info.map(d => 
+            `Dialog "${d.id}": display=${d.display}, state=${d.dataState}, covering=${d.covering}`
+          ).join('<br>');
+          document.getElementById('dialog-info').innerHTML = summary;
+        }
+      }
+    }, 500);
+  </script>
+  
+  <div id="dialog-info" style="margin: 20px; padding: 20px; background: #ffffcc; font-family: monospace; font-size: 12px;"></div>
+</body>
+</html>

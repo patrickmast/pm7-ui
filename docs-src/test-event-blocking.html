@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Event Blocking</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <style>
+    #debug-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: yellow;
+      padding: 10px;
+      z-index: 999999;
+      max-width: 300px;
+    }
+    .test-area {
+      padding: 20px;
+      margin: 20px;
+      background: #f0f0f0;
+      border: 2px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="debug-info">
+    <h3>Debug Info</h3>
+    <div>Body pointer-events: <span id="body-pointer">?</span></div>
+    <div>Body classes: <span id="body-classes">?</span></div>
+    <div>Active elements: <span id="active-elements">?</span></div>
+    <div>Event test: <span id="event-test">?</span></div>
+  </div>
+
+  <div class="test-area">
+    <h1>Event Blocking Test</h1>
+    <button id="test1" style="padding: 10px; margin: 5px;">Test Button 1 (before imports)</button>
+    <button id="test2" style="padding: 10px; margin: 5px;">Test Button 2 (after imports)</button>
+  </div>
+
+  <script>
+    // Test button 1 immediately
+    document.getElementById('test1').addEventListener('click', () => {
+      alert('Button 1 works!');
+    });
+    
+    document.getElementById('test1').addEventListener('mouseenter', () => {
+      console.log('Button 1 hover works!');
+      document.getElementById('event-test').textContent = '✓ Hover works';
+    });
+    
+    // Check what's blocking events
+    function checkBlockers() {
+      // Check body
+      const bodyStyle = window.getComputedStyle(document.body);
+      document.getElementById('body-pointer').textContent = bodyStyle.pointerEvents;
+      document.getElementById('body-classes').textContent = document.body.className || 'none';
+      
+      // Check for overlays
+      const suspects = [];
+      document.querySelectorAll('*').forEach(el => {
+        const style = window.getComputedStyle(el);
+        const rect = el.getBoundingClientRect();
+        
+        // Check for elements that might block
+        if (
+          (style.position === 'fixed' || style.position === 'absolute') &&
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          rect.width > 0 &&
+          rect.height > 0 &&
+          style.pointerEvents !== 'none'
+        ) {
+          // Check if it covers viewport
+          if (
+            rect.top <= window.innerHeight &&
+            rect.bottom >= 0 &&
+            rect.left <= window.innerWidth &&
+            rect.right >= 0
+          ) {
+            suspects.push({
+              tag: el.tagName,
+              class: el.className,
+              zIndex: style.zIndex,
+              rect: `${rect.width}x${rect.height} at ${rect.left},${rect.top}`
+            });
+          }
+        }
+      });
+      
+      document.getElementById('active-elements').textContent = 
+        suspects.length > 0 ? JSON.stringify(suspects[0]) : 'none';
+    }
+    
+    // Check immediately
+    checkBlockers();
+    
+    // Then load the problematic scripts
+    setTimeout(() => {
+      console.log('Loading scripts...');
+      
+      import('/scripts/docs.js').then(() => {
+        console.log('Scripts loaded, checking again...');
+        
+        // Check again after load
+        setTimeout(() => {
+          checkBlockers();
+          
+          // Test button 2
+          document.getElementById('test2').addEventListener('click', () => {
+            alert('Button 2 works!');
+          });
+          
+          document.getElementById('test2').addEventListener('mouseenter', () => {
+            console.log('Button 2 hover works!');
+            document.getElementById('event-test').textContent = '✓ Button 2 hover works';
+          });
+          
+          // Force check event capturing
+          const capturedEvents = [];
+          const originalAddEventListener = EventTarget.prototype.addEventListener;
+          EventTarget.prototype.addEventListener = function(type, listener, options) {
+            if (options && options.capture && this === document) {
+              capturedEvents.push({ type, target: 'document' });
+            }
+            return originalAddEventListener.apply(this, arguments);
+          };
+          
+          console.log('Captured events:', capturedEvents);
+          
+        }, 1000);
+      });
+    }, 1000);
+    
+    // Keep checking
+    setInterval(checkBlockers, 2000);
+  </script>
+</body>
+</html>

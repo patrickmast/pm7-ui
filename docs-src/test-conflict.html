@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Conflict - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+</head>
+<body>
+  <h1>Testing Menu + Dialog Conflict</h1>
+  
+  <div id="log" style="background: #f5f5f5; padding: 20px; margin: 20px 0; font-family: monospace; white-space: pre-wrap; height: 400px; overflow-y: auto;"></div>
+  
+  <button onclick="testStep1()">Step 1: Load Menu.js</button>
+  <button onclick="testStep2()">Step 2: Load Dialog.js</button>
+  <button onclick="testStep3()">Step 3: Test Event Listeners</button>
+  <button onclick="testStep4()">Step 4: Create Test Menu</button>
+  
+  <div style="margin-top: 40px;">
+    <button id="test-hover" style="padding: 10px 20px;">Test Hover</button>
+  </div>
+  
+  <script>
+    const log = (msg) => {
+      const logEl = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      logEl.textContent += `[${timestamp}] ${msg}\n`;
+      logEl.scrollTop = logEl.scrollHeight;
+      console.log(msg);
+    };
+    
+    // Monitor all event listeners
+    const originalAddEventListener = EventTarget.prototype.addEventListener;
+    const listeners = [];
+    
+    EventTarget.prototype.addEventListener = function(type, listener, options) {
+      const target = this;
+      const stack = new Error().stack;
+      listeners.push({
+        target: target.tagName || target.constructor.name,
+        type,
+        stack
+      });
+      
+      if (type === 'keydown' && target === document) {
+        log(`⚠️ Document keydown listener added from:\n${stack.split('\n')[2]}`);
+      }
+      
+      return originalAddEventListener.call(this, type, listener, options);
+    };
+    
+    window.testStep1 = async function() {
+      log('=== STEP 1: Loading Menu.js ===');
+      try {
+        const module = await import('/packages/core/src/scripts/menu.js');
+        window.PM7Menu = module.PM7Menu;
+        log('✓ Menu.js loaded');
+        log(`  - PM7Menu class available: ${!!window.PM7Menu}`);
+        log(`  - Listeners count: ${listeners.length}`);
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+    
+    window.testStep2 = async function() {
+      log('\n=== STEP 2: Loading Dialog.js ===');
+      log(`Current listeners: ${listeners.length}`);
+      
+      try {
+        const module = await import('/packages/core/src/scripts/dialog.js');
+        window.openDialog = module.openDialog;
+        window.closeDialog = module.closeDialog;
+        log('✓ Dialog.js loaded');
+        log(`  - openDialog available: ${!!window.openDialog}`);
+        log(`  - closeDialog available: ${!!window.closeDialog}`);
+        log(`  - Listeners count: ${listeners.length}`);
+        
+        // Check for duplicate keydown listeners
+        const keydownListeners = listeners.filter(l => l.type === 'keydown' && l.target === 'HTMLDocument');
+        log(`  - Document keydown listeners: ${keydownListeners.length}`);
+        
+      } catch (error) {
+        log(`✗ Error: ${error.message}`);
+      }
+    };
+    
+    window.testStep3 = function() {
+      log('\n=== STEP 3: Testing Event System ===');
+      
+      // Test if events still work
+      const testBtn = document.getElementById('test-hover');
+      
+      // Test click
+      testBtn.addEventListener('click', () => {
+        log('✓ Click event works');
+      });
+      
+      // Test hover
+      testBtn.addEventListener('mouseenter', () => {
+        log('✓ Mouseenter event works');
+      });
+      
+      // Test keydown
+      document.addEventListener('keydown', (e) => {
+        log(`✓ Keydown event works: ${e.key}`);
+      }, { once: true });
+      
+      log('Event listeners attached. Try hovering, clicking, or pressing a key...');
+      
+      // List all event listeners
+      log('\nAll registered listeners:');
+      const summary = {};
+      listeners.forEach(l => {
+        const key = `${l.target} - ${l.type}`;
+        summary[key] = (summary[key] || 0) + 1;
+      });
+      
+      Object.entries(summary).forEach(([key, count]) => {
+        log(`  ${key}: ${count}`);
+      });
+    };
+    
+    window.testStep4 = function() {
+      log('\n=== STEP 4: Creating Test Menu ===');
+      
+      const menuHTML = `
+        <div class="pm7-menu" data-pm7-menu style="margin: 20px;">
+          <button class="pm7-menu-trigger">Test Menu</button>
+          <div class="pm7-menu-content">
+            <a href="#" class="pm7-menu-item">Item 1</a>
+            <a href="#" class="pm7-menu-item">Item 2</a>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', menuHTML);
+      
+      const menuEl = document.querySelector('[data-pm7-menu]');
+      if (menuEl && window.PM7Menu) {
+        try {
+          new window.PM7Menu(menuEl);
+          log('✓ Menu initialized');
+        } catch (error) {
+          log(`✗ Menu init error: ${error.message}`);
+        }
+      }
+    };
+    
+    // Initial log
+    log('Test page ready. Click buttons in order to test.');
+  </script>
+</body>
+</html>

@@ -146,6 +146,21 @@ npm run dev
 # Changes to packages/core/src/styles/ are hot-reloaded
 ```
 
+### Shared Components Architecture
+
+The documentation site uses JavaScript-based component injection to avoid code duplication:
+
+- **Header and Footer**: Defined once in `/docs-src/scripts/components.js`
+- **Dynamic Loading**: Components are loaded via `loadHeader()` and `loadFooter()` functions
+- **Placeholders**: HTML pages use `<div id="header-placeholder">` and `<div id="footer-placeholder">`
+- **Active State**: Navigation active state is determined dynamically based on current URL
+
+This approach:
+- Eliminates code duplication across 16+ HTML files
+- Makes maintenance easier (single source of truth)
+- Requires no build tools or additional dependencies
+- Works seamlessly with the existing Vite development server
+
 ## Build Process
 
 ### Core Package Build
@@ -175,6 +190,31 @@ Currently, testing is done through:
 - All public classes should follow the `pm7-` prefix convention
 - Design tokens should be used for all design decisions (colors, spacing, etc.)
 - The documentation site is the source of truth for component behavior
+
+## CSS Naming Convention
+
+PM7 UI uses a modified naming convention (NOT traditional BEM):
+
+- **Base classes**: `pm7-[component]` (e.g., `pm7-button`, `pm7-menu`)
+- **Sub-elements**: `pm7-[component]-[element]` with single dashes (e.g., `pm7-menu-trigger`, `pm7-menu-item`)
+- **Modifiers**: `pm7-[component]--[modifier]` with double dashes (e.g., `pm7-button--primary`, `pm7-input--sm`)
+
+**DO NOT USE** double underscores (`__`) for elements. Always use single dashes for sub-elements.
+
+Examples:
+```css
+/* ✅ Correct */
+.pm7-menu {}
+.pm7-menu-trigger {}
+.pm7-menu-content {}
+.pm7-menu-item {}
+.pm7-menu-item--disabled {}
+
+/* ❌ Incorrect (traditional BEM) */
+.pm7-menu__trigger {}
+.pm7-menu__content {}
+.pm7-menu__item {}
+```
 
 ## Component Documentation Structure
 

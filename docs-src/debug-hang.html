@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Hang Issue</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+</head>
+<body>
+  <h1>Debug Hang Issue</h1>
+  
+  <div id="status" style="background: #f5f5f5; padding: 20px; margin: 20px 0;">
+    <h2>Status:</h2>
+    <div id="status-text">Checking...</div>
+  </div>
+  
+  <button id="test-btn" style="padding: 10px 20px;">Test Hover/Click</button>
+  
+  <script>
+    let rafId;
+    let checkCount = 0;
+    
+    function updateStatus(msg) {
+      document.getElementById('status-text').innerHTML += `<br>${msg}`;
+    }
+    
+    // Check if page is responsive
+    function checkResponsive() {
+      checkCount++;
+      updateStatus(`Check ${checkCount}: Page is responsive`);
+      
+      if (checkCount < 5) {
+        rafId = requestAnimationFrame(checkResponsive);
+      }
+    }
+    
+    // Start checking
+    requestAnimationFrame(checkResponsive);
+    
+    // Test event handlers
+    const btn = document.getElementById('test-btn');
+    btn.addEventListener('click', () => updateStatus('✓ Click works'));
+    btn.addEventListener('mouseenter', () => updateStatus('✓ Hover works'));
+    
+    // Monitor for blocking operations
+    let lastCheck = Date.now();
+    setInterval(() => {
+      const now = Date.now();
+      const diff = now - lastCheck;
+      if (diff > 100) {
+        updateStatus(`⚠️ Slow interval: ${diff}ms`);
+      }
+      lastCheck = now;
+    }, 50);
+    
+    // Import only menu.js
+    updateStatus('Importing menu.js...');
+    import('/packages/core/src/scripts/menu.js').then(() => {
+      updateStatus('✓ Menu.js loaded');
+      
+      // Wait a bit then check if still responsive
+      setTimeout(() => {
+        updateStatus('Still responsive after menu.js');
+        
+        // Now try loading components
+        updateStatus('Loading components.js...');
+        import('/scripts/components.js').then(module => {
+          updateStatus('✓ Components.js loaded');
+          
+          // Call loadSharedComponents
+          module.loadSharedComponents();
+          updateStatus('✓ loadSharedComponents called');
+          
+          // Keep checking
+          setTimeout(() => {
+            updateStatus('Still responsive after components');
+          }, 1000);
+        });
+      }, 500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Exact Flow</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <h1>Testing exact homepage flow</h1>
+  <div id="status" style="background: #f5f5f5; padding: 20px; font-family: monospace;"></div>
+  
+  <button id="test-hover" style="margin: 20px; padding: 10px 20px;">Test Hover</button>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    const status = document.getElementById('status');
+    let stepCount = 0;
+    
+    function log(msg) {
+      stepCount++;
+      const time = new Date().toLocaleTimeString();
+      status.innerHTML += `${stepCount}. [${time}] ${msg}<br>`;
+      console.log(msg);
+    }
+    
+    // Test hover before any imports
+    document.getElementById('test-hover').addEventListener('mouseenter', () => {
+      log('✓ Hover still works at step ' + stepCount);
+    });
+    
+    log('Page loaded, starting test...');
+  </script>
+
+  <!-- Exact same script as homepage -->
+  <script type="module" src="/scripts/docs.js"></script>
+  
+  <script>
+    // Monitor for hang
+    let lastCheck = Date.now();
+    const checkInterval = setInterval(() => {
+      const now = Date.now();
+      const diff = now - lastCheck;
+      if (diff > 200) {
+        log('⚠️ SLOW: ' + diff + 'ms delay detected!');
+      }
+      lastCheck = now;
+      
+      // Also check if hover still works
+      const btn = document.getElementById('test-hover');
+      if (btn) {
+        const events = getEventListeners ? getEventListeners(btn) : null;
+        if (!events || !events.mouseenter) {
+          log('❌ HOVER BROKEN!');
+          clearInterval(checkInterval);
+        }
+      }
+    }, 100);
+    
+    // Stop checking after 10 seconds
+    setTimeout(() => {
+      clearInterval(checkInterval);
+      log('Test complete. If you see this, the page didn\'t hang.');
+    }, 10000);
+  </script>
+</body>
+</html>

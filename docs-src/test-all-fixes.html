@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test All Fixes - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main style="padding: 20px; max-width: 800px; margin: 0 auto;">
+    <h1>Testing All Fixes</h1>
+    
+    <div class="pm7-card" style="margin-bottom: 20px;">
+      <div class="pm7-card-content">
+        <h2>Test Checklist</h2>
+        <ol id="checklist">
+          <li>Page loads without hanging ⏳</li>
+          <li>Menu button works ⏳</li>
+          <li>Hover effects work ⏳</li>
+          <li>Version Info dialog opens ⏳</li>
+          <li>Dialog closes properly ⏳</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="pm7-card">
+      <div class="pm7-card-content">
+        <h2>Interactive Test</h2>
+        <button id="test-hover" class="pm7-button pm7-button--primary">
+          Hover Over Me
+        </button>
+        <div id="hover-status" style="margin-top: 10px;">Hover status: waiting...</div>
+      </div>
+    </div>
+    
+    <div id="log" style="margin-top: 20px; padding: 10px; background: #f5f5f5; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    const log = (msg) => {
+      const logEl = document.getElementById('log');
+      const time = new Date().toLocaleTimeString();
+      logEl.innerHTML += `[${time}] ${msg}<br>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    };
+    
+    const updateChecklist = (index, status) => {
+      const items = document.querySelectorAll('#checklist li');
+      if (items[index]) {
+        items[index].innerHTML = items[index].innerHTML.replace('⏳', status);
+      }
+    };
+    
+    // Test hover immediately
+    document.getElementById('test-hover').addEventListener('mouseenter', () => {
+      document.getElementById('hover-status').textContent = 'Hover status: ✓ Working!';
+      updateChecklist(2, '✓');
+      log('Hover effect working');
+    });
+    
+    log('Page starting...');
+  </script>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  
+  <script>
+    // Monitor page load
+    setTimeout(() => {
+      updateChecklist(0, '✓');
+      log('Page loaded successfully');
+      
+      // Test menu
+      setTimeout(() => {
+        const menuBtn = document.querySelector('.pm7-menu-trigger');
+        if (menuBtn) {
+          updateChecklist(1, '✓');
+          log('Menu button found');
+        } else {
+          updateChecklist(1, '❌');
+          log('Menu button NOT found');
+        }
+      }, 500);
+    }, 2000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test CSS Hang</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <style>
+    #debug-overlay {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: yellow;
+      padding: 10px;
+      z-index: 999999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="debug-overlay">
+    <div>Pointer events: <span id="pointer-status">checking...</span></div>
+    <div>Body classes: <span id="body-classes">checking...</span></div>
+    <div>Dialog count: <span id="dialog-count">0</span></div>
+    <div>Z-index issues: <span id="zindex-status">checking...</span></div>
+  </div>
+
+  <div id="header-placeholder"></div>
+  
+  <main style="padding: 20px;">
+    <h1>Test CSS Hang</h1>
+    <button id="test-btn" style="padding: 10px 20px;">Test Button</button>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  
+  <script type="module">
+    // Check for CSS issues
+    function checkCSSIssues() {
+      // Check pointer events
+      const btn = document.getElementById('test-btn');
+      const computed = window.getComputedStyle(btn);
+      document.getElementById('pointer-status').textContent = computed.pointerEvents;
+      
+      // Check body classes
+      document.getElementById('body-classes').textContent = document.body.className || 'none';
+      
+      // Check for dialogs
+      const dialogs = document.querySelectorAll('.pm7-dialog');
+      document.getElementById('dialog-count').textContent = dialogs.length;
+      
+      // Check for high z-index elements
+      const allElements = document.querySelectorAll('*');
+      let highZIndex = [];
+      allElements.forEach(el => {
+        const z = window.getComputedStyle(el).zIndex;
+        if (z !== 'auto' && parseInt(z) > 1000) {
+          highZIndex.push({el: el.tagName + '.' + el.className, z});
+        }
+      });
+      
+      if (highZIndex.length > 0) {
+        document.getElementById('zindex-status').textContent = JSON.stringify(highZIndex);
+      } else {
+        document.getElementById('zindex-status').textContent = 'none found';
+      }
+      
+      // Check for invisible overlays
+      const overlays = document.querySelectorAll('[class*="overlay"], [class*="backdrop"]');
+      overlays.forEach(overlay => {
+        const display = window.getComputedStyle(overlay).display;
+        const visibility = window.getComputedStyle(overlay).visibility;
+        if (display !== 'none' && visibility !== 'hidden') {
+          console.warn('Active overlay found:', overlay);
+        }
+      });
+    }
+    
+    // Test button functionality
+    document.getElementById('test-btn').addEventListener('click', () => {
+      console.log('Button clicked!');
+      alert('Button works!');
+    });
+    
+    // Load docs.js
+    import('/scripts/docs.js').then(() => {
+      console.log('docs.js loaded');
+      
+      // Check CSS issues after everything loads
+      setTimeout(checkCSSIssues, 1000);
+      
+      // Keep checking
+      setInterval(checkCSSIssues, 2000);
+    });
+  </script>
+</body>
+</html>

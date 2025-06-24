@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Test</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+</head>
+<body>
+  <h1>Minimal Test - No Components.js</h1>
+  
+  <button id="btn1">Test Button</button>
+  
+  <script type="module">
+    console.log('Starting minimal test...');
+    
+    // First import menu
+    import('/packages/core/src/scripts/menu.js').then(m => {
+      console.log('Menu loaded');
+      
+      // Then import dialog
+      import('/packages/core/src/scripts/dialog.js').then(d => {
+        console.log('Dialog loaded');
+        window.openDialog = d.openDialog;
+        window.closeDialog = d.closeDialog;
+        
+        // Test if page still responds
+        document.getElementById('btn1').addEventListener('click', () => {
+          console.log('Button clicked!');
+        });
+        
+        document.getElementById('btn1').addEventListener('mouseenter', () => {
+          console.log('Button hover!');
+        });
+        
+        console.log('Test complete - try hovering/clicking the button');
+      });
+    });
+  </script>
+</body>
+</html>

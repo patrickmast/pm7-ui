@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyze Dependencies</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body { padding: 20px; font-family: monospace; }
+    .module { margin: 10px 0; padding: 10px; background: #f5f5f5; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Module Dependency Analysis</h1>
+  <div id="results"></div>
+  
+  <script type="module">
+    const results = document.getElementById('results');
+    const modules = [];
+    
+    function addResult(text, className = '') {
+      const div = document.createElement('div');
+      div.className = 'module ' + className;
+      div.textContent = text;
+      results.appendChild(div);
+    }
+    
+    // Track module loading
+    const originalImport = window.import || ((url) => import(url));
+    let importCount = 0;
+    
+    window.import = function(url) {
+      importCount++;
+      const id = importCount;
+      addResult(`[${id}] Importing: ${url}`);
+      const startTime = performance.now();
+      
+      return originalImport(url).then(module => {
+        const loadTime = (performance.now() - startTime).toFixed(2);
+        addResult(`[${id}] ✓ Loaded ${url} in ${loadTime}ms`, 'success');
+        modules.push({ url, loadTime, module });
+        return module;
+      }).catch(error => {
+        addResult(`[${id}] ✗ Failed to load ${url}: ${error.message}`, 'error');
+        throw error;
+      });
+    };
+    
+    // Test the problematic flow
+    addResult('Starting dependency analysis...');
+    
+    // Step 1: Load menu.js
+    import('/packages/core/src/scripts/menu.js').then(() => {
+      addResult('Menu.js loaded, checking for side effects...');
+      
+      // Step 2: Load docs.js
+      return import('/scripts/docs.js');
+    }).then(() => {
+      addResult('Docs.js loaded, checking for circular dependencies...');
+      
+      // Check if any modules were loaded multiple times
+      const urlCounts = {};
+      modules.forEach(m => {
+        urlCounts[m.url] = (urlCounts[m.url] || 0) + 1;
+      });
+      
+      Object.entries(urlCounts).forEach(([url, count]) => {
+        if (count > 1) {
+          addResult(`⚠️ Module loaded ${count} times: ${url}`, 'error');
+        }
+      });
+      
+      addResult(`Total modules loaded: ${modules.length}`);
+      
+      // Test if page is still responsive
+      const testBtn = document.createElement('button');
+      testBtn.textContent = 'Test Responsiveness';
+      testBtn.style.marginTop = '20px';
+      testBtn.style.padding = '10px';
+      testBtn.onclick = () => addResult('✓ Button click works!', 'success');
+      results.appendChild(testBtn);
+      
+    }).catch(error => {
+      addResult(`Fatal error: ${error.message}`, 'error');
+      console.error(error);
+    });
+  </script>
+</body>
+</html>

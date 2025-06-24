@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Without Logging</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main style="padding: 20px;">
+    <h1>Test Without Console Logging</h1>
+    <p>This page uses components without any console.log statements to see if that's causing the hang.</p>
+    
+    <button id="test-btn" style="padding: 10px 20px; margin: 20px 0;">
+      Hover over me - I should show hover effects
+    </button>
+    
+    <div id="status" style="background: #f5f5f5; padding: 10px; margin-top: 20px;">
+      Status: <span id="status-text">Loading...</span>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script type="module">
+    // Minimal logging to track progress
+    const updateStatus = (text) => {
+      document.getElementById('status-text').textContent = text;
+    };
+    
+    updateStatus('Importing menu...');
+    
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    window.PM7Menu = PM7Menu;
+    
+    updateStatus('Importing components...');
+    
+    import { loadSharedComponents } from './scripts/components-no-log.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      updateStatus('Loading components...');
+      loadSharedComponents();
+      
+      // Test if page is responsive
+      setTimeout(() => {
+        updateStatus('Testing responsiveness...');
+        
+        const btn = document.getElementById('test-btn');
+        btn.addEventListener('mouseenter', () => {
+          updateStatus('✓ Hover works! Page is responsive.');
+        });
+        
+        btn.addEventListener('click', () => {
+          updateStatus('✓ Click works too!');
+        });
+        
+        updateStatus('Ready - try hovering/clicking the button');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
