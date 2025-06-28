@@ -251,6 +251,54 @@ All component documentation pages follow a consistent 4-tab structure:
 Components use the PM7 tab-selector component with default (underline) variant.
 The tab-selector styling exactly matches the pm7-ui-style-guide project specifications.
 
+## Component Documentation Page Structure
+
+### Usage Tab Section Order
+When creating or updating component documentation pages, the Usage tab MUST follow this exact section order:
+
+1. **Installation** - Simple npm install command
+   ```html
+   <h3>Installation</h3>
+   <pre><code class="language-bash">npm install @pm7/core</code></pre>
+   ```
+
+2. **CSS Classes** - Complete table with grouped categories
+   - Base classes
+   - Variants (if applicable)
+   - Size modifiers (if applicable)
+   - Theme variants (if applicable)
+   - State modifiers (if applicable)
+   - Structure classes (if applicable)
+   
+3. **Data Attributes** - Table with all data-* attributes
+   - Include: Attribute name, Type, Default value, Description
+   
+4. **Basic Usage** - Simple example showing the most common use case
+   - Other code examples follow (Positioning, Sizes, Themes, etc.)
+   
+5. **JavaScript API** - If the component has JavaScript functionality
+   - Import statement
+   - Initialization
+   - Methods
+   - Events
+   
+6. **React Usage** - React-specific implementation
+   
+7. **Accessibility** - Accessibility features and requirements
+
+### Demo Tab Structure
+- Use `pm7-docs-example` class for sections
+- Use `pm7-docs-preview` class for demo containers
+- Use `<h3>` for section headers
+- Group related demos logically
+
+### Important Notes:
+- Always use `<section class="pm7-docs-section">` wrapper
+- Headers within Usage tab should be `<h3>` not `<h2>`
+- No `pm7-card` wrappers around code blocks
+- Use `<pre><code class="language-*">` directly for code examples
+- Table section headers use gray background: `<tr style="background-color: #f9f9f9;">`
+
 ## Dogfooding Rule for PM7 UI Documentation Site
 **CRITICAL**: The PM7 UI documentation site MUST use PM7 UI components throughout. This serves two purposes:
 1. **Testing**: We test our own components in real-world usage

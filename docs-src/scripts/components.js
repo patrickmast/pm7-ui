@@ -121,6 +121,47 @@ export function loadFooter() {
   }
 }
 
+export function loadSidebar() {
+  // Get current page to determine active state
+  const currentPath = window.location.pathname;
+  const currentFile = currentPath.split('/').pop() || '';
+  
+  // Component list with all components
+  const components = [
+    { name: 'Button', href: '/components/button.html', file: 'button.html' },
+    { name: 'Card', href: '/components/card.html', file: 'card.html' },
+    { name: 'Dialog', href: '/components/dialog.html', file: 'dialog.html' },
+    { name: 'Icons', href: '/components/icons.html', file: 'icons.html' },
+    { name: 'Input', href: '/components/input.html', file: 'input.html' },
+    { name: 'Menu', href: '/components/menu.html', file: 'menu.html' },
+    { name: 'Tab Selector', href: '/components/tab-selector.html', file: 'tab-selector.html' },
+    { name: 'Toast', href: '/components/toast.html', file: 'toast.html' },
+    { name: 'Tooltip', href: '/components/tooltip.html', file: 'tooltip.html' }
+  ];
+  
+  // Build navigation links
+  const navLinks = components.map(component => {
+    const isActive = component.file === currentFile;
+    const activeStyle = isActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
+    return `<a href="${component.href}" class="pm7-button pm7-button--ghost pm7-button--full"${activeStyle}>${component.name}</a>`;
+  }).join('\n            ');
+  
+  const sidebarHTML = `
+    <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0; background-color: transparent;">
+      <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
+        <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
+        <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
+          ${navLinks}
+        </nav>
+      </div>
+    </div>`;
+  
+  const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
+  if (sidebarPlaceholder) {
+    sidebarPlaceholder.innerHTML = sidebarHTML;
+  }
+}
+
 // Version info dialog - using PM7 dialog component
 export function createVersionDialog() {
   // Skip if already exists
@@ -183,6 +224,10 @@ export function loadSharedComponents() {
     console.log('[Components] Loading footer...');
     loadFooter();
     console.log('[Components] Footer loaded');
+
+    console.log('[Components] Loading sidebar...');
+    loadSidebar();
+    console.log('[Components] Sidebar loaded');
 
     console.log('[Components] Creating version dialog...');
     createVersionDialog();

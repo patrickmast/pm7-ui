@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Tooltip</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body {
+      padding: 100px;
+      font-family: system-ui;
+    }
+    .test-container {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tooltip Test Page</h1>
+  
+  <div class="test-container">
+    <div class="pm7-tooltip">
+      <button class="pm7-button pm7-tooltip-trigger">
+        Hover me
+      </button>
+      <div class="pm7-tooltip-content" data-side="top">
+        This is a tooltip!
+        <div class="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+    
+    <div class="pm7-tooltip">
+      <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+        Another tooltip
+      </button>
+      <div class="pm7-tooltip-content" data-side="bottom">
+        Bottom tooltip
+        <div class="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { PM7Tooltip } from '/packages/core/src/scripts/tooltip.js';
+    
+    // Initialize tooltips
+    document.querySelectorAll('.pm7-tooltip').forEach(tooltip => {
+      new PM7Tooltip(tooltip);
+    });
+    
+    console.log('Tooltips initialized');
+  </script>
+</body>
+</html>

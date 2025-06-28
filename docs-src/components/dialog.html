@@ -12,23 +12,7 @@
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-layout">
-    <aside class="pm7-docs-sidebar">
-      <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0;">
-        <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-          <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-          <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-            <a href="/components/button.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Button</a>
-            <a href="/components/card.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Card</a>
-            <a href="/components/dialog.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Dialog</a>
-            <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
-            <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
-            <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
-            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
-            <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
-          </nav>
-        </div>
-      </div>
-    </aside>
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
 
     <main class="pm7-docs-content">
       <h1>Dialog</h1>
@@ -296,7 +280,114 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h4>Content Marker System</h4>
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-dialog</code></td>
+                  <td>Dialog container (hidden by default, controlled by `data-state` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-overlay</code></td>
+                  <td>Semi-transparent backdrop that covers the page when dialog is open</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content</code></td>
+                  <td>Container for the dialog box itself (header, body, footer)</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--sm</code></td>
+                  <td>Small dialog (max-width: 400px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--md</code></td>
+                  <td>Medium dialog (max-width: 600px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--lg</code></td>
+                  <td>Large dialog (max-width: 800px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--xl</code></td>
+                  <td>Extra large dialog (max-width: 1000px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--full</code></td>
+                  <td>Full screen dialog</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Dialog Variants</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog--alert</code></td>
+                  <td>Alert variant (red header)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--success</code></td>
+                  <td>Success variant (green header)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--loading</code></td>
+                  <td>Loading variant with spinner</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--shake</code></td>
+                  <td>Shake animation effect</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog-header</code></td>
+                  <td>Dialog header section (generated by `pm7-header` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-text</code></td>
+                  <td>Container for dialog title and description within the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-actions</code></td>
+                  <td>Container for icon and close button within the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-separator</code></td>
+                  <td>Horizontal line separator below the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-title</code></td>
+                  <td>Main title of the dialog (generated by `pm7-dialog-title` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-description</code></td>
+                  <td>Subtitle or description of the dialog (generated by `pm7-dialog-subtitle` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-icon</code></td>
+                  <td>Container for the dialog icon (generated by `pm7-dialog-icon` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-close</code></td>
+                  <td>Close button (generated by `pm7-show-close` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-body</code></td>
+                  <td>Main content area of the dialog (generated by `pm7-body` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-footer</code></td>
+                  <td>Footer section for actions (generated by `pm7-footer` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-spinner</code></td>
+                  <td>Loading spinner element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
             <p>PM7 Dialog supports two approaches: Traditional HTML structure and the new Content Marker system that automatically generates dialog structure.</p>
             
             <h4>Root Dialog Attributes</h4>
@@ -377,118 +468,6 @@
                   <td>Footer with actions</td>
                   <td><code>.pm7-dialog-footer</code></td>
                 </tr>
-              </tbody>
-            </table>
-
-            <h3>Dialog Variants</h3>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>.pm7-dialog--alert</code></td>
-                  <td>Alert variant (red header)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog--success</code></td>
-                  <td>Success variant (green header)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog--loading</code></td>
-                  <td>Loading variant with spinner</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog--shake</code></td>
-                  <td>Shake animation effect</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h3>CSS Classes</h3>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                | `pm7-dialog` | Dialog container (hidden by default, controlled by `data-state` attribute) |
-                <tr>
-                  <td><code>.pm7-dialog-overlay</code></td>
-                  <td>Semi-transparent backdrop that covers the page when dialog is open</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content</code></td>
-                  <td>Container for the dialog box itself (header, body, footer)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content--sm</code></td>
-                  <td>Small dialog (max-width: 400px)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content--md</code></td>
-                  <td>Medium dialog (max-width: 600px)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content--lg</code></td>
-                  <td>Large dialog (max-width: 800px)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content--xl</code></td>
-                  <td>Extra large dialog (max-width: 1000px)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-content--full</code></td>
-                  <td>Full screen dialog</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-header</code></td>
-                  <td>Dialog header section (generated by `pm7-header` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-header-text</code></td>
-                  <td>Container for dialog title and description within the header</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-header-actions</code></td>
-                  <td>Container for icon and close button within the header</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-header-separator</code></td>
-                  <td>Horizontal line separator below the header</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-title</code></td>
-                  <td>Main title of the dialog (generated by `pm7-dialog-title` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-description</code></td>
-                  <td>Subtitle or description of the dialog (generated by `pm7-dialog-subtitle` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-icon</code></td>
-                  <td>Container for the dialog icon (generated by `pm7-dialog-icon` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-close</code></td>
-                  <td>Close button (generated by `pm7-show-close` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-body</code></td>
-                  <td>Main content area of the dialog (generated by `pm7-body` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-footer</code></td>
-                  <td>Footer section for actions (generated by `pm7-footer` attribute)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-dialog-spinner</code></td>
-                  <td>Loading spinner element</td>
               </tbody>
             </table>
 
@@ -618,17 +597,6 @@ pm7Confirm('Are you sure?', (confirmed) => {
   }
 });</code></pre>
 
-            <h3>Accessibility</h3>
-            <ul>
-              <li><strong>Focus trap</strong>: Focus stays within dialog while open</li>
-              <li><strong>Escape key</strong>: Closes the dialog (unless <code>pm7-no-escape</code> is set)</li>
-              <li><strong>Click outside</strong>: Closes dialog by clicking overlay (unless <code>pm7-no-overlay-close</code> is set)</li>
-              <li><strong>Focus restoration</strong>: Focus returns to trigger element on close</li>
-              <li><strong>ARIA attributes</strong>: Proper roles and labels for screen readers</li>
-              <li><strong>Heading hierarchy</strong>: Semantic heading structure</li>
-              <li><strong>Keyboard navigation</strong>: Tab through interactive elements</li>
-            </ul>
-
             <h3>CSS Customization</h3>
             <p>Dialogs support dark mode and can be customized with CSS variables:</p>
             <pre><code class="language-css">:root {
@@ -640,6 +608,15 @@ pm7Confirm('Are you sure?', (confirmed) => {
   --pm7-dialog-bg: #1a1a1a;
   --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.8);
 }</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>The following functions are globally available for convenience, but can also be imported from <code>@pm7/core</code>:</p>
+            <ul>
+              <li><code>openDialog(id)</code>: Opens a dialog by its `pm7-dialog` ID.</li>
+              <li><code>closeDialog(id)</code>: Closes a dialog by its `pm7-dialog` ID.</li>
+              <li><code>pm7Alert(message, options)</code>: Shows a simple alert dialog.</li>
+              <li><code>pm7Confirm(message, callback, options)</code>: Shows a confirmation dialog.</li>
+            </ul>
 
             <h3>React Usage</h3>
             <p><em>Note: The React wrapper will need to be updated to support the new structure. The vanilla JavaScript version uses the new content markers as shown above.</em></p>
@@ -664,6 +641,17 @@ function MyComponent() {
     &lt;/div&gt;
   );
 }</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li><strong>Focus trap</strong>: Focus stays within dialog while open</li>
+              <li><strong>Escape key</strong>: Closes the dialog (unless <code>pm7-no-escape</code> is set)</li>
+              <li><strong>Click outside</strong>: Closes dialog by clicking overlay (unless <code>pm7-no-overlay-close</code> is set)</li>
+              <li><strong>Focus restoration</strong>: Focus returns to trigger element on close</li>
+              <li><strong>ARIA attributes</strong>: Proper roles and labels for screen readers</li>
+              <li><strong>Heading hierarchy</strong>: Semantic heading structure</li>
+              <li><strong>Keyboard navigation</strong>: Tab through interactive elements</li>
+            </ul>
           </section>
         </div>
 

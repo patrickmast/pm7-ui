@@ -12,23 +12,7 @@
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-layout">
-    <aside class="pm7-docs-sidebar">
-      <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0;">
-        <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-          <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-          <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-            <a href="/components/button.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Button</a>
-            <a href="/components/card.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Card</a>
-            <a href="/components/dialog.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Dialog</a>
-            <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
-            <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
-            <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
-            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Tab Selector</a>
-            <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
-          </nav>
-        </div>
-      </div>
-    </aside>
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
 
     <main class="pm7-docs-content">
       <h1>Tab Selector</h1>
@@ -264,7 +248,7 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h3>Basic Usage</h3>
+            <h3>CSS Classes</h3>
             <pre><code class="language-html">&lt;div class="pm7-tab-selector" data-pm7-tab-selector&gt;
   &lt;div class="pm7-tab-list"&gt;
     &lt;button class="pm7-tab-trigger" aria-controls="tab-1" data-state="active"&gt;Tab 1&lt;/button&gt;
@@ -283,7 +267,31 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-            <h3>CSS Classes</h3>
+            <h3>Data Attributes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-tab-selector</code></td>
+                  <td>Auto-initialize tab selector</td>
+                </tr>
+                <tr>
+                  <td><code>data-state="active"</code></td>
+                  <td>Marks active tab and content</td>
+                </tr>
+                <tr>
+                  <td><code>aria-controls</code></td>
+                  <td>Links tab trigger to content panel</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
             <table class="pm7-docs-table">
               <thead>
                 <tr>
@@ -354,6 +362,34 @@
             </table>
 
             <p><strong>Note</strong>: The default tab style uses an underline indicator. No additional class is needed for this variant.</p>
+            <p>Tabs use <code>data-state="active"</code> attributes for state management, with fallback support for <code>--active</code> modifier classes:</p>
+            <pre><code class="language-html">&lt;!-- Preferred: Using data-state --&gt;
+&lt;button class="pm7-tab-trigger" data-state="active"&gt;Active Tab&lt;/button&gt;
+&lt;div class="pm7-tab-content" data-state="active"&gt;Active Content&lt;/div&gt;
+
+&lt;!-- Alternative: Using modifier classes --&gt;
+&lt;button class="pm7-tab-trigger pm7-tab-trigger--active"&gt;Active Tab&lt;/button&gt;
+&lt;div class="pm7-tab-content pm7-tab-content--active"&gt;Active Content&lt;/div&gt;</code></pre>
+            <p>PM7 tabs can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Tab styling */
+  --pm7-tab-trigger-padding: 0.5rem 1rem;
+  --pm7-tab-trigger-padding-sm: 0.375rem 0.75rem;
+  --pm7-tab-trigger-padding-lg: 0.625rem 1.25rem;
+  
+  /* Typography */
+  --pm7-tab-trigger-font-size: 0.875rem;
+  --pm7-tab-trigger-font-size-sm: 0.8125rem;
+  --pm7-tab-trigger-font-size-lg: 1rem;
+  
+  /* Colors */
+  --pm7-tab-trigger-color: var(--pm7-text-secondary);
+  --pm7-tab-trigger-color-active: var(--pm7-primary);
+  
+  /* Indicator */
+  --pm7-tab-indicator-size: 2px;
+  --pm7-tab-indicator-color: var(--pm7-primary);
+}</code></pre>
 
             <h3>State Management</h3>
             <p>Tabs use <code>data-state="active"</code> attributes for state management, with fallback support for <code>--active</code> modifier classes:</p>
@@ -387,17 +423,7 @@
   --pm7-tab-indicator-color: var(--pm7-primary);
 }</code></pre>
 
-            <h3>Keyboard Navigation</h3>
-            <ul>
-              <li><kbd>Tab</kbd> - Move focus into tab list</li>
-              <li><kbd>Arrow Left/Up</kbd> - Move to previous tab</li>
-              <li><kbd>Arrow Right/Down</kbd> - Move to next tab</li>
-              <li><kbd>Home</kbd> - Jump to first tab</li>
-              <li><kbd>End</kbd> - Jump to last tab</li>
-              <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Activate focused tab</li>
-            </ul>
-
-            <h3>JavaScript Initialization</h3>
+            <h3>JavaScript API</h3>
             <p>Tab selectors are automatically initialized when the DOM loads. For dynamic content, you can manually initialize:</p>
             <pre><code class="language-javascript">import { PM7TabSelector } from '@pm7/core';
 
@@ -407,15 +433,6 @@ const tabSelector = new PM7TabSelector(element);
 
 // Or re-initialize all tab selectors
 PM7TabSelector.autoInit();</code></pre>
-
-
-            <h3>Accessibility</h3>
-            <ul>
-              <li>Uses ARIA <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles</li>
-              <li>Proper <code>aria-controls</code> and <code>aria-selected</code> attributes</li>
-              <li>Keyboard navigation follows ARIA authoring practices</li>
-              <li>Focus management for screen readers</li>
-            </ul>
 
             <h3>React Usage</h3>
             <pre><code class="language-jsx">import { TabSelector, TabList, TabTrigger, TabContent } from '@pm7/react';
@@ -440,6 +457,24 @@ function MyComponent() {
     &lt;/TabSelector&gt;
   );
 }</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Uses ARIA <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles</li>
+              <li>Proper <code>aria-controls</code> and <code>aria-selected</code> attributes</li>
+              <li>Keyboard navigation follows ARIA authoring practices</li>
+              <li>Focus management for screen readers</li>
+            </ul>
+
+            <h3>Keyboard Navigation</h3>
+            <ul>
+              <li><kbd>Tab</kbd> - Move focus into tab list</li>
+              <li><kbd>Arrow Left/Up</kbd> - Move to previous tab</li>
+              <li><kbd>Arrow Right/Down</kbd> - Move to next tab</li>
+              <li><kbd>Home</kbd> - Jump to first tab</li>
+              <li><kbd>End</kbd> - Jump to last tab</li>
+              <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Activate focused tab</li>
+            </ul>
 
             <h3>Best Practices</h3>
             <ul>

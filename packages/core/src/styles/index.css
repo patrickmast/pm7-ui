@@ -19,6 +19,7 @@
 @import './components/input.css';
 @import './components/toast.css';
 @import './components/tab-selector.css';
+@import './components/tooltip.css';
 
 /* Import utilities */
 @import './utilities/helpers.css';
