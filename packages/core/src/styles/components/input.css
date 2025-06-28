@@ -188,8 +188,8 @@ textarea.pm7-input--no-resize {
   color: var(--pm7-success);
 }
 
-/* Form field wrapper */
-.pm7-form-field {
+/* Form group */
+.pm7-form-group {
   margin-bottom: var(--pm7-spacing-4);
 }
 

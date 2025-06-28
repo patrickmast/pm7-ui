@@ -47,13 +47,13 @@ PM7 buttons come in several variants, each with a specific purpose:
 Three sizes are available to fit different contexts:
 
 ```html
-<!-- Small -->
+<!-- Small (36px height) -->
 <button class="pm7-button pm7-button--primary pm7-button--sm">Small</button>
 
-<!-- Medium (default) -->
-<button class="pm7-button pm7-button--primary pm7-button--md">Medium</button>
+<!-- Medium (40px height, default - no size class needed) -->
+<button class="pm7-button pm7-button--primary">Medium</button>
 
-<!-- Large -->
+<!-- Large (48px height) -->
 <button class="pm7-button pm7-button--primary pm7-button--lg">Large</button>
 ```
 
@@ -66,11 +66,7 @@ Three sizes are available to fit different contexts:
 <!-- Disabled -->
 <button class="pm7-button pm7-button--primary" disabled>Disabled</button>
 
-<!-- Loading (with spinner icon) -->
-<button class="pm7-button pm7-button--primary" disabled>
-  <svg class="pm7-spinner" width="16" height="16">...</svg>
-  Loading...
-</button>
+<!-- Active state: Button transforms 1px down on click for tactile feedback -->
 ```
 
 ### Full Width
@@ -118,20 +114,56 @@ Group related actions together:
 </div>
 ```
 
+## PM7 Special Features
+
+### 6Stars Hover Effect
+
+Primary buttons feature a unique "6stars" hover animation that creates a subtle sparkle effect, reinforcing the PM7 brand identity.
+
+### Interactive Feedback
+
+Buttons provide tactile feedback with a 1px downward transform on click, making interactions feel more responsive.
+
+## CSS Customization
+
+PM7 buttons can be customized using CSS custom properties:
+
+```css
+:root {
+  /* Border radius */
+  --pm7-button-radius: 0.375rem;
+  
+  /* Typography */
+  --pm7-button-font-size: 0.875rem;
+  --pm7-button-font-weight: 500;
+  --pm7-button-line-height: 1.25rem;
+  
+  /* Spacing */
+  --pm7-button-padding-y: 0.5rem;
+  --pm7-button-padding-x: 1rem;
+  
+  /* Shadows */
+  --pm7-button-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --pm7-button-shadow-active: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
+}
+```
+
 ## CSS Classes Reference
 
 | Class | Description |
 |-------|-------------|
 | `pm7-button` | Base button class (required) |
 | `pm7-button--primary` | Primary button variant |
+| `pm7-button--default` | Alias for `pm7-button--primary` |
 | `pm7-button--secondary` | Secondary button variant |
 | `pm7-button--outline` | Outline button variant |
 | `pm7-button--ghost` | Ghost button variant |
 | `pm7-button--destructive` | Destructive button variant |
 | `pm7-button--link` | Link button variant |
-| `pm7-button--sm` | Small size |
-| `pm7-button--md` | Medium size (default) |
-| `pm7-button--lg` | Large size |
+| `pm7-button--sm` | Small size (36px height) |
+| `pm7-button--lg` | Large size (48px height) |
 | `pm7-button--full` | Full width button |
 | `pm7-button--icon` | Icon-only button |
 | `pm7-button-group` | Container for grouped buttons |
@@ -141,8 +173,8 @@ Group related actions together:
 - All buttons are keyboard accessible
 - Use descriptive text for screen readers
 - For icon-only buttons, add `aria-label`
-- Disabled buttons have `aria-disabled="true"`
-- Focus states are clearly visible
+- Disabled buttons are properly announced
+- Focus states are clearly visible with customizable shadow
 
 ## Best Practices
 
@@ -209,21 +241,36 @@ import { Button } from '@pm7/react';
 function MyComponent() {
   return (
     <>
-      <Button variant="primary" size="md" onClick={handleClick}>
+      <Button variant="primary" onClick={handleClick}>
         Click me
       </Button>
       
-      <Button variant="outline" disabled>
+      <Button variant="outline" size="sm" disabled>
         Disabled
       </Button>
       
       <Button variant="destructive" fullWidth>
         Delete All
       </Button>
+      
+      {/* Advanced: Use asChild for component composition */}
+      <Button asChild variant="primary">
+        <a href="/dashboard">Go to Dashboard</a>
+      </Button>
     </>
   );
 }
 ```
+
+### React Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive' \| 'link'` | `'primary'` | Button variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `fullWidth` | `boolean` | `false` | Make button full width |
+| `asChild` | `boolean` | `false` | Render as child element |
+| ...HTMLButtonAttributes | - | - | All standard button props |
 
 ## Related Components
 

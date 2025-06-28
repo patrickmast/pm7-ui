@@ -1,7 +1,6 @@
 /* PM7 Dialog Component */
 
 /* Dialog backdrop */
-.pm7-dialog-backdrop,
 .pm7-dialog-overlay {
   position: fixed;
   inset: 0;
@@ -14,7 +13,6 @@
   transition: opacity 200ms, visibility 200ms;
 }
 
-.pm7-dialog-backdrop--open,
 .pm7-dialog-overlay--open,
 .pm7-dialog[data-state="open"] .pm7-dialog-overlay {
   opacity: 1;
@@ -30,8 +28,18 @@
   pointer-events: none; /* Prevent blocking when hidden */
 }
 
-.pm7-dialog[data-state="open"],
-.pm7-dialog--open {
+/* Hide dialog content until transformed */
+.pm7-dialog:not([data-state]) {
+  visibility: hidden;
+  position: absolute;
+  left: -9999px;
+}
+
+.pm7-dialog[data-state="closed"] {
+  display: none;
+}
+
+.pm7-dialog[data-state="open"] {
   display: block;
   pointer-events: auto; /* Re-enable when visible */
 }
@@ -57,12 +65,13 @@
   top: 50%;
   z-index: 101;
   transform: translate(-50%, -50%);
-  max-width: 90vw;
+  width: 100%;
+  max-width: 600px;
   max-height: 90vh;
   background-color: var(--pm7-background);
   border: 1px solid var(--pm7-border);
-  border-radius: var(--pm7-dialog-radius);
-  box-shadow: var(--pm7-dialog-shadow);
+  border-radius: var(--pm7-radius-lg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   opacity: 0;
   visibility: hidden;
   transition: opacity 200ms, visibility 200ms;
@@ -85,28 +94,24 @@
   visibility: visible;
 }
 
-/* Dialog sizes */
-.pm7-dialog-content--sm {
-  width: 400px;
+/* Dialog sizes - using compound selectors for higher specificity */
+.pm7-dialog-content.pm7-dialog-content--sm {
   max-width: 400px;
 }
 
-.pm7-dialog-content--md {
-  width: 600px;
+.pm7-dialog-content.pm7-dialog-content--md {
   max-width: 600px;
 }
 
-.pm7-dialog-content--lg {
-  width: 800px;
+.pm7-dialog-content.pm7-dialog-content--lg {
   max-width: 800px;
 }
 
-.pm7-dialog-content--xl {
-  width: 1000px;
+.pm7-dialog-content.pm7-dialog-content--xl {
   max-width: 1000px;
 }
 
-.pm7-dialog-content--full {
+.pm7-dialog-content.pm7-dialog-content--full {
   width: calc(100vw - 2rem);
   height: calc(100vh - 2rem);
   max-width: none;
@@ -115,31 +120,49 @@
 
 /* Dialog header */
 .pm7-dialog-header {
-  padding: 26px var(--pm7-spacing-6) var(--pm7-spacing-6);
+  position: relative;
+  padding: var(--pm7-spacing-6);
+  padding-right: calc(var(--pm7-spacing-6) + 2.25rem + var(--pm7-spacing-2)); /* Adjust for icon + close button + gap */
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
+  align-items: flex-start;
   flex-shrink: 0;
 }
 
-.pm7-dialog-header--with-border {
-  border-bottom: 1px solid var(--pm7-border);
-  padding-bottom: var(--pm7-spacing-4);
-  margin-bottom: var(--pm7-spacing-4);
+.pm7-dialog-header-text {
+  flex-grow: 1;
+}
+
+.pm7-dialog-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--pm7-spacing-2);
+  flex-shrink: 0;
+  position: absolute;
+  top: var(--pm7-spacing-4);
+  right: var(--pm7-spacing-4);
+}
+
+.pm7-dialog-icon-svg {
+  width: 2.25rem; /* 36px */
+  height: 2.25rem; /* 36px */
 }
 
 .pm7-dialog-title {
-  font-size: 28px;
-  font-weight: var(--pm7-font-semibold);
-  line-height: var(--pm7-leading-tight);
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   margin: 0;
   color: var(--pm7-foreground);
 }
 
 .pm7-dialog-description {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 15px;
-  color: var(--pm7-muted-foreground);
-  margin: var(--pm7-spacing-2) 0 0 0;
+  color: #333333;
+  margin: 4px 0 0 0;
   line-height: 1.5;
 }
 
@@ -148,8 +171,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem; /* Match icon size */
+  height: 2.25rem; /* Match icon size */
   padding: 0;
   background: transparent;
   border: none;
@@ -157,11 +180,7 @@
   color: #333333;
   cursor: pointer;
   transition: background-color 200ms, color 200ms;
-  margin-left: var(--pm7-spacing-4);
   flex-shrink: 0;
-  position: absolute;
-  right: var(--pm7-spacing-4);
-  top: var(--pm7-spacing-4);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -184,7 +203,13 @@
 .pm7-dialog-body {
   padding: var(--pm7-spacing-6);
   overflow-y: auto;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Hide empty dialog body to prevent scrollbar */
+.pm7-dialog-body:empty {
+  display: none;
 }
 
 /* Dialog footer */
@@ -197,7 +222,7 @@
   justify-content: flex-end;
   gap: var(--pm7-spacing-3);
   flex-shrink: 0;
-  margin: 0 calc(var(--pm7-spacing-6) * -1) calc(var(--pm7-spacing-6) * -1);
+  margin: 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -211,21 +236,7 @@ body.pm7-dialog-open {
   overflow: hidden;
 }
 
-/* Dialog icon */
-.pm7-dialog-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: var(--pm7-spacing-4);
-}
 
-/* Dialog subtitle */
-.pm7-dialog-subtitle {
-  font-size: 14px;
-  color: var(--pm7-muted-foreground);
-  margin-top: var(--pm7-spacing-1);
-  line-height: 1.4;
-}
 
 /* Animation for shake effect */
 @keyframes pm7-dialog-shake {
@@ -244,14 +255,14 @@ body.pm7-dialog-open {
     width: calc(100vw - 2rem);
     margin: 1rem;
   }
-  
-  .pm7-dialog-content--sm,
-  .pm7-dialog-content--md,
-  .pm7-dialog-content--lg,
-  .pm7-dialog-content--xl {
+
+  .pm7-dialog-content.pm7-dialog-content--sm,
+  .pm7-dialog-content.pm7-dialog-content--md,
+  .pm7-dialog-content.pm7-dialog-content--lg,
+  .pm7-dialog-content.pm7-dialog-content--xl {
     width: calc(100vw - 2rem);
   }
-  
+
   .pm7-dialog-header,
   .pm7-dialog-body,
   .pm7-dialog-footer {
@@ -263,7 +274,6 @@ body.pm7-dialog-open {
 .pm7-dialog--alert .pm7-dialog-header {
   background-color: var(--pm7-error);
   color: var(--pm7-error-foreground);
-  border-bottom-color: var(--pm7-error);
 }
 
 .pm7-dialog--alert .pm7-dialog-title {
@@ -282,7 +292,6 @@ body.pm7-dialog-open {
 .pm7-dialog--success .pm7-dialog-header {
   background-color: var(--pm7-success);
   color: var(--pm7-success-foreground);
-  border-bottom-color: var(--pm7-success);
 }
 
 .pm7-dialog--success .pm7-dialog-title {
@@ -310,33 +319,12 @@ body.pm7-dialog-open {
   to { transform: rotate(360deg); }
 }
 
-/* Dialog icon */
-.pm7-dialog-icon {
-  width: 48px;
-  height: 48px;
-  margin-bottom: var(--pm7-spacing-4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.pm7-dialog-icon svg {
-  width: 100%;
-  height: 100%;
-}
 
-/* Dialog separator */
-.pm7-dialog-separator {
+/* Dialog header-body separator */
+.pm7-dialog-header-separator {
   height: 1px;
   background-color: var(--pm7-border);
-  margin: var(--pm7-spacing-4) 0;
-  border: none;
-}
-
-.pm7-dialog-separator--sm {
-  margin: var(--pm7-spacing-2) 0;
-}
-
-.pm7-dialog-separator--lg {
-  margin: var(--pm7-spacing-6) 0;
+  opacity: 0.6;
+  margin: 0 var(--pm7-spacing-6) 0;
 }

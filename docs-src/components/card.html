@@ -23,6 +23,7 @@
             <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
             <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
             <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
+            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
             <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
           </nav>
         </div>
@@ -213,47 +214,6 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h3>Basic Usage</h3>
-            <pre><code class="language-html">&lt;div class="pm7-card"&gt;
-  &lt;div class="pm7-card-content"&gt;
-    &lt;h3&gt;Card Title&lt;/h3&gt;
-    &lt;p&gt;Card content goes here.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-            <h3>Card Structure</h3>
-            <pre><code class="language-html">&lt;!-- Full card structure --&gt;
-&lt;div class="pm7-card"&gt;
-  &lt;!-- Optional: Card header --&gt;
-  &lt;div class="pm7-card-header"&gt;
-    &lt;h3 class="pm7-card-title"&gt;Card Title&lt;/h3&gt;
-    &lt;p class="pm7-card-description"&gt;Card description&lt;/p&gt;
-  &lt;/div&gt;
-  
-  &lt;!-- Optional: Card image --&gt;
-  &lt;div class="pm7-card-image"&gt;
-    &lt;img src="image.jpg" alt="Card image"&gt;
-  &lt;/div&gt;
-  
-  &lt;!-- Main content area --&gt;
-  &lt;div class="pm7-card-content"&gt;
-    &lt;p&gt;Main card content&lt;/p&gt;
-  &lt;/div&gt;
-  
-  &lt;!-- Optional: Card footer --&gt;
-  &lt;div class="pm7-card-footer"&gt;
-    &lt;button class="pm7-button"&gt;Action&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- Clickable card --&gt;
-&lt;a href="#" class="pm7-card pm7-card--clickable"&gt;
-  &lt;div class="pm7-card-content"&gt;
-    &lt;h3&gt;Clickable Card&lt;/h3&gt;
-    &lt;p&gt;This entire card is clickable.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/a&gt;</code></pre>
-
             <h3>CSS Classes</h3>
             <table class="pm7-docs-table">
               <thead>
@@ -267,36 +227,254 @@
                   <td><code>.pm7-card</code></td>
                   <td>Base card container</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Variants</strong></td></tr>
                 <tr>
-                  <td><code>.pm7-card--clickable</code></td>
-                  <td>Makes entire card interactive with hover effects</td>
+                  <td><code>.pm7-card--outlined</code></td>
+                  <td>Card with a more prominent border</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-card--ghost</code></td>
+                  <td>Card with no border or shadow</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--elevated</code></td>
+                  <td>Card with larger shadow, no border</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--hoverable</code></td>
+                  <td>Card with hover lift effect</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Padding Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card--sm</code></td>
+                  <td>Small padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--md</code></td>
+                  <td>Medium padding (default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--lg</code></td>
+                  <td>Large padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--no-padding</code></td>
+                  <td>No padding</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Status Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card--success</code></td>
+                  <td>Success state (green)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--warning</code></td>
+                  <td>Warning state (orange)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--error</code></td>
+                  <td>Error state (red)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--info</code></td>
+                  <td>Info state (blue)</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card-header</code></td>
                   <td>Card header section</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-card-title</code></td>
-                  <td>Card title styling</td>
+                  <td>Card title</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-card-description</code></td>
-                  <td>Card description text</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-card-image</code></td>
-                  <td>Image container at top of card</td>
+                  <td>Card description/subtitle</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-card-content</code></td>
-                  <td>Main content area</td>
+                  <td>Main card content area</td>
                 </tr>
+                
                 <tr>
                   <td><code>.pm7-card-footer</code></td>
                   <td>Card footer section</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-card-image</code></td>
+                  <td>Full-width card image</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-image--top</code></td>
+                  <td>Image with rounded top corners, suitable for full-bleed images within a card that has `pm7-card--no-padding`</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Footer Alignment</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card-footer--start</code></td>
+                  <td>Left align footer content</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-footer--center</code></td>
+                  <td>Center align footer content</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-footer--between</code></td>
+                  <td>Space between footer items</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Grid Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card-grid</code></td>
+                  <td>Responsive grid container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--2</code></td>
+                  <td>2 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--3</code></td>
+                  <td>3 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--4</code></td>
+                  <td>4 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-2</code></td>
+                  <td>Fixed 2 column grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-3</code></td>
+                  <td>Fixed 3 column grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-4</code></td>
+                  <td>Fixed 4 column grid</td>
+                </tr>
               </tbody>
             </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;div class="pm7-card"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;h3&gt;Card Title&lt;/h3&gt;
+    &lt;p&gt;Card content goes here.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Card Variants</h3>
+            <pre><code class="language-html">&lt;!-- Outlined card (thicker border) --&gt;
+&lt;div class="pm7-card pm7-card--outlined"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Outlined card with prominent border&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Ghost card --&gt;
+&lt;div class="pm7-card pm7-card--ghost"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Ghost card with no border or shadow&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Elevated card --&gt;
+&lt;div class="pm7-card pm7-card--elevated"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Elevated card with larger shadow, no border&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Hoverable card --&gt;
+&lt;a href="#" class="pm7-card pm7-card--hoverable"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;h3&gt;Clickable Card&lt;/h3&gt;
+    &lt;p&gt;This entire card is clickable with hover effect.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/a&gt;</code></pre>
+
+            <h3>Status Cards</h3>
+            <pre><code class="language-html">&lt;!-- Success card --&gt;
+&lt;div class="pm7-card pm7-card--success"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Success!&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Operation completed successfully.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Warning card --&gt;
+&lt;div class="pm7-card pm7-card--warning"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Warning&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Please review before proceeding.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Card Grid System</h3>
+            <pre><code class="language-html">&lt;!-- Responsive grid (auto-fill) --&gt;
+&lt;div class="pm7-card-grid"&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 1&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 2&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed 3 column grid --&gt;
+&lt;div class="pm7-card-grid pm7-card-grid--fixed-3"&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Always 3 columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- More cards... --&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>CSS Customization</h3>
+            <p>PM7 cards can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Border radius */
+  --pm7-card-radius: 0.5rem;
+  
+  /* Padding variants */
+  --pm7-card-padding: 1.5rem;
+  --pm7-card-padding-sm: 1rem;
+  --pm7-card-padding-lg: 2rem;
+  
+  /* Visual properties */
+  --pm7-card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --pm7-card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --pm7-card-border-width: 1px;
+  
+  /* Footer */
+  --pm7-card-footer-bg: transparent;
+}</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>Cards don't require JavaScript initialization. For interactive features, use standard event handlers.</p>
+
+            <h3>Grid System Details</h3>
+            <p>The card grid system provides flexible layout options:</p>
+            <ul>
+              <li><strong>Default grid</strong>: Auto-fills with minimum 300px columns</li>
+              <li><strong>Numbered grids (--2, --3, --4)</strong>: Responsive with breakpoints</li>
+              <li><strong>Fixed grids (--fixed-2, etc.)</strong>: Non-responsive, always maintain column count</li>
+              <li><strong>Gap</strong>: Uses <code>--pm7-spacing-6</code> (1.5rem) between cards</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+              <li><strong>Consistent sizing</strong>: Use grid layouts for equal-height cards</li>
+              <li><strong>Clear hierarchy</strong>: Use title, description, and content sections appropriately</li>
+              <li><strong>Interactive cards</strong>: Use <code>pm7-card--hoverable</code> for clickable cards</li>
+              <li><strong>Status communication</strong>: Use status variants for important state information</li>
+              <li><strong>Padding choices</strong>: Select appropriate padding based on content density</li>
+              <li><strong>Images</strong>: Use <code>pm7-card--no-padding</code> with <code>pm7-card-image--top</code> for edge-to-edge images</li>
+            </ul>
 
             <h3>Accessibility</h3>
             <ul>
@@ -308,31 +486,22 @@
             </ul>
 
             <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { Card } from '@pm7/react';
-
-function MyComponent() {
+            <p>The React Card component is currently in development. For now, use the CSS classes directly in your React projects:</p>
+            <pre><code class="language-jsx">function MyComponent() {
   return (
-    &lt;&gt;
-      &lt;Card&gt;
-        &lt;Card.Header&gt;
-          &lt;Card.Title&gt;Card Title&lt;/Card.Title&gt;
-          &lt;Card.Description&gt;Card description&lt;/Card.Description&gt;
-        &lt;/Card.Header&gt;
-        &lt;Card.Content&gt;
-          &lt;p&gt;Card content goes here.&lt;/p&gt;
-        &lt;/Card.Content&gt;
-        &lt;Card.Footer&gt;
-          &lt;Button&gt;Action&lt;/Button&gt;
-        &lt;/Card.Footer&gt;
-      &lt;/Card&gt;
-      
-      &lt;Card clickable href="/details"&gt;
-        &lt;Card.Content&gt;
-          &lt;h3&gt;Clickable Card&lt;/h3&gt;
-          &lt;p&gt;This card is fully interactive.&lt;/p&gt;
-        &lt;/Card.Content&gt;
-      &lt;/Card&gt;
-    &lt;/&gt;
+    &lt;div className="pm7-card pm7-card--hoverable"&gt;
+      &lt;div className="pm7-card-header"&gt;
+        &lt;h3 className="pm7-card-title"&gt;Card Title&lt;/h3&gt;
+        &lt;p className="pm7-card-description"&gt;Card description&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div className="pm7-card-content"&gt;
+        &lt;p&gt;Card content goes here.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div className="pm7-card-footer pm7-card-footer--between"&gt;
+        &lt;button className="pm7-button pm7-button--outline"&gt;Cancel&lt;/button&gt;
+        &lt;button className="pm7-button pm7-button--primary"&gt;Save&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   );
 }</code></pre>
           </section>

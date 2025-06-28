@@ -6,8 +6,13 @@ export class PM7TabSelector {
   constructor(element) {
     this.element = element;
     this.tabList = element.querySelector('.pm7-tab-list');
-    this.tabs = Array.from(element.querySelectorAll('.pm7-tab-trigger'));
-    this.panels = Array.from(element.querySelectorAll('.pm7-tab-content'));
+    // Only get direct child tabs and panels, not nested ones
+    this.tabs = Array.from(element.querySelectorAll('.pm7-tab-trigger')).filter(tab => 
+      tab.closest('[data-pm7-tab-selector]') === element
+    );
+    this.panels = Array.from(element.querySelectorAll('.pm7-tab-content')).filter(panel => 
+      panel.closest('[data-pm7-tab-selector]') === element
+    );
     this.activeTab = null;
     
     if (!this.tabList || this.tabs.length === 0) {
@@ -23,18 +28,25 @@ export class PM7TabSelector {
     this.tabList.setAttribute('role', 'tablist');
     
     this.tabs.forEach((tab, index) => {
-      const panelId = tab.getAttribute('aria-controls') || `pm7-tab-panel-${Math.random().toString(36).substr(2, 9)}`;
       const panel = this.panels[index];
+      let panelId = tab.getAttribute('aria-controls');
+      
+      // If no aria-controls, use panel's existing id or generate new one
+      if (!panelId) {
+        panelId = panel?.id || `pm7-tab-panel-${Math.random().toString(36).substr(2, 9)}`;
+        tab.setAttribute('aria-controls', panelId);
+      }
       
       // Set up tab
       tab.setAttribute('role', 'tab');
-      tab.setAttribute('aria-controls', panelId);
       tab.setAttribute('tabindex', '-1');
       
       // Set up panel
       if (panel) {
         panel.setAttribute('role', 'tabpanel');
-        panel.setAttribute('id', panelId);
+        if (!panel.id) {
+          panel.setAttribute('id', panelId);
+        }
         panel.setAttribute('aria-labelledby', tab.id || (tab.id = `pm7-tab-${Math.random().toString(36).substr(2, 9)}`));
         panel.setAttribute('tabindex', '0');
       }
@@ -47,12 +59,16 @@ export class PM7TabSelector {
     });
     
     // Activate first tab or already active tab
-    const activeTab = this.tabs.find(tab => 
-      tab.getAttribute('data-state') === 'active' || 
+    const initialActiveTab = this.tabs.find(tab =>
+      tab.getAttribute('data-state') === 'active' ||
       tab.classList.contains('pm7-tab-trigger--active')
     ) || this.tabs[0];
-    
-    this.selectTab(activeTab);
+
+    this.selectTab(initialActiveTab);
+    // Ensure the initial active tab has tabindex 0
+    if (initialActiveTab) {
+      initialActiveTab.setAttribute('tabindex', '0');
+    }
   }
   
   selectTab(tab) {

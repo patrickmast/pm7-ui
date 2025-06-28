@@ -25,6 +25,15 @@ npm install @pm7/core
 </div>
 ```
 
+### Required Fields
+
+```html
+<div class="pm7-form-group">
+  <label for="name" class="pm7-label pm7-label--required">Full Name</label>
+  <input type="text" id="name" class="pm7-input" required>
+</div>
+```
+
 ### Input with Helper Text
 
 ```html
@@ -107,18 +116,19 @@ npm install @pm7/core
 
 ```html
 <!-- Basic textarea -->
-<textarea class="pm7-textarea" rows="4" placeholder="Enter description..."></textarea>
+<textarea class="pm7-input" rows="4" placeholder="Enter description..."></textarea>
 
 <!-- Textarea with label -->
 <div class="pm7-form-group">
   <label for="message" class="pm7-label">Message</label>
-  <textarea id="message" class="pm7-textarea" rows="6" placeholder="Type your message here..."></textarea>
+  <textarea id="message" class="pm7-input" rows="6" placeholder="Type your message here..."></textarea>
   <p class="pm7-helper-text">Maximum 500 characters</p>
 </div>
 
-<!-- Auto-resize textarea -->
-<textarea class="pm7-textarea pm7-textarea--auto-resize" 
-          placeholder="This textarea grows as you type..."></textarea>
+<!-- Non-resizable textarea -->
+<textarea class="pm7-input pm7-input--no-resize" 
+          rows="4" 
+          placeholder="Fixed size textarea..."></textarea>
 ```
 
 ### Select
@@ -142,30 +152,107 @@ npm install @pm7/core
     <option value="ca">Canada</option>
   </select>
 </div>
+
+<!-- Select sizes -->
+<select class="pm7-select pm7-select--sm">
+  <option>Small select</option>
+</select>
+
+<select class="pm7-select pm7-select--lg">
+  <option>Large select</option>
+</select>
 ```
 
-### Checkbox and Radio
+### Checkbox
 
 ```html
-<!-- Checkbox -->
+<!-- Basic checkbox -->
 <label class="pm7-checkbox">
-  <input type="checkbox" class="pm7-checkbox-input">
+  <input type="checkbox">
+  <span class="pm7-checkbox-indicator"></span>
   <span class="pm7-checkbox-label">I agree to the terms</span>
 </label>
 
-<!-- Radio buttons -->
-<div class="pm7-radio-group">
+<!-- Checkbox group -->
+<div class="pm7-form-group">
+  <p class="pm7-label">Select options:</p>
+  <label class="pm7-checkbox">
+    <input type="checkbox" checked>
+    <span class="pm7-checkbox-indicator"></span>
+    <span class="pm7-checkbox-label">Option 1</span>
+  </label>
+  <label class="pm7-checkbox">
+    <input type="checkbox">
+    <span class="pm7-checkbox-indicator"></span>
+    <span class="pm7-checkbox-label">Option 2</span>
+  </label>
+  <label class="pm7-checkbox">
+    <input type="checkbox" disabled>
+    <span class="pm7-checkbox-indicator"></span>
+    <span class="pm7-checkbox-label">Option 3 (disabled)</span>
+  </label>
+</div>
+```
+
+### Radio Buttons
+
+```html
+<!-- Radio group -->
+<div class="pm7-form-group">
+  <p class="pm7-label">Choose a plan:</p>
   <label class="pm7-radio">
-    <input type="radio" name="plan" value="basic" class="pm7-radio-input">
-    <span class="pm7-radio-label">Basic Plan</span>
+    <input type="radio" name="plan" value="basic" checked>
+    <span class="pm7-radio-indicator"></span>
+    <span class="pm7-radio-label">Basic Plan - $9/month</span>
   </label>
   <label class="pm7-radio">
-    <input type="radio" name="plan" value="pro" class="pm7-radio-input">
-    <span class="pm7-radio-label">Pro Plan</span>
+    <input type="radio" name="plan" value="pro">
+    <span class="pm7-radio-indicator"></span>
+    <span class="pm7-radio-label">Pro Plan - $19/month</span>
   </label>
   <label class="pm7-radio">
-    <input type="radio" name="plan" value="enterprise" class="pm7-radio-input">
-    <span class="pm7-radio-label">Enterprise Plan</span>
+    <input type="radio" name="plan" value="enterprise">
+    <span class="pm7-radio-indicator"></span>
+    <span class="pm7-radio-label">Enterprise Plan - $49/month</span>
+  </label>
+</div>
+```
+
+### Switch/Toggle
+
+```html
+<!-- Basic switch -->
+<label class="pm7-switch">
+  <input type="checkbox">
+  <span class="pm7-switch-track">
+    <span class="pm7-switch-thumb"></span>
+  </span>
+  <span class="pm7-switch-label">Enable notifications</span>
+</label>
+
+<!-- Switch group -->
+<div class="pm7-form-group">
+  <p class="pm7-label">Settings</p>
+  <label class="pm7-switch">
+    <input type="checkbox" checked>
+    <span class="pm7-switch-track">
+      <span class="pm7-switch-thumb"></span>
+    </span>
+    <span class="pm7-switch-label">Email notifications</span>
+  </label>
+  <label class="pm7-switch">
+    <input type="checkbox">
+    <span class="pm7-switch-track">
+      <span class="pm7-switch-thumb"></span>
+    </span>
+    <span class="pm7-switch-label">SMS notifications</span>
+  </label>
+  <label class="pm7-switch">
+    <input type="checkbox" disabled>
+    <span class="pm7-switch-track">
+      <span class="pm7-switch-thumb"></span>
+    </span>
+    <span class="pm7-switch-label">Push notifications (disabled)</span>
   </label>
 </div>
 ```
@@ -174,15 +261,60 @@ npm install @pm7/core
 
 ```html
 <!-- Icon on left -->
-<div class="pm7-input-group">
-  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">...</svg>
+<div class="pm7-input-icon-wrapper">
+  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">
+    <!-- Search icon -->
+  </svg>
   <input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search...">
 </div>
 
 <!-- Icon on right -->
-<div class="pm7-input-group">
+<div class="pm7-input-icon-wrapper">
   <input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password">
-  <svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16">...</svg>
+  <svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16">
+    <!-- Lock icon -->
+  </svg>
+</div>
+
+<!-- Icons on both sides -->
+<div class="pm7-input-icon-wrapper">
+  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">
+    <!-- User icon -->
+  </svg>
+  <input type="email" class="pm7-input pm7-input--with-icon-left pm7-input--with-icon-right" 
+         placeholder="Email" value="user@example.com">
+  <svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16">
+    <!-- Check icon -->
+  </svg>
+</div>
+```
+
+### Input Groups with Addons
+
+```html
+<!-- Prefix addon -->
+<div class="pm7-input-group">
+  <span class="pm7-input-addon">https://</span>
+  <input type="text" class="pm7-input" placeholder="yoursite.com">
+</div>
+
+<!-- Suffix addon -->
+<div class="pm7-input-group">
+  <input type="number" class="pm7-input" placeholder="0.00">
+  <span class="pm7-input-addon">USD</span>
+</div>
+
+<!-- Both addons -->
+<div class="pm7-input-group">
+  <span class="pm7-input-addon">$</span>
+  <input type="number" class="pm7-input" placeholder="0.00">
+  <span class="pm7-input-addon">.00</span>
+</div>
+
+<!-- Button addon -->
+<div class="pm7-input-group">
+  <input type="text" class="pm7-input" placeholder="Enter coupon code">
+  <button class="pm7-button pm7-button--primary">Apply</button>
 </div>
 ```
 
@@ -190,56 +322,98 @@ npm install @pm7/core
 
 | Class | Description |
 |-------|-------------|
-| `pm7-input` | Base input class |
+| **Input Classes** | |
+| `pm7-input` | Base input/textarea class |
 | `pm7-input--sm` | Small input size |
 | `pm7-input--lg` | Large input size |
 | `pm7-input--error` | Error state styling |
 | `pm7-input--success` | Success state styling |
-| `pm7-input--with-icon-left` | Input with left icon |
-| `pm7-input--with-icon-right` | Input with right icon |
-| `pm7-textarea` | Textarea styling |
-| `pm7-textarea--auto-resize` | Auto-resizing textarea |
+| `pm7-input--with-icon-left` | Input with left icon padding |
+| `pm7-input--with-icon-right` | Input with right icon padding |
+| `pm7-input--no-resize` | Prevents textarea resizing |
+| **Select Classes** | |
 | `pm7-select` | Select dropdown styling |
+| `pm7-select--sm` | Small select size |
+| `pm7-select--lg` | Large select size |
+| **Checkbox Classes** | |
 | `pm7-checkbox` | Checkbox container |
-| `pm7-checkbox-input` | Checkbox input |
-| `pm7-checkbox-label` | Checkbox label |
+| `pm7-checkbox-indicator` | Custom checkbox indicator |
+| `pm7-checkbox-label` | Checkbox label text |
+| **Radio Classes** | |
 | `pm7-radio` | Radio container |
-| `pm7-radio-input` | Radio input |
-| `pm7-radio-label` | Radio label |
-| `pm7-radio-group` | Radio group container |
-| `pm7-form-group` | Form field container |
+| `pm7-radio-indicator` | Custom radio indicator |
+| `pm7-radio-label` | Radio label text |
+| **Switch Classes** | |
+| `pm7-switch` | Switch container |
+| `pm7-switch-track` | Switch track background |
+| `pm7-switch-thumb` | Switch thumb indicator |
+| `pm7-switch-label` | Switch label text |
+| **Layout Classes** | |
+| `pm7-form-group` | Container for a form field (label, input, helper text) |
 | `pm7-label` | Form label |
-| `pm7-helper-text` | Helper text |
-| `pm7-error-text` | Error message text |
-| `pm7-success-text` | Success message text |
-| `pm7-input-group` | Input with icons container |
+| `pm7-label--required` | Adds required asterisk |
+| `pm7-helper-text` | Helper/hint text |
+| `pm7-error-text` | Error message styling |
+| `pm7-success-text` | Success message styling |
+| **Icon & Group Classes** | |
+| `pm7-input-icon-wrapper` | Container for input with icons |
 | `pm7-input-icon` | Icon styling |
 | `pm7-input-icon--left` | Left icon positioning |
 | `pm7-input-icon--right` | Right icon positioning |
+| `pm7-input-group` | Input group container (for addons) |
+| `pm7-input-addon` | Prefix/suffix addon styling |
 
-## Form Layout
+## CSS Customization
+
+PM7 inputs can be customized using CSS custom properties:
+
+```css
+:root {
+  /* Input sizing */
+  --pm7-input-height: 2.5rem;
+  --pm7-input-height-sm: 2rem;
+  --pm7-input-height-lg: 3rem;
+  
+  /* Input styling */
+  --pm7-input-border-radius: 0.375rem;
+  --pm7-input-border-width: 1px;
+  --pm7-input-padding-x: 0.75rem;
+  
+  /* Focus state */
+  --pm7-input-focus-ring-width: 2px;
+  --pm7-input-focus-ring-color: var(--pm7-primary);
+  
+  /* Typography */
+  --pm7-input-font-size: 0.875rem;
+  --pm7-input-font-size-sm: 0.8125rem;
+  --pm7-input-font-size-lg: 1rem;
+}
+```
+
+## Form Layout Example
 
 ```html
-<form class="pm7-form">
+<form>
   <div class="pm7-form-group">
-    <label for="name" class="pm7-label">Full Name</label>
+    <label for="name" class="pm7-label pm7-label--required">Full Name</label>
     <input type="text" id="name" class="pm7-input" required>
   </div>
   
   <div class="pm7-form-group">
-    <label for="email" class="pm7-label">Email</label>
+    <label for="email" class="pm7-label pm7-label--required">Email</label>
     <input type="email" id="email" class="pm7-input" required>
     <p class="pm7-helper-text">We'll never share your email</p>
   </div>
   
   <div class="pm7-form-group">
     <label for="bio" class="pm7-label">Bio</label>
-    <textarea id="bio" class="pm7-textarea" rows="4"></textarea>
+    <textarea id="bio" class="pm7-input" rows="4"></textarea>
   </div>
   
   <div class="pm7-form-group">
     <label class="pm7-checkbox">
-      <input type="checkbox" class="pm7-checkbox-input" required>
+      <input type="checkbox" required>
+      <span class="pm7-checkbox-indicator"></span>
       <span class="pm7-checkbox-label">I agree to the terms and conditions</span>
     </label>
   </div>
@@ -253,18 +427,23 @@ npm install @pm7/core
 ## Validation
 
 ```html
-<!-- Required field -->
+<!-- HTML5 validation -->
 <div class="pm7-form-group">
-  <label for="required-field" class="pm7-label">
-    Required Field <span style="color: var(--pm7-destructive);">*</span>
-  </label>
-  <input type="text" id="required-field" class="pm7-input" required>
+  <label for="email-validate" class="pm7-label pm7-label--required">Email</label>
+  <input type="email" 
+         id="email-validate" 
+         class="pm7-input" 
+         required 
+         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+  <p class="pm7-helper-text">Enter a valid email address</p>
 </div>
 
 <!-- Pattern validation -->
 <div class="pm7-form-group">
   <label for="phone" class="pm7-label">Phone (US)</label>
-  <input type="tel" id="phone" class="pm7-input" 
+  <input type="tel" 
+         id="phone" 
+         class="pm7-input" 
          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
          placeholder="123-456-7890">
 </div>
@@ -278,40 +457,50 @@ npm install @pm7/core
 
 ## Accessibility Features
 
-- Proper label association with `for` attribute
-- Required fields marked with `required` attribute
-- Error messages associated with inputs using `aria-describedby`
-- Disabled state properly communicated
-- Keyboard navigation support
-- Focus states clearly visible
+- **Label association**: Use `for` attribute to link labels with inputs
+- **Required fields**: Marked with `required` attribute and visual indicator
+- **Error messages**: Associated with inputs using `aria-describedby`
+- **Disabled state**: Properly communicated to screen readers
+- **Keyboard navigation**: Full keyboard support including tab order
+- **Focus states**: Clear visual focus indicators
+- **Switch/checkbox state**: Announced correctly by screen readers
 
 ## Best Practices
 
 1. **Always use labels**: Every input should have an associated label
 2. **Provide helper text**: Guide users with helpful hints
 3. **Clear error messages**: Be specific about what went wrong
-4. **Group related fields**: Use `pm7-form-group` for organization
-5. **Mark required fields**: Use asterisk (*) or "required" text
+4. **Group related fields**: Use `pm7-form-field` for organization
+5. **Mark required fields**: Use `pm7-label--required` class
 6. **Appropriate input types**: Use semantic HTML5 input types
+7. **Consistent sizing**: Keep input sizes consistent within forms
 
 ## Advanced Examples
 
 ### Search Input with Clear Button
 
 ```html
-<div class="pm7-input-group">
-  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">
-    <!-- Search icon -->
-  </svg>
-  <input type="search" class="pm7-input pm7-input--with-icon-left pm7-input--with-icon-right" 
-         placeholder="Search products..." value="laptop">
-  <button class="pm7-input-icon pm7-input-icon--right" 
-          style="background: none; border: none; cursor: pointer;"
-          onclick="this.previousElementSibling.value = ''">
-    <svg width="16" height="16">
-      <!-- Clear icon -->
+<div class="pm7-form-group">
+  <label for="search" class="pm7-label">Search Products</label>
+  <div class="pm7-input-icon-wrapper">
+    <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">
+      <!-- Search icon -->
     </svg>
-  </button>
+    <input type="search" 
+           id="search" 
+           class="pm7-input pm7-input--with-icon-left pm7-input--with-icon-right" 
+           placeholder="Search..." 
+           value="laptop">
+    <button class="pm7-input-icon pm7-input-icon--right" 
+            type="button"
+            style="background: none; border: none; cursor: pointer; padding: 0;"
+            onclick="document.getElementById('search').value = ''"
+            aria-label="Clear search">
+      <svg width="16" height="16">
+        <!-- X icon -->
+      </svg>
+    </button>
+  </div>
 </div>
 ```
 
@@ -320,11 +509,15 @@ npm install @pm7/core
 ```html
 <div class="pm7-form-group">
   <label for="password-toggle" class="pm7-label">Password</label>
-  <div class="pm7-input-group">
-    <input type="password" id="password-toggle" class="pm7-input pm7-input--with-icon-right">
-    <button type="button" class="pm7-input-icon pm7-input-icon--right" 
-            style="background: none; border: none; cursor: pointer;"
-            onclick="togglePassword()">
+  <div class="pm7-input-icon-wrapper">
+    <input type="password" 
+           id="password-toggle" 
+           class="pm7-input pm7-input--with-icon-right">
+    <button type="button" 
+            class="pm7-input-icon pm7-input-icon--right" 
+            style="background: none; border: none; cursor: pointer; padding: 0;"
+            onclick="togglePassword()"
+            aria-label="Toggle password visibility">
       <svg width="16" height="16">
         <!-- Eye icon -->
       </svg>
@@ -345,52 +538,98 @@ function togglePassword() {
 ```html
 <div class="pm7-form-group">
   <label for="card-number" class="pm7-label">Card Number</label>
-  <input type="text" id="card-number" class="pm7-input" 
-         placeholder="1234 5678 9012 3456"
-         maxlength="19"
-         pattern="[0-9\s]+">
+  <div class="pm7-input-group">
+    <span class="pm7-input-addon">
+      <svg width="20" height="16"><!-- Card icon --></svg>
+    </span>
+    <input type="text" 
+           id="card-number" 
+           class="pm7-input" 
+           placeholder="1234 5678 9012 3456"
+           maxlength="19"
+           pattern="[0-9\s]+">
+  </div>
 </div>
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
   <div class="pm7-form-group">
     <label for="expiry" class="pm7-label">Expiry</label>
-    <input type="text" id="expiry" class="pm7-input" 
-           placeholder="MM/YY" maxlength="5">
+    <input type="text" 
+           id="expiry" 
+           class="pm7-input" 
+           placeholder="MM/YY" 
+           maxlength="5">
   </div>
   <div class="pm7-form-group">
     <label for="cvv" class="pm7-label">CVV</label>
-    <input type="text" id="cvv" class="pm7-input" 
-           placeholder="123" maxlength="3">
+    <input type="text" 
+           id="cvv" 
+           class="pm7-input" 
+           placeholder="123" 
+           maxlength="3">
   </div>
 </div>
 ```
 
-## React Usage
+### Settings Form with Mixed Controls
 
-When using @pm7/react:
-
-```jsx
-import { Input, Label, FormGroup, HelperText } from '@pm7/react';
-
-function MyForm() {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-
-  return (
-    <FormGroup>
-      <Label htmlFor="email">Email</Label>
-      <Input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={!!error}
-        placeholder="Enter your email"
-      />
-      {error && <HelperText variant="error">{error}</HelperText>}
-    </FormGroup>
-  );
-}
+```html
+<form>
+  <h3>Notification Settings</h3>
+  
+  <div class="pm7-form-group">
+    <label class="pm7-switch">
+      <input type="checkbox" checked>
+      <span class="pm7-switch-track">
+        <span class="pm7-switch-thumb"></span>
+      </span>
+      <span class="pm7-switch-label">Email notifications</span>
+    </label>
+    <p class="pm7-helper-text">Receive updates about your account via email</p>
+  </div>
+  
+  <div class="pm7-form-group">
+    <p class="pm7-label">Notification frequency</p>
+    <label class="pm7-radio">
+      <input type="radio" name="frequency" value="instant" checked>
+      <span class="pm7-radio-indicator"></span>
+      <span class="pm7-radio-label">Instant</span>
+    </label>
+    <label class="pm7-radio">
+      <input type="radio" name="frequency" value="daily">
+      <span class="pm7-radio-indicator"></span>
+      <span class="pm7-radio-label">Daily digest</span>
+    </label>
+    <label class="pm7-radio">
+      <input type="radio" name="frequency" value="weekly">
+      <span class="pm7-radio-indicator"></span>
+      <span class="pm7-radio-label">Weekly summary</span>
+    </label>
+  </div>
+  
+  <div class="pm7-form-group">
+    <label for="email-types" class="pm7-label">Email types to receive</label>
+    <label class="pm7-checkbox">
+      <input type="checkbox" checked>
+      <span class="pm7-checkbox-indicator"></span>
+      <span class="pm7-checkbox-label">Product updates</span>
+    </label>
+    <label class="pm7-checkbox">
+      <input type="checkbox">
+      <span class="pm7-checkbox-indicator"></span>
+      <span class="pm7-checkbox-label">Security alerts</span>
+    </label>
+    <label class="pm7-checkbox">
+      <input type="checkbox">
+      <span class="pm7-checkbox-indicator"></span>
+      <span class="pm7-checkbox-label">Marketing emails</span>
+    </label>
+  </div>
+  
+  <button type="submit" class="pm7-button pm7-button--primary">
+    Save Settings
+  </button>
+</form>
 ```
 
 ## Related Components
@@ -398,3 +637,4 @@ function MyForm() {
 - [Button](../button/) - For form submission
 - [Card](../card/) - For form containers
 - [Dialog](../dialog/) - For form modals
+- [Toast](../toast/) - For form feedback

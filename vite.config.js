@@ -20,6 +20,7 @@ export default defineConfig({
         componentsIcons: resolve(__dirname, 'docs-src/components/icons.html'),
         componentsInput: resolve(__dirname, 'docs-src/components/input.html'),
         componentsMenu: resolve(__dirname, 'docs-src/components/menu.html'),
+        componentsTabSelector: resolve(__dirname, 'docs-src/components/tab-selector.html'),
         componentsToast: resolve(__dirname, 'docs-src/components/toast.html'),
         gettingStarted: resolve(__dirname, 'docs-src/getting-started.html'),
       },

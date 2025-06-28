@@ -9,10 +9,7 @@ export function initTabRouter(componentName) {
 
   // Import PM7TabSelector dynamically
   import('/packages/core/src/scripts/tab-selector.js').then(({ PM7TabSelector }) => {
-    const tabSelectorInstance = new PM7TabSelector(tabSelector);
-    
     // Tab names mapping - generic for all component pages
-    const tabs = tabSelector.querySelectorAll('.pm7-tab-trigger');
     const panels = tabSelector.querySelectorAll('.pm7-tab-content');
     
     const tabNames = {};
@@ -25,6 +22,8 @@ export function initTabRouter(componentName) {
       tabNames[panelId] = tabName;
       tabIndices[tabName] = index;
     });
+
+    const tabSelectorInstance = new PM7TabSelector(tabSelector);
     
     // Function to update URL
     const updateURL = (tabName) => {
