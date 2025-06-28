@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { clsx } from 'clsx';
 import { PM7Menu } from '@pm7/core';
 import '@pm7/core/dist/pm7.css';
@@ -29,7 +29,6 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuInstanceRef = useRef<PM7Menu | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
   
   useEffect(() => {
     if (!menuRef.current) return;

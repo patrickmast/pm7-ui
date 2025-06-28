@@ -5,6 +5,7 @@
   "main": "dist/pm7.js",
   "module": "dist/pm7.esm.js",
   "style": "dist/pm7.css",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],

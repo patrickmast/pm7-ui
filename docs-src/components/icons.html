@@ -12,23 +12,7 @@
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-layout">
-    <aside class="pm7-docs-sidebar">
-      <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0;">
-        <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-          <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-          <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-            <a href="/components/button.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Button</a>
-            <a href="/components/card.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Card</a>
-            <a href="/components/dialog.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Dialog</a>
-            <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Icons</a>
-            <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
-            <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
-            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
-            <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
-          </nav>
-        </div>
-      </div>
-    </aside>
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
 
     <main class="pm7-docs-content">
       <h1>Icons</h1>
@@ -153,6 +137,12 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
+            <h3>CSS Classes</h3>
+            <p>The icon components don't have specific CSS classes. They are pure SVG elements that inherit styling from their parent elements or can be styled directly with inline styles or custom classes.</p>
+
+            <h3>Data Attributes</h3>
+            <p>Icons do not use any special data attributes. They are generated as SVG elements with standard attributes.</p>
+
             <h3>Import Methods</h3>
             <pre><code class="language-javascript">// ES6 import
 import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
@@ -212,7 +202,7 @@ const style = `
   }
 `;</code></pre>
 
-            <h3>API Reference</h3>
+            <h3>JavaScript API</h3>
             <table class="pm7-docs-table">
               <thead>
                 <tr>
@@ -277,6 +267,15 @@ export default {
   components: { HamburgerIcon }
 }
 &lt;/script&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Icons are decorative by default (aria-hidden="true")</li>
+              <li>When used as buttons, provide proper <code>aria-label</code> attributes</li>
+              <li>Consider adding visible text labels for better accessibility</li>
+              <li>Use sufficient color contrast for icon visibility</li>
+              <li>Ensure clickable areas meet minimum size requirements (44×44px)</li>
+            </ul>
           </section>
         </div>
 

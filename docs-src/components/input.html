@@ -12,23 +12,7 @@
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-layout">
-    <aside class="pm7-docs-sidebar">
-      <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0;">
-        <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-          <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-          <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-            <a href="/components/button.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Button</a>
-            <a href="/components/card.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Card</a>
-            <a href="/components/dialog.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Dialog</a>
-            <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
-            <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Input</a>
-            <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
-            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
-            <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
-          </nav>
-        </div>
-      </div>
-    </aside>
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
 
     <main class="pm7-docs-content">
       <h1>Input</h1>
@@ -428,6 +412,9 @@
               </tbody>
             </table>
 
+            <h3>Data Attributes</h3>
+            <p>Input components do not use any special data attributes. They rely on standard HTML attributes and CSS classes for functionality.</p>
+
             <h3>Basic Usage</h3>
             <pre><code class="language-html">&lt;!-- Basic input --&gt;
 &lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;
@@ -535,33 +522,8 @@
   &lt;p class="pm7-success-text"&gt;Email verified!&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 
-            <h3>CSS Customization</h3>
-            <p>PM7 inputs can be customized using CSS custom properties:</p>
-            <pre><code class="language-css">:root {
-  /* Input sizing */
-  --pm7-input-height: 2.5rem;
-  --pm7-input-height-sm: 2rem;
-  --pm7-input-height-lg: 3rem;
-  
-  /* Input styling */
-  --pm7-input-border-radius: 0.375rem;
-  --pm7-input-border-width: 1px;
-  --pm7-input-padding-x: 0.75rem;
-  
-  /* Focus state */
-  --pm7-input-focus-ring-width: 2px;
-  --pm7-input-focus-ring-color: var(--pm7-primary);
-}</code></pre>
-
-            <h3>Accessibility</h3>
-            <ul>
-              <li>Always associate labels with inputs using <code>for</code> attribute</li>
-              <li>Use semantic HTML5 input types</li>
-              <li>Mark required fields with <code>required</code> attribute</li>
-              <li>Provide clear error messages</li>
-              <li>Ensure proper keyboard navigation</li>
-              <li>Use <code>aria-describedby</code> for helper and error text</li>
-            </ul>
+            <h3>JavaScript API</h3>
+            <p>Input components are standard HTML elements and don't require JavaScript initialization. They work with standard DOM APIs and events.</p>
 
             <h3>React Usage</h3>
             <pre><code class="language-jsx">import { Input, Label, FormGroup, HelperText } from '@pm7/react';
@@ -585,6 +547,16 @@ function MyForm() {
     &lt;/FormGroup&gt;
   );
 }</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Always associate labels with inputs using <code>for</code> attribute</li>
+              <li>Use semantic HTML5 input types</li>
+              <li>Mark required fields with <code>required</code> attribute</li>
+              <li>Provide clear error messages</li>
+              <li>Ensure proper keyboard navigation</li>
+              <li>Use <code>aria-describedby</code> for helper and error text</li>
+            </ul>
           </section>
         </div>
 

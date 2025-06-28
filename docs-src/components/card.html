@@ -12,23 +12,7 @@
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-layout">
-    <aside class="pm7-docs-sidebar">
-      <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0;">
-        <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-          <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-          <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-            <a href="/components/button.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Button</a>
-            <a href="/components/card.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Card</a>
-            <a href="/components/dialog.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Dialog</a>
-            <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
-            <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
-            <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
-            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
-            <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
-          </nav>
-        </div>
-      </div>
-    </aside>
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
 
     <main class="pm7-docs-content">
       <h1>Card</h1>
@@ -353,6 +337,9 @@
               </tbody>
             </table>
 
+            <h3>Data Attributes</h3>
+            <p>Cards do not use any special data attributes. They are purely CSS-based components.</p>
+
             <h3>Basic Usage</h3>
             <pre><code class="language-html">&lt;div class="pm7-card"&gt;
   &lt;div class="pm7-card-content"&gt;
@@ -476,15 +463,6 @@
               <li><strong>Images</strong>: Use <code>pm7-card--no-padding</code> with <code>pm7-card-image--top</code> for edge-to-edge images</li>
             </ul>
 
-            <h3>Accessibility</h3>
-            <ul>
-              <li>Use semantic HTML elements within cards</li>
-              <li>Maintain proper heading hierarchy</li>
-              <li>For clickable cards, use a single link wrapper</li>
-              <li>Ensure sufficient color contrast for all text</li>
-              <li>Add <code>alt</code> text to images</li>
-            </ul>
-
             <h3>React Usage</h3>
             <p>The React Card component is currently in development. For now, use the CSS classes directly in your React projects:</p>
             <pre><code class="language-jsx">function MyComponent() {
@@ -504,6 +482,15 @@
     &lt;/div&gt;
   );
 }</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Use semantic HTML elements within cards</li>
+              <li>Maintain proper heading hierarchy</li>
+              <li>For clickable cards, use a single link wrapper</li>
+              <li>Ensure sufficient color contrast for all text</li>
+              <li>Add <code>alt</code> text to images</li>
+            </ul>
           </section>
         </div>
 

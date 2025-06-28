@@ -19,8 +19,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     children,
     ...props 
   }, ref) => {
-    const Comp = asChild ? React.Fragment : 'button';
-    
     const classes = clsx(
       'pm7-button',
       `pm7-button--${variant}`,
