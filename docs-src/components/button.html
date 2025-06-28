@@ -23,6 +23,7 @@
             <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
             <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Input</a>
             <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
+            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
             <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
           </nav>
         </div>
@@ -200,6 +201,70 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-button</code></td>
+                  <td>Base button class (required)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--primary</code></td>
+                  <td>Primary button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--default</code></td>
+                  <td>Alias for `pm7-button--primary`</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--secondary</code></td>
+                  <td>Secondary button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--outline</code></td>
+                  <td>Outline button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--ghost</code></td>
+                  <td>Ghost button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--destructive</code></td>
+                  <td>Destructive button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--link</code></td>
+                  <td>Link button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--sm</code></td>
+                  <td>Small size (36px height)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--lg</code></td>
+                  <td>Large size (48px height)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--full</code></td>
+                  <td>Full width button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--icon</code></td>
+                  <td>Icon-only button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button-group</code></td>
+                  <td>Container for grouped buttons</td>
+                </tr>
+              </tbody>
+            </table>
+
             <h3>Basic Usage</h3>
             <pre><code class="language-html">&lt;button class="pm7-button pm7-button--primary"&gt;
   Click me
@@ -224,69 +289,59 @@
 &lt;!-- Link: Navigation styled as button --&gt;
 &lt;button class="pm7-button pm7-button--link"&gt;Link&lt;/button&gt;</code></pre>
 
-            <h3>CSS Classes</h3>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>.pm7-button</code></td>
-                  <td>Base button class (required)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--primary</code></td>
-                  <td>Primary button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--secondary</code></td>
-                  <td>Secondary button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--outline</code></td>
-                  <td>Outline button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--ghost</code></td>
-                  <td>Ghost button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--destructive</code></td>
-                  <td>Destructive button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--link</code></td>
-                  <td>Link button variant</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--sm</code></td>
-                  <td>Small size</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--lg</code></td>
-                  <td>Large size</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--full</code></td>
-                  <td>Full width button</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-button--icon</code></td>
-                  <td>Icon-only button</td>
-                </tr>
-              </tbody>
-            </table>
+            <h3>Sizes</h3>
+            <pre><code class="language-html">&lt;!-- Small (36px height) --&gt;
+&lt;button class="pm7-button pm7-button--primary pm7-button--sm"&gt;Small&lt;/button&gt;
+
+&lt;!-- Medium (40px height, default - no size class needed) --&gt;
+&lt;button class="pm7-button pm7-button--primary"&gt;Medium&lt;/button&gt;
+
+&lt;!-- Large (48px height) --&gt;
+&lt;button class="pm7-button pm7-button--primary pm7-button--lg"&gt;Large&lt;/button&gt;</code></pre>
+
+            <h3>PM7 Special Features</h3>
+            <ul>
+              <li><strong>6Stars Hover Effect</strong>: Primary buttons feature a unique "6stars" hover animation that creates a subtle sparkle effect</li>
+              <li><strong>Interactive Feedback</strong>: Buttons transform 1px down on click for tactile feedback</li>
+            </ul>
+
+            <h3>CSS Customization</h3>
+            <p>PM7 buttons can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Border radius */
+  --pm7-button-radius: 0.375rem;
+  
+  /* Typography */
+  --pm7-button-font-size: 0.875rem;
+  --pm7-button-font-weight: 500;
+  --pm7-button-line-height: 1.25rem;
+  
+  /* Spacing */
+  --pm7-button-padding-y: 0.5rem;
+  --pm7-button-padding-x: 1rem;
+  
+  /* Shadows */
+  --pm7-button-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --pm7-button-shadow-active: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
+}</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>Buttons generally don't require JavaScript initialization for basic functionality. They work with standard HTML events.</p>
+            <p>Note: The "6stars" hover effect on primary buttons is implemented using JavaScript. If you are not using the provided JavaScript, this effect will not be present.</p>
+            <pre><code class="language-javascript">// Standard event handling
+document.querySelector('.pm7-button').addEventListener('click', (e) => {
+  console.log('Button clicked');
+});</code></pre>
 
             <h3>Accessibility</h3>
             <ul>
               <li>All buttons are keyboard accessible</li>
               <li>Use descriptive text for screen readers</li>
               <li>For icon-only buttons, add <code>aria-label</code></li>
-              <li>Disabled buttons have <code>aria-disabled="true"</code></li>
-              <li>Focus states are clearly visible</li>
+              <li>Disabled buttons are properly announced</li>
+              <li>Focus states are clearly visible with customizable shadow</li>
             </ul>
 
             <h3>React Usage</h3>
@@ -295,20 +350,69 @@
 function MyComponent() {
   return (
     &lt;&gt;
-      &lt;Button variant="primary" size="md" onClick={handleClick}&gt;
+      &lt;Button variant="primary" onClick={handleClick}&gt;
         Click me
       &lt;/Button&gt;
       
-      &lt;Button variant="outline" disabled&gt;
+      &lt;Button variant="outline" size="sm" disabled&gt;
         Disabled
       &lt;/Button&gt;
       
       &lt;Button variant="destructive" fullWidth&gt;
         Delete All
       &lt;/Button&gt;
+      
+      {/* Advanced: Use asChild for component composition */}
+      &lt;Button asChild variant="primary"&gt;
+        &lt;a href="/dashboard"&gt;Go to Dashboard&lt;/a&gt;
+      &lt;/Button&gt;
     &lt;/&gt;
   );
 }</code></pre>
+
+            <h4>React Props</h4>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant</code></td>
+                  <td><code>'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link'</code></td>
+                  <td><code>'primary'</code></td>
+                  <td>Button variant</td>
+                </tr>
+                <tr>
+                  <td><code>size</code></td>
+                  <td><code>'sm' | 'md' | 'lg'</code></td>
+                  <td><code>'md'</code></td>
+                  <td>Button size</td>
+                </tr>
+                <tr>
+                  <td><code>fullWidth</code></td>
+                  <td><code>boolean</code></td>
+                  <td><code>false</code></td>
+                  <td>Make button full width</td>
+                </tr>
+                <tr>
+                  <td><code>asChild</code></td>
+                  <td><code>boolean</code></td>
+                  <td><code>false</code></td>
+                  <td>Render as child element</td>
+                </tr>
+                <tr>
+                  <td><code>...HTMLButtonAttributes</code></td>
+                  <td><code>-</code></td>
+                  <td><code>-</code></td>
+                  <td>All standard button props</td>
+                </tr>
+              </tbody>
+            </table>
           </section>
         </div>
 

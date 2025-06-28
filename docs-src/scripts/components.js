@@ -65,14 +65,14 @@ export function loadHeader() {
             </a>
           </div>
         </div>
-        
+
         <!-- Logo -->
         <a href="/" class="pm7-docs-logo">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: inline-block; vertical-align: middle; margin-right: 2px; fill: var(--pm7-primary);"><path d="M27 15a3 3 0 0 0-3-3h-5V3a3 3 0 1 0-6 0v9H8a3 3 0 0 0-3 3v6h2L6 32h20l-1-11h2zm-6 15v-6h-1v6h-6v-6h-1v6h-1v-8h-1v8H8.19l.909-10h13.802l.909 10zm4-11H7v-4c0-.551.449-1 1-1h7V3c0-.551.449-1 1-1s1 .449 1 1v11h7c.551 0 1 .449 1 1z"/></svg>
           pm7-ui
         </a>
       </div>
-      
+
       <!-- Right side: Navigation menu -->
       <ul class="pm7-docs-nav-menu">
         <li><a href="/" class="${window.location.pathname === '/' ? 'active' : ''}">Home</a></li>
@@ -82,7 +82,7 @@ export function loadHeader() {
       </ul>
     </div>
   </nav>`;
-  
+
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (headerPlaceholder) {
     headerPlaceholder.innerHTML = headerHTML;
@@ -102,7 +102,7 @@ export function loadFooter() {
       </div>
       <div class="pm7-footer-center">
         <span>© 2025 pm7-ui</span>
-        <span class="pm7-footer-version">v1.0.0</span>
+        <span class="pm7-footer-version">v0.2.0</span>
       </div>
       <div class="pm7-footer-right">
         <a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer" class="pm7-footer-github">
@@ -114,7 +114,7 @@ export function loadFooter() {
       </div>
     </div>
   </footer>`;
-  
+
   const footerPlaceholder = document.getElementById('footer-placeholder');
   if (footerPlaceholder) {
     footerPlaceholder.innerHTML = footerHTML;
@@ -124,74 +124,32 @@ export function loadFooter() {
 // Version info dialog - using PM7 dialog component
 export function createVersionDialog() {
   // Skip if already exists
-  if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
-  
-  // Check if dark mode is active
-  const isDarkMode = document.documentElement.classList.contains('dark') || 
-                     document.body.classList.contains('dark') ||
-                     (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  
-  const linkColor = isDarkMode ? '#3b9eff' : '#1C86EF';
-  const labelColor = isDarkMode ? '#9ca3af' : '#64748b';
-  
+  if (document.querySelector('[pm7-dialog="version-dialog"]')) return;
+
   const dialogHTML = `
-  <div class="pm7-dialog" data-pm7-dialog="version-dialog">
-    <div class="pm7-dialog-overlay"></div>
-    <div class="pm7-dialog-content pm7-dialog-content--sm">
-      <!-- Header with icon in top right -->
-      <div style="position: relative; padding: 24px 24px 0;">
-        <!-- Icon in top right corner -->
-        <div style="position: absolute; right: 28px; top: 28px;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1C86EF" stroke-linecap="round" stroke-linejoin="round" width="32" height="32" stroke-width="2">
-            <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0m9-3h.01"/>
-            <path d="M11 12h1v4h1"/>
-          </svg>
-        </div>
-        
-        
-        <!-- Title and subtitle -->
-        <div style="padding-right: 70px;">
-          <h2 class="pm7-dialog-title" style="font-size: 28px; font-weight: 600; margin: 0; padding: 0;">pm7-ui</h2>
-          <div class="pm7-dialog-subtitle" style="font-size: 16px; margin-top: 4px;">
-            Version: 1.0.0
-          </div>
-        </div>
-      </div>
-      
-      <!-- Separator line -->
-      <div style="height: 1px; background: var(--pm7-border); opacity: 0.5; margin: 20px 24px;"></div>
-      
-      <div class="pm7-dialog-body" style="padding: 0 24px 24px;">
-        <div style="display: flex; align-items: center; margin-bottom: 12px;">
-          <span style="font-weight: 500; min-width: 100px; color: ${labelColor};">
-            Package:
-          </span>
-          <span>pm7-ui</span>
-        </div>
-        <div style="display: flex; align-items: center;">
-          <span style="font-weight: 500; min-width: 100px; color: ${labelColor};">
-            License:
-          </span>
-          <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" 
-             style="color: ${linkColor}; text-decoration: underline;"
-             onmouseover="this.style.opacity='0.8'" 
-             onmouseout="this.style.opacity='1'">
-            https://opensource.org/licenses/MIT
-          </a>
-        </div>
-      </div>
-      
-      <div class="pm7-dialog-footer" style="justify-content: flex-end; padding: 16px 24px; margin: 0;">
-        <button class="pm7-button pm7-button--primary" onclick="closeDialog('version-dialog')">
-          Close
-        </button>
-      </div>
+  <div class="pm7-dialog" 
+       pm7-dialog="version-dialog"
+       pm7-dialog-size="sm">
+    <div pm7-header
+         pm7-dialog-title="Version Info"
+         pm7-dialog-subtitle="Version 0.2.0"
+         pm7-dialog-icon="info"
+         pm7-header-separator>
+    </div>
+    <div pm7-body>
+      <p><strong>Package:</strong> pm7-ui</p>
+      <p><strong>License:</strong> <a href="https://opensource.org/licenses/ISC" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">https://opensource.org/licenses/ISC</a></p>
+    </div>
+    <div pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="closeDialog('version-dialog')">
+        Close
+      </button>
     </div>
   </div>`;
-  
+
   // Add dialog to body
   document.body.insertAdjacentHTML('beforeend', dialogHTML);
-  
+
   // Click handlers worden nu automatisch toegevoegd door dialog.js openDialog functie
 }
 
@@ -199,7 +157,7 @@ export function createVersionDialog() {
 window.showVersionDialog = async function() {
   // Ensure dialog functions are loaded
   await window.loadDialogIfNeeded();
-  
+
   // Use PM7 openDialog function
   if (window.openDialog) {
     window.openDialog('version-dialog');
@@ -216,27 +174,27 @@ window.closeVersionDialog = function() {
 // Load components when DOM is ready
 export function loadSharedComponents() {
   console.log('[Components] Starting loadSharedComponents...');
-  
+
   try {
     console.log('[Components] Loading header...');
     loadHeader();
     console.log('[Components] Header loaded');
-    
+
     console.log('[Components] Loading footer...');
     loadFooter();
     console.log('[Components] Footer loaded');
-    
+
     console.log('[Components] Creating version dialog...');
     createVersionDialog();
     console.log('[Components] Version dialog created');
   } catch (error) {
     console.error('[Components] Error during initial load:', error);
   }
-  
+
   // Initialize PM7 menu after header is loaded
   setTimeout(async () => {
     console.log('[Components] Starting async initialization...');
-    
+
     try {
       // Step 1: Initialize menu
       console.log('[Components] Step 1: Initializing menu...');
@@ -251,10 +209,10 @@ export function loadSharedComponents() {
           console.log('[Components] Menu already initialized by auto-init');
         }
       }
-      
+
       // Step 2: Skip dialog.js loading for now - load on demand
       console.log('[Components] Step 2: Setting up lazy dialog loading...');
-      
+
       // Create lazy loading wrapper
       window.loadDialogIfNeeded = async () => {
         if (!window.openDialog || !window.closeDialog) {
@@ -265,7 +223,7 @@ export function loadSharedComponents() {
           console.log('[Components] Dialog functions loaded');
         }
       };
-      
+
       // Step 3: Add version info click handler
       console.log('[Components] Step 3: Adding version info click handler...');
       const versionTrigger = document.getElementById('version-info-trigger');
@@ -273,28 +231,28 @@ export function loadSharedComponents() {
         versionTrigger.addEventListener('click', async (e) => {
           e.preventDefault();
           e.stopPropagation();
-          
+
           // Close the menu first
           const menuElement = document.querySelector('[data-pm7-menu]');
           if (menuElement && menuElement.PM7Menu) {
             menuElement.PM7Menu.close();
           }
-          
+
           // Load dialog if needed
           await window.loadDialogIfNeeded();
-          
+
           // Show the dialog
           window.showVersionDialog();
         });
         console.log('[Components] Version info click handler added');
       }
-      
+
       console.log('[Components] All initialization complete!');
-      
+
     } catch (error) {
       console.error('[Components] Initialization error:', error);
     }
   }, 10); // Small delay to ensure DOM is ready
-  
+
   console.log('[Components] loadSharedComponents finished');
 }

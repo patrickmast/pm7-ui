@@ -8,7 +8,7 @@ export function spaFallback() {
         const url = req.url;
         
         // Component pages with tab routing
-        const componentMatch = url.match(/^\/components\/(\w+)\/(\w+)$/);
+        const componentMatch = url.match(/^\/components\/([\w-]+)\/([\w-]+)$/);
         if (componentMatch) {
           const [, component, tab] = componentMatch;
           // Rewrite to the component HTML file with tab as query parameter
@@ -17,7 +17,7 @@ export function spaFallback() {
         }
         
         // Clean URLs for component pages (without tab)
-        const cleanComponentMatch = url.match(/^\/components\/(\w+)$/);
+        const cleanComponentMatch = url.match(/^\/components\/([\w-]+)$/);
         if (cleanComponentMatch) {
           const [, component] = cleanComponentMatch;
           req.url = `/components/${component}.html`;

@@ -65,7 +65,7 @@ body {
   .pm7-docs-logo {
     font-size: var(--pm7-text-lg);
   }
-  
+
   .pm7-docs-nav-menu {
     display: none; /* Hide nav menu on mobile */
   }
@@ -276,6 +276,7 @@ pre code {
 
 .pm7-docs-sidebar {
   width: 200px;
+  flex-shrink: 0;
   border-right: 1px solid var(--pm7-border);
   background: var(--pm7-surface);
 }
@@ -299,6 +300,7 @@ pre code {
   flex: 1;
   padding: var(--pm7-spacing-8);
   max-width: 900px;
+  overflow-x: auto;
 }
 
 .pm7-docs-content h1 {
@@ -348,9 +350,17 @@ pre code {
   border: 1px solid var(--pm7-border);
   margin-bottom: var(--pm7-spacing-4);
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 200px;
+  flex-wrap: wrap;
+  gap: var(--pm7-spacing-4);
+}
+
+/* Centered preview for components that need centering */
+.pm7-docs-preview--centered {
   align-items: center;
   justify-content: center;
-  min-height: 200px;
 }
 
 .pm7-docs-code {
@@ -427,28 +437,28 @@ pre code {
   .pm7-docs-hero h1 {
     font-size: var(--pm7-text-4xl);
   }
-  
+
   .pm7-docs-lead {
     font-size: var(--pm7-text-lg);
   }
-  
+
   .pm7-docs-hero-actions {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .pm7-docs-nav-menu {
     gap: var(--pm7-spacing-4);
   }
-  
+
   .pm7-docs-layout {
     flex-direction: column;
   }
-  
+
   .pm7-docs-sidebar {
     display: none;
   }
-  
+
   .pm7-docs-content {
     padding: var(--pm7-spacing-4);
   }
@@ -540,7 +550,7 @@ pre code {
     gap: var(--pm7-spacing-4);
     text-align: center;
   }
-  
+
   .pm7-footer-center {
     display: none;
   }
@@ -575,7 +585,7 @@ pre code {
     display: flex;
     margin-bottom: var(--pm7-spacing-4);
   }
-  
+
   .pm7-docs-sidebar {
     position: fixed;
     top: 64px;
@@ -584,11 +594,11 @@ pre code {
     transition: left 0.3s ease;
     z-index: 100;
   }
-  
+
   .pm7-docs-sidebar.active {
     left: 0;
   }
-  
+
   /* Overlay for mobile menu */
   .pm7-mobile-overlay {
     display: none;
@@ -600,7 +610,7 @@ pre code {
     background: rgba(0, 0, 0, 0.3);
     z-index: 90;
   }
-  
+
   .pm7-mobile-overlay.active {
     display: block;
   }
@@ -648,14 +658,8 @@ pre code {
   align-items: center;
   justify-content: space-between;
   padding: var(--pm7-spacing-6);
-  border-bottom: 1px solid var(--pm7-border);
 }
 
-.pm7-dialog-title {
-  margin: 0;
-  font-size: var(--pm7-text-xl);
-  font-weight: var(--pm7-font-semibold);
-}
 
 .pm7-dialog-close {
   background: none;

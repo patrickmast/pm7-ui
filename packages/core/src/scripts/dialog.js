@@ -5,7 +5,7 @@
 export class PM7Dialog {
   constructor(element) {
     this.element = element;
-    this.backdrop = element.querySelector('.pm7-dialog-backdrop');
+    this.backdrop = element.querySelector('.pm7-dialog-overlay');
     this.closeButton = element.querySelector('.pm7-dialog-close');
     this.isOpen = false;
     this.previousActiveElement = null;
@@ -52,10 +52,7 @@ export class PM7Dialog {
     this.previousActiveElement = document.activeElement;
     
     // Show dialog
-    this.element.classList.add('pm7-dialog--open');
-    if (this.backdrop) {
-      this.backdrop.classList.add('pm7-dialog-backdrop--open');
-    }
+    this.element.setAttribute('data-state', 'open');
     
     // Prevent body scroll
     document.body.classList.add('pm7-dialog-open');
@@ -90,10 +87,7 @@ export class PM7Dialog {
     this.isOpen = false;
     
     // Hide dialog
-    this.element.classList.remove('pm7-dialog--open');
-    if (this.backdrop) {
-      this.backdrop.classList.remove('pm7-dialog-backdrop--open');
-    }
+    this.element.setAttribute('data-state', 'closed');
     
     // Restore body scroll
     document.body.classList.remove('pm7-dialog-open');
@@ -170,8 +164,8 @@ export function createDialog(options = {}) {
   } = options;
   
   // Create backdrop
-  const backdrop = document.createElement('div');
-  backdrop.className = 'pm7-dialog-backdrop';
+  const overlay = document.createElement('div');
+  overlay.className = 'pm7-dialog-overlay';
   
   // Create dialog
   const dialog = document.createElement('div');
@@ -229,7 +223,7 @@ export function createDialog(options = {}) {
   
   // Create container
   const container = document.createElement('div');
-  container.appendChild(backdrop);
+  container.appendChild(overlay);
   container.appendChild(dialog);
   
   // Add to body
@@ -249,7 +243,7 @@ export function createDialog(options = {}) {
 }
 
 // Confirm dialog helper
-export function confirm(message, options = {}) {
+export function pm7Confirm(message, options = {}) {
   return new Promise((resolve) => {
     const dialog = createDialog({
       title: options.title || 'Confirm',
@@ -280,7 +274,7 @@ export function confirm(message, options = {}) {
 }
 
 // Alert dialog helper
-export function alert(message, options = {}) {
+export function pm7Alert(message, options = {}) {
   return new Promise((resolve) => {
     const dialog = createDialog({
       title: options.title || 'Alert',
@@ -306,22 +300,186 @@ export function alert(message, options = {}) {
 // Store ESC handlers to properly clean them up
 const escHandlers = new Map();
 
+// Predefined icons
+const dialogIcons = {
+  info: `<svg class="pm7-dialog-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: rgb(28, 134, 239);">
+    <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0m9-3h.01"></path>
+    <path d="M11 12h1v4h1"></path>
+  </svg>`,
+  warning: `<svg class="pm7-dialog-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: rgb(245, 158, 11);">
+    <path d="M12 9v4m0 4h.01M5.07 19H19a2 2 0 0 0 1.75-2.95L13.75 4a2 2 0 0 0-3.5 0L3.25 16.05A2 2 0 0 0 5.07 19z"></path>
+  </svg>`,
+  error: `<svg class="pm7-dialog-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: rgb(239, 68, 68);">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="15" y1="9" x2="9" y2="15"></line>
+    <line x1="9" y1="9" x2="15" y2="15"></line>
+  </svg>`,
+  success: `<svg class="pm7-dialog-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: rgb(34, 197, 94);">
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M9 12l2 2 4-4"></path>
+  </svg>`
+};
+
+// Transform dialog based on content markers
+function transformDialog(dialogElement) {
+  // Check if already transformed
+  if (dialogElement.querySelector('.pm7-dialog-overlay')) {
+    return;
+  }
+
+  // Read dialog attributes
+  const dialogId = dialogElement.getAttribute('pm7-dialog');
+  const size = dialogElement.getAttribute('pm7-dialog-size') || 'md';
+  const showCloseButton = dialogElement.hasAttribute('pm7-show-close');
+  // Default behavior: ESC and overlay close are enabled unless explicitly disabled
+  const preventEscapeClose = dialogElement.hasAttribute('pm7-no-escape');
+  const preventOverlayClose = dialogElement.hasAttribute('pm7-no-overlay-close');
+
+  // Get content sections
+  const headerEl = dialogElement.querySelector('[pm7-header]');
+  const bodyEl = dialogElement.querySelector('[pm7-body]');
+  const footerEl = dialogElement.querySelector('[pm7-footer]');
+
+  // Store section data
+  const sections = {
+    header: headerEl ? {
+      element: headerEl,
+      content: headerEl.innerHTML,
+      title: headerEl.getAttribute('pm7-dialog-title'),
+      subtitle: headerEl.getAttribute('pm7-dialog-subtitle'),
+      icon: headerEl.getAttribute('pm7-dialog-icon'),
+      separator: headerEl.hasAttribute('pm7-header-separator')
+    } : null,
+    body: bodyEl ? bodyEl.innerHTML : null,
+    footer: footerEl ? footerEl.innerHTML : null
+  };
+
+  // Clear dialog
+  dialogElement.innerHTML = '';
+
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'pm7-dialog-overlay';
+  dialogElement.appendChild(overlay);
+
+  // Create content container
+  const content = document.createElement('div');
+  content.className = `pm7-dialog-content pm7-dialog-content--${size}`;
+
+  // Build header if exists
+  if (sections.header) {
+    const header = document.createElement('div');
+    header.className = 'pm7-dialog-header';
+
+    // Create a container for title and subtitle
+    const textContainer = document.createElement('div');
+    textContainer.className = 'pm7-dialog-header-text';
+
+    // Add title if specified
+    if (sections.header.title) {
+      const titleEl = document.createElement('h2');
+      titleEl.className = 'pm7-dialog-title';
+      titleEl.textContent = sections.header.title;
+      textContainer.appendChild(titleEl);
+    }
+
+    // Add subtitle if specified
+    if (sections.header.subtitle) {
+      const subtitleEl = document.createElement('p');
+      subtitleEl.className = 'pm7-dialog-description';
+      subtitleEl.textContent = sections.header.subtitle;
+      textContainer.appendChild(subtitleEl);
+    }
+
+    header.appendChild(textContainer);
+
+    // Create a container for actions (icon and close button)
+    const actionsContainer = document.createElement('div');
+    actionsContainer.className = 'pm7-dialog-header-actions';
+
+    // Add icon if specified
+    if (sections.header.icon) {
+      const iconDiv = document.createElement('div');
+      iconDiv.className = 'pm7-dialog-icon';
+      iconDiv.innerHTML = dialogIcons[sections.header.icon] || '';
+      actionsContainer.appendChild(iconDiv);
+    }
+
+    // Add close button if requested
+    if (showCloseButton) {
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'pm7-dialog-close';
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>`;
+      actionsContainer.appendChild(closeBtn);
+    }
+
+    header.appendChild(actionsContainer);
+
+    content.appendChild(header);
+
+    // Add header separator if requested
+    if (sections.header.separator) {
+      const separator = document.createElement('div');
+      separator.className = 'pm7-dialog-header-separator';
+      content.appendChild(separator);
+    }
+  }
+
+  // Add body if exists
+  if (sections.body !== null) {
+    const body = document.createElement('div');
+    body.className = 'pm7-dialog-body';
+    body.innerHTML = sections.body;
+    content.appendChild(body);
+  }
+
+  // Add footer if exists
+  if (sections.footer !== null) {
+    const footer = document.createElement('div');
+    footer.className = 'pm7-dialog-footer';
+    footer.innerHTML = sections.footer;
+    content.appendChild(footer);
+  }
+
+  dialogElement.appendChild(content);
+
+  // Store dialog settings for openDialog function
+  dialogElement._dialogSettings = {
+    closeOnEscape: !preventEscapeClose,  // Inverted: true by default
+    closeOnOverlay: !preventOverlayClose  // Inverted: true by default
+  };
+  
+  // Set initial state
+  dialogElement.setAttribute('data-state', 'closed');
+}
+
 // Simple helper functions for data-pm7-dialog elements
 export function openDialog(dialogId) {
-  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
+  const dialogElement = document.querySelector(`[pm7-dialog="${dialogId}"]`);
   if (!dialogElement) {
     console.warn(`Dialog with id "${dialogId}" not found`);
     return;
   }
   
+  // Transform dialog if needed
+  transformDialog(dialogElement);
+  
   dialogElement.setAttribute('data-state', 'open');
   document.body.classList.add('pm7-dialog-open');
+  
+  // Get dialog settings
+  const settings = dialogElement._dialogSettings || {};
   
   // Add close handlers
   const overlay = dialogElement.querySelector('.pm7-dialog-overlay');
   const closeBtn = dialogElement.querySelector('.pm7-dialog-close');
   
-  if (overlay) {
+  // Overlay click handler - enabled by default unless settings.closeOnOverlay is false
+  if (overlay && settings.closeOnOverlay !== false) {
     overlay.onclick = () => closeDialog(dialogId);
   }
   
@@ -330,24 +488,26 @@ export function openDialog(dialogId) {
   }
   
   // ESC key handler - store it so we can remove it later
-  const escHandler = (e) => {
-    if (e.key === 'Escape') {
-      closeDialog(dialogId);
+  if (settings.closeOnEscape !== false) {  // Default true unless explicitly false
+    const escHandler = (e) => {
+      if (e.key === 'Escape') {
+        closeDialog(dialogId);
+      }
+    };
+    
+    // Remove any existing handler for this dialog
+    if (escHandlers.has(dialogId)) {
+      document.removeEventListener('keydown', escHandlers.get(dialogId));
     }
-  };
-  
-  // Remove any existing handler for this dialog
-  if (escHandlers.has(dialogId)) {
-    document.removeEventListener('keydown', escHandlers.get(dialogId));
+    
+    // Store and add new handler
+    escHandlers.set(dialogId, escHandler);
+    document.addEventListener('keydown', escHandler);
   }
-  
-  // Store and add new handler
-  escHandlers.set(dialogId, escHandler);
-  document.addEventListener('keydown', escHandler);
 }
 
 export function closeDialog(dialogId) {
-  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
+  const dialogElement = document.querySelector(`[pm7-dialog="${dialogId}"]`);
   if (!dialogElement) return;
   
   // Add closing state for animation
@@ -374,3 +534,9 @@ export function closeDialog(dialogId) {
 
 // Don't automatically pollute global scope
 // Consumers should explicitly assign these if needed
+if (typeof window !== 'undefined') {
+  window.openDialog = openDialog;
+  window.closeDialog = closeDialog;
+  window.pm7Alert = pm7Alert;
+  window.pm7Confirm = pm7Confirm;
+}

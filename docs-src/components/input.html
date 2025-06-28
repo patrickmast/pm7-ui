@@ -23,6 +23,7 @@
             <a href="/components/icons.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Icons</a>
             <a href="/components/input.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);">Input</a>
             <a href="/components/menu.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Menu</a>
+            <a href="/components/tab-selector.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Tab Selector</a>
             <a href="/components/toast.html" class="pm7-button pm7-button--ghost pm7-button--full" style="justify-content: flex-start;">Toast</a>
           </nav>
         </div>
@@ -252,12 +253,13 @@
                   
                   <div class="pm7-form-group">
                     <label for="demo-bio" class="pm7-label">Bio</label>
-                    <textarea id="demo-bio" class="pm7-textarea" rows="3" placeholder="Tell us about yourself..."></textarea>
+                    <textarea id="demo-bio" class="pm7-input" rows="3" placeholder="Tell us about yourself..."></textarea>
                   </div>
                   
                   <div class="pm7-form-group">
                     <label class="pm7-checkbox">
-                      <input type="checkbox" class="pm7-checkbox-input" required>
+                      <input type="checkbox" required>
+                      <span class="pm7-checkbox-indicator"></span>
                       <span class="pm7-checkbox-label">I agree to the terms and conditions</span>
                     </label>
                   </div>
@@ -277,23 +279,6 @@
             <h3>Installation</h3>
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h3>Basic Usage</h3>
-            <pre><code class="language-html">&lt;!-- Basic input --&gt;
-&lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;
-
-&lt;!-- Input with label --&gt;
-&lt;div class="pm7-form-group"&gt;
-  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
-  &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
-&lt;/div&gt;
-
-&lt;!-- Input with helper text --&gt;
-&lt;div class="pm7-form-group"&gt;
-  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
-  &lt;input type="password" id="password" class="pm7-input"&gt;
-  &lt;p class="pm7-helper-text"&gt;Must be at least 8 characters&lt;/p&gt;
-&lt;/div&gt;</code></pre>
-
             <h3>CSS Classes</h3>
             <table class="pm7-docs-table">
               <thead>
@@ -305,7 +290,7 @@
               <tbody>
                 <tr>
                   <td><code>.pm7-input</code></td>
-                  <td>Base input class</td>
+                  <td>Base input/textarea class</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-input--sm</code></td>
@@ -325,70 +310,217 @@
                 </tr>
                 <tr>
                   <td><code>.pm7-input--with-icon-left</code></td>
-                  <td>Input with left icon</td>
+                  <td>Input with left icon padding</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-input--with-icon-right</code></td>
-                  <td>Input with right icon</td>
+                  <td>Input with right icon padding</td>
                 </tr>
                 <tr>
-                  <td><code>.pm7-textarea</code></td>
-                  <td>Textarea styling</td>
+                  <td><code>.pm7-input--no-resize</code></td>
+                  <td>Prevents textarea resizing</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Select Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-select</code></td>
                   <td>Select dropdown styling</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-select--sm</code></td>
+                  <td>Small select size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-select--lg</code></td>
+                  <td>Large select size</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Checkbox Classes</strong></td></tr>
+                <tr>
                   <td><code>.pm7-checkbox</code></td>
                   <td>Checkbox container</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-checkbox-indicator</code></td>
+                  <td>Custom checkbox indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-checkbox-label</code></td>
+                  <td>Checkbox label text</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Radio Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-radio</code></td>
                   <td>Radio container</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-radio-indicator</code></td>
+                  <td>Custom radio indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-radio-label</code></td>
+                  <td>Radio label text</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Switch Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-switch</code></td>
+                  <td>Switch container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-track</code></td>
+                  <td>Switch track background</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-thumb</code></td>
+                  <td>Switch thumb indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-label</code></td>
+                  <td>Switch label text</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Layout Classes</strong></td></tr>
+                <tr>
                   <td><code>.pm7-form-group</code></td>
-                  <td>Form field container</td>
+                  <td>Container for a form field (label, input, helper text)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-label</code></td>
                   <td>Form label</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-label--required</code></td>
+                  <td>Adds required asterisk</td>
+                </tr>
+                <tr>
                   <td><code>.pm7-helper-text</code></td>
-                  <td>Helper text below input</td>
+                  <td>Helper/hint text</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-error-text</code></td>
-                  <td>Error message text</td>
+                  <td>Error message styling</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-success-text</code></td>
-                  <td>Success message text</td>
+                  <td>Success message styling</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Icon & Group Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-input-icon-wrapper</code></td>
+                  <td>Container for input with icons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon</code></td>
+                  <td>Icon styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon--left</code></td>
+                  <td>Left icon positioning</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon--right</code></td>
+                  <td>Right icon positioning</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-group</code></td>
+                  <td>Input group container (for addons)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-addon</code></td>
+                  <td>Prefix/suffix addon styling</td>
               </tbody>
             </table>
 
-            <h3>Form Layout</h3>
-            <pre><code class="language-html">&lt;form class="pm7-form"&gt;
-  &lt;div class="pm7-form-group"&gt;
-    &lt;label for="name" class="pm7-label"&gt;Full Name&lt;/label&gt;
-    &lt;input type="text" id="name" class="pm7-input" required&gt;
-  &lt;/div&gt;
-  
-  &lt;div class="pm7-form-group"&gt;
-    &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
-    &lt;input type="email" id="email" class="pm7-input" required&gt;
-    &lt;p class="pm7-helper-text"&gt;We'll never share your email&lt;/p&gt;
-  &lt;/div&gt;
-  
-  &lt;button type="submit" class="pm7-button pm7-button--primary"&gt;
-    Submit
-  &lt;/button&gt;
-&lt;/form&gt;</code></pre>
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Basic input --&gt;
+&lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;
 
-            <h3>Validation</h3>
+&lt;!-- Input with label --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
+&lt;/div&gt;
+
+&lt;!-- Required field --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="name" class="pm7-label pm7-label--required"&gt;Full Name&lt;/label&gt;
+  &lt;input type="text" id="name" class="pm7-input" required&gt;
+&lt;/div&gt;
+
+&lt;!-- Input with helper text --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="password" class="pm7-input"&gt;
+  &lt;p class="pm7-helper-text"&gt;Must be at least 8 characters&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Checkbox and Radio</h3>
+            <pre><code class="language-html">&lt;!-- Checkbox --&gt;
+&lt;label class="pm7-checkbox"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="pm7-checkbox-indicator"&gt;&lt;/span&gt;
+  &lt;span class="pm7-checkbox-label"&gt;I agree to the terms&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio buttons --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;p class="pm7-label"&gt;Choose a plan:&lt;/p&gt;
+  &lt;label class="pm7-radio"&gt;
+    &lt;input type="radio" name="plan" value="basic" checked&gt;
+    &lt;span class="pm7-radio-indicator"&gt;&lt;/span&gt;
+    &lt;span class="pm7-radio-label"&gt;Basic Plan&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;label class="pm7-radio"&gt;
+    &lt;input type="radio" name="plan" value="pro"&gt;
+    &lt;span class="pm7-radio-indicator"&gt;&lt;/span&gt;
+    &lt;span class="pm7-radio-label"&gt;Pro Plan&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Switch/Toggle</h3>
+            <pre><code class="language-html">&lt;!-- Basic switch --&gt;
+&lt;label class="pm7-switch"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="pm7-switch-track"&gt;
+    &lt;span class="pm7-switch-thumb"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="pm7-switch-label"&gt;Enable notifications&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+
+            <h3>Input with Icons</h3>
+            <pre><code class="language-html">&lt;!-- Icon on left --&gt;
+&lt;div class="pm7-input-icon-wrapper"&gt;
+  &lt;svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16"&gt;
+    &lt;!-- Search icon --&gt;
+  &lt;/svg&gt;
+  &lt;input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search..."&gt;
+&lt;/div&gt;
+
+&lt;!-- Icon on right --&gt;
+&lt;div class="pm7-input-icon-wrapper"&gt;
+  &lt;input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password"&gt;
+  &lt;svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16"&gt;
+    &lt;!-- Lock icon --&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Input Groups with Addons</h3>
+            <pre><code class="language-html">&lt;!-- Prefix addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;span class="pm7-input-addon"&gt;https://&lt;/span&gt;
+  &lt;input type="text" class="pm7-input" placeholder="yoursite.com"&gt;
+&lt;/div&gt;
+
+&lt;!-- Suffix addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;input type="number" class="pm7-input" placeholder="0.00"&gt;
+  &lt;span class="pm7-input-addon"&gt;USD&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Button addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;input type="text" class="pm7-input" placeholder="Enter coupon code"&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Apply&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Validation States</h3>
             <pre><code class="language-html">&lt;!-- Error state --&gt;
 &lt;div class="pm7-form-group"&gt;
   &lt;label for="username" class="pm7-label"&gt;Username&lt;/label&gt;
@@ -402,6 +534,34 @@
   &lt;input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com"&gt;
   &lt;p class="pm7-success-text"&gt;Email verified!&lt;/p&gt;
 &lt;/div&gt;</code></pre>
+
+            <h3>CSS Customization</h3>
+            <p>PM7 inputs can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Input sizing */
+  --pm7-input-height: 2.5rem;
+  --pm7-input-height-sm: 2rem;
+  --pm7-input-height-lg: 3rem;
+  
+  /* Input styling */
+  --pm7-input-border-radius: 0.375rem;
+  --pm7-input-border-width: 1px;
+  --pm7-input-padding-x: 0.75rem;
+  
+  /* Focus state */
+  --pm7-input-focus-ring-width: 2px;
+  --pm7-input-focus-ring-color: var(--pm7-primary);
+}</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Always associate labels with inputs using <code>for</code> attribute</li>
+              <li>Use semantic HTML5 input types</li>
+              <li>Mark required fields with <code>required</code> attribute</li>
+              <li>Provide clear error messages</li>
+              <li>Ensure proper keyboard navigation</li>
+              <li>Use <code>aria-describedby</code> for helper and error text</li>
+            </ul>
 
             <h3>React Usage</h3>
             <pre><code class="language-jsx">import { Input, Label, FormGroup, HelperText } from '@pm7/react';
@@ -425,16 +585,6 @@ function MyForm() {
     &lt;/FormGroup&gt;
   );
 }</code></pre>
-
-            <h3>Accessibility</h3>
-            <ul>
-              <li>Always associate labels with inputs using <code>for</code> attribute</li>
-              <li>Use semantic HTML5 input types</li>
-              <li>Mark required fields with <code>required</code> attribute</li>
-              <li>Provide clear error messages</li>
-              <li>Ensure proper keyboard navigation</li>
-              <li>Use <code>aria-describedby</code> for helper and error text</li>
-            </ul>
           </section>
         </div>
 

@@ -63,7 +63,7 @@ export function loadHeader() {
           </a>
         </div>
       </div>
-      
+
       <a href="/" class="pm7-docs-logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: inline-block; vertical-align: middle; margin-right: 8px; fill: var(--pm7-primary);"><path d="M27 15a3 3 0 0 0-3-3h-5V3a3 3 0 1 0-6 0v9H8a3 3 0 0 0-3 3v6h2L6 32h20l-1-11h2zm-6 15v-6h-1v6h-6v-6h-1v6h-1v-8h-1v8H8.19l.909-10h13.802l.909 10zm4-11H7v-4c0-.551.449-1 1-1h7V3c0-.551.449-1 1-1s1 .449 1 1v11h7c.551 0 1 .449 1 1z"/></svg>
         pm7-ui
@@ -76,7 +76,7 @@ export function loadHeader() {
       </ul>
     </div>
   </nav>`;
-  
+
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (headerPlaceholder) {
     headerPlaceholder.innerHTML = headerHTML;
@@ -89,7 +89,7 @@ export function loadFooter() {
     <div class="pm7-footer-content">
       <div class="pm7-footer-left">
         <span>© 2025 pm7-ui</span>
-        <span class="pm7-footer-version">v1.0.0</span>
+        <span class="pm7-footer-version">v0.2.0</span>
       </div>
       <div class="pm7-footer-center">
         <span>By</span>
@@ -108,7 +108,7 @@ export function loadFooter() {
       </div>
     </div>
   </footer>`;
-  
+
   const footerPlaceholder = document.getElementById('footer-placeholder');
   if (footerPlaceholder) {
     footerPlaceholder.innerHTML = footerHTML;
@@ -118,108 +118,48 @@ export function loadFooter() {
 // Version info dialog - using PM7 dialog component
 export function createVersionDialog() {
   // Skip if already exists
-  if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
-  
+  if (document.querySelector('[pm7-dialog="version-dialog"]')) return;
+
   const dialogHTML = `
-  <div class="pm7-dialog" data-pm7-dialog="version-dialog">
-    <div class="pm7-dialog-overlay"></div>
-    <div class="pm7-dialog-content pm7-dialog-content--sm">
-      <div class="pm7-dialog-header">
-        <h2 class="pm7-dialog-title">Version Information</h2>
-        <button class="pm7-dialog-close" aria-label="Close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      </div>
-      <div class="pm7-dialog-body">
-        <div style="display: grid; gap: 16px;">
-          <div>
-            <strong style="display: block; margin-bottom: 4px;">PM7 UI Library</strong>
-            <code style="background: var(--pm7-muted); padding: 4px 8px; border-radius: 4px;">v1.0.0</code>
-          </div>
-          <div>
-            <strong style="display: block; margin-bottom: 4px;">Core Package</strong>
-            <code style="background: var(--pm7-muted); padding: 4px 8px; border-radius: 4px;">@pm7/core v1.0.0</code>
-          </div>
-          <div>
-            <strong style="display: block; margin-bottom: 4px;">React Package</strong>
-            <code style="background: var(--pm7-muted); padding: 4px 8px; border-radius: 4px;">@pm7/react v1.0.0</code>
-          </div>
-          <div>
-            <strong style="display: block; margin-bottom: 4px;">Vue Package</strong>
-            <code style="background: var(--pm7-muted); padding: 4px 8px; border-radius: 4px;">@pm7/vue - Coming Soon</code>
-          </div>
-          <div style="margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--pm7-border);">
-            <strong style="display: block; margin-bottom: 4px;">Repository</strong>
-            <a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">
-              github.com/patrickmast/pm7-ui
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="pm7-dialog" 
+       pm7-dialog="version-dialog"
+       pm7-dialog-size="sm">
+    <div pm7-header
+         pm7-dialog-title="Version Info"
+         pm7-dialog-subtitle="Version 0.2.0"
+         pm7-dialog-icon="info"
+         pm7-header-separator>
+    </div>
+    <div pm7-body>
+      <p><strong>Package:</strong> pm7-ui</p>
+      <p><strong>License:</strong> <a href="https://opensource.org/licenses/ISC" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">https://opensource.org/licenses/ISC</a></p>
+    </div>
+    <div pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="closeDialog('version-dialog')">
+        Close
+      </button>
     </div>
   </div>`;
-  
+
   // Add dialog to body
   document.body.insertAdjacentHTML('beforeend', dialogHTML);
-  
-  // Add click handlers na toevoegen aan DOM
-  setTimeout(() => {
-    const dialog = document.querySelector('[data-pm7-dialog="version-dialog"]');
-    if (dialog) {
-      const overlay = dialog.querySelector('.pm7-dialog-overlay');
-      const closeBtn = dialog.querySelector('.pm7-dialog-close');
-      
-      if (overlay) {
-        overlay.addEventListener('click', window.closeVersionDialog);
-      }
-      if (closeBtn) {
-        closeBtn.addEventListener('click', window.closeVersionDialog);
-      }
-    }
-  }, 0);
 }
 
-// Store the escape handler globally so we can remove it
-let versionDialogEscHandler = null;
+// Helper functions for version dialog - use PM7 dialog functions
+window.showVersionDialog = async function() {
+  // Ensure dialog functions are loaded
+  await window.loadDialogIfNeeded();
 
-// Helper functions for version dialog - simpele implementatie
-window.showVersionDialog = function() {
-  const dialog = document.querySelector('[data-pm7-dialog="version-dialog"]');
-  if (dialog) {
-    dialog.setAttribute('data-state', 'open');
-    dialog.classList.add('pm7-dialog--open'); // Voor CSS compatibility
-    document.body.classList.add('pm7-dialog-open');
-    
-    // Remove any existing handler first
-    if (versionDialogEscHandler) {
-      document.removeEventListener('keydown', versionDialogEscHandler);
-    }
-    
-    // Add escape key handler
-    versionDialogEscHandler = (e) => {
-      if (e.key === 'Escape') {
-        window.closeVersionDialog();
-      }
-    };
-    document.addEventListener('keydown', versionDialogEscHandler);
+  // Use PM7 openDialog function
+  if (window.openDialog) {
+    window.openDialog('version-dialog');
   }
 }
 
 window.closeVersionDialog = function() {
-  const dialog = document.querySelector('[data-pm7-dialog="version-dialog"]');
-  if (dialog) {
-    dialog.setAttribute('data-state', 'closed');
-    dialog.classList.remove('pm7-dialog--open');
-    document.body.classList.remove('pm7-dialog-open');
-    
-    // Remove escape handler
-    if (versionDialogEscHandler) {
-      document.removeEventListener('keydown', versionDialogEscHandler);
-      versionDialogEscHandler = null;
-    }
+  // Use PM7 closeDialog function
+  if (window.closeDialog) {
+    window.closeDialog('version-dialog');
   }
 }
 
@@ -232,7 +172,7 @@ export function loadSharedComponents() {
   } catch (error) {
     // Silently handle errors
   }
-  
+
   // Initialize PM7 menu after header is loaded
   setTimeout(async () => {
     try {
@@ -245,7 +185,7 @@ export function loadSharedComponents() {
           menuElement.setAttribute('data-pm7-menu-initialized', 'true');
         }
       }
-      
+
       // Step 2: Skip dialog.js loading for now - load on demand
       // Create lazy loading wrapper
       window.loadDialogIfNeeded = async () => {
@@ -255,28 +195,28 @@ export function loadSharedComponents() {
           window.closeDialog = dialogModule.closeDialog;
         }
       };
-      
+
       // Step 3: Add version info click handler
       const versionTrigger = document.getElementById('version-info-trigger');
       if (versionTrigger) {
         versionTrigger.addEventListener('click', async (e) => {
           e.preventDefault();
           e.stopPropagation();
-          
+
           // Close the menu first
           const menu = PM7Menu.instances.values().next().value;
           if (menu && menu.close) {
             menu.close();
           }
-          
+
           // Load dialog if needed
           await window.loadDialogIfNeeded();
-          
+
           // Show the dialog
           window.showVersionDialog();
         });
       }
-      
+
     } catch (error) {
       // Silently handle errors
     }

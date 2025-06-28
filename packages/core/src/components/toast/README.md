@@ -116,12 +116,10 @@ closeAllToasts();
 
 ### HTML Structure
 
-If you need to create toasts manually:
+Toasts are dynamically created by the `showToast` function. The basic structure of a toast is:
 
 ```html
-<!-- Toast viewport (created automatically) -->
 <div class="pm7-toast-viewport">
-  <!-- Individual toast -->
   <div class="pm7-toast pm7-toast--default" data-state="open">
     <div class="pm7-toast-header">
       <div>
@@ -129,6 +127,10 @@ If you need to create toasts manually:
         <p class="pm7-toast-description">Toast description goes here.</p>
       </div>
       <button class="pm7-toast-close" aria-label="Close">&times;</button>
+    </div>
+    <!-- Optional action button container -->
+    <div class="pm7-toast-action">
+      <button class="pm7-button pm7-button--sm pm7-button--primary">Action</button>
     </div>
     <!-- Progress bar for auto-dismiss -->
     <div class="pm7-toast-progress"></div>

@@ -51,10 +51,7 @@
   color: #1C86EF;
 }
 
-/* Remove the ::after pseudo element - we use border-bottom directly */
-.pm7-tab-trigger::after {
-  display: none;
-}
+
 
 /* Dark mode styles */
 .dark .pm7-tab-list {
@@ -76,16 +73,13 @@
 .pm7-tab-content {
   padding-top: 0;
   outline: none;
+  display: none; /* Default state is hidden */
 }
 
-.pm7-tab-content[data-state="inactive"],
-.pm7-tab-content:not(.pm7-tab-content--active) {
-  display: none;
-}
-
+/* Show active tabs - either by data-state OR by class */
 .pm7-tab-content[data-state="active"],
 .pm7-tab-content.pm7-tab-content--active {
-  display: block;
+  display: block !important;
 }
 
 /* Variants */

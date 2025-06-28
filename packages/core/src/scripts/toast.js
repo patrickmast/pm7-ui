@@ -39,36 +39,48 @@ export class PM7Toast {
     toast.setAttribute('data-toast-id', id);
 
     // Build toast content
-    let html = '';
-    
-    if (title || description) {
-      html += '<div class="pm7-toast-header">';
-      html += '<div>';
-      if (title) html += `<h3 class="pm7-toast-title">${title}</h3>`;
-      if (description) html += `<p class="pm7-toast-description">${description}</p>`;
-      html += '</div>';
-      html += '<button class="pm7-toast-close" aria-label="Close">&times;</button>';
-      html += '</div>';
+    const toastHeader = document.createElement('div');
+    toastHeader.className = 'pm7-toast-header';
+
+    const textContainer = document.createElement('div');
+    if (title) {
+      const titleEl = document.createElement('h3');
+      titleEl.className = 'pm7-toast-title';
+      titleEl.textContent = title;
+      textContainer.appendChild(titleEl);
     }
+    if (description) {
+      const descriptionEl = document.createElement('p');
+      descriptionEl.className = 'pm7-toast-description';
+      descriptionEl.textContent = description;
+      textContainer.appendChild(descriptionEl);
+    }
+    toastHeader.appendChild(textContainer);
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'pm7-toast-close';
+    closeButton.setAttribute('aria-label', 'Close');
+    closeButton.innerHTML = '&times;';
+    toastHeader.appendChild(closeButton);
+
+    toast.appendChild(toastHeader);
 
     if (action) {
-      html += '<div class="pm7-toast-action">';
-      html += action;
-      html += '</div>';
+      const actionContainer = document.createElement('div');
+      actionContainer.className = 'pm7-toast-action';
+      actionContainer.innerHTML = action;
+      toast.appendChild(actionContainer);
     }
 
-    // Add progress bar for auto-dismiss
     if (duration > 0) {
-      html += `<div class="pm7-toast-progress" style="animation-duration: ${duration}ms"></div>`;
+      const progressBar = document.createElement('div');
+      progressBar.className = 'pm7-toast-progress';
+      progressBar.style.animationDuration = `${duration}ms`;
+      toast.appendChild(progressBar);
     }
-
-    toast.innerHTML = html;
 
     // Add close handler
-    const closeBtn = toast.querySelector('.pm7-toast-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => this.close(id));
-    }
+    closeButton.addEventListener('click', () => this.close(id));
 
     // Add to viewport
     this.viewport.appendChild(toast);

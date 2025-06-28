@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Dialog Sizes</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body {
+      padding: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .test-content {
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dialog Size Test</h1>
+  
+  <h2>Static Test (without transformation)</h2>
+  <div class="test-grid">
+    <div class="test-content">
+      <div class="pm7-dialog-content pm7-dialog-content--sm" style="position: static; transform: none; opacity: 1; visibility: visible;">
+        Small (400px)
+      </div>
+    </div>
+    <div class="test-content">
+      <div class="pm7-dialog-content pm7-dialog-content--md" style="position: static; transform: none; opacity: 1; visibility: visible;">
+        Medium (600px)
+      </div>
+    </div>
+    <div class="test-content">
+      <div class="pm7-dialog-content pm7-dialog-content--lg" style="position: static; transform: none; opacity: 1; visibility: visible;">
+        Large (800px)
+      </div>
+    </div>
+  </div>
+
+  <h2>Dynamic Test (with buttons)</h2>
+  <button onclick="openDialog('test-sm')">Small Dialog</button>
+  <button onclick="openDialog('test-md')">Medium Dialog</button>
+  <button onclick="openDialog('test-lg')">Large Dialog</button>
+
+  <!-- Test dialogs -->
+  <div class="pm7-dialog" 
+       pm7-dialog="test-sm"
+       pm7-dialog-title="Small Dialog Test"
+       pm7-dialog-size="sm"
+       pm7-close-on-x>
+    <p>This should be 400px wide</p>
+    <div pm7-footer>
+      <button onclick="closeDialog('test-sm')">Close</button>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" 
+       pm7-dialog="test-md"
+       pm7-dialog-title="Medium Dialog Test"
+       pm7-dialog-size="md"
+       pm7-close-on-x>
+    <p>This should be 600px wide</p>
+    <div pm7-footer>
+      <button onclick="closeDialog('test-md')">Close</button>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" 
+       pm7-dialog="test-lg"
+       pm7-dialog-title="Large Dialog Test"
+       pm7-dialog-size="lg"
+       pm7-close-on-x>
+    <p>This should be 800px wide</p>
+    <div pm7-footer>
+      <button onclick="closeDialog('test-lg')">Close</button>
+    </div>
+  </div>
+
+  <script type="module" src="/packages/core/src/scripts/index.js"></script>
+</body>
+</html>

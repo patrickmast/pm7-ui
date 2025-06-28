@@ -34,18 +34,43 @@ export class PM7Menu {
   }
   
   init() {
+    // Check if this menu is part of a menu bar
+    this.isInMenuBar = this.element.closest('.pm7-menu-bar') !== null;
+    
     // Click handlers
     this.trigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.toggle();
-    });
-    
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!this.element.contains(e.target) && this.isOpen) {
-        this.close();
+      
+      // In menu bars, always open (don't toggle) if another menu is open
+      if (this.isInMenuBar && this.isAnyMenuBarMenuOpen() && !this.isOpen) {
+        this.open();
+      } else {
+        this.toggle();
       }
     });
+    
+    // Hover handlers for menu bar menus
+    if (this.isInMenuBar) {
+      this.trigger.addEventListener('mouseenter', () => {
+        // Check if any other menu in the bar is open
+        if (this.isAnyMenuBarMenuOpen()) {
+          this.open();
+        }
+      });
+    }
+    
+    // Close on outside click
+    this.outsideClickHandler = (e) => {
+      // Check if the click is outside the menu element and not on a submenu
+      if (!this.element.contains(e.target) && this.isOpen) {
+        // Check if the click is on a submenu that is part of this menu
+        const clickedSubmenu = e.target.closest('.pm7-submenu');
+        if (!clickedSubmenu || !this.element.contains(clickedSubmenu)) {
+          this.close();
+        }
+      }
+    };
+    document.addEventListener('click', this.outsideClickHandler);
     
     // Keyboard navigation
     this.trigger.addEventListener('keydown', (e) => this.handleTriggerKeyDown(e));
@@ -67,6 +92,8 @@ export class PM7Menu {
         if (!item.disabled && !item.hasAttribute('disabled')) {
           this.handleItemClick(e, item);
         }
+        // Reset _clickingItem after the click event has been processed
+        this._clickingItem = false;
       });
       
       // Make items focusable
@@ -309,6 +336,23 @@ export class PM7Menu {
         this.content.classList.add('pm7-menu-content--end');
       }
     }
+  }
+  
+  // Check if any menu in the same menu bar is open
+  isAnyMenuBarMenuOpen() {
+    if (!this.isInMenuBar) return false;
+    
+    const menuBar = this.element.closest('.pm7-menu-bar');
+    if (!menuBar) return false;
+    
+    // Check all menus in the same menu bar
+    const menusInBar = menuBar.querySelectorAll('.pm7-menu');
+    for (const menuEl of menusInBar) {
+      if (menuEl !== this.element && menuEl.PM7Menu && menuEl.PM7Menu.isOpen) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
