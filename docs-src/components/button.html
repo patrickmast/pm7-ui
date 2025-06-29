@@ -194,17 +194,23 @@
                 </tr>
               </thead>
               <tbody>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
                 <tr>
                   <td><code>.pm7-button</code></td>
                   <td>Base button class (required)</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Variants</strong></td>
+                </tr>
                 <tr>
                   <td><code>.pm7-button--primary</code></td>
-                  <td>Primary button variant</td>
+                  <td>Primary button variant (includes 6stars effect)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--default</code></td>
-                  <td>Alias for `pm7-button--primary`</td>
+                  <td>Alias for pm7-button--primary (includes 6stars effect)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--secondary</code></td>
@@ -216,35 +222,52 @@
                 </tr>
                 <tr>
                   <td><code>.pm7-button--ghost</code></td>
-                  <td>Ghost button variant</td>
+                  <td>Ghost button variant (transparent background)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--destructive</code></td>
-                  <td>Destructive button variant</td>
+                  <td>Destructive button variant (for dangerous actions)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--link</code></td>
-                  <td>Link button variant</td>
+                  <td>Link button variant (styled as text link)</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--sm</code></td>
                   <td>Small size (36px height)</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-button--md</code></td>
+                  <td>Medium size (40px height, default)</td>
+                </tr>
+                <tr>
                   <td><code>.pm7-button--lg</code></td>
                   <td>Large size (48px height)</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Layout Modifiers</strong></td>
+                </tr>
                 <tr>
                   <td><code>.pm7-button--full</code></td>
-                  <td>Full width button</td>
+                  <td>Full width button (100% width)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button--icon</code></td>
-                  <td>Icon-only button</td>
+                  <td>Icon-only button (square shape, no padding)</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Structure Classes</strong></td>
                 </tr>
                 <tr>
                   <td><code>.pm7-button-group</code></td>
                   <td>Container for grouped buttons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button__6stars</code></td>
+                  <td>Container for 6stars hover effect (auto-added via JS)</td>
                 </tr>
               </tbody>
             </table>
@@ -315,12 +338,24 @@
 }</code></pre>
 
             <h3>JavaScript API</h3>
-            <p>Buttons generally don't require JavaScript initialization for basic functionality. They work with standard HTML events.</p>
-            <p>Note: The "6stars" hover effect on primary buttons is implemented using JavaScript. If you are not using the provided JavaScript, this effect will not be present.</p>
-            <pre><code class="language-javascript">// Standard event handling
+            <pre><code class="language-javascript">import { PM7Button, initButtons } from '@pm7/core';
+
+// Auto-initialization (happens automatically on DOMContentLoaded)
+// Adds 6stars effect to all primary/default buttons
+
+// Manual initialization for dynamically added buttons
+const button = document.querySelector('.pm7-button--primary');
+const pm7Button = new PM7Button(button);
+
+// Or initialize all buttons manually
+initButtons();
+
+// Standard event handling
 document.querySelector('.pm7-button').addEventListener('click', (e) => {
   console.log('Button clicked');
 });</code></pre>
+            
+            <p><strong>Note:</strong> The PM7Button class automatically adds the "6stars" hover effect to primary and default button variants. This effect creates floating star animations on hover, reinforcing the PM7 brand identity.</p>
 
             <h3>React Usage</h3>
             <pre><code class="language-jsx">import { Button } from '@pm7/react';
@@ -478,6 +513,26 @@ function MyComponent() {
         }, 2000);
       });
     }
+  </script>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Button } from '/packages/core/src/scripts/button.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
   </script>
 
   <script type="module">

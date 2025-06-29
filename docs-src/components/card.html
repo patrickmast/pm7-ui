@@ -276,8 +276,16 @@
                   <td>Card description/subtitle</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-card-subtitle</code></td>
+                  <td>Alias for pm7-card-description</td>
+                </tr>
+                <tr>
                   <td><code>.pm7-card-content</code></td>
                   <td>Main card content area</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-body</code></td>
+                  <td>Alias for pm7-card-content</td>
                 </tr>
                 
                 <tr>
@@ -554,6 +562,25 @@
         }, 2000);
       });
     }
+  </script>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
   </script>
 
   <script type="module">
