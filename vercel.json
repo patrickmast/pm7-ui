@@ -1,5 +1,15 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "docs",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/components/:component",
+      "destination": "/components/:component.html"
+    },
+    {
+      "source": "/components/:component/:tab",
+      "destination": "/components/:component.html"
+    }
+  ]
 }

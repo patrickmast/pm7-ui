@@ -24,6 +24,7 @@ export default defineConfig({
         main: resolve(__dirname, 'docs-src/index.html'),
         components: resolve(__dirname, 'docs-src/components.html'),
         gettingStarted: resolve(__dirname, 'docs-src/getting-started.html'),
+        faq: resolve(__dirname, 'docs-src/faq.html'),
         ...componentFiles,
       },
     },
@@ -41,6 +42,7 @@ export default defineConfig({
       '/packages/core/src/styles': resolve(__dirname, './packages/core/src/styles'),
       '/packages/core/src/scripts': resolve(__dirname, './packages/core/src/scripts'),
       '/packages/core/src/components': resolve(__dirname, './packages/core/src/components'),
+      '/packages/core/src/icons': resolve(__dirname, './packages/core/src/icons'),
     },
   },
 });

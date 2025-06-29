@@ -9,6 +9,10 @@ console.log('[Docs] Importing loadSharedComponents...');
 import { loadSharedComponents } from './components.js';
 console.log('[Docs] loadSharedComponents imported successfully');
 
+console.log('[Docs] Importing version display...');
+import { initVersionDisplay } from './version.js';
+console.log('[Docs] Version display imported successfully');
+
 // Make PM7Menu available globally for components.js
 window.PM7Menu = PM7Menu;
 console.log('[Docs] PM7Menu attached to window');
@@ -21,6 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('[Docs] loadSharedComponents called');
   } catch (error) {
     console.error('[Docs] Error calling loadSharedComponents:', error);
+  }
+  
+  // Initialize version display
+  try {
+    initVersionDisplay();
+    console.log('[Docs] Version display initialized');
+  } catch (error) {
+    console.error('[Docs] Error initializing version display:', error);
   }
   const currentPath = window.location.pathname;
   
