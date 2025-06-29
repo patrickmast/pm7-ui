@@ -652,7 +652,26 @@
                   <td><code>.pm7-menu-content</code></td>
                   <td>Dropdown container</td>
                 </tr>
-                | `pm7-menu-content` | Dropdown container |
+                <tr>
+                  <td><code>.pm7-menu-content--open</code></td>
+                  <td>Open state of menu</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-content--start</code></td>
+                  <td>Explicit left alignment</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-content--end</code></td>
+                  <td>Right alignment</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-content--center</code></td>
+                  <td>Center alignment</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-content--top</code></td>
+                  <td>For vertical positioning</td>
+                </tr>
                 <tr>
                   <td><code>.pm7-menu-item</code></td>
                   <td>Clickable menu item</td>
@@ -677,6 +696,14 @@
                   <td><code>.pm7-menu-item--destructive</code></td>
                   <td>Destructive action (red text)</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-menu-item--disabled</code></td>
+                  <td>Disabled state</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-item--clicking</code></td>
+                  <td>Click animation state</td>
+                </tr>
                 <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-menu-item-icon</code></td>
@@ -685,6 +712,14 @@
                 <tr>
                   <td><code>.pm7-menu-item-check</code></td>
                   <td>Checkmark icon for checkbox menu items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-switch</code></td>
+                  <td>Switch element in switch menu items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-menu-icon</code></td>
+                  <td>Icon in trigger button</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-menu-shortcut</code></td>
@@ -726,6 +761,26 @@
                   <td>Auto-initialize menu</td>
                 </tr>
                 <tr>
+                  <td><code>data-position</code></td>
+                  <td>For menu positioning</td>
+                </tr>
+                <tr>
+                  <td><code>data-state</code></td>
+                  <td>For open/closed state</td>
+                </tr>
+                <tr>
+                  <td><code>data-submenu-open</code></td>
+                  <td>For submenu state</td>
+                </tr>
+                <tr>
+                  <td><code>data-active</code></td>
+                  <td>For active/selected state</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-menu-initialized</code></td>
+                  <td>For tracking initialization</td>
+                </tr>
+                <tr>
                   <td><code>data-checked</code></td>
                   <td>Set checkable item state</td>
                 </tr>
@@ -736,6 +791,14 @@
                 <tr>
                   <td><code>data-value</code></td>
                   <td>Custom value for menu item</td>
+                </tr>
+                <tr>
+                  <td><code>aria-expanded</code></td>
+                  <td>For accessibility</td>
+                </tr>
+                <tr>
+                  <td><code>aria-disabled</code></td>
+                  <td>For disabled items</td>
                 </tr>
               </tbody>
             </table>
@@ -801,8 +864,7 @@ menu.adjustPosition();
 // Listen for selection
 menuElement.addEventListener('pm7-menu-select', (e) => {
   console.log('Selected item:', e.detail.item);
-  console.log('Item text:', e.detail.text);
-  console.log('Item value:', e.detail.value);
+  console.log('Menu instance:', e.detail.menu);
 });</code></pre>
 
             <h3>React Usage</h3>
@@ -969,6 +1031,25 @@ function MyComponent() {
       // Focus the OK button
       dialog.querySelector('.pm7-button--primary').focus();
     }
+  </script>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
   </script>
 
   <script type="module">

@@ -60,14 +60,14 @@ npm install @pm7/core
 <div class="pm7-form-group">
   <label for="username" class="pm7-label">Username</label>
   <input type="text" id="username" class="pm7-input pm7-input--error" placeholder="Choose username">
-  <p class="pm7-error-text">Username already taken</p>
+  <p class="pm7-helper-text pm7-helper-text--error">Username already taken</p>
 </div>
 
 <!-- Success state -->
 <div class="pm7-form-group">
   <label for="email-verify" class="pm7-label">Email</label>
   <input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com">
-  <p class="pm7-success-text">Email verified!</p>
+  <p class="pm7-helper-text pm7-helper-text--success">Email verified!</p>
 </div>
 ```
 
@@ -153,13 +153,9 @@ npm install @pm7/core
   </select>
 </div>
 
-<!-- Select sizes -->
-<select class="pm7-select pm7-select--sm">
-  <option>Small select</option>
-</select>
-
-<select class="pm7-select pm7-select--lg">
-  <option>Large select</option>
+<!-- Disabled select -->
+<select class="pm7-select" disabled>
+  <option>Disabled select</option>
 </select>
 ```
 

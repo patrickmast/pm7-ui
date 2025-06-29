@@ -49,7 +49,7 @@
                     <div class="pm7-docs-section">
                         <h2>Key Features</h2>
                         <ul>
-                            <li><strong>Flexible Positioning:</strong> Top, bottom, left, or right placement with automatic adjustments</li>
+                            <li><strong>Flexible Positioning:</strong> Four positions available - top (default), bottom, left, or right</li>
                             <li><strong>Customizable Delays:</strong> Configure open and close delays independently</li>
                             <li><strong>Multiple Themes:</strong> Dark and light themes available</li>
                             <li><strong>Accessible:</strong> Full keyboard navigation and screen reader support</li>
@@ -308,15 +308,6 @@
                                     <td><code>.pm7-tooltip-content--multiline</code></td>
                                     <td>Multiline content support</td>
                                 </tr>
-                                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Delay Modifiers</strong></td></tr>
-                                <tr>
-                                    <td><code>.pm7-tooltip--delay-short</code></td>
-                                    <td>Short delay (200ms)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>.pm7-tooltip--delay-long</code></td>
-                                    <td>Long delay (600ms)</td>
-                                </tr>
                             </tbody>
                         </table>
 
@@ -335,19 +326,19 @@
                                     <td><code>data-side</code></td>
                                     <td>string</td>
                                     <td>top</td>
-                                    <td>Position of tooltip: top, bottom, left, right</td>
+                                    <td>Position of tooltip: top (default), bottom, left, right</td>
                                 </tr>
                                 <tr>
                                     <td><code>data-align</code></td>
                                     <td>string</td>
                                     <td>center</td>
-                                    <td>Alignment: start, center, end</td>
+                                    <td>Alignment: start, center, end (only works for top/bottom positions)</td>
                                 </tr>
                                 <tr>
                                     <td><code>data-delay</code></td>
                                     <td>number</td>
                                     <td>0</td>
-                                    <td>Delay before showing (ms)</td>
+                                    <td>Delay before showing/hiding (ms)</td>
                                 </tr>
                                 <tr>
                                     <td><code>data-open-delay</code></td>
@@ -376,6 +367,7 @@
 &lt;/div&gt;</code></pre>
 
                         <h3>Positioning</h3>
+                        <p style="margin-bottom: 1rem;"><strong>Note:</strong> PM7 Tooltip supports 4 positions: top (default), bottom, left, and right. The <code>data-align</code> attribute only works for top and bottom positions.</p>
                         <pre><code class="language-html">&lt;!-- Top position (default) --&gt;
 &lt;div class="pm7-tooltip"&gt;
   &lt;button class="pm7-tooltip-trigger"&gt;Top&lt;/button&gt;
@@ -408,6 +400,15 @@
   &lt;button class="pm7-tooltip-trigger"&gt;Left&lt;/button&gt;
   &lt;div class="pm7-tooltip-content" data-side="left"&gt;
     Tooltip appears to the left
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Top with alignment (only works for top/bottom) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Top Start&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top" data-align="start"&gt;
+    Aligned to start
     &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -596,12 +597,23 @@ function App() {
     </script>
 
     <script type="module">
-      import { initTabRouter } from '/scripts/tab-router.js';
-      import { loadSharedComponents } from '/scripts/components.js';
+      import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+      import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+      import { PM7Menu } from '/packages/core/src/scripts/menu.js';
       import { initTooltips } from '/packages/core/src/scripts/tooltip.js';
       
-      loadSharedComponents();
-      initTabRouter('tooltip');
+      // Load page components
+      loadHeader();
+      loadFooter();
+      loadSidebar();
+      
+      // Initialize menu after header is loaded
+      setTimeout(() => {
+          const menuElement = document.querySelector('[data-pm7-menu]');
+          if (menuElement && !menuElement.PM7Menu) {
+              new PM7Menu(menuElement);
+          }
+      }, 100);
       
       // Initialize tooltips after DOM is ready
       setTimeout(() => {
@@ -609,5 +621,18 @@ function App() {
         console.log('Tooltips initialized');
       }, 100);
     </script>
+
+    <script type="module">
+      import { initTabRouter } from '/scripts/tab-router.js';
+      
+      // Initialize tab routing
+      document.addEventListener('DOMContentLoaded', () => {
+        initTabRouter('tooltip');
+      });
+    </script>
+
+    <script type="module" src="/scripts/docs.js"></script>
+
+    <div id="footer-placeholder"></div>
 </body>
 </html>

@@ -109,13 +109,13 @@
                 <div class="pm7-form-group">
                   <label class="pm7-label">Error</label>
                   <input type="text" class="pm7-input pm7-input--error" placeholder="Error input">
-                  <p class="pm7-error-text">This field is required</p>
+                  <p class="pm7-helper-text pm7-helper-text--error">This field is required</p>
                 </div>
                 
                 <div class="pm7-form-group">
                   <label class="pm7-label">Success</label>
                   <input type="text" class="pm7-input pm7-input--success" value="Valid input">
-                  <p class="pm7-success-text">Looking good!</p>
+                  <p class="pm7-helper-text pm7-helper-text--success">Looking good!</p>
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@
             <div class="pm7-docs-example">
               <h3>Input with Icons</h3>
               <div class="pm7-docs-preview" style="gap: 1rem;">
-                <div class="pm7-input-group">
+                <div class="pm7-input-icon-wrapper">
                   <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
@@ -143,10 +143,10 @@
                   <input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search...">
                 </div>
                 
-                <div class="pm7-input-group">
+                <div class="pm7-input-icon-wrapper">
                   <input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password" id="password-demo">
                   <button type="button" class="pm7-input-icon pm7-input-icon--right" 
-                          style="background: none; border: none; cursor: pointer; padding: 0;"
+                          style="background: none; border: none; cursor: pointer; padding: 0; pointer-events: auto;"
                           onclick="togglePasswordVisibility()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -162,7 +162,7 @@
               <div class="pm7-docs-preview">
                 <div class="pm7-form-group">
                   <label for="demo-message" class="pm7-label">Message</label>
-                  <textarea id="demo-message" class="pm7-textarea" rows="4" placeholder="Type your message here..."></textarea>
+                  <textarea id="demo-message" class="pm7-input" rows="4" placeholder="Type your message here..."></textarea>
                   <p class="pm7-helper-text">Maximum 500 characters</p>
                 </div>
               </div>
@@ -190,26 +190,31 @@
               <div class="pm7-docs-preview" style="gap: 2rem;">
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                   <label class="pm7-checkbox">
-                    <input type="checkbox" class="pm7-checkbox-input">
+                    <input type="checkbox">
+                    <span class="pm7-checkbox-indicator"></span>
                     <span class="pm7-checkbox-label">Remember me</span>
                   </label>
                   <label class="pm7-checkbox">
-                    <input type="checkbox" class="pm7-checkbox-input" checked>
+                    <input type="checkbox" checked>
+                    <span class="pm7-checkbox-indicator"></span>
                     <span class="pm7-checkbox-label">Send newsletter</span>
                   </label>
                 </div>
                 
                 <div class="pm7-radio-group">
                   <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="basic" class="pm7-radio-input">
+                    <input type="radio" name="demo-plan" value="basic">
+                    <span class="pm7-radio-indicator"></span>
                     <span class="pm7-radio-label">Basic Plan</span>
                   </label>
                   <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="pro" class="pm7-radio-input" checked>
+                    <input type="radio" name="demo-plan" value="pro" checked>
+                    <span class="pm7-radio-indicator"></span>
                     <span class="pm7-radio-label">Pro Plan</span>
                   </label>
                   <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="enterprise" class="pm7-radio-input">
+                    <input type="radio" name="demo-plan" value="enterprise">
+                    <span class="pm7-radio-indicator"></span>
                     <span class="pm7-radio-label">Enterprise Plan</span>
                   </label>
                 </div>
@@ -272,9 +277,10 @@
                 </tr>
               </thead>
               <tbody>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Input Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-input</code></td>
-                  <td>Base input/textarea class</td>
+                  <td>Base input class (also used for textarea)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-input--sm</code></td>
@@ -302,20 +308,12 @@
                 </tr>
                 <tr>
                   <td><code>.pm7-input--no-resize</code></td>
-                  <td>Prevents textarea resizing</td>
+                  <td>Prevents textarea resizing (textarea only)</td>
                 </tr>
                 <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Select Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-select</code></td>
                   <td>Select dropdown styling</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-select--sm</code></td>
-                  <td>Small select size</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-select--lg</code></td>
-                  <td>Large select size</td>
                 </tr>
                 <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Checkbox Classes</strong></td></tr>
                 <tr>
@@ -333,7 +331,7 @@
                 <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Radio Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-radio</code></td>
-                  <td>Radio container</td>
+                  <td>Radio button container</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-radio-indicator</code></td>
@@ -343,10 +341,14 @@
                   <td><code>.pm7-radio-label</code></td>
                   <td>Radio label text</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-radio-group</code></td>
+                  <td>Container for radio button groups</td>
+                </tr>
                 <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Switch Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-switch</code></td>
-                  <td>Switch container</td>
+                  <td>Switch/toggle container</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-switch-track</code></td>
@@ -360,7 +362,7 @@
                   <td><code>.pm7-switch-label</code></td>
                   <td>Switch label text</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Layout Classes</strong></td></tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Form Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-form-group</code></td>
                   <td>Container for a form field (label, input, helper text)</td>
@@ -371,28 +373,37 @@
                 </tr>
                 <tr>
                   <td><code>.pm7-label--required</code></td>
-                  <td>Adds required asterisk</td>
+                  <td>Adds required asterisk after label</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-helper-text</code></td>
-                  <td>Helper/hint text</td>
+                  <td>Helper/hint text below inputs</td>
                 </tr>
                 <tr>
-                  <td><code>.pm7-error-text</code></td>
-                  <td>Error message styling</td>
+                  <td><code>.pm7-helper-text--error</code></td>
+                  <td>Error message styling (red text)</td>
                 </tr>
                 <tr>
-                  <td><code>.pm7-success-text</code></td>
-                  <td>Success message styling</td>
+                  <td><code>.pm7-helper-text--success</code></td>
+                  <td>Success message styling (green text)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Icon & Group Classes</strong></td></tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Input Group Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-input-group</code></td>
+                  <td>Container for input with addons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-addon</code></td>
+                  <td>Prefix/suffix addon styling</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Icon Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-input-icon-wrapper</code></td>
                   <td>Container for input with icons</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-input-icon</code></td>
-                  <td>Icon styling</td>
+                  <td>Icon styling (absolute positioned)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-input-icon--left</code></td>
@@ -402,13 +413,6 @@
                   <td><code>.pm7-input-icon--right</code></td>
                   <td>Right icon positioning</td>
                 </tr>
-                <tr>
-                  <td><code>.pm7-input-group</code></td>
-                  <td>Input group container (for addons)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-input-addon</code></td>
-                  <td>Prefix/suffix addon styling</td>
               </tbody>
             </table>
 
@@ -512,14 +516,14 @@
 &lt;div class="pm7-form-group"&gt;
   &lt;label for="username" class="pm7-label"&gt;Username&lt;/label&gt;
   &lt;input type="text" id="username" class="pm7-input pm7-input--error"&gt;
-  &lt;p class="pm7-error-text"&gt;Username already taken&lt;/p&gt;
+  &lt;p class="pm7-helper-text pm7-helper-text--error"&gt;Username already taken&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;!-- Success state --&gt;
 &lt;div class="pm7-form-group"&gt;
   &lt;label for="email-verify" class="pm7-label"&gt;Email&lt;/label&gt;
   &lt;input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com"&gt;
-  &lt;p class="pm7-success-text"&gt;Email verified!&lt;/p&gt;
+  &lt;p class="pm7-helper-text pm7-helper-text--success"&gt;Email verified!&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 
             <h3>JavaScript API</h3>

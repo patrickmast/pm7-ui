@@ -215,20 +215,8 @@
                   <td>Toast visibility state: 'open' or 'closed'</td>
                 </tr>
                 <tr>
-                  <td><code>data-swipe</code></td>
-                  <td>Swipe direction: 'move', 'cancel', or 'end'</td>
-                </tr>
-                <tr>
-                  <td><code>data-swipe-direction</code></td>
-                  <td>Swipe direction: 'up' or 'down' (mobile)</td>
-                </tr>
-                <tr>
-                  <td><code>aria-live</code></td>
-                  <td>Announcement priority: 'polite' or 'assertive'</td>
-                </tr>
-                <tr>
-                  <td><code>role</code></td>
-                  <td>ARIA role: 'status' or 'alert'</td>
+                  <td><code>data-toast-id</code></td>
+                  <td>Unique identifier for each toast instance</td>
                 </tr>
               </tbody>
             </table>
@@ -397,10 +385,11 @@ function MyComponent() {
 
             <h3>Accessibility</h3>
             <ul>
-              <li>Toasts are announced to screen readers using <code>role="status"</code></li>
-              <li>Important messages use <code>role="alert"</code></li>
+              <li>Toasts appear in a fixed position (top-right corner)</li>
+              <li>Close button includes <code>aria-label="Close"</code> for screen readers</li>
               <li>Focus remains on the trigger element</li>
               <li>Toast actions are keyboard accessible</li>
+              <li>Each toast has a unique ID for programmatic control</li>
             </ul>
 
             <h3>Best Practices</h3>
@@ -516,6 +505,25 @@ function MyComponent() {
         setTimeout(() => showToast(msg), index * 500);
       });
     }
+  </script>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
   </script>
 
   <script type="module">
