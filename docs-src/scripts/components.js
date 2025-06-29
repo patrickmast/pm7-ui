@@ -204,7 +204,7 @@ export function createVersionDialog() {
        data-pm7-dialog-size="sm">
     <div data-pm7-header
          data-pm7-dialog-title="Version Info"
-         data-pm7-dialog-subtitle="Version <span data-pm7-version>1.0.0</span>"
+         data-pm7-dialog-subtitle="Version 1.0.0"
          data-pm7-dialog-icon="info"
          data-pm7-header-separator>
     </div>
@@ -229,6 +229,24 @@ export function createVersionDialog() {
 window.showVersionDialog = async function() {
   // Ensure dialog functions are loaded
   await window.loadDialogIfNeeded();
+
+  // Get the current version
+  let version = '1.0.0';
+  try {
+    // Try to get version from existing span if available
+    const versionSpan = document.querySelector('[data-pm7-version]');
+    if (versionSpan && versionSpan.textContent) {
+      version = versionSpan.textContent;
+    }
+  } catch (e) {
+    console.warn('Could not get dynamic version:', e);
+  }
+
+  // Update the dialog subtitle with the current version
+  const subtitleElement = document.querySelector('#version-dialog [data-pm7-dialog-subtitle]');
+  if (subtitleElement) {
+    subtitleElement.setAttribute('data-pm7-dialog-subtitle', `Version ${version}`);
+  }
 
   // Use PM7 openDialog function
   if (window.openDialog) {
