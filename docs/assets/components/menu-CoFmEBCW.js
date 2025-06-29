@@ -1,0 +1,1 @@
+import{l as o,a as t,b as a,P as n}from"../components-Bv9aCA4x.js";import"../tab-selector-O38w-NWe.js";import{i as m}from"../tab-router-DMqiZDn4.js";import"../docs-BYj2o2g2.js";o();t();a();setTimeout(()=>{const e=document.querySelector("[data-pm7-menu]");e&&!e.PM7Menu&&new n(e)},100);document.addEventListener("DOMContentLoaded",()=>{m("menu")});

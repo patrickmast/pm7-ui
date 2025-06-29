@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dialog - data-pm7-ui Components</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
-  <link rel="stylesheet" href="/styles/docs.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script type="module" crossorigin src="/assets/components/dialog-BHn7D9H2.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-Bv9aCA4x.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-O38w-NWe.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-CPXP8QFI.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-DMqiZDn4.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-BYj2o2g2.js">
+  <link rel="stylesheet" crossorigin href="/assets/components-BMx-AKuN.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -1382,52 +1387,9 @@ function MyComponent() {
     }
   </script>
 
-  <script type="module">
-    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
-    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
-    import { PM7Dialog } from '/packages/core/src/scripts/dialog.js';
-    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
-    
-    // Load page components
-    loadHeader();
-    loadFooter();
-    loadSidebar();
-    
-    // Initialize menu after header is loaded
-    setTimeout(() => {
-        const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
-            new PM7Menu(menuElement);
-        }
-    }, 100);
-  </script>
 
-  <script type="module">
-    import { initTabRouter } from '/scripts/tab-router.js';
 
-    // Initialize tab routing
-    document.addEventListener('DOMContentLoaded', () => {
-      initTabRouter('dialog');
-    });
-  </script>
 
-  <script type="module">
-    // Import dialog functions directly for this page since it needs them
-    document.addEventListener('DOMContentLoaded', async () => {
-      console.log('[Dialog Page] Loading dialog functions...');
-      try {
-        const { openDialog, closeDialog } = await import('/packages/core/src/scripts/dialog.js');
-        window.openDialog = openDialog;
-        window.closeDialog = closeDialog;
-        console.log('[Dialog Page] Dialog functions loaded successfully');
-      } catch (error) {
-        console.error('[Dialog Page] Failed to load dialog functions:', error);
-      }
-    });
-  </script>
-
-  <script type="module" src="/scripts/docs.js"></script>
-  <script type="module" src="/scripts/version-standalone.js"></script>
 
   <div id="footer-placeholder"></div>
 </body>

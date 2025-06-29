@@ -111,7 +111,7 @@ export function loadFooter() {
       </div>
       <div class="pm7-footer-center">
         <span>© 2025 pm7-ui</span>
-        <span class="pm7-footer-version">v0.2.0</span>
+        <span class="pm7-footer-version">v<span data-pm7-version>1.0.0</span></span>
       </div>
       <div class="pm7-footer-right">
         <a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer" class="pm7-footer-github">
@@ -204,7 +204,7 @@ export function createVersionDialog() {
        data-pm7-dialog-size="sm">
     <div data-pm7-header
          data-pm7-dialog-title="Version Info"
-         data-pm7-dialog-subtitle="Version 0.2.0"
+         data-pm7-dialog-subtitle="Version <span data-pm7-version>1.0.0</span>"
          data-pm7-dialog-icon="info"
          data-pm7-header-separator>
     </div>

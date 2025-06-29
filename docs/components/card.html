@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card - pm7-ui Components</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
-  <link rel="stylesheet" href="/styles/docs.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script type="module" crossorigin src="/assets/components/card-DPmGAHlz.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-Bv9aCA4x.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-O38w-NWe.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-DMqiZDn4.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-BYj2o2g2.js">
+  <link rel="stylesheet" crossorigin href="/assets/components-BMx-AKuN.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -564,36 +568,8 @@
     }
   </script>
 
-  <script type="module">
-    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
-    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
-    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
-    
-    // Load page components
-    loadHeader();
-    loadFooter();
-    loadSidebar();
-    
-    // Initialize menu after header is loaded
-    setTimeout(() => {
-        const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
-            new PM7Menu(menuElement);
-        }
-    }, 100);
-  </script>
 
-  <script type="module">
-    import { initTabRouter } from '/scripts/tab-router.js';
-    
-    // Initialize tab routing
-    document.addEventListener('DOMContentLoaded', () => {
-      initTabRouter('card');
-    });
-  </script>
 
-  <script type="module" src="/scripts/docs.js"></script>
-  <script type="module" src="/scripts/version-standalone.js"></script>
 
   <div id="footer-placeholder"></div>
 </body>
