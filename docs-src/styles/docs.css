@@ -356,6 +356,12 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   margin-top: 0;
 }
 
+/* Normalize font-weight for usage tabs */
+#usage-panel .pm7-docs-section > h3,
+#usage-panel .pm7-docs-section > h4 {
+  font-weight: 400;
+}
+
 .pm7-docs-example {
   margin-bottom: var(--pm7-spacing-8);
 }
@@ -423,6 +429,23 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   background: #e7f3ff;
   border-color: #b3d9ff;
   text-align: center;
+}
+
+.pm7-docs-info--ai h3 {
+  font-weight: normal;
+}
+
+.pm7-docs-info--ai p {
+  font-weight: normal;
+}
+
+/* Ensure all text in documentation panel is not bold */
+#documentation-panel p {
+  font-weight: normal;
+}
+
+#documentation-panel code {
+  font-weight: normal;
 }
 
 .pm7-docs-note {

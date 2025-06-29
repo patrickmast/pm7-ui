@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - PM7 UI</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+    <link rel="stylesheet" href="/styles/docs.css">
+    <style>
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--pm7-primary);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        pre {
+            position: relative;
+        }
+
+        pre:hover .copy-button {
+            opacity: 1;
+        }
+
+        .copy-button:hover {
+            background: var(--pm7-primary-hover);
+        }
+
+        .copy-button.copied {
+            background: var(--pm7-success);
+        }
+
+        /* FAQ specific styling */
+        .pm7-accordion {
+            margin-top: 3rem;
+        }
+        
+        /* Subtiele hover effect voor FAQ */
+        .pm7-accordion-item:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        .pm7-accordion-content p {
+            margin: 0 0 1rem;
+            line-height: 1.6;
+            color: var(--pm7-muted-foreground);
+        }
+
+        .pm7-accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pm7-accordion-content code {
+            background: var(--pm7-muted);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: var(--pm7-primary);
+        }
+
+        .pm7-accordion-content pre {
+            background: var(--pm7-muted);
+            border: 1px solid var(--pm7-border);
+            border-radius: var(--pm7-radius);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .pm7-accordion-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .pm7-accordion-content ul {
+            margin: 0.5rem 0 1rem 1.5rem;
+            color: var(--pm7-muted-foreground);
+        }
+
+        .pm7-accordion-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    
+    <div class="pm7-docs-layout">
+        <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+        <main class="pm7-docs-content">
+            <h1>Frequently Asked Questions</h1>
+            <p class="pm7-docs-lead">
+                Find answers to common questions about PM7 UI. Can't find what you're looking for? 
+                Feel free to open an issue on our GitHub repository.
+            </p>
+
+            <div class="pm7-accordion" data-pm7-accordion>
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I install PM7 UI?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>You can install PM7 UI using npm or yarn:</p>
+                            <pre><code class="language-bash"># Using npm
+npm install @pm7/core
+
+# Using yarn
+yarn add @pm7/core</code><button class="copy-button">Copy</button></pre>
+                            <p>For React projects, also install the React package:</p>
+                            <pre><code class="language-bash"># Using npm
+npm install @pm7/react
+
+# Using yarn
+yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Which components require JavaScript?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Most PM7 UI components work with CSS only. However, these components require JavaScript for interactivity:</p>
+                            <ul>
+                                <li><strong>Menu</strong> - For dropdown functionality</li>
+                                <li><strong>Dialog</strong> - For open/close behavior</li>
+                                <li><strong>Toast</strong> - For notifications and auto-dismiss</li>
+                                <li><strong>Tab Selector</strong> - For tab switching</li>
+                            </ul>
+                            <p>When using these components, make sure to import the JavaScript:</p>
+                            <pre><code class="language-javascript">import { PM7Menu, PM7Dialog, PM7Toast } from '@pm7/core';</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I customize PM7 UI components?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>PM7 UI components can be customized in several ways:</p>
+                            <p><strong>1. CSS Custom Properties (Design Tokens)</strong></p>
+                            <pre><code class="language-css">:root {
+  --pm7-color-primary: #your-color;
+  --pm7-border-radius: 8px;
+  --pm7-spacing-md: 1.5rem;
+}</code><button class="copy-button">Copy</button></pre>
+                            <p><strong>2. Component Variants</strong></p>
+                            <pre><code class="language-html">&lt;button class="pm7-button pm7-button--secondary pm7-button--lg"&gt;
+  Large Secondary Button
+&lt;/button&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p><strong>3. Custom CSS Classes</strong></p>
+                            <pre><code class="language-css">.pm7-button.custom-button {
+  background: linear-gradient(45deg, #1C86EF, #0066CC);
+  box-shadow: 0 4px 12px rgba(28, 134, 239, 0.3);
+}</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Does PM7 UI support dark mode?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! PM7 UI has built-in dark mode support. You can enable it by adding the <code>pm7-theme-dark</code> class to a parent element:</p>
+                            <pre><code class="language-html">&lt;!-- Dark mode for entire page --&gt;
+&lt;body class="pm7-theme-dark"&gt;
+  &lt;!-- Your content --&gt;
+&lt;/body&gt;
+
+&lt;!-- Dark mode for specific section --&gt;
+&lt;div class="pm7-theme-dark"&gt;
+  &lt;button class="pm7-button"&gt;Dark Button&lt;/button&gt;
+&lt;/div&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>Components will automatically adapt their colors for optimal contrast in dark mode.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What's the difference between @pm7/core and @pm7/react?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>@pm7/core</strong> contains:</p>
+                            <ul>
+                                <li>All CSS styles and design tokens</li>
+                                <li>Vanilla JavaScript for interactive components</li>
+                                <li>Framework-agnostic implementation</li>
+                            </ul>
+                            <p><strong>@pm7/react</strong> contains:</p>
+                            <ul>
+                                <li>React component wrappers</li>
+                                <li>React-specific props and event handling</li>
+                                <li>TypeScript support for React</li>
+                            </ul>
+                            <p>The React package depends on the core package for all styling and base functionality.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I report bugs or request features?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>We welcome bug reports and feature requests! You can:</p>
+                            <ul>
+                                <li><strong>GitHub Issues</strong> - Open an issue on our GitHub repository</li>
+                                <li><strong>Pull Requests</strong> - Submit PRs for bug fixes or new features</li>
+                                <li><strong>Discussions</strong> - Join discussions about future development</li>
+                            </ul>
+                            <p>Please include:</p>
+                            <ul>
+                                <li>Clear description of the issue or feature</li>
+                                <li>Steps to reproduce (for bugs)</li>
+                                <li>Expected vs actual behavior</li>
+                                <li>Browser and OS information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I use PM7 UI with Vue or other frameworks?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! The <code>@pm7/core</code> package is framework-agnostic and works with any framework:</p>
+                            <pre><code class="language-html">&lt;!-- Vue example --&gt;
+&lt;template&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;
+    Vue Button
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+@import '@pm7/core/dist/pm7-ui.css';
+&lt;/style&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>A dedicated Vue package (<code>@pm7/vue</code>) is currently in development for better Vue integration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Is PM7 UI production-ready?</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>PM7 UI is designed with production use in mind:</p>
+                            <ul>
+                                <li><strong>Stable API</strong> - We follow semantic versioning</li>
+                                <li><strong>Performance</strong> - Optimized CSS and tree-shakeable JavaScript</li>
+                                <li><strong>Browser Support</strong> - Works in all modern browsers</li>
+                                <li><strong>Accessibility</strong> - WCAG 2.1 AA compliant</li>
+                                <li><strong>Testing</strong> - Components are thoroughly tested</li>
+                            </ul>
+                            <p>However, always test thoroughly in your specific use case before deploying to production.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module">
+        import { loadHeader, loadFooter, loadSidebar } from './scripts/components.js';
+        import { PM7Accordion } from '/packages/core/src/scripts/accordion.js';
+        import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+        
+        // Load header and footer
+        loadHeader();
+        loadFooter();
+        loadSidebar();
+        
+        // Initialize menu after header is loaded
+        setTimeout(() => {
+            const menuElement = document.querySelector('[data-pm7-menu]');
+            if (menuElement && !menuElement.PM7Menu) {
+                new PM7Menu(menuElement);
+            }
+        }, 100);
+
+        // Copy button functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyButtons = document.querySelectorAll('.copy-button');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const codeBlock = button.previousElementSibling;
+                    const code = codeBlock.textContent;
+                    
+                    try {
+                        await navigator.clipboard.writeText(code);
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
