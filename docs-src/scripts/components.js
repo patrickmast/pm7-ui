@@ -139,6 +139,10 @@ export function loadSidebar() {
   let currentComponent = '';
   if (pathParts[1] === 'components' && pathParts[2]) {
     currentComponent = pathParts[2];
+    // If it's a .html file, remove the extension
+    if (currentComponent.endsWith('.html')) {
+      currentComponent = currentComponent.replace('.html', '');
+    }
   }
   
   // Component list with all components
@@ -160,7 +164,9 @@ export function loadSidebar() {
     const isActive = component.componentName === currentComponent;
     const activeStyle = isActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
     const hrefWithTab = `/components/${component.componentName}/documentation`;
-    return `<a href="${hrefWithTab}" class="pm7-button pm7-button--ghost pm7-button--full"${activeStyle}>${component.name}</a>`;
+    // Add data attribute for client-side routing
+    const dataAttr = ` data-pm7-route="${component.componentName}"`;
+    return `<a href="${hrefWithTab}" class="pm7-button pm7-button--ghost pm7-button--full"${activeStyle}${dataAttr}>${component.name}</a>`;
   }).join('\n            ');
   
   // Check if FAQ page is active
@@ -176,7 +182,7 @@ export function loadSidebar() {
         </nav>
         <div style="margin: var(--pm7-spacing-4) 0; border-bottom: 1px solid var(--pm7-border);"></div>
         <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-          <a href="/faq.html" class="pm7-button pm7-button--ghost pm7-button--full"${faqActiveStyle}>FAQ</a>
+          <a href="/faq.html" class="pm7-button pm7-button--ghost pm7-button--full"${faqActiveStyle} data-pm7-route="faq">FAQ</a>
         </nav>
       </div>
     </div>`;
@@ -190,23 +196,23 @@ export function loadSidebar() {
 // Version info dialog - using PM7 dialog component
 export function createVersionDialog() {
   // Skip if already exists
-  if (document.querySelector('[pm7-dialog="version-dialog"]')) return;
+  if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
 
   const dialogHTML = `
   <div class="pm7-dialog" 
-       pm7-dialog="version-dialog"
-       pm7-dialog-size="sm">
-    <div pm7-header
-         pm7-dialog-title="Version Info"
-         pm7-dialog-subtitle="Version 0.2.0"
-         pm7-dialog-icon="info"
-         pm7-header-separator>
+       data-pm7-dialog="version-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-header
+         data-pm7-dialog-title="Version Info"
+         data-pm7-dialog-subtitle="Version 0.2.0"
+         data-pm7-dialog-icon="info"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p><strong>Package:</strong> pm7-ui</p>
       <p><strong>License:</strong> <a href="https://opensource.org/licenses/ISC" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">https://opensource.org/licenses/ISC</a></p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary" onclick="closeDialog('version-dialog')">
         Close
       </button>
@@ -324,5 +330,47 @@ export function loadSharedComponents() {
     }
   }, 10); // Small delay to ensure DOM is ready
 
+  // Initialize client-side routing for component navigation
+  setTimeout(() => {
+    initializeComponentRouting();
+  }, 50); // Ensure sidebar is loaded first
+
   console.log('[Components] loadSharedComponents finished');
+}
+
+// Make functions globally available for router
+window.loadSidebar = loadSidebar;
+window.initializeComponentRouting = initializeComponentRouting;
+
+// Initialize client-side routing for smooth navigation
+export function initializeComponentRouting() {
+  console.log('[Components] Initializing client-side routing...');
+  
+  // Import router module
+  import('/scripts/router.js').then(() => {
+    // Add click handlers to all sidebar component links
+    const componentLinks = document.querySelectorAll('[data-pm7-route]');
+    
+    componentLinks.forEach(link => {
+      const componentName = link.getAttribute('data-pm7-route');
+      
+      link.addEventListener('click', (e) => {
+        // Only intercept if router is available
+        if (window.PM7Router) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Get preferred tab from localStorage or default
+          const preferredTab = localStorage.getItem('pm7-docs-last-tab') || 'documentation';
+          
+          // Navigate using client-side router
+          window.PM7Router.navigateToComponent(componentName, preferredTab);
+        }
+      });
+    });
+    
+    console.log('[Components] Client-side routing initialized for', componentLinks.length, 'links');
+  }).catch(error => {
+    console.error('[Components] Failed to load router:', error);
+  });
 }

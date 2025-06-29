@@ -328,27 +328,27 @@ function transformDialog(dialogElement) {
   }
 
   // Read dialog attributes
-  const dialogId = dialogElement.getAttribute('pm7-dialog');
-  const size = dialogElement.getAttribute('pm7-dialog-size') || 'md';
-  const showCloseButton = dialogElement.hasAttribute('pm7-show-close');
+  const dialogId = dialogElement.getAttribute('data-pm7-dialog');
+  const size = dialogElement.getAttribute('data-pm7-dialog-size') || 'md';
+  const showCloseButton = dialogElement.hasAttribute('data-pm7-show-close');
   // Default behavior: ESC and overlay close are enabled unless explicitly disabled
-  const preventEscapeClose = dialogElement.hasAttribute('pm7-no-escape');
-  const preventOverlayClose = dialogElement.hasAttribute('pm7-no-overlay-close');
+  const preventEscapeClose = dialogElement.hasAttribute('data-pm7-no-escape');
+  const preventOverlayClose = dialogElement.hasAttribute('data-pm7-no-overlay-close');
 
   // Get content sections
-  const headerEl = dialogElement.querySelector('[pm7-header]');
-  const bodyEl = dialogElement.querySelector('[pm7-body]');
-  const footerEl = dialogElement.querySelector('[pm7-footer]');
+  const headerEl = dialogElement.querySelector('[data-pm7-header]');
+  const bodyEl = dialogElement.querySelector('[data-pm7-body]');
+  const footerEl = dialogElement.querySelector('[data-pm7-footer]');
 
   // Store section data
   const sections = {
     header: headerEl ? {
       element: headerEl,
       content: headerEl.innerHTML,
-      title: headerEl.getAttribute('pm7-dialog-title'),
-      subtitle: headerEl.getAttribute('pm7-dialog-subtitle'),
-      icon: headerEl.getAttribute('pm7-dialog-icon'),
-      separator: headerEl.hasAttribute('pm7-header-separator')
+      title: headerEl.getAttribute('data-pm7-dialog-title'),
+      subtitle: headerEl.getAttribute('data-pm7-dialog-subtitle'),
+      icon: headerEl.getAttribute('data-pm7-dialog-icon'),
+      separator: headerEl.hasAttribute('data-pm7-header-separator')
     } : null,
     body: bodyEl ? bodyEl.innerHTML : null,
     footer: footerEl ? footerEl.innerHTML : null
@@ -459,7 +459,7 @@ function transformDialog(dialogElement) {
 
 // Simple helper functions for data-pm7-dialog elements
 export function openDialog(dialogId) {
-  const dialogElement = document.querySelector(`[pm7-dialog="${dialogId}"]`);
+  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
   if (!dialogElement) {
     console.warn(`Dialog with id "${dialogId}" not found`);
     return;
@@ -507,7 +507,7 @@ export function openDialog(dialogId) {
 }
 
 export function closeDialog(dialogId) {
-  const dialogElement = document.querySelector(`[pm7-dialog="${dialogId}"]`);
+  const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
   if (!dialogElement) return;
   
   // Add closing state for animation

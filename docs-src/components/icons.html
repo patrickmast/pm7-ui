@@ -54,7 +54,7 @@
             <ul>
               <li><strong>Default dimensions:</strong> 18×15 pixels</li>
               <li><strong>Bar height:</strong> 2.5 pixels</li>
-              <li><strong>Bar spacing:</b> 3.75 pixels between bars</li>
+              <li><strong>Bar spacing:</strong> 3.75 pixels between bars</li>
               <li><strong>Corner radius:</strong> 1.25 pixels (rounded bars)</li>
               <li><strong>Color:</strong> Inherits from currentColor by default</li>
             </ul>
@@ -83,12 +83,6 @@
                 <div class="icon-demo">
                   <div id="icon-large"></div>
                   <span class="icon-label">Large (24×20)</span>
-                </div>
-                
-                <!-- Primary color -->
-                <div class="icon-demo">
-                  <div id="icon-primary"></div>
-                  <span class="icon-label">Primary</span>
                 </div>
                 
                 <!-- Custom color -->
@@ -217,19 +211,19 @@ const style = `
                   <td><code>width</code></td>
                   <td>number</td>
                   <td>18</td>
-                  <td>Icon width in pixels</td>
+                  <td>Width of the icon in pixels</td>
                 </tr>
                 <tr>
                   <td><code>height</code></td>
                   <td>number</td>
                   <td>15</td>
-                  <td>Icon height in pixels</td>
+                  <td>Height of the icon in pixels</td>
                 </tr>
                 <tr>
                   <td><code>color</code></td>
                   <td>string</td>
                   <td>'currentColor'</td>
-                  <td>Icon color (any valid CSS color)</td>
+                  <td>Color of the icon (any valid CSS color)</td>
                 </tr>
                 <tr>
                   <td><code>className</code></td>
@@ -317,56 +311,106 @@ export default {
     </main>
   </div>
 
+  <!-- Icon Demo Styles -->
   <style>
-    /* Icon specific styles */
     .icon-demo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
-
+    
     .icon-label {
-      font-size: 12px;
-      color: var(--pm7-muted-foreground);
+      font-size: var(--pm7-text-sm);
+      color: var(--pm7-text-secondary);
     }
-
-    /* Icon button styling */
+    
     .icon-button {
-      background: white;
-      border: 1px solid var(--pm7-border);
-      padding: 8px 16px 8px 40px;
-      border-radius: var(--pm7-radius);
-      cursor: pointer;
       position: relative;
-      font-size: 14px;
-      color: var(--pm7-foreground);
+      padding-left: 2.5rem;
+      background: transparent;
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+      padding-left: 3rem;
+      cursor: pointer;
       transition: all 0.2s;
     }
-
+    
     .icon-button:hover {
-      background: var(--pm7-accent);
-      border-color: var(--pm7-border-hover);
+      background: var(--pm7-muted);
+      border-color: var(--pm7-primary);
     }
-
+    
     .icon-button::before {
       content: '';
       position: absolute;
-      left: 12px;
+      left: 1rem;
       top: 50%;
       transform: translateY(-50%);
       width: 18px;
       height: 15px;
+      background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
     }
-
+    
     .icon-with-text {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--pm7-spacing-2);
     }
   </style>
+
+  <!-- Icon Demo Scripts -->
+  <script type="module">
+    import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '/packages/core/src/icons/hamburger.js';
+    
+    // Default icon
+    const defaultIcon = createHamburgerIconElement();
+    document.getElementById('icon-default')?.appendChild(defaultIcon);
+    
+    // Small icon
+    const smallIcon = createHamburgerIconElement({ width: 12, height: 10 });
+    document.getElementById('icon-small')?.appendChild(smallIcon);
+    
+    // Large icon
+    const largeIcon = createHamburgerIconElement({ width: 24, height: 20 });
+    document.getElementById('icon-large')?.appendChild(largeIcon);
+    
+    // Custom color icon
+    const customIcon = createHamburgerIconElement({ color: '#1C86EF' });
+    document.getElementById('icon-custom')?.appendChild(customIcon);
+    
+    // HTML string example
+    const iconString = createHamburgerIcon({ className: 'demo-icon' });
+    const stringContainer = document.getElementById('icon-string');
+    if (stringContainer) {
+      stringContainer.innerHTML = `<div style="display: flex; align-items: center; gap: 1rem;">
+        <span>HTML String:</span>
+        ${iconString}
+      </div>`;
+    }
+    
+    // CSS background example
+    const dataURI = getHamburgerIconDataURI('%23333333');
+    const cssButton = document.getElementById('css-icon-button');
+    if (cssButton) {
+      cssButton.style.setProperty('--icon-url', `url(${dataURI})`);
+      cssButton.querySelector('::before')?.style.setProperty('background-image', `var(--icon-url)`);
+      // Apply via stylesheet instead
+      const style = document.createElement('style');
+      style.textContent = `#css-icon-button::before { background-image: url(${dataURI}); }`;
+      document.head.appendChild(style);
+    }
+    
+    // Button integration examples
+    const buttonIcon = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('button-icon')?.appendChild(buttonIcon);
+    
+    const iconOnly = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('icon-only')?.appendChild(iconOnly);
+  </script>
 
   <script>
     function copyDocLink() {
@@ -387,50 +431,10 @@ export default {
 
   <script type="module">
     import { initTabRouter } from '/scripts/tab-router.js';
-    import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '/packages/core/src/scripts/index.js';
     
     // Initialize tab routing
     document.addEventListener('DOMContentLoaded', () => {
       initTabRouter('icons');
-      
-      // Initialize icons
-      // Default icon
-      const defaultIcon = createHamburgerIconElement();
-      document.getElementById('icon-default').appendChild(defaultIcon);
-
-      // Small icon
-      const smallIcon = createHamburgerIconElement({ width: 12, height: 10 });
-      document.getElementById('icon-small').appendChild(smallIcon);
-
-      // Large icon
-      const largeIcon = createHamburgerIconElement({ width: 24, height: 20 });
-      document.getElementById('icon-large').appendChild(largeIcon);
-
-      // Primary color icon
-      const primaryIcon = createHamburgerIconElement({ color: '#1C86EF' });
-      document.getElementById('icon-primary').appendChild(primaryIcon);
-
-      // Custom color icon
-      const customIcon = createHamburgerIconElement({ color: '#ef4444' });
-      document.getElementById('icon-custom').appendChild(customIcon);
-
-      // String example
-      const iconString = createHamburgerIcon({ className: 'demo-icon' });
-      document.getElementById('icon-string').innerHTML = iconString;
-
-      // CSS background example
-      const dataURI = getHamburgerIconDataURI('%231C86EF');
-      const style = document.createElement('style');
-      style.textContent = `.icon-button::before { background-image: url(${dataURI}); }`;
-      document.head.appendChild(style);
-
-      // Button with icon
-      const buttonIcon = createHamburgerIconElement({ width: 16, height: 13 });
-      document.getElementById('button-icon').appendChild(buttonIcon);
-      
-      // Icon only button
-      const iconOnly = createHamburgerIconElement();
-      document.getElementById('icon-only').appendChild(iconOnly);
     });
   </script>
 

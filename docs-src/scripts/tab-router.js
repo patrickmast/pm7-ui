@@ -130,11 +130,10 @@ export function initTabRouter(componentName) {
     }
     
     if (tabIndices[initialTab] !== undefined) {
-      setTimeout(() => {
-        tabSelectorInstance.selectTabByIndex(tabIndices[initialTab]);
-        // Also update sidebar links on initial load
-        updateSidebarLinks(initialTab);
-      }, 50); // Small delay to ensure DOM is ready
+      // Select tab immediately to prevent flicker
+      tabSelectorInstance.selectTabByIndex(tabIndices[initialTab]);
+      // Also update sidebar links on initial load
+      updateSidebarLinks(initialTab);
     }
     
     // Handle browser back/forward
@@ -146,3 +145,6 @@ export function initTabRouter(componentName) {
     });
   });
 }
+
+// Make initTabRouter globally available for the router
+window.initTabRouter = initTabRouter;

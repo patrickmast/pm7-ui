@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dialog - pm7-ui Components</title>
+  <title>Dialog - data-pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
@@ -63,7 +63,7 @@
             <h4>Content Markers (Input)</h4>
             <p>These attributes are used on the root <code>pm7-dialog</code> element or its direct children to define content and behavior:</p>
             <ul>
-              <li><code>pm7-dialog="id"</code> - Unique identifier for the dialog</li>
+              <li><code>data-pm7-dialog="id"</code> - Unique identifier for the dialog</li>
               <li><code>pm7-dialog-size</code> - Dialog size: sm, md, lg, xl, full</li>
               <li><code>pm7-dialog-icon</code> - Icon type: info, warning, error, success</li>
               <li><code>pm7-show-close</code> - Shows the X close button in header</li>
@@ -401,7 +401,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><code>pm7-dialog="id"</code></td>
+                  <td><code>data-pm7-dialog="id"</code></td>
                   <td>Unique identifier for the dialog (required)</td>
                   <td><code>.pm7-dialog</code> (root)</td>
                 </tr>
@@ -449,22 +449,22 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><code>&lt;h2 pm7-header&gt;</code></td>
+                  <td><code>&lt;h2 data-pm7-header&gt;</code></td>
                   <td>Header title text</td>
                   <td><code>.pm7-dialog-header</code></td>
                 </tr>
                 <tr>
-                  <td><code>&lt;p pm7-subtitle&gt;</code></td>
+                  <td><code>&lt;p data-pm7-subtitle&gt;</code></td>
                   <td>Header subtitle text</td>
                   <td><code>.pm7-dialog-description</code></td>
                 </tr>
                 <tr>
-                  <td><code>&lt;div pm7-body&gt;</code></td>
+                  <td><code>&lt;div data-pm7-body&gt;</code></td>
                   <td>Main content area</td>
                   <td><code>.pm7-dialog-body</code></td>
                 </tr>
                 <tr>
-                  <td><code>&lt;div pm7-footer&gt;</code></td>
+                  <td><code>&lt;div data-pm7-footer&gt;</code></td>
                   <td>Footer with actions</td>
                   <td><code>.pm7-dialog-footer</code></td>
                 </tr>
@@ -473,15 +473,15 @@
 
             <h3>Basic Usage</h3>
             <pre><code class="language-html">&lt;!-- Content Marker System (Recommended) --&gt;
-&lt;div pm7-dialog="my-dialog" pm7-dialog-size="md" pm7-show-close&gt;
-  &lt;h2 pm7-header&gt;Dialog Title&lt;/h2&gt;
-  &lt;p pm7-subtitle&gt;Optional subtitle text&lt;/p&gt;
+&lt;div data-pm7-dialog="my-dialog" data-pm7-dialog-size="md" data-pm7-show-close&gt;
+  &lt;h2 data-pm7-header&gt;Dialog Title&lt;/h2&gt;
+  &lt;p data-pm7-subtitle&gt;Optional subtitle text&lt;/p&gt;
   
-  &lt;div pm7-body&gt;
+  &lt;div data-pm7-body&gt;
     &lt;p&gt;Your dialog content goes here.&lt;/p&gt;
   &lt;/div&gt;
   
-  &lt;div pm7-footer&gt;
+  &lt;div data-pm7-footer&gt;
     &lt;button class="pm7-button pm7-button--outline" onclick="closeDialog('my-dialog')"&gt;
       Cancel
     &lt;/button&gt;
@@ -492,12 +492,12 @@
 &lt;/div&gt;
 
 &lt;!-- Dialog with Icon --&gt;
-&lt;div pm7-dialog="info-dialog" pm7-dialog-size="sm" pm7-dialog-icon="info"&gt;
-  &lt;h2 pm7-header&gt;Information&lt;/h2&gt;
-  &lt;div pm7-body&gt;
+&lt;div data-pm7-dialog="info-dialog" data-pm7-dialog-size="sm" data-pm7-dialog-icon="info"&gt;
+  &lt;h2 data-pm7-header&gt;Information&lt;/h2&gt;
+  &lt;div data-pm7-body&gt;
     &lt;p&gt;This is an informational message.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;div pm7-footer&gt;
+  &lt;div data-pm7-footer&gt;
     &lt;button class="pm7-button pm7-button--primary" onclick="closeDialog('info-dialog')"&gt;
       Got it
     &lt;/button&gt;
@@ -547,7 +547,7 @@
             <pre><code class="language-javascript">import { PM7Dialog, createDialog, pm7Alert, pm7Confirm } from '@pm7/core';
 
 // Initialize a dialog (for traditional structure)
-const dialogElement = document.querySelector('[data-pm7-dialog="my-dialog"]');
+const dialogElement = document.querySelector('[data-data-pm7-dialog="my-dialog"]');
 const dialog = new PM7Dialog(dialogElement);
 
 // Open/close programmatically
@@ -625,12 +625,12 @@ import { Dialog } from '@pm7/react';
 
 function MyComponent() {
   return (
-    &lt;div className="pm7-dialog" pm7-dialog="react-dialog"&gt;
-      &lt;div pm7-header pm7-dialog-title="Edit Profile"&gt;&lt;/div&gt;
-      &lt;div pm7-body&gt;
+    &lt;div className="pm7-dialog" data-pm7-dialog="react-dialog"&gt;
+      &lt;div data-pm7-header data-pm7-dialog-title="Edit Profile"&gt;&lt;/div&gt;
+      &lt;div data-pm7-body&gt;
         &lt;p&gt;Dialog content goes here&lt;/p&gt;
       &lt;/div&gt;
-      &lt;div pm7-footer&gt;
+      &lt;div data-pm7-footer&gt;
         &lt;button className="pm7-button pm7-button--outline"&gt;
           Cancel
         &lt;/button&gt;
@@ -682,7 +682,7 @@ function MyComponent() {
               </div>
             </div>
 
-            <div class="pm7-docs-info pm7-docs-info--ai">
+            <div class="pm7-docs-info data-pm7-docs-info--ai">
               <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
               <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Dialog implementation guidance.</p>
               <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
@@ -697,17 +697,17 @@ function MyComponent() {
 
   <!-- Basic Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="basic-dialog"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Basic Dialog"
-         pm7-dialog-subtitle="This is a basic dialog with a title, description, and footer."
-         pm7-header-separator>
+       data-pm7-dialog="basic-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Basic Dialog"
+         data-pm7-dialog-subtitle="This is a basic dialog with a title, description, and footer."
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>This is the main content of the dialog. You can put any React node here.</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary" onclick="closeDialog('basic-dialog')">
         Close
       </button>
@@ -716,18 +716,18 @@ function MyComponent() {
 
   <!-- Small Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="small-dialog"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Small Dialog"
-         pm7-header-separator>
+       data-pm7-dialog="small-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Small Dialog"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>Small dialogs are perfect for quick confirmations, simple messages, or compact forms. The narrow width (400px) keeps content focused and easy to read.</p>
       <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Confirmations, alerts, simple inputs</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary pm7-button--full" onclick="closeDialog('small-dialog')">
         Got it
       </button>
@@ -736,14 +736,14 @@ function MyComponent() {
 
   <!-- Medium Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="medium-dialog"
-       pm7-dialog-size="md"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Medium Dialog"
-         pm7-header-separator>
+       data-pm7-dialog="medium-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Medium Dialog"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>Medium dialogs provide a comfortable reading width for most content. This is the default and recommended size for general purpose dialogs.</p>
       <div style="margin-top: 16px; padding: 16px; background: var(--pm7-muted); border-radius: 6px;">
         <h4 style="margin: 0 0 8px 0;">Example Form</h4>
@@ -754,7 +754,7 @@ function MyComponent() {
       </div>
       <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Forms, detailed messages, standard modals</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('medium-dialog')">
         Close
       </button>
@@ -763,14 +763,14 @@ function MyComponent() {
 
   <!-- Large Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="large-dialog"
-       pm7-dialog-size="lg"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Large Dialog"
-         pm7-header-separator>
+       data-pm7-dialog="large-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Large Dialog"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>Large dialogs offer generous space for complex content like multi-column layouts, data tables, or detailed forms.</p>
       <div style="margin-top: 16px;">
         <table style="width: 100%; border-collapse: collapse;">
@@ -802,7 +802,7 @@ function MyComponent() {
       </div>
       <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Tables, multi-column forms, detailed content</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('large-dialog')">
         Close
       </button>
@@ -811,17 +811,17 @@ function MyComponent() {
 
   <!-- Full Screen Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="full-dialog"
-       pm7-dialog-size="full"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Full Screen Dialog"
-         pm7-header-separator>
+       data-pm7-dialog="full-dialog"
+       data-pm7-dialog-size="full"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Full Screen Dialog"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>This is a full screen dialog. It takes up the entire viewport and is useful for immersive experiences or complex workflows.</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('full-dialog')">
         Exit Full Screen
       </button>
@@ -830,19 +830,19 @@ function MyComponent() {
 
   <!-- Alert Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="alert-dialog"
-       pm7-dialog-size="sm"
-       pm7-no-escape
-       pm7-no-overlay-close>
-    <div pm7-header
-         pm7-dialog-title="Warning"
-         pm7-dialog-icon="warning"
-         pm7-header-separator>
+       data-pm7-dialog="alert-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Warning"
+         data-pm7-dialog-icon="warning"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>This action cannot be undone. Are you sure you want to delete this item?</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('alert-dialog')">
         Cancel
       </button>
@@ -854,18 +854,18 @@ function MyComponent() {
 
   <!-- Alert Dialog (No Icon) -->
   <div class="pm7-dialog" 
-       pm7-dialog="alert-dialog-no-icon"
-       pm7-dialog-size="sm"
-       pm7-no-escape
-       pm7-no-overlay-close>
-    <div pm7-header
-         pm7-dialog-title="Warning"
-         pm7-header-separator>
+       data-pm7-dialog="alert-dialog-no-icon"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Warning"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>This action cannot be undone. Are you sure you want to delete this item?</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('alert-dialog-no-icon')">
         Cancel
       </button>
@@ -877,14 +877,14 @@ function MyComponent() {
 
   <!-- Form Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="form-dialog"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Edit Profile"
-         pm7-dialog-subtitle="Update your personal information and preferences"
-         pm7-header-separator>
+       data-pm7-dialog="form-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Edit Profile"
+         data-pm7-dialog-subtitle="Update your personal information and preferences"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <form onsubmit="event.preventDefault(); closeDialog('form-dialog');">
         <div class="pm7-form-group">
           <label class="pm7-label" for="name">Name</label>
@@ -900,7 +900,7 @@ function MyComponent() {
         </div>
       </form>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button type="button" class="pm7-button pm7-button--ghost" onclick="closeDialog('form-dialog')">
         Cancel
       </button>
@@ -912,15 +912,15 @@ function MyComponent() {
 
   <!-- Scrollable Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="scrollable-dialog"
-       pm7-dialog-size="lg"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Terms of Service"
-         pm7-dialog-subtitle="Please read and accept our terms and conditions"
-         pm7-header-separator>
+       data-pm7-dialog="scrollable-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Terms of Service"
+         data-pm7-dialog-subtitle="Please read and accept our terms and conditions"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <div style="max-height: 400px; overflow-y: auto;">
         <h3>1. Terms</h3>
         <p>By accessing this website, you are agreeing to be bound by these website Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
@@ -947,7 +947,7 @@ function MyComponent() {
         <p>Any claim relating to our website shall be governed by the laws of the Netherlands without regard to its conflict of law provisions.</p>
       </div>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('scrollable-dialog')">
         Decline
       </button>
@@ -959,11 +959,11 @@ function MyComponent() {
 
   <!-- Delete Confirmation -->
   <div class="pm7-dialog" 
-       pm7-dialog="delete-confirm"
-       pm7-dialog-size="sm"
-       pm7-no-escape
-       pm7-no-overlay-close>
-    <div pm7-body>
+       data-pm7-dialog="delete-confirm"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-body>
       <div style="text-align: center; padding: 32px;">
         <div style="color: var(--pm7-destructive); margin-bottom: 16px; display: flex; justify-content: center;">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -976,7 +976,7 @@ function MyComponent() {
         <p style="color: var(--pm7-muted-foreground);">This action cannot be undone. All your data will be permanently deleted.</p>
       </div>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline pm7-button--full" onclick="closeDialog('delete-confirm')">
         Cancel
       </button>
@@ -988,13 +988,13 @@ function MyComponent() {
 
   <!-- Multi-Step Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="wizard-dialog"
-       pm7-dialog-size="lg">
-    <div pm7-header
-         pm7-dialog-title="Setup Wizard - Step 1 of 3"
-         pm7-header-separator>
+       data-pm7-dialog="wizard-dialog"
+       data-pm7-dialog-size="lg">
+    <div data-pm7-header
+         data-pm7-dialog-title="Setup Wizard - Step 1 of 3"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <h3>Welcome to the Setup Wizard</h3>
       <p>This wizard will guide you through the initial setup process. Let's start with some basic information.</p>
       <div class="pm7-form-group" style="margin-top: 24px;">
@@ -1002,7 +1002,7 @@ function MyComponent() {
         <input type="text" id="company" class="pm7-input" placeholder="Enter your company name">
       </div>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--ghost" onclick="closeDialog('wizard-dialog')">
         Cancel
       </button>
@@ -1019,16 +1019,16 @@ function MyComponent() {
 
   <!-- Dialog with Icon -->
   <div class="pm7-dialog" 
-       pm7-dialog="icon-dialog"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Success!"
-         pm7-dialog-subtitle="Your changes have been saved successfully."
-         pm7-dialog-icon="success"
-         pm7-header-separator>
+       data-pm7-dialog="icon-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-dialog-icon="success"
+         data-pm7-header-separator>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary pm7-button--full" onclick="closeDialog('icon-dialog')">
         Done
       </button>
@@ -1037,15 +1037,15 @@ function MyComponent() {
 
   <!-- Dialog with Icon (No Close Button) -->
   <div class="pm7-dialog" 
-       pm7-dialog="icon-dialog-no-close"
-       pm7-dialog-size="sm">
-    <div pm7-header
-         pm7-dialog-title="Success!"
-         pm7-dialog-subtitle="Your changes have been saved successfully."
-         pm7-dialog-icon="success"
-         pm7-header-separator>
+       data-pm7-dialog="icon-dialog-no-close"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-dialog-icon="success"
+         data-pm7-header-separator>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary pm7-button--full" onclick="closeDialog('icon-dialog-no-close')">
         Done
       </button>
@@ -1054,15 +1054,15 @@ function MyComponent() {
 
   <!-- Dialog with Close Button Only (No Icon) -->
   <div class="pm7-dialog" 
-       pm7-dialog="icon-dialog-close-only"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Success!"
-         pm7-dialog-subtitle="Your changes have been saved successfully."
-         pm7-header-separator>
+       data-pm7-dialog="icon-dialog-close-only"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-header-separator>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary pm7-button--full" onclick="closeDialog('icon-dialog-close-only')">
         Done
       </button>
@@ -1071,14 +1071,14 @@ function MyComponent() {
 
   <!-- Dialog with Description -->
   <div class="pm7-dialog" 
-       pm7-dialog="description-dialog"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Update Available"
-         pm7-dialog-subtitle="A new version of the application is ready to install."
-         pm7-header-separator>
+       data-pm7-dialog="description-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Update Available"
+         data-pm7-dialog-subtitle="A new version of the application is ready to install."
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <h3>What's New</h3>
       <ul>
         <li>Improved performance and stability</li>
@@ -1090,7 +1090,7 @@ function MyComponent() {
         The update will be installed automatically when you restart the application.
       </p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--ghost" onclick="closeDialog('description-dialog')">
         Remind Me Later
       </button>
@@ -1102,9 +1102,9 @@ function MyComponent() {
 
   <!-- Loading Dialog (Body Only) -->
   <div class="pm7-dialog" 
-       pm7-dialog="loading-dialog"
-       pm7-dialog-size="sm">
-    <div pm7-body style="text-align: center; padding: 40px;">
+       data-pm7-dialog="loading-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body style="text-align: center; padding: 40px;">
       <div class="pm7-dialog-spinner" style="margin: 0 auto 16px;"></div>
       <p>Loading...</p>
     </div>
@@ -1112,10 +1112,10 @@ function MyComponent() {
 
   <!-- Cookie Bar (Footer Only) -->
   <div class="pm7-dialog" 
-       pm7-dialog="cookie-dialog"
-       pm7-dialog-size="md"
+       data-pm7-dialog="cookie-dialog"
+       data-pm7-dialog-size="md"
        style="--dialog-position: bottom;">
-    <div pm7-footer style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+    <div data-pm7-footer style="display: flex; align-items: center; gap: 16px; padding: 20px;">
       <span style="flex: 1;">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</span>
       <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="closeDialog('cookie-dialog')">
         Learn More
@@ -1128,9 +1128,9 @@ function MyComponent() {
 
   <!-- Custom Header with Avatar -->
   <div class="pm7-dialog" 
-       pm7-dialog="avatar-dialog"
-       pm7-show-close>
-    <div pm7-header style="padding: 20px 24px;">
+       data-pm7-dialog="avatar-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header style="padding: 20px 24px;">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
           JD
@@ -1141,7 +1141,7 @@ function MyComponent() {
         </div>
       </div>
     </div>
-    <div pm7-body style="background: var(--pm7-muted); min-height: 200px;">
+    <div data-pm7-body style="background: var(--pm7-muted); min-height: 200px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <div style="align-self: flex-start; background: white; padding: 12px 16px; border-radius: 18px; max-width: 70%;">
           <p style="margin: 0;">Hey! How can I help you today?</p>
@@ -1151,7 +1151,7 @@ function MyComponent() {
         </div>
       </div>
     </div>
-    <div pm7-footer style="padding: 16px;">
+    <div data-pm7-footer style="padding: 16px;">
       <div style="display: flex; gap: 8px;">
         <input type="text" class="pm7-input" placeholder="Type a message..." style="flex: 1;">
         <button class="pm7-button pm7-button--primary">Send</button>
@@ -1161,12 +1161,12 @@ function MyComponent() {
 
   <!-- Mixed Header (Generated + Custom) -->
   <div class="pm7-dialog" 
-       pm7-dialog="mixed-dialog"
-       pm7-dialog-size="md"
-       pm7-show-close>
-    <div pm7-header 
-         pm7-dialog-title="Notification Settings"
-         pm7-header-separator>
+       data-pm7-dialog="mixed-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header 
+         data-pm7-dialog-title="Notification Settings"
+         data-pm7-header-separator>
       <!-- Title wordt automatisch gegenereerd, dan komt onze custom content -->
       <div style="margin-top: 16px; padding: 12px; background: var(--pm7-muted); border-radius: 6px;">
         <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
@@ -1175,7 +1175,7 @@ function MyComponent() {
         </label>
       </div>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <div style="display: flex; flex-direction: column; gap: 16px;">
         <div>
           <h4 style="margin: 0 0 8px 0;">Email Notifications</h4>
@@ -1201,7 +1201,7 @@ function MyComponent() {
         </div>
       </div>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--ghost" onclick="closeDialog('mixed-dialog')">
         Cancel
       </button>
@@ -1213,30 +1213,30 @@ function MyComponent() {
 
   <!-- Only Header Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="only-header-dialog"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Only Header Example"
-         pm7-dialog-subtitle="This dialog only has a header section"
-         pm7-header-separator>
+       data-pm7-dialog="only-header-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Only Header Example"
+         data-pm7-dialog-subtitle="This dialog only has a header section"
+         data-pm7-header-separator>
     </div>
   </div>
 
   <!-- Only Body Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="only-body-dialog"
-       pm7-dialog-size="sm">
-    <div pm7-body>
+       data-pm7-dialog="only-body-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body>
       <p style="text-align: center; padding: 20px;">This dialog only contains a body section with content. No header or footer is present.</p>
     </div>
   </div>
 
   <!-- Only Footer Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="only-footer-dialog"
-       pm7-dialog-size="md">
-    <div pm7-footer style="display: flex; align-items: center; gap: 16px;">
+       data-pm7-dialog="only-footer-dialog"
+       data-pm7-dialog-size="md">
+    <div data-pm7-footer style="display: flex; align-items: center; gap: 16px;">
       <span style="flex: 1;">This dialog only has a footer section.</span>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('only-footer-dialog')">
         Dismiss
@@ -1246,15 +1246,15 @@ function MyComponent() {
 
   <!-- Header + Footer Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="header-footer-dialog"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Header and Footer"
-         pm7-dialog-subtitle="No body content in this dialog"
-         pm7-header-separator>
+       data-pm7-dialog="header-footer-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Header and Footer"
+         data-pm7-dialog-subtitle="No body content in this dialog"
+         data-pm7-header-separator>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary pm7-button--full" onclick="closeDialog('header-footer-dialog')">
         Close
       </button>
@@ -1263,13 +1263,13 @@ function MyComponent() {
 
   <!-- Body + Footer Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="body-footer-dialog"
-       pm7-dialog-size="sm">
-    <div pm7-body>
+       data-pm7-dialog="body-footer-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body>
       <p>This dialog has body content and a footer, but no header section.</p>
       <p style="color: var(--pm7-muted-foreground); font-size: 14px;">Useful for simple confirmations or messages.</p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--outline" onclick="closeDialog('body-footer-dialog')">
         Cancel
       </button>
@@ -1281,15 +1281,15 @@ function MyComponent() {
 
   <!-- Header + Body Dialog -->
   <div class="pm7-dialog" 
-       pm7-dialog="header-body-dialog"
-       pm7-dialog-size="sm"
-       pm7-show-close>
-    <div pm7-header
-         pm7-dialog-title="Information"
-         pm7-dialog-icon="info"
-         pm7-header-separator>
+       data-pm7-dialog="header-body-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Information"
+         data-pm7-dialog-icon="info"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p>This dialog has a header and body section, but no footer with actions.</p>
       <p style="color: var(--pm7-muted-foreground); font-size: 14px; margin-top: 12px;">The user can close it using the X button or by clicking outside.</p>
     </div>

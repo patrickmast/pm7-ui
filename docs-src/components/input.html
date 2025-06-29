@@ -598,8 +598,28 @@ function MyForm() {
     </main>
   </div>
 
-  <script>
-    function copyDocLink() {
+  <div id="footer-placeholder"></div>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
+
+    // Copy documentation link
+    window.copyDocLink = function() {
       const link = document.getElementById('doc-link').textContent;
       navigator.clipboard.writeText(link).then(() => {
         const button = event.target;
@@ -612,12 +632,12 @@ function MyForm() {
           button.style.backgroundColor = '';
         }, 2000);
       });
-    }
+    };
 
-    function togglePasswordVisibility() {
+    window.togglePasswordVisibility = function() {
       const input = document.getElementById('password-demo');
       input.type = input.type === 'password' ? 'text' : 'password';
-    }
+    };
   </script>
 
   <script type="module">
@@ -630,7 +650,5 @@ function MyForm() {
   </script>
 
   <script type="module" src="/scripts/docs.js"></script>
-
-  <div id="footer-placeholder"></div>
 </body>
 </html>
