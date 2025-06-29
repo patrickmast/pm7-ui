@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accordion - pm7-ui</title>
+  <title>Accordion - pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
@@ -11,34 +11,638 @@
 <body>
   <div id="header-placeholder"></div>
 
-  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
-    <h1>Accordion Component</h1>
-    <p class="pm7-docs-lead">Coming Soon</p>
-    
-    <div class="pm7-card" style="margin-top: 40px;">
-      <div class="pm7-card-content">
-        <h2>Under Development</h2>
-        <p>The Accordion component is currently under development and will be available in a future release of pm7-ui.</p>
-        <p>This component will provide:</p>
-        <ul>
-          <li>Single and multiple selection modes</li>
-          <li>Smooth expand/collapse animations</li>
-          <li>Customizable headers and content</li>
-          <li>Icon indicators</li>
-          <li>Keyboard navigation</li>
-          <li>Accessible ARIA implementation</li>
-        </ul>
-        <div style="margin-top: 24px;">
-          <a href="/components/" class="pm7-button pm7-button--secondary">
-            ← Back to Components
-          </a>
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1>Accordion</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Accordions are vertically stacked expandable items. They reduce clutter by showing only essential information initially and revealing details on demand.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To organize and present large amounts of content in a compact way</li>
+              <li>For FAQs (Frequently Asked Questions)</li>
+              <li>To create collapsible sections in forms or settings</li>
+              <li>When you need to reduce cognitive load by hiding secondary information</li>
+            </ul>
+            
+            <h3>Anatomy</h3>
+            <ul>
+              <li><strong>Container</strong>: Wraps all accordion items</li>
+              <li><strong>Item</strong>: Individual collapsible section</li>
+              <li><strong>Trigger</strong>: Clickable header that toggles content</li>
+              <li><strong>Content</strong>: Hidden/shown area containing detailed information</li>
+              <li><strong>Icon</strong>: Visual indicator showing open/closed state</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Basic Accordion</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>What is PM7 UI?</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>PM7 UI is a modern, accessible component library designed for building beautiful user interfaces. It provides a comprehensive set of customizable components that work seamlessly across different frameworks.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>How do I install PM7 UI?</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>You can install PM7 UI using npm or yarn:</p>
+                        <pre><code>npm install @pm7/core
+# or
+yarn add @pm7/core</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Is PM7 UI accessible?</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Yes! PM7 UI is built with accessibility in mind. All components follow WAI-ARIA guidelines and are keyboard navigable, screen reader friendly, and support reduced motion preferences.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Multiple Open Items</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion" data-pm7-accordion data-allow-multiple="true" style="max-width: 600px;">
+                  <div class="pm7-accordion-item" data-state="open">
+                    <button class="pm7-accordion-trigger">
+                      <span>Features</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <ul>
+                          <li>Modern design system</li>
+                          <li>Fully customizable</li>
+                          <li>Dark mode support</li>
+                          <li>TypeScript support</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item" data-state="open">
+                    <button class="pm7-accordion-trigger">
+                      <span>Benefits</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <ul>
+                          <li>Faster development</li>
+                          <li>Consistent UI/UX</li>
+                          <li>Accessible by default</li>
+                          <li>Great developer experience</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Accordion Variants</h3>
+              
+              <h4>No Separator</h4>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--no-separator" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Without separator line</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion doesn't have a separator line between the header and content when expanded.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Clean transition</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>The content flows directly from the header without visual separation.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Flush Variant</h4>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--flush" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Account Settings</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Manage your account preferences, security settings, and profile information.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Privacy & Security</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Control your privacy settings, manage data sharing, and configure security options.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Compact Variant</h4>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--compact" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Small Item 1</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Compact content with less padding.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Small Item 2</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Perfect for dense information layouts.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Icon Start Position</h4>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Icon at the beginning</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has the expand/collapse icon positioned at the start instead of at the end.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Another item with icon at start</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Useful for different design layouts or when following specific design patterns.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Text Alignment</h4>
+              <div class="pm7-docs-preview" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Center aligned text -->
+                <div class="pm7-accordion pm7-accordion--text-center" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Center Aligned Text</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has center-aligned text in the header.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Right aligned text -->
+                <div class="pm7-accordion pm7-accordion--text-right" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Right Aligned Text</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has right-aligned text in the header.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Combined: Icon start + Center text -->
+                <div class="pm7-accordion pm7-accordion--icon-start pm7-accordion--text-center" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Icon Start + Center Text</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This combines icon at start with center-aligned text.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion</code></td>
+                  <td>Container for accordion items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-item</code></td>
+                  <td>Individual accordion section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-trigger</code></td>
+                  <td>Clickable header button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-content</code></td>
+                  <td>Collapsible content area</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-content-inner</code></td>
+                  <td>Inner wrapper for content padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-icon</code></td>
+                  <td>Chevron icon for open/close state</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--flush</code></td>
+                  <td>Removes borders and background</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--compact</code></td>
+                  <td>Reduces padding for dense layouts</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--separated</code></td>
+                  <td>Adds spacing between items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--icon-start</code></td>
+                  <td>Positions the expand/collapse icon at the start</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-left</code></td>
+                  <td>Left-aligns the header text (default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-center</code></td>
+                  <td>Center-aligns the header text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-right</code></td>
+                  <td>Right-aligns the header text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--no-separator</code></td>
+                  <td>Removes the separator line between header and content</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-accordion</code></td>
+                  <td>Boolean</td>
+                  <td>-</td>
+                  <td>Enables automatic initialization</td>
+                </tr>
+                <tr>
+                  <td><code>data-allow-multiple</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Allow multiple items open simultaneously</td>
+                </tr>
+                <tr>
+                  <td><code>data-default-open</code></td>
+                  <td>Number|"all"</td>
+                  <td>null</td>
+                  <td>Index of item(s) to open by default</td>
+                </tr>
+                <tr>
+                  <td><code>data-state</code></td>
+                  <td>"open"|"closed"</td>
+                  <td>"closed"</td>
+                  <td>Current state of accordion item</td>
+                </tr>
+                <tr>
+                  <td><code>data-icon-position</code></td>
+                  <td>"start"|"end"</td>
+                  <td>"end"</td>
+                  <td>Position of the expand/collapse icon</td>
+                </tr>
+                <tr>
+                  <td><code>data-text-align</code></td>
+                  <td>"left"|"center"|"right"</td>
+                  <td>"left"</td>
+                  <td>Text alignment in the header</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Default accordion --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Accordion Header&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        &lt;p&gt;Your content here&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with icon at start --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-icon-position="start"&gt;
+  &lt;!-- Accordion items --&gt;
+&lt;/div&gt;
+
+&lt;!-- Or using CSS class directly --&gt;
+&lt;div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion&gt;
+  &lt;!-- Accordion items --&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <pre><code class="language-javascript">import { PM7Accordion } from '@pm7/core';
+
+// Manual initialization
+const accordionElement = document.querySelector('.pm7-accordion');
+const accordion = new PM7Accordion(accordionElement, {
+  allowMultiple: true,
+  defaultOpen: 0, // Open first item by default
+  iconPosition: 'start', // Position icon at the start
+  textAlign: 'center' // Center align header text
+});
+
+// Methods
+accordion.open(0);      // Open specific item
+accordion.close(0);     // Close specific item
+accordion.openAll();    // Open all items
+accordion.closeAll();   // Close all items
+accordion.toggle(0);    // Toggle specific item</code></pre>
+
+            <h3>React Usage</h3>
+            <pre><code class="language-jsx">import { Accordion } from '@pm7/react';
+
+function App() {
+  return (
+    &lt;Accordion allowMultiple defaultOpen={0}&gt;
+      &lt;Accordion.Item&gt;
+        &lt;Accordion.Trigger&gt;Section 1&lt;/Accordion.Trigger&gt;
+        &lt;Accordion.Content&gt;
+          Content for section 1
+        &lt;/Accordion.Content&gt;
+      &lt;/Accordion.Item&gt;
+      &lt;Accordion.Item&gt;
+        &lt;Accordion.Trigger&gt;Section 2&lt;/Accordion.Trigger&gt;
+        &lt;Accordion.Content&gt;
+          Content for section 2
+        &lt;/Accordion.Content&gt;
+      &lt;/Accordion.Item&gt;
+    &lt;/Accordion&gt;
+  );
+}</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Keyboard navigation with Tab, Enter, and Space keys</li>
+              <li>Proper ARIA attributes (aria-expanded)</li>
+              <li>Focus management and visible focus indicators</li>
+              <li>Screen reader announcements for state changes</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: #F8F9FA;">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: white; padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: white; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-docs-info pm7-docs-info--ai">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Accordion implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 
-  <div id="footer-placeholder"></div>
-  
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
+    import { PM7Accordion } from '/packages/core/src/scripts/accordion.js';
+    import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize menu after header is loaded
+    setTimeout(() => {
+        const menuElement = document.querySelector('[data-pm7-menu]');
+        if (menuElement && !menuElement.PM7Menu) {
+            new PM7Menu(menuElement);
+        }
+    }, 100);
+
+    // Initialize accordions that aren't auto-initialized
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab selector is auto-initialized
+      
+      // Accordion examples are auto-initialized via data-pm7-accordion attribute
+    });
+
+    // Copy documentation link
+    window.copyDocLink = function() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    };
+  </script>
+
+  <script type="module">
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('accordion');
+    });
+  </script>
+
   <script type="module" src="/scripts/docs.js"></script>
+
+  <div id="footer-placeholder"></div>
 </body>
 </html>

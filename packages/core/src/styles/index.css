@@ -20,6 +20,7 @@
 @import './components/toast.css';
 @import './components/tab-selector.css';
 @import './components/tooltip.css';
+@import './components/accordion.css';
 
 /* Import utilities */
 @import './utilities/helpers.css';

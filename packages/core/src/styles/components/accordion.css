@@ -1,0 +1,210 @@
+/* PM7 Accordion Component */
+
+.pm7-accordion {
+  --pm7-accordion-border: #e0e0e0;
+  --pm7-accordion-radius: var(--pm7-card-radius);
+  --pm7-accordion-bg: var(--pm7-background);
+  --pm7-accordion-bg-hover: var(--pm7-muted);
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm7-spacing-3);
+  width: 100%;
+}
+
+/* Accordion Item - Card-like styling */
+.pm7-accordion-item {
+  background-color: var(--pm7-background);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--pm7-card-radius);
+  transition: box-shadow 200ms, border-color 200ms;
+}
+
+.pm7-accordion-item:hover {
+  box-shadow: var(--pm7-card-shadow-hover);
+  border-color: var(--pm7-primary-lighter, #4A9EFF);
+}
+
+/* Accordion Trigger (Header) */
+.pm7-accordion-trigger {
+  width: 100%;
+  padding: var(--pm7-card-padding);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--pm7-text-base);
+  font-weight: 500;
+  color: var(--pm7-foreground);
+  transition: all 0.2s ease;
+  border-radius: var(--pm7-card-radius);
+}
+
+.pm7-accordion-trigger:hover {
+  color: var(--pm7-primary);
+}
+
+
+.pm7-accordion-trigger:focus {
+  outline: none;
+}
+
+/* Accordion Icon */
+.pm7-accordion-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: var(--pm7-muted-foreground);
+}
+
+.pm7-accordion-item[data-state="open"] .pm7-accordion-icon {
+  transform: rotate(180deg);
+}
+
+.pm7-accordion-item[data-state="open"] .pm7-accordion-trigger {
+  color: var(--pm7-primary);
+}
+
+/* Accordion Content */
+.pm7-accordion-content {
+  overflow: hidden;
+  font-size: var(--pm7-text-sm);
+  color: var(--pm7-muted-foreground);
+  line-height: 1.6;
+  position: relative;
+}
+
+.pm7-accordion-content[data-state="closed"] {
+  display: none;
+}
+
+.pm7-accordion-content[data-state="open"] {
+  animation: accordion-down 0.3s ease-out;
+}
+
+/* Separator with padding */
+.pm7-accordion-content[data-state="open"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--pm7-card-padding);
+  right: var(--pm7-card-padding);
+  height: 1px;
+  background-color: #F5F5F5;
+}
+
+/* Dark mode separator */
+.pm7-dark .pm7-accordion-content[data-state="open"]::before,
+[data-theme="dark"] .pm7-accordion-content[data-state="open"]::before {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* No separator variant */
+.pm7-accordion--no-separator .pm7-accordion-content[data-state="open"]::before {
+  display: none;
+}
+
+.pm7-accordion-content-inner {
+  padding: var(--pm7-card-padding);
+  border-radius: 0 0 var(--pm7-card-radius) var(--pm7-card-radius);
+}
+
+/* Animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--pm7-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+/* Variants */
+
+/* Bordered variant (default shown above) */
+
+/* Separated variant */
+.pm7-accordion--separated .pm7-accordion-item {
+  margin-bottom: var(--pm7-spacing-2);
+}
+
+/* Compact variant */
+.pm7-accordion--compact .pm7-accordion-trigger {
+  padding: var(--pm7-card-padding-sm);
+}
+
+.pm7-accordion--compact .pm7-accordion-content-inner {
+  padding: var(--pm7-card-padding-sm);
+}
+
+.pm7-accordion--compact .pm7-accordion-content[data-state="open"]::before {
+  left: var(--pm7-card-padding-sm);
+  right: var(--pm7-card-padding-sm);
+}
+
+/* Flush variant (no border/background) */
+.pm7-accordion--flush .pm7-accordion-item {
+  border: none;
+  border-bottom: 1px solid var(--pm7-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.pm7-accordion--flush .pm7-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.pm7-accordion--flush .pm7-accordion-item:hover {
+  box-shadow: none;
+}
+
+.pm7-accordion--flush .pm7-accordion-content[data-state="open"]::before {
+  display: none;
+}
+
+/* Icon position variants */
+.pm7-accordion--icon-start .pm7-accordion-trigger {
+  flex-direction: row-reverse;
+}
+
+.pm7-accordion--icon-start .pm7-accordion-icon {
+  margin-right: var(--pm7-spacing-3);
+  margin-left: 0;
+}
+
+/* Text alignment variants */
+.pm7-accordion--text-left .pm7-accordion-trigger {
+  text-align: left;
+}
+
+.pm7-accordion--text-center .pm7-accordion-trigger {
+  text-align: center;
+}
+
+.pm7-accordion--text-center .pm7-accordion-trigger > span {
+  flex: 1;
+  text-align: center;
+}
+
+.pm7-accordion--text-right .pm7-accordion-trigger {
+  text-align: right;
+}
+
+.pm7-accordion--text-right .pm7-accordion-trigger > span {
+  flex: 1;
+  text-align: right;
+}
+
+/* Dark mode adjustments */
+.pm7-dark .pm7-accordion-item,
+[data-theme="dark"] .pm7-accordion-item {
+  --pm7-accordion-border: var(--pm7-dark-border);
+  --pm7-accordion-bg: var(--pm7-dark-background);
+  --pm7-accordion-bg-hover: var(--pm7-dark-muted);
+}

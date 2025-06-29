@@ -9,6 +9,7 @@ export { PM7Button, initButtons } from './button.js';
 export { PM7Toast, showToast, closeToast, closeAllToasts } from './toast.js';
 export { PM7TabSelector } from './tab-selector.js';
 export { PM7Tooltip, initTooltips } from './tooltip.js';
+export { PM7Accordion } from './accordion.js';
 
 // Icons
 export { 
@@ -24,3 +25,4 @@ import './button.js';
 import './toast.js';
 import './tab-selector.js';
 import './tooltip.js';
+import './accordion.js';

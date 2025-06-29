@@ -44,6 +44,15 @@ export function loadHeader() {
               </span>
               Components
             </a>
+            <a href="/faq.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 16v.01M12 13c0-1 .5-1.5 1-2 1.5-1.5 2-2 2-3.5C15 5.5 13.5 4 11.5 4S8 5.5 8 7.5"/>
+                </svg>
+              </span>
+              FAQ
+            </a>
             <div class="pm7-menu-separator"></div>
             <a href="#" class="pm7-menu-item" id="version-info-trigger">
               <span class="pm7-menu-item-icon">
@@ -124,27 +133,39 @@ export function loadFooter() {
 export function loadSidebar() {
   // Get current page to determine active state
   const currentPath = window.location.pathname;
-  const currentFile = currentPath.split('/').pop() || '';
+  
+  // Extract component name from path (e.g., /components/button/documentation -> button)
+  const pathParts = currentPath.split('/');
+  let currentComponent = '';
+  if (pathParts[1] === 'components' && pathParts[2]) {
+    currentComponent = pathParts[2];
+  }
   
   // Component list with all components
   const components = [
-    { name: 'Button', href: '/components/button.html', file: 'button.html' },
-    { name: 'Card', href: '/components/card.html', file: 'card.html' },
-    { name: 'Dialog', href: '/components/dialog.html', file: 'dialog.html' },
-    { name: 'Icons', href: '/components/icons.html', file: 'icons.html' },
-    { name: 'Input', href: '/components/input.html', file: 'input.html' },
-    { name: 'Menu', href: '/components/menu.html', file: 'menu.html' },
-    { name: 'Tab Selector', href: '/components/tab-selector.html', file: 'tab-selector.html' },
-    { name: 'Toast', href: '/components/toast.html', file: 'toast.html' },
-    { name: 'Tooltip', href: '/components/tooltip.html', file: 'tooltip.html' }
+    { name: 'Accordion', componentName: 'accordion' },
+    { name: 'Button', componentName: 'button' },
+    { name: 'Card', componentName: 'card' },
+    { name: 'Dialog', componentName: 'dialog' },
+    { name: 'Icons', componentName: 'icons' },
+    { name: 'Input', componentName: 'input' },
+    { name: 'Menu', componentName: 'menu' },
+    { name: 'Tab Selector', componentName: 'tab-selector' },
+    { name: 'Toast', componentName: 'toast' },
+    { name: 'Tooltip', componentName: 'tooltip' }
   ];
   
   // Build navigation links
   const navLinks = components.map(component => {
-    const isActive = component.file === currentFile;
+    const isActive = component.componentName === currentComponent;
     const activeStyle = isActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
-    return `<a href="${component.href}" class="pm7-button pm7-button--ghost pm7-button--full"${activeStyle}>${component.name}</a>`;
+    const hrefWithTab = `/components/${component.componentName}/documentation`;
+    return `<a href="${hrefWithTab}" class="pm7-button pm7-button--ghost pm7-button--full"${activeStyle}>${component.name}</a>`;
   }).join('\n            ');
+  
+  // Check if FAQ page is active
+  const isFaqActive = currentPath === '/faq.html';
+  const faqActiveStyle = isFaqActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
   
   const sidebarHTML = `
     <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0; background-color: transparent;">
@@ -152,6 +173,10 @@ export function loadSidebar() {
         <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
         <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
           ${navLinks}
+        </nav>
+        <div style="margin: var(--pm7-spacing-4) 0; border-bottom: 1px solid var(--pm7-border);"></div>
+        <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
+          <a href="/faq.html" class="pm7-button pm7-button--ghost pm7-button--full"${faqActiveStyle}>FAQ</a>
         </nav>
       </div>
     </div>`;
