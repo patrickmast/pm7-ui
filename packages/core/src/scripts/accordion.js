@@ -10,6 +10,8 @@ export class PM7Accordion {
       defaultOpen: null,
       iconPosition: 'end', // 'start' or 'end'
       textAlign: 'left', // 'left', 'center', or 'right'
+      height: null, // 'sm', 'md', 'lg', 'fixed' or null for auto
+      fixedHeight: 300, // height in pixels when using 'fixed' option
       ...options
     };
     
@@ -26,6 +28,16 @@ export class PM7Accordion {
     // Apply text alignment class if needed
     if (this.options.textAlign && this.options.textAlign !== 'left') {
       this.element.classList.add(`pm7-accordion--text-${this.options.textAlign}`);
+    }
+    
+    // Apply height class if needed
+    if (this.options.height) {
+      this.element.classList.add(`pm7-accordion--height-${this.options.height}`);
+      
+      // If fixed height, set the CSS variable
+      if (this.options.height === 'fixed' && this.options.fixedHeight) {
+        this.element.style.setProperty('--pm7-accordion-fixed-height', `${this.options.fixedHeight}px`);
+      }
     }
     
     // Find all accordion items
@@ -45,7 +57,19 @@ export class PM7Accordion {
                      this.options.defaultOpen === 'all' ||
                      item.getAttribute('data-state') === 'open';
       
+      // Mark item as initial to prevent animation on already open items
+      if (isOpen) {
+        item.setAttribute('data-initial', 'true');
+      }
+      
       this.setItemState(item, trigger, content, isOpen);
+      
+      // Remove initial flag after initialization
+      if (isOpen) {
+        setTimeout(() => {
+          item.removeAttribute('data-initial');
+        }, 50);
+      }
       
       // Add click handler
       trigger.addEventListener('click', () => this.toggle(index));
@@ -83,14 +107,37 @@ export class PM7Accordion {
   }
   
   setItemState(item, trigger, content, isOpen) {
-    item.setAttribute('data-state', isOpen ? 'open' : 'closed');
-    trigger.setAttribute('aria-expanded', isOpen);
-    content.setAttribute('data-state', isOpen ? 'open' : 'closed');
-    
-    // For smooth animation, we need to set height dynamically
     if (isOpen) {
+      // Opening
+      item.setAttribute('data-state', 'open');
+      trigger.setAttribute('aria-expanded', true);
+      content.setAttribute('data-state', 'open');
+      
+      // Set height for animation
       const height = content.scrollHeight;
       content.style.setProperty('--pm7-accordion-content-height', `${height}px`);
+    } else {
+      // Closing - only animate if it was previously open
+      if (content.getAttribute('data-state') === 'open') {
+        // Set height before closing
+        const height = content.scrollHeight;
+        content.style.setProperty('--pm7-accordion-content-height', `${height}px`);
+        
+        // Set closing state for animation
+        content.setAttribute('data-state', 'closing');
+        
+        // After animation completes, set to closed
+        setTimeout(() => {
+          item.setAttribute('data-state', 'closed');
+          trigger.setAttribute('aria-expanded', false);
+          content.setAttribute('data-state', 'closed');
+        }, 250); // Match animation duration
+      } else {
+        // Initial closed state - no animation
+        item.setAttribute('data-state', 'closed');
+        trigger.setAttribute('aria-expanded', false);
+        content.setAttribute('data-state', 'closed');
+      }
     }
   }
   
@@ -133,12 +180,16 @@ if (typeof document !== 'undefined') {
         const defaultOpen = accordion.getAttribute('data-default-open');
         const iconPosition = accordion.getAttribute('data-icon-position') || 'end';
         const textAlign = accordion.getAttribute('data-text-align') || 'left';
+        const height = accordion.getAttribute('data-height');
+        const fixedHeight = accordion.getAttribute('data-fixed-height');
         
         accordion.PM7Accordion = new PM7Accordion(accordion, {
           allowMultiple,
           defaultOpen: defaultOpen === 'all' ? 'all' : parseInt(defaultOpen),
           iconPosition,
-          textAlign
+          textAlign,
+          height,
+          fixedHeight: fixedHeight ? parseInt(fixedHeight) : 300
         });
       }
     });

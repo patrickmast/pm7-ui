@@ -8,7 +8,7 @@
 }
 
 .pm7-tooltip-trigger {
-  cursor: help;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;

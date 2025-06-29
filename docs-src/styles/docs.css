@@ -20,6 +20,34 @@ body {
   min-height: 100vh;
 }
 
+/* Loading state during navigation */
+body.pm7-navigating {
+  cursor: wait;
+}
+
+body.pm7-navigating .pm7-docs-sidebar a {
+  pointer-events: none;
+  /* Removed opacity change - no visual feedback during navigation */
+}
+
+/* Remove ALL transitions, transforms and animations from sidebar buttons */
+.pm7-docs-sidebar .pm7-button {
+  transition: none !important;
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  transition-timing-function: unset !important;
+  transition-delay: 0s !important;
+}
+
+.pm7-docs-sidebar .pm7-button:active {
+  transform: none !important;
+}
+
+/* Force instant hover state changes */
+.pm7-docs-sidebar .pm7-button * {
+  transition: none !important;
+}
+
 /* Prevent flash of unstyled content */
 #header-placeholder {
   min-height: 64px; /* Match header height */
@@ -339,6 +367,12 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   margin: var(--pm7-spacing-4) 0 var(--pm7-spacing-4);
 }
 
+/* Special class for usage panel headings */
+.pm7-usage-heading {
+  font-weight: 400 !important;
+}
+
+
 .pm7-docs-section {
   margin-bottom: var(--pm7-spacing-12);
 }
@@ -356,11 +390,6 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   margin-top: 0;
 }
 
-/* Normalize font-weight for usage tabs */
-#usage-panel .pm7-docs-section > h3,
-#usage-panel .pm7-docs-section > h4 {
-  font-weight: 400;
-}
 
 .pm7-docs-example {
   margin-bottom: var(--pm7-spacing-8);

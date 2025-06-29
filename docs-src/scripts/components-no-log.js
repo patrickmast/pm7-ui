@@ -118,23 +118,23 @@ export function loadFooter() {
 // Version info dialog - using PM7 dialog component
 export function createVersionDialog() {
   // Skip if already exists
-  if (document.querySelector('[pm7-dialog="version-dialog"]')) return;
+  if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
 
   const dialogHTML = `
   <div class="pm7-dialog" 
-       pm7-dialog="version-dialog"
-       pm7-dialog-size="sm">
-    <div pm7-header
-         pm7-dialog-title="Version Info"
-         pm7-dialog-subtitle="Version 0.2.0"
-         pm7-dialog-icon="info"
-         pm7-header-separator>
+       data-pm7-dialog="version-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-header
+         data-pm7-dialog-title="Version Info"
+         data-pm7-dialog-subtitle="Version 0.2.0"
+         data-pm7-dialog-icon="info"
+         data-pm7-header-separator>
     </div>
-    <div pm7-body>
+    <div data-pm7-body>
       <p><strong>Package:</strong> pm7-ui</p>
       <p><strong>License:</strong> <a href="https://opensource.org/licenses/ISC" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">https://opensource.org/licenses/ISC</a></p>
     </div>
-    <div pm7-footer>
+    <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary" onclick="closeDialog('version-dialog')">
         Close
       </button>

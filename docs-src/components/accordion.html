@@ -110,13 +110,13 @@ yarn add @pm7/core</code></pre>
               <div class="pm7-docs-preview">
                 <div class="pm7-accordion" data-pm7-accordion data-allow-multiple="true" style="max-width: 600px;">
                   <div class="pm7-accordion-item" data-state="open">
-                    <button class="pm7-accordion-trigger">
+                    <button class="pm7-accordion-trigger" aria-expanded="true">
                       <span>Features</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
-                    <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content" data-state="open">
                       <div class="pm7-accordion-content-inner">
                         <ul>
                           <li>Modern design system</li>
@@ -129,13 +129,13 @@ yarn add @pm7/core</code></pre>
                   </div>
                   
                   <div class="pm7-accordion-item" data-state="open">
-                    <button class="pm7-accordion-trigger">
+                    <button class="pm7-accordion-trigger" aria-expanded="true">
                       <span>Benefits</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
-                    <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content" data-state="open">
                       <div class="pm7-accordion-content-inner">
                         <ul>
                           <li>Faster development</li>
@@ -219,33 +219,127 @@ yarn add @pm7/core</code></pre>
                 </div>
               </div>
               
-              <h4>Compact Variant</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-accordion pm7-accordion--compact" data-pm7-accordion style="max-width: 600px;">
+              <h4>Size Variants</h4>
+              <div class="pm7-docs-preview" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Extra small size -->
+                <div class="pm7-accordion pm7-accordion--xs" data-pm7-accordion style="max-width: 600px;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>Small Item 1</span>
+                      <span>Extra Small Size Accordion</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>Compact content with less padding.</p>
+                        <p>Ultra-compact design with minimal padding and smallest font size. Perfect for very tight spaces or mobile interfaces.</p>
                       </div>
                     </div>
                   </div>
                   
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>Small Item 2</span>
+                      <span>Another XS Item</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>Perfect for dense information layouts.</p>
+                        <p>Minimal visual footprint for maximum content density.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Small size -->
+                <div class="pm7-accordion pm7-accordion--sm" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Small Size Accordion</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Compact design with smaller padding, font size, and icon. Perfect for sidebars or dense information layouts.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Another Small Item</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Less visual weight for secondary content.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Medium size (default) -->
+                <div class="pm7-accordion pm7-accordion--md" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Medium Size Accordion (Default)</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Standard size with balanced padding and typography. This is the default size used when no size modifier is specified.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Another Medium Item</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Ideal for most use cases and content types.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Large size -->
+                <div class="pm7-accordion pm7-accordion--lg" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Large Size Accordion</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Spacious design with larger padding, font size, and icon. Great for important content or when you need more visual emphasis.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Another Large Item</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>More prominent presentation for primary content areas.</p>
                       </div>
                     </div>
                   </div>
@@ -338,6 +432,113 @@ yarn add @pm7/core</code></pre>
                   </div>
                 </div>
               </div>
+              
+              <h4>Height Variants</h4>
+              <div class="pm7-docs-preview" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Small height -->
+                <div class="pm7-accordion pm7-accordion--height-sm" data-pm7-accordion data-height="sm" style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Small Height (200px max)</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has a maximum height of 200px. When content exceeds this height, it becomes scrollable with a custom scrollbar.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Medium height -->
+                <div class="pm7-accordion pm7-accordion--height-md" data-pm7-accordion data-height="md" style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Medium Height (400px max)</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has a maximum height of 400px. Perfect for medium-sized content that needs scrolling.</p>
+                        <ul>
+                          <li>Feature 1: Lorem ipsum dolor sit amet</li>
+                          <li>Feature 2: Consectetur adipiscing elit</li>
+                          <li>Feature 3: Sed do eiusmod tempor incididunt</li>
+                          <li>Feature 4: Ut labore et dolore magna aliqua</li>
+                          <li>Feature 5: Ut enim ad minim veniam</li>
+                          <li>Feature 6: Quis nostrud exercitation ullamco</li>
+                          <li>Feature 7: Laboris nisi ut aliquip ex ea</li>
+                          <li>Feature 8: Commodo consequat duis aute irure</li>
+                          <li>Feature 9: Dolor in reprehenderit in voluptate</li>
+                          <li>Feature 10: Velit esse cillum dolore eu fugiat</li>
+                        </ul>
+                        <p>Additional content to demonstrate scrolling behavior in medium height accordions.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Large height -->
+                <div class="pm7-accordion pm7-accordion--height-lg" data-pm7-accordion data-height="lg" style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Large Height (600px max)</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has a maximum height of 600px. Perfect for large content sections that still need a reasonable limit.</p>
+                        <h4>Complete Feature List</h4>
+                        <ul>
+                          <li><strong>Core Features:</strong> Modern design system, fully customizable components, comprehensive theming</li>
+                          <li><strong>Developer Experience:</strong> TypeScript support, tree-shaking ready, zero dependencies</li>
+                          <li><strong>Performance:</strong> Optimized bundle size, lazy loading support, efficient rendering</li>
+                          <li><strong>Accessibility:</strong> WCAG 2.1 compliant, keyboard navigation, screen reader support</li>
+                          <li><strong>Customization:</strong> CSS variables, theme inheritance, component composition</li>
+                          <li><strong>Documentation:</strong> Comprehensive guides, live examples, API reference</li>
+                          <li><strong>Testing:</strong> Unit tests, integration tests, visual regression tests</li>
+                          <li><strong>Browser Support:</strong> Chrome, Firefox, Safari, Edge (latest 2 versions)</li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisl eget consectetur sagittis, nisi nisl aliquam est, eget consectetur nisl nisl sit amet nisl.</p>
+                        <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Fixed height with custom value -->
+                <div class="pm7-accordion pm7-accordion--height-fixed" data-pm7-accordion data-height="fixed" data-fixed-height="250" style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Fixed Height (250px)</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>This accordion has a fixed height of 250px. You can set any custom height using the <code>data-fixed-height</code> attribute.</p>
+                        <pre><code>// Example configuration
+const accordion = new PM7Accordion(element, {
+  height: 'fixed',
+  fixedHeight: 250
+});</code></pre>
+                        <p>This is useful when you need precise control over the accordion's expanded height, regardless of content size.</p>
+                        <p>The content will scroll if it exceeds the fixed height, maintaining a consistent layout.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
@@ -391,9 +592,28 @@ yarn add @pm7/core</code></pre>
                   <td><code>.pm7-accordion--flush</code></td>
                   <td>Removes borders and background</td>
                 </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--xs</code></td>
+                  <td>Extra small size with minimal padding and 14px icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--sm</code></td>
+                  <td>Small size with reduced padding, font size, and 16px icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--md</code></td>
+                  <td>Medium size (default) with balanced proportions</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--lg</code></td>
+                  <td>Large size with increased padding, font size, and icon</td>
+                </tr>
                 <tr>
                   <td><code>.pm7-accordion--compact</code></td>
-                  <td>Reduces padding for dense layouts</td>
+                  <td>Legacy: Same as .pm7-accordion--sm (deprecated)</td>
                 </tr>
                 <tr>
                   <td><code>.pm7-accordion--separated</code></td>
@@ -418,6 +638,25 @@ yarn add @pm7/core</code></pre>
                 <tr>
                   <td><code>.pm7-accordion--no-separator</code></td>
                   <td>Removes the separator line between header and content</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Height Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-sm</code></td>
+                  <td>Small height limit (200px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-md</code></td>
+                  <td>Medium height limit (400px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-lg</code></td>
+                  <td>Large height limit (600px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-fixed</code></td>
+                  <td>Fixed height with custom value via CSS variable</td>
                 </tr>
               </tbody>
             </table>
@@ -469,6 +708,18 @@ yarn add @pm7/core</code></pre>
                   <td>"left"</td>
                   <td>Text alignment in the header</td>
                 </tr>
+                <tr>
+                  <td><code>data-height</code></td>
+                  <td>"sm"|"md"|"lg"|"fixed"</td>
+                  <td>null</td>
+                  <td>Height limit for accordion content</td>
+                </tr>
+                <tr>
+                  <td><code>data-fixed-height</code></td>
+                  <td>Number</td>
+                  <td>300</td>
+                  <td>Custom height in pixels when using "fixed" height</td>
+                </tr>
               </tbody>
             </table>
 
@@ -498,6 +749,16 @@ yarn add @pm7/core</code></pre>
 &lt;!-- Or using CSS class directly --&gt;
 &lt;div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion&gt;
   &lt;!-- Accordion items --&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with height limit --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-height="sm"&gt;
+  &lt;!-- Accordion items with small height limit (200px) --&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with fixed custom height --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-height="fixed" data-fixed-height="350"&gt;
+  &lt;!-- Accordion items with fixed height of 350px --&gt;
 &lt;/div&gt;</code></pre>
 
             <h3>JavaScript API</h3>
@@ -509,7 +770,9 @@ const accordion = new PM7Accordion(accordionElement, {
   allowMultiple: true,
   defaultOpen: 0, // Open first item by default
   iconPosition: 'start', // Position icon at the start
-  textAlign: 'center' // Center align header text
+  textAlign: 'center', // Center align header text
+  height: 'md', // Set height limit ('sm', 'md', 'lg', 'fixed', or null)
+  fixedHeight: 350 // Custom height when using 'fixed' option
 });
 
 // Methods
