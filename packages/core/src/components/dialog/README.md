@@ -401,7 +401,7 @@ Dialogs automatically adapt to dark mode using CSS custom properties. Override f
 
 ## React Usage
 
-The React Dialog component currently uses the traditional structure. Full content marker support is coming soon.
+### Basic Example (Custom Layout)
 
 ```jsx
 import { Dialog } from '@pm7/react';
@@ -417,17 +417,70 @@ function MyComponent() {
         open={open}
         onOpenChange={setOpen}
         size="md"
-        title="Dialog Title"
-        showClose
+        variant="default"
       >
-        <div className="pm7-dialog-body">
-          <p>Dialog content goes here</p>
+        <div style={{ padding: '1.5rem', minWidth: '400px' }}>
+          <h2 style={{ marginTop: 0 }}>Dialog Title</h2>
+          <p style={{ marginBottom: '1.5rem' }}>Dialog content goes here</p>
+          
+          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => {
+              // Handle save
+              setOpen(false);
+            }}>
+              Save Changes
+            </Button>
+          </div>
         </div>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Recommended: Using PM7 Dialog Structure
+
+For consistent styling with PM7 design system, use the proper dialog structure classes:
+
+```jsx
+import { Dialog, Button } from '@pm7/react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+      
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+        size="md"
+      >
+        <div className="pm7-dialog-header">
+          <div className="pm7-dialog-header-text">
+            <h2 className="pm7-dialog-title">Dialog Title</h2>
+            <p className="pm7-dialog-description">Optional subtitle or description</p>
+          </div>
+        </div>
+        <div className="pm7-dialog-header-separator"></div>
+        
+        <div className="pm7-dialog-body">
+          <p>Your dialog content goes here.</p>
+          {/* Form fields, content, etc. */}
+        </div>
+        
         <div className="pm7-dialog-footer">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" onClick={() => {
+            // Handle save
+            setOpen(false);
+          }}>
             Save Changes
           </Button>
         </div>
@@ -436,6 +489,71 @@ function MyComponent() {
   );
 }
 ```
+
+### Dialog with Icon
+
+Icons should be placed in the header actions area (right side):
+
+```jsx
+<Dialog open={open} onOpenChange={setOpen}>
+  <div className="pm7-dialog-header">
+    <div className="pm7-dialog-header-text">
+      <h2 className="pm7-dialog-title">Secure Action</h2>
+      <p className="pm7-dialog-description">This action requires authentication</p>
+    </div>
+    <div className="pm7-dialog-header-actions">
+      <div className="pm7-dialog-icon">
+        <Lock size={24} style={{ color: '#1C86EF' }} />
+      </div>
+    </div>
+  </div>
+  <div className="pm7-dialog-header-separator"></div>
+  
+  <div className="pm7-dialog-body">
+    {/* Content */}
+  </div>
+  
+  <div className="pm7-dialog-footer">
+    {/* Actions */}
+  </div>
+</Dialog>
+```
+
+### Dialog Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | `false` | Controls whether the dialog is open |
+| `onOpenChange` | `(open: boolean) => void` | - | Callback when the dialog open state changes |
+| `children` | `React.ReactNode` | - | The content of the dialog |
+| `className` | `string` | - | Additional CSS classes |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Dialog size |
+| `variant` | `'default' \| 'alert' \| 'success'` | `'default'` | Dialog variant |
+
+### Important Notes
+
+- The Dialog component wraps its children in the necessary dialog structure
+- Use `onOpenChange` instead of `onClose` - it handles both opening and closing
+- The component automatically handles backdrop clicks and ESC key presses
+- Focus management is handled automatically
+
+### Key Structure Classes for React
+
+When using the Dialog component in React, these classes provide proper PM7 styling:
+
+| Class | Purpose |
+|-------|---------|
+| `pm7-dialog-header` | Container for header content (uses flexbox) |
+| `pm7-dialog-header-text` | **Important**: Left side wrapper for title and description |
+| `pm7-dialog-header-actions` | Right side container for icon and/or close button |
+| `pm7-dialog-icon` | Wrapper for dialog icon |
+| `pm7-dialog-title` | The main dialog title |
+| `pm7-dialog-description` | Subtitle or additional context |
+| `pm7-dialog-header-separator` | Visual separator line between header and body |
+| `pm7-dialog-body` | Main content area |
+| `pm7-dialog-footer` | Action buttons container |
+
+**Note**: Without `pm7-dialog-header-text`, the title and description will appear side-by-side due to flexbox layout.
 
 ## Related Components
 

@@ -1,6 +1,6 @@
-# PM7 Dialog Component
+# Dialog
 
-The PM7 Dialog component provides a flexible and accessible modal dialog system with support for various layouts, sizes, and interaction patterns.
+Dialogs are modal overlays that require user interaction. They're used for critical information, confirmation, or complex tasks that require focus.
 
 ## Installation
 
@@ -8,125 +8,244 @@ The PM7 Dialog component provides a flexible and accessible modal dialog system 
 npm install @pm7/core
 ```
 
-## Basic Usage
+## Usage
+
+PM7 Dialog supports two approaches: Traditional HTML structure and the new Content Marker system that automatically generates dialog structure.
+
+### Content Marker System (Recommended)
+
+The easiest way to create dialogs using semantic content markers:
 
 ```html
-<!-- Dialog Structure -->
-<div class="pm7-dialog" 
-     data-pm7-dialog="my-dialog"
-     data-pm7-show-close>
-  <div data-pm7-header
-       data-pm7-dialog-title="Dialog Title"
-       data-pm7-dialog-subtitle="Optional subtitle text"
-       data-pm7-header-separator>
+<!-- Dialog with content markers -->
+<div pm7-dialog="my-dialog" pm7-dialog-size="md" pm7-show-close>
+  <h2 pm7-header>Dialog Title</h2>
+  <p pm7-subtitle>Optional subtitle text</p>
+  
+  <div pm7-body>
+    <p>Your dialog content goes here.</p>
   </div>
-  <div data-pm7-body>
-    <p>Dialog content goes here.</p>
-  </div>
-  <div data-pm7-footer>
-    <button class="pm7-button pm7-button--primary" onclick="closeDialog('my-dialog')">
-      Close
+  
+  <div pm7-footer>
+    <button class="pm7-button pm7-button--outline" onclick="closeDialog('my-dialog')">
+      Cancel
+    </button>
+    <button class="pm7-button pm7-button--primary">
+      Confirm
     </button>
   </div>
 </div>
 
-<!-- Trigger Button -->
-<button class="pm7-button" onclick="openDialog('my-dialog')">
+<!-- Trigger button -->
+<button class="pm7-button pm7-button--primary" onclick="openDialog('my-dialog')">
   Open Dialog
 </button>
 ```
 
-## CSS Classes
+### Content Marker Attributes
 
-| Class | Description |
-|-------|-------------|
-| `pm7-dialog` | Base dialog container class |
-| `pm7-dialog-overlay` | Backdrop overlay (auto-generated) |
-| `pm7-dialog-content` | Content wrapper (auto-generated) |
-| `pm7-dialog-content--sm` | Small dialog size (400px) |
-| `pm7-dialog-content--md` | Medium dialog size (600px, default) |
-| `pm7-dialog-content--lg` | Large dialog size (800px) |
-| `pm7-dialog-content--full` | Full screen dialog |
-| `pm7-dialog-spinner` | Loading spinner element |
+The content marker system uses attributes on the root `div` with `pm7-dialog` and on direct children to define the dialog's structure and content.
 
-## Data Attributes
+| Attribute | Description | Generated Class/Element |
+|-----------|-------------|-------------------------|
+| `pm7-dialog="id"` | Unique dialog identifier | `pm7-dialog` (root) |
+| `pm7-dialog-size="size"` | Dialog size: `sm` (400px), `md` (600px, default), `lg` (800px), `xl` (1000px), `full` | `pm7-dialog-content--{size}` |
+| `pm7-dialog-icon="type"` | Icon type: `info`, `warning`, `error`, `success` | `pm7-dialog-icon` (SVG) |
+| `pm7-show-close` | Shows the X close button in header | `pm7-dialog-close` (button) |
+| `pm7-header-separator` | Add line separator under header | `pm7-dialog-header-separator` (div) |
+| `pm7-no-escape` | Prevents closing dialog with ESC key (ESC close is enabled by default) | - |
+| `pm7-no-overlay-close` | Prevents closing dialog when clicking backdrop (overlay close is enabled by default) | - |
+| `pm7-header` | Marks the header section. Content within this element becomes the header. | `pm7-dialog-header` |
+| `pm7-dialog-title="text"` | Text for the main dialog title (used with `pm7-header`) | `pm7-dialog-title` (h2) |
+| `pm7-dialog-subtitle="text"` | Text for the dialog subtitle/description (used with `pm7-header`) | `pm7-dialog-description` (p) |
+| `pm7-body` | Marks the main content area | `pm7-dialog-body` |
+| `pm7-footer` | Marks the footer section for actions | `pm7-dialog-footer` |
 
-### Container Attributes
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `data-pm7-dialog` | string | required | Unique dialog identifier |
-| `data-pm7-dialog-size` | string | "md" | Dialog size: "sm", "md", "lg", "full" |
-| `data-pm7-show-close` | boolean | false | Show close button in header |
-| `data-pm7-no-escape` | boolean | false | Prevent closing with Escape key |
-| `data-pm7-no-overlay-close` | boolean | false | Prevent closing by clicking overlay |
+### Traditional HTML Structure
 
-### Content Markers
-| Attribute | Type | Description |
-|-----------|------|-------------|
-| `data-pm7-header` | marker | Marks header section |
-| `data-pm7-body` | marker | Marks body section |
-| `data-pm7-footer` | marker | Marks footer section |
+For full control over dialog structure:
 
-### Header Options
-| Attribute | Type | Description |
-|-----------|------|-------------|
-| `data-pm7-dialog-title` | string | Dialog title text |
-| `data-pm7-dialog-subtitle` | string | Optional subtitle text |
-| `data-pm7-dialog-icon` | string | Icon type: "info", "success", "warning", "error" |
-| `data-pm7-header-separator` | boolean | Show separator line below header |
-
-## JavaScript API
-
-### Import
-
-```javascript
-import { PM7Dialog, createDialog, pm7Alert, pm7Confirm } from '@pm7/core';
+```html
+<div class="pm7-dialog" data-pm7-dialog="my-dialog">
+  <div class="pm7-dialog-overlay"></div>
+  <div class="pm7-dialog-content pm7-dialog-content--md">
+    <div class="pm7-dialog-header">
+      <h2 class="pm7-dialog-title">Dialog Title</h2>
+      <button class="pm7-dialog-close" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="pm7-dialog-body">
+      <p>Dialog content goes here.</p>
+    </div>
+    <div class="pm7-dialog-footer">
+      <button class="pm7-button pm7-button--outline" onclick="closeDialog('my-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
 ```
 
-### Initialize Dialog
+### Dialog Sizes
+
+```html
+<!-- Small dialog (400px) -->
+<div pm7-dialog="small-dialog" pm7-dialog-size="sm">
+  <!-- Content -->
+</div>
+
+<!-- Medium dialog (600px, default) -->
+<div pm7-dialog="medium-dialog" pm7-dialog-size="md">
+  <!-- Content -->
+</div>
+
+<!-- Large dialog (800px) -->
+<div pm7-dialog="large-dialog" pm7-dialog-size="lg">
+  <!-- Content -->
+</div>
+
+<!-- Extra large dialog (1000px) -->
+<div pm7-dialog="xl-dialog" pm7-dialog-size="xl">
+  <!-- Content -->
+</div>
+
+<!-- Full screen dialog -->
+<div pm7-dialog="full-dialog" pm7-dialog-size="full">
+  <!-- Content -->
+</div>
+```
+
+### Dialog Variants
+
+#### Alert Dialog
+```html
+<div class="pm7-dialog pm7-dialog--alert" data-pm7-dialog="alert-dialog">
+  <div class="pm7-dialog-overlay"></div>
+  <div class="pm7-dialog-content pm7-dialog-content--sm">
+    <div class="pm7-dialog-header">
+      <h2 class="pm7-dialog-title">Error</h2>
+    </div>
+    <div class="pm7-dialog-body">
+      <p>Something went wrong. Please try again.</p>
+    </div>
+    <div class="pm7-dialog-footer">
+      <button class="pm7-button pm7-button--destructive" onclick="closeDialog('alert-dialog')">
+        OK
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+#### Success Dialog
+```html
+<div class="pm7-dialog pm7-dialog--success" data-pm7-dialog="success-dialog">
+  <!-- Similar structure with success styling -->
+</div>
+```
+
+#### Loading Dialog
+```html
+<div class="pm7-dialog pm7-dialog--loading" data-pm7-dialog="loading-dialog">
+  <div class="pm7-dialog-overlay"></div>
+  <div class="pm7-dialog-content pm7-dialog-content--sm">
+    <div class="pm7-dialog-body" style="text-align: center; padding: 48px;">
+      <div class="pm7-dialog-spinner"></div>
+      <p style="margin-top: 16px;">Processing...</p>
+    </div>
+  </div>
+</div>
+```
+
+### Dialog with Icons
+
+Using the content marker system with icons:
+
+```html
+<!-- Info dialog -->
+<div pm7-dialog="info-dialog" pm7-dialog-size="sm" pm7-dialog-icon="info">
+  <h2 pm7-header>Information</h2>
+  <div pm7-body>
+    <p>This is an informational message.</p>
+  </div>
+  <div pm7-footer>
+    <button class="pm7-button pm7-button--primary" onclick="closeDialog('info-dialog')">
+      Got it
+    </button>
+  </div>
+</div>
+
+<!-- Warning dialog -->
+<div pm7-dialog="warning-dialog" pm7-dialog-icon="warning">
+  <h2 pm7-header>Warning</h2>
+  <div pm7-body>
+    <p>This action may have consequences.</p>
+  </div>
+</div>
+
+<!-- Error dialog -->
+<div pm7-dialog="error-dialog" pm7-dialog-icon="error">
+  <h2 pm7-header>Error</h2>
+  <div pm7-body>
+    <p>An error occurred.</p>
+  </div>
+</div>
+
+<!-- Success dialog -->
+<div pm7-dialog="success-dialog" pm7-dialog-icon="success">
+  <h2 pm7-header>Success!</h2>
+  <div pm7-body>
+    <p>Operation completed successfully.</p>
+  </div>
+</div>
+```
+
+### JavaScript API
 
 ```javascript
-// For existing HTML structure
+import { PM7Dialog } from '@pm7/core';
+
+// Initialize a dialog (for traditional structure)
 const dialogElement = document.querySelector('[data-pm7-dialog="my-dialog"]');
 const dialog = new PM7Dialog(dialogElement);
 
-// Methods
-dialog.open();        // Open the dialog
-dialog.close();       // Close the dialog
-dialog.shake();       // Shake animation (e.g., for errors)
-dialog.setLoading(true/false); // Toggle loading state
-```
+// Open/close programmatically
+dialog.open();
+dialog.close();
 
-### Global Functions
+// Add shake animation
+dialog.shake();
 
-```javascript
-// Open/close by ID
-openDialog('my-dialog');
-closeDialog('my-dialog');
+// Set loading state
+dialog.setLoading(true);
 
-// Alert dialog
-pm7Alert('This is an alert message', {
-  title: 'Alert',      // Optional
-  icon: 'info',        // Optional: info, success, warning, error
-  confirmText: 'OK'    // Optional, default: 'OK'
+// Listen for events
+dialogElement.addEventListener('pm7-dialog-open', () => {
+  console.log('Dialog opened');
 });
 
-// Confirm dialog
+dialogElement.addEventListener('pm7-dialog-close', () => {
+  console.log('Dialog closed');
+});
+
+// Global functions (auto-loaded for convenience, but can be imported)
+openDialog('my-dialog');
+closeDialog('my-dialog');
+pm7Alert('This is an alert message');
 pm7Confirm('Are you sure?', (confirmed) => {
   if (confirmed) {
     console.log('User confirmed');
   }
-}, {
-  title: 'Confirm',           // Optional
-  icon: 'warning',            // Optional
-  confirmText: 'Yes',         // Optional, default: 'Confirm'
-  cancelText: 'No'            // Optional, default: 'Cancel'
 });
-```
 
-### Programmatic Creation
-
-```javascript
+// Programmatic dialog creation
 const dialog = createDialog({
   id: 'dynamic-dialog',
   title: 'Dynamic Dialog',
@@ -139,181 +258,305 @@ const dialog = createDialog({
   `,
   size: 'md',
   showClose: true,
-  icon: 'info',
-  noEscape: false,
-  noOverlayClose: false
+  icon: 'info'
 });
 
-// Dialog is automatically added to DOM and can be opened
-openDialog('dynamic-dialog');
-```
-
-### Events
-
-```javascript
-dialogElement.addEventListener('pm7-dialog-open', () => {
-  console.log('Dialog opened');
-});
-
-dialogElement.addEventListener('pm7-dialog-close', () => {
-  console.log('Dialog closed');
+// Utility functions
+pm7Alert('This is an alert message');
+pm7Confirm('Are you sure?', (confirmed) => {
+  if (confirmed) {
+    console.log('User confirmed');
+  }
 });
 ```
 
-## Dialog Sizes
+## CSS Classes Reference
 
-- **Small (sm)**: 400px wide - Perfect for confirmations and simple messages
-- **Medium (md)**: 600px wide - Default size for general purpose dialogs
-- **Large (lg)**: 800px wide - Good for complex forms or detailed content
-- **Full**: Full screen - Immersive experiences or complex workflows
+| Class | Description |
+|-------|-------------|
+| `pm7-dialog` | Root dialog container (hidden by default, controlled by `data-state` attribute) |
+| `pm7-dialog--alert` | Alert variant (red header) |
+| `pm7-dialog--success` | Success variant (green header) |
+| `pm7-dialog--loading` | Loading variant with spinner |
+| `pm7-dialog--shake` | Shake animation |
+| `pm7-dialog-overlay` | Semi-transparent backdrop that covers the page when dialog is open |
+| `pm7-dialog-content` | Container for the dialog box itself (header, body, footer) |
+| `pm7-dialog-content--sm` | Small dialog (max-width: 400px) |
+| `pm7-dialog-content--md` | Medium dialog (max-width: 600px, default) |
+| `pm7-dialog-content--lg` | Large dialog (max-width: 800px) |
+| `pm7-dialog-content--xl` | Extra large dialog (max-width: 1000px) |
+| `pm7-dialog-content--full` | Full screen dialog |
+| `pm7-dialog-header` | Dialog header section (generated by `pm7-header` attribute) |
+| `pm7-dialog-header-text` | Container for dialog title and description within the header |
+| `pm7-dialog-header-actions` | Container for icon and close button within the header |
+| `pm7-dialog-header-separator` | Horizontal line separator below the header |
+| `pm7-dialog-title` | Main title of the dialog (generated by `pm7-dialog-title` attribute) |
+| `pm7-dialog-description` | Subtitle or description of the dialog (generated by `pm7-dialog-subtitle` attribute) |
+| `pm7-dialog-icon` | Container for the dialog icon (generated by `pm7-dialog-icon` attribute) |
+| `pm7-dialog-close` | Close button (generated by `pm7-show-close` attribute) |
+| `pm7-dialog-body` | Main content area of the dialog (generated by `pm7-body` attribute) |
+| `pm7-dialog-footer` | Footer section for actions (generated by `pm7-footer` attribute) |
+| `pm7-dialog-spinner` | Loading spinner element |
 
-## Content Sections
+## Accessibility Features
 
-Dialogs can have any combination of header, body, and footer sections:
+- **Focus trap**: Focus stays within dialog while open
+- **Escape key**: Closes the dialog (unless `pm7-no-escape` is set)
+- **Click outside**: Closes dialog by clicking overlay (unless `pm7-no-overlay-close` is set)
+- **Focus restoration**: Focus returns to trigger element on close
+- **ARIA attributes**: Proper roles and labels for screen readers
+- **Heading hierarchy**: Semantic heading structure
+- **Keyboard navigation**: Tab through interactive elements
 
-### Full Dialog
+## Best Practices
+
+1. **Use sparingly**: Dialogs interrupt user flow, use only when necessary
+2. **Clear titles**: Use descriptive titles that explain the dialog's purpose
+3. **Focused content**: Keep dialog content concise and relevant
+4. **Clear actions**: Use descriptive button labels (not just "OK"/"Cancel")
+5. **Escape hatch**: Always provide a way to close/cancel
+6. **Size appropriately**: Choose the right size for your content
+7. **Icons for context**: Use icons to reinforce the message type
+
+## Advanced Examples
+
+### Form Dialog with Validation
+
 ```html
-<div class="pm7-dialog" data-pm7-dialog="full-dialog">
-  <div data-pm7-header data-pm7-dialog-title="Title"></div>
-  <div data-pm7-body>Content</div>
-  <div data-pm7-footer>Actions</div>
-</div>
-```
-
-### Header + Body
-```html
-<div class="pm7-dialog" data-pm7-dialog="header-body">
-  <div data-pm7-header data-pm7-dialog-title="Title"></div>
-  <div data-pm7-body>Content</div>
-</div>
-```
-
-### Body Only
-```html
-<div class="pm7-dialog" data-pm7-dialog="body-only">
-  <div data-pm7-body>Content</div>
-</div>
-```
-
-### Custom Header Content
-```html
-<div data-pm7-header>
-  <!-- Title is auto-generated if data-pm7-dialog-title is set -->
-  <!-- Your custom content appears after the title -->
-  <div class="custom-header-content">
-    Custom header elements
+<div pm7-dialog="form-dialog" pm7-dialog-size="md" pm7-show-close>
+  <h2 pm7-header>Edit Profile</h2>
+  
+  <form pm7-body>
+    <div class="pm7-form-group">
+      <label class="pm7-label" for="name">Name</label>
+      <input type="text" id="name" class="pm7-input" required>
+    </div>
+    <div class="pm7-form-group">
+      <label class="pm7-label" for="email">Email</label>
+      <input type="email" id="email" class="pm7-input" required>
+    </div>
+  </form>
+  
+  <div pm7-footer>
+    <button type="button" class="pm7-button pm7-button--ghost" onclick="closeDialog('form-dialog')">
+      Cancel
+    </button>
+    <button type="submit" class="pm7-button pm7-button--primary">
+      Save Changes
+    </button>
   </div>
 </div>
 ```
 
-## Icons
-
-Dialogs support built-in icons for common use cases:
+### Multi-Step Dialog
 
 ```html
-<div data-pm7-header
-     data-pm7-dialog-title="Success!"
-     data-pm7-dialog-icon="success">
+<div pm7-dialog="wizard" pm7-dialog-size="lg" pm7-no-escape>
+  <h2 pm7-header>Setup Wizard</h2>
+  <p pm7-subtitle>Step <span id="current-step">1</span> of 3</p>
+  
+  <div pm7-body>
+    <div id="step-1" class="wizard-step">
+      <!-- Step 1 content -->
+    </div>
+    <div id="step-2" class="wizard-step" style="display: none;">
+      <!-- Step 2 content -->
+    </div>
+    <div id="step-3" class="wizard-step" style="display: none;">
+      <!-- Step 3 content -->
+    </div>
+  </div>
+  
+  <div pm7-footer>
+    <button class="pm7-button pm7-button--ghost" onclick="closeDialog('wizard')">
+      Cancel
+    </button>
+    <div style="margin-left: auto;">
+      <button id="prev-btn" class="pm7-button pm7-button--outline" onclick="prevStep()" disabled>
+        Previous
+      </button>
+      <button id="next-btn" class="pm7-button pm7-button--primary" onclick="nextStep()">
+        Next
+      </button>
+    </div>
+  </div>
 </div>
 ```
 
-Available icons:
-- `info` - Information/help dialogs
-- `success` - Success confirmations
-- `warning` - Warning messages
-- `error` - Error alerts
+### Dark Mode Support
 
-## Accessibility
-
-- **Focus Management**: Focus is trapped within the dialog while open
-- **Keyboard Navigation**: 
-  - `Tab` - Navigate through interactive elements
-  - `Escape` - Close dialog (unless `data-pm7-no-escape`)
-- **Screen Readers**: Proper ARIA attributes and roles
-- **Focus Restoration**: Focus returns to trigger element on close
-
-## CSS Customization
+Dialogs automatically adapt to dark mode using CSS custom properties. Override for specific themes:
 
 ```css
-/* Custom theme */
 :root {
   --pm7-dialog-bg: white;
   --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.5);
-  --pm7-dialog-max-height: 90vh;
 }
 
-/* Dark mode */
 [data-theme="dark"] {
   --pm7-dialog-bg: #1a1a1a;
   --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.8);
 }
 ```
 
-## Best Practices
+## React Usage
 
-1. **Unique IDs**: Always use unique `data-pm7-dialog` values
-2. **Focus Management**: Ensure focusable elements in dialogs
-3. **Loading States**: Use `setLoading()` for async operations
-4. **Error Handling**: Use `shake()` animation for validation errors
-5. **Responsive**: Test dialogs on mobile devices
-6. **Accessibility**: Include proper labels and descriptions
+### Basic Example (Custom Layout)
 
-## Examples
+```jsx
+import { Dialog } from '@pm7/react';
 
-### Confirmation Dialog
-```javascript
-pm7Confirm('Delete this item?', (confirmed) => {
-  if (confirmed) {
-    deleteItem();
-  }
-}, {
-  title: 'Confirm Deletion',
-  icon: 'warning',
-  confirmText: 'Delete',
-  cancelText: 'Keep'
-});
-```
+function MyComponent() {
+  const [open, setOpen] = useState(false);
 
-### Form Dialog with Validation
-```javascript
-const dialog = new PM7Dialog(formDialog);
-
-formDialog.querySelector('form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  
-  if (!validateForm()) {
-    dialog.shake();
-    return;
-  }
-  
-  dialog.setLoading(true);
-  submitForm().then(() => {
-    dialog.close();
-  }).finally(() => {
-    dialog.setLoading(false);
-  });
-});
-```
-
-### Dynamic Content Loading
-```javascript
-async function showUserProfile(userId) {
-  const dialog = createDialog({
-    id: 'user-profile',
-    title: 'Loading...',
-    body: '<div class="pm7-dialog-spinner"></div>',
-    size: 'md'
-  });
-  
-  openDialog('user-profile');
-  
-  const userData = await fetchUserData(userId);
-  
-  // Update dialog content
-  document.querySelector('[data-pm7-dialog="user-profile"] [data-pm7-header]')
-    .setAttribute('data-pm7-dialog-title', userData.name);
-  
-  document.querySelector('[data-pm7-dialog="user-profile"] [data-pm7-body]')
-    .innerHTML = renderUserProfile(userData);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+      
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+        size="md"
+        variant="default"
+      >
+        <div style={{ padding: '1.5rem', minWidth: '400px' }}>
+          <h2 style={{ marginTop: 0 }}>Dialog Title</h2>
+          <p style={{ marginBottom: '1.5rem' }}>Dialog content goes here</p>
+          
+          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => {
+              // Handle save
+              setOpen(false);
+            }}>
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      </Dialog>
+    </>
+  );
 }
 ```
+
+### Recommended: Using PM7 Dialog Structure
+
+For consistent styling with PM7 design system, use the proper dialog structure classes:
+
+```jsx
+import { Dialog, Button } from '@pm7/react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+      
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+        size="md"
+      >
+        <div className="pm7-dialog-header">
+          <div className="pm7-dialog-header-text">
+            <h2 className="pm7-dialog-title">Dialog Title</h2>
+            <p className="pm7-dialog-description">Optional subtitle or description</p>
+          </div>
+        </div>
+        <div className="pm7-dialog-header-separator"></div>
+        
+        <div className="pm7-dialog-body">
+          <p>Your dialog content goes here.</p>
+          {/* Form fields, content, etc. */}
+        </div>
+        
+        <div className="pm7-dialog-footer">
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => {
+            // Handle save
+            setOpen(false);
+          }}>
+            Save Changes
+          </Button>
+        </div>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Dialog with Icon
+
+Icons should be placed in the header actions area (right side):
+
+```jsx
+<Dialog open={open} onOpenChange={setOpen}>
+  <div className="pm7-dialog-header">
+    <div className="pm7-dialog-header-text">
+      <h2 className="pm7-dialog-title">Secure Action</h2>
+      <p className="pm7-dialog-description">This action requires authentication</p>
+    </div>
+    <div className="pm7-dialog-header-actions">
+      <div className="pm7-dialog-icon">
+        <Lock size={24} style={{ color: '#1C86EF' }} />
+      </div>
+    </div>
+  </div>
+  <div className="pm7-dialog-header-separator"></div>
+  
+  <div className="pm7-dialog-body">
+    {/* Content */}
+  </div>
+  
+  <div className="pm7-dialog-footer">
+    {/* Actions */}
+  </div>
+</Dialog>
+```
+
+### Dialog Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | `false` | Controls whether the dialog is open |
+| `onOpenChange` | `(open: boolean) => void` | - | Callback when the dialog open state changes |
+| `children` | `React.ReactNode` | - | The content of the dialog |
+| `className` | `string` | - | Additional CSS classes |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Dialog size |
+| `variant` | `'default' \| 'alert' \| 'success'` | `'default'` | Dialog variant |
+
+### Important Notes
+
+- The Dialog component wraps its children in the necessary dialog structure
+- Use `onOpenChange` instead of `onClose` - it handles both opening and closing
+- The component automatically handles backdrop clicks and ESC key presses
+- Focus management is handled automatically
+
+### Key Structure Classes for React
+
+When using the Dialog component in React, these classes provide proper PM7 styling:
+
+| Class | Purpose |
+|-------|---------|
+| `pm7-dialog-header` | Container for header content (uses flexbox) |
+| `pm7-dialog-header-text` | **Important**: Left side wrapper for title and description |
+| `pm7-dialog-header-actions` | Right side container for icon and/or close button |
+| `pm7-dialog-icon` | Wrapper for dialog icon |
+| `pm7-dialog-title` | The main dialog title |
+| `pm7-dialog-description` | Subtitle or additional context |
+| `pm7-dialog-header-separator` | Visual separator line between header and body |
+| `pm7-dialog-body` | Main content area |
+| `pm7-dialog-footer` | Action buttons container |
+
+**Note**: Without `pm7-dialog-header-text`, the title and description will appear side-by-side due to flexbox layout.
+
+## Related Components
+
+- [Button](../button/) - Common trigger for dialogs
+- [Menu](../menu/) - For non-modal overlays
+- [Toast](../toast/) - For non-blocking notifications

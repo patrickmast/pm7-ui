@@ -33,8 +33,14 @@ export const Menu: React.FC<MenuProps> = ({
   useEffect(() => {
     if (!menuRef.current) return;
     
+    // Check if menu is already initialized
+    if (menuRef.current.dataset.pm7MenuInitialized === 'true') {
+      return;
+    }
+    
     // Initialize PM7Menu
     menuInstanceRef.current = new PM7Menu(menuRef.current);
+    menuRef.current.dataset.pm7MenuInitialized = 'true';
     
     // Listen for menu events
     const handleSelect = (e: CustomEvent) => {
@@ -52,6 +58,8 @@ export const Menu: React.FC<MenuProps> = ({
     return () => {
       if (menuRef.current) {
         menuRef.current.removeEventListener('pm7-menu-select', handleSelect as EventListener);
+        delete menuRef.current.dataset.pm7MenuInitialized;
+        menuInstanceRef.current = null;
       }
     };
   }, [items, onSelect]);

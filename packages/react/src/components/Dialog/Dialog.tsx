@@ -56,9 +56,9 @@ export const Dialog: React.FC<DialogProps> = ({
   const variantClass = variant !== 'default' ? `pm7-dialog--${variant}` : '';
   
   return (
-    <div ref={dialogRef}>
-      <div className="pm7-dialog-backdrop" />
-      <div className={clsx('pm7-dialog', `pm7-dialog--${size}`, variantClass, className)}>
+    <div ref={dialogRef} className="pm7-dialog" data-state={open ? 'open' : 'closed'}>
+      <div className="pm7-dialog-overlay" />
+      <div className={clsx('pm7-dialog-content', `pm7-dialog-content--${size}`, variantClass, className)}>
         {children}
       </div>
     </div>
