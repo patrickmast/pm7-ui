@@ -1,6 +1,6 @@
 {
   "name": "@pm7/core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Core styles and vanilla JavaScript for PM7 UI components",
   "main": "dist/pm7.js",
   "module": "dist/pm7.esm.js",
