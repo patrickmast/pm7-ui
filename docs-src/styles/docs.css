@@ -614,14 +614,23 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 
 /* Footer Responsive */
 @media (max-width: 768px) {
+  .pm7-footer {
+    background-color: white;
+  }
+  
   .pm7-footer-content {
     flex-direction: column;
-    gap: var(--pm7-spacing-4);
+    gap: var(--pm7-spacing-2);
     text-align: center;
   }
 
+  .pm7-footer-left,
   .pm7-footer-center {
-    display: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pm7-spacing-2);
+    justify-content: center;
   }
 }
 
@@ -745,4 +754,83 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 
 .pm7-dialog-body {
   padding: var(--pm7-spacing-6);
+}
+
+/* Mobile styles */
+.pm7-mobile-only-text {
+  display: none;
+  margin-top: var(--pm7-spacing-8);
+}
+
+/* Mobile logo - hidden by default */
+.pm7-mobile-logo {
+  display: none;
+}
+
+/* Hide specific elements on mobile */
+@media (max-width: 768px) {
+  /* Mobile header adjustments */
+  .pm7-docs-nav {
+    justify-content: center;
+    background-color: white;
+  }
+  
+  .pm7-docs-nav-inner {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Hide menu button, desktop navigation and desktop logo on mobile */
+  .pm7-docs-header-menu,
+  .pm7-docs-nav-menu,
+  .pm7-docs-nav-inner > div,
+  .pm7-desktop-logo {
+    display: none !important;
+  }
+  
+  /* Show mobile logo */
+  .pm7-mobile-logo {
+    display: flex !important;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+  /* Hide buttons on mobile */
+  .pm7-hide-mobile {
+    display: none !important;
+  }
+  
+  /* Show mobile message on homepage */
+  .pm7-mobile-only-text {
+    display: block;
+  }
+  
+  /* Hide all desktop-only content on other pages */
+  .pm7-desktop-only {
+    display: none !important;
+  }
+  
+  /* Mobile adjustments for homepage */
+  .pm7-docs-hero {
+    padding: var(--pm7-spacing-8) var(--pm7-spacing-4);
+  }
+  
+  .pm7-docs-hero h1 {
+    line-height: 1;
+  }
+  
+  .pm7-docs-features,
+  .pm7-docs-packages {
+    padding: var(--pm7-spacing-8) var(--pm7-spacing-4);
+  }
+  
+  .pm7-docs-grid {
+    grid-template-columns: 1fr;
+    gap: var(--pm7-spacing-4);
+  }
+  
+  /* Show footer on homepage */
+  #footer-placeholder {
+    display: block !important;
+  }
 }
