@@ -317,6 +317,61 @@ When creating or updating component documentation pages, the Usage tab MUST foll
 - Add custom styling through additional classes or inline styles when needed
 - This applies to the entire documentation site, including navigation, sidebars, and content areas
 
+## Component Auto-initialization
+
+Interactive components (Menu, Dialog, Toast) automatically initialize when the DOM loads:
+
+```javascript
+// Auto-initialization in packages/core/src/scripts/main.js
+document.addEventListener('DOMContentLoaded', () => {
+  PM7Menu.autoInit();
+  PM7Dialog.autoInit();
+  PM7Toast.autoInit();
+});
+```
+
+Components can also be manually initialized for dynamic content:
+```javascript
+import { PM7Menu } from '@pm7/core';
+const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+```
+
+## Available Components
+
+The following components are currently implemented:
+
+**Core Components:**
+- Button (`pm7-button`)
+- Card (`pm7-card`)
+- Input (`pm7-input`)
+- Badge (`pm7-badge`)
+- Avatar (`pm7-avatar`)
+- Tab Selector (`pm7-tab-selector`)
+
+**Interactive Components:**
+- Menu (`pm7-menu`) - Dropdown menus with keyboard navigation
+- Dialog (`pm7-dialog`) - Modal dialogs with backdrop
+- Toast (`pm7-toast`) - Notification system
+
+**Utility Classes:**
+- Container (`pm7-container`)
+- Spacing utilities (`pm7-space-*`)
+
+## Debug Test Files
+
+The `docs-src/test/` directory contains isolated test files for debugging specific issues:
+- Component-specific tests (e.g., `menu-test.html`, `dialog-test.html`)
+- Integration tests for complex scenarios
+- Performance testing pages
+
+## Deployment
+
+The documentation site is deployed to Vercel:
+- **Production URL**: https://pm7-ui.vercel.app
+- **Build Command**: `npm run build`
+- **Output Directory**: `docs`
+- **URL Rewrites**: Configured for clean URLs without `.html` extensions
+
 ## Project Memories
 
 ### PM7 UI Style Guide Reference
