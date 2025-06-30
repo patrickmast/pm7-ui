@@ -33,6 +33,7 @@
   font-size: var(--pm7-font-size-sm);
   line-height: var(--pm7-line-height-sm);
   border-radius: var(--pm7-radius-md);
+  white-space: nowrap; /* Prevent text wrapping by default */
   
   /* Shadow */
   box-shadow: var(--pm7-shadow-lg);

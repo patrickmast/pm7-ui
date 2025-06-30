@@ -125,6 +125,11 @@
   display: none;
 }
 
+/* Reduce top padding when no separator */
+.pm7-accordion--no-separator .pm7-accordion-content-inner {
+  padding-top: var(--pm7-spacing-2);
+}
+
 .pm7-accordion-content-inner {
   padding: var(--pm7-card-padding);
   border-radius: 0 0 var(--pm7-card-radius) var(--pm7-card-radius);
