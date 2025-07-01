@@ -139,13 +139,4 @@ export function closeAllToasts() {
   }
 }
 
-// Auto-initialize
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      globalToast = new PM7Toast();
-    });
-  } else {
-    globalToast = new PM7Toast();
-  }
-}
+// Remove auto-initialization - toast will be created on first use
