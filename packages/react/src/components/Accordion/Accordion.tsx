@@ -6,6 +6,7 @@ interface AccordionProps {
   defaultValue?: string | string[];
   className?: string;
   style?: React.CSSProperties;
+  widthMax?: boolean;
 }
 
 interface AccordionContextValue {
@@ -21,7 +22,8 @@ export const Accordion: React.FC<AccordionProps> = ({
   type = 'single',
   defaultValue,
   className,
-  style
+  style,
+  widthMax
 }) => {
   const [openItems, setOpenItems] = React.useState<Set<string>>(() => {
     if (defaultValue) {
@@ -49,9 +51,15 @@ export const Accordion: React.FC<AccordionProps> = ({
     });
   };
 
+  const accordionClasses = [
+    'pm7-accordion',
+    widthMax && 'pm7-accordion--width-max',
+    className
+  ].filter(Boolean).join(' ');
+
   return (
     <AccordionContext.Provider value={{ type, openItems, toggleItem }}>
-      <div className={`pm7-accordion ${className || ''}`} style={style}>
+      <div className={accordionClasses} style={style}>
         {children}
       </div>
     </AccordionContext.Provider>

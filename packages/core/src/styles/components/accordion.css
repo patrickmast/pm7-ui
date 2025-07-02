@@ -362,6 +362,17 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Width max variant - forces full width */
+.pm7-accordion--width-max {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.pm7-accordion--width-max .pm7-accordion-item {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 /* Dark mode adjustments */
 .pm7-dark .pm7-accordion-item,
 [data-theme="dark"] .pm7-accordion-item {
