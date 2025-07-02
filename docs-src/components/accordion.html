@@ -106,6 +106,162 @@ yarn add @pm7/core</code></pre>
             </div>
 
             <div class="pm7-docs-example">
+              <h3>Accordion with Fixed Max Width</h3>
+              
+              <h4>800px Max Width</h4>
+              <div class="pm7-docs-preview" style="background-color: #f0f0f0; padding: 2rem;">
+                <div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion style="margin: 0 auto;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Product Informatie</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Deze accordion heeft een maximale breedte van 800px dankzij de <code>pm7-accordion--width-800</code> class. Dit is ideaal voor content die niet te breed moet worden op grote schermen.</p>
+                        <ul>
+                          <li>Perfecte leesbreedte voor lange teksten</li>
+                          <li>Consistent gedrag op alle schermformaten</li>
+                          <li>Automatisch responsive op kleinere schermen</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Technische Specificaties</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <table style="width: 100%;">
+                          <tr>
+                            <td><strong>Max breedte:</strong></td>
+                            <td>800px</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Min breedte:</strong></td>
+                            <td>Auto (100% van parent)</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Responsive:</strong></td>
+                            <td>Ja, past zich aan op kleinere schermen</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>1000px Max Width</h4>
+              <div class="pm7-docs-preview" style="background-color: #e8f4f8; padding: 2rem;">
+                <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion style="margin: 0 auto;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Enterprise Features</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Deze accordion gebruikt <code>pm7-accordion--width-1000</code> voor een bredere layout die meer content kan bevatten. Perfect voor dashboards en data-rijke interfaces.</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                          <div>
+                            <h5>Security</h5>
+                            <ul>
+                              <li>End-to-end encryption</li>
+                              <li>Two-factor authentication</li>
+                              <li>Role-based access control</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <h5>Performance</h5>
+                            <ul>
+                              <li>99.9% uptime SLA</li>
+                              <li>Global CDN</li>
+                              <li>Auto-scaling infrastructure</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <h5>Integration</h5>
+                            <ul>
+                              <li>REST API</li>
+                              <li>Webhooks</li>
+                              <li>SSO support</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Pricing Plans</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                          <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h5>Starter</h5>
+                            <p style="font-size: 24px; font-weight: bold;">€29/mo</p>
+                            <ul style="font-size: 14px;">
+                              <li>Up to 10 users</li>
+                              <li>Basic features</li>
+                              <li>Email support</li>
+                            </ul>
+                          </div>
+                          <div style="border: 1px solid #1C86EF; padding: 1rem; border-radius: 8px; background-color: #f0f8ff;">
+                            <h5>Professional</h5>
+                            <p style="font-size: 24px; font-weight: bold; color: #1C86EF;">€99/mo</p>
+                            <ul style="font-size: 14px;">
+                              <li>Up to 50 users</li>
+                              <li>Advanced features</li>
+                              <li>Priority support</li>
+                            </ul>
+                          </div>
+                          <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h5>Enterprise</h5>
+                            <p style="font-size: 24px; font-weight: bold;">Custom</p>
+                            <ul style="font-size: 14px;">
+                              <li>Unlimited users</li>
+                              <li>All features</li>
+                              <li>Dedicated support</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Implementation Timeline</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Met de bredere layout van 1000px is er meer ruimte voor gedetailleerde tijdlijnen en procesoverzichten.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
               <h3>Multiple Open Items</h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-accordion" data-pm7-accordion data-allow-multiple="true" style="max-width: 600px;">
@@ -346,33 +502,313 @@ yarn add @pm7/core</code></pre>
                 </div>
               </div>
               
-              <h4>Icon Start Position</h4>
+              <h4>Icon Position Variants</h4>
+              <p style="margin-bottom: 1rem;">De accordion ondersteunt drie verschillende icon posities. Hieronder zie je alle varianten naast elkaar:</p>
+              
+              <h5>Default - Icon End (Helemaal Rechts)</h5>
               <div class="pm7-docs-preview">
-                <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion style="max-width: 600px;">
+                <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>Icon at the beginning</span>
+                      <span>Standaard positie</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>This accordion has the expand/collapse icon positioned at the start instead of at the end.</p>
+                        <p>Dit is de <strong>standaard positie</strong>. De icon staat helemaal rechts uitgelijnd met <code>justify-content: space-between</code>.</p>
                       </div>
                     </div>
                   </div>
                   
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>Another item with icon at start</span>
+                      <span>Lange titel om de rechtse uitlijning te demonstreren</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>Useful for different design layouts or when following specific design patterns.</p>
+                        <p>Ongeacht de lengte van de titel, blijft de icon altijd helemaal rechts staan. Dit geeft een strakke, uitgelijde look.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>FAQ</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Ideaal voor professionele interfaces waar consistente uitlijning belangrijk is.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h5>Icon Start (Links)</h5>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Icon aan het begin</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Met <code>pm7-accordion--icon-start</code> staat de icon links van de titel. Dit wordt bereikt met <code>flex-direction: row-reverse</code>.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Populair in bepaalde design systemen</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Deze layout wordt vaak gebruikt in navigatie menus of wanneer de icon als visuele indicator voor de hele sectie dient.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Documentatie</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Perfect voor file explorers of boom structuren waar de expand/collapse actie aan het begin verwacht wordt.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h5>Icon Inline (Direct na titel)</h5>
+              <div class="pm7-docs-preview">
+                <div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion style="max-width: 600px;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Korte titel</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Met <code>pm7-accordion--icon-inline</code> staat de icon direct 10px naast de titel. Dit gebruikt <code>justify-content: flex-start</code> met <code>margin-left: 10px</code> op de icon.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Dit is een veel langere titel om het inline gedrag te tonen</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>De icon "plakt" aan de tekst, wat een compactere weergave geeft. Er is geen lege ruimte tussen titel en icon.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Help</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Ideaal voor minimalistische designs of wanneer de accordion items korte labels hebben.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h5>Vergelijking - Alle drie naast elkaar</h5>
+              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+                <div style="display: grid; gap: 2rem;">
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Default (Icon End):</p>
+                    <div class="pm7-accordion" data-pm7-accordion>
+                      <div class="pm7-accordion-item">
+                        <button class="pm7-accordion-trigger">
+                          <span>Product Informatie</span>
+                          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                          </svg>
+                        </button>
+                        <div class="pm7-accordion-content">
+                          <div class="pm7-accordion-content-inner">
+                            <p>Icon staat helemaal rechts</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Icon Start:</p>
+                    <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion>
+                      <div class="pm7-accordion-item">
+                        <button class="pm7-accordion-trigger">
+                          <span>Product Informatie</span>
+                          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                          </svg>
+                        </button>
+                        <div class="pm7-accordion-content">
+                          <div class="pm7-accordion-content-inner">
+                            <p>Icon staat links van de titel</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Icon Inline:</p>
+                    <div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion>
+                      <div class="pm7-accordion-item">
+                        <button class="pm7-accordion-trigger">
+                          <span>Product Informatie</span>
+                          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                          </svg>
+                        </button>
+                        <div class="pm7-accordion-content">
+                          <div class="pm7-accordion-content-inner">
+                            <p>Icon staat direct na de titel</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Width Variants</h4>
+              
+              <!-- Full Width Example -->
+              <h5>Full Width (100% of parent)</h5>
+              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+                <div style="max-width: 800px; margin: 0 auto; background-color: white; padding: 2rem; border-radius: 8px;">
+                  <p style="margin-bottom: 1rem;">Parent container with max-width: 800px</p>
+                  <div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion>
+                    <div class="pm7-accordion-item">
+                      <button class="pm7-accordion-trigger">
+                        <span>Full Width Accordion (100% of parent)</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                      </button>
+                      <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                          <p>Deze accordion gebruikt de <code>pm7-accordion--width-max</code> class en neemt de volledige breedte van het moederelement in beslag. Perfect voor formulieren of content die de volledige beschikbare ruimte moet gebruiken.</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="pm7-accordion-item">
+                      <button class="pm7-accordion-trigger">
+                        <span>Responsive gedrag</span>
+                        <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                      </button>
+                      <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                          <p>De accordion past zich automatisch aan de breedte van het parent element aan, ongeacht de viewport grootte.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Max Width 800px Example -->
+              <h5>Max Width 800px</h5>
+              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+                <div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion style="margin: 0 auto;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Max Width 800px Accordion</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Deze accordion gebruikt <code>pm7-accordion--width-800</code> en heeft een maximale breedte van 800px. Op kleinere schermen past de accordion zich automatisch aan.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Consistent breedte</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>De breedte blijft consistent of de accordion open of dicht is. Perfect voor een voorspelbare layout.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Max Width 1000px Example -->
+              <h5>Max Width 1000px</h5>
+              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+                <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion style="margin: 0 auto;">
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Max Width 1000px Accordion</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Deze accordion gebruikt <code>pm7-accordion--width-1000</code> en heeft een maximale breedte van 1000px. Ideaal voor bredere content layouts.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                      <span>Responsive op mobiel</span>
+                      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-accordion-content">
+                      <div class="pm7-accordion-content-inner">
+                        <p>Op schermen smaller dan 1000px neemt de accordion automatisch 100% van de beschikbare breedte in.</p>
                       </div>
                     </div>
                   </div>
@@ -624,6 +1060,10 @@ const accordion = new PM7Accordion(element, {
                   <td>Positions the expand/collapse icon at the start</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-accordion--icon-inline</code></td>
+                  <td>Icon appears directly after text (10px gap) instead of right-aligned</td>
+                </tr>
+                <tr>
                   <td><code>.pm7-accordion--text-left</code></td>
                   <td>Left-aligns the header text (default)</td>
                 </tr>
@@ -638,6 +1078,21 @@ const accordion = new PM7Accordion(element, {
                 <tr>
                   <td><code>.pm7-accordion--no-separator</code></td>
                   <td>Removes the separator line between header and content</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Width Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-max</code></td>
+                  <td>Forces accordion to take 100% width of parent element</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-800</code></td>
+                  <td>Sets maximum width to 800px with responsive behavior</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-1000</code></td>
+                  <td>Sets maximum width to 1000px with responsive behavior</td>
                 </tr>
                 <tr style="background-color: #f9f9f9;">
                   <td colspan="2"><strong>Height Variants</strong></td>
@@ -751,6 +1206,11 @@ const accordion = new PM7Accordion(element, {
   &lt;!-- Accordion items --&gt;
 &lt;/div&gt;
 
+&lt;!-- Accordion with inline icon (direct after text) --&gt;
+&lt;div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion&gt;
+  &lt;!-- Icon appears 10px after text instead of right-aligned --&gt;
+&lt;/div&gt;
+
 &lt;!-- Accordion with height limit --&gt;
 &lt;div class="pm7-accordion" data-pm7-accordion data-height="sm"&gt;
   &lt;!-- Accordion items with small height limit (200px) --&gt;
@@ -759,6 +1219,20 @@ const accordion = new PM7Accordion(element, {
 &lt;!-- Accordion with fixed custom height --&gt;
 &lt;div class="pm7-accordion" data-pm7-accordion data-height="fixed" data-fixed-height="350"&gt;
   &lt;!-- Accordion items with fixed height of 350px --&gt;
+&lt;/div&gt;
+
+&lt;!-- Full width accordion --&gt;
+&lt;div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion&gt;
+  &lt;!-- Accordion takes 100% width of parent container --&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed max-width accordions --&gt;
+&lt;div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion&gt;
+  &lt;!-- Accordion with max-width of 800px --&gt;
+&lt;/div&gt;
+
+&lt;div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion&gt;
+  &lt;!-- Accordion with max-width of 1000px --&gt;
 &lt;/div&gt;</code></pre>
 
             <h3>JavaScript API</h3>

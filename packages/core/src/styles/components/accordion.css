@@ -288,6 +288,15 @@
   margin-left: 0;
 }
 
+/* Icon inline variant - icon directly after text */
+.pm7-accordion--icon-inline .pm7-accordion-trigger {
+  justify-content: flex-start;
+}
+
+.pm7-accordion--icon-inline .pm7-accordion-icon {
+  margin-left: 10px;
+}
+
 /* Text alignment variants */
 .pm7-accordion--text-left .pm7-accordion-trigger {
   text-align: left;
@@ -371,6 +380,17 @@
 .pm7-accordion--width-max .pm7-accordion-item {
   width: 100% !important;
   max-width: 100% !important;
+}
+
+/* Fixed width variants - sets max-width with responsive behavior */
+.pm7-accordion--width-800 {
+  width: 100%;
+  max-width: 800px !important;
+}
+
+.pm7-accordion--width-1000 {
+  width: 100%;
+  max-width: 1000px !important;
 }
 
 /* Dark mode adjustments */
