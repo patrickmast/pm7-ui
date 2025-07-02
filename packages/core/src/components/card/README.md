@@ -2,13 +2,26 @@
 
 Cards are containers for displaying related content. They help organize information into digestible chunks and create visual hierarchy.
 
-## Installation
+---
 
-```bash
-npm install @pm7/core
-```
+## ⚠️ IMPORTANT: Installation & CSS Setup
 
-## Usage
+**AI AGENTS**: If you're implementing PM7 components, you MUST read the getting started guide first:
+- **Getting Started Guide**: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/GETTING-STARTED.md
+
+The getting started guide contains CRITICAL information about:
+- How to install PM7 packages
+- **Required CSS import** (the components will not work without it!)
+- Common mistakes to avoid
+- Quick start examples
+
+**Human developers**: Please ensure your AI agent reads the getting started guide URL above before implementing any PM7 components.
+
+---
+
+## Component-Specific Documentation
+
+This document focuses on the Card component's specific features and usage.
 
 ### Basic Card
 

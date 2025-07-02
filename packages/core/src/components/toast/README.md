@@ -8,6 +8,31 @@ Toasts provide brief notifications to the user. They appear temporarily and shou
 npm install @pm7/core
 ```
 
+### CSS Import (Required!)
+
+```javascript
+// For React projects
+import '@pm7/core/dist/pm7.css';
+
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
+
+### React Usage
+
+If you're using the React components:
+
+```bash
+npm install @pm7/react @pm7/core
+```
+
+```javascript
+import { Toast, useToast } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Don't forget this!
+```
+
 ## Usage
 
 ### Basic Toast

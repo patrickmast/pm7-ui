@@ -5,15 +5,21 @@ React components for PM7 UI design system.
 ## Installation
 
 ```bash
-npm install @pm7/react
+npm install @pm7/react @pm7/core
 ```
 
-The CSS is automatically imported when you use @pm7/react components.
+**Important:** You need to manually import the PM7 CSS in your application:
+
+```jsx
+// In your main App.jsx or index.js
+import '@pm7/core/dist/pm7.css';
+```
 
 ## Usage
 
 ```jsx
 import { Button, Menu, Dialog } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Don't forget to import the CSS!
 
 function App() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
