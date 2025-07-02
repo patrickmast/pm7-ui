@@ -25,6 +25,20 @@ npm install @pm7/react
 npm install @pm7/vue
 ```
 
+## Important: CSS Import
+
+⚠️ **The CSS file must be imported manually in all frameworks:**
+
+```javascript
+// For ES modules / React / Vue / etc.
+import '@pm7/core/dist/pm7.css';
+
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+**Note:** The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
+
 ## Usage
 
 ### Vanilla HTML/CSS/JS
@@ -84,6 +98,7 @@ const accordion = new PM7Accordion(element, {
 
 ```jsx
 import { Button, Menu, Dialog } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Required: Import CSS styles
 
 function App() {
   return (

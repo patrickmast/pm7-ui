@@ -18,10 +18,35 @@ The Tooltip component displays informative text when users hover over, focus on,
 npm install @pm7/core
 ```
 
+### CSS Import (Required!)
+
+```javascript
+// For React projects
+import '@pm7/core/dist/pm7.css';
+
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
+
 Or use via CDN:
 ```html
 <link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css">
 <script src="https://unpkg.com/@pm7/core/dist/pm7.js"></script>
+```
+
+### React Usage
+
+If you're using the React components:
+
+```bash
+npm install @pm7/react @pm7/core
+```
+
+```javascript
+import { Tooltip } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Don't forget this!
 ```
 
 ## Basic Usage

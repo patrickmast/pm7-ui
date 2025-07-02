@@ -2,13 +2,68 @@
 
 Tab interface for switching between different views or content sections.
 
+> ⚠️ **Important: This documentation is for the vanilla JavaScript implementation (`@pm7/core`)**
+> 
+> If you're using React, you need the React components from `@pm7/react` instead:
+> - React uses `<Tabs>`, `<TabsList>`, `<TabsTrigger>`, `<TabsContent>` components
+> - Different API and prop-based configuration
+> - No manual JavaScript initialization needed
+> - See the [React Usage section](#react-usage-pm7react) below for details
+
 ## Installation
 
 ```bash
+# For vanilla JavaScript projects
 npm install @pm7/core
+
+# For React projects
+npm install @pm7/react @pm7/core
 ```
 
-## Usage
+### CSS Import (Required!)
+
+```javascript
+// For React projects
+import '@pm7/core/dist/pm7.css';
+
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
+
+## Version Comparison
+
+| Feature | Vanilla JS (`@pm7/core`) | React (`@pm7/react`) |
+|---------|--------------------------|----------------------|
+| **Import** | `import { PM7TabSelector } from '@pm7/core'` | `import { Tabs, TabsList, TabsTrigger, TabsContent } from '@pm7/react'` |
+| **Initialization** | Manual or auto via `data-pm7-tab-selector` | Automatic via React components |
+| **Structure** | HTML with CSS classes | JSX components |
+| **State Management** | DOM manipulation | React state |
+| **Events** | DOM events (`pm7-tab-change`) | onChange callbacks |
+| **Styling** | CSS classes (`pm7-tab-selector`, etc.) | Component props and CSS |
+
+## Quick Decision Guide
+
+**Use Vanilla JS (`@pm7/core`) when:**
+- Building a traditional multi-page application
+- Working with server-rendered HTML (PHP, Ruby, etc.)
+- Integrating into legacy applications
+- You need direct DOM control
+
+**Use React (`@pm7/react`) when:**
+- Building a React application
+- Using Next.js, Gatsby, or Create React App
+- Need React state management integration
+- Want TypeScript prop validation
+
+---
+
+# Vanilla JavaScript Implementation
+
+The following sections describe the vanilla JavaScript implementation using `@pm7/core`.
+
+## Usage (Vanilla JavaScript)
 
 ### Basic Tabs
 
@@ -503,50 +558,124 @@ PM7 tabs can be customized using CSS custom properties:
 </div>
 ```
 
-## React Usage
+---
 
-**Note**: The React component for Tab Selector is currently in development.
+# React Implementation
 
-When using @pm7/react (coming soon):
+The following section describes the React implementation using `@pm7/react`.
+
+## React Usage (@pm7/react)
+
+When using React, you work with the `@pm7/react` components which have a different API:
 
 ```jsx
-import { TabSelector } from '@pm7/react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@pm7/react';
 
 function MyComponent() {
-  const [activeTab, setActiveTab] = useState(0);
-  
-  const tabs = [
-    { 
-      id: 'overview', 
-      label: 'Overview', 
-      icon: <OverviewIcon />,
-      content: <OverviewPanel /> 
-    },
-    { 
-      id: 'details', 
-      label: 'Details', 
-      content: <DetailsPanel /> 
-    },
-    { 
-      id: 'history', 
-      label: 'History',
-      badge: 5,
-      content: <HistoryPanel /> 
-    }
-  ];
+  const [activeTab, setActiveTab] = useState("overview");
   
   return (
-    <TabSelector
-      tabs={tabs}
-      activeTab={activeTab}
-      onChange={setActiveTab}
-      variant="solid"
-      size="default"
-      fullWidth={false}
-    />
+    <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="details">Details</TabsTrigger>
+        <TabsTrigger value="history">History</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="overview">
+        <p>Overview content goes here</p>
+      </TabsContent>
+      <TabsContent value="details">
+        <p>Details content goes here</p>
+      </TabsContent>
+      <TabsContent value="history">
+        <p>History content goes here</p>
+      </TabsContent>
+    </Tabs>
   );
 }
 ```
+
+### React with URL Synchronization
+
+```jsx
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@pm7/react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+function MyComponent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  // Get initial tab from URL or default
+  const tabFromUrl = searchParams.get("tab");
+  const validTabs = ["overview", "details", "history"];
+  const initialTab = validTabs.includes(tabFromUrl || "") ? tabFromUrl : "overview";
+  
+  const [activeTab, setActiveTab] = useState(initialTab);
+  
+  // Update URL when tab changes
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set("tab", newTab);
+    router.push(`${pathname}?${newSearchParams.toString()}`, { scroll: false });
+  };
+  
+  // Update tab when URL changes
+  useEffect(() => {
+    const tabFromUrl = searchParams.get("tab");
+    if (tabFromUrl && validTabs.includes(tabFromUrl) && tabFromUrl !== activeTab) {
+      setActiveTab(tabFromUrl);
+    }
+  }, [searchParams, activeTab]);
+
+  return (
+    <Tabs value={activeTab} onValueChange={handleTabChange}>
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="details">Details</TabsTrigger>
+        <TabsTrigger value="history">History</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="overview">
+        <p>Overview content</p>
+      </TabsContent>
+      <TabsContent value="details">
+        <p>Details content</p>
+      </TabsContent>
+      <TabsContent value="history">
+        <p>History content</p>
+      </TabsContent>
+    </Tabs>
+  );
+}
+```
+
+### Common Pitfalls to Avoid
+
+> ⚠️ **Do NOT mix vanilla JS and React implementations:**
+> 
+> ❌ **Wrong - Using vanilla JS classes with React components:**
+> ```jsx
+> // This won't work!
+> <Tabs className="pm7-tab-selector pm7-tab-selector--solid">
+>   <TabsList className="pm7-tab-list">
+>     <TabsTrigger className="pm7-tab-trigger">Tab 1</TabsTrigger>
+>   </TabsList>
+> </Tabs>
+> ```
+> 
+> ✅ **Correct - Use React component props:**
+> ```jsx
+> <Tabs value={activeTab} onValueChange={setActiveTab}>
+>   <TabsList>
+>     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+>   </TabsList>
+>   <TabsContent value="tab1">Content</TabsContent>
+> </Tabs>
+> ```
 
 ## Related Components
 

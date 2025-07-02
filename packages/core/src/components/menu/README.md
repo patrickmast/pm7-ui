@@ -8,6 +8,31 @@ Dropdown menus display a list of options on temporary surfaces. They appear when
 npm install @pm7/core
 ```
 
+### CSS Import (Required!)
+
+```javascript
+// For React projects
+import '@pm7/core/dist/pm7.css';
+
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
+
+### React Usage
+
+If you're using the React components:
+
+```bash
+npm install @pm7/react @pm7/core
+```
+
+```javascript
+import { Menu, MenuItem, MenuSeparator } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Don't forget this!
+```
+
 ## Usage
 
 ### Basic Menu
