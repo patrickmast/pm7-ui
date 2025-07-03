@@ -231,3 +231,82 @@ accordion.closeAll();
 - Custom scrollbars are styled for height-limited variants
 - Dark mode is automatically supported via CSS custom properties
 - The `compact` variant is deprecated; use `sm` instead
+
+## Width Variants
+
+- `.pm7-accordion--width-max` - Forces full width (100%) with no maximum limit
+- `.pm7-accordion--width-800` - Sets maximum width to 800px
+- `.pm7-accordion--width-1000` - Sets maximum width to 1000px
+
+## ⚠️ BELANGRIJK: Container Width Vereiste
+
+**De Accordion component neemt standaard alleen de breedte van zijn content aan.** Om de Accordion de volledige beschikbare breedte te laten gebruiken, moet de parent container een expliciete `width: 100%` hebben.
+
+### Probleem
+```html
+<!-- ❌ FOUT - Accordion wordt alleen zo breed als zijn content (~520px) -->
+<div style="max-width: 1000px; margin: 0 auto">
+  <div class="pm7-accordion pm7-accordion--width-1000">
+    <!-- content -->
+  </div>
+</div>
+```
+
+### Oplossing
+```html
+<!-- ✅ CORRECT - Accordion gebruikt volledige breedte -->
+<div style="width: 100%; max-width: 1000px; margin: 0 auto">
+  <div class="pm7-accordion pm7-accordion--width-1000">
+    <!-- content -->
+  </div>
+</div>
+```
+
+### React Voorbeeld
+```jsx
+// ❌ FOUT
+<div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+  <Accordion className="pm7-accordion--width-1000">
+    {/* content */}
+  </Accordion>
+</div>
+
+// ✅ CORRECT
+<div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
+  <Accordion className="pm7-accordion--width-1000">
+    {/* content */}
+  </Accordion>
+</div>
+```
+
+**Let op**: Width modifiers zoals `pm7-accordion--width-1000` werken alleen correct als de parent container ook `width: 100%` heeft. Dit is een veelvoorkomende valkuil die tot veel tijdverlies kan leiden bij het debuggen.
+
+## ⚠️ Content Padding
+
+**De AccordionContent component heeft al ingebouwde padding via de `.pm7-accordion-content-inner` class.** Het is een veelvoorkomende fout om extra padding toe te voegen.
+
+### Probleem
+```jsx
+// ❌ FOUT - Dubbele padding
+<AccordionContent>
+  <div style={{ padding: '1rem' }}>
+    {/* content */}
+  </div>
+</AccordionContent>
+```
+
+### Oplossing
+```jsx
+// ✅ CORRECT - Gebruik de default padding
+<AccordionContent>
+  {/* content */}
+</AccordionContent>
+```
+
+Als je echt custom padding nodig hebt, overschrijf dan de default padding:
+```jsx
+// Custom padding indien nodig
+<AccordionContent style={{ '--pm7-card-padding': '2rem' }}>
+  {/* content */}
+</AccordionContent>
+```
