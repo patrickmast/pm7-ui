@@ -363,25 +363,30 @@ setTimeout(() => {
 // Close all toasts
 closeAllToasts();</code></pre>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { useToast } from '@pm7/react';
+            <h3>Advanced Usage</h3>
+            <pre><code class="language-javascript">// Show toast with action button
+PM7Toast.show({
+  title: 'Changes saved',
+  description: 'Your document has been saved successfully.',
+  variant: 'success',
+  action: {
+    label: 'View',
+    onClick: () => {
+      console.log('View clicked');
+    }
+  }
+});
 
-function MyComponent() {
-  const { toast } = useToast();
+// Show toast with custom duration
+PM7Toast.show({
+  title: 'Processing...',
+  description: 'This may take a few moments.',
+  variant: 'info',
+  duration: 10000 // 10 seconds
+});
 
-  const handleSave = () => {
-    // Save logic...
-    toast({
-      title: 'Saved successfully',
-      description: 'Your changes have been saved.',
-      variant: 'success'
-    });
-  };
-
-  return (
-    &lt;button onClick={handleSave}&gt;Save&lt;/button&gt;
-  );
-}</code></pre>
+// Close all toasts
+PM7Toast.closeAll();</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

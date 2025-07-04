@@ -529,28 +529,38 @@
             <h3>JavaScript API</h3>
             <p>Input components are standard HTML elements and don't require JavaScript initialization. They work with standard DOM APIs and events.</p>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { Input, Label, FormGroup, HelperText } from '@pm7/react';
+            <h3>Form Validation Example</h3>
+            <pre><code class="language-html">&lt;!-- Form with validation --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input 
+    type="email" 
+    id="email" 
+    class="pm7-input pm7-input--error" 
+    placeholder="Enter your email"
+    required
+    aria-describedby="email-error"
+  &gt;
+  &lt;span id="email-error" class="pm7-helper-text pm7-helper-text--error"&gt;
+    Please enter a valid email address
+  &lt;/span&gt;
+&lt;/div&gt;
 
-function MyForm() {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-
-  return (
-    &lt;FormGroup&gt;
-      &lt;Label htmlFor="email"&gt;Email&lt;/Label&gt;
-      &lt;Input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={!!error}
-        placeholder="Enter your email"
-      /&gt;
-      {error && &lt;HelperText variant="error"&gt;{error}&lt;/HelperText&gt;}
-    &lt;/FormGroup&gt;
-  );
-}</code></pre>
+&lt;!-- Password input with toggle --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
+  &lt;div class="pm7-input-group"&gt;
+    &lt;input 
+      type="password" 
+      id="password" 
+      class="pm7-input" 
+      placeholder="Enter password"
+    &gt;
+    &lt;button type="button" class="pm7-input-addon" onclick="togglePassword()"&gt;
+      Show
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

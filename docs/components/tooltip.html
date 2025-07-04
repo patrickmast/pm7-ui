@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tooltip - pm7-ui</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
-  <script type="module" crossorigin src="/assets/components/tooltip-DXu7WotN.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/components-D1GqrkIL.js">
+  <script type="module" crossorigin src="/assets/components/tooltip-B5-hmwMs.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-SSIc835T.js">
   <link rel="modulepreload" crossorigin href="/assets/tab-selector-O38w-NWe.js">
   <link rel="modulepreload" crossorigin href="/assets/tooltip-DRGUVAuE.js">
-  <link rel="modulepreload" crossorigin href="/assets/tab-router-ZP-FC53G.js">
-  <link rel="modulepreload" crossorigin href="/assets/docs-gml_P-xM.js">
-  <link rel="modulepreload" crossorigin href="/assets/version-standalone-BzsQ225r.js">
-  <link rel="stylesheet" crossorigin href="/assets/components-BMx-AKuN.css">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-Dc5nosG3.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-QKnRpwkz.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-BUD1ie48.js">
+  <link rel="stylesheet" crossorigin href="/assets/components-CYE0gdFq.css">
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -523,16 +523,21 @@ element.addEventListener('pm7:tooltip:hide', (event) => {
   console.log('Tooltip hidden', event.detail.tooltip);
 });</code></pre>
 
-                        <h3>React Usage</h3>
-                        <pre><code class="language-jsx">import { Tooltip } from '@pm7/react';
+                        <h3>Advanced Examples</h3>
+                        <pre><code class="language-html">&lt;!-- Tooltip with custom styling --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="Custom styled tooltip" data-pm7-tooltip-theme="dark"&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Dark Theme&lt;/button&gt;
+&lt;/span&gt;
 
-function App() {
-  return (
-    &lt;Tooltip content="This is a tooltip"&gt;
-      &lt;button&gt;Hover me&lt;/button&gt;
-    &lt;/Tooltip&gt;
-  );
-}</code></pre>
+&lt;!-- Tooltip with HTML content --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="&lt;strong&gt;Bold&lt;/strong&gt; text in tooltip" data-pm7-tooltip-html="true"&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;HTML Content&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- Disabled button with tooltip --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="This button is currently disabled"&gt;
+  &lt;button class="pm7-button pm7-button--primary" disabled&gt;Disabled&lt;/button&gt;
+&lt;/span&gt;</code></pre>
 
                         <h3>Accessibility</h3>
                         <ul>

@@ -59,6 +59,23 @@ export function loadHeader() {
               </span>
               FAQ
             </a>
+            <a href="/ai-guide.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="2"/>
+                  <path d="M9 10h6M8 14h1m2 0h2m2 0h1"/>
+                </svg>
+              </span>
+              AI Guide
+            </a>
+            <a href="/upgrade.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20V10M6 14l6-6 6 6"/>
+                </svg>
+              </span>
+              Upgrade to v2
+            </a>
             <div class="pm7-menu-separator"></div>
             <a href="#" class="pm7-menu-item" id="version-info-trigger">
               <span class="pm7-menu-item-icon">
@@ -110,7 +127,7 @@ export function loadFooter() {
     <div class="pm7-footer-content">
       <div class="pm7-footer-left">
         <span>© 2025 pm7-ui</span>
-        <span class="pm7-footer-version">v<span data-pm7-version>1.0.0</span></span>
+        <span class="pm7-footer-version">v<span data-pm7-version>2.0.0</span></span>
       </div>
       <div class="pm7-footer-center">
         <a href="https://pm7.dev" target="_blank" rel="noopener noreferrer" class="pm7-footer-logo-link">
@@ -205,13 +222,20 @@ export function createVersionDialog() {
   // Skip if already exists
   if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
 
+  // Get the current version
+  let version = '2.0.0'; // default
+  const versionSpan = document.querySelector('[data-pm7-version]');
+  if (versionSpan && versionSpan.textContent) {
+    version = versionSpan.textContent;
+  }
+
   const dialogHTML = `
   <div class="pm7-dialog" 
        data-pm7-dialog="version-dialog"
        data-pm7-dialog-size="sm">
     <div data-pm7-header
          data-pm7-dialog-title="Version Info"
-         data-pm7-dialog-subtitle="Version 1.0.0"
+         data-pm7-dialog-subtitle="Version ${version}"
          data-pm7-dialog-icon="info"
          data-pm7-header-separator>
     </div>
@@ -236,24 +260,6 @@ export function createVersionDialog() {
 window.showVersionDialog = async function() {
   // Ensure dialog functions are loaded
   await window.loadDialogIfNeeded();
-
-  // Get the current version
-  let version = '1.0.0';
-  try {
-    // Try to get version from existing span if available
-    const versionSpan = document.querySelector('[data-pm7-version]');
-    if (versionSpan && versionSpan.textContent) {
-      version = versionSpan.textContent;
-    }
-  } catch (e) {
-    console.warn('Could not get dynamic version:', e);
-  }
-
-  // Update the dialog subtitle with the current version
-  const subtitleElement = document.querySelector('#version-dialog [data-pm7-dialog-subtitle]');
-  if (subtitleElement) {
-    subtitleElement.setAttribute('data-pm7-dialog-subtitle', `Version ${version}`);
-  }
 
   // Use PM7 openDialog function
   if (window.openDialog) {

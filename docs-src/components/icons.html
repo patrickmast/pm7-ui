@@ -234,33 +234,21 @@ const style = `
               </tbody>
             </table>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { HamburgerIcon } from '@pm7/react';
+            <h3>Icon Button Example</h3>
+            <pre><code class="language-html">&lt;!-- Icon button with text --&gt;
+&lt;button class="pm7-button pm7-button--ghost"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Menu&lt;/span&gt;
+&lt;/button&gt;
 
-function MenuButton() {
-  return (
-    &lt;button className="pm7-button pm7-button--ghost"&gt;
-      &lt;HamburgerIcon width={16} height={13} /&gt;
-      &lt;span&gt;Menu&lt;/span&gt;
-    &lt;/button&gt;
-  );
-}</code></pre>
-
-            <h3>Vue Usage</h3>
-            <pre><code class="language-vue">&lt;template&gt;
-  &lt;button class="pm7-button pm7-button--ghost"&gt;
-    &lt;hamburger-icon :width="16" :height="13" /&gt;
-    &lt;span&gt;Menu&lt;/span&gt;
-  &lt;/button&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import { HamburgerIcon } from '@pm7/vue';
-
-export default {
-  components: { HamburgerIcon }
-}
-&lt;/script&gt;</code></pre>
+&lt;!-- Icon-only button --&gt;
+&lt;button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

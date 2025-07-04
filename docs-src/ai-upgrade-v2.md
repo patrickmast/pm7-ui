@@ -1,6 +1,9 @@
 # AI Agent Upgrade Guide: pm7-ui v1 to v2
 
-## 🤖 FOR AI CODING ASSISTANTS
+Note: This guide has been moved to the official documentation location.
+Please refer to: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/guides/ai-upgrade-v2.md
+
+## FOR AI CODING ASSISTANTS
 
 When working with pm7-ui, the codebase may contain old v1 syntax. This guide helps you recognize and update it.
 
@@ -8,37 +11,37 @@ When working with pm7-ui, the codebase may contain old v1 syntax. This guide hel
 
 If you see any of these imports, the code needs updating:
 ```javascript
-import { Button, Card, Menu, Dialog } from '@pm7/react';  // ❌ OLD
-import * as PM7 from '@pm7/react';                       // ❌ OLD
+import { Button, Card, Menu, Dialog } from '@pm7/react';  // OLD - REMOVE
+import * as PM7 from '@pm7/react';                       // OLD - REMOVE
 ```
 
 ## Simple Rule: Replace ALL React Components with CSS Classes
 
 ### The Pattern
 ```
-<ComponentName prop="value">    →    <element className="pm7-component pm7-component--value">
+<ComponentName prop="value">    -->    <element className="pm7-component pm7-component--value">
 ```
 
 ## Direct Conversions
 
 ### Buttons
 ```jsx
-// ❌ REMOVE THIS
+// REMOVE: OLD SYNTAX
 <Button variant="primary">Text</Button>
 
-// ✅ REPLACE WITH
+// USE: NEW SYNTAX
 <button className="pm7-button pm7-button--primary">Text</button>
 ```
 
 ### Cards
 ```jsx
-// ❌ REMOVE THIS
+// REMOVE: OLD SYNTAX
 <Card>
   <Card.Header>Title</Card.Header>
   <Card.Body>Content</Card.Body>
 </Card>
 
-// ✅ REPLACE WITH
+// USE: NEW SYNTAX
 <div className="pm7-card">
   <div className="pm7-card-header">Title</div>
   <div className="pm7-card-body">Content</div>
@@ -61,24 +64,24 @@ import * as PM7 from '@pm7/react';                       // ❌ OLD
 
 ## Props to Classes Mapping
 
-- `variant="primary"` → add class `pm7-button--primary`
-- `variant="secondary"` → add class `pm7-button--secondary`
-- `size="sm"` → add class `pm7-button--sm`
-- `size="lg"` → add class `pm7-button--lg`
-- `fullWidth` → add class `pm7-button--full`
+- `variant="primary"` --> add class `pm7-button--primary`
+- `variant="secondary"` --> add class `pm7-button--secondary`
+- `size="sm"` --> add class `pm7-button--sm`
+- `size="lg"` --> add class `pm7-button--lg`
+- `fullWidth` --> add class `pm7-button--full`
 
 ## Interactive Components Need Data Attributes
 
 These components MUST have data attributes:
-- Menu → `data-pm7-menu`
-- Dialog → `data-pm7-dialog`
-- Accordion → `data-pm7-accordion`
-- TabSelector → `data-pm7-tab-selector`
-- Tooltip → `data-pm7-tooltip`
+- Menu --> `data-pm7-menu`
+- Dialog --> `data-pm7-dialog`
+- Accordion --> `data-pm7-accordion`
+- TabSelector --> `data-pm7-tab-selector`
+- Tooltip --> `data-pm7-tooltip`
 
 ## Complete Example Transformation
 
-### ❌ OLD CODE (v1)
+### OLD CODE (v1)
 ```jsx
 import { Button, Card, Menu } from '@pm7/react';
 
@@ -103,7 +106,7 @@ function MyComponent() {
 }
 ```
 
-### ✅ NEW CODE (v2)
+### NEW CODE (v2)
 ```jsx
 import '@pm7/core/dist/pm7.css';
 

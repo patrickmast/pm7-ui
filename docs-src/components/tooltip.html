@@ -517,16 +517,21 @@ element.addEventListener('pm7:tooltip:hide', (event) => {
   console.log('Tooltip hidden', event.detail.tooltip);
 });</code></pre>
 
-                        <h3>React Usage</h3>
-                        <pre><code class="language-jsx">import { Tooltip } from '@pm7/react';
+                        <h3>Advanced Examples</h3>
+                        <pre><code class="language-html">&lt;!-- Tooltip with custom styling --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="Custom styled tooltip" data-pm7-tooltip-theme="dark"&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Dark Theme&lt;/button&gt;
+&lt;/span&gt;
 
-function App() {
-  return (
-    &lt;Tooltip content="This is a tooltip"&gt;
-      &lt;button&gt;Hover me&lt;/button&gt;
-    &lt;/Tooltip&gt;
-  );
-}</code></pre>
+&lt;!-- Tooltip with HTML content --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="&lt;strong&gt;Bold&lt;/strong&gt; text in tooltip" data-pm7-tooltip-html="true"&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;HTML Content&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- Disabled button with tooltip --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="This button is currently disabled"&gt;
+  &lt;button class="pm7-button pm7-button--primary" disabled&gt;Disabled&lt;/button&gt;
+&lt;/span&gt;</code></pre>
 
                         <h3>Accessibility</h3>
                         <ul>

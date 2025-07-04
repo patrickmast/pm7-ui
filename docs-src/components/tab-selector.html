@@ -392,29 +392,36 @@ const tabSelector = new PM7TabSelector(element);
 // Or re-initialize all tab selectors
 PM7TabSelector.autoInit();</code></pre>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { TabSelector, TabList, TabTrigger, TabContent } from '@pm7/react';
-
-function MyComponent() {
-  return (
-    &lt;TabSelector defaultValue="tab1"&gt;
-      &lt;TabList&gt;
-        &lt;TabTrigger value="tab1"&gt;Tab 1&lt;/TabTrigger&gt;
-        &lt;TabTrigger value="tab2"&gt;Tab 2&lt;/TabTrigger&gt;
-        &lt;TabTrigger value="tab3"&gt;Tab 3&lt;/TabTrigger&gt;
-      &lt;/TabList&gt;
-      &lt;TabContent value="tab1"&gt;
-        &lt;p&gt;Content for Tab 1&lt;/p&gt;
-      &lt;/TabContent&gt;
-      &lt;TabContent value="tab2"&gt;
-        &lt;p&gt;Content for Tab 2&lt;/p&gt;
-      &lt;/TabContent&gt;
-      &lt;TabContent value="tab3"&gt;
-        &lt;p&gt;Content for Tab 3&lt;/p&gt;
-      &lt;/TabContent&gt;
-    &lt;/TabSelector&gt;
-  );
-}</code></pre>
+            <h3>Dynamic Tabs Example</h3>
+            <pre><code class="language-html">&lt;!-- Tab selector with dynamic content --&gt;
+&lt;div class="pm7-tab-selector pm7-tab-selector--underline" data-pm7-tab-selector&gt;
+  &lt;div class="pm7-tab-list"&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="settings-panel"&gt;Settings&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="profile-panel"&gt;Profile&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="security-panel"&gt;Security&lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="settings-panel"&gt;
+    &lt;h3&gt;Settings&lt;/h3&gt;
+    &lt;div class="pm7-form-group"&gt;
+      &lt;label class="pm7-label"&gt;Language&lt;/label&gt;
+      &lt;select class="pm7-input"&gt;
+        &lt;option&gt;English&lt;/option&gt;
+        &lt;option&gt;Dutch&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="profile-panel"&gt;
+    &lt;h3&gt;Profile&lt;/h3&gt;
+    &lt;p&gt;Update your profile information here.&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="security-panel"&gt;
+    &lt;h3&gt;Security&lt;/h3&gt;
+    &lt;p&gt;Manage your password and security settings.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

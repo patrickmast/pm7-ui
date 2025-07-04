@@ -235,7 +235,6 @@ body.pm7-navigating .pm7-docs-sidebar a {
 .pm7-docs-package:hover {
   border-color: var(--pm7-primary);
   box-shadow: var(--pm7-shadow-md);
-  transform: translateY(-2px);
 }
 
 .pm7-docs-package h3 {

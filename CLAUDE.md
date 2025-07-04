@@ -342,11 +342,12 @@ The `docs-src/test/` directory contains isolated test files for debugging specif
 
 ## Deployment
 
-The documentation site is deployed to Vercel:
+The documentation site is deployed to Vercel using the Vercel CLI:
 - **Production URL**: https://pm7-ui.vercel.app
 - **Build Command**: `npm run build`
 - **Output Directory**: `docs`
 - **URL Rewrites**: Configured for clean URLs without `.html` extensions
+- **Deploy Command**: `vercel --prod` (always use Vercel CLI for deployment)
 
 ## Project Memories
 

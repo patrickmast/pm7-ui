@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card - pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
-  <script type="module" crossorigin src="/assets/components/card-BDhaLP7O.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/components-D1GqrkIL.js">
+  <script type="module" crossorigin src="/assets/components/card-CqQdNDE9.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-SSIc835T.js">
   <link rel="modulepreload" crossorigin href="/assets/tab-selector-O38w-NWe.js">
-  <link rel="modulepreload" crossorigin href="/assets/tab-router-ZP-FC53G.js">
-  <link rel="modulepreload" crossorigin href="/assets/docs-gml_P-xM.js">
-  <link rel="modulepreload" crossorigin href="/assets/version-standalone-BzsQ225r.js">
-  <link rel="stylesheet" crossorigin href="/assets/components-BMx-AKuN.css">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-Dc5nosG3.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-QKnRpwkz.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-BUD1ie48.js">
+  <link rel="stylesheet" crossorigin href="/assets/components-CYE0gdFq.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -476,25 +476,23 @@
               <li><strong>Images</strong>: Use <code>pm7-card--no-padding</code> with <code>pm7-card-image--top</code> for edge-to-edge images</li>
             </ul>
 
-            <h3>React Usage</h3>
-            <p>The React Card component is currently in development. For now, use the CSS classes directly in your React projects:</p>
-            <pre><code class="language-jsx">function MyComponent() {
-  return (
-    &lt;div className="pm7-card pm7-card--hoverable"&gt;
-      &lt;div className="pm7-card-header"&gt;
-        &lt;h3 className="pm7-card-title"&gt;Card Title&lt;/h3&gt;
-        &lt;p className="pm7-card-description"&gt;Card description&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div className="pm7-card-content"&gt;
-        &lt;p&gt;Card content goes here.&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div className="pm7-card-footer pm7-card-footer--between"&gt;
-        &lt;button className="pm7-button pm7-button--outline"&gt;Cancel&lt;/button&gt;
-        &lt;button className="pm7-button pm7-button--primary"&gt;Save&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
+            <h3>Advanced Example - Product Card</h3>
+            <pre><code class="language-html">&lt;!-- Product card with image and actions --&gt;
+&lt;div class="pm7-card pm7-card--hoverable"&gt;
+  &lt;img src="/product.jpg" alt="Product" class="pm7-card-image"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Premium Headphones&lt;/h3&gt;
+    &lt;p class="pm7-card-description"&gt;Wireless noise-cancelling headphones&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p class="pm7-text-lg pm7-font-semibold"&gt;$299.99&lt;/p&gt;
+    &lt;p class="pm7-text-sm pm7-text-muted"&gt;Free shipping&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-footer pm7-card-footer--between"&gt;
+    &lt;button class="pm7-button pm7-button--outline"&gt;View Details&lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;Add to Cart&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

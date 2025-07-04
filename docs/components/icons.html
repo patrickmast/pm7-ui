@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Icons - pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
-  <script type="module" crossorigin src="/assets/components/icons-DfG_TgWd.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/components-D1GqrkIL.js">
-  <link rel="modulepreload" crossorigin href="/assets/tab-router-ZP-FC53G.js">
-  <link rel="modulepreload" crossorigin href="/assets/docs-gml_P-xM.js">
-  <link rel="stylesheet" crossorigin href="/assets/components-BMx-AKuN.css">
+  <script type="module" crossorigin src="/assets/components/icons-B_YAz6hl.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-SSIc835T.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-Dc5nosG3.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-QKnRpwkz.js">
+  <link rel="stylesheet" crossorigin href="/assets/components-CYE0gdFq.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -237,33 +237,21 @@ const style = `
               </tbody>
             </table>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { HamburgerIcon } from '@pm7/react';
+            <h3>Icon Button Example</h3>
+            <pre><code class="language-html">&lt;!-- Icon button with text --&gt;
+&lt;button class="pm7-button pm7-button--ghost"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Menu&lt;/span&gt;
+&lt;/button&gt;
 
-function MenuButton() {
-  return (
-    &lt;button className="pm7-button pm7-button--ghost"&gt;
-      &lt;HamburgerIcon width={16} height={13} /&gt;
-      &lt;span&gt;Menu&lt;/span&gt;
-    &lt;/button&gt;
-  );
-}</code></pre>
-
-            <h3>Vue Usage</h3>
-            <pre><code class="language-vue">&lt;template&gt;
-  &lt;button class="pm7-button pm7-button--ghost"&gt;
-    &lt;hamburger-icon :width="16" :height="13" /&gt;
-    &lt;span&gt;Menu&lt;/span&gt;
-  &lt;/button&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import { HamburgerIcon } from '@pm7/vue';
-
-export default {
-  components: { HamburgerIcon }
-}
-&lt;/script&gt;</code></pre>
+&lt;!-- Icon-only button --&gt;
+&lt;button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

@@ -672,29 +672,37 @@ pm7Confirm('Are you sure?', (confirmed) => {
   --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.8);
 }</code></pre>
 
-            <h3>React Usage</h3>
-            <p><em>Note: The React wrapper will need to be updated to support the new structure. The vanilla JavaScript version uses the new content markers as shown above.</em></p>
-            <pre><code class="language-jsx">// Future React API (to be implemented)
-import { Dialog } from '@pm7/react';
-
-function MyComponent() {
-  return (
-    &lt;div className="pm7-dialog" data-pm7-dialog="react-dialog"&gt;
-      &lt;div data-pm7-header data-pm7-dialog-title="Edit Profile"&gt;&lt;/div&gt;
-      &lt;div data-pm7-body&gt;
-        &lt;p&gt;Dialog content goes here&lt;/p&gt;
+            <h3>Form Dialog Example</h3>
+            <pre><code class="language-html">&lt;!-- Dialog with form content --&gt;
+&lt;div class="pm7-dialog" 
+     data-pm7-dialog="form-dialog"
+     data-pm7-show-close&gt;
+  &lt;div data-pm7-header
+       data-pm7-dialog-title="Edit Profile"
+       data-pm7-dialog-subtitle="Update your profile information"
+       data-pm7-header-separator&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-body&gt;
+    &lt;form&gt;
+      &lt;div class="pm7-form-group"&gt;
+        &lt;label for="name" class="pm7-label"&gt;Name&lt;/label&gt;
+        &lt;input type="text" id="name" class="pm7-input" placeholder="Enter your name"&gt;
       &lt;/div&gt;
-      &lt;div data-pm7-footer&gt;
-        &lt;button className="pm7-button pm7-button--outline"&gt;
-          Cancel
-        &lt;/button&gt;
-        &lt;button className="pm7-button pm7-button--primary"&gt;
-          Save Changes
-        &lt;/button&gt;
+      &lt;div class="pm7-form-group"&gt;
+        &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+        &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-footer&gt;
+    &lt;button class="pm7-button pm7-button--outline" onclick="closeDialog('form-dialog')"&gt;
+      Cancel
+    &lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;
+      Save Changes
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>
@@ -759,7 +767,7 @@ function MyComponent() {
          data-pm7-header-separator>
     </div>
     <div data-pm7-body>
-      <p>This is the main content of the dialog. You can put any React node here.</p>
+      <p>This is the main content of the dialog. You can put any HTML content here.</p>
     </div>
     <div data-pm7-footer>
       <button class="pm7-button pm7-button--primary" onclick="closeDialog('basic-dialog')">
