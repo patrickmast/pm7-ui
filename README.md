@@ -1,43 +1,45 @@
-# PM7 UI
+# pm7-ui - The First UI Library Built for AI Coding Agents
 
-Framework-agnostic UI components for PM7 applications.
+**Made for AI Coding Agents. Ready for Any Framework.**
 
 ## Overview
 
-PM7 UI provides a comprehensive set of UI components that work across different frameworks. Built with accessibility and performance in mind, these components offer consistent styling and behavior for all PM7 applications.
+pm7-ui is the first UI component library designed specifically for AI Coding Agents.  
+It's lightweight, framework-agnostic, and built with pure CSS and optional vanilla JavaScript.  
+Use it anywhere—whether you're working in React, Vue, Angular, Svelte, or just plain HTML.
 
-### Packages
+Effortless styling. Universal compatibility. Ready to power your AI-driven workflows.
 
-- **@pm7/core** - Pure CSS and vanilla JavaScript components
-- **@pm7/react** - React component wrappers
-- **@pm7/vue** - Vue component wrappers (coming soon)
+### Why pm7-ui?
+
+- **🤖 AI-First Design** - Simple CSS classes that AI agents understand instantly
+- **🌍 Universal** - One package works with ALL frameworks
+- **📦 Lightweight** - Pure CSS + optional vanilla JS, no dependencies
+- **🚀 Copy & Paste** - AI agents can use examples directly
+- **✨ Beautiful** - Pre-designed components that look great out of the box
+
+## Upgrading from v1
+
+**⚠️ Breaking Change**: v2.0 removes the @pm7/react package. See our [comprehensive upgrade guide](UPGRADE-v2.md) for migration instructions.
 
 ## Installation
 
 ```bash
-# For vanilla HTML/CSS/JS projects
+# One package for all projects
 npm install @pm7/core
-
-# For React projects
-npm install @pm7/react
-
-# For Vue projects (coming soon)
-npm install @pm7/vue
 ```
 
 ## Important: CSS Import
 
-⚠️ **The CSS file must be imported manually in all frameworks:**
+⚠️ **Import the CSS file once in your project:**
 
 ```javascript
-// For ES modules / React / Vue / etc.
+// ES modules (React, Vue, etc.)
 import '@pm7/core/dist/pm7.css';
 
-// For vanilla HTML
+// Vanilla HTML
 <link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
 ```
-
-**Note:** The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
 
 ## Usage
 
@@ -94,25 +96,25 @@ const accordion = new PM7Accordion(element, {
 
 **Note**: Components with auto-initialization will automatically find and initialize all matching elements on page load. For dynamically added content, use the manual initialization methods.
 
-### React
+### React Example
 
 ```jsx
-import { Button, Menu, Dialog } from '@pm7/react';
-import '@pm7/core/dist/pm7.css'; // Required: Import CSS styles
+import '@pm7/core/dist/pm7.css';
 
 function App() {
   return (
     <div>
-      <Button variant="primary" onClick={() => alert('Clicked!')}>
+      <button className="pm7-button pm7-button--primary" onClick={() => alert('Clicked!')}>
         Click me
-      </Button>
+      </button>
       
-      <Menu
-        items={[
-          { label: 'Option 1', onClick: () => {} },
-          { label: 'Option 2', onClick: () => {} }
-        ]}
-      />
+      <div className="pm7-menu" data-pm7-menu>
+        <button className="pm7-menu-trigger">Menu</button>
+        <div className="pm7-menu-content">
+          <button className="pm7-menu-item">Option 1</button>
+          <button className="pm7-menu-item">Option 2</button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -120,7 +122,7 @@ function App() {
 
 ## CSS Naming Convention
 
-PM7 UI uses a modified naming convention (NOT traditional BEM):
+pm7-ui uses a modified naming convention (NOT traditional BEM):
 
 - **Base classes**: `pm7-[component]` (e.g., `pm7-button`, `pm7-menu`)
 - **Sub-elements**: `pm7-[component]-[element]` with single dashes (e.g., `pm7-menu-trigger`, `pm7-menu-item`)
@@ -202,21 +204,18 @@ npm run lint
 
 ### Development Setup with npm link
 
-When developing PM7 UI components and testing them in another project, use npm link:
+When developing pm7-ui components and testing them in another project, use npm link:
 
 ```bash
-# In PM7 UI root directory
-cd packages/react
+# In pm7-ui root directory
+cd packages/core
 npm link
 
-cd ../core  
-npm link
-
-# In your project that uses PM7 UI
+# In your project that uses pm7-ui
 cd ~/your-project
-npm link @pm7/react @pm7/core
+npm link @pm7/core
 
-# After making changes to PM7 UI, rebuild:
+# After making changes to pm7-ui, rebuild:
 cd ~/pm7-ui
 npm run build:packages
 
@@ -225,25 +224,23 @@ npm run build:packages
 
 #### Alternative: Direct file reference
 
-For temporary development, you can also reference local packages directly in package.json:
+For temporary development, you can also reference the package directly in package.json:
 
 ```json
 {
   "dependencies": {
-    "@pm7/core": "file:../pm7-ui/packages/core",
-    "@pm7/react": "file:../pm7-ui/packages/react"
+    "@pm7/core": "file:../pm7-ui/packages/core"
   }
 }
 ```
 
-Then run `npm install` to install the local packages.
+Then run `npm install` to install the local package.
 
 **Note**: Remember to switch back to npm version numbers before committing:
 ```json
 {
   "dependencies": {
-    "@pm7/core": "^1.1.0",
-    "@pm7/react": "^1.1.0"
+    "@pm7/core": "^2.0.0"
   }
 }
 ```
@@ -253,69 +250,53 @@ Then run `npm install` to install the local packages.
 ```
 pm7-ui/
 ├── packages/
-│   ├── core/          # Pure CSS + vanilla JS
-│   ├── react/         # React components
-│   └── vue/           # Vue components
-├── examples/
-│   ├── vanilla/       # Vanilla HTML/JS examples
-│   ├── react/         # React example app
-│   └── vue/           # Vue example app
-└── docs/              # Documentation
+│   └── core/          # Pure CSS + vanilla JS - The only package you need!
+├── docs-src/          # Documentation source
+└── docs/              # Built documentation
 ```
 
 ### Documentation
 
-- [Framework Wrapper Patterns](docs/FRAMEWORK_WRAPPERS.md) - How to create framework-specific wrappers
-- Component documentation available at `/docs` when running `npm run dev`
+- Component documentation available at https://pm7-ui.vercel.app
+- Run `npm run dev` to view documentation locally
 
-## Package Exports
+## @pm7/core Exports
 
-### @pm7/core
-
-The core package exports JavaScript classes for interactive components and utilities:
+The core package exports JavaScript classes for interactive components:
 
 ```javascript
-// Component classes
-export { PM7Menu } from './menu';
-export { PM7Dialog } from './dialog'; 
-export { PM7Toast } from './toast';
-export { PM7Accordion } from './accordion';
-export { PM7TabSelector } from './tab-selector';
+// Auto-initialization (recommended)
+import '@pm7/core';
 
-// Utility functions
-export { initializeAllComponents } from './utils';
-```
+// Or import specific components
+import { PM7Menu, PM7Dialog, PM7Toast, PM7Accordion, PM7TabSelector } from '@pm7/core';
 
-### @pm7/react
-
-The React package exports all component wrappers:
-
-```javascript
-// Components
-export { Button } from './components/Button';
-export { Card } from './components/Card';
-export { Input } from './components/Input';
-export { Menu, MenuItem, MenuTrigger, MenuContent } from './components/Menu';
-export { Dialog, DialogTrigger, DialogContent } from './components/Dialog';
-export { Toast, ToastProvider, useToast } from './components/Toast';
-export { Tooltip } from './components/Tooltip';
-export { TabSelector } from './components/TabSelector';
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/Accordion';
-
-// Icons
-export { CheckIcon, CloseIcon, ChevronDownIcon } from './components/Icons';
-
-// Hooks
-export { useClickOutside } from './hooks/useClickOutside';
-export { useEscapeKey } from './hooks/useEscapeKey';
+// Manual initialization
+const menu = new PM7Menu(document.querySelector('.pm7-menu'));
 ```
 
 ### CSS Classes Reference
 
 All components are available as CSS classes in `@pm7/core/dist/pm7.css`:
 
-- `.pm7-button` (with variants: `--primary`, `--secondary`, `--ghost`, `--outline`)
-- `.pm7-card`, `.pm7-card-header`, `.pm7-card-body`, `.pm7-card-footer`
+#### Buttons
+```html
+<button class="pm7-button pm7-button--primary">Primary</button>
+<button class="pm7-button pm7-button--secondary">Secondary</button>
+<button class="pm7-button pm7-button--ghost">Ghost</button>
+<button class="pm7-button pm7-button--outline">Outline</button>
+```
+
+#### Cards
+```html
+<div class="pm7-card">
+  <div class="pm7-card-header">Header</div>
+  <div class="pm7-card-body">Content</div>
+  <div class="pm7-card-footer">Footer</div>
+</div>
+```
+
+#### Other Components
 - `.pm7-input` (with sizes: `--sm`, `--lg`)
 - `.pm7-menu`, `.pm7-menu-trigger`, `.pm7-menu-content`, `.pm7-menu-item`
 - `.pm7-dialog`, `.pm7-dialog-overlay`, `.pm7-dialog-content`

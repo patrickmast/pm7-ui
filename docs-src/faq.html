@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - PM7 UI</title>
+    <title>FAQ - pm7-ui</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/packages/core/src/styles/index.css">
     <link rel="stylesheet" href="/styles/docs.css">
@@ -101,32 +101,30 @@
         <main class="pm7-docs-content">
             <h1>Frequently Asked Questions</h1>
             <p class="pm7-docs-lead">
-                Find answers to common questions about PM7 UI. Can't find what you're looking for? 
+                Find answers to common questions about pm7-ui. Can't find what you're looking for? 
                 Feel free to open an issue on our GitHub repository.
             </p>
 
             <div class="pm7-accordion pm7-accordion--sm" data-pm7-accordion>
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>How do I install PM7 UI?</span>
+                        <span>How do I install pm7-ui?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>You can install PM7 UI using npm or yarn:</p>
+                            <p>pm7-ui is a single package that works with all frameworks. Install it using npm or yarn:</p>
                             <pre><code class="language-bash"># Using npm
 npm install @pm7/core
 
 # Using yarn
 yarn add @pm7/core</code><button class="copy-button">Copy</button></pre>
-                            <p>For React projects, also install the React package:</p>
-                            <pre><code class="language-bash"># Using npm
-npm install @pm7/react
-
-# Using yarn
-yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
+                            <p>Then import the CSS in your project:</p>
+                            <pre><code class="language-javascript">// In your main JavaScript/TypeScript file
+import '@pm7/core/dist/pm7.css';</code><button class="copy-button">Copy</button></pre>
+                            <p>That's it! You can now use pm7-ui components in React, Vue, Angular, or any other framework.</p>
                         </div>
                     </div>
                 </div>
@@ -140,7 +138,7 @@ yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>Most PM7 UI components work with CSS only. However, these components require JavaScript for interactivity:</p>
+                            <p>Most pm7-ui components work with CSS only. However, these components require JavaScript for interactivity:</p>
                             <ul>
                                 <li><strong>Menu</strong> - For dropdown functionality</li>
                                 <li><strong>Dialog</strong> - For open/close behavior</li>
@@ -155,14 +153,14 @@ yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
 
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>How do I customize PM7 UI components?</span>
+                        <span>How do I customize pm7-ui components?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>PM7 UI components can be customized in several ways:</p>
+                            <p>pm7-ui components can be customized in several ways:</p>
                             <p><strong>1. CSS Custom Properties (Design Tokens)</strong></p>
                             <pre><code class="language-css">:root {
   --pm7-color-primary: #your-color;
@@ -184,14 +182,14 @@ yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
 
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>Does PM7 UI support dark mode?</span>
+                        <span>Does pm7-ui support dark mode?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>Yes! PM7 UI has built-in dark mode support. You can enable it by adding the <code>pm7-theme-dark</code> class to a parent element:</p>
+                            <p>Yes! pm7-ui has built-in dark mode support. You can enable it by adding the <code>pm7-theme-dark</code> class to a parent element:</p>
                             <pre><code class="language-html">&lt;!-- Dark mode for entire page --&gt;
 &lt;body class="pm7-theme-dark"&gt;
   &lt;!-- Your content --&gt;
@@ -208,26 +206,27 @@ yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
 
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>What's the difference between @pm7/core and @pm7/react?</span>
+                        <span>Why is pm7-ui just one package?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p><strong>@pm7/core</strong> contains:</p>
+                            <p>pm7-ui uses a CSS-first approach with a single <strong>@pm7/core</strong> package that contains:</p>
                             <ul>
                                 <li>All CSS styles and design tokens</li>
                                 <li>Vanilla JavaScript for interactive components</li>
                                 <li>Framework-agnostic implementation</li>
                             </ul>
-                            <p><strong>@pm7/react</strong> contains:</p>
+                            <p>This design has several benefits:</p>
                             <ul>
-                                <li>React component wrappers</li>
-                                <li>React-specific props and event handling</li>
-                                <li>TypeScript support for React</li>
+                                <li><strong>Simplicity</strong> - One package to install and maintain</li>
+                                <li><strong>Smaller bundles</strong> - No framework-specific wrapper overhead</li>
+                                <li><strong>Future-proof</strong> - Works with any framework, even ones that don't exist yet</li>
+                                <li><strong>AI-friendly</strong> - Simple CSS classes that AI coding assistants understand</li>
                             </ul>
-                            <p>The React package depends on the core package for all styling and base functionality.</p>
+                            <p>You use the same CSS classes whether you're in React, Vue, Angular, or vanilla HTML!</p>
                         </div>
                     </div>
                 </div>
@@ -260,39 +259,45 @@ yarn add @pm7/react</code><button class="copy-button">Copy</button></pre>
 
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>Can I use PM7 UI with Vue or other frameworks?</span>
+                        <span>Can I use pm7-ui with Vue or other frameworks?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>Yes! The <code>@pm7/core</code> package is framework-agnostic and works with any framework:</p>
-                            <pre><code class="language-html">&lt;!-- Vue example --&gt;
+                            <p>Absolutely! pm7-ui is designed to work with ANY framework. Here are examples:</p>
+                            <pre><code class="language-html">&lt;!-- Vue 3 --&gt;
 &lt;template&gt;
-  &lt;button class="pm7-button pm7-button--primary"&gt;
+  &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
     Vue Button
   &lt;/button&gt;
 &lt;/template&gt;
 
-&lt;style&gt;
-@import '@pm7/core/dist/pm7-ui.css';
-&lt;/style&gt;</code><button class="copy-button">Copy</button></pre>
-                            <p>A dedicated Vue package (<code>@pm7/vue</code>) is currently in development for better Vue integration.</p>
+&lt;!-- Angular --&gt;
+&lt;button class="pm7-button pm7-button--primary" (click)="handleClick()"&gt;
+  Angular Button
+&lt;/button&gt;
+
+&lt;!-- Svelte --&gt;
+&lt;button class="pm7-button pm7-button--primary" on:click={handleClick}&gt;
+  Svelte Button
+&lt;/button&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>Just import the CSS once in your app, and you're ready to use pm7-ui components everywhere!</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                        <span>Is PM7 UI production-ready?</span>
+                        <span>Is pm7-ui production-ready?</span>
                         <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>PM7 UI is designed with production use in mind:</p>
+                            <p>pm7-ui is designed with production use in mind:</p>
                             <ul>
                                 <li><strong>Stable API</strong> - We follow semantic versioning</li>
                                 <li><strong>Performance</strong> - Optimized CSS and tree-shakeable JavaScript</li>

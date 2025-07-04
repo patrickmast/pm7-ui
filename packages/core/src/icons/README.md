@@ -1,6 +1,6 @@
 # Icons
 
-PM7 UI provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.
+pm7-ui provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.
 
 ## Installation
 

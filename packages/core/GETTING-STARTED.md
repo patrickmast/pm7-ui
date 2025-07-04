@@ -1,4 +1,4 @@
-# PM7 UI - Getting Started Guide
+# pm7-ui - Getting Started Guide
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install @pm7/react @pm7/core
 
 ## CSS Import (REQUIRED!)
 
-⚠️ **CRITICAL**: You MUST import the PM7 CSS file in your application or the components will not be styled correctly.
+⚠️ **CRITICAL**: You MUST import the pm7-ui CSS file in your application or the components will not be styled correctly.
 
 ### For ES Modules / React / Vue / Modern Frameworks
 
@@ -94,4 +94,4 @@ function App() {
 
 ## Next Steps
 
-Now that you have PM7 UI installed and the CSS imported, you can start using individual components. Each component has its own documentation with specific examples and options.
+Now that you have pm7-ui installed and the CSS imported, you can start using individual components. Each component has its own documentation with specific examples and options.
