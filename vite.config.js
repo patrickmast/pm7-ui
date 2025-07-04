@@ -16,6 +16,7 @@ export default defineConfig({
   plugins: [spaFallback()],
   root: './docs-src',
   publicDir: './assets',
+  assetsInclude: ['**/*.md'],
   build: {
     outDir: '../docs',
     emptyOutDir: true,
@@ -25,6 +26,9 @@ export default defineConfig({
         components: resolve(__dirname, 'docs-src/components.html'),
         gettingStarted: resolve(__dirname, 'docs-src/getting-started.html'),
         faq: resolve(__dirname, 'docs-src/faq.html'),
+        aiGuide: resolve(__dirname, 'docs-src/ai-guide.html'),
+        upgrade: resolve(__dirname, 'docs-src/upgrade.html'),
+        aiUpgradeV2: resolve(__dirname, 'docs-src/ai-upgrade-v2.html'),
         ...componentFiles,
       },
     },

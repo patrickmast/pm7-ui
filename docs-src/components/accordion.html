@@ -59,28 +59,28 @@
                 <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>What is PM7 UI?</span>
+                      <span>What is pm7-ui?</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>PM7 UI is a modern, accessible component library designed for building beautiful user interfaces. It provides a comprehensive set of customizable components that work seamlessly across different frameworks.</p>
+                        <p>pm7-ui is a modern, accessible component library designed for building beautiful user interfaces. It provides a comprehensive set of customizable components that work seamlessly across different frameworks.</p>
                       </div>
                     </div>
                   </div>
                   
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>How do I install PM7 UI?</span>
+                      <span>How do I install pm7-ui?</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>You can install PM7 UI using npm or yarn:</p>
+                        <p>You can install pm7-ui using npm or yarn:</p>
                         <pre><code>npm install @pm7/core
 # or
 yarn add @pm7/core</code></pre>
@@ -90,14 +90,14 @@ yarn add @pm7/core</code></pre>
                   
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
-                      <span>Is PM7 UI accessible?</span>
+                      <span>Is pm7-ui accessible?</span>
                       <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"/>
                       </svg>
                     </button>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
-                        <p>Yes! PM7 UI is built with accessibility in mind. All components follow WAI-ARIA guidelines and are keyboard navigable, screen reader friendly, and support reduced motion preferences.</p>
+                        <p>Yes! pm7-ui is built with accessibility in mind. All components follow WAI-ARIA guidelines and are keyboard navigable, screen reader friendly, and support reduced motion preferences.</p>
                       </div>
                     </div>
                   </div>
@@ -1256,27 +1256,36 @@ accordion.openAll();    // Open all items
 accordion.closeAll();   // Close all items
 accordion.toggle(0);    // Toggle specific item</code></pre>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { Accordion } from '@pm7/react';
-
-function App() {
-  return (
-    &lt;Accordion allowMultiple defaultOpen={0}&gt;
-      &lt;Accordion.Item&gt;
-        &lt;Accordion.Trigger&gt;Section 1&lt;/Accordion.Trigger&gt;
-        &lt;Accordion.Content&gt;
-          Content for section 1
-        &lt;/Accordion.Content&gt;
-      &lt;/Accordion.Item&gt;
-      &lt;Accordion.Item&gt;
-        &lt;Accordion.Trigger&gt;Section 2&lt;/Accordion.Trigger&gt;
-        &lt;Accordion.Content&gt;
-          Content for section 2
-        &lt;/Accordion.Content&gt;
-      &lt;/Accordion.Item&gt;
-    &lt;/Accordion&gt;
-  );
-}</code></pre>
+            <h3>Advanced Example</h3>
+            <pre><code class="language-html">&lt;!-- Accordion with custom configuration --&gt;
+&lt;div class="pm7-accordion pm7-accordion--lg pm7-accordion--separated" data-pm7-accordion data-allow-multiple="true"&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Section 1&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        Content for section 1
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Section 2&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        Content for section 2
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>
@@ -1296,8 +1305,8 @@ function App() {
             <div class="pm7-card" style="background-color: #F8F9FA;">
               <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
                 <div class="pm7-card" style="flex: 1; position: relative; background: white; padding: 0.5rem 1rem;">
-                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: white; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/react/src/components/Accordion/README.md</code>
-                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/react/src/components/Accordion/README.md" 
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: white; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md" 
                      target="_blank" 
                      rel="noopener noreferrer"
                      style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"

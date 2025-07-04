@@ -357,75 +357,41 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
             
             <p><strong>Note:</strong> The PM7Button class automatically adds the "6stars" hover effect to primary and default button variants. This effect creates floating star animations on hover, reinforcing the PM7 brand identity.</p>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { Button } from '@pm7/react';
+            <h3>Button Groups</h3>
+            <pre><code class="language-html">&lt;!-- Horizontal button group --&gt;
+&lt;div class="pm7-button-group"&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;First&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;Second&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;Third&lt;/button&gt;
+&lt;/div&gt;
 
-function MyComponent() {
-  return (
-    &lt;&gt;
-      &lt;Button variant="primary" onClick={handleClick}&gt;
-        Click me
-      &lt;/Button&gt;
-      
-      &lt;Button variant="outline" size="sm" disabled&gt;
-        Disabled
-      &lt;/Button&gt;
-      
-      &lt;Button variant="destructive" fullWidth&gt;
-        Delete All
-      &lt;/Button&gt;
-      
-      {/* Advanced: Use asChild for component composition */}
-      &lt;Button asChild variant="primary"&gt;
-        &lt;a href="/dashboard"&gt;Go to Dashboard&lt;/a&gt;
-      &lt;/Button&gt;
-    &lt;/&gt;
-  );
-}</code></pre>
+&lt;!-- Form actions with spacing --&gt;
+&lt;div style="display: flex; gap: 1rem; justify-content: flex-end;"&gt;
+  &lt;button class="pm7-button pm7-button--ghost"&gt;Cancel&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Save Changes&lt;/button&gt;
+&lt;/div&gt;</code></pre>
 
-            <h4>React Props</h4>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Prop</th>
-                  <th>Type</th>
-                  <th>Default</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>variant</code></td>
-                  <td><code>'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link'</code></td>
-                  <td><code>'primary'</code></td>
-                  <td>Button variant</td>
-                </tr>
-                <tr>
-                  <td><code>size</code></td>
-                  <td><code>'sm' | 'md' | 'lg'</code></td>
-                  <td><code>'md'</code></td>
-                  <td>Button size</td>
-                </tr>
-                <tr>
-                  <td><code>fullWidth</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
-                  <td>Make button full width</td>
-                </tr>
-                <tr>
-                  <td><code>asChild</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
-                  <td>Render as child element</td>
-                </tr>
-                <tr>
-                  <td><code>...HTMLButtonAttributes</code></td>
-                  <td><code>-</code></td>
-                  <td><code>-</code></td>
-                  <td>All standard button props</td>
-                </tr>
-              </tbody>
-            </table>
+            <h3>Advanced Examples</h3>
+            <pre><code class="language-html">&lt;!-- Icon button with aria-label for accessibility --&gt;
+&lt;button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Settings"&gt;
+  &lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;circle cx="12" cy="12" r="3"&gt;&lt;/circle&gt;
+    &lt;path d="M12 1v6m0 6v6m11-11h-6m-6 0H1"&gt;&lt;/path&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- Loading state button --&gt;
+&lt;button class="pm7-button pm7-button--primary" disabled&gt;
+  &lt;svg class="pm7-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;path d="M21 12a9 9 0 11-6.219-8.56"/&gt;
+  &lt;/svg&gt;
+  Processing...
+&lt;/button&gt;
+
+&lt;!-- Button as link --&gt;
+&lt;a href="/dashboard" class="pm7-button pm7-button--primary"&gt;
+  Go to Dashboard
+&lt;/a&gt;</code></pre>
 
             <h3>Accessibility</h3>
             <ul>

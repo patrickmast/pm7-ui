@@ -621,190 +621,11 @@
         <!-- Usage Tab -->
         <div class="pm7-tab-content" id="usage-panel">
           <section class="pm7-docs-section">
-            <h3>Installation</h3>
-            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+                <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 1rem;">Installation</h4>
+                <pre><code class="language-bash">npm install @pm7/core</code></pre>
 
-            <h3>CSS Classes</h3>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Container Classes</strong></td></tr>
-                <tr>
-                  <td><code>.pm7-menu</code></td>
-                  <td>Menu container</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-bar</code></td>
-                  <td>Application-style menu bar container</td>
-                </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Trigger Classes</strong></td></tr>
-                <tr>
-                  <td><code>.pm7-menu-trigger</code></td>
-                  <td>Button that opens the menu</td>
-                </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Content Classes</strong></td></tr>
-                <tr>
-                  <td><code>.pm7-menu-content</code></td>
-                  <td>Dropdown container</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-content--open</code></td>
-                  <td>Open state of menu</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-content--start</code></td>
-                  <td>Explicit left alignment</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-content--end</code></td>
-                  <td>Right alignment</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-content--center</code></td>
-                  <td>Center alignment</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-content--top</code></td>
-                  <td>For vertical positioning</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item</code></td>
-                  <td>Clickable menu item</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--checkbox</code></td>
-                  <td>Checkbox menu item</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--radio</code></td>
-                  <td>Radio menu item</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--switch</code></td>
-                  <td>Switch/toggle menu item</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--has-submenu</code></td>
-                  <td>Item with submenu indicator</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--destructive</code></td>
-                  <td>Destructive action (red text)</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--disabled</code></td>
-                  <td>Disabled state</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item--clicking</code></td>
-                  <td>Click animation state</td>
-                </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
-                <tr>
-                  <td><code>.pm7-menu-item-icon</code></td>
-                  <td>Icon within menu item</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-item-check</code></td>
-                  <td>Checkmark icon for checkbox menu items</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-switch</code></td>
-                  <td>Switch element in switch menu items</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-icon</code></td>
-                  <td>Icon in trigger button</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-shortcut</code></td>
-                  <td>Keyboard shortcut hint</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-separator</code></td>
-                  <td>Horizontal divider</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-label</code></td>
-                  <td>Small section label</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-section-title</code></td>
-                  <td>Large section header</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-submenu</code></td>
-                  <td>Submenu container</td>
-                </tr>
-                <tr>
-                  <td><code>.pm7-menu-submenu-icon</code></td>
-                  <td>Submenu arrow indicator</td>
-              </tbody>
-            </table>
-
-            <h3>Data Attributes</h3>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Attribute</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>data-pm7-menu</code></td>
-                  <td>Auto-initialize menu</td>
-                </tr>
-                <tr>
-                  <td><code>data-position</code></td>
-                  <td>For menu positioning</td>
-                </tr>
-                <tr>
-                  <td><code>data-state</code></td>
-                  <td>For open/closed state</td>
-                </tr>
-                <tr>
-                  <td><code>data-submenu-open</code></td>
-                  <td>For submenu state</td>
-                </tr>
-                <tr>
-                  <td><code>data-active</code></td>
-                  <td>For active/selected state</td>
-                </tr>
-                <tr>
-                  <td><code>data-pm7-menu-initialized</code></td>
-                  <td>For tracking initialization</td>
-                </tr>
-                <tr>
-                  <td><code>data-checked</code></td>
-                  <td>Set checkable item state</td>
-                </tr>
-                <tr>
-                  <td><code>data-name</code></td>
-                  <td>Group radio items</td>
-                </tr>
-                <tr>
-                  <td><code>data-value</code></td>
-                  <td>Custom value for menu item</td>
-                </tr>
-                <tr>
-                  <td><code>aria-expanded</code></td>
-                  <td>For accessibility</td>
-                </tr>
-                <tr>
-                  <td><code>aria-disabled</code></td>
-                  <td>For disabled items</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h3>Basic Usage</h3>
-            <pre><code class="language-html">&lt;div class="pm7-menu" data-pm7-menu&gt;
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Basic Usage</h4>
+                <pre><code class="language-html">&lt;div class="pm7-menu" data-pm7-menu&gt;
   &lt;button class="pm7-button pm7-menu-trigger"&gt;
     Menu
   &lt;/button&gt;
@@ -815,9 +636,189 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-            <h3>Application Menu Bar</h3>
-            <p>For desktop application-style menus, use the <code>pm7-menu-bar</code> container:</p>
-            <pre><code class="language-html">&lt;div class="pm7-menu-bar"&gt;
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">CSS Classes</h4>
+                <table class="pm7-docs-table">
+                  <thead>
+                    <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Container Classes</strong></td></tr>
+                    <tr>
+                      <td><code>.pm7-menu</code></td>
+                      <td>Menu container</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-bar</code></td>
+                      <td>Application-style menu bar container</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Trigger Classes</strong></td></tr>
+                    <tr>
+                      <td><code>.pm7-menu-trigger</code></td>
+                      <td>Button that opens the menu</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Content Classes</strong></td></tr>
+                    <tr>
+                      <td><code>.pm7-menu-content</code></td>
+                      <td>Dropdown container</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-content--open</code></td>
+                      <td>Open state of menu</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-content--start</code></td>
+                      <td>Explicit left alignment</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-content--end</code></td>
+                      <td>Right alignment</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-content--center</code></td>
+                      <td>Center alignment</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-content--top</code></td>
+                      <td>For vertical positioning</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item</code></td>
+                      <td>Clickable menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--checkbox</code></td>
+                      <td>Checkbox menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--radio</code></td>
+                      <td>Radio menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--switch</code></td>
+                      <td>Switch/toggle menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--has-submenu</code></td>
+                      <td>Item with submenu indicator</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--destructive</code></td>
+                      <td>Destructive action (red text)</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--disabled</code></td>
+                      <td>Disabled state</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item--clicking</code></td>
+                      <td>Click animation state</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                    <tr>
+                      <td><code>.pm7-menu-item-icon</code></td>
+                      <td>Icon within menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-item-check</code></td>
+                      <td>Checkmark icon for checkbox menu items</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-switch</code></td>
+                      <td>Switch element in switch menu items</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-icon</code></td>
+                      <td>Icon in trigger button</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-shortcut</code></td>
+                      <td>Keyboard shortcut hint</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-separator</code></td>
+                      <td>Horizontal divider</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-label</code></td>
+                      <td>Small section label</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-section-title</code></td>
+                      <td>Large section header</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-submenu</code></td>
+                      <td>Submenu container</td>
+                    </tr>
+                    <tr>
+                      <td><code>.pm7-menu-submenu-icon</code></td>
+                      <td>Submenu arrow indicator</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Data Attributes</h4>
+                <table class="pm7-docs-table">
+                  <thead>
+                    <tr>
+                      <th>Attribute</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>data-pm7-menu</code></td>
+                      <td>Auto-initialize menu</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-position</code></td>
+                      <td>For menu positioning</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-state</code></td>
+                      <td>For open/closed state</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-submenu-open</code></td>
+                      <td>For submenu state</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-active</code></td>
+                      <td>For active/selected state</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-pm7-menu-initialized</code></td>
+                      <td>For tracking initialization</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-checked</code></td>
+                      <td>Set checkable item state</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-name</code></td>
+                      <td>Group radio items</td>
+                    </tr>
+                    <tr>
+                      <td><code>data-value</code></td>
+                      <td>Custom value for menu item</td>
+                    </tr>
+                    <tr>
+                      <td><code>aria-expanded</code></td>
+                      <td>For accessibility</td>
+                    </tr>
+                    <tr>
+                      <td><code>aria-disabled</code></td>
+                      <td>For disabled items</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Application Menu Bar</h4>
+                <p>For desktop application-style menus, use the <code>pm7-menu-bar</code> container:</p>
+                <pre><code class="language-html">&lt;div class="pm7-menu-bar"&gt;
   &lt;div class="pm7-menu" data-pm7-menu&gt;
     &lt;button class="pm7-menu-trigger"&gt;File&lt;/button&gt;
     &lt;div class="pm7-menu-content"&gt;...&lt;/div&gt;
@@ -827,27 +828,27 @@
     &lt;div class="pm7-menu-content"&gt;...&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-            <p>Features of menu bars:</p>
-            <ul>
-              <li>When one menu is open, hovering over other menu triggers will automatically open them</li>
-              <li>Provides a native desktop application experience</li>
-              <li>Click or hover to open menus</li>
-            </ul>
+                <p>Features of menu bars:</p>
+                <ul>
+                  <li>When one menu is open, hovering over other menu triggers will automatically open them</li>
+                  <li>Provides a native desktop application experience</li>
+                  <li>Click or hover to open menus</li>
+                </ul>
 
-            <h3>Menu Features</h3>
-            <p>The PM7 Menu component includes:</p>
-            <ul>
-              <li><strong>Auto-initialization</strong>: Menus with <code>data-pm7-menu</code> are automatically initialized</li>
-              <li><strong>Position adjustment</strong>: Automatically adjusts to stay within viewport</li>
-              <li><strong>Keyboard navigation</strong>: Full keyboard support with arrow keys, Home/End, and Escape</li>
-              <li><strong>Checkable items</strong>: Support for checkbox, radio, and switch menu items</li>
-              <li><strong>Menu bar behavior</strong>: Hover-to-open when another menu is already open</li>
-              <li><strong>Submenu support</strong>: Nested menus with keyboard navigation</li>
-              <li><strong>Focus management</strong>: Proper focus trap and restoration</li>
-            </ul>
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Menu Features</h4>
+                <p>The PM7 Menu component includes:</p>
+                <ul>
+                  <li><strong>Auto-initialization</strong>: Menus with <code>data-pm7-menu</code> are automatically initialized</li>
+                  <li><strong>Position adjustment</strong>: Automatically adjusts to stay within viewport</li>
+                  <li><strong>Keyboard navigation</strong>: Full keyboard support with arrow keys, Home/End, and Escape</li>
+                  <li><strong>Checkable items</strong>: Support for checkbox, radio, and switch menu items</li>
+                  <li><strong>Menu bar behavior</strong>: Hover-to-open when another menu is already open</li>
+                  <li><strong>Submenu support</strong>: Nested menus with keyboard navigation</li>
+                  <li><strong>Focus management</strong>: Proper focus trap and restoration</li>
+                </ul>
 
-            <h3>JavaScript API</h3>
-            <pre><code class="language-javascript">import { PM7Menu } from '@pm7/core';
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">JavaScript API</h4>
+                <pre><code class="language-javascript">import { PM7Menu } from '@pm7/core';
 
 // Manual initialization
 const menuElement = document.querySelector('.pm7-menu');
@@ -867,55 +868,34 @@ menuElement.addEventListener('pm7-menu-select', (e) => {
   console.log('Menu instance:', e.detail.menu);
 });</code></pre>
 
-            <h3>React Usage</h3>
-            <pre><code class="language-jsx">import { Menu } from '@pm7/react';
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Keyboard Navigation</h4>
+                <ul>
+                  <li><kbd>Tab</kbd> - Move focus to menu trigger</li>
+                  <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Open menu when trigger focused</li>
+                  <li><kbd>↓</kbd> - Move to next item</li>
+                  <li><kbd>↑</kbd> - Move to previous item</li>
+                  <li><kbd>→</kbd> - Open submenu (when applicable)</li>
+                  <li><kbd>←</kbd> - Close submenu</li>
+                  <li><kbd>Home</kbd> - Jump to first item</li>
+                  <li><kbd>End</kbd> - Jump to last item</li>
+                  <li><kbd>Escape</kbd> - Close menu</li>
+                  <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Select focused item</li>
+                </ul>
 
-function MyComponent() {
-  const menuItems = [
-    { id: '1', label: 'Edit', icon: &lt;EditIcon /&gt; },
-    { id: '2', label: 'Duplicate', icon: &lt;CopyIcon /&gt; },
-    { id: 'sep', type: 'separator' },
-    { id: '3', label: 'Delete', icon: &lt;TrashIcon /&gt;, variant: 'destructive' }
-  ];
-
-  return (
-    &lt;Menu
-      trigger={&lt;Button variant="outline"&gt;Options&lt;/Button&gt;}
-      items={menuItems}
-      align="end"
-      onSelect={(item) =&gt; handleMenuSelect(item)}
-    /&gt;
-  );
-}</code></pre>
-
-            <h3>Keyboard Navigation</h3>
-            <ul>
-              <li><kbd>Tab</kbd> - Move focus to menu trigger</li>
-              <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Open menu when trigger focused</li>
-              <li><kbd>↓</kbd> - Move to next item</li>
-              <li><kbd>↑</kbd> - Move to previous item</li>
-              <li><kbd>→</kbd> - Open submenu (when applicable)</li>
-              <li><kbd>←</kbd> - Close submenu</li>
-              <li><kbd>Home</kbd> - Jump to first item</li>
-              <li><kbd>End</kbd> - Jump to last item</li>
-              <li><kbd>Escape</kbd> - Close menu</li>
-              <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Select focused item</li>
-            </ul>
-
-            <h3>Accessibility</h3>
-            <p>The Menu component includes comprehensive accessibility features:</p>
-            <ul>
-              <li>Full keyboard navigation with intuitive controls</li>
-              <li>Focus management with trap and restoration</li>
-              <li>ARIA attributes for screen reader support</li>
-              <li>Skip disabled items in keyboard navigation</li>
-              <li>Click outside to close</li>
-              <li>Hover delay for better submenu UX</li>
-              <li>RTL support for right-to-left languages</li>
-            </ul>
+                <h4 style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">Accessibility</h4>
+                <p>The Menu component includes comprehensive accessibility features:</p>
+                <ul>
+                  <li>Full keyboard navigation with intuitive controls</li>
+                  <li>Focus management with trap and restoration</li>
+                  <li>ARIA attributes for screen reader support</li>
+                  <li>Skip disabled items in keyboard navigation</li>
+                  <li>Click outside to close</li>
+                  <li>Hover delay for better submenu UX</li>
+                  <li>RTL support for right-to-left languages</li>
+                </ul>
           </section>
         </div>
-
+        
         <!-- Documentation Tab -->
         <div class="pm7-tab-content" id="documentation-panel">
           <section class="pm7-docs-section" style="padding-top: 20px;">

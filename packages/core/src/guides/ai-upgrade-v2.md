@@ -1,8 +1,5 @@
 # AI Agent Upgrade Guide: pm7-ui v1 to v2
 
-Note: This guide has been moved to the official documentation location.
-Please refer to: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/guides/ai-upgrade-v2.md
-
 ## FOR AI CODING ASSISTANTS
 
 When working with pm7-ui, the codebase may contain old v1 syntax. This guide helps you recognize and update it.
