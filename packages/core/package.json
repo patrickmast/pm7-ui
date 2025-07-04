@@ -1,6 +1,6 @@
 {
   "name": "@pm7/core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "The First UI Library Built for AI Coding Agents - Core CSS and JavaScript",
   "main": "dist/pm7.js",
   "module": "dist/pm7.esm.js",
