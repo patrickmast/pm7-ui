@@ -4,19 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-PM7 UI is a framework-agnostic UI component library that provides consistent styling and behavior for PM7 applications. It's built as a monorepo using npm workspaces with three main packages:
+pm7-ui is a framework-agnostic UI component library that provides consistent styling and behavior for PM7 applications. It contains a single, powerful package:
 
-- **@pm7/core** - Pure CSS and vanilla JavaScript components
-- **@pm7/react** - React component wrappers  
-- **@pm7/vue** - Vue component wrappers (in development)
+- **@pm7/core** - Pure CSS and vanilla JavaScript components that work with ALL frameworks
 
 ## Architecture
 
-The project follows a three-layer architecture:
+The project follows a two-layer architecture:
 
 1. **Base Layer**: Design tokens and CSS custom properties define colors, spacing, typography
 2. **Component Layer**: Styled UI components using CSS classes and vanilla JavaScript
-3. **Framework Layer**: Framework-specific wrappers (React, Vue) that use the core components
 
 ### Key Design Decisions
 
@@ -51,44 +48,29 @@ npm run test            # Run tests in all workspaces
 
 ```
 packages/
-├── core/           # CSS + vanilla JS implementation
-│   ├── src/
-│   │   ├── styles/     # All CSS files
-│   │   │   ├── base/       # Reset and root styles
-│   │   │   ├── components/ # Component-specific styles
-│   │   │   ├── tokens/     # Design tokens
-│   │   │   └── utilities/ # Helper classes
-│   │   └── scripts/    # Vanilla JS for interactive components
-│   └── dist/       # Built files (@pm7/core npm package)
-│
-├── react/          # React wrappers
-│   ├── src/
-│   │   └── components/  # React component implementations
-│   └── dist/           # Built files (@pm7/react npm package)
-│
-└── vue/            # Vue wrappers (in development)
+└── core/           # CSS + vanilla JS implementation
+    ├── src/
+    │   ├── styles/     # All CSS files
+    │   │   ├── base/       # Reset and root styles
+    │   │   ├── components/ # Component-specific styles
+    │   │   ├── tokens/     # Design tokens
+    │   │   └── utilities/  # Helper classes
+    │   └── scripts/    # Vanilla JS for interactive components
+    └── dist/           # Built files (@pm7/core npm package)
 ```
 
 ## Component Development
 
 ### Adding a New Component
 
-1. **Core Package** - Create the base implementation:
+1. **Core Package** - Create the implementation:
    ```
    packages/core/src/
    ├── styles/components/[component].css  # Component styles
    └── scripts/[component].js            # Interactive behavior (if needed)
    ```
 
-2. **React Package** - Create the React wrapper:
-   ```
-   packages/react/src/components/
-   └── [Component]/
-       ├── [Component].tsx
-       └── index.ts
-   ```
-
-3. **Documentation** - Add to docs-src:
+2. **Documentation** - Add to docs-src:
    ```
    docs-src/components/[component].html
    ```
@@ -163,18 +145,12 @@ This approach:
 
 ## Build Process
 
-### Core Package Build
+### Build Process
 1. PostCSS processes all CSS files with:
    - `postcss-import`: Combines @import statements
    - `autoprefixer`: Adds vendor prefixes
    - `cssnano`: Minifies production CSS
 2. Rollup bundles JavaScript modules into UMD and ESM formats
-
-### React Package Build  
-Uses tsup to build TypeScript components with:
-- Tree-shaking support
-- TypeScript declarations
-- Both CJS and ESM outputs
 
 ## Testing Approach
 
@@ -185,15 +161,16 @@ Currently, testing is done through:
 
 ## Important Notes
 
-- The monorepo uses npm workspaces - always run `npm install` from the root
+- Always run `npm install` from the root directory
 - Component styles must work without JavaScript (progressive enhancement)
 - All public classes should follow the `pm7-` prefix convention
 - Design tokens should be used for all design decisions (colors, spacing, etc.)
 - The documentation site is the source of truth for component behavior
+- pm7-ui works with ALL frameworks without needing framework-specific wrappers
 
 ## CSS Naming Convention
 
-PM7 UI uses a modified naming convention (NOT traditional BEM):
+pm7-ui uses a modified naming convention (NOT traditional BEM):
 
 - **Base classes**: `pm7-[component]` (e.g., `pm7-button`, `pm7-menu`)
 - **Sub-elements**: `pm7-[component]-[element]` with single dashes (e.g., `pm7-menu-trigger`, `pm7-menu-item`)
@@ -273,7 +250,8 @@ When creating or updating component documentation pages, the Usage tab MUST foll
 3. **Data Attributes** - Table with all data-* attributes
    - Include: Attribute name, Type, Default value, Description
    
-4. **Basic Usage** - Simple example showing the most common use case
+4. **Basic Usage** - Simple HTML example showing the most common use case
+   - Framework examples (React, Vue, etc.) showing CSS class usage
    - Other code examples follow (Positioning, Sizes, Themes, etc.)
    
 5. **JavaScript API** - If the component has JavaScript functionality
@@ -282,9 +260,7 @@ When creating or updating component documentation pages, the Usage tab MUST foll
    - Methods
    - Events
    
-6. **React Usage** - React-specific implementation
-   
-7. **Accessibility** - Accessibility features and requirements
+6. **Accessibility** - Accessibility features and requirements
 
 ### Demo Tab Structure
 - Use `pm7-docs-example` class for sections
@@ -299,8 +275,8 @@ When creating or updating component documentation pages, the Usage tab MUST foll
 - Use `<pre><code class="language-*">` directly for code examples
 - Table section headers use gray background: `<tr style="background-color: #f9f9f9;">`
 
-## Dogfooding Rule for PM7 UI Documentation Site
-**CRITICAL**: The PM7 UI documentation site MUST use PM7 UI components throughout. This serves two purposes:
+## Dogfooding Rule for pm7-ui Documentation Site
+**CRITICAL**: The pm7-ui documentation site MUST use pm7-ui components throughout. This serves two purposes:
 1. **Testing**: We test our own components in real-world usage
 2. **Showcase**: We demonstrate best practices and component capabilities
 
@@ -313,7 +289,7 @@ When creating or updating component documentation pages, the Usage tab MUST foll
 - Use `pm7-toast` for all notifications
 
 ### Implementation:
-- Replace ALL custom documentation-specific component classes with PM7 UI components
+- Replace ALL custom documentation-specific component classes with pm7-ui components
 - Add custom styling through additional classes or inline styles when needed
 - This applies to the entire documentation site, including navigation, sidebars, and content areas
 
@@ -374,8 +350,8 @@ The documentation site is deployed to Vercel:
 
 ## Project Memories
 
-### PM7 UI Style Guide Reference
-- Als ik het over "het" of "ons" "origineel project" he, dan bedoel ik "PM7 UI Style Guide" welke je hier kan vinden:
+### pm7-ui Style Guide Reference
+- Als ik het over "het" of "ons" "origineel project" he, dan bedoel ik "pm7-ui Style Guide" welke je hier kan vinden:
   - Lokaal: /Users/patrickmast/Dev/pm7-ui-style-guide
   - Online: https://tools-y0etdl1ve-pm7-projects.vercel.app
   - Github: https://github.com/patrickmast/pm7-ui-style-guide

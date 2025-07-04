@@ -1,4 +1,4 @@
-# Deploy PM7 UI Packages
+# Deploy pm7-ui Packages
 
   Deploy de @pm7/core en @pm7/react packages naar de npm registry.
 
@@ -10,7 +10,7 @@
   5. Commit en push eventuele versie wijzigingen
 
   ## Gebruik:
-  /deploy PM7 UI packages
+  /deploy pm7-ui packages
 
   ## Commando's om uit te voeren:
   ```bash

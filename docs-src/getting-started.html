@@ -13,76 +13,84 @@
 
   <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
     <h1>Getting Started</h1>
-    <p class="pm7-docs-lead">Get up and running with pm7-ui in minutes.</p>
+    <p class="pm7-docs-lead">Get up and running with pm7-ui - The First UI Library Built for AI Coding Agents.</p>
     
     <section style="margin-top: 60px;">
       <h2>Installation</h2>
-      <p>pm7-ui is available as separate packages for different frameworks. Choose the one that fits your project:</p>
+      <p>pm7-ui provides a single package that works with ALL frameworks:</p>
       
-      <h3>For Vanilla HTML/CSS/JS Projects</h3>
+      <h3>NPM Installation</h3>
       <pre><code>npm install @pm7/core</code></pre>
-      <p>Or include via CDN:</p>
-      <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core@<span data-pm7-version>1.0.0</span>/dist/pm7.css"&gt;</code></pre>
       
-      <h3>For React Projects</h3>
-      <pre><code>npm install @pm7/react</code></pre>
+      <h3>CDN Installation</h3>
+      <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core@<span data-pm7-version>2.0.0</span>/dist/pm7.css"&gt;
+&lt;script src="https://unpkg.com/@pm7/core@<span data-pm7-version>2.0.0</span>/dist/pm7.js"&gt;&lt;/script&gt;</code></pre>
       
-      <h3>For Vue Projects (Coming Soon)</h3>
-      <pre><code>npm install @pm7/vue</code></pre>
+      <p>That's it! One package works with React, Vue, Angular, Svelte, or vanilla HTML.</p>
     </section>
     
     <section style="margin-top: 60px;">
       <h2>Basic Usage</h2>
       
-      <h3>Vanilla HTML/CSS</h3>
-      <p>1. Include the CSS file in your HTML:</p>
-      <pre><code>&lt;!-- In your HTML head --&gt;
-&lt;link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css"&gt;</code></pre>
+      <h3>Step 1: Import the CSS</h3>
+      <pre><code>&lt;!-- In your HTML --&gt;
+&lt;link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css"&gt;
+
+// Or in JavaScript (React, Vue, etc.)
+import '@pm7/core/dist/pm7.css';</code></pre>
       
-      <p>2. Use PM7 components with class names:</p>
+      <h3>Step 2: Use PM7 Components</h3>
+      <p>PM7 components work with simple CSS classes in ANY framework:</p>
+      
+      <h4>Vanilla HTML</h4>
       <pre><code>&lt;button class="pm7-button pm7-button--primary"&gt;
   Click me
 &lt;/button&gt;
 
 &lt;div class="pm7-card"&gt;
-  &lt;h3 class="pm7-card-title"&gt;Card Title&lt;/h3&gt;
-  &lt;p class="pm7-card-content"&gt;Card content goes here.&lt;/p&gt;
+  &lt;div class="pm7-card-header"&gt;Card Title&lt;/div&gt;
+  &lt;div class="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       
-      <p>3. For interactive components, include the JavaScript:</p>
-      <pre><code>&lt;script type="module"&gt;
-  import { PM7Menu } from '@pm7/core';
-  
-  // Initialize menu component
-  const menuElement = document.querySelector('[data-pm7-menu]');
-  new PM7Menu(menuElement);
-&lt;/script&gt;</code></pre>
-      
-      <h3>React</h3>
-      <p>1. Import components in your React app:</p>
-      <pre><code>import { Button, Card, Menu } from '@pm7/react';
-
-function App() {
+      <h4>React</h4>
+      <pre><code>function App() {
   return (
     &lt;div&gt;
-      &lt;Button variant="primary" onClick={() => alert('Clicked!')}&gt;
+      &lt;button className="pm7-button pm7-button--primary" onClick={() => alert('Clicked!')}&gt;
         Click me
-      &lt;/Button&gt;
+      &lt;/button&gt;
       
-      &lt;Card&gt;
-        &lt;Card.Title&gt;Card Title&lt;/Card.Title&gt;
-        &lt;Card.Content&gt;Card content goes here.&lt;/Card.Content&gt;
-      &lt;/Card&gt;
-      
-      &lt;Menu
-        items={[
-          { label: 'Option 1', onClick: () => console.log('Option 1') },
-          { label: 'Option 2', onClick: () => console.log('Option 2') },
-        ]}
-      /&gt;
+      &lt;div className="pm7-card"&gt;
+        &lt;div className="pm7-card-header"&gt;Card Title&lt;/div&gt;
+        &lt;div className="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   );
 }</code></pre>
+      
+      <h4>Vue</h4>
+      <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
+      Click me
+    &lt;/button&gt;
+    
+    &lt;div class="pm7-card"&gt;
+      &lt;div class="pm7-card-header"&gt;Card Title&lt;/div&gt;
+      &lt;div class="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+      
+      <h3>Step 3: Interactive Components (Optional)</h3>
+      <p>Interactive components like menus and dialogs auto-initialize. For manual control:</p>
+      <pre><code>&lt;script type="module"&gt;
+  import '@pm7/core';
+  
+  // Everything auto-initializes!
+  // Or manually initialize after adding dynamic content:
+  PM7.init();
+&lt;/script&gt;</code></pre>
     </section>
     
     <section style="margin-top: 60px;">
