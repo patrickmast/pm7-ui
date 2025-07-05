@@ -14,6 +14,7 @@
 
 /* Accordion Item - Card-like styling */
 .pm7-accordion-item {
+  width: 100%;
   background-color: var(--pm7-background);
   border: 1px solid #e0e0e0;
   border-radius: var(--pm7-card-radius);
