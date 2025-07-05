@@ -386,11 +386,15 @@
 .pm7-accordion--width-800 {
   width: 100%;
   max-width: 800px !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pm7-accordion--width-1000 {
   width: 100%;
   max-width: 1000px !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Dark mode adjustments */
