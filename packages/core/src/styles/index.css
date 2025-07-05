@@ -21,6 +21,7 @@
 @import './components/tab-selector.css';
 @import './components/tooltip.css';
 @import './components/accordion.css';
+@import './components/theme-switch.css';
 
 /* Import utilities */
 @import './utilities/helpers.css';

@@ -49,6 +49,18 @@ export class PM7Accordion {
       
       if (!trigger || !content) return;
       
+      // Add chevron icon if not present
+      let icon = trigger.querySelector('.pm7-accordion-icon');
+      if (!icon) {
+        icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('class', 'pm7-accordion-icon');
+        icon.setAttribute('width', '16');
+        icon.setAttribute('height', '16');
+        icon.setAttribute('viewBox', '0 0 12 12');
+        icon.innerHTML = '<path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>';
+        trigger.appendChild(icon);
+      }
+      
       // Store item reference
       this.items.push({ item, trigger, content });
       

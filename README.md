@@ -19,6 +19,7 @@ Effortless styling. Universal compatibility. Ready to power your AI-driven workf
 - **📦 Lightweight** - Pure CSS + optional vanilla JS, no dependencies
 - **🚀 Copy & Paste** - AI agents can use examples directly
 - **✨ Beautiful** - Pre-designed components that look great out of the box
+- **🎨 No Custom CSS** - Complete styling through built-in classes - never write custom CSS!
 
 ## Upgrading from v1
 

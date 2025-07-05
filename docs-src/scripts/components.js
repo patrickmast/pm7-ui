@@ -191,6 +191,7 @@ export function loadSidebar() {
     { name: 'Input', componentName: 'input' },
     { name: 'Menu', componentName: 'menu' },
     { name: 'Tab Selector', componentName: 'tab-selector' },
+    { name: 'Theme Switch', componentName: 'theme-switch' },
     { name: 'Toast', componentName: 'toast' },
     { name: 'Tooltip', componentName: 'tooltip' }
   ];

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switch - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>Theme Switch</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>The Theme Switch component provides an elegant toggle for switching between light and dark themes. It automatically detects system preferences and persists user choices across sessions.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To provide theme switching functionality in your application</li>
+              <li>When supporting both light and dark modes</li>
+              <li>To respect user system preferences</li>
+              <li>For improved accessibility and user experience</li>
+            </ul>
+            
+            <h3>Features</h3>
+            <ul>
+              <li>Automatic system preference detection</li>
+              <li>LocalStorage persistence</li>
+              <li>Smooth animations</li>
+              <li>Multiple size variants</li>
+              <li>Accessible keyboard navigation</li>
+              <li>Works with any framework</li>
+            </ul>
+            
+            <h3>Anatomy</h3>
+            <ul>
+              <li><strong>Switch Button</strong>: The clickable toggle control</li>
+              <li><strong>Thumb</strong>: Moving indicator showing current state</li>
+              <li><strong>Icons</strong>: Sun (light) and moon (dark) icons</li>
+              <li><strong>Label</strong>: Optional text label</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Basic Usage (Uncontrolled)</h3>
+              <p>This toggle manages its own state and applies theme to the document automatically.</p>
+              <div class="pm7-docs-preview">
+                <div class="pm7-theme-switch" data-pm7-theme-switch>
+                  <span>Theme</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Size Variants</h3>
+              <p>Available in small, medium (default), and large sizes.</p>
+              <div class="pm7-docs-preview" style="display: flex; align-items: center; gap: 2rem;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                  <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Small</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                  <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Medium</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                  <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
+                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Large</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Header Integration Example</h3>
+              <p>How the theme toggle looks in a typical application header.</p>
+              <div class="pm7-docs-preview">
+                <div style="background: var(--pm7-card); padding: 1rem 2rem; border-radius: var(--pm7-radius); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--pm7-border);">
+                  <h3 style="margin: 0; color: var(--pm7-foreground);">My Application</h3>
+                  <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Settings Panel Example</h3>
+              <p>Theme toggle as part of a settings or preferences panel.</p>
+              <div class="pm7-docs-preview">
+                <div class="pm7-card" style="max-width: 400px;">
+                  <div class="pm7-card-body">
+                    <h4 style="margin: 0 0 1rem 0;">Preferences</h4>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                      <div>
+                        <div style="font-weight: 500;">Theme</div>
+                        <div style="font-size: 0.9rem; color: var(--pm7-muted-foreground);">
+                          Choose your preferred color scheme
+                        </div>
+                      </div>
+                      <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <div style="font-weight: 500;">Notifications</div>
+                        <div style="font-size: 0.9rem; color: var(--pm7-muted-foreground);">
+                          Enable push notifications
+                        </div>
+                      </div>
+                      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch data-apply-to-root="false"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Keyboard Navigation Test</h3>
+              <p>Try using Tab to focus and Enter/Space to toggle these switches:</p>
+              <div class="pm7-docs-preview" style="display: flex; gap: 1rem; align-items: center;">
+                <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+                <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+                <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--pm7-muted-foreground); font-style: italic;">
+                Use Tab to navigate between toggles, then press Enter or Space to activate them.
+              </p>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Without Label</h3>
+              <div class="pm7-docs-preview" style="display: flex; gap: 1rem; align-items: center;">
+                <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+                <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+                <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Label Position</h3>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div class="pm7-theme-switch" data-pm7-theme-switch>
+                    <span>Label after (default)</span>
+                  </div>
+                  <div class="pm7-theme-switch pm7-theme-switch--label-start" data-pm7-theme-switch>
+                    <span>Label before</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Disabled State</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-theme-switch pm7-theme-switch--disabled" data-pm7-theme-switch>
+                  <span>Disabled</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>No Hover Effect</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-theme-switch pm7-theme-switch--no-hover" data-pm7-theme-switch>
+                  <span>No hover effect</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch</code></td>
+                  <td>Base class for theme switch container</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-button</code></td>
+                  <td>The toggle button (auto-created)</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-thumb</code></td>
+                  <td>The moving thumb indicator (auto-created)</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-icon</code></td>
+                  <td>Icon container (auto-created)</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--sm</code></td>
+                  <td>Small size variant</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--lg</code></td>
+                  <td>Large size variant</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>State Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--disabled</code></td>
+                  <td>Disabled state</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--no-hover</code></td>
+                  <td>Removes hover effects</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td colspan="2"><strong>Layout Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--label-start</code></td>
+                  <td>Places label before the switch</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <table class="pm7-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-theme-switch</code></td>
+                  <td>boolean</td>
+                  <td>-</td>
+                  <td>Marks element for auto-initialization</td>
+                </tr>
+                <tr>
+                  <td><code>data-theme</code></td>
+                  <td>string</td>
+                  <td>'light'</td>
+                  <td>Current theme state (auto-managed)</td>
+                </tr>
+                <tr>
+                  <td><code>data-default-theme</code></td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>Override default theme ('light' or 'dark')</td>
+                </tr>
+                <tr>
+                  <td><code>data-storage-key</code></td>
+                  <td>string</td>
+                  <td>'pm7-theme'</td>
+                  <td>LocalStorage key for persistence</td>
+                </tr>
+                <tr>
+                  <td><code>data-apply-to-root</code></td>
+                  <td>boolean</td>
+                  <td>true</td>
+                  <td>Apply 'dark' class to document root</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Basic theme switch --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+  &lt;span&gt;Theme&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Without label --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;&lt;/div&gt;
+
+&lt;!-- Small size --&gt;
+&lt;div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch&gt;
+  &lt;span&gt;Dark mode&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>React Example</h3>
+            <pre><code class="language-jsx">function App() {
+  return (
+    &lt;div className="pm7-theme-switch" data-pm7-theme-switch&gt;
+      &lt;span&gt;Theme&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+            <h3>Vue Example</h3>
+            <pre><code class="language-html">&lt;template&gt;
+  &lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+    &lt;span&gt;Theme&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <pre><code class="language-javascript">import { PM7ThemeSwitch } from '@pm7/core';
+
+// Manual initialization
+const element = document.querySelector('.my-theme-switch');
+const themeSwitch = new PM7ThemeSwitch(element, {
+  defaultTheme: 'dark',
+  onChange: (theme) => {
+    console.log('Theme changed to:', theme);
+  }
+});
+
+// Methods
+themeSwitch.setTheme('dark');  // Set theme programmatically
+themeSwitch.getTheme();         // Get current theme
+themeSwitch.toggle();           // Toggle theme</code></pre>
+
+            <h3>Custom Storage Key</h3>
+            <pre><code class="language-html">&lt;!-- Use a custom localStorage key --&gt;
+&lt;div class="pm7-theme-switch" 
+     data-pm7-theme-switch
+     data-storage-key="my-app-theme"&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Without Root Class Application</h3>
+            <pre><code class="language-html">&lt;!-- Don't apply 'dark' class to document root --&gt;
+&lt;div class="pm7-theme-switch" 
+     data-pm7-theme-switch
+     data-apply-to-root="false"&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <p>The Theme Switch component is fully accessible:</p>
+            <ul>
+              <li>Keyboard navigable with Tab key</li>
+              <li>Toggleable with Space or Enter keys</li>
+              <li>ARIA attributes for screen readers</li>
+              <li>Proper role and state announcements</li>
+              <li>Respects prefers-reduced-motion</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-info pm7-docs-info--ai">
+              <div class="pm7-docs-info-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <h3>AI-Optimized Documentation</h3>
+              </div>
+              <p>This documentation link is optimized for AI coding assistants. Copy the URL below to give AI assistants full context about this component.</p>
+              <div class="pm7-docs-info-actions">
+                <code id="theme-switch-readme-url">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md</code>
+                <button class="pm7-button pm7-button--sm" onclick="copyThemeSwitchReadme()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  Copy URL
+                </button>
+              </div>
+              <p style="margin-top: 16px; font-size: 14px;">
+                <strong>Pro tip:</strong> Include this URL when asking AI assistants to implement the Theme Switch component. The documentation includes complete implementation details, examples, and best practices.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  <script type="module">
+    // Import Theme Switch component voor initialisatie
+    import { PM7ThemeSwitch } from '/packages/core/src/scripts/theme-switch.js';
+    
+    // Initialize all theme switches on the page
+    document.addEventListener('DOMContentLoaded', () => {
+      PM7ThemeSwitch.autoInit();
+    });
+  </script>
+  <script>
+    function copyThemeSwitchReadme() {
+      const url = document.getElementById('theme-switch-readme-url').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const button = event.target.closest('button');
+        const originalContent = button.innerHTML;
+        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg> Copied!';
+        button.classList.add('pm7-button--success');
+        
+        setTimeout(() => {
+          button.innerHTML = originalContent;
+          button.classList.remove('pm7-button--success');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
