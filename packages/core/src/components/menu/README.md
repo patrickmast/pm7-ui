@@ -580,6 +580,84 @@ function MyComponent() {
 }
 ```
 
+## Common Pitfalls
+
+### ❌ Don't forget the menu structure
+```html
+<!-- Wrong - missing content wrapper -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <button class="pm7-menu-item">Option</button>
+</div>
+
+<!-- Correct - proper structure -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Option</button>
+  </div>
+</div>
+```
+
+### ❌ Don't use divs for menu items
+```html
+<!-- Wrong - div elements aren't keyboard accessible -->
+<div class="pm7-menu-content">
+  <div class="pm7-menu-item" onclick="doSomething()">Option</div>
+</div>
+
+<!-- Correct - use button elements -->
+<div class="pm7-menu-content">
+  <button class="pm7-menu-item">Option</button>
+</div>
+```
+
+### ❌ Don't forget icons in checkable items
+```html
+<!-- Wrong - no visual indicator for checked state -->
+<button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
+  Show Toolbar
+</button>
+
+<!-- Correct - checkbox items are styled automatically -->
+<button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
+  Show Toolbar
+</button>
+```
+
+### ❌ Don't mix radio groups
+```html
+<!-- Wrong - radio items without data-name grouping -->
+<button class="pm7-menu-item pm7-menu-item--radio">Light</button>
+<button class="pm7-menu-item pm7-menu-item--radio">Dark</button>
+
+<!-- Correct - use data-name to group radio items -->
+<button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">Light</button>
+<button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">Dark</button>
+```
+
+### ❌ Don't position menu manually
+```html
+<!-- Wrong - manual positioning -->
+<div class="pm7-menu" data-pm7-menu style="position: absolute; top: 50px; left: 100px;">
+
+<!-- Correct - use data-position attribute -->
+<div class="pm7-menu" data-pm7-menu data-position="bottom-end">
+```
+
+### ❌ Don't forget ARIA for icon-only triggers
+```html
+<!-- Wrong - no accessible label -->
+<button class="pm7-menu-trigger pm7-button pm7-button--icon">
+  <svg>...</svg>
+</button>
+
+<!-- Correct - include aria-label -->
+<button class="pm7-menu-trigger pm7-button pm7-button--icon" aria-label="More options">
+  <svg>...</svg>
+</button>
+```
+
 ## Related Components
 
 - [Button](../button/) - Common trigger for menus

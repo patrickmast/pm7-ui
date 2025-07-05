@@ -316,6 +316,117 @@ function MyComponent() {
 }
 ```
 
+## Data Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `data-state` | Toast visibility state | `data-state="open"` |
+| `data-swipe` | Swipe direction | `data-swipe="end"` |
+| `data-swipe-direction` | Allowed swipe direction | `data-swipe-direction="right"` |
+| `aria-live` | Screen reader announcement | `aria-live="polite"` |
+| `aria-atomic` | Read entire toast | `aria-atomic="true"` |
+| `role` | ARIA role | `role="status"` |
+
+## Common Pitfalls
+
+### ❌ Don't create toasts without the container
+```javascript
+// Wrong - no container for toasts
+PM7Toast.show({
+  title: 'Hello'
+});
+
+// Correct - ensure container exists
+// Add to your HTML: <div class="pm7-toast-container"></div>
+PM7Toast.show({
+  title: 'Hello'
+});
+```
+
+### ❌ Don't use toasts for critical actions
+```javascript
+// Wrong - critical action in toast
+PM7Toast.show({
+  title: 'Delete account?',
+  action: {
+    label: 'Delete',
+    onClick: () => deleteAccount()
+  }
+});
+
+// Correct - use dialog for critical actions
+openDialog('delete-account-dialog');
+```
+
+### ❌ Don't create multiple toast containers
+```html
+<!-- Wrong - multiple containers -->
+<div class="pm7-toast-container"></div>
+<div class="pm7-toast-container"></div>
+
+<!-- Correct - single container -->
+<div class="pm7-toast-container"></div>
+```
+
+### ❌ Don't show too many toasts at once
+```javascript
+// Wrong - spam user with toasts
+items.forEach(item => {
+  PM7Toast.show({ title: `Processed ${item}` });
+});
+
+// Correct - batch notifications
+PM7Toast.show({ 
+  title: `Processed ${items.length} items successfully` 
+});
+```
+
+### ❌ Don't use long durations for simple messages
+```javascript
+// Wrong - 10 second toast for simple message
+PM7Toast.show({
+  title: 'Saved',
+  duration: 10000
+});
+
+// Correct - use default or shorter duration
+PM7Toast.show({
+  title: 'Saved',
+  duration: 3000 // or omit for default
+});
+```
+
+### ❌ Don't forget to handle errors in actions
+```javascript
+// Wrong - no error handling
+PM7Toast.show({
+  title: 'File uploaded',
+  action: {
+    label: 'Undo',
+    onClick: () => deleteFile()
+  }
+});
+
+// Correct - handle action errors
+PM7Toast.show({
+  title: 'File uploaded',
+  action: {
+    label: 'Undo',
+    onClick: async () => {
+      try {
+        await deleteFile();
+        PM7Toast.show({ title: 'Upload undone' });
+      } catch (error) {
+        PM7Toast.show({ 
+          title: 'Failed to undo', 
+          variant: 'error' 
+        });
+      }
+    }
+  }
+});
+```
+
 ## Accessibility
 
 - Toasts are announced to screen readers

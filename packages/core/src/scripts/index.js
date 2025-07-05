@@ -18,7 +18,16 @@ export {
   getHamburgerIconDataURI 
 } from '../icons/hamburger.js';
 
-// Auto-initialization
+// Import components first
+import { PM7Menu } from './menu.js';
+import { PM7Dialog } from './dialog.js';
+import { PM7Button, initButtons } from './button.js';
+import { PM7Toast } from './toast.js';
+import { PM7TabSelector } from './tab-selector.js';
+import { PM7Tooltip, initTooltips } from './tooltip.js';
+import { PM7Accordion } from './accordion.js';
+
+// Auto-initialization - these imports trigger DOMContentLoaded listeners
 import './menu.js';
 import './dialog.js';
 import './button.js';

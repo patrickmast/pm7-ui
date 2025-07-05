@@ -580,6 +580,97 @@ When using the Dialog component in React, these classes provide proper PM7 styli
 
 **Note**: Without `pm7-dialog-header-text`, the title and description will appear side-by-side due to flexbox layout.
 
+## Common Pitfalls
+
+### ❌ Don't forget the dialog structure
+```html
+<!-- Wrong - content directly in dialog -->
+<div class="pm7-dialog" data-pm7-dialog="my-dialog">
+  <h2>Title</h2>
+  <p>Content</p>
+</div>
+
+<!-- Correct - use proper structure -->
+<div class="pm7-dialog" data-pm7-dialog="my-dialog">
+  <div class="pm7-dialog-overlay"></div>
+  <div class="pm7-dialog-content">
+    <div class="pm7-dialog-header">
+      <h2 class="pm7-dialog-title">Title</h2>
+    </div>
+    <div class="pm7-dialog-body">
+      <p>Content</p>
+    </div>
+  </div>
+</div>
+```
+
+### ❌ Don't mix Content Marker with traditional structure
+```html
+<!-- Wrong - mixing approaches -->
+<div pm7-dialog="my-dialog" class="pm7-dialog">
+  <div class="pm7-dialog-overlay"></div>
+  <h2 pm7-header>Title</h2>
+</div>
+
+<!-- Correct - use one approach -->
+<div pm7-dialog="my-dialog">
+  <h2 pm7-header>Title</h2>
+  <div pm7-body>Content</div>
+</div>
+```
+
+### ❌ Don't forget to handle dialog state properly
+```javascript
+// Wrong - only opening, no way to close
+openDialog('my-dialog');
+
+// Correct - provide close functionality
+openDialog('my-dialog');
+// In dialog: onclick="closeDialog('my-dialog')"
+// Or: ESC key and backdrop click work by default
+```
+
+### ❌ Don't use conflicting size attributes
+```html
+<!-- Wrong - multiple size definitions -->
+<div pm7-dialog="my-dialog" pm7-dialog-size="md" class="pm7-dialog-content--lg">
+
+<!-- Correct - use one size method -->
+<div pm7-dialog="my-dialog" pm7-dialog-size="lg">
+```
+
+### ❌ Don't nest dialogs
+```html
+<!-- Wrong - dialog inside dialog -->
+<div pm7-dialog="outer">
+  <div pm7-body>
+    <div pm7-dialog="inner">...</div>
+  </div>
+</div>
+
+<!-- Correct - close first dialog before opening second -->
+<button onclick="closeDialog('first'); openDialog('second')">
+  Next Step
+</button>
+```
+
+### ❌ React: Don't forget header-text wrapper
+```jsx
+// Wrong - title and description will be side-by-side
+<div className="pm7-dialog-header">
+  <h2 className="pm7-dialog-title">Title</h2>
+  <p className="pm7-dialog-description">Description</p>
+</div>
+
+// Correct - wrap in header-text
+<div className="pm7-dialog-header">
+  <div className="pm7-dialog-header-text">
+    <h2 className="pm7-dialog-title">Title</h2>
+    <p className="pm7-dialog-description">Description</p>
+  </div>
+</div>
+```
+
 ## Related Components
 
 - [Button](../button/) - Common trigger for dialogs

@@ -106,10 +106,17 @@
       font-size: 1.125rem;
       font-weight: 600;
       padding: 1rem 1.25rem;
-      justify-content: flex-start;
       gap: 0.75rem;
       color: var(--pm7-primary);
-      text-align: left;
+    }
+    
+    /* Force full width for accordion */
+    .pm7-accordion {
+      width: 100% !important;
+    }
+    
+    .pm7-accordion-item {
+      width: 100% !important;
     }
     
     .pm7-accordion-trigger svg {
@@ -121,14 +128,21 @@
     }
     
   </style>
-  <script type="module" crossorigin src="/assets/components-CZXVQe0b.js"></script>
-  <script type="module" crossorigin src="/assets/docs-Cl2UDdEn.js"></script>
+  <script type="module" crossorigin src="/assets/readmeLinks-BfbMKkna.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/components-Czem__1N.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-aMXoqqnU.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-CPXP8QFI.js">
+  <link rel="modulepreload" crossorigin href="/assets/button-DVvAUkcy.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-O38w-NWe.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-DRGUVAuE.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-Di2U4wCw.js">
   <link rel="stylesheet" crossorigin href="/assets/components-Br-gJxm8.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
 
-  <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
+  <div class="pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px; max-width: 1200px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;">
     
     <div class="pm7-card" style="background: linear-gradient(135deg, var(--pm7-primary) 0%, #0066CC 100%); color: white; padding: 3rem; margin-bottom: 3rem; text-align: center;">
       <div class="pm7-card-body" style="padding: 0;">
@@ -137,7 +151,7 @@
       </div>
     </div>
     
-    <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion data-pm7-accordion-type="single" data-pm7-accordion-collapsible="true">
+    <div class="pm7-accordion" data-pm7-accordion data-allow-multiple="false">
       
       <!-- Starting a New Project -->
       <div class="pm7-accordion-item" data-pm7-accordion-value="new-project">
@@ -146,15 +160,13 @@
             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
             <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
-          1. Starting a New Project
-          <span class="pm7-accordion-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6L8 10L12 6"/>
-            </svg>
-          </span>
+          <span>1. Starting a New Project</span>
+          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
         </button>
         <div class="pm7-accordion-content">
-          <div>
+          <div class="pm7-accordion-content-inner">
             <p style="margin: 0 0 1.5rem 0; color: var(--pm7-muted-foreground);">Main README for pm7-ui - Use this when starting a new web app with pm7-ui</p>
             <div style="margin: 0 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
               <input type="checkbox" id="copy-as-main-readme" style="cursor: pointer;">
@@ -187,15 +199,13 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 20V10M6 14l6-6 6 6"/>
           </svg>
-          2. Upgrading from v1 to v2
-          <span class="pm7-accordion-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6L8 10L12 6"/>
-            </svg>
-          </span>
+          <span>2. Upgrading from v1 to v2</span>
+          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
         </button>
         <div class="pm7-accordion-content">
-          <div>
+          <div class="pm7-accordion-content-inner">
             <p style="margin: 0 0 1.5rem 0; color: var(--pm7-muted-foreground);">Migration guide for upgrading existing pm7-ui v1.x projects to v2.x</p>
             <div style="margin: 0 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
               <input type="checkbox" id="copy-as-upgrade" style="cursor: pointer;">
@@ -231,15 +241,13 @@
             <rect x="14" y="14" width="7" height="7"/>
             <rect x="3" y="14" width="7" height="7"/>
           </svg>
-          3. Component Documentation
-          <span class="pm7-accordion-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6L8 10L12 6"/>
-            </svg>
-          </span>
+          <span>3. Component Documentation</span>
+          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
         </button>
         <div class="pm7-accordion-content">
-          <div>
+          <div class="pm7-accordion-content-inner">
             <p style="margin: 0 0 1.5rem 0; color: var(--pm7-muted-foreground);">Individual README files for each pm7-ui component</p>
             
             <div style="margin: 1rem 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
@@ -422,15 +430,13 @@
             <path d="M12 12v4"/>
             <circle cx="12" cy="12" r="10"/>
           </svg>
-          4. Quick Tips for AI Agents
-          <span class="pm7-accordion-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6L8 10L12 6"/>
-            </svg>
-          </span>
+          <span>4. Quick Tips for AI Agents</span>
+          <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
         </button>
         <div class="pm7-accordion-content">
-          <div>
+          <div class="pm7-accordion-content-inner">
             <h4 style="margin: 0 0 1rem 0; font-weight: 600;">Example Prompts</h4>
             <ul style="margin: 0 0 1.5rem 0;">
               <li>"We're using pm7-ui v2 for this project: [main README URL]"</li>
