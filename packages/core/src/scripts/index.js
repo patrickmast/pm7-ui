@@ -10,6 +10,7 @@ export { PM7Toast, showToast, closeToast, closeAllToasts } from './toast.js';
 export { PM7TabSelector } from './tab-selector.js';
 export { PM7Tooltip, initTooltips } from './tooltip.js';
 export { PM7Accordion } from './accordion.js';
+export { PM7ThemeSwitch } from './theme-switch.js';
 
 // Icons
 export { 
@@ -20,12 +21,13 @@ export {
 
 // Import components first
 import { PM7Menu } from './menu.js';
-import { PM7Dialog } from './dialog.js';
+import { PM7Dialog, createDialog, pm7Confirm as confirm, pm7Alert as alert } from './dialog.js';
 import { PM7Button, initButtons } from './button.js';
-import { PM7Toast } from './toast.js';
+import { PM7Toast, showToast, closeToast, closeAllToasts } from './toast.js';
 import { PM7TabSelector } from './tab-selector.js';
 import { PM7Tooltip, initTooltips } from './tooltip.js';
 import { PM7Accordion } from './accordion.js';
+import { PM7ThemeSwitch } from './theme-switch.js';
 
 // Auto-initialization - these imports trigger DOMContentLoaded listeners
 import './menu.js';
@@ -35,6 +37,7 @@ import './toast.js';
 import './tab-selector.js';
 import './tooltip.js';
 import './accordion.js';
+import './theme-switch.js';
 
 // Global PM7 object with helper functions
 const PM7 = {
@@ -76,6 +79,13 @@ const PM7 = {
       accordion.setAttribute('data-pm7-accordion-initialized', 'true');
     });
     
+    // Initialize theme switches
+    const themeSwitches = container.querySelectorAll('[data-pm7-theme-switch]:not([data-pm7-theme-switch-initialized])');
+    themeSwitches.forEach(themeSwitch => {
+      new PM7ThemeSwitch(themeSwitch);
+      themeSwitch.setAttribute('data-pm7-theme-switch-initialized', 'true');
+    });
+    
     console.log('[PM7] All components initialized');
   },
   
@@ -99,6 +109,9 @@ const PM7 = {
     container.querySelectorAll('[data-pm7-accordion-initialized]').forEach(el => {
       el.removeAttribute('data-pm7-accordion-initialized');
     });
+    container.querySelectorAll('[data-pm7-theme-switch-initialized]').forEach(el => {
+      el.removeAttribute('data-pm7-theme-switch-initialized');
+    });
     
     // Re-initialize
     this.init(container);
@@ -112,6 +125,7 @@ const PM7 = {
   TabSelector: PM7TabSelector,
   Tooltip: PM7Tooltip,
   Accordion: PM7Accordion,
+  ThemeSwitch: PM7ThemeSwitch,
   
   // Utility functions
   showToast,

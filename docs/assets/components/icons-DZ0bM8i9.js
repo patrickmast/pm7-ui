@@ -1,4 +1,4 @@
-import"../components-Czem__1N.js";import{i as f}from"../tab-router-CdQfmqcc.js";import"../docs-aMXoqqnU.js";function E(t={}){const{width:c=18,height:s=15,color:o="currentColor",className:r=""}=t;return`<svg width="${c}" height="${s}" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="${r}">
+import"../components-DOnDJOXg.js";import{i as f}from"../tab-router-zmmNK0yJ.js";import"../docs-CcvLx2Kd.js";function E(t={}){const{width:c=18,height:s=15,color:o="currentColor",className:r=""}=t;return`<svg width="${c}" height="${s}" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="${r}">
   <rect width="18" height="2.5" rx="1.25" fill="${o}"/>
   <rect y="6.25" width="18" height="2.5" rx="1.25" fill="${o}"/>
   <rect y="12.5" width="18" height="2.5" rx="1.25" fill="${o}"/>

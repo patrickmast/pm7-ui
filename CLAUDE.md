@@ -168,6 +168,41 @@ Currently, testing is done through:
 - The documentation site is the source of truth for component behavior
 - pm7-ui works with ALL frameworks without needing framework-specific wrappers
 
+## Core Design Principle: No Custom CSS Required
+
+**CRITICAL**: pm7-ui components must be fully self-contained and provide ALL necessary styling options through built-in classes. Users should NEVER need to write custom CSS to achieve common layouts or behaviors.
+
+### This means:
+1. **Complete variant coverage**: Every reasonable styling need should have a built-in class (width, alignment, spacing, colors, etc.)
+2. **No CSS overrides**: If users need `!important` or custom styles, the component is incomplete
+3. **Utility classes**: Provide modifier classes for all common use cases
+4. **Flexible by default**: Components should adapt to their containers naturally
+5. **Documentation**: Every variant must be documented with examples
+
+### Example:
+Instead of users writing:
+```css
+/* BAD - User should NOT need this */
+.pm7-accordion {
+  width: 100% !important;
+  max-width: none !important;
+}
+```
+
+We provide:
+```html
+<!-- GOOD - Built-in classes for everything -->
+<div class="pm7-accordion pm7-accordion--width-max">
+<div class="pm7-accordion pm7-accordion--width-800">
+<div class="pm7-accordion pm7-accordion--width-1000">
+```
+
+### When reviewing/creating components, always ask:
+- Can this be achieved without custom CSS?
+- Have we provided classes for all common use cases?
+- Is the component forcing users to override our styles?
+- Are the built-in options well documented?
+
 ## CSS Naming Convention
 
 pm7-ui uses a modified naming convention (NOT traditional BEM):

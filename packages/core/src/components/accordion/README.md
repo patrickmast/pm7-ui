@@ -42,8 +42,10 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
   <div class="pm7-accordion-item">
     <button class="pm7-accordion-trigger">
       <span>Section 1</span>
-      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 9l-7 7-7-7"/>
+      <svg class="pm7-accordion-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 536 528" fill="currentColor">
+        <path d="M63.2 43.9q-9.15 3.15-15.9 12c-6.5 8.4-6.4 6.8-6.1 89.7l.3 74.9 2.3 4.6c3.7 7.5 8.7 12.5 16 16.1l6.7 3.3h397l6.7-3.3c7.3-3.6 12.3-8.6 16-16.1l2.3-4.6v-154l-2.8-5.6c-3.2-6.6-9.9-13.2-16.5-16.2l-4.7-2.2-198-.2c-189.8-.2-198.2-.2-203.3 1.6M457 138v69H73V69h384z"/>
+        <path d="M123.2 108.1c-6.5 4.2-8.9 13.1-5.4 20 3.1 6.2 31.9 38.5 36 40.5 4.7 2.3 11.7 2.3 16.5 0 3.9-1.9 33-34.5 36.1-40.4 5.2-10.1-2.4-22.2-13.9-22.2-6.9 0-9.6 1.9-20.8 14.9l-9.5 11-10.7-12c-5.9-6.6-11.8-12.4-13.2-13-4.3-1.6-11.5-1-15.1 1.2m-56.8 180c-6.3 1.4-14.4 6.9-18.6 12.4-7.1 9.3-6.9 6.5-6.6 90.1.3 74.4.3 74.9 2.5 79.6 3 6.6 9.6 13.3 16.2 16.5l5.6 2.8h399l4.7-2.2c6.6-3 13.3-9.6 16.5-16.2l2.8-5.6v-154l-2.3-4.6c-3.7-7.5-8.7-12.5-16-16.1l-6.7-3.3-196.5-.1c-117.5-.1-198.1.2-200.6.7M457 387.8v68.9l-77.2.6c-42.5.4-128.6.7-191.4.7H74.3l-.6-28.7c-.4-15.7-.7-47-.7-69.5V319h384z"/>
+        <path d="M125.5 356.4c-6.7 2.9-10.5 10.6-9.1 18.2 1.1 5.6 32.1 41.3 38.3 44 4.8 2.1 11.4 1.7 16.1-.9 4.8-2.5 33.5-35.1 35.9-40.7 3.9-9-2.2-20.1-12-21.7-7.2-1.1-11.3 1.5-22.2 14.2-5.4 6.3-10.1 11.5-10.4 11.5-.4 0-5-5.1-10.4-11.4-12.2-14.2-17.7-16.9-26.2-13.2"/>
       </svg>
     </button>
     <div class="pm7-accordion-content">
@@ -56,8 +58,10 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
   <div class="pm7-accordion-item">
     <button class="pm7-accordion-trigger">
       <span>Section 2</span>
-      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 9l-7 7-7-7"/>
+      <svg class="pm7-accordion-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 536 528" fill="currentColor">
+        <path d="M63.2 43.9q-9.15 3.15-15.9 12c-6.5 8.4-6.4 6.8-6.1 89.7l.3 74.9 2.3 4.6c3.7 7.5 8.7 12.5 16 16.1l6.7 3.3h397l6.7-3.3c7.3-3.6 12.3-8.6 16-16.1l2.3-4.6v-154l-2.8-5.6c-3.2-6.6-9.9-13.2-16.5-16.2l-4.7-2.2-198-.2c-189.8-.2-198.2-.2-203.3 1.6M457 138v69H73V69h384z"/>
+        <path d="M123.2 108.1c-6.5 4.2-8.9 13.1-5.4 20 3.1 6.2 31.9 38.5 36 40.5 4.7 2.3 11.7 2.3 16.5 0 3.9-1.9 33-34.5 36.1-40.4 5.2-10.1-2.4-22.2-13.9-22.2-6.9 0-9.6 1.9-20.8 14.9l-9.5 11-10.7-12c-5.9-6.6-11.8-12.4-13.2-13-4.3-1.6-11.5-1-15.1 1.2m-56.8 180c-6.3 1.4-14.4 6.9-18.6 12.4-7.1 9.3-6.9 6.5-6.6 90.1.3 74.4.3 74.9 2.5 79.6 3 6.6 9.6 13.3 16.2 16.5l5.6 2.8h399l4.7-2.2c6.6-3 13.3-9.6 16.5-16.2l2.8-5.6v-154l-2.3-4.6c-3.7-7.5-8.7-12.5-16-16.1l-6.7-3.3-196.5-.1c-117.5-.1-198.1.2-200.6.7M457 387.8v68.9l-77.2.6c-42.5.4-128.6.7-191.4.7H74.3l-.6-28.7c-.4-15.7-.7-47-.7-69.5V319h384z"/>
+        <path d="M125.5 356.4c-6.7 2.9-10.5 10.6-9.1 18.2 1.1 5.6 32.1 41.3 38.3 44 4.8 2.1 11.4 1.7 16.1-.9 4.8-2.5 33.5-35.1 35.9-40.7 3.9-9-2.2-20.1-12-21.7-7.2-1.1-11.3 1.5-22.2 14.2-5.4 6.3-10.1 11.5-10.4 11.5-.4 0-5-5.1-10.4-11.4-12.2-14.2-17.7-16.9-26.2-13.2"/>
       </svg>
     </button>
     <div class="pm7-accordion-content">
@@ -415,8 +419,10 @@ The accordion uses CSS animations for smooth open/close transitions:
   <div class="pm7-accordion-item">
     <button class="pm7-accordion-trigger">
       <span>What payment methods do you accept?</span>
-      <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 9l-7 7-7-7"/>
+      <svg class="pm7-accordion-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 536 528" fill="currentColor">
+        <path d="M63.2 43.9q-9.15 3.15-15.9 12c-6.5 8.4-6.4 6.8-6.1 89.7l.3 74.9 2.3 4.6c3.7 7.5 8.7 12.5 16 16.1l6.7 3.3h397l6.7-3.3c7.3-3.6 12.3-8.6 16-16.1l2.3-4.6v-154l-2.8-5.6c-3.2-6.6-9.9-13.2-16.5-16.2l-4.7-2.2-198-.2c-189.8-.2-198.2-.2-203.3 1.6M457 138v69H73V69h384z"/>
+        <path d="M123.2 108.1c-6.5 4.2-8.9 13.1-5.4 20 3.1 6.2 31.9 38.5 36 40.5 4.7 2.3 11.7 2.3 16.5 0 3.9-1.9 33-34.5 36.1-40.4 5.2-10.1-2.4-22.2-13.9-22.2-6.9 0-9.6 1.9-20.8 14.9l-9.5 11-10.7-12c-5.9-6.6-11.8-12.4-13.2-13-4.3-1.6-11.5-1-15.1 1.2m-56.8 180c-6.3 1.4-14.4 6.9-18.6 12.4-7.1 9.3-6.9 6.5-6.6 90.1.3 74.4.3 74.9 2.5 79.6 3 6.6 9.6 13.3 16.2 16.5l5.6 2.8h399l4.7-2.2c6.6-3 13.3-9.6 16.5-16.2l2.8-5.6v-154l-2.3-4.6c-3.7-7.5-8.7-12.5-16-16.1l-6.7-3.3-196.5-.1c-117.5-.1-198.1.2-200.6.7M457 387.8v68.9l-77.2.6c-42.5.4-128.6.7-191.4.7H74.3l-.6-28.7c-.4-15.7-.7-47-.7-69.5V319h384z"/>
+        <path d="M125.5 356.4c-6.7 2.9-10.5 10.6-9.1 18.2 1.1 5.6 32.1 41.3 38.3 44 4.8 2.1 11.4 1.7 16.1-.9 4.8-2.5 33.5-35.1 35.9-40.7 3.9-9-2.2-20.1-12-21.7-7.2-1.1-11.3 1.5-22.2 14.2-5.4 6.3-10.1 11.5-10.4 11.5-.4 0-5-5.1-10.4-11.4-12.2-14.2-17.7-16.9-26.2-13.2"/>
       </svg>
     </button>
     <div class="pm7-accordion-content">
@@ -584,6 +590,18 @@ function AdvancedAccordion() {
 3. **Animation issues**: Check that content wrapper has proper structure
 4. **Multiple open not working**: Set `data-allow-multiple="true"`
 5. **Styling conflicts**: Accordion uses card-like styling, may conflict with custom styles
+6. **Text alignment issues**: When adding icons before text, wrap them in a flex container:
+   ```html
+   <button class="pm7-accordion-trigger">
+     <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+       <svg><!-- optional icon --></svg>
+       <span>Title</span>
+     </div>
+     <svg class="pm7-accordion-icon">...</svg>
+   </button>
+   ```
+7. **Width constraints**: Parent containers with `max-width` can limit accordion width. Use `pm7-accordion--width-max` to force full width
+8. **JavaScript not loading**: Ensure you import the core JavaScript: `<script type="module" src="/packages/core/src/scripts/index.js"></script>`
 
 ## Related Components
 
