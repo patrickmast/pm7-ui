@@ -30,6 +30,7 @@ export default defineConfig({
         upgrade: resolve(__dirname, 'docs-src/upgrade.html'),
         aiUpgradeV2: resolve(__dirname, 'docs-src/ai-upgrade-v2.html'),
         readmeLinks: resolve(__dirname, 'docs-src/readme-links.html'),
+        readmeLinksV2: resolve(__dirname, 'docs-src/readme-links-v2.html'),
         ...componentFiles,
       },
     },
