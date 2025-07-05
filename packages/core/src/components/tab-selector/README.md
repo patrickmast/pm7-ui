@@ -653,6 +653,18 @@ function MyComponent() {
 }
 ```
 
+## Data Attributes
+
+| Attribute | Description | Values | Example |
+|-----------|-------------|--------|---------|
+| `data-pm7-tab-selector` | Auto-initialize tab selector | - | `data-pm7-tab-selector` |
+| `data-orientation` | Tab orientation | `horizontal`, `vertical` | `data-orientation="vertical"` |
+| `data-variant` | Visual variant | `underline`, `solid`, `minimal` | `data-variant="solid"` |
+| `aria-controls` | Links trigger to panel | Panel ID | `aria-controls="panel-1"` |
+| `aria-selected` | Selected state | `true`, `false` | `aria-selected="true"` |
+| `role` | ARIA roles | `tablist`, `tab`, `tabpanel` | `role="tab"` |
+| `tabindex` | Keyboard navigation | `0`, `-1` | `tabindex="0"` |
+
 ### Common Pitfalls to Avoid
 
 > ⚠️ **Do NOT mix vanilla JS and React implementations:**

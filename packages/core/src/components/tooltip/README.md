@@ -342,6 +342,115 @@ interface TooltipProps {
 </div>
 ```
 
+## Data Attributes
+
+| Attribute | Description | Values | Example |
+|-----------|-------------|--------|---------|
+| `data-pm7-tooltip` | Auto-initialize tooltip | - | `data-pm7-tooltip` |
+| `data-side` | Preferred placement | `top`, `right`, `bottom`, `left` | `data-side="top"` |
+| `data-delay` | Show delay in ms | Number | `data-delay="500"` |
+| `data-state` | Visibility state | `open`, `closed` | `data-state="open"` |
+| `data-sticky` | Keeps tooltip open on hover | `true`, `false` | `data-sticky="true"` |
+| `aria-describedby` | Links trigger to tooltip | Tooltip ID | `aria-describedby="tooltip-1"` |
+| `role` | ARIA role | `tooltip` | `role="tooltip"` |
+
+## Common Pitfalls
+
+### ❌ Don't forget the tooltip structure
+```html
+<!-- Wrong - missing arrow -->
+<div class="pm7-tooltip">
+  <button class="pm7-tooltip-trigger">Hover me</button>
+  <div class="pm7-tooltip-content">
+    Tooltip text
+  </div>
+</div>
+
+<!-- Correct - include arrow element -->
+<div class="pm7-tooltip">
+  <button class="pm7-tooltip-trigger">Hover me</button>
+  <div class="pm7-tooltip-content">
+    Tooltip text
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
+### ❌ Don't use tooltips for essential information
+```html
+<!-- Wrong - critical info in tooltip -->
+<button class="pm7-button pm7-tooltip-trigger">
+  Delete
+</button>
+<div class="pm7-tooltip-content">
+  Warning: This will permanently delete all data!
+</div>
+
+<!-- Correct - use visible text or dialog -->
+<button class="pm7-button pm7-button--destructive">
+  Delete All Data
+</button>
+```
+
+### ❌ Don't make tooltips too long
+```html
+<!-- Wrong - paragraph in tooltip -->
+<div class="pm7-tooltip-content">
+  This is a very long explanation that goes on and on about 
+  the feature and includes multiple sentences that are hard 
+  to read in a tooltip format...
+</div>
+
+<!-- Correct - keep it concise -->
+<div class="pm7-tooltip-content">
+  Click to save your changes
+</div>
+```
+
+### ❌ Don't use tooltips on mobile/touch devices
+```javascript
+// Wrong - assuming hover always works
+PM7Tooltip.init(element);
+
+// Correct - check for touch support
+if (!('ontouchstart' in window)) {
+  PM7Tooltip.init(element);
+}
+```
+
+### ❌ Don't nest interactive elements
+```html
+<!-- Wrong - button inside tooltip -->
+<div class="pm7-tooltip-content">
+  Click here: <button>Action</button>
+</div>
+
+<!-- Correct - tooltips are text-only -->
+<div class="pm7-tooltip-content">
+  Press Enter to perform action
+</div>
+```
+
+### ❌ Don't create overlapping tooltips
+```html
+<!-- Wrong - tooltips too close -->
+<span class="pm7-tooltip-trigger">Item 1</span>
+<span class="pm7-tooltip-trigger">Item 2</span>
+
+<!-- Correct - space triggers appropriately -->
+<div style="display: flex; gap: 2rem;">
+  <span class="pm7-tooltip-trigger">Item 1</span>
+  <span class="pm7-tooltip-trigger">Item 2</span>
+</div>
+```
+
+## Performance Considerations
+
+- Use `data-pm7-tooltip` for automatic initialization
+- For dynamic content, manually initialize new tooltips
+- Tooltips are created on-demand (not pre-rendered)
+- Consider disabling tooltips on touch devices
+
 ## Browser Support
 
 - Chrome/Edge (latest)

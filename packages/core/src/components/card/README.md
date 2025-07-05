@@ -2,26 +2,38 @@
 
 Cards are containers for displaying related content. They help organize information into digestible chunks and create visual hierarchy.
 
----
+## Installation
 
-## ⚠️ IMPORTANT: Installation & CSS Setup
+```bash
+npm install @pm7/core
+```
 
-**AI AGENTS**: If you're implementing PM7 components, you MUST read the getting started guide first:
-- **Getting Started Guide**: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/GETTING-STARTED.md
+### CSS Import (Required!)
 
-The getting started guide contains CRITICAL information about:
-- How to install PM7 packages
-- **Required CSS import** (the components will not work without it!)
-- Common mistakes to avoid
-- Quick start examples
+```javascript
+// For React projects
+import '@pm7/core/dist/pm7.css';
 
-**Human developers**: Please ensure your AI agent reads the getting started guide URL above before implementing any PM7 components.
+// For vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
 
----
+⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
 
-## Component-Specific Documentation
+### React Usage
 
-This document focuses on the Card component's specific features and usage.
+If you're using the React components:
+
+```bash
+npm install @pm7/react @pm7/core
+```
+
+```javascript
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@pm7/react';
+import '@pm7/core/dist/pm7.css'; // Don't forget this!
+```
+
+## Usage
 
 ### Basic Card
 
@@ -410,6 +422,188 @@ The card grid system provides flexible layout options:
   </div>
 </div>
 ```
+
+## Data Attributes
+
+Cards don't have specific data attributes, but can use standard HTML attributes:
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `onclick` | Click handler for hoverable cards | `onclick="handleCardClick()"` |
+| `role` | ARIA role for semantic meaning | `role="article"` |
+| `aria-label` | Accessibility label | `aria-label="Product card"` |
+
+## Common Pitfalls
+
+### ❌ Don't forget card structure elements
+```html
+<!-- Wrong - content directly in card -->
+<div class="pm7-card">
+  <p>Content without wrapper</p>
+</div>
+
+<!-- Correct - use card-content wrapper -->
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <p>Content with proper wrapper</p>
+  </div>
+</div>
+```
+
+### ❌ Don't mix padding modifiers with no-padding
+```html
+<!-- Wrong - conflicting classes -->
+<div class="pm7-card pm7-card--lg pm7-card--no-padding">
+  <div class="pm7-card-content">Content</div>
+</div>
+
+<!-- Correct - choose one approach -->
+<div class="pm7-card pm7-card--no-padding">
+  <img src="image.jpg" class="pm7-card-image pm7-card-image--top">
+  <div class="pm7-card-content">Content</div>
+</div>
+```
+
+### ❌ Don't use multiple variants
+```html
+<!-- Wrong - multiple conflicting variants -->
+<div class="pm7-card pm7-card--outlined pm7-card--elevated">
+  <div class="pm7-card-content">Content</div>
+</div>
+
+<!-- Correct - use one variant -->
+<div class="pm7-card pm7-card--elevated">
+  <div class="pm7-card-content">Content</div>
+</div>
+```
+
+### ❌ Don't nest cards without proper spacing
+```html
+<!-- Wrong - nested cards without spacing -->
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <div class="pm7-card">Nested card</div>
+  </div>
+</div>
+
+<!-- Correct - add spacing or use different component -->
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <div style="margin-top: 1rem;">
+      <div class="pm7-card pm7-card--outlined">Nested card</div>
+    </div>
+  </div>
+</div>
+```
+
+## React Usage Examples
+
+```jsx
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@pm7/react';
+
+// Basic Card
+function BasicCard() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card description goes here</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Your content here</p>
+      </CardContent>
+      <CardFooter>
+        <Button variant="outline">Cancel</Button>
+        <Button>Save</Button>
+      </CardFooter>
+    </Card>
+  );
+}
+
+// Card with variants
+function CardVariants() {
+  return (
+    <>
+      <Card variant="outlined">
+        <CardContent>Outlined card</CardContent>
+      </Card>
+      
+      <Card variant="elevated">
+        <CardContent>Elevated card</CardContent>
+      </Card>
+      
+      <Card variant="ghost">
+        <CardContent>Ghost card</CardContent>
+      </Card>
+    </>
+  );
+}
+
+// Interactive Card
+function InteractiveCard() {
+  return (
+    <Card 
+      hoverable 
+      onClick={() => console.log('Card clicked')}
+      className="cursor-pointer"
+    >
+      <CardHeader>
+        <CardTitle>Clickable Card</CardTitle>
+        <CardDescription>Click anywhere on this card</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>This entire card is interactive</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+// Card Grid
+function CardGrid() {
+  const items = [1, 2, 3, 4];
+  
+  return (
+    <div className="pm7-card-grid pm7-card-grid--2">
+      {items.map(item => (
+        <Card key={item}>
+          <CardHeader>
+            <CardTitle>Item {item}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Content for item {item}</p>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+// Status Cards
+function StatusCard({ status, title, message }) {
+  return (
+    <Card variant={status}>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>{message}</p>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+### React Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'outlined' \| 'ghost' \| 'elevated' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Card variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Padding size |
+| `hoverable` | `boolean` | `false` | Add hover effect |
+| `noPadding` | `boolean` | `false` | Remove all padding |
+| `className` | `string` | `''` | Additional CSS classes |
+| `onClick` | `function` | - | Click handler |
+| ...HTMLDivAttributes | - | - | All standard div props |
 
 ## Related Components
 

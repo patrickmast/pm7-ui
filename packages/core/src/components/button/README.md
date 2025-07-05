@@ -211,6 +211,61 @@ PM7 buttons can be customized using CSS custom properties:
 
 ## Examples
 
+## Data Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `disabled` | Standard HTML disabled state | `<button disabled>` |
+| `type` | Button type (button, submit, reset) | `type="submit"` |
+| `aria-label` | Accessibility label for icon-only buttons | `aria-label="Close dialog"` |
+| `data-loading` | Custom loading state (requires custom implementation) | `data-loading="true"` |
+
+## Common Pitfalls
+
+### ❌ Don't add size class for medium buttons
+```html
+<!-- Wrong - medium is default, no class needed -->
+<button class="pm7-button pm7-button--primary pm7-button--md">Click me</button>
+
+<!-- Correct -->
+<button class="pm7-button pm7-button--primary">Click me</button>
+```
+
+### ❌ Don't forget base class
+```html
+<!-- Wrong - missing pm7-button base class -->
+<button class="pm7-button--primary">Click me</button>
+
+<!-- Correct - always include base class -->
+<button class="pm7-button pm7-button--primary">Click me</button>
+```
+
+### ❌ Don't use buttons for navigation without proper semantics
+```html
+<!-- Wrong - button for navigation -->
+<button class="pm7-button pm7-button--primary" onclick="window.location.href='/page'">
+  Go to page
+</button>
+
+<!-- Correct - use anchor tag styled as button -->
+<a href="/page" class="pm7-button pm7-button--primary">
+  Go to page
+</a>
+```
+
+### ❌ Don't nest interactive elements
+```html
+<!-- Wrong - link inside button -->
+<button class="pm7-button pm7-button--primary">
+  <a href="/page">Click me</a>
+</button>
+
+<!-- Correct - use one or the other -->
+<a href="/page" class="pm7-button pm7-button--primary">
+  Click me
+</a>
+```
+
 ### Form Actions
 
 ```html
@@ -255,6 +310,33 @@ PM7 buttons can be customized using CSS custom properties:
   </button>
 </div>
 ```
+
+### Loading State
+
+```html
+<!-- Loading button with spinner -->
+<button class="pm7-button pm7-button--primary" disabled>
+  <svg class="pm7-spinner" width="16" height="16" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+    <path d="M12 2 A10 10 0 0 1 22 12" stroke="currentColor" stroke-width="4" fill="none">
+      <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+  Saving...
+</button>
+
+<!-- Simple loading text -->
+<button class="pm7-button pm7-button--primary" disabled>
+  Processing...
+</button>
+
+<!-- With custom loading attribute -->
+<button class="pm7-button pm7-button--primary" data-loading="true" disabled>
+  <span class="pm7-button-content">Save Changes</span>
+</button>
+```
+
+**Note**: PM7 doesn't include built-in loading spinners. You'll need to add your own spinner SVG or use a loading library.
 
 ## React Usage
 

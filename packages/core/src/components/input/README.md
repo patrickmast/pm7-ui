@@ -653,6 +653,153 @@ function togglePassword() {
 </form>
 ```
 
+## Data Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `type` | Input type (text, email, password, etc.) | `type="email"` |
+| `placeholder` | Placeholder text | `placeholder="Enter email"` |
+| `disabled` | Disabled state | `disabled` |
+| `readonly` | Read-only state | `readonly` |
+| `required` | Required field | `required` |
+| `pattern` | Validation pattern | `pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"` |
+| `min/max` | Min/max values for number inputs | `min="0" max="100"` |
+| `minlength/maxlength` | Character limits | `maxlength="255"` |
+| `autocomplete` | Autocomplete hints | `autocomplete="email"` |
+| `aria-invalid` | Accessibility state for errors | `aria-invalid="true"` |
+| `aria-describedby` | Link to helper text | `aria-describedby="email-error"` |
+
+## Common Pitfalls
+
+### ❌ Don't forget form-group wrapper
+```html
+<!-- Wrong - no wrapper -->
+<label for="email" class="pm7-label">Email</label>
+<input type="email" id="email" class="pm7-input">
+
+<!-- Correct - with form-group -->
+<div class="pm7-form-group">
+  <label for="email" class="pm7-label">Email</label>
+  <input type="email" id="email" class="pm7-input">
+</div>
+```
+
+### ❌ Don't mix size modifiers
+```html
+<!-- Wrong - multiple size classes -->
+<input type="text" class="pm7-input pm7-input--sm pm7-input--lg">
+
+<!-- Correct - one size -->
+<input type="text" class="pm7-input pm7-input--lg">
+```
+
+### ❌ Don't forget label associations
+```html
+<!-- Wrong - no for/id connection -->
+<label class="pm7-label">Email</label>
+<input type="email" class="pm7-input">
+
+<!-- Correct - proper association -->
+<label for="user-email" class="pm7-label">Email</label>
+<input type="email" id="user-email" class="pm7-input">
+```
+
+### ❌ Don't style validation states without ARIA
+```html
+<!-- Wrong - visual only -->
+<input type="email" class="pm7-input pm7-input--error">
+
+<!-- Correct - with ARIA -->
+<input type="email" class="pm7-input pm7-input--error" 
+       aria-invalid="true" aria-describedby="email-error">
+<p id="email-error" class="pm7-helper-text pm7-helper-text--error">
+  Invalid email format
+</p>
+```
+
+### ❌ Don't use placeholder as label
+```html
+<!-- Wrong - placeholder only -->
+<input type="text" class="pm7-input" placeholder="Full Name">
+
+<!-- Correct - label and placeholder -->
+<div class="pm7-form-group">
+  <label for="name" class="pm7-label">Full Name</label>
+  <input type="text" id="name" class="pm7-input" 
+         placeholder="Enter your full name">
+</div>
+```
+
+### ❌ Don't forget checkbox/radio structure
+```html
+<!-- Wrong - missing indicator -->
+<label class="pm7-checkbox">
+  <input type="checkbox">
+  Agree to terms
+</label>
+
+<!-- Correct - full structure -->
+<label class="pm7-checkbox">
+  <input type="checkbox">
+  <span class="pm7-checkbox-indicator"></span>
+  <span class="pm7-checkbox-label">Agree to terms</span>
+</label>
+```
+
+## React Usage
+
+```jsx
+import { Input } from '@pm7/react';
+
+// Basic input
+<Input type="email" placeholder="Enter email" />
+
+// With label and helper text
+<div className="pm7-form-group">
+  <label htmlFor="email" className="pm7-label pm7-label--required">
+    Email
+  </label>
+  <Input 
+    id="email"
+    type="email" 
+    placeholder="user@example.com"
+    required
+  />
+  <p className="pm7-helper-text">We'll never share your email</p>
+</div>
+
+// With validation state
+<Input 
+  type="email" 
+  variant="error"
+  aria-invalid="true"
+  aria-describedby="email-error"
+/>
+
+// Different sizes
+<Input size="sm" placeholder="Small input" />
+<Input size="md" placeholder="Medium input" />
+<Input size="lg" placeholder="Large input" />
+
+// Controlled component
+const [value, setValue] = useState('');
+
+<Input 
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  placeholder="Controlled input"
+/>
+```
+
+### React Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'error' \| 'success'` | `'default'` | Visual state |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Input size |
+| `type` | string | `'text'` | HTML input type |
+| ...HTMLInputAttributes | - | - | All standard input props |
+
 ## Related Components
 
 - [Button](../button/) - For form submission
