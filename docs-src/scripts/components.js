@@ -76,6 +76,18 @@ export function loadHeader() {
               </span>
               Upgrade to v2
             </a>
+            <a href="/readme-links.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </span>
+              README Links
+            </a>
             <div class="pm7-menu-separator"></div>
             <a href="#" class="pm7-menu-item" id="version-info-trigger">
               <span class="pm7-menu-item-icon">
@@ -222,24 +234,19 @@ export function createVersionDialog() {
   // Skip if already exists
   if (document.querySelector('[data-pm7-dialog="version-dialog"]')) return;
 
-  // Get the current version
-  let version = '2.0.0'; // default
-  const versionSpan = document.querySelector('[data-pm7-version]');
-  if (versionSpan && versionSpan.textContent) {
-    version = versionSpan.textContent;
-  }
-
+  // Create dialog with placeholder for version
   const dialogHTML = `
   <div class="pm7-dialog" 
        data-pm7-dialog="version-dialog"
        data-pm7-dialog-size="sm">
     <div data-pm7-header
          data-pm7-dialog-title="Version Info"
-         data-pm7-dialog-subtitle="Version ${version}"
+         data-pm7-dialog-subtitle="pm7-ui Component Library"
          data-pm7-dialog-icon="info"
          data-pm7-header-separator>
     </div>
     <div data-pm7-body>
+      <p><strong>Version:</strong> <span data-pm7-version>2.0.0</span></p>
       <p><strong>Package:</strong> pm7-ui</p>
       <p><strong>License:</strong> <a href="https://opensource.org/licenses/ISC" target="_blank" rel="noopener noreferrer" style="color: var(--pm7-primary);">https://opensource.org/licenses/ISC</a></p>
     </div>
@@ -276,63 +283,39 @@ window.closeVersionDialog = function() {
 
 // Load components when DOM is ready
 export function loadSharedComponents() {
-  console.log('[Components] Starting loadSharedComponents...');
-
   try {
-    console.log('[Components] Loading header...');
     loadHeader();
-    console.log('[Components] Header loaded');
-
-    console.log('[Components] Loading footer...');
     loadFooter();
-    console.log('[Components] Footer loaded');
-
-    console.log('[Components] Loading sidebar...');
     loadSidebar();
-    console.log('[Components] Sidebar loaded');
-
-    console.log('[Components] Creating version dialog...');
     createVersionDialog();
-    console.log('[Components] Version dialog created');
   } catch (error) {
-    console.error('[Components] Error during initial load:', error);
+    // Silent catch - no logging
   }
 
   // Initialize PM7 menu after header is loaded
   setTimeout(async () => {
-    console.log('[Components] Starting async initialization...');
-
     try {
       // Step 1: Initialize menu
-      console.log('[Components] Step 1: Initializing menu...');
       const menuElement = document.querySelector('[data-pm7-menu]');
       if (menuElement && window.PM7Menu) {
         // Check if already initialized by auto-init
         if (!menuElement.hasAttribute('data-pm7-menu-initialized')) {
           new window.PM7Menu(menuElement);
           menuElement.setAttribute('data-pm7-menu-initialized', 'true');
-          console.log('[Components] Menu initialized manually');
-        } else {
-          console.log('[Components] Menu already initialized by auto-init');
         }
       }
 
       // Step 2: Skip dialog.js loading for now - load on demand
-      console.log('[Components] Step 2: Setting up lazy dialog loading...');
-
       // Create lazy loading wrapper
       window.loadDialogIfNeeded = async () => {
         if (!window.openDialog || !window.closeDialog) {
-          console.log('[Components] Loading dialog.js on demand...');
           const dialogModule = await import('/packages/core/src/scripts/dialog.js');
           window.openDialog = dialogModule.openDialog;
           window.closeDialog = dialogModule.closeDialog;
-          console.log('[Components] Dialog functions loaded');
         }
       };
 
       // Step 3: Add version info click handler
-      console.log('[Components] Step 3: Adding version info click handler...');
       const versionTrigger = document.getElementById('version-info-trigger');
       if (versionTrigger) {
         versionTrigger.addEventListener('click', async (e) => {
@@ -351,13 +334,9 @@ export function loadSharedComponents() {
           // Show the dialog
           window.showVersionDialog();
         });
-        console.log('[Components] Version info click handler added');
       }
-
-      console.log('[Components] All initialization complete!');
-
     } catch (error) {
-      console.error('[Components] Initialization error:', error);
+      // Silent catch - no logging
     }
   }, 10); // Small delay to ensure DOM is ready
 
@@ -366,7 +345,6 @@ export function loadSharedComponents() {
     initializeComponentRouting();
   }, 50); // Ensure sidebar is loaded first
 
-  console.log('[Components] loadSharedComponents finished');
 }
 
 // Make functions globally available for router
@@ -375,8 +353,6 @@ window.initializeComponentRouting = initializeComponentRouting;
 
 // Initialize client-side routing for smooth navigation
 export function initializeComponentRouting() {
-  console.log('[Components] Initializing client-side routing...');
-  
   // Import router module
   import('/scripts/router.js').then(() => {
     // Add click handlers to all sidebar component links
@@ -399,9 +375,7 @@ export function initializeComponentRouting() {
         }
       });
     });
-    
-    console.log('[Components] Client-side routing initialized for', componentLinks.length, 'links');
   }).catch(error => {
-    console.error('[Components] Failed to load router:', error);
+    // Silent catch - no logging
   });
 }

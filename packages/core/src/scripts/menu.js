@@ -8,7 +8,6 @@ export class PM7Menu {
   constructor(element) {
     // Check if this element already has a menu instance
     if (PM7Menu.instances.has(element)) {
-      console.warn('[PM7Menu] Element already has a menu instance, returning existing');
       return PM7Menu.instances.get(element);
     }
     
@@ -20,7 +19,6 @@ export class PM7Menu {
     this.currentIndex = -1;
     
     if (!this.trigger || !this.content) {
-      console.warn('PM7Menu: Missing required elements');
       return;
     }
     
@@ -363,29 +361,21 @@ if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
   window.__PM7_MENU_INIT__ = true;
   
   const initMenus = () => {
-    console.log('[PM7Menu] Auto-init: Checking for menus...');
     const menus = document.querySelectorAll('[data-pm7-menu]:not([data-pm7-menu-initialized])');
-    console.log(`[PM7Menu] Auto-init: Found ${menus.length} uninitialized menus`);
     menus.forEach((menu, index) => {
-      console.log(`[PM7Menu] Auto-init: Initializing menu ${index + 1}/${menus.length}`);
       try {
         new PM7Menu(menu);
         menu.setAttribute('data-pm7-menu-initialized', 'true');
       } catch (error) {
-        console.error(`[PM7Menu] Auto-init: Error initializing menu ${index + 1}:`, error);
+        // Silent catch - no logging
       }
     });
-    console.log('[PM7Menu] Auto-init: Complete');
   };
   
   if (document.readyState === 'loading') {
-    console.log('[PM7Menu] Auto-init: Document still loading, waiting for DOMContentLoaded');
     document.addEventListener('DOMContentLoaded', initMenus, { once: true });
   } else {
-    console.log('[PM7Menu] Auto-init: Document ready, initializing now');
     // Use setTimeout to avoid blocking
     setTimeout(initMenus, 0);
   }
-} else if (window.__PM7_MENU_INIT__) {
-  console.log('[PM7Menu] Auto-init: Already initialized, skipping');
 }

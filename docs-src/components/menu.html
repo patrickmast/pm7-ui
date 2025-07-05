@@ -950,67 +950,6 @@ menuElement.addEventListener('pm7-menu-select', (e) => {
       });
     }
 
-    // Add menu item click handler
-    document.addEventListener('DOMContentLoaded', () => {
-      // Listen for menu item clicks
-      document.addEventListener('click', (e) => {
-        // Check if clicked element is a menu item
-        if (e.target.closest('.pm7-menu-item')) {
-          const menuItem = e.target.closest('.pm7-menu-item');
-          // Don't show dialog for disabled items or items with submenus
-          if (!menuItem.classList.contains('pm7-menu-item--disabled') && 
-              !menuItem.classList.contains('pm7-menu-item--has-submenu')) {
-            e.preventDefault();
-            const itemText = menuItem.textContent.trim();
-            showMenuDialog(itemText);
-          }
-        }
-      });
-    });
-
-    function showMenuDialog(itemText) {
-      // Create dialog elements
-      const backdrop = document.createElement('div');
-      backdrop.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;';
-      
-      const dialog = document.createElement('div');
-      dialog.className = 'pm7-card';
-      dialog.style.cssText = 'width: 400px; max-width: 90vw; background: white; border-radius: var(--pm7-radius-lg); box-shadow: var(--pm7-shadow-lg);';
-      
-      dialog.innerHTML = `
-        <div class="pm7-card-header">
-          <h3 class="pm7-card-title">Menu Item Clicked</h3>
-        </div>
-        <div class="pm7-card-content">
-          <p>You clicked on: <strong>${itemText}</strong></p>
-        </div>
-        <div class="pm7-card-footer" style="display: flex; justify-content: flex-end; gap: 8px;">
-          <button class="pm7-button pm7-button--primary" onclick="this.closest('.pm7-card').parentElement.remove()">OK</button>
-        </div>
-      `;
-      
-      backdrop.appendChild(dialog);
-      document.body.appendChild(backdrop);
-      
-      // Close on backdrop click
-      backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) {
-          backdrop.remove();
-        }
-      });
-      
-      // Close on Escape key
-      const escapeHandler = (e) => {
-        if (e.key === 'Escape') {
-          backdrop.remove();
-          document.removeEventListener('keydown', escapeHandler);
-        }
-      };
-      document.addEventListener('keydown', escapeHandler);
-      
-      // Focus the OK button
-      dialog.querySelector('.pm7-button--primary').focus();
-    }
   </script>
 
   <script type="module">

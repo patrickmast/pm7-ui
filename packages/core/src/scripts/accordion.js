@@ -167,11 +167,9 @@ export class PM7Accordion {
       this.setItemState(item, trigger, content, false);
     });
   }
-}
-
-// Auto-initialize accordions on DOM ready
-if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  
+  // Static auto-init method
+  static autoInit() {
     const accordions = document.querySelectorAll('[data-pm7-accordion]');
     accordions.forEach(accordion => {
       // Check if already initialized
@@ -193,5 +191,12 @@ if (typeof document !== 'undefined') {
         });
       }
     });
+  }
+}
+
+// Auto-initialize accordions on DOM ready
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    PM7Accordion.autoInit();
   });
 }

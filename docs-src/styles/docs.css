@@ -833,3 +833,66 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
     display: block !important;
   }
 }
+
+/* Code copy button styles */
+.pm7-code-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+pre {
+  position: relative;
+}
+
+.pm7-code-copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: var(--pm7-surface);
+  color: var(--pm7-text-secondary);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius-sm);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  z-index: 10;
+}
+
+/* Show button on hover of pre or when button is focused */
+pre:hover .pm7-code-copy-button,
+.pm7-code-copy-button:focus {
+  opacity: 1;
+}
+
+.pm7-code-copy-button:hover {
+  background: var(--pm7-muted);
+  color: var(--pm7-foreground);
+}
+
+.pm7-code-copy-button:active {
+  transform: scale(0.95);
+}
+
+/* Success state */
+.pm7-code-copy-button.pm7-code-copy-success {
+  background: var(--pm7-success);
+  color: white;
+  border-color: var(--pm7-success);
+}
+
+.pm7-code-copy-button.pm7-code-copy-success:hover {
+  background: var(--pm7-success);
+  color: white;
+}
+
+/* Ensure code blocks have enough padding for the button */
+pre code {
+  display: block;
+  padding-right: 60px; /* Make room for copy button */
+}
