@@ -701,6 +701,28 @@ function MyComponent() {
 </button>
 ```
 
+## Common Issues
+
+### CSS Specificity with Link Elements
+When using `<a>` tags as menu items, global link styles might override menu colors:
+
+```css
+/* Problem: Global link styles override menu colors */
+.dark a { color: var(--pm7-primary); } /* Blue text in dark mode */
+
+/* Solution 1: Exclude menu items from global styles */
+.dark a:not(.pm7-menu-item) {
+  color: var(--pm7-primary);
+}
+
+/* Solution 2: Override with higher specificity */
+a.pm7-menu-item {
+  color: var(--pm7-foreground) !important;
+}
+```
+
+**Best practice**: Always test menu items with links in both light and dark modes.
+
 ## Related Components
 
 - [Button](../button/) - Common trigger for menus
