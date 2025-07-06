@@ -418,6 +418,83 @@ a:hover {
 | Components not updating | Ensure JS preserves existing CSS classes when initializing |
 | Inconsistent colors across pages | Use ONLY CSS variables, never hardcode colors |
 | Images too bright in dark mode | Use CSS filters: `.dark img { filter: brightness(0.8); }` |
+| Menu items showing wrong colors | Use specific selectors or exclude menu items from global link styles |
+
+### CSS Specificity: Menu Components with Links
+
+**Problem**: When using `<a>` tags inside menu components, global link styles can override PM7 component styles, causing menu items to appear with incorrect colors (e.g., blue text in dark mode).
+
+**Cause**: CSS specificity - global `a` tag styles have higher specificity than PM7's `.pm7-menu-item` class when applied to the same element.
+
+**Example of the Problem**:
+```css
+/* Global styles that cause issues */
+a {
+  color: #0066cc;  /* This overrides menu item colors */
+}
+
+.dark a {
+  color: #66b3ff;  /* This makes menu items blue in dark mode */
+}
+```
+
+```html
+<!-- Menu items showing wrong colors -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content">
+    <a href="/home" class="pm7-menu-item">Home</a>  <!-- Shows blue instead of menu colors -->
+    <a href="/about" class="pm7-menu-item">About</a>
+  </div>
+</div>
+```
+
+**Solutions**:
+
+1. **Exclude menu items from global link styles** (Recommended):
+```css
+/* Global link styles that exclude PM7 components */
+a:not(.pm7-menu-item):not(.pm7-button) {
+  color: var(--pm7-primary);
+  text-decoration: underline;
+}
+
+.dark a:not(.pm7-menu-item):not(.pm7-button) {
+  color: var(--pm7-primary);
+}
+```
+
+2. **Use more specific selectors for menu items**:
+```css
+/* Override with higher specificity */
+.pm7-menu-content a.pm7-menu-item {
+  color: var(--pm7-foreground);
+  text-decoration: none;
+}
+
+.pm7-menu-content a.pm7-menu-item:hover {
+  background-color: var(--pm7-accent);
+  color: var(--pm7-accent-foreground);
+}
+```
+
+3. **Use buttons instead of links when possible**:
+```html
+<!-- Better approach for menu actions -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item" onclick="window.location.href='/home'">Home</button>
+    <button class="pm7-menu-item" onclick="window.location.href='/about'">About</button>
+  </div>
+</div>
+```
+
+**Best Practices**:
+- Test all components with `<a>` tags to catch specificity conflicts
+- Use CSS variables for all colors to ensure consistency
+- Consider component context when writing global styles
+- Document any custom overrides needed for your application
 
 ## CSS Classes Reference
 
