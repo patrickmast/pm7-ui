@@ -376,9 +376,9 @@ export function loadFixedThemeSwitch() {
     return;
   }
 
-  // Create fixed theme switch element
+  // Create fixed theme switch element (small size)
   const fixedThemeSwitch = document.createElement('div');
-  fixedThemeSwitch.className = 'pm7-theme-switch--fixed-icon';
+  fixedThemeSwitch.className = 'pm7-theme-switch--fixed-icon pm7-theme-switch--sm';
   fixedThemeSwitch.setAttribute('data-pm7-theme-switch', '');
   
   // Add to body
