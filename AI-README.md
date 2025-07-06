@@ -532,15 +532,8 @@ For detailed documentation on specific components:
 
 ## Technical Details
 
-### Bundle Size
-- **CSS**: ~70KB minified (~12KB gzipped)
-- **JavaScript**: ~10KB minified (~3KB gzipped)  
-- **Total**: ~80KB minified (~15KB gzipped)
-
-### Browser Support
-- Chrome, Firefox, Safari, Edge (latest versions)
-- iOS Safari 12+
-- Chrome/Firefox on Android (latest versions)
+### Compatibility
+Works in all modern browsers. Internet Explorer not supported.
 
 ### TypeScript Support
 Full TypeScript declarations included. IntelliSense works out of the box.
