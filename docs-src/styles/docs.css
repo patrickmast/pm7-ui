@@ -211,7 +211,7 @@ body.pm7-navigating .pm7-docs-sidebar a {
 /* Packages section */
 .pm7-docs-packages {
   padding: var(--pm7-spacing-20) 0;
-  background: var(--pm7-muted);
+  background: linear-gradient(to bottom, var(--pm7-muted), var(--pm7-background));
   flex: 1;
 }
 
