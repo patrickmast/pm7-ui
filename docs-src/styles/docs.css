@@ -717,6 +717,82 @@ a.pm7-menu-item:hover {
   border-color: var(--pm7-border);
 }
 
+
+/* Submenu wrapper for positioning */
+.pm7-submenu-wrapper {
+  position: relative;
+}
+
+/* Fix submenu for header menu */
+.pm7-submenu-wrapper .pm7-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 4px;
+  min-width: 180px;
+  padding: 0.5rem;
+  background-color: var(--pm7-menu-bg);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius);
+  box-shadow: var(--pm7-shadow-md);
+  display: none;
+  z-index: 1000;
+}
+
+/* Show submenu on hover */
+.pm7-submenu-wrapper:hover .pm7-submenu {
+  display: block;
+}
+
+/* Fix radio button styling in submenu */
+.pm7-submenu .pm7-menu-item--radio {
+  padding-left: calc(var(--pm7-spacing-3) + 1.5rem);
+}
+
+.pm7-submenu .pm7-menu-item--radio::before {
+  left: var(--pm7-spacing-3);
+}
+
+/* Fix center dot position for checked radio */
+.pm7-submenu .pm7-menu-item--radio[data-checked="true"]::after {
+  left: calc(var(--pm7-spacing-3) + 5px); /* 5px = (16px - 6px) / 2 to center 6px dot in 16px circle */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Make radio button more visible on hover */
+.pm7-submenu .pm7-menu-item--radio::before {
+  transition: none !important;
+}
+
+.pm7-submenu .pm7-menu-item--radio::after {
+  transition: none !important;
+}
+
+.pm7-submenu .pm7-menu-item--radio:hover::before {
+  background-color: var(--pm7-background);
+  border-color: var(--pm7-primary-foreground);
+  border-width: 2px;
+}
+
+.pm7-submenu .pm7-menu-item--radio[data-checked="true"]:hover::before {
+  background-color: var(--pm7-primary-foreground);
+  border-color: var(--pm7-primary-foreground);
+}
+
+.pm7-submenu .pm7-menu-item--radio[data-checked="true"]:hover::after {
+  background-color: var(--pm7-primary);
+}
+
+/* Keep submenu arrows pointing right, prevent rotation */
+.pm7-docs-header-menu .pm7-menu-item--has-submenu::after {
+  transform: none !important;
+}
+
+.pm7-docs-header-menu .pm7-menu-item--has-submenu[data-submenu-open="true"]::after {
+  transform: none !important;
+}
+
 /* Note: Menu items should start in neutral state, no active styling in dropdown */
 
 /* Mobile sidebar adjustments */
