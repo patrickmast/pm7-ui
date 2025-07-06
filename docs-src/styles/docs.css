@@ -364,6 +364,18 @@ a:hover {
   color: var(--pm7-primary);
 }
 
+/* Menu items should use foreground color, not link color */
+a.pm7-menu-item {
+  color: var(--pm7-foreground) !important;
+  text-decoration: none;
+}
+
+a.pm7-menu-item:visited {
+  color: var(--pm7-foreground) !important;
+}
+
+/* Hover state handled by menu.css */
+
 /* Override card padding for sidebar */
 .pm7-docs-sidebar .pm7-card {
   background: transparent;
