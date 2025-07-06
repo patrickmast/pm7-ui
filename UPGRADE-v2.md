@@ -198,8 +198,8 @@ function Button({ variant = 'primary', size = 'md', className, ...props }: Butto
 
 ## Need Help?
 
-- Check the [documentation](https://pm7-ui.vercel.app)
-- View the [AI Guide](https://pm7-ui.vercel.app/ai-guide.html) for AI-assisted development
+- Check the [documentation](https://pm7-ui.dev)
+- View the [AI Guide](https://pm7-ui.dev/ai-guide.html) for AI-assisted development
 - Report issues on [GitHub](https://github.com/patrickmast/pm7-ui/issues)
 
 ## Quick Reference

@@ -298,7 +298,7 @@ MIT © Patrick Mast
 
 ## Links
 
-- [Documentation](https://pm7-ui.vercel.app)
+- [Documentation](https://pm7-ui.dev)
 - [GitHub](https://github.com/patrickmast/pm7-ui)
-- [Examples](https://pm7-ui.vercel.app/components)
+- [Examples](https://pm7-ui.dev/components)
 - [NPM](https://www.npmjs.com/package/@pm7/core)

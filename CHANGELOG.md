@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2025-01-06
+
+### 🐛 Bug Fixes
+- Fixed documentation URLs to use https://pm7-ui.dev instead of vercel.app
+
 ## [2.1.0] - 2025-01-06
 
 ### 🎉 New Features
