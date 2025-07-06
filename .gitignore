@@ -7,6 +7,7 @@ node_modules/
 dist/
 build/
 out/
+docs/
 *.tsbuildinfo
 
 # Logs
@@ -44,6 +45,16 @@ coverage/
 *.temp
 tmp/
 temp/
+
+# Test files
+test-*.html
+**/test-*.html
+debug-*.html
+**/debug-*.html
+
+# Backup files
+*.backup
+*-backup-*
 
 # OS files
 Thumbs.db
