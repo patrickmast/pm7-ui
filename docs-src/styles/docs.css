@@ -225,7 +225,7 @@ body.pm7-navigating .pm7-docs-sidebar a {
 .pm7-docs-package {
   padding: var(--pm7-spacing-6);
   background: var(--pm7-background);
-  border: 1px solid var(--pm7-border);
+  border: 1px solid var(--pm7-primary);
   border-radius: var(--pm7-radius-md);
   position: relative;
   transition: all 0.2s;
