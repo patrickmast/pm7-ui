@@ -94,6 +94,14 @@ export function loadHeader() {
               Version Info
             </a>
             <div class="pm7-menu-separator"></div>
+            <div class="pm7-menu-label">Theme</div>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="light" onclick="window.setTheme('light')">
+              Light
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="dark" onclick="window.setTheme('dark')">
+              Dark
+            </button>
+            <div class="pm7-menu-separator"></div>
             <a href="https://www.npmjs.com/package/@pm7/core" class="pm7-menu-item" target="_blank" rel="noopener noreferrer">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -406,6 +414,46 @@ export function loadFixedThemeSwitch() {
     new window.PM7ThemeSwitch(fixedThemeSwitch);
   }
 }
+
+// Theme switching function
+window.setTheme = function(theme) {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('pm7-theme', 'dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('pm7-theme', 'light');
+  }
+  
+  // Update radio buttons
+  const isDark = document.documentElement.classList.contains('dark');
+  document.querySelectorAll('.pm7-menu-item--radio[data-name="theme"]').forEach(radio => {
+    if (radio.getAttribute('data-value') === 'light') {
+      radio.setAttribute('data-checked', !isDark);
+    } else if (radio.getAttribute('data-value') === 'dark') {
+      radio.setAttribute('data-checked', isDark);
+    }
+  });
+  
+  // Update all theme switches on the page
+  document.querySelectorAll('[data-pm7-theme-switch]').forEach(el => {
+    if (el.PM7ThemeSwitch) {
+      el.PM7ThemeSwitch.updateTheme();
+    }
+  });
+};
+
+// Update radio buttons on load
+setTimeout(() => {
+  const isDark = document.documentElement.classList.contains('dark');
+  document.querySelectorAll('.pm7-menu-item--radio[data-name="theme"]').forEach(radio => {
+    if (radio.getAttribute('data-value') === 'light') {
+      radio.setAttribute('data-checked', !isDark);
+    } else if (radio.getAttribute('data-value') === 'dark') {
+      radio.setAttribute('data-checked', isDark);
+    }
+  });
+}, 100);
 
 // Make functions globally available for router
 window.loadSidebar = loadSidebar;
