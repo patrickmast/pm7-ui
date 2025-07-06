@@ -550,6 +550,11 @@ a.pm7-menu-item:visited {
   background: var(--pm7-muted);
 }
 
+/* Table section headers in component docs */
+.pm7-docs-table tr[style*="background-color"] {
+  background-color: var(--pm7-muted) !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .pm7-docs-hero h1 {
