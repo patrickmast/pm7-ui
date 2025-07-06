@@ -1,130 +1,113 @@
-# pm7-ui - The First UI Library Built for AI Coding Agents 🤖
+# pm7-ui
 
-**Finally, a UI library that your AI coding agent actually understands.**
+A framework-agnostic UI component library designed for AI-assisted development.
 
-## Why pm7-ui?
+## Overview
 
-Ever tried getting your AI to build a UI? It's frustrating. Complex component APIs, framework-specific syntax, inconsistent patterns... 
-
-pm7-ui solves this with a radical approach: **pure CSS classes that work everywhere**.
+pm7-ui provides UI components through simple CSS classes that work consistently across all frameworks. Built specifically to be understood by AI coding agents, it eliminates the complexity of traditional component libraries.
 
 ```html
-<!-- This works in React, Vue, Angular, or plain HTML -->
+<!-- Works in React, Vue, Angular, or plain HTML -->
 <button class="pm7-button pm7-button--primary">Click me</button>
 ```
 
-No imports. No setup. No confusion. Just copy, paste, and it works.
+## Installation
 
-## 🚀 Getting Started
+```bash
+npm install @pm7/core
+```
 
-### For Developers
+Import the CSS in your project:
 
-1. **Install pm7-ui**:
-   ```bash
-   npm install @pm7/core
-   ```
+```javascript
+import '@pm7/core/dist/pm7.css';
+```
 
-2. **Import the CSS**:
-   ```javascript
-   import '@pm7/core/dist/pm7.css';
-   ```
+## Features
 
-3. **Use components**:
-   ```html
-   <div class="pm7-card">
-     <div class="pm7-card-body">
-       It just works!
-     </div>
-   </div>
-   ```
+- **Framework agnostic** - One package works with all frameworks
+- **AI-optimized** - Simple CSS classes that AI agents understand
+- **Lightweight** - ~15KB gzipped (CSS + JS)
+- **Dark mode** - Built-in theme switching with no flicker
+- **Accessible** - WCAG 2.1 AA compliant
+- **40+ components** - Everything you need for modern UIs
 
-### For Your AI Agent
+## Quick Start
 
-Give your AI agent this documentation link:
+```html
+<div class="pm7-card">
+  <div class="pm7-card-header">
+    <h2>Welcome</h2>
+  </div>
+  <div class="pm7-card-body">
+    <p>Your content here</p>
+    <button class="pm7-button pm7-button--primary">Get Started</button>
+  </div>
+</div>
+```
+
+## For AI Development
+
+Give your AI agent this documentation:
 
 ```
 https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md
 ```
 
-That's it! Your AI now has everything it needs to build beautiful UIs.
+The AI-README contains complete technical documentation, examples, and patterns optimized for AI code generation.
 
-## ✨ Features
+## Documentation
 
-- **🤖 AI-First Design** - Simple CSS classes that AI agents understand instantly
-- **🌍 Universal** - One package works with ALL frameworks
-- **📦 Lightweight** - ~15KB gzipped total (CSS + JS)
-- **🌓 Built-in Dark Mode** - Automatic theme detection with zero flicker
-- **♿ Fully Accessible** - WCAG 2.1 AA compliant
-- **🎨 Beautiful by Default** - Professional design out of the box
-- **⚡ Zero Dependencies** - Pure CSS + vanilla JS
+- **Website**: [pm7-ui.dev](https://pm7-ui.dev) - Interactive examples and guides
+- **AI Documentation**: [AI-README.md](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md) - Technical reference for AI agents
+- **Component Docs**: See individual component READMEs in `packages/core/src/components/`
 
-## 💡 How It Works
+## Components
 
-Traditional UI libraries:
-```jsx
-// Complex, framework-specific, hard for AI to understand
-import { Button } from '@shadcn/ui';
-import { useState } from 'react';
+pm7-ui includes all essential UI components:
 
-<Button variant="default" size="lg" onClick={handleClick}>
-  Click me
-</Button>
+- **Layout**: Container, Grid, Spacer
+- **Forms**: Input, Select, Checkbox, Radio, Switch
+- **Buttons**: Button, IconButton, ButtonGroup
+- **Feedback**: Toast, Alert, Progress, Spinner
+- **Overlay**: Dialog, Drawer, Tooltip, Popover
+- **Navigation**: Menu, Tabs, Breadcrumb, Pagination
+- **Display**: Card, Badge, Avatar, Table
+- **Typography**: Heading, Text, Link
+- **Utilities**: Theme Switch, Skeleton, Divider
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build packages
+npm run build
+
+# Run tests
+npm run test
 ```
 
-pm7-ui:
-```html
-<!-- Simple, universal, AI-friendly -->
-<button class="pm7-button pm7-button--primary pm7-button--lg">
-  Click me
-</button>
-```
+## Contributing
 
-Your AI agent can now build UIs without learning complex APIs or framework quirks.
-
-## 🎯 Perfect For
-
-- **AI-Assisted Development** - Your AI agent will love the simplicity
-- **Rapid Prototyping** - Go from idea to UI in seconds
-- **Multi-Framework Projects** - Same components everywhere
-- **Learning & Teaching** - No complex abstractions to explain
-
-## 📚 Documentation
-
-- **For Humans**: [pm7-ui.dev](https://pm7-ui.dev) - Interactive docs and examples
-- **For AI Agents**: [AI-README.md](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md) - Complete technical reference
-
-## 🛠️ What's Included
-
-40+ components including:
-- Buttons, Cards, Inputs, Forms
-- Dropdowns, Modals, Tooltips
-- Accordions, Tabs, Tables
-- Theme Switcher (dark mode)
-- Loading states, Skeletons
-- And much more...
-
-All components work with just CSS classes. Interactive components (like dropdowns) auto-initialize with JavaScript.
-
-## 🤝 Community
-
-pm7-ui is open source and we love contributions!
-
-- **Report bugs**: [GitHub Issues](https://github.com/patrickmast/pm7-ui/issues)
-- **Request features**: [Discussions](https://github.com/patrickmast/pm7-ui/discussions)
-- **Submit PRs**: We welcome improvements!
-
-### Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'Add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 MIT © Patrick Mast
 
----
+## Links
 
-**Ready to revolutionize how you build UIs with AI?** Give your AI agent the [technical docs](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md) and watch the magic happen! ✨
+- [GitHub](https://github.com/patrickmast/pm7-ui)
+- [NPM](https://www.npmjs.com/package/@pm7/core)
+- [Issues](https://github.com/patrickmast/pm7-ui/issues)
