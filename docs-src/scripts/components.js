@@ -94,6 +94,49 @@ export function loadHeader() {
               Version Info
             </a>
             <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item pm7-menu-item--has-submenu">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="1" x2="12" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="23"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="1" y1="12" x2="3" y2="12"/>
+                  <line x1="21" y1="12" x2="23" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+              </span>
+              Theme
+              <div class="pm7-submenu">
+                <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="light" onclick="setTheme('light')">
+                  <span class="pm7-menu-item-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="5"/>
+                      <line x1="12" y1="1" x2="12" y2="3"/>
+                      <line x1="12" y1="21" x2="12" y2="23"/>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                      <line x1="1" y1="12" x2="3" y2="12"/>
+                      <line x1="21" y1="12" x2="23" y2="12"/>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                  </span>
+                  Light
+                </button>
+                <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="dark" onclick="setTheme('dark')">
+                  <span class="pm7-menu-item-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                  </span>
+                  Dark
+                </button>
+              </div>
+            </button>
+            <div class="pm7-menu-separator"></div>
             <a href="https://www.npmjs.com/package/@pm7/core" class="pm7-menu-item" target="_blank" rel="noopener noreferrer">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -335,6 +378,15 @@ export function loadSharedComponents() {
           }
         }
       }, 100);
+      
+      // Update theme radio buttons on initial load
+      updateThemeRadioButtons();
+      
+      // Update theme radio buttons when menu opens
+      const menuElement = document.querySelector('[data-pm7-menu]');
+      if (menuElement) {
+        menuElement.addEventListener('pm7-menu-open', updateThemeRadioButtons);
+      }
 
       // Step 2: Skip dialog.js loading for now - load on demand
       // Create lazy loading wrapper
@@ -399,9 +451,45 @@ export function loadFixedThemeSwitch() {
   }
 }
 
+// Theme switching function
+function setTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('pm7-theme', 'dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('pm7-theme', 'light');
+  }
+  
+  // Update radio buttons
+  updateThemeRadioButtons();
+  
+  // Update all theme switches on the page
+  document.querySelectorAll('[data-pm7-theme-switch]').forEach(el => {
+    if (el.PM7ThemeSwitch) {
+      el.PM7ThemeSwitch.updateTheme();
+    }
+  });
+}
+
+// Update theme radio buttons based on current theme
+function updateThemeRadioButtons() {
+  const isDark = document.documentElement.classList.contains('dark');
+  const lightRadio = document.querySelector('.pm7-menu-item--radio[data-value="light"]');
+  const darkRadio = document.querySelector('.pm7-menu-item--radio[data-value="dark"]');
+  
+  if (lightRadio) {
+    lightRadio.setAttribute('data-checked', !isDark);
+  }
+  if (darkRadio) {
+    darkRadio.setAttribute('data-checked', isDark);
+  }
+}
+
 // Make functions globally available for router
 window.loadSidebar = loadSidebar;
 window.initializeComponentRouting = initializeComponentRouting;
+window.setTheme = setTheme;
 
 // Initialize client-side routing for smooth navigation
 export function initializeComponentRouting() {
