@@ -17,6 +17,21 @@
     })();
   </script>
   <style>
+    /* Ensure proper text colors in dark mode */
+    pre {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      color: var(--pm7-foreground);
+    }
+    
+    code {
+      color: var(--pm7-foreground);
+    }
+    
+    h2, h3 {
+      color: var(--pm7-foreground);
+    }
+    
     .upgrade-hero {
       background: linear-gradient(135deg, var(--pm7-primary) 0%, #0066CC 100%);
       color: white;
@@ -131,16 +146,29 @@
     }
     
     .quick-links {
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
+      background: var(--pm7-info-bg, #f0f9ff);
+      border: 1px solid var(--pm7-info-border, #bae6fd);
       border-radius: var(--pm7-radius);
       padding: 1.5rem;
       margin: 2rem 0;
     }
     
+    .dark .quick-links {
+      background: rgba(96, 165, 250, 0.1);
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+    
     .quick-links h3 {
       margin: 0 0 1rem 0;
-      color: #0369a1;
+      color: var(--pm7-info-foreground, #0369a1);
+    }
+    
+    .dark .quick-links h3 {
+      color: #60a5fa;
+    }
+    
+    .quick-links li {
+      color: var(--pm7-foreground);
     }
     
     .quick-links ul {
