@@ -94,6 +94,14 @@ export function loadHeader() {
               Version Info
             </a>
             <div class="pm7-menu-separator"></div>
+            <a href="https://www.npmjs.com/package/@pm7/core" class="pm7-menu-item" target="_blank" rel="noopener noreferrer">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 0v24h24v-24h-24zm11.5 18.5h-6v-13h13v13h-3.5v-9.5h-3.5v9.5z"/>
+                </svg>
+              </span>
+              NPM Package
+            </a>
             <a href="https://github.com/patrickmast/pm7-ui" class="pm7-menu-item" target="_blank" rel="noopener noreferrer">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -120,6 +128,7 @@ export function loadHeader() {
         <li><a href="/" class="${window.location.pathname === '/' ? 'active' : ''}">Home</a></li>
         <li><a href="/getting-started.html" class="${window.location.pathname === '/getting-started.html' ? 'active' : ''}">Getting Started</a></li>
         <li><a href="/components.html" class="${window.location.pathname.startsWith('/components') ? 'active' : ''}">Components</a></li>
+        <li><a href="https://www.npmjs.com/package/@pm7/core" target="_blank" rel="noopener noreferrer">NPM</a></li>
         <li><a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       </ul>
     </div>
