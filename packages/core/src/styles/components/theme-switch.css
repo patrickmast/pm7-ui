@@ -175,3 +175,145 @@
 .pm7-theme-switch[data-theme="dark"] .pm7-theme-switch-moon {
   display: block;
 }
+
+/* Fixed/Floating Variants */
+
+/* Fixed with track (bottom right) */
+.pm7-theme-switch--fixed {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  background: var(--pm7-surface);
+  padding: 8px 12px;
+  border-radius: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--pm7-border);
+}
+
+/* Fixed icon-only variant (circular button) */
+.pm7-theme-switch--fixed-icon {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  gap: 0;
+}
+
+.pm7-theme-switch--fixed-icon .pm7-theme-switch-label {
+  display: none;
+}
+
+.pm7-theme-switch--fixed-icon .pm7-theme-switch-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--pm7-surface);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: 2px solid var(--pm7-border);
+  transition: all 0.3s ease;
+}
+
+.pm7-theme-switch--fixed-icon .pm7-theme-switch-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Adjust thumb for icon-only variant */
+.pm7-theme-switch--fixed-icon .pm7-theme-switch-thumb {
+  width: 48px;
+  height: 48px;
+  left: 4px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.pm7-theme-switch--fixed-icon[data-theme="dark"] .pm7-theme-switch-thumb {
+  transform: none;
+}
+
+/* Larger icons for fixed variant */
+.pm7-theme-switch--fixed-icon .pm7-theme-switch-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Sun icon styling */
+.pm7-theme-switch--fixed-icon[data-theme="light"] .pm7-theme-switch-icon {
+  color: #FFB800;
+}
+
+/* Moon icon styling */
+.pm7-theme-switch--fixed-icon[data-theme="dark"] .pm7-theme-switch-icon {
+  color: #4A5568;
+}
+
+/* Small fixed variant */
+.pm7-theme-switch--fixed-icon.pm7-theme-switch--sm {
+  width: 44px;
+  height: 44px;
+}
+
+.pm7-theme-switch--fixed-icon.pm7-theme-switch--sm .pm7-theme-switch-button {
+  width: 44px;
+  height: 44px;
+}
+
+.pm7-theme-switch--fixed-icon.pm7-theme-switch--sm .pm7-theme-switch-thumb {
+  width: 36px;
+  height: 36px;
+}
+
+.pm7-theme-switch--fixed-icon.pm7-theme-switch--sm .pm7-theme-switch-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .pm7-theme-switch--fixed,
+  .pm7-theme-switch--fixed-icon {
+    bottom: 16px;
+    right: 16px;
+  }
+  
+  .pm7-theme-switch--fixed-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .pm7-theme-switch--fixed-icon .pm7-theme-switch-button {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .pm7-theme-switch--fixed-icon .pm7-theme-switch-thumb {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .pm7-theme-switch--fixed-icon .pm7-theme-switch-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Entrance animation */
+@keyframes pm7-theme-switch-slide-in {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pm7-theme-switch--fixed,
+.pm7-theme-switch--fixed-icon {
+  animation: pm7-theme-switch-slide-in 0.3s ease-out;
+}

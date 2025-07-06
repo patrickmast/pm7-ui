@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Theme Switch Demo - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/dist/pm7.css">
+  <link rel="stylesheet" href="/docs-src/styles/docs.css">
+  
+  <!-- Flicker prevention -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('pm7-theme');
+      if (saved) {
+        document.documentElement.classList.toggle('dark', saved === 'dark');
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      padding: 2rem;
+      min-height: 150vh; /* To test scrolling */
+    }
+    
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .demo-section {
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .demo-info {
+      background: var(--pm7-info-bg, #E3F2FD);
+      border: 1px solid var(--pm7-info-border, #1976D2);
+      color: var(--pm7-info-foreground, #0D47A1);
+      padding: 1rem;
+      border-radius: var(--pm7-radius);
+      margin-top: 2rem;
+    }
+    
+    .dark .demo-info {
+      background: #1A237E;
+      border-color: #3F51B5;
+      color: #E8EAF6;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>Fixed Theme Switch Demo</h1>
+    
+    <div class="demo-section">
+      <h2>About This Demo</h2>
+      <p>This page demonstrates the fixed/floating theme switch variant. Look at the bottom-right corner of your screen to see the floating theme toggle button.</p>
+      <p>The button:</p>
+      <ul>
+        <li>Stays fixed in the bottom-right corner</li>
+        <li>Remains visible when scrolling</li>
+        <li>Shows a sun icon in light mode, moon icon in dark mode</li>
+        <li>Scales up on hover for better feedback</li>
+        <li>Has a subtle entrance animation</li>
+      </ul>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Implementation</h2>
+      <pre><code class="language-html">&lt;!-- Add this anywhere in your HTML --&gt;
+&lt;div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
+      
+      <p>For a smaller version:</p>
+      <pre><code class="language-html">&lt;div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Keep Scrolling...</h2>
+      <p>Scroll down to see that the theme switch button stays in place.</p>
+      <p style="height: 300px;">↓</p>
+      <p>Notice how the button remains in the bottom-right corner!</p>
+    </div>
+    
+    <div class="demo-info">
+      <strong>💡 Tip:</strong> The fixed theme switch is perfect for applications where users might want to toggle the theme from anywhere on the page, without having to scroll back to a header or settings panel.
+    </div>
+  </div>
+  
+  <!-- Fixed Icon Theme Switch -->
+  <div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+  
+  <script type="module" src="/docs-src/scripts/docs.js"></script>
+</body>
+</html>

@@ -287,6 +287,7 @@ export function loadSharedComponents() {
     loadFooter();
     loadSidebar();
     createVersionDialog();
+    loadFixedThemeSwitch();
   } catch (error) {
     // Silent catch - no logging
   }
@@ -313,6 +314,18 @@ export function loadSharedComponents() {
           themeSwitchElement.setAttribute('data-pm7-theme-switch-initialized', 'true');
         }
       }
+      
+      // Initialize fixed theme switch after a delay to ensure PM7ThemeSwitch is available
+      setTimeout(() => {
+        const fixedSwitch = document.querySelector('.pm7-theme-switch--fixed-icon');
+        if (fixedSwitch && window.PM7ThemeSwitch) {
+          // Check if already initialized
+          if (!fixedSwitch.hasAttribute('data-pm7-theme-switch-initialized')) {
+            new window.PM7ThemeSwitch(fixedSwitch);
+            fixedSwitch.setAttribute('data-pm7-theme-switch-initialized', 'true');
+          }
+        }
+      }, 100);
 
       // Step 2: Skip dialog.js loading for now - load on demand
       // Create lazy loading wrapper
@@ -354,6 +367,27 @@ export function loadSharedComponents() {
     initializeComponentRouting();
   }, 50); // Ensure sidebar is loaded first
 
+}
+
+// Function to load fixed theme switch
+export function loadFixedThemeSwitch() {
+  // Check if fixed theme switch already exists
+  if (document.querySelector('.pm7-theme-switch--fixed-icon')) {
+    return;
+  }
+
+  // Create fixed theme switch element
+  const fixedThemeSwitch = document.createElement('div');
+  fixedThemeSwitch.className = 'pm7-theme-switch--fixed-icon';
+  fixedThemeSwitch.setAttribute('data-pm7-theme-switch', '');
+  
+  // Add to body
+  document.body.appendChild(fixedThemeSwitch);
+  
+  // Initialize if PM7ThemeSwitch is available
+  if (window.PM7ThemeSwitch) {
+    new window.PM7ThemeSwitch(fixedThemeSwitch);
+  }
 }
 
 // Make functions globally available for router

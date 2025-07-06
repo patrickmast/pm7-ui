@@ -88,6 +88,10 @@ function ThemeToggle() {
 ### Layout Modifiers
 - `pm7-theme-switch--label-start` - Places label before the switch
 
+### Position Modifiers
+- `pm7-theme-switch--fixed` - Fixed position (bottom right) with label
+- `pm7-theme-switch--fixed-icon` - Fixed position circular button (icon only)
+
 ## Data Attributes
 
 | Attribute | Type | Default | Description |
@@ -185,6 +189,30 @@ themeSwitch.toggle();
   <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
 </nav>
 ```
+
+### Fixed/Floating Theme Switch
+
+Create a persistent theme switch that stays fixed in the corner of the viewport:
+
+```html
+<!-- Fixed icon-only variant (recommended) -->
+<div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+
+<!-- Fixed with label -->
+<div class="pm7-theme-switch--fixed" data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+
+<!-- Small fixed icon -->
+<div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+```
+
+The fixed theme switch:
+- Stays in the bottom-right corner (24px from edges)
+- Remains visible when scrolling
+- Has a higher z-index (9999) to stay above other content
+- Includes entrance animation
+- Scales on hover for better interaction feedback
 
 ### Header with Menu and Centered Logo
 
