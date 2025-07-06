@@ -408,12 +408,16 @@ export function loadSharedComponents() {
         }
       }
 
-      // Initialize theme switch
+      // Initialize theme switch with onChange callback
       const themeSwitchElement = document.querySelector('[data-pm7-theme-switch]');
       if (themeSwitchElement && window.PM7ThemeSwitch) {
         // Check if already initialized
         if (!themeSwitchElement.hasAttribute('data-pm7-theme-switch-initialized')) {
-          new window.PM7ThemeSwitch(themeSwitchElement);
+          new window.PM7ThemeSwitch(themeSwitchElement, {
+            onChange: function(theme) {
+              window.setTheme(theme);
+            }
+          });
           themeSwitchElement.setAttribute('data-pm7-theme-switch-initialized', 'true');
         }
       }
@@ -424,7 +428,11 @@ export function loadSharedComponents() {
         if (fixedSwitch && window.PM7ThemeSwitch) {
           // Check if already initialized
           if (!fixedSwitch.hasAttribute('data-pm7-theme-switch-initialized')) {
-            new window.PM7ThemeSwitch(fixedSwitch);
+            new window.PM7ThemeSwitch(fixedSwitch, {
+              onChange: function(theme) {
+                window.setTheme(theme);
+              }
+            });
             fixedSwitch.setAttribute('data-pm7-theme-switch-initialized', 'true');
           }
         }
@@ -490,7 +498,11 @@ export function loadFixedThemeSwitch() {
   
   // Initialize if PM7ThemeSwitch is available
   if (window.PM7ThemeSwitch) {
-    new window.PM7ThemeSwitch(fixedThemeSwitch);
+    new window.PM7ThemeSwitch(fixedThemeSwitch, {
+      onChange: function(theme) {
+        window.setTheme(theme);
+      }
+    });
   }
 }
 
@@ -504,13 +516,13 @@ window.setTheme = function(theme) {
     localStorage.setItem('pm7-theme', 'light');
   }
   
-  // Update radio buttons
-  const isDark = document.documentElement.classList.contains('dark');
+  // Update radio buttons - use string comparison for data attributes
+  const isDark = theme === 'dark';
   document.querySelectorAll('.pm7-menu-item--radio[data-name="theme"]').forEach(radio => {
     if (radio.getAttribute('data-value') === 'light') {
-      radio.setAttribute('data-checked', !isDark);
+      radio.setAttribute('data-checked', !isDark ? 'true' : 'false');
     } else if (radio.getAttribute('data-value') === 'dark') {
-      radio.setAttribute('data-checked', isDark);
+      radio.setAttribute('data-checked', isDark ? 'true' : 'false');
     }
   });
   
