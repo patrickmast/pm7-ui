@@ -80,12 +80,14 @@
   flex-direction: column;
 }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  .pm7-dialog-content {
-    background-color: #262626;
-    border-color: #525252;
-  }
+/* Dark mode overlay */
+.dark .pm7-dialog-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dark mode content shadow */
+.dark .pm7-dialog-content {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
 .pm7-dialog--open .pm7-dialog-content,

@@ -1,10 +1,12 @@
 // Documentation site JavaScript
 import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+import { PM7ThemeSwitch } from '/packages/core/src/scripts/theme-switch.js';
 import { loadSharedComponents } from './components.js';
 import { initVersionDisplay } from './version.js';
 
-// Make PM7Menu available globally for components.js
+// Make PM7 components available globally for components.js
 window.PM7Menu = PM7Menu;
+window.PM7ThemeSwitch = PM7ThemeSwitch;
 
 // Load shared components (header and footer)
 document.addEventListener('DOMContentLoaded', () => {

@@ -12,6 +12,9 @@ Use it anywhere—whether you're working in React, Vue, Angular, Svelte, or just
 
 Effortless styling. Universal compatibility. Ready to power your AI-driven workflows.
 
+📚 **[AI Agent Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-GUIDE.md)** - Comprehensive guide for AI coding agents using pm7-ui  
+❓ **[FAQ](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/FAQ.md)** - Frequently asked questions and troubleshooting
+
 ### Why pm7-ui?
 
 - **🤖 AI-First Design** - Simple CSS classes that AI agents understand instantly
@@ -19,6 +22,8 @@ Effortless styling. Universal compatibility. Ready to power your AI-driven workf
 - **📦 Lightweight** - Pure CSS + optional vanilla JS, no dependencies
 - **🚀 Copy & Paste** - AI agents can use examples directly
 - **✨ Beautiful** - Pre-designed components that look great out of the box
+- **🌓 Built-in Dark Mode** - Automatic theme detection, Theme Switch component, zero flicker
+- **♿ Fully Accessible** - WCAG 2.1 AA compliant with keyboard navigation & screen reader support
 - **🎨 No Custom CSS** - Complete styling through built-in classes - never write custom CSS!
 
 ## Upgrading from v1
@@ -27,9 +32,35 @@ Effortless styling. Universal compatibility. Ready to power your AI-driven workf
 
 ## Installation
 
+### NPM/Yarn/PNPM
+
 ```bash
 # One package for all projects
 npm install @pm7/core
+
+# Or with yarn
+yarn add @pm7/core
+
+# Or with pnpm
+pnpm add @pm7/core
+```
+
+### CDN
+
+You can also use pm7-ui directly from a CDN:
+
+```html
+<!-- Latest version -->
+<link rel="stylesheet" href="https://unpkg.com/@pm7/core@latest/dist/pm7.css">
+<script src="https://unpkg.com/@pm7/core@latest/dist/pm7.js"></script>
+
+<!-- Or specific version -->
+<link rel="stylesheet" href="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.css">
+<script src="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.js"></script>
+
+<!-- Alternative CDN (jsDelivr) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pm7/core@latest/dist/pm7.css">
+<script src="https://cdn.jsdelivr.net/npm/@pm7/core@latest/dist/pm7.js"></script>
 ```
 
 ## Important: CSS Import
@@ -79,6 +110,7 @@ Many PM7 components support automatic initialization when the DOM loads:
 // - PM7TabSelector (looks for [data-pm7-tab-selector])
 // - PM7Tooltip (looks for [data-pm7-tooltip])
 // - PM7Button (looks for .pm7-button with [data-*] attributes)
+// - PM7ThemeSwitch (looks for [data-pm7-theme-switch])
 
 // Auto-initialization happens automatically when you include the main script:
 import '@pm7/core';
@@ -183,6 +215,157 @@ When building components, follow this HTML structure pattern:
   Large Primary Button
 </button>
 ```
+
+## Dark Mode Support
+
+pm7-ui includes comprehensive dark mode support out of the box:
+
+### Features
+- **Automatic Detection** - Respects system theme preferences
+- **Theme Switch Component** - Built-in toggle for user control
+- **Zero Flicker** - No flash of light mode on page load
+- **LocalStorage Persistence** - Remembers user preference
+
+### Basic Usage
+
+```html
+<!-- Theme Switch component -->
+<div class="pm7-theme-switch" data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+```
+
+### Preventing Flicker
+
+Add this script to your `<head>` before any stylesheets to prevent flash of light mode:
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dark mode flicker prevention - MUST come BEFORE stylesheets -->
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- Your stylesheets come AFTER the script -->
+  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+</head>
+```
+
+**CRITICAL**: This script MUST be placed before any stylesheets to work correctly. It runs synchronously to set the dark class before the page renders.
+
+### Manual Control
+
+```javascript
+// Toggle dark mode
+document.documentElement.classList.toggle('dark');
+
+// Set theme explicitly
+document.documentElement.classList.add('dark');    // Dark mode
+document.documentElement.classList.remove('dark'); // Light mode
+
+// Save preference to localStorage
+localStorage.setItem('pm7-theme', 'dark');  // or 'light'
+```
+
+### Dark Mode Best Practices
+
+Based on real-world implementation experience, follow these critical guidelines:
+
+#### 1. **Always Use CSS Variables**
+```css
+/* ❌ WRONG - Never use hardcoded colors */
+.my-component {
+  background: white;
+  color: #000000;
+  border: 1px solid #e5e5e5;
+}
+
+/* ✅ CORRECT - Always use CSS variables */
+.my-component {
+  background: var(--pm7-surface);
+  color: var(--pm7-foreground);
+  border: 1px solid var(--pm7-border);
+}
+```
+
+#### 2. **Define Link Colors Explicitly**
+Browser default link colors (blue/purple) don't work well in dark mode:
+```css
+/* Add to your global styles */
+a {
+  color: var(--pm7-primary);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--pm7-primary-hover);
+}
+
+/* Prevent purple visited links in dark mode */
+.dark a:visited {
+  color: var(--pm7-primary);
+}
+```
+
+#### 3. **Test Every Component State**
+- Hover states
+- Focus states  
+- Active states
+- Disabled states
+- Selected states
+
+#### 4. **Avoid Inline Styles**
+```html
+<!-- ❌ WRONG - Inline styles don't adapt to dark mode -->
+<div style="background-color: #F8F9FA; color: #000;">
+
+<!-- ✅ CORRECT - Use CSS classes -->
+<div class="pm7-card">
+```
+
+#### 5. **Component Integration**
+When integrating Theme Switch in headers/navigation:
+```html
+<!-- Example: Theme Switch in header (right of menu) -->
+<header class="header">
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+    <!-- Left: Navigation controls -->
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button class="pm7-menu-trigger">Menu</button>
+      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+    </div>
+    
+    <!-- Center: Logo -->
+    <div style="text-align: center;">
+      <img src="logo.svg" alt="Logo">
+    </div>
+    
+    <!-- Right: Other navigation -->
+    <div style="text-align: right;">
+      <!-- Additional nav items -->
+    </div>
+  </div>
+</header>
+```
+
+### Common Dark Mode Issues & Solutions
+
+| Issue | Solution |
+|-------|----------|
+| Flash of light mode on page load | Add flicker prevention script BEFORE stylesheets |
+| Purple visited links | Define explicit link colors with CSS variables |
+| Components not updating | Ensure JS preserves existing CSS classes when initializing |
+| Inconsistent colors across pages | Use ONLY CSS variables, never hardcode colors |
+| Images too bright in dark mode | Use CSS filters: `.dark img { filter: brightness(0.8); }` |
 
 ## Development
 

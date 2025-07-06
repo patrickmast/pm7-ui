@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
   <link rel="stylesheet" href="/styles/hero-new.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -66,16 +75,16 @@
           <p>AI agents can copy examples directly. No imports, no setup, no configuration. Just HTML and CSS classes.</p>
         </div>
         <div class="pm7-docs-feature">
-          <h3>Effortless Styling</h3>
-          <p>Pre-designed components that look great out of the box. Focus on building, not tweaking styles.</p>
+          <h3>Built-in Dark Mode</h3>
+          <p>Comprehensive dark mode with automatic detection, Theme Switch component, and zero flicker. All components adapt seamlessly.</p>
         </div>
         <div class="pm7-docs-feature">
           <h3>Lightweight by Design</h3>
           <p>Pure CSS with optional vanilla JS. No framework overhead, no dependencies, just clean code.</p>
         </div>
         <div class="pm7-docs-feature">
-          <h3>AI-Driven Workflows</h3>
-          <p>Ready to power your AI-driven development. Perfect for rapid prototyping with AI assistants.</p>
+          <h3>Fully Accessible</h3>
+          <p>WCAG 2.1 AA compliant with keyboard navigation, screen reader support, and focus management built-in.</p>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@
 .pm7-tab-list {
   display: flex;
   width: 100%;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--pm7-border);
   margin-bottom: 0;
   background-color: transparent;
 }
@@ -19,7 +19,7 @@
   padding: 0.5rem 1rem;
   background: none;
   border: none;
-  color: #000000;
+  color: var(--pm7-foreground);
   opacity: 0.7;
   cursor: pointer;
   position: relative;
@@ -44,29 +44,25 @@
 .pm7-tab-trigger[data-state="active"],
 .pm7-tab-trigger.pm7-tab-trigger--active {
   opacity: 1;
-  border-bottom: 1px solid #1C86EF;
-  background-color: #f3f8ff;
+  border-bottom: 1px solid var(--pm7-primary);
+  background-color: var(--pm7-primary-light);
   margin-bottom: -1px;
   border-radius: 4px 4px 0 0;
-  color: #1C86EF;
+  color: var(--pm7-primary);
 }
 
 
 
 /* Dark mode styles */
 .dark .pm7-tab-list {
-  border-bottom-color: #374151;
-}
-
-.dark .pm7-tab-trigger {
-  color: #FAFAFA;
+  border-bottom-color: var(--pm7-border);
 }
 
 .dark .pm7-tab-trigger[data-state="active"],
 .dark .pm7-tab-trigger.pm7-tab-trigger--active {
-  border-bottom: 1px solid #1C86EF;
-  background-color: rgba(28, 134, 239, 0.15);
-  color: #1C86EF;
+  border-bottom: 1px solid var(--pm7-tab-active-border);
+  background-color: var(--pm7-tab-active-bg);
+  color: white;
 }
 
 /* Tab content */

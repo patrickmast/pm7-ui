@@ -7,6 +7,15 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -722,10 +731,10 @@ pm7Confirm('Are you sure?', (confirmed) => {
           <section class="pm7-docs-section" style="padding-top: 20px;">
             <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
 
-            <div class="pm7-card" style="background-color: #F8F9FA;">
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
               <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
-                <div class="pm7-card" style="flex: 1; position: relative; background: white; padding: 0.5rem 1rem;">
-                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: white; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md</code>
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md</code>
                   <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md"
                      target="_blank"
                      rel="noopener noreferrer"
@@ -1205,7 +1214,7 @@ pm7Confirm('Are you sure?', (confirmed) => {
     </div>
     <div data-pm7-body style="background: var(--pm7-muted); min-height: 200px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="align-self: flex-start; background: white; padding: 12px 16px; border-radius: 18px; max-width: 70%;">
+        <div style="align-self: flex-start; background: var(--pm7-surface); padding: 12px 16px; border-radius: 18px; max-width: 70%;">
           <p style="margin: 0;">Hey! How can I help you today?</p>
         </div>
         <div style="align-self: flex-end; background: var(--pm7-primary); color: white; padding: 12px 16px; border-radius: 18px; max-width: 70%;">

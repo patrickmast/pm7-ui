@@ -19,6 +19,11 @@ export class PM7ThemeSwitch {
   }
 
   init() {
+    // Add base class if not present
+    if (!this.element.classList.contains('pm7-theme-switch')) {
+      this.element.classList.add('pm7-theme-switch');
+    }
+    
     // Get or create button
     this.button = this.element.querySelector('.pm7-theme-switch-button');
     if (!this.button) {

@@ -2,8 +2,8 @@
 
 /* Base card */
 .pm7-card {
-  background-color: var(--pm7-background);
-  border: 1px solid #e0e0e0;
+  background-color: var(--pm7-surface);
+  border: 1px solid var(--pm7-border);
   border-radius: var(--pm7-card-radius);
   padding: var(--pm7-card-padding);
   display: flex;

@@ -18,6 +18,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Loading state during navigation */
@@ -58,17 +59,15 @@ body.pm7-navigating .pm7-docs-sidebar a {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--pm7-surface);
+  background: var(--pm7-header-bg, var(--pm7-surface));
   border-bottom: 1px solid var(--pm7-border);
   box-shadow: var(--pm7-shadow-sm);
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .pm7-docs-nav-inner {
   width: 100%;
   padding: 0 var(--pm7-spacing-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   height: 64px;
   position: relative;
 }
@@ -278,18 +277,20 @@ body.pm7-navigating .pm7-docs-sidebar a {
 
 /* Code blocks */
 pre {
-  background: var(--pm7-muted);
+  background: var(--pm7-code-bg, var(--pm7-muted));
   padding: var(--pm7-spacing-4);
   border-radius: var(--pm7-radius);
   overflow-x: auto;
+  transition: background-color 0.3s;
 }
 
 code {
   font-family: var(--pm7-font-mono);
   font-size: var(--pm7-text-sm);
-  background: var(--pm7-muted);
+  background: var(--pm7-code-bg, var(--pm7-muted));
   padding: var(--pm7-spacing-1);
   border-radius: var(--pm7-radius-sm);
+  transition: background-color 0.3s;
 }
 
 pre code {
@@ -314,14 +315,15 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   display: flex;
   flex: 1;
   position: relative;
-  background: white;
+  background: var(--pm7-background);
 }
 
 .pm7-docs-sidebar {
   width: 200px;
   flex-shrink: 0;
-  background: #F8F9FA;
+  background: var(--pm7-sidebar-bg);
   min-height: 100%;
+  transition: background-color 0.3s;
 }
 
 /* Ensure PM7 buttons in sidebar don't have default button height */
@@ -331,6 +333,35 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   font-weight: normal;
   text-align: left;
   font-size: var(--pm7-text-base);
+}
+
+/* Dark mode sidebar button hover */
+.dark .pm7-docs-sidebar .pm7-button:hover {
+  background-color: var(--pm7-sidebar-active);
+}
+
+/* Link styles */
+a {
+  color: var(--pm7-primary);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--pm7-primary-hover);
+}
+
+/* Dark mode link colors */
+.dark a {
+  color: var(--pm7-primary);
+}
+
+.dark a:hover {
+  color: var(--pm7-primary-hover);
+}
+
+/* Visited links should maintain primary color in dark mode */
+.dark a:visited {
+  color: var(--pm7-primary);
 }
 
 /* Override card padding for sidebar */
@@ -343,7 +374,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   flex: 1;
   padding: var(--pm7-spacing-8);
   overflow-x: auto;
-  background: white;
+  background: var(--pm7-background);
   max-width: 1000px;
 }
 
@@ -406,6 +437,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   min-height: 200px;
   flex-wrap: wrap;
   gap: var(--pm7-spacing-4);
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Centered preview for components that need centering */
@@ -457,6 +489,12 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   background: #e7f3ff;
   border-color: #b3d9ff;
   text-align: center;
+}
+
+/* Dark mode AI info card */
+.dark .pm7-docs-info--ai {
+  background: rgba(59, 158, 255, 0.1);
+  border-color: rgba(59, 158, 255, 0.3);
 }
 
 .pm7-docs-info--ai h3 {
@@ -535,11 +573,12 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 /* Footer Styles */
 .pm7-footer {
   border-top: 1px solid var(--pm7-border);
-  background-color: var(--pm7-muted);
+  background-color: var(--pm7-footer-bg, var(--pm7-muted));
   padding: var(--pm7-spacing-4) var(--pm7-spacing-6);
   margin-top: auto; /* This pushes the footer to the bottom */
   position: relative;
   z-index: 10;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .pm7-footer-content {
@@ -549,7 +588,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   max-width: 1000px;
   margin: 0 auto;
   font-size: 14px;
-  color: var(--pm7-text-secondary);
+  color: var(--pm7-footer-text, var(--pm7-text-secondary));
 }
 
 .pm7-footer-left {
@@ -592,6 +631,11 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   height: 16px;
 }
 
+/* Make logo white in dark mode */
+.dark .pm7-footer-logo {
+  filter: invert(1) brightness(2);
+}
+
 .pm7-footer-github {
   display: flex;
   align-items: center;
@@ -614,7 +658,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 /* Footer Responsive */
 @media (max-width: 768px) {
   .pm7-footer {
-    background-color: white;
+    background-color: var(--pm7-background);
   }
   
   .pm7-footer-content {
@@ -635,8 +679,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 
 /* PM7 Menu in Documentation Header */
 .pm7-docs-header-menu {
-  position: absolute;
-  left: var(--pm7-spacing-4);
+  position: relative;
 }
 
 .pm7-docs-menu-trigger {
@@ -761,37 +804,24 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   margin-top: var(--pm7-spacing-8);
 }
 
-/* Mobile logo - hidden by default */
-.pm7-mobile-logo {
-  display: none;
-}
 
 /* Hide specific elements on mobile */
 @media (max-width: 768px) {
   /* Mobile header adjustments */
   .pm7-docs-nav {
-    justify-content: center;
-    background-color: white;
+    background-color: var(--pm7-background);
   }
   
   .pm7-docs-nav-inner {
-    justify-content: center;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
   }
   
-  /* Hide menu button, desktop navigation and desktop logo on mobile */
-  .pm7-docs-header-menu,
-  .pm7-docs-nav-menu,
-  .pm7-docs-nav-inner > div,
-  .pm7-desktop-logo {
+  /* Hide desktop navigation on mobile */
+  .pm7-docs-nav-menu {
     display: none !important;
-  }
-  
-  /* Show mobile logo */
-  .pm7-mobile-logo {
-    display: flex !important;
-    align-items: center;
-    margin: 0 auto;
   }
   
   /* Hide buttons on mobile */

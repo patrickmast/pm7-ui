@@ -54,35 +54,78 @@
   
   --pm7-card-footer-bg: #f7fafc;
   
+  --pm7-tooltip-bg: #1a1a1a;
+  --pm7-tooltip-color: #ffffff;
+  
   /* Focus ring */
   --pm7-ring: var(--pm7-primary);
   --pm7-ring-offset: #ffffff;
+  
+  /* Input */
+  --pm7-input: #ffffff;
+  
+  /* Documentation site */
+  --pm7-sidebar-bg: #F8F9FA;
+  --pm7-footer-bg: #f5f5f5;
+  --pm7-footer-text: var(--pm7-text-secondary);
+  --pm7-header-bg: var(--pm7-surface);
   
   /* PM7 specific brand colors */
   --pm7-primary-light: #e6f2ff;
 }
 
-/* Dark mode */
+/* Dark mode - System preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --pm7-background: #1a1a1a;
-    --pm7-foreground: #ffffff;
-    --pm7-muted: #262626;
-    --pm7-muted-foreground: #a3a3a3;
+    /* Main colors from old site */
+    --pm7-background: #121212;
+    --pm7-foreground: #e0e0e0;
+    --pm7-text-primary: #e0e0e0;
+    --pm7-text-secondary: #999999;
     
-    --pm7-border: #525252;
+    /* Primary color adjusted for dark mode */
+    --pm7-primary: #3b9eff;
+    --pm7-primary-hover: #2a8fe5;
+    --pm7-primary-active: #1976D2;
+    --pm7-primary-foreground: #ffffff;
+    
+    /* Neutral colors */
+    --pm7-muted: #2d2d2d;
+    --pm7-muted-foreground: #9ca3af;
+    
+    /* Border colors */
+    --pm7-border: #444;
     --pm7-border-hover: #666666;
     
-    --pm7-surface: #262626;
+    /* Surface colors */
+    --pm7-surface: #1e1e1e;
     --pm7-surface-hover: #2a2a2a;
-    --pm7-surface-active: #303030;
+    --pm7-surface-active: #333;
     
-    --pm7-menu-bg: var(--pm7-surface);
-    --pm7-ring-offset: #000000;
+    /* Component specific */
+    --pm7-menu-bg: #1e1e1e;
+    --pm7-ring-offset: #121212;
+    --pm7-input: #1e1e1e;
     
-    --pm7-card-footer-bg: var(--pm7-surface);
+    /* Card specific */
+    --pm7-card-footer-bg: #1a1a1a;
     
-    /* Status colors adjustments */
+    /* Additional dark mode colors from old site */
+    --pm7-sidebar-bg: #1E1E1E;
+    --pm7-sidebar-active: #2a2a2a;
+    --pm7-header-bg: var(--pm7-surface);
+    --pm7-header-dark-bg: #0a4b87;
+    --pm7-footer-bg: #1a1a1a;
+    --pm7-footer-text: #e0e0e0;
+    --pm7-tab-active-bg: #333;
+    --pm7-tab-active-border: #3b9eff;
+    --pm7-code-bg: #2d2d2d;
+    
+    /* Tooltip stays same in dark mode - already dark */
+    --pm7-tooltip-bg: #1a1a1a;
+    --pm7-tooltip-color: #ffffff;
+    
+    /* Status colors adjusted for dark mode */
     --pm7-success-light: #052e16;
     --pm7-success-dark: #22c55e;
     --pm7-warning-light: #451a03;
@@ -92,26 +135,57 @@
   }
 }
 
-/* Dark mode class override */
+/* Dark mode class override - Using colors from old site */
 .dark {
-  --pm7-background: #1a1a1a;
-  --pm7-foreground: #ffffff;
-  --pm7-muted: #262626;
-  --pm7-muted-foreground: #a3a3a3;
+  /* Main colors from old site */
+  --pm7-background: #121212;
+  --pm7-foreground: #e0e0e0;
+  --pm7-text-primary: #e0e0e0;
+  --pm7-text-secondary: #999999;
   
-  --pm7-border: #525252;
+  /* Primary color adjusted for dark mode */
+  --pm7-primary: #3b9eff;
+  --pm7-primary-hover: #2a8fe5;
+  --pm7-primary-active: #1976D2;
+  --pm7-primary-foreground: #ffffff;
+  
+  /* Neutral colors */
+  --pm7-muted: #2d2d2d;
+  --pm7-muted-foreground: #9ca3af;
+  
+  /* Border colors */
+  --pm7-border: #444;
   --pm7-border-hover: #666666;
   
-  --pm7-surface: #262626;
+  /* Surface colors */
+  --pm7-surface: #1e1e1e;
   --pm7-surface-hover: #2a2a2a;
-  --pm7-surface-active: #303030;
+  --pm7-surface-active: #333;
   
-  --pm7-menu-bg: var(--pm7-surface);
-  --pm7-ring-offset: #000000;
+  /* Component specific */
+  --pm7-menu-bg: #1e1e1e;
+  --pm7-ring-offset: #121212;
+  --pm7-input: #1e1e1e;
   
-  --pm7-card-footer-bg: var(--pm7-surface);
+  /* Card specific */
+  --pm7-card-footer-bg: #1a1a1a;
   
-  /* Status colors adjustments */
+  /* Additional dark mode colors from old site */
+  --pm7-sidebar-bg: #1E1E1E;
+  --pm7-sidebar-active: #2a2a2a;
+  --pm7-header-bg: var(--pm7-surface);
+  --pm7-header-dark-bg: #0a4b87;
+  --pm7-footer-bg: #1a1a1a;
+  --pm7-footer-text: #e0e0e0;
+  --pm7-tab-active-bg: #333;
+  --pm7-tab-active-border: #3b9eff;
+  --pm7-code-bg: #2d2d2d;
+  
+  /* Tooltip stays same in dark mode - already dark */
+  --pm7-tooltip-bg: #1a1a1a;
+  --pm7-tooltip-color: #ffffff;
+  
+  /* Status colors adjusted for dark mode */
   --pm7-success-light: #052e16;
   --pm7-success-dark: #22c55e;
   --pm7-warning-light: #451a03;

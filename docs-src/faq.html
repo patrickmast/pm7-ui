@@ -7,6 +7,15 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/packages/core/src/styles/index.css">
     <link rel="stylesheet" href="/styles/docs.css">
+    <script>
+      // Prevent dark mode flicker - must run before page renders
+      (function() {
+        const savedTheme = localStorage.getItem('pm7-theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <style>
         .copy-button {
             position: absolute;
@@ -179,17 +188,101 @@ import '@pm7/core/dist/pm7.css';</code><button class="copy-button">Copy</button>
                     </button>
                     <div class="pm7-accordion-content">
                         <div class="pm7-accordion-content-inner">
-                            <p>Yes! pm7-ui has built-in dark mode support. You can enable it by adding the <code>dark</code> class to a parent element:</p>
-                            <pre><code class="language-html">&lt;!-- Dark mode for entire page --&gt;
-&lt;body class="dark"&gt;
-  &lt;!-- Your content --&gt;
-&lt;/body&gt;
-
-&lt;!-- Dark mode for specific section --&gt;
-&lt;div class="dark"&gt;
-  &lt;button class="pm7-button"&gt;Dark Button&lt;/button&gt;
+                            <p>Yes! pm7-ui has comprehensive dark mode support with automatic theme detection. All components automatically adapt to dark mode. Features include:</p>
+                            <ul>
+                                <li><strong>Automatic detection</strong> - Respects system theme preferences</li>
+                                <li><strong>Theme Switch component</strong> - Built-in toggle for users</li>
+                                <li><strong>LocalStorage persistence</strong> - Remembers user preference</li>
+                                <li><strong>No flicker</strong> - Smooth transitions between themes</li>
+                            </ul>
+                            <p>Add a Theme Switch to let users toggle between modes:</p>
+                            <pre><code class="language-html">&lt;!-- Basic theme switch --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+  &lt;span&gt;Theme&lt;/span&gt;
 &lt;/div&gt;</code><button class="copy-button">Copy</button></pre>
-                            <p>Components will automatically adapt their colors for optimal contrast in dark mode.</p>
+                            <p>Or manually control dark mode:</p>
+                            <pre><code class="language-html">&lt;!-- Dark mode for entire page --&gt;
+&lt;html class="dark"&gt;
+  &lt;!-- Your content --&gt;
+&lt;/html&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I prevent dark mode flicker on page load?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>When implementing dark mode, you might see a brief flash of light mode before dark mode is applied. To prevent this, add a small script to your <code>&lt;head&gt;</code> BEFORE any stylesheets:</p>
+                            <pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  
+  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
+  &lt;script&gt;
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  &lt;/script&gt;
+  
+  &lt;!-- Your stylesheets come AFTER the script --&gt;
+  &lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
+&lt;/head&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>This script runs synchronously before the page renders, eliminating any flicker.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I customize the dark mode colors?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! pm7-ui's dark mode colors can be customized using CSS variables. Override them in your stylesheet:</p>
+                            <pre><code class="language-css">.dark {
+  /* Background colors */
+  --pm7-background: #0a0a0a;
+  --pm7-surface: #1a1a1a;
+  --pm7-muted: #262626;
+  
+  /* Text colors */
+  --pm7-foreground: #fafafa;
+  --pm7-muted-foreground: #a3a3a3;
+  
+  /* Primary colors */
+  --pm7-primary: #3b9eff;
+  --pm7-primary-foreground: #ffffff;
+  
+  /* Borders */
+  --pm7-border: #404040;
+}</code><button class="copy-button">Copy</button></pre>
+                            <p>All components will automatically use your custom dark mode colors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What are common dark mode implementation mistakes?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Based on our experience implementing dark mode in pm7-ui, here are common mistakes to avoid:</p>
+                            <ul>
+                                <li><strong>Hardcoded colors</strong> - Using <code>background: white</code> or <code>color: #000</code> instead of CSS variables</li>
+                                <li><strong>Missing link styles</strong> - Forgetting to style links, resulting in purple visited links in dark mode</li>
+                                <li><strong>Inline styles</strong> - Using <code>style="background-color: #F8F9FA"</code> which doesn't adapt to dark mode</li>
+                                <li><strong>Component state bugs</strong> - Not preserving CSS classes when JavaScript initializes components</li>
+                                <li><strong>Incomplete coverage</strong> - Only adding dark mode to some pages, not the entire site</li>
+                                <li><strong>Missing flicker prevention</strong> - Not adding the prevention script, causing a flash of light mode</li>
+                            </ul>
+                            <p><strong>Solution:</strong> Always use CSS variables, test every page, and follow the implementation guide in our Getting Started documentation.</p>
                         </div>
                     </div>
                 </div>

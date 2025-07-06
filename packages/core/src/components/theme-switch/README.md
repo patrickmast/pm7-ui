@@ -186,6 +186,48 @@ themeSwitch.toggle();
 </nav>
 ```
 
+### Header with Menu and Centered Logo
+
+Common pattern for headers with hamburger menu, theme switch, and centered logo:
+
+```html
+<header class="header">
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+    <!-- Left: Menu button and Theme Switch -->
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button class="pm7-menu-trigger" aria-label="Toggle menu">
+        <svg width="24" height="24"><!-- hamburger icon --></svg>
+      </button>
+      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+    </div>
+    
+    <!-- Center: Logo -->
+    <div style="text-align: center;">
+      <img src="logo.svg" alt="Company Logo" height="32">
+    </div>
+    
+    <!-- Right: Additional navigation -->
+    <div style="text-align: right;">
+      <a href="/login">Login</a>
+    </div>
+  </div>
+</header>
+```
+
+### Settings Panel
+
+```html
+<div class="settings-panel">
+  <h3>Appearance</h3>
+  <div class="setting-item">
+    <label>Theme</label>
+    <div class="pm7-theme-switch" data-pm7-theme-switch>
+      <span>Dark mode</span>
+    </div>
+  </div>
+</div>
+```
+
 ### With Custom onChange Handler
 
 ```javascript
@@ -203,6 +245,65 @@ const themeSwitch = new PM7ThemeSwitch(element, {
     });
   }
 });
+```
+
+## Dark Mode Implementation
+
+### Preventing Dark Mode Flicker
+
+To prevent a flash of light mode when your page loads in dark mode, add this script to your `<head>` BEFORE any stylesheets:
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dark mode flicker prevention - MUST come BEFORE stylesheets -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- Your stylesheets come AFTER the script -->
+  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+  <link rel="stylesheet" href="your-styles.css">
+</head>
+```
+
+### Full Implementation Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Flicker prevention script here -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+</head>
+<body>
+  <!-- Theme switch auto-initializes on page load -->
+  <div class="pm7-theme-switch" data-pm7-theme-switch>
+    <span>Theme</span>
+  </div>
+  
+  <script type="module">
+    import '@pm7/core';
+    // Theme switch is now active!
+  </script>
+</body>
+</html>
 ```
 
 ## Styling
@@ -286,3 +387,13 @@ The Theme Switch component follows WCAG 2.1 AA guidelines:
 - The component creates SVG icons automatically
 - If overriding styles, ensure the icons remain visible
 - Check for CSS conflicts that might hide the SVG elements
+
+### Size modifiers not working
+- The component preserves existing CSS classes when initializing
+- Ensure size modifier classes (e.g., `pm7-theme-switch--sm`) are present in the HTML
+- If adding size dynamically, do so before initialization or reinitialize the component
+
+### Dark mode flicker on page load
+- Add the flicker prevention script to your `<head>` BEFORE any stylesheets
+- The script must run synchronously to set the dark class before rendering
+- See the "Dark Mode Implementation" section for the complete solution

@@ -1,7 +1,7 @@
 /* PM7 Accordion Component */
 
 .pm7-accordion {
-  --pm7-accordion-border: #e0e0e0;
+  --pm7-accordion-border: var(--pm7-border);
   --pm7-accordion-radius: var(--pm7-card-radius);
   --pm7-accordion-bg: var(--pm7-background);
   --pm7-accordion-bg-hover: var(--pm7-muted);
@@ -15,15 +15,15 @@
 /* Accordion Item - Card-like styling */
 .pm7-accordion-item {
   width: 100%;
-  background-color: var(--pm7-background);
-  border: 1px solid #e0e0e0;
+  background-color: var(--pm7-surface);
+  border: 1px solid var(--pm7-accordion-border);
   border-radius: var(--pm7-card-radius);
   transition: box-shadow 200ms, border-color 200ms;
 }
 
 .pm7-accordion-item:hover {
   box-shadow: var(--pm7-card-shadow-hover);
-  border-color: var(--pm7-primary-lighter, #4A9EFF);
+  border-color: var(--pm7-primary);
 }
 
 /* Accordion Trigger (Header) */
@@ -112,13 +112,12 @@
   left: var(--pm7-card-padding);
   right: var(--pm7-card-padding);
   height: 1px;
-  background-color: #F5F5F5;
+  background-color: var(--pm7-border);
 }
 
 /* Dark mode separator */
-.pm7-dark .pm7-accordion-content[data-state="open"]::before,
-[data-theme="dark"] .pm7-accordion-content[data-state="open"]::before {
-  background-color: rgba(255, 255, 255, 0.1);
+.dark .pm7-accordion-content[data-state="open"]::before {
+  background-color: var(--pm7-border);
 }
 
 /* No separator variant */
@@ -399,9 +398,21 @@
 }
 
 /* Dark mode adjustments */
-.pm7-dark .pm7-accordion-item,
-[data-theme="dark"] .pm7-accordion-item {
-  --pm7-accordion-border: var(--pm7-dark-border);
-  --pm7-accordion-bg: var(--pm7-dark-background);
-  --pm7-accordion-bg-hover: var(--pm7-dark-muted);
+.dark .pm7-accordion-item:hover {
+  border-color: var(--pm7-primary);
+}
+
+/* Dark mode scrollbar */
+.dark .pm7-accordion--height-sm .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
+.dark .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
+.dark .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
+.dark .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .pm7-accordion--height-sm .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
+.dark .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
+.dark .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
+.dark .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }

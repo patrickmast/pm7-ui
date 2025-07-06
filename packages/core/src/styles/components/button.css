@@ -39,6 +39,11 @@
   box-shadow: var(--pm7-button-focus-shadow);
 }
 
+/* Dark mode focus shadow */
+.dark .pm7-button {
+  --pm7-button-focus-shadow: 0 0 0 3px rgb(59 158 255 / 0.3);
+}
+
 /* Disabled state */
 .pm7-button:disabled,
 .pm7-button[disabled],
@@ -51,6 +56,15 @@
   border-color: #E5E7EB !important;
 }
 
+/* Dark mode disabled state */
+.dark .pm7-button:disabled,
+.dark .pm7-button[disabled],
+.dark .pm7-button[aria-disabled="true"] {
+  background-color: #2a2a2a !important;
+  color: #666666 !important;
+  border-color: #2a2a2a !important;
+}
+
 /* Active state */
 .pm7-button:active:not(:disabled) {
   transform: translateY(1px);
@@ -61,14 +75,14 @@
 /* Primary (default) */
 .pm7-button--primary,
 .pm7-button--default {
-  background-color: #1C86EF;
+  background-color: var(--pm7-primary);
   color: var(--pm7-primary-foreground);
   box-shadow: var(--pm7-button-shadow);
 }
 
 .pm7-button--primary:hover:not(:disabled),
 .pm7-button--default:hover:not(:disabled) {
-  background-color: #1976D2;
+  background-color: var(--pm7-primary-hover);
   box-shadow: var(--pm7-button-shadow-hover);
 }
 

@@ -7,6 +7,15 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -111,11 +120,73 @@ import '@pm7/core/dist/pm7.css';</code></pre>
 }</code></pre>
       
       <h3>Dark Mode</h3>
-      <p>pm7-ui supports dark mode automatically using <code>prefers-color-scheme</code>. You can also toggle it manually:</p>
-      <pre><code>&lt;!-- Add 'dark' class to html or body --&gt;
-&lt;html class="dark"&gt;
-  ...
-&lt;/html&gt;</code></pre>
+      <p>pm7-ui includes comprehensive dark mode support with automatic theme detection and a built-in Theme Switch component. All components automatically adapt to dark mode.</p>
+      
+      <h4>Automatic Theme Detection</h4>
+      <p>pm7-ui automatically detects the user's system preference using <code>prefers-color-scheme</code>. No setup required!</p>
+      
+      <h4>Theme Switch Component</h4>
+      <p>Add a theme toggle to let users switch between light and dark modes:</p>
+      <pre><code>&lt;!-- Basic theme switch --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+  &lt;span&gt;Theme&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Small size variant --&gt;
+&lt;div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
+      
+      <h4>Preventing Dark Mode Flicker</h4>
+      <p><strong>Important:</strong> To prevent a flash of light mode when loading dark mode, add this script to your <code>&lt;head&gt;</code> before any stylesheets:</p>
+      <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  
+  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
+  &lt;script&gt;
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  &lt;/script&gt;
+  
+  &lt;!-- Your stylesheets come AFTER the script --&gt;
+  &lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
+&lt;/head&gt;</code></pre>
+      
+      <h4>Manual Theme Control</h4>
+      <p>You can also manually control the theme by adding/removing the <code>dark</code> class:</p>
+      <pre><code>// Toggle dark mode programmatically
+document.documentElement.classList.toggle('dark');
+
+// Or set explicitly
+document.documentElement.classList.add('dark');    // Enable dark mode
+document.documentElement.classList.remove('dark'); // Enable light mode</code></pre>
+      
+      <h4>Custom Dark Mode Colors</h4>
+      <p>Override dark mode colors using CSS variables:</p>
+      <pre><code>.dark {
+  /* Custom dark mode colors */
+  --pm7-background: #0a0a0a;
+  --pm7-foreground: #fafafa;
+  --pm7-primary: #3b9eff;
+}</code></pre>
+      
+      <h4>Dark Mode Best Practices</h4>
+      <p>When implementing dark mode in your application, follow these best practices we've learned:</p>
+      <ul>
+        <li><strong>Use CSS variables everywhere</strong> - Never hardcode colors. Use <code>var(--pm7-surface)</code> instead of <code>white</code> or <code>#ffffff</code></li>
+        <li><strong>Test all pages</strong> - Dark mode should work consistently across your entire application</li>
+        <li><strong>Define link colors</strong> - Don't rely on browser defaults. Set link colors explicitly:
+          <pre><code>a { color: var(--pm7-primary); }
+.dark a { color: var(--pm7-primary); }
+.dark a:visited { color: var(--pm7-primary); }</code></pre>
+        </li>
+        <li><strong>Check inline styles</strong> - Replace inline <code>style="background: white"</code> with CSS variables</li>
+        <li><strong>Test component states</strong> - Verify hover, focus, active, and disabled states in both themes</li>
+        <li><strong>Avoid CSS conflicts</strong> - Be careful with global selectors that might override dark mode styles</li>
+      </ul>
     </section>
     
     <section style="margin-top: 60px;">

@@ -7,6 +7,15 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -57,7 +66,14 @@
               <li>Multiple size variants</li>
               <li>Accessible keyboard navigation</li>
               <li>Works with any framework</li>
+              <li>Flicker prevention solution included</li>
             </ul>
+            
+            <div style="background: var(--pm7-warning-bg, #FFF3CD); color: var(--pm7-warning-text, #856404); padding: 1rem; border-radius: var(--pm7-radius); margin-top: 1rem; border: 1px solid var(--pm7-warning-border, #FFEEBA);">
+              <strong>⚠️ Common Issue: Dark Mode Flicker</strong><br>
+              Without proper setup, pages may briefly flash light mode before switching to dark mode on refresh. 
+              See the <strong>"Preventing Dark Mode Flicker"</strong> section in the Usage tab for the solution.
+            </div>
             
             <h3>Anatomy</h3>
             <ul>
@@ -105,42 +121,13 @@
               <h3>Header Integration Example</h3>
               <p>How the theme toggle looks in a typical application header.</p>
               <div class="pm7-docs-preview">
-                <div style="background: var(--pm7-card); padding: 1rem 2rem; border-radius: var(--pm7-radius); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--pm7-border);">
+                <div style="background: var(--pm7-surface); padding: 1rem 2rem; border-radius: var(--pm7-radius); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--pm7-border); gap: 2rem;">
                   <h3 style="margin: 0; color: var(--pm7-foreground);">My Application</h3>
                   <div class="pm7-theme-switch" data-pm7-theme-switch></div>
                 </div>
               </div>
             </div>
 
-            <div class="pm7-docs-example">
-              <h3>Settings Panel Example</h3>
-              <p>Theme toggle as part of a settings or preferences panel.</p>
-              <div class="pm7-docs-preview">
-                <div class="pm7-card" style="max-width: 400px;">
-                  <div class="pm7-card-body">
-                    <h4 style="margin: 0 0 1rem 0;">Preferences</h4>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                      <div>
-                        <div style="font-weight: 500;">Theme</div>
-                        <div style="font-size: 0.9rem; color: var(--pm7-muted-foreground);">
-                          Choose your preferred color scheme
-                        </div>
-                      </div>
-                      <div class="pm7-theme-switch" data-pm7-theme-switch></div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <div>
-                        <div style="font-weight: 500;">Notifications</div>
-                        <div style="font-size: 0.9rem; color: var(--pm7-muted-foreground);">
-                          Enable push notifications
-                        </div>
-                      </div>
-                      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch data-apply-to-root="false"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="pm7-docs-example">
               <h3>Keyboard Navigation Test</h3>
@@ -155,28 +142,6 @@
               </p>
             </div>
 
-            <div class="pm7-docs-example">
-              <h3>Without Label</h3>
-              <div class="pm7-docs-preview" style="display: flex; gap: 1rem; align-items: center;">
-                <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
-                <div class="pm7-theme-switch" data-pm7-theme-switch></div>
-                <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Label Position</h3>
-              <div class="pm7-docs-preview">
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div class="pm7-theme-switch" data-pm7-theme-switch>
-                    <span>Label after (default)</span>
-                  </div>
-                  <div class="pm7-theme-switch pm7-theme-switch--label-start" data-pm7-theme-switch>
-                    <span>Label before</span>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="pm7-docs-example">
               <h3>Disabled State</h3>
@@ -291,19 +256,19 @@
                   <td><code>data-default-theme</code></td>
                   <td>string</td>
                   <td>null</td>
-                  <td>Override default theme ('light' or 'dark')</td>
+                  <td>Override default theme ('light' or 'dark'). Maps to <code>defaultTheme</code> option.</td>
                 </tr>
                 <tr>
                   <td><code>data-storage-key</code></td>
                   <td>string</td>
                   <td>'pm7-theme'</td>
-                  <td>LocalStorage key for persistence</td>
+                  <td>LocalStorage key for persistence. Maps to <code>storageKey</code> option.</td>
                 </tr>
                 <tr>
                   <td><code>data-apply-to-root</code></td>
                   <td>boolean</td>
                   <td>true</td>
-                  <td>Apply 'dark' class to document root</td>
+                  <td>Apply 'dark' class to document root. Maps to <code>applyToRoot</code> option.</td>
                 </tr>
               </tbody>
             </table>
@@ -317,10 +282,23 @@
 &lt;!-- Without label --&gt;
 &lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;&lt;/div&gt;
 
-&lt;!-- Small size --&gt;
+&lt;!-- Small size (use CSS class, not data attribute) --&gt;
 &lt;div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch&gt;
   &lt;span&gt;Dark mode&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+
+            <h3>Auto-initialization</h3>
+            <p>Theme Switch components with the <code>data-pm7-theme-switch</code> attribute are automatically initialized when the DOM loads. This means you don't need to write any JavaScript for basic usage.</p>
+            <pre><code class="language-html">&lt;!-- This will auto-initialize on page load --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;&lt;/div&gt;
+
+&lt;!-- Prevent auto-initialization if you want manual control --&gt;
+&lt;div class="pm7-theme-switch my-custom-switch"&gt;&lt;/div&gt;
+&lt;script&gt;
+  // Manually initialize later
+  const element = document.querySelector('.my-custom-switch');
+  new PM7ThemeSwitch(element, { /* options */ });
+&lt;/script&gt;</code></pre>
 
             <h3>React Example</h3>
             <pre><code class="language-jsx">function App() {
@@ -341,11 +319,13 @@
             <h3>JavaScript API</h3>
             <pre><code class="language-javascript">import { PM7ThemeSwitch } from '@pm7/core';
 
-// Manual initialization
+// Manual initialization with all options
 const element = document.querySelector('.my-theme-switch');
 const themeSwitch = new PM7ThemeSwitch(element, {
-  defaultTheme: 'dark',
-  onChange: (theme) => {
+  defaultTheme: 'dark',     // 'light', 'dark', or null for auto-detect
+  storageKey: 'pm7-theme',  // LocalStorage key for persistence
+  applyToRoot: true,        // Apply 'dark' class to document root
+  onChange: (theme) => {    // Called on user interaction only
     console.log('Theme changed to:', theme);
   }
 });
@@ -353,7 +333,10 @@ const themeSwitch = new PM7ThemeSwitch(element, {
 // Methods
 themeSwitch.setTheme('dark');  // Set theme programmatically
 themeSwitch.getTheme();         // Get current theme
-themeSwitch.toggle();           // Toggle theme</code></pre>
+themeSwitch.toggle();           // Toggle theme
+
+// Static method for auto-initialization
+PM7ThemeSwitch.autoInit();     // Initialize all [data-pm7-theme-switch] elements</code></pre>
 
             <h3>Custom Storage Key</h3>
             <pre><code class="language-html">&lt;!-- Use a custom localStorage key --&gt;
@@ -369,6 +352,40 @@ themeSwitch.toggle();           // Toggle theme</code></pre>
      data-apply-to-root="false"&gt;
 &lt;/div&gt;</code></pre>
 
+            <h3>Preventing Dark Mode Flicker</h3>
+            <p>When implementing dark mode, users may experience a "flicker" where the page briefly shows in light mode before switching to dark mode on refresh. To prevent this, add the following script in your HTML <code>&lt;head&gt;</code> before any stylesheets:</p>
+            <pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Your App&lt;/title&gt;
+  
+  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
+  &lt;script&gt;
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  &lt;/script&gt;
+  
+  &lt;!-- Your stylesheets come AFTER the script --&gt;
+  &lt;link rel="stylesheet" href="@pm7/core/styles/index.css"&gt;
+  &lt;link rel="stylesheet" href="your-styles.css"&gt;
+&lt;/head&gt;</code></pre>
+            <p><strong>Why this works:</strong> The script runs synchronously before the browser starts rendering, applying the dark class immediately if needed. This eliminates the visual flicker that occurs when dark mode is applied after the page loads.</p>
+
+            <h3>Important Notes</h3>
+            <ul>
+              <li>The <code>onChange</code> callback is only triggered by user interaction, not during initial theme setup</li>
+              <li>Size variants must be applied using CSS classes (e.g., <code>pm7-theme-switch--sm</code>), not data attributes</li>
+              <li>Components are automatically initialized on page load if they have the <code>data-pm7-theme-switch</code> attribute</li>
+              <li>The component automatically detects and respects system theme preferences</li>
+              <li>Theme preference is persisted in localStorage and survives page reloads</li>
+              <li><strong>Prevent flicker:</strong> Add the flicker prevention script (see above) to your HTML <code>&lt;head&gt;</code> to avoid light mode flash on page refresh</li>
+            </ul>
+
             <h3>Accessibility</h3>
             <p>The Theme Switch component is fully accessible:</p>
             <ul>
@@ -383,28 +400,37 @@ themeSwitch.toggle();           // Toggle theme</code></pre>
 
         <!-- Documentation Tab -->
         <div class="pm7-tab-content" id="documentation-panel">
-          <section class="pm7-docs-section">
-            <div class="pm7-docs-info pm7-docs-info--ai">
-              <div class="pm7-docs-info-header">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
-                <h3>AI-Optimized Documentation</h3>
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link to share the Theme Switch documentation with AI assistants:</p>
+            
+            <!-- Documentation Link Card -->
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="padding-right: 48px; display: block; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--pm7-primary);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" onclick="copyThemeSwitchReadme()" style="min-width: 100px;">Copy</button>
               </div>
-              <p>This documentation link is optimized for AI coding assistants. Copy the URL below to give AI assistants full context about this component.</p>
-              <div class="pm7-docs-info-actions">
-                <code id="theme-switch-readme-url">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md</code>
-                <button class="pm7-button pm7-button--sm" onclick="copyThemeSwitchReadme()">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                  </svg>
-                  Copy URL
-                </button>
-              </div>
-              <p style="margin-top: 16px; font-size: 14px;">
-                <strong>Pro tip:</strong> Include this URL when asking AI assistants to implement the Theme Switch component. The documentation includes complete implementation details, examples, and best practices.
+            </div>
+            
+            <!-- AI Documentation Info -->
+            <div class="pm7-docs-info pm7-docs-info--ai" style="margin-top: 32px;">
+              <h3 style="margin-top: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>
+                The documentation link above provides AI assistants with complete context about the Theme Switch component,
+                including all props, methods, examples, and best practices.
+              </p>
+              <p style="margin-top: 16px;">
+                <strong>Tip:</strong> When asking AI assistants to help implement the Theme Switch, include this documentation
+                link for accurate, up-to-date information about the component API.
               </p>
             </div>
           </section>
@@ -427,15 +453,15 @@ themeSwitch.toggle();           // Toggle theme</code></pre>
   </script>
   <script>
     function copyThemeSwitchReadme() {
-      const url = document.getElementById('theme-switch-readme-url').textContent;
+      const url = document.getElementById('doc-link').textContent;
       navigator.clipboard.writeText(url).then(() => {
         const button = event.target.closest('button');
-        const originalContent = button.innerHTML;
-        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg> Copied!';
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
         button.classList.add('pm7-button--success');
         
         setTimeout(() => {
-          button.innerHTML = originalContent;
+          button.textContent = originalText;
           button.classList.remove('pm7-button--success');
         }, 2000);
       });
