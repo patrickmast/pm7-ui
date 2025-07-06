@@ -1,0 +1,627 @@
+# pm7-ui Technical Documentation for AI Coding Agents
+
+pm7-ui is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript. Use simple CSS classes that work in ANY framework.
+
+## Installation
+
+### NPM/Yarn/PNPM
+
+```bash
+npm install @pm7/core
+# or
+yarn add @pm7/core
+# or  
+pnpm add @pm7/core
+```
+
+### CDN
+
+```html
+<!-- Latest version -->
+<link rel="stylesheet" href="https://unpkg.com/@pm7/core@latest/dist/pm7.css">
+<script src="https://unpkg.com/@pm7/core@latest/dist/pm7.js"></script>
+
+<!-- Specific version -->
+<link rel="stylesheet" href="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.css">
+<script src="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.js"></script>
+
+<!-- Alternative CDN (jsDelivr) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pm7/core@latest/dist/pm7.css">
+<script src="https://cdn.jsdelivr.net/npm/@pm7/core@latest/dist/pm7.js"></script>
+```
+
+## Import CSS
+
+**Import the CSS file once in your project:**
+
+```javascript
+// ES modules (React, Vue, etc.)
+import '@pm7/core/dist/pm7.css';
+
+// Vanilla HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+## Basic Usage
+
+### Vanilla HTML
+
+```html
+<!-- Include CSS -->
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+
+<!-- Use components -->
+<button class="pm7-button pm7-button--primary">Click me</button>
+
+<div class="pm7-card">
+  <div class="pm7-card-header">Card Title</div>
+  <div class="pm7-card-body">Card content</div>
+</div>
+
+<!-- Include JavaScript for interactive components -->
+<script type="module">
+  import '@pm7/core';
+  // Components auto-initialize
+</script>
+```
+
+### React
+
+```jsx
+import '@pm7/core/dist/pm7.css';
+
+function App() {
+  return (
+    <div>
+      <button className="pm7-button pm7-button--primary" onClick={() => alert('Clicked!')}>
+        Click me
+      </button>
+      
+      <div className="pm7-menu" data-pm7-menu>
+        <button className="pm7-menu-trigger">Menu</button>
+        <div className="pm7-menu-content">
+          <button className="pm7-menu-item">Option 1</button>
+          <button className="pm7-menu-item">Option 2</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <div>
+    <button class="pm7-button pm7-button--primary" @click="handleClick">
+      Click me
+    </button>
+    
+    <div class="pm7-card">
+      <div class="pm7-card-header">Card Title</div>
+      <div class="pm7-card-body">Card content</div>
+    </div>
+  </div>
+</template>
+
+<script>
+import '@pm7/core/dist/pm7.css';
+</script>
+```
+
+### Angular
+
+```html
+<button class="pm7-button pm7-button--primary" (click)="handleClick()">
+  Angular Button
+</button>
+```
+
+## CSS Naming Convention
+
+**NOT traditional BEM** - pm7-ui uses a modified naming convention:
+
+- **Base classes**: `pm7-[component]` (e.g., `pm7-button`, `pm7-menu`)
+- **Sub-elements**: `pm7-[component]-[element]` with single dashes (e.g., `pm7-menu-trigger`, `pm7-menu-item`)
+- **Modifiers**: `pm7-[component]--[modifier]` with double dashes (e.g., `pm7-button--primary`, `pm7-input--sm`)
+
+**Important**: Never use double underscores (`__`). Always use single dashes for sub-elements.
+
+### Examples
+
+```css
+/* ✅ Correct */
+.pm7-menu {}
+.pm7-menu-trigger {}
+.pm7-menu-content {}
+.pm7-menu-item {}
+.pm7-menu-item--disabled {}
+
+/* ❌ Incorrect */
+.pm7-menu__trigger {}
+.pm7-menu__content {}
+```
+
+## Components That Need JavaScript
+
+Most components work with CSS only. These require JavaScript for interactivity:
+
+- **Menu** (`[data-pm7-menu]`) - Dropdown functionality
+- **Dialog** (`[data-pm7-dialog]`) - Modal behavior
+- **Toast** (`[data-pm7-toast]`) - Notifications
+- **Accordion** (`[data-pm7-accordion]`) - Collapsible panels
+- **Tab Selector** (`[data-pm7-tab-selector]`) - Tab switching
+- **Tooltip** (`[data-pm7-tooltip]`) - Hover tooltips
+- **Theme Switch** (`[data-pm7-theme-switch]`) - Theme toggling
+
+## Component Auto-initialization
+
+Many PM7 components support automatic initialization when the DOM loads:
+
+```javascript
+// Auto-initialization happens automatically when you include:
+import '@pm7/core';
+
+// Or manually initialize components:
+import { PM7Menu } from '@pm7/core';
+
+// Manual initialization for dynamic content
+const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+
+// Re-initialize all components after adding dynamic content
+PM7.init();
+```
+
+## Common Patterns
+
+### Login Form
+
+```html
+<form class="pm7-card" style="max-width: 400px; margin: 0 auto;">
+  <div class="pm7-card-header">
+    <h2>Login</h2>
+  </div>
+  <div class="pm7-card-body">
+    <div style="margin-bottom: 1rem;">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="pm7-input" placeholder="you@example.com">
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="pm7-input">
+    </div>
+    <button type="submit" class="pm7-button pm7-button--primary pm7-button--full">
+      Sign In
+    </button>
+  </div>
+</form>
+```
+
+### Dropdown Menu
+
+```html
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Options</button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Profile</button>
+    <button class="pm7-menu-item">Settings</button>
+    <div class="pm7-menu-separator"></div>
+    <button class="pm7-menu-item pm7-menu-item--destructive">Logout</button>
+  </div>
+</div>
+```
+
+### Product Card
+
+```html
+<div class="pm7-card" style="max-width: 300px;">
+  <img src="product.jpg" alt="Product" style="width: 100%; height: 200px; object-fit: cover;">
+  <div class="pm7-card-body">
+    <h3>Product Name</h3>
+    <p style="color: var(--pm7-muted-foreground);">Brief description</p>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+      <span style="font-size: 1.5rem; font-weight: bold;">$99.99</span>
+      <button class="pm7-button pm7-button--primary">Add to Cart</button>
+    </div>
+  </div>
+</div>
+```
+
+### Modal Dialog
+
+```html
+<div class="pm7-dialog" data-pm7-dialog>
+  <div class="pm7-dialog-trigger">
+    <button class="pm7-button pm7-button--primary">Open Dialog</button>
+  </div>
+  <div class="pm7-dialog-content">
+    <div class="pm7-dialog-header">
+      <h2 class="pm7-dialog-title">Dialog Title</h2>
+    </div>
+    <div class="pm7-dialog-body">
+      <p>Dialog content goes here.</p>
+    </div>
+    <div class="pm7-dialog-footer">
+      <button class="pm7-button pm7-button--ghost" data-pm7-dialog-close>Cancel</button>
+      <button class="pm7-button pm7-button--primary">Confirm</button>
+    </div>
+  </div>
+</div>
+```
+
+### Form with Validation States
+
+```html
+<div class="pm7-input-group">
+  <label for="username">Username</label>
+  <input type="text" id="username" class="pm7-input pm7-input--error" placeholder="Choose username">
+  <span class="pm7-helper-text pm7-helper-text--error">Username is already taken</span>
+</div>
+```
+
+### Loading States
+
+```html
+<!-- Loading button -->
+<button class="pm7-button pm7-button--primary" disabled>
+  <span class="pm7-spinner"></span>
+  Loading...
+</button>
+
+<!-- Loading card -->
+<div class="pm7-card pm7-card--loading">
+  <div class="pm7-card-body">
+    <div class="pm7-skeleton pm7-skeleton--text"></div>
+    <div class="pm7-skeleton pm7-skeleton--text"></div>
+  </div>
+</div>
+```
+
+## Dark Mode Support
+
+### Features
+- **Automatic Detection** - Respects system theme preferences
+- **Theme Switch Component** - Built-in toggle for user control
+- **Zero Flicker** - No flash of light mode on page load
+- **LocalStorage Persistence** - Remembers user preference
+
+### Basic Usage
+
+```html
+<!-- Theme Switch component -->
+<div class="pm7-theme-switch" data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+```
+
+### Preventing Dark Mode Flicker
+
+**CRITICAL**: Add this script to your `<head>` BEFORE any stylesheets:
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dark mode flicker prevention - MUST come BEFORE stylesheets -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- Your stylesheets come AFTER the script -->
+  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+</head>
+```
+
+### Manual Control
+
+```javascript
+// Toggle dark mode
+document.documentElement.classList.toggle('dark');
+
+// Set theme explicitly
+document.documentElement.classList.add('dark');    // Dark mode
+document.documentElement.classList.remove('dark'); // Light mode
+
+// Save preference to localStorage
+localStorage.setItem('pm7-theme', 'dark');  // or 'light'
+```
+
+### Dark Mode Best Practices
+
+#### 1. **Always Use CSS Variables**
+```css
+/* ❌ WRONG - Never use hardcoded colors */
+.my-component {
+  background: white;
+  color: #000000;
+  border: 1px solid #e5e5e5;
+}
+
+/* ✅ CORRECT - Always use CSS variables */
+.my-component {
+  background: var(--pm7-surface);
+  color: var(--pm7-foreground);
+  border: 1px solid var(--pm7-border);
+}
+```
+
+#### 2. **Define Link Colors Explicitly**
+```css
+/* Add to your global styles */
+a {
+  color: var(--pm7-primary);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--pm7-primary-hover);
+}
+
+/* Prevent purple visited links in dark mode */
+.dark a:visited {
+  color: var(--pm7-primary);
+}
+```
+
+#### 3. **Test Every Component State**
+- Hover states
+- Focus states  
+- Active states
+- Disabled states
+- Selected states
+
+#### 4. **Avoid Inline Styles**
+```html
+<!-- ❌ WRONG -->
+<div style="background-color: #F8F9FA; color: #000;">
+
+<!-- ✅ CORRECT -->
+<div class="pm7-card">
+```
+
+#### 5. **Header with Theme Switch Integration**
+```html
+<header class="header">
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+    <!-- Left: Navigation controls -->
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button class="pm7-menu-trigger">Menu</button>
+      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+    </div>
+    
+    <!-- Center: Logo -->
+    <div style="text-align: center;">
+      <img src="logo.svg" alt="Logo">
+    </div>
+    
+    <!-- Right: Other navigation -->
+    <div style="text-align: right;">
+      <!-- Additional nav items -->
+    </div>
+  </div>
+</header>
+```
+
+### Common Dark Mode Issues & Solutions
+
+| Issue | Solution |
+|-------|----------|
+| Flash of light mode on page load | Add flicker prevention script BEFORE stylesheets |
+| Purple visited links | Define explicit link colors with CSS variables |
+| Components not updating | Ensure JS preserves existing CSS classes when initializing |
+| Inconsistent colors across pages | Use ONLY CSS variables, never hardcode colors |
+| Images too bright in dark mode | Use CSS filters: `.dark img { filter: brightness(0.8); }` |
+
+## CSS Classes Reference
+
+### Buttons
+```html
+<button class="pm7-button pm7-button--primary">Primary</button>
+<button class="pm7-button pm7-button--secondary">Secondary</button>
+<button class="pm7-button pm7-button--ghost">Ghost</button>
+<button class="pm7-button pm7-button--outline">Outline</button>
+<button class="pm7-button pm7-button--destructive">Destructive</button>
+
+<!-- Sizes -->
+<button class="pm7-button pm7-button--sm">Small</button>
+<button class="pm7-button pm7-button--lg">Large</button>
+
+<!-- States -->
+<button class="pm7-button" disabled>Disabled</button>
+<button class="pm7-button pm7-button--loading">Loading</button>
+
+<!-- Full width -->
+<button class="pm7-button pm7-button--full">Full Width</button>
+```
+
+### Cards
+```html
+<div class="pm7-card">
+  <div class="pm7-card-header">Header</div>
+  <div class="pm7-card-body">Content</div>
+  <div class="pm7-card-footer">Footer</div>
+</div>
+
+<!-- Variants -->
+<div class="pm7-card pm7-card--elevated">Elevated</div>
+<div class="pm7-card pm7-card--ghost">Ghost</div>
+```
+
+### Inputs
+```html
+<input class="pm7-input" type="text" placeholder="Default">
+
+<!-- Sizes -->
+<input class="pm7-input pm7-input--sm" type="text">
+<input class="pm7-input pm7-input--lg" type="text">
+
+<!-- States -->
+<input class="pm7-input pm7-input--error" type="text">
+<input class="pm7-input" disabled type="text">
+```
+
+### Other Components
+- `.pm7-menu`, `.pm7-menu-trigger`, `.pm7-menu-content`, `.pm7-menu-item`
+- `.pm7-dialog`, `.pm7-dialog-overlay`, `.pm7-dialog-content`
+- `.pm7-toast`, `.pm7-toast-container`
+- `.pm7-tooltip`
+- `.pm7-tab-selector`, `.pm7-tab-button`
+- `.pm7-accordion`, `.pm7-accordion-item`, `.pm7-accordion-trigger`, `.pm7-accordion-content`
+- `.pm7-badge`, `.pm7-badge--primary`, `.pm7-badge--secondary`
+- `.pm7-theme-switch`, `.pm7-theme-switch--sm`, `.pm7-theme-switch--lg`
+
+## JavaScript API
+
+### Initialization
+
+```javascript
+// Auto-initialization (recommended)
+import '@pm7/core';
+
+// Or import specific components
+import { PM7Menu, PM7Dialog, PM7Toast, PM7Accordion, PM7TabSelector } from '@pm7/core';
+
+// Manual initialization
+const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+```
+
+### Event Handling
+
+```javascript
+// Menu events
+const menu = document.querySelector('.pm7-menu');
+menu.addEventListener('pm7-menu-select', (e) => {
+  console.log('Selected:', e.detail.item);
+});
+
+// Dialog events  
+const dialog = document.querySelector('.pm7-dialog');
+dialog.addEventListener('pm7-dialog-open', () => {
+  console.log('Dialog opened');
+});
+dialog.addEventListener('pm7-dialog-close', () => {
+  console.log('Dialog closed');
+});
+
+// Toast notifications
+import { showToast } from '@pm7/core';
+showToast('Success!', { type: 'success', duration: 3000 });
+```
+
+## Component Documentation Links
+
+For detailed documentation on specific components:
+
+- **[Accordion](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md)**
+- **[Button](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/button/README.md)**
+- **[Card](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/card/README.md)**
+- **[Dialog](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md)**
+- **[Input](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/input/README.md)**
+- **[Menu](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/menu/README.md)**
+- **[Tab Selector](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tab-selector/README.md)**
+- **[Theme Switch](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md)**
+- **[Toast](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/toast/README.md)**
+- **[Tooltip](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tooltip/README.md)**
+
+## Technical Details
+
+### Bundle Size
+- **CSS**: ~70KB minified (~12KB gzipped)
+- **JavaScript**: ~10KB minified (~3KB gzipped)  
+- **Total**: ~80KB minified (~15KB gzipped)
+
+### Browser Support
+- Chrome, Firefox, Safari, Edge (latest versions)
+- iOS Safari 12+
+- Chrome/Firefox on Android (latest versions)
+
+### TypeScript Support
+Full TypeScript declarations included. IntelliSense works out of the box.
+
+### SSR Support
+Works with Next.js, Nuxt, SvelteKit:
+
+```javascript
+// Next.js (_app.js)
+import '@pm7/core/dist/pm7.css';
+
+// Nuxt (nuxt.config.js)
+css: ['@pm7/core/dist/pm7.css']
+
+// SvelteKit (app.html)
+<link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.css">
+```
+
+## Important Notes
+
+1. **Always use CSS variables** - Never hardcode colors like `white` or `#000`
+2. **One package for everything** - No separate React/Vue packages needed
+3. **Import CSS once** - At the top level of your application
+4. **Components auto-initialize** - Interactive components work automatically
+5. **Framework agnostic** - Same classes work everywhere
+
+## Complete Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pm7-ui Example</title>
+  
+  <!-- Dark mode flicker prevention -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css">
+</head>
+<body>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+    <!-- Header -->
+    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1>My App</h1>
+      
+      <!-- Theme Switch -->
+      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+      
+      <!-- Menu -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-menu-trigger">Menu</button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Home</button>
+          <button class="pm7-menu-item">About</button>
+          <button class="pm7-menu-item">Contact</button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Content -->
+    <div class="pm7-card">
+      <div class="pm7-card-header">
+        <h2>Welcome</h2>
+      </div>
+      <div class="pm7-card-body">
+        <p>This is a complete pm7-ui example.</p>
+        <button class="pm7-button pm7-button--primary">Get Started</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://unpkg.com/@pm7/core"></script>
+</body>
+</html>
+```
