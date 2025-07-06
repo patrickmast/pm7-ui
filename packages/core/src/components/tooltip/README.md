@@ -188,21 +188,41 @@ Configure show/hide delays:
 
 ## JavaScript API
 
-### Basic Initialization
+### Auto-initialization
+
+Tooltips with `.pm7-tooltip` class are automatically initialized when the DOM loads.
 
 ```javascript
-import { PM7Tooltip } from '@pm7/core';
-
-// Initialize a single tooltip
-const element = document.querySelector('.pm7-tooltip');
-const tooltip = new PM7Tooltip(element);
-
-// Initialize all tooltips on page
-import { initTooltips } from '@pm7/core';
-initTooltips();
+import { PM7Tooltip, initTooltips } from '@pm7/core';
 ```
 
-### Methods
+### Class Constructor
+
+```javascript
+const tooltipElement = document.querySelector('.pm7-tooltip');
+const tooltip = new PM7Tooltip(tooltipElement);
+```
+
+#### Constructor Configuration
+
+The tooltip reads configuration from the element and its children:
+
+| Element | Attribute | Description | Default |
+|---------|-----------|-------------|---------|
+| `.pm7-tooltip` | `data-delay` | General delay for open/close (ms) | `0` |
+| `.pm7-tooltip` | `data-open-delay` | Delay before showing (ms) | `0` |
+| `.pm7-tooltip` | `data-close-delay` | Delay before hiding (ms) | `0` |
+| `.pm7-tooltip-content` | `data-side` | Placement: `top`, `bottom`, `left`, `right` | `'top'` |
+| `.pm7-tooltip-content` | `data-align` | Alignment: `start`, `center`, `end` | `'center'` |
+
+### Instance Methods
+
+| Method | Description |
+|--------|-------------|
+| `show()` | Shows the tooltip |
+| `hide()` | Hides the tooltip |
+| `updatePosition()` | Recalculates and updates tooltip position |
+| `destroy()` | Removes all event listeners and cleans up |
 
 ```javascript
 // Show tooltip programmatically
@@ -211,37 +231,116 @@ tooltip.show();
 // Hide tooltip
 tooltip.hide();
 
-// Update position (useful after content changes)
+// Update position (e.g., after content change)
 tooltip.updatePosition();
 
-// Destroy tooltip instance
+// Clean up when done
 tooltip.destroy();
-```
-
-### Properties
-
-```javascript
-// Configuration
-tooltip.side = 'bottom';      // Change position
-tooltip.align = 'start';      // Change alignment
-tooltip.openDelay = 500;      // Set open delay
-tooltip.closeDelay = 200;     // Set close delay
-
-// State
-const isOpen = tooltip.isOpen;  // Check if tooltip is visible
 ```
 
 ### Events
 
+| Event | Description | Detail Object |
+|-------|-------------|---------------|
+| `pm7:tooltip:show` | Fired when tooltip becomes visible | `{ tooltip: PM7Tooltip }` |
+| `pm7:tooltip:hide` | Fired when tooltip is hidden | `{ tooltip: PM7Tooltip }` |
+
 ```javascript
-// Listen for tooltip events
-element.addEventListener('pm7:tooltip:show', (event) => {
-  console.log('Tooltip shown', event.detail.tooltip);
+tooltipElement.addEventListener('pm7:tooltip:show', (e) => {
+  console.log('Tooltip shown', e.detail.tooltip);
 });
 
-element.addEventListener('pm7:tooltip:hide', (event) => {
-  console.log('Tooltip hidden', event.detail.tooltip);
+tooltipElement.addEventListener('pm7:tooltip:hide', (e) => {
+  console.log('Tooltip hidden', e.detail.tooltip);
 });
+```
+
+### Global Functions
+
+#### initTooltips(container)
+
+Initializes all tooltips within a container.
+
+```javascript
+import { initTooltips } from '@pm7/core';
+
+// Initialize all tooltips on page
+initTooltips();
+
+// Initialize tooltips in specific container
+const container = document.querySelector('.my-container');
+initTooltips(container);
+```
+
+### Behavior Details
+
+#### Auto-positioning
+
+The tooltip automatically adjusts its position to stay within the viewport:
+
+1. If `side="top"` but there's no space above, it flips to `bottom`
+2. If `side="bottom"` but there's no space below, it flips to `top`
+3. If `side="left"` but there's no space on left, it flips to `right`
+4. If `side="right"` but there's no space on right, it flips to `left`
+5. Alignment also adjusts to prevent horizontal overflow
+
+#### Touch Device Support
+
+On touch devices, tooltips:
+- Show on tap instead of hover
+- Hide when tapping outside
+- Do not show on focus events
+
+#### Keyboard Support
+
+- **Tab**: Focus trigger shows tooltip
+- **Escape**: Closes tooltip and returns focus to trigger
+- **Blur**: Hiding tooltip when trigger loses focus
+
+#### Screen Reader Support
+
+Tooltips announce their content to screen readers using:
+- `aria-describedby` to associate tooltip with trigger
+- `role="tooltip"` on content element
+- Live region announcements when tooltip shows
+
+### Advanced Usage
+
+#### Dynamic Tooltip Content
+
+```javascript
+const tooltip = new PM7Tooltip(element);
+
+// Update content
+element.querySelector('.pm7-tooltip-content').textContent = 'New content';
+
+// Update position after content change
+tooltip.updatePosition();
+```
+
+#### Programmatic Control
+
+```javascript
+// Show tooltip on custom event
+button.addEventListener('customEvent', () => {
+  tooltip.show();
+  
+  // Hide after 3 seconds
+  setTimeout(() => tooltip.hide(), 3000);
+});
+```
+
+#### Custom Delays Per Instance
+
+```html
+<!-- Quick show (0ms), slow hide (500ms) -->
+<div class="pm7-tooltip" data-open-delay="0" data-close-delay="500">
+  <button class="pm7-tooltip-trigger">Hover me</button>
+  <div class="pm7-tooltip-content">
+    I appear instantly but disappear slowly
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
 ```
 
 ## React Props

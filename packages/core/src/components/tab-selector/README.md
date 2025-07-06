@@ -404,20 +404,157 @@ PM7 tabs can be customized using CSS custom properties:
 
 ## JavaScript API
 
-### Methods
+### Auto-initialization
 
-| Method | Description |
-|--------|-------------|
-| `selectTabByIndex(index)` | Select tab by its index (0-based) |
-| `selectTabById(id)` | Select tab by its ID attribute |
-| `getActiveTab()` | Returns the active tab element |
-| `getActiveIndex()` | Returns the active tab index |
+Tab selectors with `data-pm7-tab-selector` attribute are automatically initialized when the DOM loads.
+
+```javascript
+import { PM7TabSelector } from '@pm7/core';
+```
+
+### Class Constructor
+
+```javascript
+const tabElement = document.querySelector('.pm7-tab-selector');
+const tabs = new PM7TabSelector(tabElement);
+```
+
+### Instance Methods
+
+| Method | Description | Return Value |
+|--------|-------------|--------------|
+| `selectTabByIndex(index)` | Selects tab by its index (0-based) | `void` |
+| `selectTabById(id)` | Selects tab by its ID attribute | `void` |
+| `getActiveTab()` | Returns the currently active tab element | `HTMLElement` |
+| `getActiveIndex()` | Returns the index of the active tab | `number` |
+| `selectTab(tab)` | Selects a specific tab element | `void` |
+
+```javascript
+// Select second tab
+tabs.selectTabByIndex(1);
+
+// Select tab by ID
+tabs.selectTabById('analytics-tab');
+
+// Get current tab
+const currentTab = tabs.getActiveTab();
+console.log('Active tab:', currentTab.textContent);
+
+// Get current index
+const currentIndex = tabs.getActiveIndex();
+console.log('Active index:', currentIndex);
+```
 
 ### Events
 
-| Event | Description | Detail |
-|-------|-------------|--------|
-| `pm7-tab-change` | Fired when active tab changes | `{ tab, panel, index }` |
+| Event | Description | Detail Object |
+|-------|-------------|---------------|
+| `pm7-tab-change` | Fired when active tab changes | `{ tab: HTMLElement, panel: HTMLElement, index: number }` |
+
+```javascript
+tabElement.addEventListener('pm7-tab-change', (e) => {
+  console.log('Tab changed to:', e.detail.tab.textContent);
+  console.log('Panel:', e.detail.panel);
+  console.log('Index:', e.detail.index);
+  
+  // Example: Update URL hash
+  window.location.hash = e.detail.tab.id || e.detail.index;
+});
+```
+
+### Manual Initialization
+
+For dynamically created tab selectors:
+
+```javascript
+// Create tab structure dynamically
+const container = document.createElement('div');
+container.className = 'pm7-tab-selector';
+container.innerHTML = `
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger">Tab 1</button>
+    <button class="pm7-tab-trigger">Tab 2</button>
+  </div>
+  <div class="pm7-tab-content">Content 1</div>
+  <div class="pm7-tab-content">Content 2</div>
+`;
+
+document.body.appendChild(container);
+
+// Initialize manually
+const tabs = new PM7TabSelector(container);
+```
+
+### Advanced Usage
+
+#### Programmatic Tab Control
+
+```javascript
+const tabs = new PM7TabSelector(element);
+
+// Listen for external events
+document.getElementById('showSettings').addEventListener('click', () => {
+  tabs.selectTabById('settings-tab');
+});
+
+// Cycle through tabs
+let currentIndex = 0;
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % 4;
+  tabs.selectTabByIndex(currentIndex);
+}, 5000);
+```
+
+#### Tab State Persistence
+
+```javascript
+const tabs = new PM7TabSelector(element);
+
+// Save active tab to localStorage
+element.addEventListener('pm7-tab-change', (e) => {
+  localStorage.setItem('activeTab', e.detail.index);
+});
+
+// Restore on page load
+const savedIndex = localStorage.getItem('activeTab');
+if (savedIndex !== null) {
+  tabs.selectTabByIndex(parseInt(savedIndex));
+}
+```
+
+#### Dynamic Tab Management
+
+```javascript
+function addTab(title, content) {
+  const tabList = element.querySelector('.pm7-tab-list');
+  const tabsContainer = element;
+  
+  // Create new tab trigger
+  const newTab = document.createElement('button');
+  newTab.className = 'pm7-tab-trigger';
+  newTab.textContent = title;
+  tabList.appendChild(newTab);
+  
+  // Create new content panel
+  const newPanel = document.createElement('div');
+  newPanel.className = 'pm7-tab-content';
+  newPanel.innerHTML = content;
+  tabsContainer.appendChild(newPanel);
+  
+  // Reinitialize tabs
+  new PM7TabSelector(element);
+}
+```
+
+### Data Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `data-pm7-tab-selector` | Marks element for auto-initialization | `data-pm7-tab-selector` |
+| `data-state` | Current state of tab/panel | `data-state="active"` |
+| `aria-controls` | Links tab to panel | `aria-controls="panel-1"` |
+| `aria-selected` | Indicates selected tab | `aria-selected="true"` |
+| `disabled` | Disables a tab | `disabled` |
 
 ## Accessibility Features
 

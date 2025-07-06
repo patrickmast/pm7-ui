@@ -336,7 +336,22 @@ You can nest accordions inside accordion content:
 
 ## JavaScript API
 
-### Constructor Options
+### Auto-initialization
+
+Accordions with `data-pm7-accordion` attribute are automatically initialized when the DOM loads.
+
+```javascript
+import { PM7Accordion } from '@pm7/core';
+```
+
+### Class Constructor
+
+```javascript
+const accordionElement = document.querySelector('.pm7-accordion');
+const accordion = new PM7Accordion(accordionElement, options);
+```
+
+#### Constructor Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
@@ -347,28 +362,176 @@ You can nest accordions inside accordion content:
 | `height` | 'sm'\|'md'\|'lg'\|'fixed'\|null | `null` | Content height constraint |
 | `fixedHeight` | number | `300` | Height in pixels for 'fixed' option |
 
-### Methods
+```javascript
+// Example with all options
+const accordion = new PM7Accordion(element, {
+  allowMultiple: true,
+  defaultOpen: 0,
+  iconPosition: 'start',
+  textAlign: 'center',
+  height: 'md',
+  fixedHeight: 400
+});
+```
+
+### Instance Methods
 
 | Method | Description |
 |--------|-------------|
-| `open(index)` | Open item at specified index |
-| `close(index)` | Close item at specified index |
-| `toggle(index)` | Toggle item at specified index |
-| `openAll()` | Open all accordion items |
-| `closeAll()` | Close all accordion items |
+| `open(index)` | Opens the item at the specified index |
+| `close(index)` | Closes the item at the specified index |
+| `toggle(index)` | Toggles the item at the specified index |
+| `openAll()` | Opens all accordion items |
+| `closeAll()` | Closes all accordion items |
+
+```javascript
+// Open first item
+accordion.open(0);
+
+// Close second item
+accordion.close(1);
+
+// Toggle third item
+accordion.toggle(2);
+
+// Open all items (requires allowMultiple: true)
+accordion.openAll();
+
+// Close all items
+accordion.closeAll();
+```
+
+### Static Methods
+
+#### PM7Accordion.autoInit()
+
+Initializes all accordions on the page with `data-pm7-accordion` attribute.
+
+```javascript
+// Manually trigger auto-initialization
+PM7Accordion.autoInit();
+```
+
+This is called automatically on DOMContentLoaded, but can be called manually for dynamically added content.
 
 ### Data Attributes
 
-| Attribute | Description |
-|-----------|-------------|
-| `data-pm7-accordion` | Auto-initialize accordion |
-| `data-allow-multiple` | Allow multiple open items |
-| `data-default-open` | Index or 'all' for default open |
-| `data-state` | 'open' or 'closed' state on items |
-| `data-icon-position` | 'start' or 'end' |
-| `data-text-align` | 'left', 'center', or 'right' |
-| `data-height` | 'sm', 'md', 'lg', or 'fixed' |
-| `data-fixed-height` | Height in pixels for fixed option |
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `data-pm7-accordion` | Marks element for auto-initialization | `data-pm7-accordion` |
+| `data-allow-multiple` | Allow multiple open items | `data-allow-multiple="true"` |
+| `data-default-open` | Index or 'all' for default open | `data-default-open="0"` |
+| `data-state` | Set initial state on items | `data-state="open"` |
+| `data-icon-position` | Icon position: 'start' or 'end' | `data-icon-position="start"` |
+| `data-text-align` | Text alignment | `data-text-align="center"` |
+| `data-height` | Height constraint | `data-height="md"` |
+| `data-fixed-height` | Fixed height in pixels | `data-fixed-height="350"` |
+
+### Events
+
+The accordion component does not emit custom events, but standard DOM events can be used:
+
+```javascript
+// Listen for clicks on triggers
+accordionElement.querySelectorAll('.pm7-accordion-trigger').forEach((trigger, index) => {
+  trigger.addEventListener('click', () => {
+    console.log(`Accordion item ${index} clicked`);
+  });
+});
+
+// Monitor state changes using MutationObserver
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === 'data-state') {
+      const item = mutation.target;
+      const isOpen = item.getAttribute('data-state') === 'open';
+      console.log(`Item state changed: ${isOpen ? 'opened' : 'closed'}`);
+    }
+  });
+});
+
+// Observe all accordion items
+accordionElement.querySelectorAll('.pm7-accordion-item').forEach(item => {
+  observer.observe(item, { attributes: true });
+});
+```
+
+### Advanced Usage
+
+#### Programmatic Control
+
+```javascript
+// Create controlled accordion
+const accordion = new PM7Accordion(element, {
+  allowMultiple: false
+});
+
+// Open specific item based on URL hash
+const hash = window.location.hash.slice(1);
+if (hash) {
+  const index = parseInt(hash);
+  if (!isNaN(index)) {
+    accordion.open(index);
+  }
+}
+
+// Update URL when item is toggled
+element.querySelectorAll('.pm7-accordion-trigger').forEach((trigger, index) => {
+  trigger.addEventListener('click', () => {
+    window.location.hash = index;
+  });
+});
+```
+
+#### Dynamic Content
+
+```javascript
+// Add new accordion item dynamically
+function addAccordionItem(title, content) {
+  const item = document.createElement('div');
+  item.className = 'pm7-accordion-item';
+  item.innerHTML = `
+    <button class="pm7-accordion-trigger">
+      <span>${title}</span>
+    </button>
+    <div class="pm7-accordion-content">
+      <div class="pm7-accordion-content-inner">
+        ${content}
+      </div>
+    </div>
+  `;
+  
+  accordionElement.appendChild(item);
+  
+  // Re-initialize accordion to include new item
+  accordion = new PM7Accordion(accordionElement, options);
+}
+```
+
+#### Accordion with External Controls
+
+```javascript
+// Control accordion from external buttons
+const accordion = new PM7Accordion(element);
+
+document.getElementById('openAllBtn').addEventListener('click', () => {
+  accordion.openAll();
+});
+
+document.getElementById('closeAllBtn').addEventListener('click', () => {
+  accordion.closeAll();
+});
+
+// Jump to specific section
+document.querySelectorAll('.section-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const index = parseInt(link.dataset.section);
+    accordion.open(index);
+    accordionElement.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+```
 
 ## Keyboard Navigation
 

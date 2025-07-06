@@ -234,13 +234,35 @@ Using the content marker system with icons:
 
 ### JavaScript API
 
-```javascript
-import { PM7Dialog } from '@pm7/core';
+#### Auto-initialization
 
+Dialogs do NOT auto-initialize. You need to either:
+1. Use the global helper functions (`openDialog`, `closeDialog`)
+2. Manually initialize with `PM7Dialog` class
+3. Use the utility functions (`pm7Alert`, `pm7Confirm`)
+
+```javascript
+import { PM7Dialog, createDialog, openDialog, closeDialog, pm7Alert, pm7Confirm } from '@pm7/core';
+```
+
+#### Class Constructor
+
+```javascript
 // Initialize a dialog (for traditional structure)
 const dialogElement = document.querySelector('[data-pm7-dialog="my-dialog"]');
 const dialog = new PM7Dialog(dialogElement);
+```
 
+#### Instance Methods
+
+| Method | Description |
+|--------|-------------|
+| `open()` | Opens the dialog |
+| `close()` | Closes the dialog |
+| `shake()` | Adds shake animation (e.g., for validation errors) |
+| `setLoading(loading)` | Sets loading state with spinner |
+
+```javascript
 // Open/close programmatically
 dialog.open();
 dialog.close();
@@ -250,8 +272,16 @@ dialog.shake();
 
 // Set loading state
 dialog.setLoading(true);
+```
 
-// Listen for events
+#### Events
+
+| Event | Description | Detail |
+|-------|-------------|---------|
+| `pm7-dialog-open` | Fired when dialog opens | None |
+| `pm7-dialog-close` | Fired when dialog closes | None |
+
+```javascript
 dialogElement.addEventListener('pm7-dialog-open', () => {
   console.log('Dialog opened');
 });
@@ -259,41 +289,90 @@ dialogElement.addEventListener('pm7-dialog-open', () => {
 dialogElement.addEventListener('pm7-dialog-close', () => {
   console.log('Dialog closed');
 });
-
-// Global functions (auto-loaded for convenience, but can be imported)
-openDialog('my-dialog');
-closeDialog('my-dialog');
-pm7Alert('This is an alert message');
-pm7Confirm('Are you sure?', (confirmed) => {
-  if (confirmed) {
-    console.log('User confirmed');
-  }
-});
-
-// Programmatic dialog creation
-const dialog = createDialog({
-  id: 'dynamic-dialog',
-  title: 'Dynamic Dialog',
-  subtitle: 'Created programmatically',
-  body: '<p>This dialog was created with JavaScript.</p>',
-  footer: `
-    <button class="pm7-button pm7-button--primary" onclick="closeDialog('dynamic-dialog')">
-      Close
-    </button>
-  `,
-  size: 'md',
-  showClose: true,
-  icon: 'info'
-});
-
-// Utility functions
-pm7Alert('This is an alert message');
-pm7Confirm('Are you sure?', (confirmed) => {
-  if (confirmed) {
-    console.log('User confirmed');
-  }
-});
 ```
+
+#### Global Helper Functions
+
+These functions are available globally after importing PM7Dialog:
+
+```javascript
+// Open a dialog by ID
+openDialog('my-dialog');
+
+// Close a dialog by ID
+closeDialog('my-dialog');
+
+// Close all open dialogs
+closeAllDialogs();
+```
+
+#### Programmatic Dialog Creation
+
+Create dialogs dynamically with JavaScript:
+
+```javascript
+const dialog = createDialog({
+  id: 'dynamic-dialog',           // Required: unique ID
+  title: 'Dynamic Dialog',        // Dialog title
+  subtitle: 'Optional subtitle',  // Optional subtitle
+  body: '<p>HTML content</p>',    // Body HTML
+  footer: '<button>...</button>', // Footer HTML
+  size: 'md',                     // Size: sm, md, lg, xl, full
+  variant: 'default',             // Variant: default, alert, success
+  showClose: true,                // Show close button
+  icon: 'info',                   // Icon: info, warning, error, success
+  noEscape: false,                // Disable ESC key closing
+  noOverlayClose: false,          // Disable overlay click closing
+  buttons: [                      // Optional: button shortcuts
+    {
+      text: 'Cancel',
+      variant: 'outline',
+      onClick: () => closeDialog('dynamic-dialog')
+    },
+    {
+      text: 'Confirm',
+      variant: 'primary',
+      onClick: () => console.log('Confirmed!')
+    }
+  ]
+});
+
+// Open the created dialog
+openDialog('dynamic-dialog');
+```
+
+#### Utility Functions
+
+Quick alert and confirm dialogs:
+
+```javascript
+// Simple alert
+pm7Alert('This is an alert message');
+
+// Alert with title
+pm7Alert('Operation failed', 'Error');
+
+// Confirm dialog with callback
+pm7Confirm('Are you sure?', (confirmed) => {
+  if (confirmed) {
+    console.log('User confirmed');
+  }
+});
+
+// Confirm with custom title
+pm7Confirm('Delete this item?', (confirmed) => {
+  // Handle response
+}, 'Confirm Deletion');
+```
+
+#### Accessibility Features
+
+The dialog component includes:
+- **Focus trap**: Keeps focus within dialog while open
+- **Focus restoration**: Returns focus to trigger element on close
+- **ESC key**: Closes dialog (unless disabled)
+- **Overlay click**: Closes dialog (unless disabled)
+- **ARIA attributes**: Proper roles and labels
 
 ## CSS Classes Reference
 

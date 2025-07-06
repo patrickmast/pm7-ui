@@ -338,6 +338,125 @@ PM7 buttons can be customized using CSS custom properties:
 
 **Note**: PM7 doesn't include built-in loading spinners. You'll need to add your own spinner SVG or use a loading library.
 
+## JavaScript API
+
+### Auto-initialization
+
+Buttons with `.pm7-button--primary` or `.pm7-button--default` classes automatically receive the 6stars effect when the DOM loads.
+
+```javascript
+import { PM7Button, initButtons } from '@pm7/core';
+```
+
+### Class Constructor
+
+```javascript
+const buttonElement = document.querySelector('.pm7-button');
+const button = new PM7Button(buttonElement);
+```
+
+The PM7Button class is minimal and primarily handles the 6stars effect for primary buttons. Most button functionality is achieved through CSS classes.
+
+### Methods
+
+The PM7Button class has no public methods. All styling and behavior is controlled through CSS classes.
+
+### Global Functions
+
+#### initButtons()
+
+Initializes 6stars effect on all primary and default buttons.
+
+```javascript
+import { initButtons } from '@pm7/core';
+
+// Manually initialize buttons (e.g., after adding buttons dynamically)
+initButtons();
+```
+
+This is called automatically on DOMContentLoaded, but can be called manually for dynamically added buttons.
+
+### 6stars Effect
+
+The 6stars effect is automatically added to primary and default variant buttons. It creates an animated background effect with 6 rotating star elements.
+
+```html
+<!-- These buttons get 6stars effect automatically -->
+<button class="pm7-button pm7-button--primary">Primary</button>
+<button class="pm7-button pm7-button--default">Default</button>
+
+<!-- These buttons do not get the effect -->
+<button class="pm7-button pm7-button--outline">Outline</button>
+<button class="pm7-button pm7-button--ghost">Ghost</button>
+```
+
+### CSS Classes Reference
+
+| Class | Description |
+|-------|-------------|
+| **Base Classes** | |
+| `pm7-button` | Base button class (required) |
+| **Variants** | |
+| `pm7-button--primary` | Primary button (default, includes 6stars) |
+| `pm7-button--default` | Default button (includes 6stars) |
+| `pm7-button--secondary` | Secondary button |
+| `pm7-button--outline` | Outline button |
+| `pm7-button--ghost` | Ghost button (minimal styling) |
+| `pm7-button--destructive` | Destructive/danger button |
+| `pm7-button--link` | Link-style button |
+| **Sizes** | |
+| `pm7-button--xs` | Extra small size |
+| `pm7-button--sm` | Small size |
+| `pm7-button--lg` | Large size |
+| **States** | |
+| `pm7-button--full-width` | Full width button |
+| `pm7-button--icon-only` | Icon-only button (square) |
+| `pm7-button__6stars` | Container for 6stars effect (auto-added) |
+
+### Button States
+
+Buttons respond to standard HTML attributes:
+
+```html
+<!-- Disabled state -->
+<button class="pm7-button pm7-button--primary" disabled>
+  Disabled
+</button>
+
+<!-- Loading state (custom implementation) -->
+<button class="pm7-button pm7-button--primary" disabled data-loading="true">
+  Loading...
+</button>
+
+<!-- Active/pressed state (CSS handles :active) -->
+<button class="pm7-button pm7-button--primary">
+  Click me
+</button>
+```
+
+### Accessibility
+
+PM7 buttons are built on native HTML button elements and links, ensuring:
+- Full keyboard support (Tab, Enter, Space)
+- Screen reader compatibility
+- Focus states
+- Disabled state handling
+
+For icon-only buttons, always include descriptive text or aria-label:
+
+```html
+<!-- Icon-only button with aria-label -->
+<button class="pm7-button pm7-button--ghost pm7-button--icon-only" aria-label="Settings">
+  <svg>...</svg>
+</button>
+
+<!-- Icon-only button with screen reader text -->
+<button class="pm7-button pm7-button--ghost pm7-button--icon-only">
+  <svg aria-hidden="true">...</svg>
+  <span class="pm7-sr-only">Settings</span>
+</button>
+```
+
 ## React Usage
 
 When using @pm7/react:

@@ -52,32 +52,75 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 </div>
 ```
 
-### JavaScript Initialization
+### JavaScript API
 
-Menus with `data-pm7-menu` are automatically initialized. For manual control:
+#### Auto-initialization
+
+Menus with `data-pm7-menu` attribute are automatically initialized when the DOM loads.
 
 ```javascript
 import { PM7Menu } from '@pm7/core';
+```
 
-// Manual initialization
+#### Class Constructor
+
+```javascript
 const menuElement = document.querySelector('.pm7-menu');
 const menu = new PM7Menu(menuElement);
+```
 
+#### Instance Methods
+
+| Method | Description |
+|--------|-------------|
+| `open()` | Opens the menu |
+| `close()` | Closes the menu |
+| `toggle()` | Toggles menu open/closed state |
+| `adjustPosition()` | Recalculates and adjusts menu position |
+
+```javascript
 // Open/close programmatically
 menu.open();
 menu.close();
 menu.toggle();
 
-// Adjust position manually
+// Adjust position manually (e.g., after content change)
 menu.adjustPosition();
+```
 
-// Listen for selection
+#### Events
+
+| Event | Description | Detail Object |
+|-------|-------------|---------------|
+| `pm7-menu-select` | Fired when a menu item is selected | `{ item, text, value }` |
+
+```javascript
 menuElement.addEventListener('pm7-menu-select', (e) => {
-  console.log('Selected item:', e.detail.item);
-  console.log('Item text:', e.detail.text);
-  console.log('Item value:', e.detail.value);
+  console.log('Selected item:', e.detail.item);      // DOM element
+  console.log('Item text:', e.detail.text);          // Text content
+  console.log('Item value:', e.detail.value);        // data-value attribute
 });
 ```
+
+#### Keyboard Navigation
+
+The menu component supports full keyboard navigation:
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Open menu (on trigger) |
+| `Escape` | Close menu |
+| `ArrowDown` | Move to next item |
+| `ArrowUp` | Move to previous item |
+| `Enter` | Select current item |
+| `Tab` | Close menu and move focus |
+
+#### Menu Bar Behavior
+
+When inside a `.pm7-menu-bar`, menus gain additional functionality:
+- **Hover to open**: Moving mouse between menus opens them automatically
+- **Arrow key navigation**: Use left/right arrows to move between menu bar items
+- **Click outside**: Clicking outside any menu closes all menus
 
 ### Menu Bar
 

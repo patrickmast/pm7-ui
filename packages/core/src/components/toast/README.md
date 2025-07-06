@@ -175,36 +175,119 @@ showToast({
 });
 ```
 
-## API Reference
+## JavaScript API
 
-### showToast(options)
+### Auto-initialization
+
+The Toast system initializes automatically when imported. No manual initialization needed.
+
+```javascript
+import { showToast, closeToast, closeAllToasts } from '@pm7/core';
+```
+
+### Global Functions
+
+#### showToast(options)
 
 Shows a new toast notification.
 
-#### Options
+##### Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `title` | string | '' | Toast title |
-| `description` | string | '' | Toast description |
+| `title` | string | '' | Toast title (required for accessibility) |
+| `description` | string | '' | Toast description text |
 | `variant` | string | 'default' | Toast variant: 'default', 'success', 'warning', 'destructive', 'info' |
 | `duration` | number | 5000 | Auto-dismiss duration in milliseconds. Use 0 for persistent |
 | `action` | string | null | HTML string for action buttons |
 | `onClose` | function | null | Callback when toast is closed |
 
-#### Returns
+##### Returns
 
 - `string` - Toast ID that can be used with `closeToast()`
 
-### closeToast(id)
+```javascript
+// Basic usage
+const toastId = showToast({
+  title: 'Hello World',
+  description: 'This is a toast message'
+});
 
-Closes a specific toast.
+// With all options
+const toastId = showToast({
+  title: 'File Uploaded',
+  description: 'document.pdf uploaded successfully',
+  variant: 'success',
+  duration: 7000,
+  action: '<button class="pm7-button pm7-button--sm">View</button>',
+  onClose: () => console.log('Toast closed')
+});
+```
 
-- `id` (string) - The toast ID returned by `showToast()`
+#### closeToast(id)
 
-### closeAllToasts()
+Closes a specific toast by ID.
 
-Closes all open toasts.
+```javascript
+const toastId = showToast({ title: 'Loading...' });
+
+// Close after 3 seconds
+setTimeout(() => {
+  closeToast(toastId);
+}, 3000);
+```
+
+#### closeAllToasts()
+
+Closes all currently open toasts.
+
+```javascript
+// Clear all notifications
+closeAllToasts();
+```
+
+### PM7Toast Class
+
+While not typically used directly, you can access the Toast manager:
+
+```javascript
+import { PM7Toast } from '@pm7/core';
+
+// Access the singleton instance
+const toastManager = PM7Toast.getInstance();
+
+// Show toast via instance
+toastManager.show({
+  title: 'Hello',
+  description: 'Using the instance directly'
+});
+```
+
+### Events
+
+Toasts do not emit custom events, but you can use the `onClose` callback:
+
+```javascript
+showToast({
+  title: 'Important',
+  description: 'This toast has a callback',
+  onClose: () => {
+    console.log('User closed the toast');
+    // Perform cleanup or follow-up actions
+  }
+});
+```
+
+### Toast Container
+
+The toast container is automatically created when the first toast is shown. It's positioned at the bottom-right of the viewport by default.
+
+```html
+<!-- Automatically created -->
+<div class="pm7-toast-viewport" data-pm7-toast-viewport>
+  <!-- Toasts appear here -->
+</div>
+```
 
 ## CSS Classes Reference
 
