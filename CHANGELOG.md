@@ -1,41 +1,42 @@
 # Changelog
 
-## [2.0.0] - 2025-01-04
+All notable changes to this project will be documented in this file.
 
-### BREAKING CHANGES
-- **Removed @pm7/react package** - pm7-ui is now a single package (@pm7/core) that works with all frameworks
-- React components are no longer available as imports - use CSS classes directly
+## [2.1.0] - 2025-01-06
 
-### Added
-- Global `PM7` object with `init()` and `reinit()` helper functions
-- AI Agent Guide documentation page
-- Better auto-initialization for all interactive components
-- Framework examples for React, Vue, Angular, and Svelte
+### 🎉 New Features
+- **Theme Switch Component**: New `pm7-theme-switch` component for toggling between light and dark modes
+- **Dark Mode**: Complete dark mode implementation with flicker-free theme switching
+- **AI-First Documentation**: Added AI-README.md - comprehensive documentation specifically for AI coding agents
+- **JavaScript API Documentation**: All interactive components now have detailed API documentation
 
-### Changed
-- Documentation now focuses on CSS-first approach
-- All examples use plain HTML with CSS classes
-- Simplified installation - only one package needed
-- Updated all component documentation to remove React-specific examples
+### 🐛 Bug Fixes
+- Fixed Theme Switch CSS class preservation during initialization
+- Fixed accordion auto-initialization and width inheritance issues
+- Fixed dark mode styling across all components (cards, links, headers, footers)
+- Fixed documentation page layouts for consistency
 
-### Why This Change?
-- **Simplicity**: One package instead of multiple framework-specific packages
-- **Smaller bundles**: No framework wrapper overhead
-- **AI-friendly**: Simple CSS classes work better with AI coding assistants
-- **Future-proof**: Works with any framework, even ones that don't exist yet
+### 📚 Documentation
+- Added comprehensive JavaScript API sections to all component READMEs
+- Updated npm package README with accurate component list and examples
+- Created separate documentation for humans (README.md) vs AI agents (AI-README.md)
+- Added dark mode implementation guide with best practices
 
-### Migration Guide
+### 🔧 Improvements
+- Enhanced auto-initialization for interactive components
+- Improved CSS variable usage for better theming
+- Added flicker prevention script for dark mode
+- Repository cleanup: removed test files, debug files, and build outputs
 
-If you were using @pm7/react:
+### 🚀 Developer Experience
+- Better TypeScript support with proper exports
+- CDN usage examples added
+- Framework integration examples (React, Vue, Angular)
+- Improved component discovery for AI agents
 
-```jsx
-// Before (React components)
-import { Button } from '@pm7/react';
-<Button variant="primary">Click me</Button>
+## [2.0.1] - 2024-12-30
 
-// After (CSS classes)
-import '@pm7/core/dist/pm7.css';
-<button className="pm7-button pm7-button--primary">Click me</button>
-```
-
-The functionality remains exactly the same - only the syntax has changed to use CSS classes instead of React components.
+### Initial Release
+- Core CSS components
+- Basic JavaScript functionality
+- Initial documentation
