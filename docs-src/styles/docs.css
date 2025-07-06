@@ -701,11 +701,12 @@ a.pm7-menu-item:visited {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--pm7-border);
+  border: none;
+  background: transparent;
 }
 
 .pm7-docs-menu-trigger:hover {
-  border-color: var(--pm7-primary);
+  background-color: var(--pm7-muted);
 }
 
 /* Note: Menu items should start in neutral state, no active styling in dropdown */
