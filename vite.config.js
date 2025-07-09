@@ -17,6 +17,13 @@ export default defineConfig({
   root: './docs-src',
   publicDir: './assets',
   assetsInclude: ['**/*.md'],
+  css: {
+    postcss: {
+      plugins: [
+        require('postcss-import')()
+      ]
+    }
+  },
   build: {
     outDir: '../docs',
     emptyOutDir: true,

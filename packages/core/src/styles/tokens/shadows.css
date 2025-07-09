@@ -20,6 +20,7 @@
   --pm7-card-shadow-hover: var(--pm7-shadow-md);
   
   --pm7-menu-shadow: var(--pm7-shadow-lg);
+  --pm7-menu-hover-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px;
   --pm7-dialog-shadow: var(--pm7-shadow-xl);
   --pm7-toast-shadow: var(--pm7-shadow-lg);
   
@@ -46,4 +47,5 @@
   --pm7-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
   --pm7-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
   --pm7-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+  --pm7-menu-hover-shadow: rgba(255, 255, 255, 0.05) 0px 5px 15px 0px, rgba(255, 255, 255, 0.1) 0px 15px 35px -5px;
 }

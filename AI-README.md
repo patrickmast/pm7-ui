@@ -853,6 +853,80 @@ new PM7ThemeSwitch(element)
 new PM7Tooltip(element)
 ```
 
+## Development Setup Issues & Solutions
+
+### CSS @import Not Working in Vite (Missing Shadows/Styles)
+
+**Problem**: When using Vite for development, CSS variables defined in imported files (like shadows, colors) may not load, causing missing styles (e.g., no shadow on menu dropdowns).
+
+**Symptoms**:
+- Styles work in production build but not in development
+- CSS variables return empty values
+- Components appear without shadows, proper colors, or borders
+
+**Root Cause**: Vite doesn't process CSS `@import` statements by default during development.
+
+**Solution**: Configure Vite to use postcss-import:
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [
+        require('postcss-import')()
+      ]
+    }
+  },
+  // ... rest of config
+});
+```
+
+**Installation**:
+```bash
+npm install -D postcss-import
+```
+
+**Note**: This is only needed for development. Production builds using PostCSS work correctly by default.
+
+### CSS Variable Dependencies
+
+**Problem**: When refactoring hardcoded CSS values to use CSS variables, missing variable definitions cause styles to fail silently.
+
+**Example Case**: Menu hover shadows stopped working after changing from hardcoded values to `var(--pm7-menu-hover-shadow)` without defining the variable.
+
+**Prevention**:
+1. **Always define variables before using them** - When converting hardcoded values to CSS variables, immediately add the variable definition
+2. **Check all variable references** - Use grep to ensure all CSS variables used in components are defined:
+   ```bash
+   # Find all CSS variable usage
+   grep -r "var(--pm7-" packages/core/src/styles/components/
+   
+   # Check if a specific variable is defined
+   grep -r "--pm7-menu-hover-shadow:" packages/core/src/styles/
+   ```
+3. **Test after refactoring** - Always verify styles still work after converting to CSS variables
+4. **Document new variables** - Add comments explaining what component-specific variables are for
+
+**Common Pattern for Adding CSS Variables**:
+```css
+/* In tokens/shadows.css */
+:root {
+  /* Component-specific shadow variants */
+  --pm7-menu-shadow: var(--pm7-shadow-lg);
+  --pm7-menu-hover-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px;
+}
+
+.dark {
+  /* Dark mode overrides */
+  --pm7-menu-hover-shadow: rgba(255, 255, 255, 0.05) 0px 5px 15px 0px, rgba(255, 255, 255, 0.1) 0px 15px 35px -5px;
+}
+```
+
+**Key Takeaway**: CSS fails silently when variables are undefined - the browser simply ignores the property. Always verify variable definitions when refactoring.
+
 ## Complete Example
 
 ```html
