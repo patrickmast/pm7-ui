@@ -5,6 +5,12 @@
 export class PM7Dialog {
   constructor(element) {
     this.element = element;
+    
+    // AI-Agent FIRST: Automatically add pm7-dialog class if missing
+    if (!this.element.classList.contains('pm7-dialog')) {
+      this.element.classList.add('pm7-dialog');
+    }
+    
     this.backdrop = element.querySelector('.pm7-dialog-overlay');
     this.closeButton = element.querySelector('.pm7-dialog-close');
     this.isOpen = false;
@@ -457,7 +463,7 @@ function transformDialog(dialogElement) {
   dialogElement.setAttribute('data-state', 'closed');
 }
 
-// Simple helper functions for data-pm7-dialog elements
+// Simple helper functions for pm7-dialog elements
 export function openDialog(dialogId) {
   const dialogElement = document.querySelector(`[data-pm7-dialog="${dialogId}"]`);
   if (!dialogElement) {

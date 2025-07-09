@@ -23,16 +23,17 @@ import { PM7ThemeSwitch } from '@pm7/core';
 ### HTML
 
 ```html
+<!-- AI-Agent FIRST: Only data-pm7-theme-switch needed, CSS class is auto-added -->
 <!-- Basic theme switch with label -->
-<div class="pm7-theme-switch" data-pm7-theme-switch>
+<div data-pm7-theme-switch>
   <span>Theme</span>
 </div>
 
 <!-- Without label -->
-<div class="pm7-theme-switch" data-pm7-theme-switch></div>
+<div data-pm7-theme-switch></div>
 
 <!-- Small size -->
-<div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch>
+<div data-pm7-theme-switch class="pm7-theme-switch--sm">
   <span>Dark mode</span>
 </div>
 ```
@@ -42,7 +43,7 @@ import { PM7ThemeSwitch } from '@pm7/core';
 ```jsx
 function ThemeToggle() {
   return (
-    <div className="pm7-theme-switch" data-pm7-theme-switch>
+    <div data-pm7-theme-switch>
       <span>Theme</span>
     </div>
   );
@@ -53,7 +54,7 @@ function ThemeToggle() {
 
 ```vue
 <template>
-  <div class="pm7-theme-switch" data-pm7-theme-switch>
+  <div data-pm7-theme-switch>
     <span>Theme</span>
   </div>
 </template>

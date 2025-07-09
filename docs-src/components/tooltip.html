@@ -206,6 +206,72 @@
                     </div>
 
                     <div class="pm7-docs-example">
+                        <h3>Multiline Content</h3>
+                        <div class="pm7-docs-preview">
+                            <div class="pm7-tooltip">
+                                <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+                                    Multiline Example
+                                </button>
+                                <div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="top">
+                                    This is a multiline tooltip that contains<br>
+                                    multiple lines of text to demonstrate<br>
+                                    how text wrapping works in tooltips.
+                                    <div class="pm7-tooltip-arrow"></div>
+                                </div>
+                            </div>
+
+                            <div class="pm7-tooltip">
+                                <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+                                    Code Example
+                                </button>
+                                <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top">
+                                    <strong>Usage:</strong><br>
+                                    <code style="display: block; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+                                        class="pm7-tooltip-content<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pm7-tooltip-content--multiline"
+                                    </code>
+                                    <div class="pm7-tooltip-arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pm7-docs-example">
+                        <h3>Wide Tooltips</h3>
+                        <div class="pm7-docs-preview">
+                            <div class="pm7-tooltip">
+                                <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+                                    Wide Content (Large)
+                                </button>
+                                <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top">
+                                    This is a large tooltip with extended width (400px max) that can contain more detailed information, 
+                                    code examples, or longer explanations without becoming too cramped.
+                                    <div class="pm7-tooltip-arrow"></div>
+                                </div>
+                            </div>
+
+                            <div class="pm7-tooltip">
+                                <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+                                    Extra Wide (Custom)
+                                </button>
+                                <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="top" style="max-width: 600px;">
+                                    <strong>Custom Width Example</strong><br><br>
+                                    This tooltip demonstrates a custom max-width of 600px for cases where you need to display 
+                                    even more content, such as detailed API documentation or complex code examples:<br><br>
+                                    <code style="display: block; padding: 12px; background: var(--pm7-muted); border-radius: 4px; font-size: 12px;">
+                                        // Example: Button with all modifiers<br>
+                                        &lt;button class="pm7-button pm7-button--primary<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pm7-button--lg pm7-button--full"&gt;<br>
+                                        &nbsp;&nbsp;Click Me<br>
+                                        &lt;/button&gt;
+                                    </code>
+                                    <div class="pm7-tooltip-arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pm7-docs-example">
                         <h3>With Delay</h3>
                         <div class="pm7-docs-preview">
                             <div class="pm7-tooltip" data-open-delay="200">
@@ -298,21 +364,21 @@
                                     <td><code>.pm7-tooltip-arrow</code></td>
                                     <td>Arrow pointing to trigger</td>
                                 </tr>
-                                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
                                 <tr>
                                     <td><code>.pm7-tooltip-content--sm</code></td>
-                                    <td>Small tooltip size</td>
+                                    <td>Small tooltip size (max-width: 200px)</td>
                                 </tr>
                                 <tr>
                                     <td><code>.pm7-tooltip-content--lg</code></td>
-                                    <td>Large tooltip size</td>
+                                    <td>Large tooltip size (max-width: 400px)</td>
                                 </tr>
-                                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Theme Variants</strong></td></tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Theme Variants</strong></td></tr>
                                 <tr>
                                     <td><code>.pm7-tooltip-content--light</code></td>
                                     <td>Light theme variant</td>
                                 </tr>
-                                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Content Modifiers</strong></td></tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Content Modifiers</strong></td></tr>
                                 <tr>
                                     <td><code>.pm7-tooltip-content--multiline</code></td>
                                     <td>Multiline content support</td>
@@ -470,20 +536,30 @@
 &lt;/div&gt;</code></pre>
 
                         <h3>With Delays</h3>
-                        <pre><code class="language-html">&lt;!-- Open delay --&gt;
-&lt;div class="pm7-tooltip" data-open-delay="500"&gt;
-  &lt;button class="pm7-tooltip-trigger"&gt;Delayed open&lt;/button&gt;
+                        <p style="margin-bottom: 1rem;">Use delays to prevent tooltips from appearing during casual mouse movements. Recommended values depend on the use case.</p>
+                        <pre><code class="language-html">&lt;!-- Short delay (200ms) - Good for navigation --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="200"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Quick Info&lt;/button&gt;
   &lt;div class="pm7-tooltip-content" data-side="top"&gt;
-    Opens after 500ms
+    Opens after 200ms
     &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- Close delay --&gt;
-&lt;div class="pm7-tooltip" data-close-delay="300"&gt;
-  &lt;button class="pm7-tooltip-trigger"&gt;Delayed close&lt;/button&gt;
+&lt;!-- Medium delay (600ms) - Good for form fields --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="600"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Detailed Help&lt;/button&gt;
   &lt;div class="pm7-tooltip-content" data-side="top"&gt;
-    Stays open for 300ms after mouse leave
+    Opens after 600ms
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom open and close delays --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="300" data-close-delay="150"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Custom Timing&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Opens after 300ms, closes after 150ms
     &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -497,6 +573,75 @@
     &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+
+                        <h3>Wide Tooltips</h3>
+                        <p style="margin-bottom: 1rem;">For cases where you need more space for detailed content, use the large size modifier or custom max-width.</p>
+                        <pre><code class="language-html">&lt;!-- Large tooltip with extended width (400px) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Wide Content&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top"&gt;
+    This large tooltip can contain detailed information, 
+    code examples, or longer explanations without becoming too cramped.
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom width tooltip (600px) --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="300"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Extra Wide&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" 
+       data-side="bottom" style="max-width: 600px;"&gt;
+    &lt;strong&gt;Custom Width Example&lt;/strong&gt;&lt;br&gt;&lt;br&gt;
+    This tooltip has a custom max-width of 600px for displaying 
+    extensive content like API documentation or complex code examples:&lt;br&gt;&lt;br&gt;
+    &lt;code style="display: block; padding: 12px; background: var(--pm7-muted); border-radius: 4px; font-size: 12px;"&gt;
+      // Example: Button with all modifiers&lt;br&gt;
+      &amp;lt;button class="pm7-button pm7-button--primary&lt;br&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pm7-button--lg pm7-button--full"&amp;gt;&lt;br&gt;
+      &amp;nbsp;&amp;nbsp;Click Me&lt;br&gt;
+      &amp;lt;/button&amp;gt;
+    &lt;/code&gt;
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Recommended Delay Values</h3>
+                        <table class="pm7-docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Use Case</th>
+                                    <th>Open Delay</th>
+                                    <th>Close Delay</th>
+                                    <th>Rationale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Navigation items</td>
+                                    <td>200ms</td>
+                                    <td>0ms</td>
+                                    <td>Quick response for menus</td>
+                                </tr>
+                                <tr>
+                                    <td>Form field help</td>
+                                    <td>600ms</td>
+                                    <td>100ms</td>
+                                    <td>Avoid accidental triggers</td>
+                                </tr>
+                                <tr>
+                                    <td>Icon buttons</td>
+                                    <td>300ms</td>
+                                    <td>0ms</td>
+                                    <td>Balance between speed and prevention</td>
+                                </tr>
+                                <tr>
+                                    <td>Detailed info</td>
+                                    <td>800ms</td>
+                                    <td>200ms</td>
+                                    <td>Only show when user really hovers</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <h3>JavaScript API</h3>
                         <pre><code class="language-javascript">import { PM7Tooltip } from '@pm7/core';
@@ -624,7 +769,7 @@ element.addEventListener('pm7:tooltip:hide', (event) => {
       // Initialize menu after header is loaded
       setTimeout(() => {
           const menuElement = document.querySelector('[data-pm7-menu]');
-          if (menuElement && !menuElement.PM7Menu) {
+          if (menuElement) {
               new PM7Menu(menuElement);
           }
       }, 100);

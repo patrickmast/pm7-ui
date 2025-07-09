@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2025-01-08
+
+### 🎉 New Features
+- **TypeScript Support**: Full type definitions for all components and utilities
+  - Complete TypeScript declarations in `dist/index.d.ts`
+  - Proper module exports configuration for TypeScript
+  - Type-safe component APIs and utility functions
+
+### 🔧 Improvements
+- Fixed package.json exports to include TypeScript definitions
+- Added "types" field to package.json for better TypeScript discovery
+- Components remain framework-agnostic and AI-friendly
+
+### 📚 Documentation
+- Added TYPESCRIPT.md with complete TypeScript usage examples
+- Updated component documentation with TypeScript examples
+- Enhanced Getting Started guide with TypeScript section
+
 ## [2.1.1] - 2025-01-06
 
 ### 🐛 Bug Fixes

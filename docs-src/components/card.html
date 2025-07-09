@@ -220,7 +220,7 @@
                   <td><code>.pm7-card</code></td>
                   <td>Base card container</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Variants</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Variants</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card--outlined</code></td>
                   <td>Card with a more prominent border</td>
@@ -237,7 +237,7 @@
                   <td><code>.pm7-card--hoverable</code></td>
                   <td>Card with hover lift effect</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Padding Modifiers</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Padding Modifiers</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card--sm</code></td>
                   <td>Small padding</td>
@@ -254,7 +254,7 @@
                   <td><code>.pm7-card--no-padding</code></td>
                   <td>No padding</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Status Modifiers</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Status Modifiers</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card--success</code></td>
                   <td>Success state (green)</td>
@@ -271,7 +271,7 @@
                   <td><code>.pm7-card--info</code></td>
                   <td>Info state (blue)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card-header</code></td>
                   <td>Card header section</td>
@@ -309,7 +309,7 @@
                   <td><code>.pm7-card-image--top</code></td>
                   <td>Image with rounded top corners, suitable for full-bleed images within a card that has `pm7-card--no-padding`</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Footer Alignment</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Footer Alignment</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card-footer--start</code></td>
                   <td>Left align footer content</td>
@@ -322,7 +322,7 @@
                   <td><code>.pm7-card-footer--between</code></td>
                   <td>Space between footer items</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Grid Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Grid Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-card-grid</code></td>
                   <td>Responsive grid container</td>
@@ -584,7 +584,7 @@
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

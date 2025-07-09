@@ -5,6 +5,12 @@
 export class PM7Accordion {
   constructor(element, options = {}) {
     this.element = element;
+    
+    // AI-Agent FIRST: Automatically add pm7-accordion class if missing
+    if (!this.element.classList.contains('pm7-accordion')) {
+      this.element.classList.add('pm7-accordion');
+    }
+    
     this.options = {
       allowMultiple: false,
       defaultOpen: null,
@@ -184,24 +190,22 @@ export class PM7Accordion {
   static autoInit() {
     const accordions = document.querySelectorAll('[data-pm7-accordion]');
     accordions.forEach(accordion => {
-      // Check if already initialized
-      if (!accordion.PM7Accordion) {
-        const allowMultiple = accordion.getAttribute('data-allow-multiple') === 'true';
-        const defaultOpen = accordion.getAttribute('data-default-open');
-        const iconPosition = accordion.getAttribute('data-icon-position') || 'end';
-        const textAlign = accordion.getAttribute('data-text-align') || 'left';
-        const height = accordion.getAttribute('data-height');
-        const fixedHeight = accordion.getAttribute('data-fixed-height');
-        
-        accordion.PM7Accordion = new PM7Accordion(accordion, {
-          allowMultiple,
-          defaultOpen: defaultOpen === 'all' ? 'all' : parseInt(defaultOpen),
-          iconPosition,
-          textAlign,
-          height,
-          fixedHeight: fixedHeight ? parseInt(fixedHeight) : 300
-        });
-      }
+      // Initialize accordion
+      const allowMultiple = accordion.getAttribute('data-allow-multiple') === 'true';
+      const defaultOpen = accordion.getAttribute('data-default-open');
+      const iconPosition = accordion.getAttribute('data-icon-position') || 'end';
+      const textAlign = accordion.getAttribute('data-text-align') || 'left';
+      const height = accordion.getAttribute('data-height');
+      const fixedHeight = accordion.getAttribute('data-fixed-height');
+      
+      new PM7Accordion(accordion, {
+        allowMultiple,
+        defaultOpen: defaultOpen === 'all' ? 'all' : parseInt(defaultOpen),
+        iconPosition,
+        textAlign,
+        height,
+        fixedHeight: fixedHeight ? parseInt(fixedHeight) : 300
+      });
     });
   }
 }

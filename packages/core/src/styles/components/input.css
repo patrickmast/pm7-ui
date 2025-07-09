@@ -28,12 +28,7 @@
 .pm7-input:focus {
   outline: none;
   border-color: var(--pm7-ring);
-  box-shadow: 0 0 0 3px rgb(28 134 239 / 0.1);
-}
-
-/* Dark mode focus shadow */
-.dark .pm7-input:focus {
-  box-shadow: 0 0 0 3px rgb(59 158 255 / 0.2);
+  box-shadow: var(--pm7-focus-shadow);
 }
 
 .pm7-input:disabled {
@@ -60,11 +55,7 @@
 
 .pm7-input--error:focus {
   border-color: var(--pm7-error);
-  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1);
-}
-
-.dark .pm7-input--error:focus {
-  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.2);
+  box-shadow: var(--pm7-error-focus-shadow);
 }
 
 .pm7-input--success {
@@ -73,11 +64,7 @@
 
 .pm7-input--success:focus {
   border-color: var(--pm7-success);
-  box-shadow: 0 0 0 3px rgb(34 197 94 / 0.1);
-}
-
-.dark .pm7-input--success:focus {
-  box-shadow: 0 0 0 3px rgb(34 197 94 / 0.2);
+  box-shadow: var(--pm7-success-focus-shadow);
 }
 
 /* Textarea specific */
@@ -234,7 +221,7 @@ textarea.pm7-input--no-resize {
 .pm7-select:focus {
   outline: none;
   border-color: var(--pm7-ring);
-  box-shadow: 0 0 0 3px rgb(28 134 239 / 0.1);
+  box-shadow: var(--pm7-focus-shadow);
 }
 
 .pm7-select:disabled {
@@ -285,7 +272,7 @@ textarea.pm7-input--no-resize {
 
 .pm7-checkbox input:focus + .pm7-checkbox-indicator,
 .pm7-radio input:focus + .pm7-radio-indicator {
-  box-shadow: 0 0 0 3px rgb(28 134 239 / 0.1);
+  box-shadow: var(--pm7-focus-shadow);
 }
 
 .pm7-checkbox input:checked + .pm7-checkbox-indicator,
@@ -384,7 +371,7 @@ textarea.pm7-input--no-resize {
 }
 
 .pm7-switch input:focus + .pm7-switch-track {
-  box-shadow: 0 0 0 3px rgb(28 134 239 / 0.1);
+  box-shadow: var(--pm7-focus-shadow);
 }
 
 .pm7-switch input:disabled + .pm7-switch-track {

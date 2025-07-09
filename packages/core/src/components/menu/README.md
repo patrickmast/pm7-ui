@@ -38,7 +38,8 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 ### Basic Menu
 
 ```html
-<div class="pm7-menu" data-pm7-menu>
+<!-- AI-Agent FIRST: Only data-pm7-menu attribute needed -->
+<div data-pm7-menu>
   <button class="pm7-menu-trigger pm7-button pm7-button--outline">
     Open Menu
   </button>
@@ -52,21 +53,35 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 </div>
 ```
 
+**AI-Agent FIRST**: The `.pm7-menu` CSS class is automatically added by the JavaScript when the component initializes. You only need to add the `data-pm7-menu` attribute!
+
 ### JavaScript API
 
 #### Auto-initialization
 
-Menus with `data-pm7-menu` attribute are automatically initialized when the DOM loads.
+Menus with `data-pm7-menu` attribute are automatically initialized when the DOM loads:
 
 ```javascript
 import { PM7Menu } from '@pm7/core';
+
+// For auto-initialized menus, create a new instance to control
+const menuElement = document.querySelector('[data-pm7-menu]');
+const menu = new PM7Menu(menuElement);
+menu.open();
+menu.close();
+menu.toggle();
 ```
 
-#### Class Constructor
+#### Manual Initialization
 
 ```javascript
-const menuElement = document.querySelector('.pm7-menu');
-const menu = new PM7Menu(menuElement);
+// Manual initialization
+const customMenu = document.querySelector('.custom-menu');
+const menu = new PM7Menu(customMenu);
+
+// Use the instance directly
+menu.open();
+menu.close();
 ```
 
 #### Instance Methods
@@ -79,13 +94,24 @@ const menu = new PM7Menu(menuElement);
 | `adjustPosition()` | Recalculates and adjusts menu position |
 
 ```javascript
-// Open/close programmatically
+// Using the component instance
+const menuElement = document.querySelector('[data-pm7-menu]');
+const menu = new PM7Menu(menuElement);
 menu.open();
 menu.close();
 menu.toggle();
 
 // Adjust position manually (e.g., after content change)
 menu.adjustPosition();
+```
+
+#### TypeScript Support
+
+```typescript
+// Type-safe component usage
+const menuElement = document.querySelector('[data-pm7-menu]') as HTMLElement;
+const menu = new PM7Menu(menuElement);
+menu.open();
 ```
 
 #### Events

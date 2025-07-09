@@ -74,7 +74,7 @@
   background-color: var(--pm7-menu-bg);
   border: 1px solid var(--pm7-border);
   border-radius: var(--pm7-menu-radius);
-  box-shadow: var(--pm7-shadow-md);
+  box-shadow: var(--pm7-menu-shadow);
   /* Hard display none/block */
   display: none;
 }
@@ -180,7 +180,7 @@
   background-color: var(--pm7-menu-hover);
   color: var(--pm7-menu-hover-text);
   /* Original PM7 shadow effect */
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px;
+  box-shadow: var(--pm7-menu-hover-shadow);
   position: relative;
   z-index: 1;
 }
@@ -214,7 +214,7 @@
 
 /* Destructive menu items - ensure proper contrast on hover */
 .pm7-menu-item--destructive:not(.pm7-menu-item--clicking):hover {
-  color: white !important; /* Override red text to white on hover for better contrast */
+  color: var(--pm7-destructive-foreground) !important; /* Use proper contrast color */
 }
 
 /* Menu item icons */
@@ -242,7 +242,7 @@
 /* Dark mode styles */
 .dark .pm7-menu-item:not(.pm7-menu-item--clicking):hover {
   /* Adjusted shadow for dark mode */
-  box-shadow: rgba(255, 255, 255, 0.05) 0px 5px 15px 0px, rgba(255, 255, 255, 0.1) 0px 15px 35px -5px;
+  box-shadow: var(--pm7-menu-hover-shadow);
 }
 
 /* Menu label - small uppercase labels */

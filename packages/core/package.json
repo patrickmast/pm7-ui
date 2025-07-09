@@ -1,6 +1,6 @@
 {
   "name": "@pm7/core",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "The First UI Library Built for AI Coding Agents - Core CSS and JavaScript",
   "main": "dist/pm7.js",
   "module": "dist/pm7.esm.js",
@@ -8,6 +8,7 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/pm7.esm.js",
       "require": "./dist/pm7.js"
     },
@@ -18,9 +19,10 @@
   ],
   "scripts": {
     "dev": "echo 'Core package development mode'",
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:css && npm run build:js && npm run build:types",
     "build:css": "postcss src/styles/index.css -o dist/pm7.css",
-    "build:js": "rollup -c rollup.config.mjs"
+    "build:js": "rollup -c rollup.config.mjs",
+    "build:types": "cp src/types/index.d.ts dist/index.d.ts"
   },
   "keywords": [
     "pm7",

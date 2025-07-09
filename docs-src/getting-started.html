@@ -103,6 +103,51 @@ import '@pm7/core/dist/pm7.css';</code></pre>
     </section>
     
     <section style="margin-top: 60px;">
+      <h2>TypeScript Support</h2>
+      <p>pm7-ui includes full TypeScript support with type definitions for all components.</p>
+      
+      <h3>Setup</h3>
+      <p>TypeScript types are automatically included when you install <code>@pm7/core</code>. No additional packages needed!</p>
+      
+      <h3>Using Component Instances</h3>
+      <p>Create and use component instances:</p>
+      <pre><code>// Access tab selector instance
+const tabElement = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabs = new PM7TabSelector(tabElement);
+tabs.selectTabById('settings-tab');
+const activeTab = tabs.getActiveTab();
+
+// Menu instance
+const menuElement = document.querySelector('[data-pm7-menu]') as HTMLElement;
+const menu = new PM7Menu(menuElement);
+menu.open();
+
+// Tooltip instance
+const tooltipElement = document.querySelector('.pm7-tooltip') as HTMLElement;
+const tooltip = new PM7Tooltip(tooltipElement);
+tooltip.updatePosition();</code></pre>
+      
+      <h3>Typed Utilities</h3>
+      <pre><code>import { showToast, confirm, createDialog } from '@pm7/core';
+
+// Fully typed toast options
+const toast = showToast({
+  message: 'Operation successful',
+  type: 'success',
+  duration: 3000,
+  position: 'top-right'
+});
+
+// Async confirmation dialogs
+const userConfirmed = await confirm('Delete this item?');
+if (userConfirmed) {
+  // Proceed with deletion
+}</code></pre>
+      
+      <p>See the <a href="https://github.com/patrickmast/pm7-ui/blob/main/packages/core/TYPESCRIPT.md">TypeScript documentation</a> for complete API reference and examples.</p>
+    </section>
+    
+    <section style="margin-top: 60px;">
       <h2>Customization</h2>
       <p>pm7-ui uses CSS custom properties (variables) for theming. You can customize colors, spacing, and more:</p>
       
@@ -205,6 +250,7 @@ document.documentElement.classList.remove('dark'); // Enable light mode</code></
       <p>Now that you've installed pm7-ui, check out:</p>
       <ul>
         <li><a href="/components.html">Component documentation</a> - See all available components</li>
+        <li><a href="https://github.com/patrickmast/pm7-ui/blob/main/packages/core/TYPESCRIPT.md">TypeScript guide</a> - Complete TypeScript API reference</li>
         <li><a href="/ai-guide.html">AI Guide</a> - Learn how to use pm7-ui with AI coding agents</li>
         <li><a href="https://github.com/patrickmast/pm7-ui">GitHub repository</a> - Source code and issues</li>
       </ul>

@@ -2,20 +2,12 @@
 
 /* Theme Switch Variables */
 :root {
-  --pm7-theme-switch-bg: white;
-  --pm7-theme-switch-thumb-bg-light: #FFD43B;
-  --pm7-theme-switch-thumb-bg-dark: #6E6E6E;
-  --pm7-theme-switch-icon-light: black;
-  --pm7-theme-switch-icon-dark: white;
+  /* Component dimensions - these stay the same in all themes */
   --pm7-theme-switch-width: 56px;
   --pm7-theme-switch-height: 28px;
   --pm7-theme-switch-thumb-size: 24px;
   --pm7-theme-switch-gap: 10px;
   --pm7-theme-switch-transition: all 0.2s ease-in-out;
-}
-
-.dark {
-  --pm7-theme-switch-bg: white;
 }
 
 /* Container */
@@ -248,12 +240,12 @@
 
 /* Sun icon styling */
 .pm7-theme-switch--fixed-icon[data-theme="light"] .pm7-theme-switch-icon {
-  color: #FFB800;
+  color: var(--pm7-theme-switch-sun-color);
 }
 
 /* Moon icon styling */
 .pm7-theme-switch--fixed-icon[data-theme="dark"] .pm7-theme-switch-icon {
-  color: #4A5568;
+  color: var(--pm7-theme-switch-moon-color);
 }
 
 /* Small fixed variant */

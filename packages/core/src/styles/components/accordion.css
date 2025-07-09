@@ -360,7 +360,7 @@
 .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
 .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
 .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--pm7-scrollbar-thumb);
   border-radius: 3px;
 }
 
@@ -368,7 +368,7 @@
 .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
 .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
 .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--pm7-scrollbar-thumb-hover);
 }
 
 /* Width max variant - forces full width */
@@ -407,12 +407,12 @@
 .dark .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
 .dark .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb,
 .dark .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--pm7-scrollbar-thumb);
 }
 
 .dark .pm7-accordion--height-sm .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
 .dark .pm7-accordion--height-md .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
 .dark .pm7-accordion--height-lg .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover,
 .dark .pm7-accordion--height-fixed .pm7-accordion-content[data-state="open"]::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--pm7-scrollbar-thumb-hover);
 }

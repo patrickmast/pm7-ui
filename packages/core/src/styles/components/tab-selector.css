@@ -62,7 +62,7 @@
 .dark .pm7-tab-trigger.pm7-tab-trigger--active {
   border-bottom: 1px solid var(--pm7-tab-active-border);
   background-color: var(--pm7-tab-active-bg);
-  color: white;
+  color: var(--pm7-primary-foreground);
 }
 
 /* Tab content */

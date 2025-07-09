@@ -309,7 +309,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Container Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Container Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-selector</code></td>
                   <td>Container element</td>
@@ -318,7 +318,7 @@
                   <td><code>.pm7-tab-list</code></td>
                   <td>Tab button container</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Tab Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Tab Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-trigger</code></td>
                   <td>Individual tab button</td>
@@ -335,7 +335,7 @@
                   <td><code>.pm7-tab-trigger-badge</code></td>
                   <td>Badge/counter within tab</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Content Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Content Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-content</code></td>
                   <td>Tab panel content</td>
@@ -344,7 +344,7 @@
                   <td><code>.pm7-tab-content--active</code></td>
                   <td>Active panel state (alternative to data-state)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Variant Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Variant Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-selector--solid</code></td>
                   <td>Solid background variant</td>
@@ -353,7 +353,7 @@
                   <td><code>.pm7-tab-selector--pills</code></td>
                   <td>Pill-shaped variant</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Size Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-selector--sm</code></td>
                   <td>Small size</td>
@@ -362,7 +362,7 @@
                   <td><code>.pm7-tab-selector--lg</code></td>
                   <td>Large size</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Layout Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Layout Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-tab-selector--full-width</code></td>
                   <td>Full width tabs</td>
@@ -391,15 +391,29 @@
             <p>The component uses standard PM7 design tokens for consistent theming across your application.</p>
 
             <h3>JavaScript API</h3>
-            <p>Tab selectors are automatically initialized when the DOM loads. For dynamic content, you can manually initialize:</p>
+            <p>Tab selectors are automatically initialized when the DOM loads:</p>
             <pre><code class="language-javascript">import { PM7TabSelector } from '@pm7/core';
 
-// Initialize a specific tab selector
-const element = document.querySelector('[data-pm7-tab-selector]');
-const tabSelector = new PM7TabSelector(element);
+// Create instance for auto-initialized tabs
+const tabElement = document.querySelector('[data-pm7-tab-selector]');
+const tabs = new PM7TabSelector(tabElement);
 
-// Or re-initialize all tab selectors
-PM7TabSelector.autoInit();</code></pre>
+// Use the instance
+tabs.selectTabById('settings-panel');
+tabs.selectTabByIndex(2);
+
+// Get active tab information
+const activeTab = tabs.getActiveTab();
+const activeIndex = tabs.getActiveIndex();
+
+// Manual initialization
+const customTabs = document.querySelector('.custom-tabs');
+const customTabInstance = new PM7TabSelector(customTabs);
+
+// TypeScript support
+const element = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabSelector = new PM7TabSelector(element);
+tabSelector.selectTabById('profile-panel');</code></pre>
 
             <h3>Dynamic Tabs Example</h3>
             <pre><code class="language-html">&lt;!-- Tab selector with dynamic content --&gt;
@@ -531,7 +545,7 @@ PM7TabSelector.autoInit();</code></pre>
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

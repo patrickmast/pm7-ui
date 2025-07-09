@@ -651,7 +651,7 @@ The accordion uses CSS animations for smooth open/close transitions:
       <td>John Doe</td>
       <td>$150.00</td>
       <td>
-        <div class="pm7-accordion pm7-accordion--flush" data-pm7-accordion style="margin: 0;">
+        <div data-pm7-accordion class="pm7-accordion--flush" style="margin: 0;">
           <div class="pm7-accordion-item" style="border: none;">
             <button class="pm7-accordion-trigger pm7-button pm7-button--sm pm7-button--ghost">
               <span>Details</span>

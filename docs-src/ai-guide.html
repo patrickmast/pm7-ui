@@ -229,18 +229,28 @@ PM7.init();</code></pre>
       <h3>Components with Auto-initialization</h3>
       <ul>
         <li><strong>Menu</strong> - <code class="inline">[data-pm7-menu]</code></li>
-        <li><strong>Dialog</strong> - <code class="inline">[data-pm7-dialog]</code></li>
         <li><strong>Accordion</strong> - <code class="inline">[data-pm7-accordion]</code></li>
         <li><strong>Tab Selector</strong> - <code class="inline">[data-pm7-tab-selector]</code></li>
         <li><strong>Tooltip</strong> - <code class="inline">[data-pm7-tooltip]</code></li>
+        <li><strong>Theme Switch</strong> - <code class="inline">[data-pm7-theme-switch]</code></li>
       </ul>
+      
+      <div class="ai-tip">
+        <h4>📝 Note about Dialogs</h4>
+        <p>Dialogs use <code class="inline">data-pm7-dialog</code> for identification but are NOT auto-initialized. Use <code>openDialog('dialog-id')</code> to open them.</p>
+      </div>
     </section>
     
     <section style="margin-top: 60px;">
       <h2>Documentation Links for AI</h2>
       
       <div class="ai-tip">
-        <h4>📚 Complete Documentation</h4>
+        <h4>🤖 AI Agent Reference</h4>
+        <p>For a complete reference of ALL PM7-UI attributes and patterns, see <a href="/AI-AGENT.md" style="color: var(--pm7-primary); text-decoration: underline;">AI-AGENT.md</a> - the definitive guide for AI agents using PM7-UI.</p>
+      </div>
+      
+      <div class="ai-tip">
+        <h4>📚 Component Documentation</h4>
         <p>Need all pm7-ui documentation links in one place? Visit our <a href="/readme-links.html" style="color: var(--pm7-primary); text-decoration: underline;">README Links page</a> for easy access to all component documentation.</p>
       </div>
     </section>
@@ -257,8 +267,9 @@ PM7.init();</code></pre>
       <ul>
         <li>✅ Use simple CSS classes: <code class="inline">pm7-button</code>, <code class="inline">pm7-card</code></li>
         <li>✅ Combine modifiers: <code class="inline">pm7-button pm7-button--primary pm7-button--lg</code></li>
-        <li>✅ Use data attributes for interactive components: <code class="inline">data-pm7-menu</code></li>
+        <li>✅ ALWAYS use <code class="inline">data-pm7-*</code> attributes for ALL components</li>
         <li>✅ Import CSS once at the top of your app</li>
+        <li>✅ Check <a href="/AI-AGENT.md">AI-AGENT.md</a> for complete attribute reference</li>
       </ul>
       
       <h3>DON'T:</h3>
@@ -266,6 +277,7 @@ PM7.init();</code></pre>
         <li>❌ Import React components from @pm7/react (package removed)</li>
         <li>❌ Use complex component APIs</li>
         <li>❌ Worry about framework-specific syntax</li>
+        <li>❌ Use <code class="inline">pm7-*</code> attributes without <code class="inline">data-</code> prefix</li>
       </ul>
     </section>
     

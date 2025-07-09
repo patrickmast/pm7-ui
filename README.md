@@ -27,6 +27,7 @@ import '@pm7/core/dist/pm7.css';
 
 - **Framework agnostic** - One package works with all frameworks
 - **AI-optimized** - Simple CSS classes that AI agents understand
+- **TypeScript ready** - Full type definitions with DOM augmentation
 - **Lightweight** - ~15KB gzipped (CSS + JS)
 - **Dark mode** - Built-in theme switching with no flicker
 - **Accessible** - WCAG 2.1 AA compliant
@@ -46,6 +47,30 @@ import '@pm7/core/dist/pm7.css';
 </div>
 ```
 
+## TypeScript Support
+
+pm7-ui includes full TypeScript support with type definitions:
+
+```typescript
+// Create and use component instances
+const tabElement = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabs = new PM7TabSelector(tabElement);
+tabs.selectTabById('settings-tab');
+
+// Fully typed utilities
+import { showToast, confirm } from '@pm7/core';
+
+const toast = showToast({
+  message: 'Success!',
+  type: 'success',
+  duration: 3000
+});
+
+const userConfirmed = await confirm('Delete this item?');
+```
+
+See [TypeScript documentation](packages/core/TYPESCRIPT.md) for complete details.
+
 ## For AI Development
 
 Give your AI agent this documentation:
@@ -60,6 +85,7 @@ The AI-README contains complete technical documentation, examples, and patterns 
 
 - **Website**: [pm7-ui.dev](https://pm7-ui.dev) - Interactive examples and guides
 - **AI Documentation**: [AI-README.md](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md) - Technical reference for AI agents
+- **TypeScript Guide**: [TYPESCRIPT.md](packages/core/TYPESCRIPT.md) - TypeScript setup and usage
 - **Component Docs**: See individual component READMEs in `packages/core/src/components/`
 
 ## Components

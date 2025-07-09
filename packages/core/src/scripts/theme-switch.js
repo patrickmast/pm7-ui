@@ -169,18 +169,16 @@ export class PM7ThemeSwitch {
   static autoInit() {
     const switches = document.querySelectorAll('[data-pm7-theme-switch]');
     switches.forEach(switchElement => {
-      // Check if already initialized
-      if (!switchElement.PM7ThemeSwitch) {
-        const defaultTheme = switchElement.getAttribute('data-default-theme');
-        const storageKey = switchElement.getAttribute('data-storage-key') || 'pm7-theme';
-        const applyToRoot = switchElement.getAttribute('data-apply-to-root') !== 'false';
-        
-        switchElement.PM7ThemeSwitch = new PM7ThemeSwitch(switchElement, {
-          defaultTheme,
-          storageKey,
-          applyToRoot
-        });
-      }
+      // Initialize theme switch
+      const defaultTheme = switchElement.getAttribute('data-default-theme');
+      const storageKey = switchElement.getAttribute('data-storage-key') || 'pm7-theme';
+      const applyToRoot = switchElement.getAttribute('data-apply-to-root') !== 'false';
+      
+      new PM7ThemeSwitch(switchElement, {
+        defaultTheme,
+        storageKey,
+        applyToRoot
+      });
     });
   }
 }

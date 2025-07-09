@@ -68,7 +68,8 @@ The following sections describe the vanilla JavaScript implementation using `@pm
 ### Basic Tabs
 
 ```html
-<div class="pm7-tab-selector" data-pm7-tab-selector>
+<!-- AI-Agent FIRST: Only data-pm7-tab-selector needed, CSS class is auto-added -->
+<div data-pm7-tab-selector>
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="basic-tab-1" data-state="active">Tab 1</button>
     <button class="pm7-tab-trigger" aria-controls="basic-tab-2">Tab 2</button>
@@ -89,24 +90,28 @@ The following sections describe the vanilla JavaScript implementation using `@pm
 
 ### JavaScript Initialization
 
-Tabs with `data-pm7-tab-selector` are automatically initialized. For manual control:
+Tabs with `data-pm7-tab-selector` are automatically initialized. The CSS class `pm7-tab-selector` is automatically added when JavaScript runs:
 
 ```javascript
 import { PM7TabSelector } from '@pm7/core';
 
-// Manual initialization
-const tabElement = document.querySelector('.pm7-tab-selector');
+// Create instance for auto-initialized tabs
+const tabElement = document.querySelector('[data-pm7-tab-selector]');
 const tabs = new PM7TabSelector(tabElement);
 
-// Select tab by index
+// Use the instance
 tabs.selectTabByIndex(1);
-
-// Select tab by ID
 tabs.selectTabById('settings-tab');
 
-// Get active tab info
-const activeTab = tabs.getActiveTab();
-const activeIndex = tabs.getActiveIndex();
+// Or manually initialize
+const customTabs = document.querySelector('.custom-tabs');
+const customTabInstance = new PM7TabSelector(customTabs);
+
+// API Methods
+tabs.selectTabByIndex(1);    // Select by index
+tabs.selectTabById('tab-2'); // Select by ID
+const activeTab = tabs.getActiveTab();    // Get active tab element
+const activeIndex = tabs.getActiveIndex(); // Get active tab index
 
 // Listen for tab changes
 tabElement.addEventListener('pm7-tab-change', (e) => {
@@ -114,6 +119,15 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
   console.log('Tab panel:', e.detail.panel);
   console.log('Tab index:', e.detail.index);
 });
+```
+
+#### TypeScript Support
+
+```typescript
+// Type-safe tab selector usage
+const tabElement = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabs = new PM7TabSelector(tabElement);
+tabs.selectTabById('settings-tab');
 ```
 
 ### Variants
@@ -166,7 +180,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 
 ```html
 <!-- Default size -->
-<div class="pm7-tab-selector" data-pm7-tab-selector>
+<div data-pm7-tab-selector>
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="default-size-tab-1" data-state="active">Default Size</button>
     <button class="pm7-tab-trigger" aria-controls="default-size-tab-2">Tab 2</button>
@@ -180,7 +194,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 </div>
 
 <!-- Small -->
-<div class="pm7-tab-selector pm7-tab-selector--sm" data-pm7-tab-selector>
+<div data-pm7-tab-selector class="pm7-tab-selector--sm">
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="small-size-tab-1" data-state="active">Small Size</button>
     <button class="pm7-tab-trigger" aria-controls="small-size-tab-2">Tab 2</button>
@@ -194,7 +208,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 </div>
 
 <!-- Large -->
-<div class="pm7-tab-selector pm7-tab-selector--lg" data-pm7-tab-selector>
+<div data-pm7-tab-selector class="pm7-tab-selector--lg">
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="large-size-tab-1" data-state="active">Large Size</button>
     <button class="pm7-tab-trigger" aria-controls="large-size-tab-2">Tab 2</button>
@@ -211,7 +225,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 ### Full Width Tabs
 
 ```html
-<div class="pm7-tab-selector pm7-tab-selector--solid pm7-tab-selector--full-width" data-pm7-tab-selector>
+<div data-pm7-tab-selector class="pm7-tab-selector--solid pm7-tab-selector--full-width">
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="full-width-tab-1" data-state="active">Tab A</button>
     <button class="pm7-tab-trigger" aria-controls="full-width-tab-2">Tab B</button>
@@ -232,7 +246,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 ### Tabs with Icons
 
 ```html
-<div class="pm7-tab-selector" data-pm7-tab-selector>
+<div data-pm7-tab-selector>
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="icon-tab-1" data-state="active">
       <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
@@ -255,7 +269,7 @@ tabElement.addEventListener('pm7-tab-change', (e) => {
 ### Tabs with Badges
 
 ```html
-<div class="pm7-tab-selector" data-pm7-tab-selector>
+<div data-pm7-tab-selector>
   <div class="pm7-tab-list">
     <button class="pm7-tab-trigger" aria-controls="badge-tab-1" data-state="active">
       Messages

@@ -118,7 +118,7 @@ yarn add @pm7/core</code></pre>
               <h3>Accordion with Fixed Max Width</h3>
               
               <h4>800px Max Width</h4>
-              <div class="pm7-docs-preview" style="background-color: #f0f0f0; padding: 2rem;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
                 <div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion style="margin: 0 auto;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
@@ -169,7 +169,7 @@ yarn add @pm7/core</code></pre>
               </div>
               
               <h4>1000px Max Width</h4>
-              <div class="pm7-docs-preview" style="background-color: #e8f4f8; padding: 2rem;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
                 <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion style="margin: 0 auto;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
@@ -221,7 +221,7 @@ yarn add @pm7/core</code></pre>
                     <div class="pm7-accordion-content">
                       <div class="pm7-accordion-content-inner">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                          <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                          <div class="pm7-demo-border" style="border: 1px solid; padding: 1rem; border-radius: 8px;">
                             <h5>Starter</h5>
                             <p style="font-size: 24px; font-weight: bold;">€29/mo</p>
                             <ul style="font-size: 14px;">
@@ -230,16 +230,16 @@ yarn add @pm7/core</code></pre>
                               <li>Email support</li>
                             </ul>
                           </div>
-                          <div style="border: 1px solid #1C86EF; padding: 1rem; border-radius: 8px; background-color: #f0f8ff;">
+                          <div class="pm7-demo-border-primary pm7-demo-bg-accent" style="border: 1px solid; padding: 1rem; border-radius: 8px;">
                             <h5>Professional</h5>
-                            <p style="font-size: 24px; font-weight: bold; color: #1C86EF;">€99/mo</p>
+                            <p class="pm7-demo-text-primary" style="font-size: 24px; font-weight: bold;">€99/mo</p>
                             <ul style="font-size: 14px;">
                               <li>Up to 50 users</li>
                               <li>Advanced features</li>
                               <li>Priority support</li>
                             </ul>
                           </div>
-                          <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                          <div class="pm7-demo-border" style="border: 1px solid; padding: 1rem; border-radius: 8px;">
                             <h5>Enterprise</h5>
                             <p style="font-size: 24px; font-weight: bold;">Custom</p>
                             <ul style="font-size: 14px;">
@@ -656,7 +656,7 @@ yarn add @pm7/core</code></pre>
               </div>
               
               <h5>Vergelijking - Alle drie naast elkaar</h5>
-              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
                 <div style="display: grid; gap: 2rem;">
                   <div>
                     <p style="font-weight: 600; margin-bottom: 0.5rem;">Default (Icon End):</p>
@@ -721,8 +721,8 @@ yarn add @pm7/core</code></pre>
               
               <!-- Full Width Example -->
               <h5>Full Width (100% of parent)</h5>
-              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
-                <div style="max-width: 800px; margin: 0 auto; background-color: white; padding: 2rem; border-radius: 8px;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
+                <div class="pm7-demo-bg-surface" style="max-width: 800px; margin: 0 auto; padding: 2rem; border-radius: 8px;">
                   <p style="margin-bottom: 1rem;">Parent container with max-width: 800px</p>
                   <div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion>
                     <div class="pm7-accordion-item">
@@ -758,7 +758,7 @@ yarn add @pm7/core</code></pre>
               
               <!-- Max Width 800px Example -->
               <h5>Max Width 800px</h5>
-              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
                 <div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion style="margin: 0 auto;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
@@ -792,7 +792,7 @@ yarn add @pm7/core</code></pre>
               
               <!-- Max Width 1000px Example -->
               <h5>Max Width 1000px</h5>
-              <div class="pm7-docs-preview" style="background-color: #f5f5f5; padding: 2rem;">
+              <div class="pm7-docs-preview pm7-demo-bg-muted" style="padding: 2rem;">
                 <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion style="margin: 0 auto;">
                   <div class="pm7-accordion-item">
                     <button class="pm7-accordion-trigger">
@@ -1016,7 +1016,7 @@ const accordion = new PM7Accordion(element, {
                 </tr>
               </thead>
               <tbody>
-                <tr style="background-color: #f9f9f9;">
+                <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Base Classes</strong></td>
                 </tr>
                 <tr>
@@ -1043,14 +1043,14 @@ const accordion = new PM7Accordion(element, {
                   <td><code>.pm7-accordion-icon</code></td>
                   <td>Chevron icon for open/close state</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;">
+                <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Variants</strong></td>
                 </tr>
                 <tr>
                   <td><code>.pm7-accordion--flush</code></td>
                   <td>Removes borders and background</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;">
+                <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Size Modifiers</strong></td>
                 </tr>
                 <tr>
@@ -1101,7 +1101,7 @@ const accordion = new PM7Accordion(element, {
                   <td><code>.pm7-accordion--no-separator</code></td>
                   <td>Removes the separator line between header and content</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;">
+                <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Width Modifiers</strong></td>
                 </tr>
                 <tr>
@@ -1116,7 +1116,7 @@ const accordion = new PM7Accordion(element, {
                   <td><code>.pm7-accordion--width-1000</code></td>
                   <td>Sets maximum width to 1000px with responsive behavior</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;">
+                <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Height Variants</strong></td>
                 </tr>
                 <tr>
@@ -1371,7 +1371,7 @@ accordion.toggle(0);    // Toggle specific item</code></pre>
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

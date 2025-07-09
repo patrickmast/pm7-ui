@@ -286,7 +286,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Input Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Input Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-input</code></td>
                   <td>Base input class (also used for textarea)</td>
@@ -319,12 +319,12 @@
                   <td><code>.pm7-input--no-resize</code></td>
                   <td>Prevents textarea resizing (textarea only)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Select Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Select Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-select</code></td>
                   <td>Select dropdown styling</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Checkbox Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Checkbox Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-checkbox</code></td>
                   <td>Checkbox container</td>
@@ -337,7 +337,7 @@
                   <td><code>.pm7-checkbox-label</code></td>
                   <td>Checkbox label text</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Radio Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Radio Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-radio</code></td>
                   <td>Radio button container</td>
@@ -354,7 +354,7 @@
                   <td><code>.pm7-radio-group</code></td>
                   <td>Container for radio button groups</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Switch Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Switch Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-switch</code></td>
                   <td>Switch/toggle container</td>
@@ -371,7 +371,7 @@
                   <td><code>.pm7-switch-label</code></td>
                   <td>Switch label text</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Form Structure Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Form Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-form-group</code></td>
                   <td>Container for a form field (label, input, helper text)</td>
@@ -396,7 +396,7 @@
                   <td><code>.pm7-helper-text--success</code></td>
                   <td>Success message styling (green text)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Input Group Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Input Group Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-input-group</code></td>
                   <td>Container for input with addons</td>
@@ -405,7 +405,7 @@
                   <td><code>.pm7-input-addon</code></td>
                   <td>Prefix/suffix addon styling</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Icon Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Icon Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-input-icon-wrapper</code></td>
                   <td>Container for input with icons</td>
@@ -636,7 +636,7 @@
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

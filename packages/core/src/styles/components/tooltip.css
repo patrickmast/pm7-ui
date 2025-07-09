@@ -22,8 +22,8 @@
 }
 
 .pm7-tooltip-content {
-  position: absolute;
-  z-index: 9999; /* High z-index to ensure tooltip appears above other content */
+  position: fixed; /* Use fixed positioning to escape overflow containers */
+  z-index: 999999; /* Extremely high z-index to ensure tooltip appears above everything */
   
   /* Base styles */
   max-width: 320px;
@@ -70,15 +70,12 @@
 /* Positioning variants */
 /* Top */
 .pm7-tooltip-content[data-side="top"] {
-  bottom: 100%;
-  left: 50%;
   transform-origin: center bottom;
-  margin-bottom: 0.5rem;
-  transform: translateX(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 .pm7-tooltip-content[data-side="top"][data-state="open"] {
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
 }
 
 .pm7-tooltip-content[data-side="top"] .pm7-tooltip-arrow {
@@ -91,15 +88,12 @@
 
 /* Bottom */
 .pm7-tooltip-content[data-side="bottom"] {
-  top: 100%;
-  left: 50%;
   transform-origin: center top;
-  margin-top: 0.5rem;
-  transform: translateX(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 .pm7-tooltip-content[data-side="bottom"][data-state="open"] {
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
 }
 
 .pm7-tooltip-content[data-side="bottom"] .pm7-tooltip-arrow {
@@ -112,15 +106,12 @@
 
 /* Left */
 .pm7-tooltip-content[data-side="left"] {
-  right: 100%;
-  top: 50%;
   transform-origin: center right;
-  margin-right: 0.5rem;
-  transform: translateY(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 .pm7-tooltip-content[data-side="left"][data-state="open"] {
-  transform: translateY(-50%) scale(1);
+  transform: scale(1);
 }
 
 .pm7-tooltip-content[data-side="left"] .pm7-tooltip-arrow {
@@ -133,15 +124,12 @@
 
 /* Right */
 .pm7-tooltip-content[data-side="right"] {
-  left: 100%;
-  top: 50%;
   transform-origin: center left;
-  margin-left: 0.5rem;
-  transform: translateY(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 .pm7-tooltip-content[data-side="right"][data-state="open"] {
-  transform: translateY(-50%) scale(1);
+  transform: scale(1);
 }
 
 .pm7-tooltip-content[data-side="right"] .pm7-tooltip-arrow {
@@ -175,17 +163,17 @@
 
 /* Theme variants */
 .pm7-tooltip-content--light {
-  background-color: #ffffff;
-  color: #1a1a1a;
-  border: 1px solid #d4d4d4;
+  background-color: var(--pm7-background);
+  color: var(--pm7-foreground);
+  border: 1px solid var(--pm7-border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .pm7-tooltip-content--light .pm7-tooltip-arrow {
-  border-top-color: #ffffff;
-  border-bottom-color: #ffffff;
-  border-left-color: #ffffff;
-  border-right-color: #ffffff;
+  border-top-color: var(--pm7-background);
+  border-bottom-color: var(--pm7-background);
+  border-left-color: var(--pm7-background);
+  border-right-color: var(--pm7-background);
 }
 
 /* Multiline content */

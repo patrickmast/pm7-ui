@@ -35,23 +35,19 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 
 ## Usage
 
-PM7 Dialog supports two approaches: Traditional HTML structure and the new Content Marker system that automatically generates dialog structure.
-
-### Content Marker System (Recommended)
-
-The easiest way to create dialogs using semantic content markers:
+PM7 Dialog uses a Content Marker system that automatically generates the dialog structure from simple semantic markers:
 
 ```html
 <!-- Dialog with content markers -->
-<div pm7-dialog="my-dialog" pm7-dialog-size="md" pm7-show-close>
-  <h2 pm7-header>Dialog Title</h2>
-  <p pm7-subtitle>Optional subtitle text</p>
+<div data-pm7-dialog="my-dialog" data-pm7-dialog-size="md" data-pm7-show-close>
+  <h2 data-pm7-header>Dialog Title</h2>
+  <p data-pm7-subtitle>Optional subtitle text</p>
   
-  <div pm7-body>
+  <div data-pm7-body>
     <p>Your dialog content goes here.</p>
   </div>
   
-  <div pm7-footer>
+  <div data-pm7-footer>
     <button class="pm7-button pm7-button--outline" onclick="closeDialog('my-dialog')">
       Cancel
     </button>
@@ -67,82 +63,50 @@ The easiest way to create dialogs using semantic content markers:
 </button>
 ```
 
-### Content Marker Attributes
+### Dialog Attributes
 
-The content marker system uses attributes on the root `div` with `pm7-dialog` and on direct children to define the dialog's structure and content.
+Use these attributes on the root `div` with `data-pm7-dialog` and on direct children to define the dialog's structure and content.
 
 | Attribute | Description | Generated Class/Element |
 |-----------|-------------|-------------------------|
-| `pm7-dialog="id"` | Unique dialog identifier | `pm7-dialog` (root) |
-| `pm7-dialog-size="size"` | Dialog size: `sm` (400px), `md` (600px, default), `lg` (800px), `xl` (1000px), `full` | `pm7-dialog-content--{size}` |
-| `pm7-dialog-icon="type"` | Icon type: `info`, `warning`, `error`, `success` | `pm7-dialog-icon` (SVG) |
-| `pm7-show-close` | Shows the X close button in header | `pm7-dialog-close` (button) |
-| `pm7-header-separator` | Add line separator under header | `pm7-dialog-header-separator` (div) |
-| `pm7-no-escape` | Prevents closing dialog with ESC key (ESC close is enabled by default) | - |
-| `pm7-no-overlay-close` | Prevents closing dialog when clicking backdrop (overlay close is enabled by default) | - |
-| `pm7-header` | Marks the header section. Content within this element becomes the header. | `pm7-dialog-header` |
-| `pm7-dialog-title="text"` | Text for the main dialog title (used with `pm7-header`) | `pm7-dialog-title` (h2) |
-| `pm7-dialog-subtitle="text"` | Text for the dialog subtitle/description (used with `pm7-header`) | `pm7-dialog-description` (p) |
-| `pm7-body` | Marks the main content area | `pm7-dialog-body` |
-| `pm7-footer` | Marks the footer section for actions | `pm7-dialog-footer` |
-
-### Traditional HTML Structure
-
-For full control over dialog structure:
-
-```html
-<div class="pm7-dialog" data-pm7-dialog="my-dialog">
-  <div class="pm7-dialog-overlay"></div>
-  <div class="pm7-dialog-content pm7-dialog-content--md">
-    <div class="pm7-dialog-header">
-      <h2 class="pm7-dialog-title">Dialog Title</h2>
-      <button class="pm7-dialog-close" aria-label="Close">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="pm7-dialog-body">
-      <p>Dialog content goes here.</p>
-    </div>
-    <div class="pm7-dialog-footer">
-      <button class="pm7-button pm7-button--outline" onclick="closeDialog('my-dialog')">
-        Cancel
-      </button>
-      <button class="pm7-button pm7-button--primary">
-        Confirm
-      </button>
-    </div>
-  </div>
-</div>
-```
+| `data-pm7-dialog="id"` | Unique dialog identifier | `pm7-dialog` (root) |
+| `data-pm7-dialog-size="size"` | Dialog size: `sm` (400px), `md` (600px, default), `lg` (800px), `xl` (1000px), `full` | `pm7-dialog-content--{size}` |
+| `data-pm7-dialog-icon="type"` | Icon type: `info`, `warning`, `error`, `success` | `pm7-dialog-icon` (SVG) |
+| `data-pm7-show-close` | Shows the X close button in header | `pm7-dialog-close` (button) |
+| `data-pm7-header-separator` | Add line separator under header | `pm7-dialog-header-separator` (div) |
+| `data-pm7-no-escape` | Prevents closing dialog with ESC key (ESC close is enabled by default) | - |
+| `data-pm7-no-overlay-close` | Prevents closing dialog when clicking backdrop (overlay close is enabled by default) | - |
+| `data-pm7-header` | Marks the header section. Content within this element becomes the header. | `pm7-dialog-header` |
+| `data-pm7-dialog-title="text"` | Text for the main dialog title (used with `data-pm7-header`) | `pm7-dialog-title` (h2) |
+| `data-pm7-dialog-subtitle="text"` | Text for the dialog subtitle/description (used with `data-pm7-header`) | `pm7-dialog-description` (p) |
+| `data-pm7-body` | Marks the main content area | `pm7-dialog-body` |
+| `data-pm7-footer` | Marks the footer section for actions | `pm7-dialog-footer` |
 
 ### Dialog Sizes
 
 ```html
 <!-- Small dialog (400px) -->
-<div pm7-dialog="small-dialog" pm7-dialog-size="sm">
+<div data-pm7-dialog="small-dialog" data-pm7-dialog-size="sm">
   <!-- Content -->
 </div>
 
 <!-- Medium dialog (600px, default) -->
-<div pm7-dialog="medium-dialog" pm7-dialog-size="md">
+<div data-pm7-dialog="medium-dialog" data-pm7-dialog-size="md">
   <!-- Content -->
 </div>
 
 <!-- Large dialog (800px) -->
-<div pm7-dialog="large-dialog" pm7-dialog-size="lg">
+<div data-pm7-dialog="large-dialog" data-pm7-dialog-size="lg">
   <!-- Content -->
 </div>
 
 <!-- Extra large dialog (1000px) -->
-<div pm7-dialog="xl-dialog" pm7-dialog-size="xl">
+<div data-pm7-dialog="xl-dialog" data-pm7-dialog-size="xl">
   <!-- Content -->
 </div>
 
 <!-- Full screen dialog -->
-<div pm7-dialog="full-dialog" pm7-dialog-size="full">
+<div data-pm7-dialog="full-dialog" data-pm7-dialog-size="full">
   <!-- Content -->
 </div>
 ```
@@ -151,40 +115,40 @@ For full control over dialog structure:
 
 #### Alert Dialog
 ```html
-<div class="pm7-dialog pm7-dialog--alert" data-pm7-dialog="alert-dialog">
-  <div class="pm7-dialog-overlay"></div>
-  <div class="pm7-dialog-content pm7-dialog-content--sm">
-    <div class="pm7-dialog-header">
-      <h2 class="pm7-dialog-title">Error</h2>
-    </div>
-    <div class="pm7-dialog-body">
-      <p>Something went wrong. Please try again.</p>
-    </div>
-    <div class="pm7-dialog-footer">
-      <button class="pm7-button pm7-button--destructive" onclick="closeDialog('alert-dialog')">
-        OK
-      </button>
-    </div>
+<div data-pm7-dialog="alert-dialog" data-pm7-dialog-size="sm">
+  <div data-pm7-header data-pm7-dialog-title="Error" data-pm7-dialog-icon="error"></div>
+  <div data-pm7-body>
+    <p>Something went wrong. Please try again.</p>
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button pm7-button--destructive" onclick="closeDialog('alert-dialog')">
+      OK
+    </button>
   </div>
 </div>
 ```
 
 #### Success Dialog
 ```html
-<div class="pm7-dialog pm7-dialog--success" data-pm7-dialog="success-dialog">
-  <!-- Similar structure with success styling -->
+<div data-pm7-dialog="success-dialog" data-pm7-dialog-size="sm">
+  <div data-pm7-header data-pm7-dialog-title="Success!" data-pm7-dialog-icon="success"></div>
+  <div data-pm7-body>
+    <p>Operation completed successfully.</p>
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button pm7-button--primary" onclick="closeDialog('success-dialog')">
+      Done
+    </button>
+  </div>
 </div>
 ```
 
 #### Loading Dialog
 ```html
-<div class="pm7-dialog pm7-dialog--loading" data-pm7-dialog="loading-dialog">
-  <div class="pm7-dialog-overlay"></div>
-  <div class="pm7-dialog-content pm7-dialog-content--sm">
-    <div class="pm7-dialog-body" style="text-align: center; padding: 48px;">
-      <div class="pm7-dialog-spinner"></div>
-      <p style="margin-top: 16px;">Processing...</p>
-    </div>
+<div data-pm7-dialog="loading-dialog" data-pm7-dialog-size="sm">
+  <div data-pm7-body style="text-align: center; padding: 48px;">
+    <div class="pm7-dialog-spinner"></div>
+    <p style="margin-top: 16px;">Processing...</p>
   </div>
 </div>
 ```
@@ -195,12 +159,12 @@ Using the content marker system with icons:
 
 ```html
 <!-- Info dialog -->
-<div pm7-dialog="info-dialog" pm7-dialog-size="sm" pm7-dialog-icon="info">
-  <h2 pm7-header>Information</h2>
-  <div pm7-body>
+<div data-pm7-dialog="info-dialog" data-pm7-dialog-size="sm" data-pm7-dialog-icon="info">
+  <h2 data-pm7-header>Information</h2>
+  <div data-pm7-body>
     <p>This is an informational message.</p>
   </div>
-  <div pm7-footer>
+  <div data-pm7-footer>
     <button class="pm7-button pm7-button--primary" onclick="closeDialog('info-dialog')">
       Got it
     </button>
@@ -208,25 +172,25 @@ Using the content marker system with icons:
 </div>
 
 <!-- Warning dialog -->
-<div pm7-dialog="warning-dialog" pm7-dialog-icon="warning">
-  <h2 pm7-header>Warning</h2>
-  <div pm7-body>
+<div data-pm7-dialog="warning-dialog" data-pm7-dialog-icon="warning">
+  <h2 data-pm7-header>Warning</h2>
+  <div data-pm7-body>
     <p>This action may have consequences.</p>
   </div>
 </div>
 
 <!-- Error dialog -->
-<div pm7-dialog="error-dialog" pm7-dialog-icon="error">
-  <h2 pm7-header>Error</h2>
-  <div pm7-body>
+<div data-pm7-dialog="error-dialog" data-pm7-dialog-icon="error">
+  <h2 data-pm7-header>Error</h2>
+  <div data-pm7-body>
     <p>An error occurred.</p>
   </div>
 </div>
 
 <!-- Success dialog -->
-<div pm7-dialog="success-dialog" pm7-dialog-icon="success">
-  <h2 pm7-header>Success!</h2>
-  <div pm7-body>
+<div data-pm7-dialog="success-dialog" data-pm7-dialog-icon="success">
+  <h2 data-pm7-header>Success!</h2>
+  <div data-pm7-body>
     <p>Operation completed successfully.</p>
   </div>
 </div>
@@ -427,10 +391,10 @@ The dialog component includes:
 ### Form Dialog with Validation
 
 ```html
-<div pm7-dialog="form-dialog" pm7-dialog-size="md" pm7-show-close>
-  <h2 pm7-header>Edit Profile</h2>
+<div data-pm7-dialog="form-dialog" data-pm7-dialog-size="md" data-pm7-show-close>
+  <h2 data-pm7-header>Edit Profile</h2>
   
-  <form pm7-body>
+  <form data-pm7-body>
     <div class="pm7-form-group">
       <label class="pm7-label" for="name">Name</label>
       <input type="text" id="name" class="pm7-input" required>
@@ -441,7 +405,7 @@ The dialog component includes:
     </div>
   </form>
   
-  <div pm7-footer>
+  <div data-pm7-footer>
     <button type="button" class="pm7-button pm7-button--ghost" onclick="closeDialog('form-dialog')">
       Cancel
     </button>
@@ -455,11 +419,11 @@ The dialog component includes:
 ### Multi-Step Dialog
 
 ```html
-<div pm7-dialog="wizard" pm7-dialog-size="lg" pm7-no-escape>
-  <h2 pm7-header>Setup Wizard</h2>
-  <p pm7-subtitle>Step <span id="current-step">1</span> of 3</p>
+<div data-pm7-dialog="wizard" data-pm7-dialog-size="lg" data-pm7-no-escape>
+  <h2 data-pm7-header>Setup Wizard</h2>
+  <p data-pm7-subtitle>Step <span id="current-step">1</span> of 3</p>
   
-  <div pm7-body>
+  <div data-pm7-body>
     <div id="step-1" class="wizard-step">
       <!-- Step 1 content -->
     </div>
@@ -471,7 +435,7 @@ The dialog component includes:
     </div>
   </div>
   
-  <div pm7-footer>
+  <div data-pm7-footer>
     <button class="pm7-button pm7-button--ghost" onclick="closeDialog('wizard')">
       Cancel
     </button>
@@ -661,40 +625,20 @@ When using the Dialog component in React, these classes provide proper PM7 styli
 
 ## Common Pitfalls
 
-### ❌ Don't forget the dialog structure
+### ❌ Don't forget to use Content Markers
 ```html
-<!-- Wrong - content directly in dialog -->
-<div class="pm7-dialog" data-pm7-dialog="my-dialog">
+<!-- Wrong - no content markers -->
+<div data-pm7-dialog="my-dialog">
   <h2>Title</h2>
   <p>Content</p>
 </div>
 
-<!-- Correct - use proper structure -->
-<div class="pm7-dialog" data-pm7-dialog="my-dialog">
-  <div class="pm7-dialog-overlay"></div>
-  <div class="pm7-dialog-content">
-    <div class="pm7-dialog-header">
-      <h2 class="pm7-dialog-title">Title</h2>
-    </div>
-    <div class="pm7-dialog-body">
-      <p>Content</p>
-    </div>
+<!-- Correct - use content markers -->
+<div data-pm7-dialog="my-dialog">
+  <div data-pm7-header data-pm7-dialog-title="Title"></div>
+  <div data-pm7-body>
+    <p>Content</p>
   </div>
-</div>
-```
-
-### ❌ Don't mix Content Marker with traditional structure
-```html
-<!-- Wrong - mixing approaches -->
-<div pm7-dialog="my-dialog" class="pm7-dialog">
-  <div class="pm7-dialog-overlay"></div>
-  <h2 pm7-header>Title</h2>
-</div>
-
-<!-- Correct - use one approach -->
-<div pm7-dialog="my-dialog">
-  <h2 pm7-header>Title</h2>
-  <div pm7-body>Content</div>
 </div>
 ```
 
@@ -712,18 +656,18 @@ openDialog('my-dialog');
 ### ❌ Don't use conflicting size attributes
 ```html
 <!-- Wrong - multiple size definitions -->
-<div pm7-dialog="my-dialog" pm7-dialog-size="md" class="pm7-dialog-content--lg">
+<div data-pm7-dialog="my-dialog" data-pm7-dialog-size="md" class="pm7-dialog-content--lg">
 
 <!-- Correct - use one size method -->
-<div pm7-dialog="my-dialog" pm7-dialog-size="lg">
+<div data-pm7-dialog="my-dialog" data-pm7-dialog-size="lg">
 ```
 
 ### ❌ Don't nest dialogs
 ```html
 <!-- Wrong - dialog inside dialog -->
-<div pm7-dialog="outer">
-  <div pm7-body>
-    <div pm7-dialog="inner">...</div>
+<div data-pm7-dialog="outer">
+  <div data-pm7-body>
+    <div data-pm7-dialog="inner">...</div>
   </div>
 </div>
 

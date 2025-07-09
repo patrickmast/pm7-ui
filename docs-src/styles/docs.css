@@ -350,17 +350,17 @@ a:hover {
   color: var(--pm7-primary-hover);
 }
 
-/* Dark mode link colors */
-.dark a {
+/* Dark mode link colors - exclude buttons */
+.dark a:not(.pm7-button) {
   color: var(--pm7-primary);
 }
 
-.dark a:hover {
+.dark a:not(.pm7-button):hover {
   color: var(--pm7-primary-hover);
 }
 
-/* Visited links should maintain primary color in dark mode */
-.dark a:visited {
+/* Visited links should maintain primary color in dark mode - exclude buttons */
+.dark a:not(.pm7-button):visited {
   color: var(--pm7-primary);
 }
 
@@ -389,6 +389,7 @@ a.pm7-menu-item:hover {
   flex: 1;
   padding: var(--pm7-spacing-8);
   overflow-x: auto;
+  overflow-y: visible; /* Allow tooltips to show outside content area */
   background: var(--pm7-background);
   max-width: 1000px;
 }
@@ -646,6 +647,12 @@ a.pm7-menu-item:hover {
   opacity: 0.8;
 }
 
+/* Dark mode hover state for pm7.dev link */
+.dark .pm7-footer-logo-link:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
 .pm7-footer-logo {
   width: 16px;
   height: 16px;
@@ -673,6 +680,15 @@ a.pm7-menu-item:hover {
 
 .pm7-footer-github:hover svg {
   fill: #000000;
+}
+
+/* Dark mode footer link hover states */
+.dark .pm7-footer-github:hover {
+  color: #ffffff;
+}
+
+.dark .pm7-footer-github:hover svg {
+  fill: #ffffff;
 }
 
 /* Footer Responsive */
@@ -1022,4 +1038,207 @@ pre:hover .pm7-code-copy-button,
 pre code {
   display: block;
   padding-right: 60px; /* Make room for copy button */
+}
+
+/* Demo info tooltip styles using PM7 Tooltip component */
+.pm7-info-tooltip {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.pm7-info-tooltip .pm7-tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--pm7-muted);
+  color: var(--pm7-muted-foreground);
+  border-radius: 50%;
+  cursor: help;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.pm7-info-tooltip .pm7-tooltip-trigger:hover {
+  background: var(--pm7-primary);
+  color: var(--pm7-primary-foreground);
+  transform: scale(1.1);
+}
+
+/* Info tooltip content styling */
+.pm7-info-tooltip .pm7-tooltip-content {
+  text-align: left;
+  padding: 16px 20px !important;
+  max-width: 600px !important; /* Override default tooltip width for info tooltips */
+  min-width: 400px !important; /* Ensure minimum width */
+  width: max-content !important;
+  z-index: 10000; /* Ensure tooltip appears above everything */
+  white-space: normal !important; /* Allow text wrapping */
+}
+
+/* Fix tooltip positioning for right-sided tooltips */
+.pm7-info-tooltip .pm7-tooltip-content[data-side="right"] {
+  margin-left: 12px; /* Add some spacing from the trigger */
+}
+
+.pm7-info-tooltip-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--pm7-primary);
+  font-size: 14px;
+}
+
+.pm7-info-tooltip-description {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.pm7-info-tooltip-item {
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.pm7-info-tooltip-code {
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-family: var(--pm7-font-mono);
+  white-space: pre; /* Preserve formatting in code blocks */
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+}
+
+.pm7-info-tooltip-footer {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 12px;
+}
+
+/* Table section header styling */
+.pm7-table-section-header {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark .pm7-table-section-header {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Demo background utilities */
+.pm7-demo-bg-muted {
+  background-color: var(--pm7-muted);
+}
+
+.pm7-demo-bg-surface {
+  background-color: var(--pm7-surface);
+}
+
+.pm7-demo-bg-accent {
+  background-color: var(--pm7-primary-light, rgba(28, 134, 239, 0.1));
+}
+
+.dark .pm7-demo-bg-accent {
+  background-color: var(--pm7-primary-dark, rgba(28, 134, 239, 0.15));
+}
+
+/* Demo text colors */
+.pm7-demo-text-primary {
+  color: var(--pm7-primary);
+}
+
+.pm7-demo-text-muted {
+  color: var(--pm7-muted-foreground);
+}
+
+.pm7-demo-text-foreground {
+  color: var(--pm7-foreground);
+}
+
+/* Demo borders */
+.pm7-demo-border {
+  border-color: var(--pm7-border);
+}
+
+.pm7-demo-border-primary {
+  border-color: var(--pm7-primary);
+}
+
+/* Demo gradients */
+.pm7-demo-gradient-primary {
+  background: linear-gradient(135deg, var(--pm7-primary) 0%, var(--pm7-primary-dark, #0066CC) 100%);
+}
+
+.pm7-demo-gradient-purple {
+  background: linear-gradient(135deg, var(--pm7-purple, #667eea) 0%, var(--pm7-purple-dark, #764ba2) 100%);
+}
+
+/* Info dialog styles */
+.pm7-info-dialog-trigger {
+  vertical-align: middle;
+  min-width: auto !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  margin-left: 5px; /* 8px - 3px = 5px */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.pm7-info-dialog-trigger:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.pm7-info-dialog-trigger:active {
+  transform: scale(0.95);
+}
+
+.pm7-info-dialog-trigger svg {
+  width: 16px;
+  height: 16px;
+  margin-bottom: 1px; /* 1px naar boven */
+}
+
+.pm7-info-dialog-item {
+  margin-bottom: 24px;
+}
+
+.pm7-info-dialog-item:last-child {
+  margin-bottom: 0;
+}
+
+.pm7-info-dialog-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--pm7-primary);
+}
+
+.pm7-info-dialog-item p {
+  margin: 0 0 12px 0;
+  color: var(--pm7-text-secondary);
+}
+
+.pm7-info-dialog-item pre {
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--pm7-muted);
+  border-radius: var(--pm7-radius);
+  overflow-x: auto;
+}
+
+.pm7-info-dialog-item code {
+  font-size: 13px;
+  font-family: var(--pm7-font-mono);
+  background: none;
+  padding: 0;
 }

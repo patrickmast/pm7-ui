@@ -1,6 +1,6 @@
 # pm7-ui Technical Documentation for AI Coding Agents
 
-pm7-ui is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript. Use simple CSS classes that work in ANY framework.
+pm7-ui is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript with full TypeScript support.
 
 ## Installation
 
@@ -22,8 +22,8 @@ pnpm add @pm7/core
 <script src="https://unpkg.com/@pm7/core@latest/dist/pm7.js"></script>
 
 <!-- Specific version -->
-<link rel="stylesheet" href="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.css">
-<script src="https://unpkg.com/@pm7/core@2.0.0/dist/pm7.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@pm7/core@3.0.0/dist/pm7.css">
+<script src="https://unpkg.com/@pm7/core@3.0.0/dist/pm7.js"></script>
 
 <!-- Alternative CDN (jsDelivr) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pm7/core@latest/dist/pm7.css">
@@ -163,11 +163,22 @@ Many PM7 components support automatic initialization when the DOM loads:
 // Auto-initialization happens automatically when you include:
 import '@pm7/core';
 
-// Or manually initialize components:
-import { PM7Menu } from '@pm7/core';
+// Components with data attributes auto-initialize and attach to elements:
+// <div data-pm7-menu>...</div>
+// <div data-pm7-tab-selector>...</div>
+// <div data-pm7-accordion>...</div>
 
-// Manual initialization for dynamic content
-const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+// For auto-initialized components, create a new instance to control:
+const menuElement = document.querySelector('[data-pm7-menu]');
+const menu = new PM7Menu(menuElement);
+menu.open();
+
+// Manual initialization for dynamic content:
+const newMenu = document.createElement('div');
+newMenu.className = 'pm7-menu';
+// ... add menu content ...
+const menu = new PM7Menu(newMenu);
+menu.open(); // Use the instance directly
 
 // Re-initialize all components after adding dynamic content
 PM7.init();
@@ -566,15 +577,27 @@ import '@pm7/core';
 import { PM7Menu, PM7Dialog, PM7Toast, PM7Accordion, PM7TabSelector } from '@pm7/core';
 
 // Manual initialization
-const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+const element = document.querySelector('.pm7-menu');
+const menu = new PM7Menu(element);
+
+// Access component instance
+menu.open();
+menu.close();
 ```
 
 ### Event Handling
 
 ```javascript
 // Menu events
-const menu = document.querySelector('.pm7-menu');
-menu.addEventListener('pm7-menu-select', (e) => {
+const menuElement = document.querySelector('.pm7-menu');
+const menu = new PM7Menu(menuElement);
+
+// Access instance methods
+menu.open();
+menu.close();
+
+// Event handling
+menuElement.addEventListener('pm7-menu-select', (e) => {
   console.log('Selected:', e.detail.item);
 });
 
@@ -590,6 +613,107 @@ dialog.addEventListener('pm7-dialog-close', () => {
 // Toast notifications
 import { showToast } from '@pm7/core';
 showToast('Success!', { type: 'success', duration: 3000 });
+```
+
+### Component Usage Pattern
+
+All components follow the same simple initialization pattern.
+
+```javascript
+// Standard pattern for all components
+const element = document.querySelector('[data-pm7-tab-selector]');
+const tabs = new PM7TabSelector(element);
+tabs.selectTabById('settings');
+```
+
+#### Examples for All Components:
+
+```javascript
+// Tab Selector
+const tabElement = document.querySelector('[data-pm7-tab-selector]');
+const tabs = new PM7TabSelector(tabElement);
+tabs.selectTabById('tab-2');
+tabs.getActiveIndex();
+
+// Menu
+const menuElement = document.querySelector('[data-pm7-menu]');
+const menu = new PM7Menu(menuElement);
+menu.open();
+menu.close();
+
+// Dialog
+const dialogElement = document.querySelector('[data-pm7-dialog]');
+const dialog = new PM7Dialog(dialogElement);
+dialog.open();
+dialog.close();
+
+// Accordion
+const accordionElement = document.querySelector('[data-pm7-accordion]');
+const accordion = new PM7Accordion(accordionElement);
+accordion.openAll();
+accordion.closeAll();
+
+// Tooltip
+const tooltipElement = document.querySelector('[data-pm7-tooltip]');
+const tooltip = new PM7Tooltip(tooltipElement);
+tooltip.show();
+tooltip.hide();
+
+// Theme Switch
+const themeSwitchElement = document.querySelector('[data-pm7-theme-switch]');
+const themeSwitch = new PM7ThemeSwitch(themeSwitchElement);
+themeSwitch.setTheme('dark');
+themeSwitch.toggleTheme();
+```
+
+#### TypeScript Support:
+
+```typescript
+// Type-safe component usage
+const element = document.querySelector('[data-pm7-menu]') as HTMLElement;
+const menu = new PM7Menu(element);
+menu.open(); // Full IntelliSense support
+
+// Handle nullable elements
+const menuElement = document.querySelector('[data-pm7-menu]');
+if (menuElement) {
+  const menu = new PM7Menu(menuElement as HTMLElement);
+  menu.open();
+}
+```
+
+#### React Example:
+
+```jsx
+import { useEffect, useRef } from 'react';
+import { PM7Menu } from '@pm7/core';
+
+function MyComponent() {
+  const menuRef = useRef(null);
+  const menuInstanceRef = useRef(null);
+  
+  useEffect(() => {
+    if (menuRef.current && !menuInstanceRef.current) {
+      menuInstanceRef.current = new PM7Menu(menuRef.current);
+    }
+  }, []);
+  
+  const handleOpenMenu = () => {
+    menuInstanceRef.current?.open();
+  };
+  
+  return (
+    <div>
+      <button onClick={handleOpenMenu}>Open Menu</button>
+      <div ref={menuRef} className="pm7-menu" data-pm7-menu>
+        <button className="pm7-menu-trigger">Menu</button>
+        <div className="pm7-menu-content">
+          <button className="pm7-menu-item">Option 1</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 ```
 
 ## Component Documentation Links
@@ -613,7 +737,19 @@ For detailed documentation on specific components:
 Works in all modern browsers. Internet Explorer not supported.
 
 ### TypeScript Support
-Full TypeScript declarations included. IntelliSense works out of the box.
+Full TypeScript declarations for all components and utilities.
+
+```typescript
+// Type-safe component usage
+const tabElement = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabs = new PM7TabSelector(tabElement);
+tabs.selectTabById('settings');
+
+// Full IntelliSense and type checking
+const menuElement = document.querySelector('[data-pm7-menu]') as HTMLElement;
+const menu = new PM7Menu(menuElement);
+menu.open();
+```
 
 ### SSR Support
 Works with Next.js, Nuxt, SvelteKit:
@@ -634,8 +770,88 @@ css: ['@pm7/core/dist/pm7.css']
 1. **Always use CSS variables** - Never hardcode colors like `white` or `#000`
 2. **One package for everything** - No separate React/Vue packages needed
 3. **Import CSS once** - At the top level of your application
-4. **Components auto-initialize** - Interactive components work automatically
+4. **Components auto-initialize** - Interactive components work automatically and attach to DOM elements
 5. **Framework agnostic** - Same classes work everywhere
+6. **TypeScript Support** - Full type definitions for all components
+
+## Quick Attribute Reference
+
+### AI-Agent FIRST Design
+All interactive components automatically add their required CSS classes when initialized:
+- `data-pm7-accordion` automatically adds `.pm7-accordion` class
+- `data-pm7-dialog` automatically adds `.pm7-dialog` class  
+- `data-pm7-menu` automatically adds `.pm7-menu` class
+- `data-pm7-tab-selector` automatically adds `.pm7-tab-selector` class
+- `data-pm7-tooltip` automatically adds `.pm7-tooltip` class
+- `data-pm7-theme-switch` automatically adds `.pm7-theme-switch` class
+
+**Result**: ONE attribute = fully working component!
+
+### Component Attributes
+
+#### Accordion
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-accordion` | Auto-initialize accordion | - |
+| `data-allow-multiple` | Allow multiple open items | `true`, `false` |
+| `data-default-open` | Default open item | number, `all` |
+| `data-icon-position` | Icon position | `start`, `end` |
+| `data-text-align` | Text alignment | `left`, `center`, `right` |
+
+#### Menu  
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-menu` | Auto-initialize menu | - |
+| `data-position` | Menu position | `bottom-start`, `bottom-end`, etc. |
+| `data-checked` | Checkable item state | `true`, `false` |
+| `data-submenu-open` | Submenu state | `true`, `false` |
+
+#### Dialog
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-dialog` | Dialog identifier | string |
+| `data-pm7-dialog-size` | Dialog size | `sm`, `md`, `lg`, `xl`, `full` |
+| `data-pm7-dialog-icon` | Icon type | `info`, `warning`, `error`, `success` |
+| `data-pm7-show-close` | Shows close button | - |
+| `data-pm7-no-escape` | Prevent ESC close | - |
+| `data-pm7-no-overlay-close` | Prevent overlay close | - |
+
+#### Tab Selector
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-tab-selector` | Auto-initialize tabs | - |
+| `data-state` | Tab state | `active`, `inactive` |
+
+#### Theme Switch
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-theme-switch` | Auto-initialize theme switch | - |
+| `data-theme` | Current theme | `light`, `dark` |
+
+#### Tooltip
+| Attribute | Description | Values |
+|-----------|-------------|---------|
+| `data-pm7-tooltip` | Tooltip content | string |
+| `data-side` | Preferred side | `top`, `right`, `bottom`, `left` |
+| `data-align` | Alignment | `start`, `center`, `end` |
+| `data-delay` | Show delay (ms) | number |
+
+### Global JavaScript Functions
+```javascript
+// Dialog functions (available on window)
+openDialog('dialog-id')
+closeDialog('dialog-id')
+pm7Alert('Message', { title: 'Alert' })
+pm7Confirm('Are you sure?', { title: 'Confirm' })
+
+// Manual component initialization
+new PM7Accordion(element)
+new PM7Menu(element)
+new PM7Dialog(element)
+new PM7TabSelector(element)
+new PM7ThemeSwitch(element)
+new PM7Tooltip(element)
+```
 
 ## Complete Example
 
@@ -657,7 +873,7 @@ css: ['@pm7/core/dist/pm7.css']
     })();
   </script>
   
-  <link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css">
+  <link rel="stylesheet" href="https://unpkg.com/@pm7/core@3/dist/pm7.css">
 </head>
 <body>
   <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
@@ -691,7 +907,7 @@ css: ['@pm7/core/dist/pm7.css']
     </div>
   </div>
   
-  <script src="https://unpkg.com/@pm7/core"></script>
+  <script src="https://unpkg.com/@pm7/core@3"></script>
 </body>
 </html>
 ```

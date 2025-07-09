@@ -76,7 +76,30 @@
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
             <div class="pm7-docs-example">
-              <h3>Basic Menu</h3>
+              <h3>
+                Basic Menu
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Menu Component Structure</div>
+                    <div class="pm7-info-tooltip-description">A dropdown menu consists of:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Container:</strong> Wraps the trigger and content</div>
+                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-menu" data-pm7-menu&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Trigger:</strong> Button that opens the menu</div>
+                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-trigger"&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Content:</strong> Dropdown container</div>
+                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-menu-content"&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Items:</strong> Individual menu options</div>
+                    <code class="pm7-info-tooltip-code" style="margin-bottom: 0;">&lt;button class="pm7-menu-item"&gt;</code>
+                    
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-button pm7-button--secondary pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
@@ -97,7 +120,30 @@
             </div>
 
             <div class="pm7-docs-example">
-              <h3>Menu Positions</h3>
+              <h3>
+                Menu Positions
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Positioning Options</div>
+                    <div class="pm7-info-tooltip-description">Menus can be positioned in 8 different ways:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Bottom positions:</strong></div>
+                    <code class="pm7-info-tooltip-code">data-position="bottom-start" (default)
+data-position="bottom-end"</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Top positions:</strong></div>
+                    <code class="pm7-info-tooltip-code">data-position="top-start"
+data-position="top-end"</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Side positions:</strong></div>
+                    <code class="pm7-info-tooltip-code" style="margin-bottom: 0;">data-position="left-start/end"
+data-position="right-start/end"</code>
+                    
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview" style="gap: 1rem;">
                 <div class="pm7-menu" data-pm7-menu data-position="bottom-start">
                   <button class="pm7-button pm7-button--outline pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
@@ -135,7 +181,31 @@
             </div>
 
             <div class="pm7-docs-example">
-              <h3>Menu with Icons</h3>
+              <h3>
+                Menu with Icons
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Icon Usage in Menus</div>
+                    <div class="pm7-info-tooltip-description">Icons enhance menu usability:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Trigger icon:</strong> Add icon to trigger button</div>
+                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-trigger"&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+  User Menu
+&lt;/button&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Item icons:</strong> Add icons to menu items</div>
+                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-item"&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+  Settings
+&lt;/button&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-footer">Icons should be 16x16px for consistency</div>
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-button pm7-button--primary pm7-menu-trigger" style="border: 1px solid var(--pm7-primary-foreground);">
@@ -172,7 +242,24 @@
             </div>
 
             <div class="pm7-docs-example">
-              <h3>Disabled Items</h3>
+              <h3>
+                Disabled Items
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Disabled State</div>
+                    <div class="pm7-info-tooltip-description">Menu items can be disabled:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Visual feedback:</strong> Reduced opacity</div>
+                    <code class="pm7-info-tooltip-code">class="pm7-menu-item pm7-menu-item--disabled"</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Interaction:</strong> Not clickable or focusable</div>
+                    <div class="pm7-info-tooltip-item"><strong>Use case:</strong> Show unavailable actions with context (e.g., "No permission")</div>
+                    
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-button pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
@@ -190,7 +277,26 @@
             </div>
 
             <div class="pm7-docs-example">
-              <h3>Icon Button Menu</h3>
+              <h3>
+                Icon Button Menu
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Icon-only Trigger Pattern</div>
+                    <div class="pm7-info-tooltip-description">Common pattern for compact menus:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Three dots menu:</strong> Common for "more options"</div>
+                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="More options"&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+&lt;/button&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Important:</strong> Always include aria-label for accessibility</div>
+                    <div class="pm7-info-tooltip-item"><strong>Use cases:</strong> Table row actions, card menus, toolbars</div>
+                    
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" style="border: 1px solid var(--pm7-border); border-radius: 8px;" aria-label="More options">
@@ -311,7 +417,7 @@
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-menu-trigger pm7-button pm7-button--outline" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px;">
-                    <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                    <div class="pm7-demo-gradient-purple" style="width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
                       JD
                     </div>
                     <span>John Doe</span>
@@ -421,7 +527,33 @@
             </div>
 
             <div class="pm7-docs-example">
-              <h3>Menu with Submenu</h3>
+              <h3>
+                Menu with Submenu
+                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
+                  <span class="pm7-tooltip-trigger">ℹ️</span>
+                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
+                    <div class="pm7-info-tooltip-title">Submenu Pattern</div>
+                    <div class="pm7-info-tooltip-description">Create nested menus for hierarchical navigation:</div>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Structure:</strong> Wrapper + hover handlers</div>
+                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-submenu-wrapper"&gt;
+  &lt;button class="pm7-menu-item pm7-menu-item--has-submenu"&gt;
+    Theme
+  &lt;/button&gt;
+  &lt;div class="pm7-submenu"&gt;
+    &lt;button class="pm7-menu-item"&gt;Light&lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;Dark&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+                    
+                    <div class="pm7-info-tooltip-item"><strong>Arrow indicator:</strong> Shows submenu availability</div>
+                    <div class="pm7-info-tooltip-item"><strong>Radio buttons:</strong> Use <code style="display: inline; background: rgba(0,0,0,0.05); padding: 2px 4px; border-radius: 3px; font-size: 11px;">pm7-menu-item--radio</code> for single selection</div>
+                    
+                    <div class="pm7-info-tooltip-footer">Classes: .pm7-submenu-wrapper, .pm7-submenu, --has-submenu</div>
+                    <div class="pm7-tooltip-arrow"></div>
+                  </div>
+                </div>
+              </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
                   <button class="pm7-menu-trigger pm7-button pm7-button--primary" style="border: 2px solid var(--pm7-primary-foreground); border-radius: 8px;">
@@ -654,7 +786,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Container Classes</strong></td></tr>
+                    <tr class="pm7-table-section-header"><td colspan="2"><strong>Container Classes</strong></td></tr>
                     <tr>
                       <td><code>.pm7-menu</code></td>
                       <td>Menu container</td>
@@ -663,12 +795,12 @@
                       <td><code>.pm7-menu-bar</code></td>
                       <td>Application-style menu bar container</td>
                     </tr>
-                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Trigger Classes</strong></td></tr>
+                    <tr class="pm7-table-section-header"><td colspan="2"><strong>Trigger Classes</strong></td></tr>
                     <tr>
                       <td><code>.pm7-menu-trigger</code></td>
                       <td>Button that opens the menu</td>
                     </tr>
-                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Content Classes</strong></td></tr>
+                    <tr class="pm7-table-section-header"><td colspan="2"><strong>Content Classes</strong></td></tr>
                     <tr>
                       <td><code>.pm7-menu-content</code></td>
                       <td>Dropdown container</td>
@@ -725,7 +857,7 @@
                       <td><code>.pm7-menu-item--clicking</code></td>
                       <td>Click animation state</td>
                     </tr>
-                    <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                    <tr class="pm7-table-section-header"><td colspan="2"><strong>Structure Classes</strong></td></tr>
                     <tr>
                       <td><code>.pm7-menu-item-icon</code></td>
                       <td>Icon within menu item</td>
@@ -965,6 +1097,7 @@ menuElement.addEventListener('pm7-menu-select', (e) => {
     import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
     import { PM7TabSelector } from '/packages/core/src/scripts/tab-selector.js';
     import { PM7Menu } from '/packages/core/src/scripts/menu.js';
+    import { PM7Tooltip } from '/packages/core/src/scripts/tooltip.js';
     
     // Load page components
     loadHeader();
@@ -974,7 +1107,7 @@ menuElement.addEventListener('pm7-menu-select', (e) => {
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

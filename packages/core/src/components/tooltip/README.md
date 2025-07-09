@@ -54,7 +54,13 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 ### HTML Structure
 
 ```html
-<div class="pm7-tooltip">
+<!-- AI-Agent FIRST: Only data-pm7-tooltip needed on trigger element -->
+<button class="pm7-button" data-pm7-tooltip="Tooltip content">
+  Hover for tooltip
+</button>
+
+<!-- Or for custom structured tooltips (auto-initialized) -->
+<div data-pm7-tooltip>
   <button class="pm7-button pm7-tooltip-trigger">
     Hover for tooltip
   </button>
@@ -140,11 +146,19 @@ Fine-tune alignment with `data-align`:
   Default size tooltip
 </div>
 
-<!-- Large -->
+<!-- Large (max-width: 400px) -->
 <div class="pm7-tooltip-content pm7-tooltip-content--lg">
-  Large tooltip with more content
+  Large tooltip with extended width for more detailed content
 </div>
 ```
+
+#### Size Comparison
+
+| Size | Class | Max Width | Use Case |
+|------|-------|-----------|----------|
+| Small | `pm7-tooltip-content--sm` | 200px | Brief hints and labels |
+| Default | - | 250px | Standard explanations |
+| Large | `pm7-tooltip-content--lg` | 400px | Detailed information, code examples |
 
 ### Theme Variants
 
@@ -171,26 +185,73 @@ Fine-tune alignment with `data-align`:
 </div>
 ```
 
-## Delays
+### Wide Tooltips
 
-Configure show/hide delays:
+For cases where you need even more space for content:
 
 ```html
-<!-- Delay before showing (200ms) -->
-<div class="pm7-tooltip" data-open-delay="200">
+<!-- Large tooltip with extended width -->
+<div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline">
+  This large tooltip can contain detailed information, 
+  code examples, or longer explanations without becoming too cramped.
+</div>
 
-<!-- Delay before hiding (100ms) -->
-<div class="pm7-tooltip" data-close-delay="100">
-
-<!-- Both delays -->
-<div class="pm7-tooltip" data-open-delay="200" data-close-delay="100">
+<!-- Custom width tooltip -->
+<div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" 
+     style="max-width: 600px;">
+  <strong>Custom Width Example</strong><br><br>
+  This tooltip has a custom max-width of 600px for displaying 
+  extensive content like API documentation or complex code examples.
+</div>
 ```
+
+## Delays
+
+Configure show/hide delays to prevent tooltips from appearing too quickly during casual mouse movements:
+
+```html
+<!-- Short delay (200ms) - Good for navigation menus -->
+<div data-pm7-tooltip data-open-delay="200">
+  <button class="pm7-tooltip-trigger">Quick Info</button>
+  <div class="pm7-tooltip-content">
+    Opens after 200ms
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+
+<!-- Medium delay (600ms) - Good for form fields -->
+<div data-pm7-tooltip data-open-delay="600">
+  <button class="pm7-tooltip-trigger">Detailed Help</button>
+  <div class="pm7-tooltip-content">
+    Opens after 600ms
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+
+<!-- Custom open and close delays -->
+<div data-pm7-tooltip data-open-delay="300" data-close-delay="150">
+  <button class="pm7-tooltip-trigger">Custom Timing</button>
+  <div class="pm7-tooltip-content">
+    Opens after 300ms, closes after 150ms
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
+#### Recommended Delay Values
+
+| Use Case | Open Delay | Close Delay | Rationale |
+|----------|------------|-------------|-----------|
+| Navigation items | 200ms | 0ms | Quick response for menus |
+| Form field help | 600ms | 100ms | Avoid accidental triggers |
+| Icon buttons | 300ms | 0ms | Balance between speed and prevention |
+| Detailed info | 800ms | 200ms | Only show when user really hovers |
 
 ## JavaScript API
 
 ### Auto-initialization
 
-Tooltips with `.pm7-tooltip` class are automatically initialized when the DOM loads.
+Tooltips with `data-pm7-tooltip` attribute are automatically initialized when the DOM loads. The CSS class `.pm7-tooltip` is automatically added when JavaScript runs.
 
 ```javascript
 import { PM7Tooltip, initTooltips } from '@pm7/core';
@@ -199,7 +260,11 @@ import { PM7Tooltip, initTooltips } from '@pm7/core';
 ### Class Constructor
 
 ```javascript
-const tooltipElement = document.querySelector('.pm7-tooltip');
+// For simple tooltips
+const buttonElement = document.querySelector('[data-pm7-tooltip]');
+
+// For structured tooltips
+const tooltipElement = document.querySelector('[data-pm7-tooltip]');
 const tooltip = new PM7Tooltip(tooltipElement);
 ```
 
@@ -209,9 +274,9 @@ The tooltip reads configuration from the element and its children:
 
 | Element | Attribute | Description | Default |
 |---------|-----------|-------------|---------|
-| `.pm7-tooltip` | `data-delay` | General delay for open/close (ms) | `0` |
-| `.pm7-tooltip` | `data-open-delay` | Delay before showing (ms) | `0` |
-| `.pm7-tooltip` | `data-close-delay` | Delay before hiding (ms) | `0` |
+| `[data-pm7-tooltip]` | `data-delay` | General delay for open/close (ms) | `0` |
+| `[data-pm7-tooltip]` | `data-open-delay` | Delay before showing (ms) | `0` |
+| `[data-pm7-tooltip]` | `data-close-delay` | Delay before hiding (ms) | `0` |
 | `.pm7-tooltip-content` | `data-side` | Placement: `top`, `bottom`, `left`, `right` | `'top'` |
 | `.pm7-tooltip-content` | `data-align` | Alignment: `start`, `center`, `end` | `'center'` |
 
@@ -367,16 +432,42 @@ interface TooltipProps {
 
 ## CSS Classes
 
+### Core Classes
+
 | Class | Description |
 |-------|-------------|
 | `.pm7-tooltip` | Base tooltip container |
 | `.pm7-tooltip-trigger` | Element that triggers the tooltip |
 | `.pm7-tooltip-content` | Tooltip content container |
 | `.pm7-tooltip-arrow` | Arrow pointing to trigger |
-| `.pm7-tooltip-content--sm` | Small tooltip size |
-| `.pm7-tooltip-content--lg` | Large tooltip size |
+
+### Size Modifiers
+
+| Class | Description | Max Width |
+|-------|-------------|-----------|
+| `.pm7-tooltip-content--sm` | Small tooltip size | 200px |
+| `.pm7-tooltip-content--lg` | Large tooltip size | 400px |
+
+### Style Modifiers
+
+| Class | Description |
+|-------|-------------|
 | `.pm7-tooltip-content--light` | Light theme variant |
-| `.pm7-tooltip-content--multiline` | Multiline content support |
+| `.pm7-tooltip-content--multiline` | Enables multiline content with proper spacing |
+
+### Custom Styling
+
+You can override the default max-width for specific use cases:
+
+```css
+/* Extra wide tooltip for complex content */
+.pm7-tooltip-content.custom-wide {
+  max-width: 600px;
+}
+
+/* Or use inline styles */
+style="max-width: 500px;"
+```
 
 ## Accessibility
 
@@ -441,13 +532,36 @@ interface TooltipProps {
 </div>
 ```
 
+### Wide Tooltip with Code Example
+
+```html
+<div class="pm7-tooltip" data-open-delay="300">
+  <button class="pm7-button pm7-tooltip-trigger">
+    View Code Example
+  </button>
+  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" 
+       data-side="bottom" style="max-width: 500px;">
+    <strong>Button Component Usage:</strong>
+    <code style="display: block; margin-top: 8px; padding: 8px; background: var(--pm7-muted); border-radius: 4px;">
+      &lt;button class="pm7-button pm7-button--primary pm7-button--lg"&gt;<br>
+      &nbsp;&nbsp;Click Me<br>
+      &lt;/button&gt;
+    </code>
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
 ## Data Attributes
 
 | Attribute | Description | Values | Example |
 |-----------|-------------|--------|---------|
 | `data-pm7-tooltip` | Auto-initialize tooltip | - | `data-pm7-tooltip` |
 | `data-side` | Preferred placement | `top`, `right`, `bottom`, `left` | `data-side="top"` |
-| `data-delay` | Show delay in ms | Number | `data-delay="500"` |
+| `data-align` | Alignment on the side | `start`, `center`, `end` | `data-align="center"` |
+| `data-delay` | General delay for open/close | Number (ms) | `data-delay="500"` |
+| `data-open-delay` | Delay before showing | Number (ms) | `data-open-delay="200"` |
+| `data-close-delay` | Delay before hiding | Number (ms) | `data-close-delay="100"` |
 | `data-state` | Visibility state | `open`, `closed` | `data-state="open"` |
 | `data-sticky` | Keeps tooltip open on hover | `true`, `false` | `data-sticky="true"` |
 | `aria-describedby` | Links trigger to tooltip | Tooltip ID | `aria-describedby="tooltip-1"` |

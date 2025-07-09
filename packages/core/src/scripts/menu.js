@@ -12,6 +12,12 @@ export class PM7Menu {
     }
     
     this.element = element;
+    
+    // AI-Agent FIRST: Automatically add pm7-menu class if missing
+    if (!this.element.classList.contains('pm7-menu')) {
+      this.element.classList.add('pm7-menu');
+    }
+    
     this.trigger = element.querySelector('.pm7-menu-trigger');
     this.content = element.querySelector('.pm7-menu-content');
     this.items = element.querySelectorAll('.pm7-menu-item');
@@ -26,7 +32,6 @@ export class PM7Menu {
     PM7Menu.instances.set(element, this);
     
     // Store reference on element for easy access
-    element.PM7Menu = this;
     
     this.init();
   }
@@ -346,7 +351,12 @@ export class PM7Menu {
     // Check all menus in the same menu bar
     const menusInBar = menuBar.querySelectorAll('.pm7-menu');
     for (const menuEl of menusInBar) {
-      if (menuEl !== this.element && menuEl.PM7Menu && menuEl.PM7Menu.isOpen) {
+      // Skip current menu
+      if (menuEl === this.element) continue;
+      
+      // Check if menu content is visible (open)
+      const menuContent = menuEl.querySelector('.pm7-menu-content');
+      if (menuContent && menuContent.classList.contains('pm7-menu-content--open')) {
         return true;
       }
     }
@@ -364,7 +374,9 @@ if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
     const menus = document.querySelectorAll('[data-pm7-menu]:not([data-pm7-menu-initialized])');
     menus.forEach((menu, index) => {
       try {
-        new PM7Menu(menu);
+        const instance = new PM7Menu(menu);
+        // Attach instance to DOM element for easy access
+        // Initialize menu (removed DOM attachment)
         menu.setAttribute('data-pm7-menu-initialized', 'true');
       } catch (error) {
         // Silent catch - no logging

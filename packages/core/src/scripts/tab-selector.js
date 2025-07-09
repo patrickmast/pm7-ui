@@ -5,6 +5,12 @@
 export class PM7TabSelector {
   constructor(element) {
     this.element = element;
+    
+    // AI-Agent FIRST: Automatically add pm7-tab-selector class if missing
+    if (!this.element.classList.contains('pm7-tab-selector')) {
+      this.element.classList.add('pm7-tab-selector');
+    }
+    
     this.tabList = element.querySelector('.pm7-tab-list');
     // Only get direct child tabs and panels, not nested ones
     this.tabs = Array.from(element.querySelectorAll('.pm7-tab-trigger')).filter(tab => 

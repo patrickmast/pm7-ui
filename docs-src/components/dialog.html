@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dialog - data-pm7-ui Components</title>
+  <title>Dialog - pm7-ui Components</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
@@ -70,20 +70,20 @@
             </ul>
 
             <h4>Content Markers (Input)</h4>
-            <p>These attributes are used on the root <code>pm7-dialog</code> element or its direct children to define content and behavior:</p>
+            <p>These attributes are used on the root <code>data-pm7-dialog</code> element or its direct children to define content and behavior:</p>
             <ul>
               <li><code>data-pm7-dialog="id"</code> - Unique identifier for the dialog</li>
-              <li><code>pm7-dialog-size</code> - Dialog size: sm, md, lg, xl, full</li>
-              <li><code>pm7-dialog-icon</code> - Icon type: info, warning, error, success</li>
-              <li><code>pm7-show-close</code> - Shows the X close button in header</li>
-              <li><code>pm7-header-separator</code> - Add line separator under header</li>
-              <li><code>pm7-no-escape</code> - Prevents closing dialog with ESC key</li>
-              <li><code>pm7-no-overlay-close</code> - Prevents closing dialog when clicking backdrop</li>
-              <li><code>pm7-header</code> - Marks the header section. Content within this element becomes the header.</li>
-              <li><code>pm7-dialog-title</code> - Text for the main dialog title (used with <code>pm7-header</code>)</li>
-              <li><code>pm7-dialog-subtitle</code> - Text for the dialog subtitle/description (used with <code>pm7-header</code>)</li>
-              <li><code>pm7-body</code> - Marks the main content area</li>
-              <li><code>pm7-footer</code> - Marks the footer section for actions</li>
+              <li><code>data-pm7-dialog-size</code> - Dialog size: sm, md, lg, xl, full</li>
+              <li><code>data-pm7-dialog-icon</code> - Icon type: info, warning, error, success</li>
+              <li><code>data-pm7-show-close</code> - Shows the X close button in header</li>
+              <li><code>data-pm7-header-separator</code> - Add line separator under header</li>
+              <li><code>data-pm7-no-escape</code> - Prevents closing dialog with ESC key</li>
+              <li><code>data-pm7-no-overlay-close</code> - Prevents closing dialog when clicking backdrop</li>
+              <li><code>data-pm7-header</code> - Marks the header section. Content within this element becomes the header.</li>
+              <li><code>data-pm7-dialog-title</code> - Text for the main dialog title (used with <code>data-pm7-header</code>)</li>
+              <li><code>data-pm7-dialog-subtitle</code> - Text for the dialog subtitle/description (used with <code>data-pm7-header</code>)</li>
+              <li><code>data-pm7-body</code> - Marks the main content area</li>
+              <li><code>data-pm7-footer</code> - Marks the footer section for actions</li>
             </ul>
 
             <h4>Generated Elements (Output)</h4>
@@ -91,11 +91,11 @@
             <ul>
               <li><strong>Header Container</strong> (<code>.pm7-dialog-header</code>)</li>
               <li><strong>Header Text Container</strong> (<code>.pm7-dialog-header-text</code>) - Wraps title and description</li>
-              <li><strong>Icon</strong> (<code>.pm7-dialog-icon</code>) - SVG icon based on <code>pm7-dialog-icon</code></li>
-              <li><strong>Title</strong> (<code>.pm7-dialog-title</code>) - H2 element for <code>pm7-dialog-title</code></li>
-              <li><strong>Description</strong> (<code>.pm7-dialog-description</code>) - P element for <code>pm7-dialog-subtitle</code></li>
-              <li><strong>Close Button</strong> (<code>.pm7-dialog-close</code>) - Button with X icon when <code>pm7-show-close</code> is set</li>
-              <li><strong>Header Separator</strong> (<code>.pm7-dialog-header-separator</code>) - Line when <code>pm7-header-separator</code> is set</li>
+              <li><strong>Icon</strong> (<code>.pm7-dialog-icon</code>) - SVG icon based on <code>data-pm7-dialog-icon</code></li>
+              <li><strong>Title</strong> (<code>.pm7-dialog-title</code>) - H2 element for <code>data-pm7-dialog-title</code></li>
+              <li><strong>Description</strong> (<code>.pm7-dialog-description</code>) - P element for <code>data-pm7-dialog-subtitle</code></li>
+              <li><strong>Close Button</strong> (<code>.pm7-dialog-close</code>) - Button with X icon when <code>data-pm7-show-close</code> is set</li>
+              <li><strong>Header Separator</strong> (<code>.pm7-dialog-header-separator</code>) - Line when <code>data-pm7-header-separator</code> is set</li>
               <li><strong>Body Container</strong> (<code>.pm7-dialog-body</code>)</li>
               <li><strong>Footer Container</strong> (<code>.pm7-dialog-footer</code>)</li>
             </ul>
@@ -298,7 +298,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Base Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Base Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-dialog</code></td>
                   <td>Root dialog container (hidden by default, controlled by `data-state` attribute)</td>
@@ -315,7 +315,7 @@
                   <td><code>.pm7-dialog-content</code></td>
                   <td>Container for the dialog box itself (header, body, footer)</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
                 <tr>
                   <td><code>.pm7-dialog-content--sm</code></td>
                   <td>Small dialog (max-width: 400px)</td>
@@ -336,7 +336,7 @@
                   <td><code>.pm7-dialog-content--full</code></td>
                   <td>Full screen dialog</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Dialog Variants</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Dialog Variants</strong></td></tr>
                 <tr>
                   <td><code>.pm7-dialog--alert</code></td>
                   <td>Alert variant (red header)</td>
@@ -353,7 +353,7 @@
                   <td><code>.pm7-dialog--shake</code></td>
                   <td>Shake animation effect</td>
                 </tr>
-                <tr style="background-color: #f9f9f9;"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Structure Classes</strong></td></tr>
                 <tr>
                   <td><code>.pm7-dialog-header</code></td>
                   <td>Dialog header section (generated by `data-pm7-header` attribute)</td>
@@ -502,34 +502,6 @@
               </tbody>
             </table>
 
-            <h4>Legacy Content Marker Attributes</h4>
-            <p><em>Note: These attributes (without <code>data-</code> prefix) are deprecated but still supported for backward compatibility.</em></p>
-            <table class="pm7-docs-table">
-              <thead>
-                <tr>
-                  <th>Attribute</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>pm7-header</code></td>
-                  <td>Same as <code>data-pm7-header</code></td>
-                </tr>
-                <tr>
-                  <td><code>pm7-subtitle</code></td>
-                  <td>Same as <code>data-pm7-subtitle</code></td>
-                </tr>
-                <tr>
-                  <td><code>pm7-body</code></td>
-                  <td>Same as <code>data-pm7-body</code></td>
-                </tr>
-                <tr>
-                  <td><code>pm7-footer</code></td>
-                  <td>Same as <code>data-pm7-footer</code></td>
-                </tr>
-              </tbody>
-            </table>
 
             <h3>Basic Usage</h3>
             <pre><code class="language-html">&lt;!-- Content Marker System (Recommended) --&gt;
@@ -611,8 +583,8 @@
             <h3>JavaScript API</h3>
             <p>The following functions are globally available for convenience, but can also be imported from <code>@pm7/core</code>:</p>
             <ul>
-              <li><code>openDialog(id)</code>: Opens a dialog by its `pm7-dialog` ID.</li>
-              <li><code>closeDialog(id)</code>: Closes a dialog by its `pm7-dialog` ID.</li>
+              <li><code>openDialog(id)</code>: Opens a dialog by its `data-pm7-dialog` ID.</li>
+              <li><code>closeDialog(id)</code>: Closes a dialog by its `data-pm7-dialog` ID.</li>
               <li><code>pm7Alert(message, options)</code>: Shows a simple alert dialog.</li>
               <li><code>pm7Confirm(message, callback, options)</code>: Shows a confirmation dialog.</li>
             </ul>
@@ -716,8 +688,8 @@ pm7Confirm('Are you sure?', (confirmed) => {
             <h3>Accessibility</h3>
             <ul>
               <li><strong>Focus trap</strong>: Focus stays within dialog while open</li>
-              <li><strong>Escape key</strong>: Closes the dialog (unless <code>pm7-no-escape</code> is set)</li>
-              <li><strong>Click outside</strong>: Closes dialog by clicking overlay (unless <code>pm7-no-overlay-close</code> is set)</li>
+              <li><strong>Escape key</strong>: Closes the dialog (unless <code>data-pm7-no-escape</code> is set)</li>
+              <li><strong>Click outside</strong>: Closes dialog by clicking overlay (unless <code>data-pm7-no-overlay-close</code> is set)</li>
               <li><strong>Focus restoration</strong>: Focus returns to trigger element on close</li>
               <li><strong>ARIA attributes</strong>: Proper roles and labels for screen readers</li>
               <li><strong>Heading hierarchy</strong>: Semantic heading structure</li>
@@ -1203,7 +1175,7 @@ pm7Confirm('Are you sure?', (confirmed) => {
        data-pm7-show-close>
     <div data-pm7-header style="padding: 20px 24px;">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+        <div class="pm7-demo-gradient-purple" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
           JD
         </div>
         <div>
@@ -1413,7 +1385,7 @@ pm7Confirm('Are you sure?', (confirmed) => {
     // Initialize menu after header is loaded
     setTimeout(() => {
         const menuElement = document.querySelector('[data-pm7-menu]');
-        if (menuElement && !menuElement.PM7Menu) {
+        if (menuElement) {
             new PM7Menu(menuElement);
         }
     }, 100);

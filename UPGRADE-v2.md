@@ -1,220 +1,176 @@
-# Upgrade Guide: pm7-ui v1 to v2
+# Upgrade Guide: PM7 UI v2
 
-This guide helps you upgrade from pm7-ui v1.x to v2.0.
+This guide covers upgrading from PM7 UI v1.x to v2.x.
+
+## New in v2.1: AI-Agent FIRST Design
+
+All interactive components now automatically add their required CSS classes when initialized via data attributes:
+- `data-pm7-accordion` automatically adds `.pm7-accordion`
+- `data-pm7-dialog` automatically adds `.pm7-dialog`
+- `data-pm7-menu` automatically adds `.pm7-menu`
+- `data-pm7-tab-selector` automatically adds `.pm7-tab-selector`
+- `data-pm7-tooltip` automatically adds `.pm7-tooltip`
+- `data-pm7-theme-switch` automatically adds `.pm7-theme-switch`
+
+**Result**: You only need to add the data attribute - the CSS class is handled automatically!
 
 ## Breaking Changes
 
-### 🚨 @pm7/react Package Removed
+### 1. React Package Removed
 
-The biggest change in v2 is that we've removed the `@pm7/react` package. pm7-ui is now a single package (`@pm7/core`) that works with all frameworks using CSS classes.
+The `@pm7/react` package has been completely removed. PM7 UI is now framework-agnostic and uses pure CSS classes.
 
-## Step-by-Step Upgrade
+**Before (v1.x):**
+```jsx
+import { Button, Card } from '@pm7/react';
 
-### 1. Update Your Dependencies
-
-```bash
-# Remove the old React package
-npm uninstall @pm7/react
-
-# Update to v2
-npm install @pm7/core@^2.0.0
+<Button variant="primary">Click me</Button>
+<Card title="My Card">Content</Card>
 ```
 
-### 2. Update Your Imports
-
-```javascript
-// ❌ Old way (v1)
-import { Button, Card, Menu } from '@pm7/react';
+**After (v2.x):**
+```jsx
 import '@pm7/core/dist/pm7.css';
 
-// ✅ New way (v2)
-import '@pm7/core/dist/pm7.css';
-import '@pm7/core'; // Optional: for auto-initialization
-```
-
-### 3. Update Your Components
-
-#### Buttons
-
-```jsx
-// ❌ Old way (v1)
-<Button variant="primary" size="lg" onClick={handleClick}>
-  Click me
-</Button>
-
-// ✅ New way (v2)
-<button className="pm7-button pm7-button--primary pm7-button--lg" onClick={handleClick}>
-  Click me
-</button>
-```
-
-#### Cards
-
-```jsx
-// ❌ Old way (v1)
-<Card>
-  <Card.Header>Title</Card.Header>
-  <Card.Body>Content</Card.Body>
-  <Card.Footer>Footer</Card.Footer>
-</Card>
-
-// ✅ New way (v2)
+<button className="pm7-button pm7-button--primary">Click me</button>
 <div className="pm7-card">
-  <div className="pm7-card-header">Title</div>
+  <div className="pm7-card-header">My Card</div>
   <div className="pm7-card-body">Content</div>
-  <div className="pm7-card-footer">Footer</div>
 </div>
 ```
 
-#### Inputs
+### 2. CSS Class Name Changes
 
-```jsx
-// ❌ Old way (v1)
-<Input 
-  type="email" 
-  placeholder="Enter email" 
-  size="lg"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
+Some CSS class names have been updated for consistency:
 
-// ✅ New way (v2)
-<input 
-  type="email"
-  className="pm7-input pm7-input--lg"
-  placeholder="Enter email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
+| v1.x Class | v2.x Class |
+|------------|------------|
+| `pm7-btn` | `pm7-button` |
+| `pm7-btn-primary` | `pm7-button--primary` |
+| `pm7-btn-secondary` | `pm7-button--secondary` |
+| `pm7-btn-sm` | `pm7-button--sm` |
+| `pm7-btn-lg` | `pm7-button--lg` |
+
+### 3. Component Structure Changes
+
+#### Cards
+```html
+<!-- v1.x -->
+<div class="pm7-card">
+  <h3>Title</h3>
+  <p>Content</p>
+</div>
+
+<!-- v2.x -->
+<div class="pm7-card">
+  <div class="pm7-card-header">Title</div>
+  <div class="pm7-card-body">Content</div>
+</div>
 ```
 
 #### Menus
+```html
+<!-- v1.x -->
+<div class="pm7-dropdown">
+  <button>Menu</button>
+  <div class="pm7-dropdown-content">
+    <a href="#">Item</a>
+  </div>
+</div>
 
-```jsx
-// ❌ Old way (v1)
-<Menu
-  trigger={<button>Open Menu</button>}
-  items={[
-    { label: 'Option 1', onClick: handleOption1 },
-    { label: 'Option 2', onClick: handleOption2 }
-  ]}
-/>
-
-// ✅ New way (v2)
-<div className="pm7-menu" data-pm7-menu>
-  <button className="pm7-menu-trigger">Open Menu</button>
-  <div className="pm7-menu-content">
-    <button className="pm7-menu-item" onClick={handleOption1}>Option 1</button>
-    <button className="pm7-menu-item" onClick={handleOption2}>Option 2</button>
+<!-- v2.x -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Item</button>
   </div>
 </div>
 ```
 
-#### Dialogs
+## New Features in v2
 
-```jsx
-// ❌ Old way (v1)
-<Dialog open={isOpen} onClose={handleClose}>
-  <Dialog.Header>Title</Dialog.Header>
-  <Dialog.Body>Content</Dialog.Body>
-  <Dialog.Footer>
-    <Button onClick={handleClose}>Close</Button>
-  </Dialog.Footer>
-</Dialog>
+### 1. Interactive Components
 
-// ✅ New way (v2)
-<div className="pm7-dialog" data-pm7-dialog data-state={isOpen ? "open" : "closed"}>
-  <div className="pm7-dialog-overlay" onClick={handleClose}></div>
-  <div className="pm7-dialog-content">
-    <div className="pm7-dialog-header">
-      <h2>Title</h2>
-      <button className="pm7-dialog-close" onClick={handleClose}>×</button>
-    </div>
-    <div className="pm7-dialog-body">Content</div>
-    <div className="pm7-dialog-footer">
-      <button className="pm7-button" onClick={handleClose}>Close</button>
-    </div>
-  </div>
-</div>
+New JavaScript-powered components with auto-initialization:
+- Tab Selector (`data-pm7-tab-selector`)
+- Accordion (`data-pm7-accordion`)
+- Dialog (`data-pm7-dialog`)
+- Toast notifications
+- Tooltips (`data-pm7-tooltip`)
+- Theme Switch (`data-pm7-theme-switch`)
+
+### 2. Dark Mode Support
+
+Built-in dark mode with automatic detection and theme switching:
+```html
+<!-- Add to <head> to prevent flicker -->
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('pm7-theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
 ```
 
-## Component Props to CSS Classes Mapping
+### 3. JavaScript API
 
-### Button Variants
-- `variant="primary"` → `pm7-button--primary`
-- `variant="secondary"` → `pm7-button--secondary`
-- `variant="outline"` → `pm7-button--outline`
-- `variant="ghost"` → `pm7-button--ghost`
-- `variant="destructive"` → `pm7-button--destructive`
-
-### Sizes (Button, Input)
-- `size="sm"` → `pm7-button--sm` or `pm7-input--sm`
-- `size="md"` → (default, no class needed)
-- `size="lg"` → `pm7-button--lg` or `pm7-input--lg`
-
-### Other Props
-- `fullWidth={true}` → `pm7-button--full`
-- `disabled={true}` → `disabled` attribute
-- `loading={true}` → Add your own loading state
-
-## Auto-initialization
-
-Interactive components (Menu, Dialog, Toast, Accordion, etc.) now auto-initialize when the DOM loads:
-
+For interactive components:
 ```javascript
-// This happens automatically when you import the package
-import '@pm7/core';
+import { PM7Menu, PM7TabSelector, showToast } from '@pm7/core';
 
-// Or manually initialize after adding dynamic content
-PM7.init(); // Initialize all components on page
-PM7.init(containerElement); // Initialize within specific container
+// Initialize components manually
+const menu = new PM7Menu(document.querySelector('.pm7-menu'));
+const tabs = new PM7TabSelector(document.querySelector('[data-pm7-tab-selector]'));
+
+// Show toast notification
+showToast('Hello!', { type: 'success' });
 ```
 
-## TypeScript
+## Migration Steps
 
-If you were using TypeScript with @pm7/react, you'll need to handle types yourself now:
+1. **Update package.json:**
+   ```json
+   // Remove
+   "@pm7/react": "^1.x.x"
+   
+   // Add
+   "@pm7/core": "^2.x.x"
+   ```
 
-```typescript
-// Define your own types for props
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-}
+2. **Update imports:**
+   ```javascript
+   // Remove all @pm7/react imports
+   // Add CSS import
+   import '@pm7/core/dist/pm7.css';
+   ```
 
-// Use them in your components
-function Button({ variant = 'primary', size = 'md', className, ...props }: ButtonProps) {
-  const classes = `pm7-button pm7-button--${variant} pm7-button--${size} ${className || ''}`;
-  return <button className={classes} {...props} />;
-}
-```
+3. **Replace React components with CSS classes:**
+   - Use find/replace to update component usage
+   - Update class names according to the mapping table above
+
+4. **Add data attributes for interactive components:**
+   - Menus: add `data-pm7-menu`
+   - Tab selectors: add `data-pm7-tab-selector`
+   - Accordions: add `data-pm7-accordion`
+   - Dialogs: add `data-pm7-dialog`
+
+5. **Test thoroughly:**
+   - Check all components render correctly
+   - Verify interactive components work
+   - Test dark mode functionality
 
 ## Benefits of v2
 
-1. **Smaller Bundle Size** - No React-specific code shipped
-2. **Framework Agnostic** - Same classes work in React, Vue, Angular, etc.
-3. **AI-Friendly** - Simple CSS classes that AI assistants understand
-4. **Simpler API** - Just CSS classes, no complex props
-5. **Better Performance** - Less JavaScript overhead
+- **Framework agnostic**: Works with React, Vue, Angular, or vanilla HTML
+- **Smaller bundle size**: No React dependency
+- **Better performance**: Pure CSS with minimal JavaScript
+- **AI-friendly**: Simple, predictable patterns that AI agents understand
+- **More flexible**: Use only what you need
 
 ## Need Help?
 
 - Check the [documentation](https://pm7-ui.dev)
-- View the [AI Guide](https://pm7-ui.dev/ai-guide.html) for AI-assisted development
-- Report issues on [GitHub](https://github.com/patrickmast/pm7-ui/issues)
-
-## Quick Reference
-
-```jsx
-// Most common conversions
-<Button>                    → <button className="pm7-button">
-<Card>                      → <div className="pm7-card">
-<Input>                     → <input className="pm7-input">
-<Menu>                      → <div className="pm7-menu" data-pm7-menu>
-<Dialog>                    → <div className="pm7-dialog" data-pm7-dialog>
-<Toast>                     → <div className="pm7-toast">
-<Accordion>                 → <div className="pm7-accordion" data-pm7-accordion>
-<TabSelector>               → <div className="pm7-tab-selector" data-pm7-tab-selector>
-<Tooltip>                   → <div className="pm7-tooltip" data-pm7-tooltip>
-```
-
-Remember: The functionality remains the same - only the syntax has changed!
+- View [component examples](https://pm7-ui.dev/components)
+- Open an [issue on GitHub](https://github.com/patrickmast/pm7-ui/issues)

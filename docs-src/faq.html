@@ -666,7 +666,7 @@ dialog.addEventListener('pm7-dialog-open', () => {
         // Initialize menu after header is loaded
         setTimeout(() => {
             const menuElement = document.querySelector('[data-pm7-menu]');
-            if (menuElement && !menuElement.PM7Menu) {
+            if (menuElement) {
                 new PM7Menu(menuElement);
             }
         }, 100);

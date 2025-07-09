@@ -163,7 +163,7 @@
 .pm7-dialog-description {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 15px;
-  color: #333333;
+  color: var(--pm7-muted-foreground);
   margin: 4px 0 0 0;
   line-height: 1.5;
 }
@@ -179,17 +179,13 @@
   background: transparent;
   border: none;
   border-radius: var(--pm7-radius);
-  color: #333333;
+  color: var(--pm7-muted-foreground);
   cursor: pointer;
   transition: background-color 200ms, color 200ms;
   flex-shrink: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .pm7-dialog-close {
-    color: white;
-  }
-}
+/* Dark mode handled by CSS variables */
 
 .pm7-dialog-close:hover {
   background-color: var(--pm7-muted);
@@ -218,7 +214,7 @@
 .pm7-dialog-footer {
   padding: var(--pm7-spacing-4) var(--pm7-spacing-6);
   border-top: 1px solid var(--pm7-border);
-  background-color: #F7FAFC;
+  background-color: var(--pm7-muted);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -227,11 +223,7 @@
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .pm7-dialog-footer {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-}
+/* Dark mode handled by CSS variables */
 
 /* Prevent body scroll when dialog is open */
 body.pm7-dialog-open {

@@ -6,6 +6,12 @@
 export class PM7Tooltip {
   constructor(element) {
     this.element = element;
+    
+    // AI-Agent FIRST: Automatically add pm7-tooltip class if missing
+    if (!this.element.classList.contains('pm7-tooltip')) {
+      this.element.classList.add('pm7-tooltip');
+    }
+    
     this.trigger = element.querySelector('.pm7-tooltip-trigger');
     this.content = element.querySelector('.pm7-tooltip-content');
     this.arrow = element.querySelector('.pm7-tooltip-arrow');
@@ -128,6 +134,10 @@ export class PM7Tooltip {
     // Add escape key listener
     document.addEventListener('keydown', this.handleKeyDown);
     
+    // Add scroll and resize listeners for fixed positioning
+    window.addEventListener('scroll', this.updatePosition, true);
+    window.addEventListener('resize', this.updatePosition);
+    
     // Announce to screen readers
     this.announceToScreenReaders();
     
@@ -146,6 +156,10 @@ export class PM7Tooltip {
     
     // Remove escape key listener
     document.removeEventListener('keydown', this.handleKeyDown);
+    
+    // Remove scroll and resize listeners
+    window.removeEventListener('scroll', this.updatePosition, true);
+    window.removeEventListener('resize', this.updatePosition);
     
     // Dispatch custom event
     this.element.dispatchEvent(new CustomEvent('pm7:tooltip:hide', {
@@ -171,6 +185,7 @@ export class PM7Tooltip {
     // Check if tooltip fits in preferred position
     let actualSide = this.side;
     const padding = 8; // Minimum distance from viewport edge
+    const gap = 8; // Gap between trigger and tooltip
     
     // Auto-adjust position if it doesn't fit
     if (actualSide === 'top' && triggerRect.top - contentRect.height - padding < 0) {
@@ -185,6 +200,36 @@ export class PM7Tooltip {
     
     // Update data attribute for styling
     this.content.setAttribute('data-side', actualSide);
+    
+    // Calculate position based on side (now using fixed positioning)
+    let top, left;
+    
+    switch (actualSide) {
+      case 'top':
+        top = triggerRect.top - contentRect.height - gap;
+        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
+        break;
+      case 'bottom':
+        top = triggerRect.bottom + gap;
+        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
+        break;
+      case 'left':
+        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+        left = triggerRect.left - contentRect.width - gap;
+        break;
+      case 'right':
+        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+        left = triggerRect.right + gap;
+        break;
+    }
+    
+    // Constrain to viewport
+    top = Math.max(padding, Math.min(top, viewportHeight - contentRect.height - padding));
+    left = Math.max(padding, Math.min(left, viewportWidth - contentRect.width - padding));
+    
+    // Apply position
+    this.content.style.top = `${top}px`;
+    this.content.style.left = `${left}px`;
     
     // Handle alignment adjustments for horizontal positions
     if ((actualSide === 'top' || actualSide === 'bottom') && this.align === 'center') {
@@ -242,6 +287,8 @@ export class PM7Tooltip {
     this.trigger?.removeEventListener('click', this.handleTriggerClick);
     document.removeEventListener('click', this.handleDocumentClick);
     document.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('scroll', this.updatePosition, true);
+    window.removeEventListener('resize', this.updatePosition);
     
     // Reset state
     this.hide();
@@ -252,9 +299,8 @@ export class PM7Tooltip {
 export function initTooltips(container = document) {
   const tooltips = container.querySelectorAll('.pm7-tooltip');
   tooltips.forEach(tooltip => {
-    if (!tooltip.PM7Tooltip) {
-      tooltip.PM7Tooltip = new PM7Tooltip(tooltip);
-    }
+    // Initialize tooltip if not already initialized
+    new PM7Tooltip(tooltip);
   });
 }
 
