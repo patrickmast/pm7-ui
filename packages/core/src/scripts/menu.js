@@ -23,6 +23,7 @@ export class PM7Menu {
     this.items = element.querySelectorAll('.pm7-menu-item');
     this.isOpen = false;
     this.currentIndex = -1;
+    this.hoverTimeouts = new Map(); // Store hover timeouts for cleanup
     
     if (!this.trigger || !this.content) {
       return;
@@ -61,6 +62,9 @@ export class PM7Menu {
         }
       });
     }
+    
+    // Initialize submenu hover handling
+    this.initSubmenuHoverHandling();
     
     // Close on outside click
     this.outsideClickHandler = (e) => {
@@ -159,6 +163,16 @@ export class PM7Menu {
     
     // Remove escape handler when menu closes
     document.removeEventListener('keydown', this.escapeHandler);
+    
+    // Clear all hover timeouts
+    this.hoverTimeouts.forEach(timeout => clearTimeout(timeout));
+    this.hoverTimeouts.clear();
+    
+    // Close all submenus
+    const submenuItems = this.element.querySelectorAll('.pm7-menu-item--has-submenu');
+    submenuItems.forEach(item => {
+      item.setAttribute('data-submenu-open', 'false');
+    });
     
     // Remove focus from items
     this.items.forEach(item => {
@@ -361,6 +375,70 @@ export class PM7Menu {
       }
     }
     return false;
+  }
+  
+  // Initialize submenu hover handling with improved UX
+  initSubmenuHoverHandling() {
+    const submenuItems = this.element.querySelectorAll('.pm7-menu-item--has-submenu');
+    
+    submenuItems.forEach((item, index) => {
+      const submenu = item.nextElementSibling;
+      if (!submenu || !submenu.classList.contains('pm7-submenu')) return;
+      
+      const timeoutKey = `submenu-${index}`;
+      
+      // Handle mouse enter on parent item
+      item.addEventListener('mouseenter', () => {
+        const timeout = this.hoverTimeouts.get(timeoutKey);
+        if (timeout) {
+          clearTimeout(timeout);
+          this.hoverTimeouts.delete(timeoutKey);
+        }
+        item.setAttribute('data-submenu-open', 'true');
+      });
+      
+      // Handle mouse leave on parent item
+      item.addEventListener('mouseleave', (e) => {
+        // Check if we're moving to the submenu
+        const toElement = e.relatedTarget;
+        if (toElement && (submenu.contains(toElement) || submenu === toElement)) {
+          return; // Don't close if moving to submenu
+        }
+        
+        // Add small delay before closing
+        const timeout = setTimeout(() => {
+          item.setAttribute('data-submenu-open', 'false');
+          this.hoverTimeouts.delete(timeoutKey);
+        }, 100); // 100ms delay
+        this.hoverTimeouts.set(timeoutKey, timeout);
+      });
+      
+      // Handle mouse enter on submenu
+      submenu.addEventListener('mouseenter', () => {
+        const timeout = this.hoverTimeouts.get(timeoutKey);
+        if (timeout) {
+          clearTimeout(timeout);
+          this.hoverTimeouts.delete(timeoutKey);
+        }
+        item.setAttribute('data-submenu-open', 'true');
+      });
+      
+      // Handle mouse leave on submenu
+      submenu.addEventListener('mouseleave', (e) => {
+        // Check if we're moving back to the parent
+        const toElement = e.relatedTarget;
+        if (toElement && (item.contains(toElement) || item === toElement)) {
+          return; // Don't close if moving back to parent
+        }
+        
+        // Add small delay before closing
+        const timeout = setTimeout(() => {
+          item.setAttribute('data-submenu-open', 'false');
+          this.hoverTimeouts.delete(timeoutKey);
+        }, 100); // 100ms delay
+        this.hoverTimeouts.set(timeoutKey, timeout);
+      });
+    });
   }
 }
 

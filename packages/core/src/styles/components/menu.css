@@ -415,8 +415,9 @@
 .pm7-submenu {
   position: absolute;
   top: -8px;
-  left: calc(100% + 4px);
+  left: 100%;
   min-width: 180px;
+  margin-left: 4px; /* Visual separation */
   padding: 0.5rem;
   background-color: var(--pm7-menu-bg);
   border: 1px solid var(--pm7-border);
@@ -424,6 +425,18 @@
   box-shadow: var(--pm7-menu-shadow);
   display: none;
   z-index: 100;
+}
+
+/* Create invisible bridge to maintain hover state */
+.pm7-submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 8px; /* Bridge width - covers the margin-left gap */
+  height: 100%;
+  background: transparent;
+  z-index: 1; /* Above submenu background */
 }
 
 /* Reset positioning for submenus - they should not inherit parent menu positioning */
@@ -494,5 +507,13 @@
 
 [dir="rtl"] .pm7-submenu {
   left: auto;
-  right: calc(100% + 4px);
+  right: 100%;
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+/* RTL bridge positioning */
+[dir="rtl"] .pm7-submenu::before {
+  right: auto;
+  left: 100%;
 }
