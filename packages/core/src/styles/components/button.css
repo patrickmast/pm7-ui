@@ -116,6 +116,7 @@
 
 .pm7-button--ghost:hover:not(:disabled) {
   background-color: var(--pm7-muted);
+  color: var(--pm7-foreground);
 }
 
 /* Destructive */
