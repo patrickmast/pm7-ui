@@ -44,6 +44,17 @@
   --pm7-button-focus-shadow: 0 0 0 3px rgb(59 158 255 / 0.3);
 }
 
+/* Ensure anchor tags with button classes override link styles */
+a.pm7-button,
+a.pm7-button:link,
+a.pm7-button:visited,
+a.pm7-button:hover,
+a.pm7-button:active,
+a.pm7-button:focus {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
 /* Disabled state */
 .pm7-button:disabled,
 .pm7-button[disabled],
@@ -71,6 +82,16 @@
   background-color: var(--pm7-primary);
   color: var(--pm7-primary-foreground);
   box-shadow: var(--pm7-button-shadow);
+}
+
+/* Ensure primary buttons maintain white text when used as links */
+a.pm7-button--primary,
+a.pm7-button--primary:link,
+a.pm7-button--primary:visited,
+a.pm7-button--primary:hover,
+a.pm7-button--primary:active,
+a.pm7-button--primary:focus {
+  color: var(--pm7-primary-foreground) !important;
 }
 
 .pm7-button--primary:hover:not(:disabled),

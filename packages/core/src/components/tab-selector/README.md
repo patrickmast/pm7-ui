@@ -68,15 +68,15 @@ The following sections describe the vanilla JavaScript implementation using `@pm
 ### Basic Tabs
 
 ```html
-<!-- AI-Agent FIRST: Only data-pm7-tab-selector needed, CSS class is auto-added -->
-<div data-pm7-tab-selector>
+<!-- IMPORTANT: class="pm7-tab-selector" is REQUIRED along with data-pm7-tab-selector -->
+<div class="pm7-tab-selector" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="basic-tab-1" data-state="active">Tab 1</button>
+    <button class="pm7-tab-trigger" aria-controls="basic-tab-1">Tab 1</button>
     <button class="pm7-tab-trigger" aria-controls="basic-tab-2">Tab 2</button>
     <button class="pm7-tab-trigger" aria-controls="basic-tab-3">Tab 3</button>
   </div>
   
-  <div class="pm7-tab-content" id="basic-tab-1" data-state="active">
+  <div class="pm7-tab-content" id="basic-tab-1">
     <p>Content for Tab 1. This is the default active tab.</p>
   </div>
   <div class="pm7-tab-content" id="basic-tab-2">
@@ -88,9 +88,11 @@ The following sections describe the vanilla JavaScript implementation using `@pm
 </div>
 ```
 
+**Note**: The first tab is automatically activated if no `data-state="active"` is set.
+
 ### JavaScript Initialization
 
-Tabs with `data-pm7-tab-selector` are automatically initialized. The CSS class `pm7-tab-selector` is automatically added when JavaScript runs:
+Tabs with `data-pm7-tab-selector` are automatically initialized when PM7 loads:
 
 ```javascript
 import { PM7TabSelector } from '@pm7/core';
@@ -588,6 +590,8 @@ function addTab(title, content) {
 5. **Remember state**: Consider preserving the active tab on page reload if appropriate
 6. **Icon usage**: Use icons to enhance recognition, not replace text labels
 7. **Badge updates**: Update badges dynamically to reflect current state
+8. **HTML Structure**: Always use the correct HTML structure with required classes and IDs
+9. **Avoid Deprecated Patterns**: Never use `role` attributes or old data attributes like `data-tab`
 
 ## Examples
 
@@ -804,17 +808,62 @@ function MyComponent() {
 }
 ```
 
+## Important: HTML Structure Requirements
+
+> ⚠️ **CRITICAL**: The correct HTML structure is essential for tabs to work properly!
+
+### ✅ Correct Structure
+```html
+<!-- Use these exact classes and IDs -->
+<div class="pm7-tab-selector" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="panel-id">Tab</button>
+  </div>
+  <div class="pm7-tab-content" id="panel-id">
+    Content
+  </div>
+</div>
+```
+
+### ❌ Common Mistakes to Avoid
+
+**DO NOT use these outdated patterns:**
+```html
+<!-- WRONG - Do not use role attributes -->
+<div role="tablist" class="pm7-tab-list">
+  <button role="tab" data-tab="overview">Tab</button>
+</div>
+<div role="tabpanel" data-panel="overview">
+
+<!-- WRONG - Do not use pm7-tab-panel -->
+<div class="pm7-tab-panel">
+
+<!-- WRONG - Do not use data-tab-key -->
+<div data-pm7-tab-selector data-tab-key="my-tabs">
+```
+
+### Key Requirements
+1. **Container**: Must have `class="pm7-tab-selector"` AND `data-pm7-tab-selector`
+2. **Tab List**: Must have `class="pm7-tab-list"`
+3. **Tab Buttons**: Must have `class="pm7-tab-trigger"` and `aria-controls` pointing to panel ID
+4. **Tab Content**: Must have `class="pm7-tab-content"` and matching `id`
+5. **Active State**: Use `data-state="active"` or the `--active` modifier classes
+
 ## Data Attributes
 
 | Attribute | Description | Values | Example |
 |-----------|-------------|--------|---------|
 | `data-pm7-tab-selector` | Auto-initialize tab selector | - | `data-pm7-tab-selector` |
-| `data-orientation` | Tab orientation | `horizontal`, `vertical` | `data-orientation="vertical"` |
-| `data-variant` | Visual variant | `underline`, `solid`, `minimal` | `data-variant="solid"` |
-| `aria-controls` | Links trigger to panel | Panel ID | `aria-controls="panel-1"` |
-| `aria-selected` | Selected state | `true`, `false` | `aria-selected="true"` |
-| `role` | ARIA roles | `tablist`, `tab`, `tabpanel` | `role="tab"` |
-| `tabindex` | Keyboard navigation | `0`, `-1` | `tabindex="0"` |
+| `data-state` | Current state of tab/panel | `active` | `data-state="active"` |
+| `aria-controls` | Links trigger to panel (REQUIRED) | Panel ID | `aria-controls="panel-1"` |
+| `aria-selected` | Selected state (auto-managed) | `true`, `false` | `aria-selected="true"` |
+| `disabled` | Disables a tab | - | `disabled` |
+
+### Deprecated Attributes (DO NOT USE)
+- ❌ `role="tablist"`, `role="tab"`, `role="tabpanel"` - Not needed with PM7
+- ❌ `data-tab`, `data-panel` - Use `aria-controls` and `id` instead
+- ❌ `data-tab-key` - Not supported
+- ❌ `data-orientation`, `data-variant` - Use CSS classes instead
 
 ### Common Pitfalls to Avoid
 

@@ -853,6 +853,23 @@ new PM7ThemeSwitch(element)
 new PM7Tooltip(element)
 ```
 
+## Important Development Guidelines
+
+### Testing Components in Isolation
+**CRITICAL**: Always test components without documentation-specific CSS to ensure they work correctly for end users.
+
+1. **NEVER** add component functionality only in `docs.css` or documentation-specific files
+2. **ALWAYS** test components in isolation (without docs.css loaded)
+3. **ENSURE** that what works in the documentation site also works in production
+
+#### Why This Matters
+We discovered that checkbox/radio hover states worked in our documentation but not in production because the styling was only in docs.css. This creates a poor developer experience where components behave differently than documented.
+
+#### How to Test
+- Create test pages that only load core PM7 CSS (like our demo pages)
+- Verify all visual states (normal, hover, active, disabled) work correctly
+- If something only works with docs.css loaded, it needs to be moved to the core component CSS
+
 ## Development Setup Issues & Solutions
 
 ### CSS @import Not Working in Vite (Missing Shadows/Styles)

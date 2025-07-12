@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Toolbar Menu Demo - PM7 UI</title>
+
+  <!-- PM7 Core CSS -->
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--pm7-font-sans);
+      background: var(--pm7-background);
+      color: var(--pm7-foreground);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-toolbar {
+      background: var(--pm7-surface);
+      border-bottom: 1px solid var(--pm7-border);
+      padding: 0;
+    }
+
+    .app-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .demo-editor {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      min-height: 400px;
+      font-family: var(--pm7-font-mono);
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      outline: none;
+    }
+
+    .status-bar {
+      background: var(--pm7-muted);
+      border-top: 1px solid var(--pm7-border);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Application Toolbar -->
+    <div class="app-toolbar">
+      <div class="pm7-menu-bar pm7-menu-bar--borderless pm7-menu-bar--flat-hover">
+        <!-- File Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            File
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" onclick="newFile()">
+              New
+              <span class="pm7-menu-shortcut">⌘N</span>
+            </button>
+            <button class="pm7-menu-item" onclick="openFile()">
+              Open...
+              <span class="pm7-menu-shortcut">⌘O</span>
+            </button>
+            <button class="pm7-menu-item">Recent Files</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="saveFile()">
+              Save
+              <span class="pm7-menu-shortcut">⌘S</span>
+            </button>
+            <button class="pm7-menu-item">Save As...</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="exitApp()">Exit</button>
+          </div>
+        </div>
+
+        <!-- Edit Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Edit
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" onclick="undo()">
+              Undo
+              <span class="pm7-menu-shortcut">⌘Z</span>
+            </button>
+            <button class="pm7-menu-item" onclick="redo()">
+              Redo
+              <span class="pm7-menu-shortcut">⌘⇧Z</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">
+              Cut
+              <span class="pm7-menu-shortcut">⌘X</span>
+            </button>
+            <button class="pm7-menu-item">
+              Copy
+              <span class="pm7-menu-shortcut">⌘C</span>
+            </button>
+            <button class="pm7-menu-item">
+              Paste
+              <span class="pm7-menu-shortcut">⌘V</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Find...</button>
+            <button class="pm7-menu-item">Replace...</button>
+          </div>
+        </div>
+
+        <!-- View Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            View
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
+              Word Wrap
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--checkbox">
+              Line Numbers
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <div class="pm7-menu-label">Theme</div>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="light" data-checked="true">
+              Light
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="dark">
+              Dark
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Zoom In</button>
+            <button class="pm7-menu-item">Zoom Out</button>
+            <button class="pm7-menu-item">Reset Zoom</button>
+          </div>
+        </div>
+
+        <!-- Tools Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Tools
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Options...</button>
+            <button class="pm7-menu-item">Extensions</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Developer Tools</button>
+          </div>
+        </div>
+
+        <!-- Help Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Help
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Documentation</button>
+            <button class="pm7-menu-item">Keyboard Shortcuts</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="showAbout()">About</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      <h2>Text Editor Demo</h2>
+      <div class="demo-editor" contenteditable="true" id="editor">
+Welcome to the PM7 UI Application Toolbar Menu Demo!
+
+This demo shows how the PM7 Menu component can be used to create a traditional desktop application menu bar. Try clicking on the menu items above to see them in action.
+
+Features demonstrated:
+- Multiple menus in a toolbar layout
+- Keyboard shortcuts display
+- Checkbox menu items (see View menu)
+- Menu separators for grouping
+- Nested menu organization
+
+The menu component handles all the complex interactions:
+- Click to open/close
+- Keyboard navigation
+- Proper focus management
+- Accessibility features
+
+Start typing here to edit this text...</div>
+    </main>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>Ready</span>
+      <span>Line 1, Column 1</span>
+    </div>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+
+  <script>
+    // Demo functions
+    function newFile() {
+      document.getElementById('editor').textContent = '';
+      updateStatus('New file created');
+    }
+
+    function openFile() {
+      updateStatus('Open file dialog would appear here...');
+    }
+
+    function saveFile() {
+      updateStatus('File saved');
+    }
+
+    function exitApp() {
+      if (confirm('Are you sure you want to exit?')) {
+        updateStatus('Exiting application...');
+      }
+    }
+
+    function undo() {
+      document.execCommand('undo');
+      updateStatus('Undo');
+    }
+
+    function redo() {
+      document.execCommand('redo');
+      updateStatus('Redo');
+    }
+
+    function showAbout() {
+      alert('PM7 UI Text Editor Demo\nVersion 1.0.0\n\nDemonstrating the PM7 Menu component in a toolbar layout.');
+    }
+
+    function updateStatus(message) {
+      const statusBar = document.querySelector('.status-bar span');
+      statusBar.textContent = message;
+      setTimeout(() => {
+        statusBar.textContent = 'Ready';
+      }, 2000);
+    }
+
+    // Checkbox functionality is handled by PM7Menu component
+
+    // Add dark mode support
+    const darkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (darkModeEnabled) {
+      document.documentElement.classList.add('dark');
+    }
+
+    // Update cursor position
+    document.getElementById('editor').addEventListener('click', function() {
+      // In a real app, this would calculate actual line/column
+      document.querySelector('.status-bar span:last-child').textContent = 'Line 1, Column 1';
+    });
+  </script>
+</body>
+</html>

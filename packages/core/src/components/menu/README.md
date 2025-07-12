@@ -20,6 +20,32 @@ import '@pm7/core/dist/pm7.css';
 
 ⚠️ **Important**: The CSS file is located at `@pm7/core/dist/pm7.css`, NOT `@pm7/core/dist/index.css`.
 
+### JavaScript Setup (Required for interactivity!)
+
+For menus to work, you need to include the PM7 JavaScript:
+
+```html
+<!-- Option 1: Auto-initialization (Recommended) -->
+<script src="node_modules/@pm7/core/dist/pm7.js"></script>
+
+<!-- Option 2: ES Modules -->
+<script type="module">
+  import { PM7Menu } from '@pm7/core';
+  // Components with data-pm7-menu will auto-initialize
+</script>
+
+<!-- Option 3: Manual initialization -->
+<script type="module">
+  import { PM7Menu } from '@pm7/core';
+  
+  // Initialize specific menu
+  const menu = document.querySelector('[data-pm7-menu]');
+  new PM7Menu(menu);
+</script>
+```
+
+⚠️ **Note**: Without JavaScript, menus will not open. The CSS provides styling only.
+
 ### React Usage
 
 If you're using the React components:
@@ -31,6 +57,36 @@ npm install @pm7/react @pm7/core
 ```javascript
 import { Menu, MenuItem, MenuSeparator } from '@pm7/react';
 import '@pm7/core/dist/pm7.css'; // Don't forget this!
+```
+
+## Complete HTML Example
+
+Here's a complete working example for a standalone HTML page:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- PM7 CSS -->
+  <link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+</head>
+<body>
+  <!-- Menu HTML -->
+  <div data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+      Options
+    </button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">Profile</button>
+      <button class="pm7-menu-item">Settings</button>
+      <button class="pm7-menu-item">Logout</button>
+    </div>
+  </div>
+
+  <!-- PM7 JavaScript (Required!) -->
+  <script src="node_modules/@pm7/core/dist/pm7.js"></script>
+</body>
+</html>
 ```
 
 ## Usage
@@ -53,20 +109,58 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
 </div>
 ```
 
+#### Flat Menu (No Shadows)
+
+```html
+<!-- Individual menu without shadows -->
+<div class="pm7-menu pm7-menu--flat" data-pm7-menu>
+  <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+    Options
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Edit</button>
+    <button class="pm7-menu-item">Delete</button>
+  </div>
+</div>
+```
+
+#### Flat Hover Menu (Only Hover Shadows Removed)
+
+```html
+<!-- Menu with dropdown shadows but no hover shadows -->
+<div class="pm7-menu pm7-menu--flat-hover" data-pm7-menu>
+  <button class="pm7-menu-trigger pm7-button pm7-button--primary">
+    Actions
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Save</button>
+    <button class="pm7-menu-item">Export</button>
+    <button class="pm7-menu-item">Print</button>
+  </div>
+</div>
+```
+
 **AI-Agent FIRST**: The `.pm7-menu` CSS class is automatically added by the JavaScript when the component initializes. You only need to add the `data-pm7-menu` attribute!
 
 ### JavaScript API
 
 #### Auto-initialization
 
-Menus with `data-pm7-menu` attribute are automatically initialized when the DOM loads:
+Menus with `data-pm7-menu` attribute are automatically initialized when the DOM loads, **but only if you include the PM7 JavaScript file**:
+
+```html
+<!-- This enables auto-initialization -->
+<script src="node_modules/@pm7/core/dist/pm7.js"></script>
+```
+
+Once initialized, you can control menus programmatically:
 
 ```javascript
-import { PM7Menu } from '@pm7/core';
-
-// For auto-initialized menus, create a new instance to control
+// Get reference to auto-initialized menu
 const menuElement = document.querySelector('[data-pm7-menu]');
-const menu = new PM7Menu(menuElement);
+const menu = menuElement.PM7Menu; // Access the instance
+
+// Control the menu
 menu.open();
 menu.close();
 menu.toggle();
@@ -153,6 +247,7 @@ When inside a `.pm7-menu-bar`, menus gain additional functionality:
 Create application-style menu bars with hover-to-open functionality:
 
 ```html
+<!-- Default menu bar with border and background -->
 <div class="pm7-menu-bar">
   <div class="pm7-menu" data-pm7-menu>
     <button class="pm7-menu-trigger">File</button>
@@ -174,6 +269,72 @@ Create application-style menu bars with hover-to-open functionality:
       <button class="pm7-menu-item">Cut <span class="pm7-menu-shortcut">⌘X</span></button>
       <button class="pm7-menu-item">Copy <span class="pm7-menu-shortcut">⌘C</span></button>
       <button class="pm7-menu-item">Paste <span class="pm7-menu-shortcut">⌘V</span></button>
+    </div>
+  </div>
+</div>
+```
+
+#### Borderless Menu Bar
+
+For a traditional toolbar appearance without borders:
+
+```html
+<div class="pm7-menu-bar pm7-menu-bar--borderless">
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost">File</button>
+    <div class="pm7-menu-content">
+      <!-- Menu items -->
+    </div>
+  </div>
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost">Edit</button>
+    <div class="pm7-menu-content">
+      <!-- Menu items -->
+    </div>
+  </div>
+</div>
+```
+
+#### Flat Menu Bar
+
+For a flat design without shadows (useful for minimalist interfaces):
+
+```html
+<div class="pm7-menu-bar pm7-menu-bar--flat">
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger">Options</button>
+    <div class="pm7-menu-content">
+      <!-- Menu items -->
+    </div>
+  </div>
+</div>
+```
+
+You can also combine modifiers:
+
+```html
+<!-- Borderless AND flat -->
+<div class="pm7-menu-bar pm7-menu-bar--borderless pm7-menu-bar--flat">
+  <!-- Menus -->
+</div>
+```
+
+#### Flat Hover Menu Bar
+
+For menu bars with dropdown shadows but no hover effects:
+
+```html
+<div class="pm7-menu-bar pm7-menu-bar--flat-hover">
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost">File</button>
+    <div class="pm7-menu-content">
+      <!-- Menu items -->
+    </div>
+  </div>
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost">Edit</button>
+    <div class="pm7-menu-content">
+      <!-- Menu items -->
     </div>
   </div>
 </div>
@@ -271,6 +432,15 @@ Create application-style menu bars with hover-to-open functionality:
 </div>
 ```
 
+#### Checkbox and Radio Hover Behavior
+
+PM7 checkbox and radio items automatically invert their indicator colors on hover for optimal visibility:
+
+- **Normal state**: Primary color indicator on background color
+- **Hover state**: Menu hover text color indicator on menu hover background
+
+This ensures the checkbox/radio indicators remain clearly visible against the hover background color in both light and dark modes.
+
 ### Submenus
 
 ```html
@@ -349,7 +519,12 @@ The menu automatically adjusts its position to stay within the viewport if there
 |-------|-------------|
 | **Container Classes** | |
 | `pm7-menu` | Menu container |
+| `pm7-menu--flat` | Individual menu without any shadows |
+| `pm7-menu--flat-hover` | Individual menu without hover shadows only |
 | `pm7-menu-bar` | Application-style menu bar container |
+| `pm7-menu-bar--borderless` | Menu bar without border/background |
+| `pm7-menu-bar--flat` | Menu bar without any shadows |
+| `pm7-menu-bar--flat-hover` | Menu bar without hover shadows only |
 | **Trigger Classes** | |
 | `pm7-menu-trigger` | Button that opens the menu |
 | **Content Classes** | |
@@ -429,6 +604,46 @@ When using `pm7-menu-bar`:
 - Maintains keyboard navigation within active menu
 - Visual feedback for active menu
 
+### Menu Modifier Classes
+
+PM7 provides several modifier classes to customize the appearance of menus:
+
+#### Shadow Modifiers
+
+| Modifier | Description | Use Case |
+|----------|-------------|----------|
+| Default | Full shadows on dropdowns and hovers | Standard desktop applications |
+| `--flat` | No shadows at all | Ultra-minimalist interfaces |
+| `--flat-hover` | Dropdown shadows only, no hover shadows | Modern web apps with subtle depth |
+
+#### Layout Modifiers (Menu Bar Only)
+
+| Modifier | Description | Use Case |
+|----------|-------------|----------|
+| Default | With border and background | Contained menu sections |
+| `--borderless` | No border or background | Traditional toolbar appearance |
+
+#### Combining Modifiers
+
+You can combine modifiers for precise control:
+
+```html
+<!-- Modern toolbar: no border, with dropdown shadows, no hover shadows -->
+<div class="pm7-menu-bar pm7-menu-bar--borderless pm7-menu-bar--flat-hover">
+  <!-- Your menus -->
+</div>
+
+<!-- Ultra-minimal: no border, no shadows at all -->
+<div class="pm7-menu-bar pm7-menu-bar--borderless pm7-menu-bar--flat">
+  <!-- Your menus -->
+</div>
+
+<!-- Clean individual menu: dropdown shadows but no hover effects -->
+<div class="pm7-menu pm7-menu--flat-hover" data-pm7-menu>
+  <!-- Your menu -->
+</div>
+```
+
 ## Position Adjustment
 
 The menu automatically adjusts its position to stay within the viewport:
@@ -452,6 +667,30 @@ The menu automatically adjusts its position to stay within the viewport:
 5. **Descriptive labels**: Use clear, action-oriented text
 6. **Keyboard shortcuts**: Display shortcuts for power users
 7. **Logical order**: Most common actions first, dangerous actions last
+
+### Choosing the Right Modifier
+
+**When to use each shadow variant:**
+
+- **Default (with shadows)**: 
+  - Desktop-style applications
+  - When you need clear visual hierarchy
+  - Complex menus with submenus
+
+- **`--flat`**: 
+  - Minimalist designs
+  - When shadows conflict with your design system
+  - Simple, single-level menus
+
+- **`--flat-hover`**: 
+  - Modern web applications
+  - When you want depth without movement
+  - Reduces visual noise while maintaining hierarchy
+
+**When to use layout modifiers:**
+
+- **Default menu bar**: When menus need visual containment
+- **`--borderless`**: For traditional application toolbars or when integrating with custom headers
 
 ## Advanced Examples
 
@@ -728,6 +967,23 @@ function MyComponent() {
 ```
 
 ## Common Issues
+
+### CSS Specificity with Button Classes
+When using PM7 button classes on menu triggers, be aware that button styles have high specificity:
+
+```html
+<!-- Menu triggers often use button classes -->
+<button class="pm7-menu-trigger pm7-button pm7-button--ghost">
+  File
+</button>
+```
+
+**Important**: The menu component CSS accounts for this by using higher specificity selectors:
+- `.pm7-menu-trigger.pm7-button` overrides base button styles
+- `.pm7-menu-trigger.pm7-button--ghost` overrides ghost button hover styles
+- Transitions are disabled for instant menu feedback
+
+If you create custom button variants, ensure menu triggers still get proper hover styling.
 
 ### CSS Specificity with Link Elements
 When using `<a>` tags as menu items, global link styles might override menu colors:

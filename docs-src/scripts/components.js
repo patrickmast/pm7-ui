@@ -271,15 +271,22 @@ export function loadSidebar() {
   // Get current page to determine active state
   const currentPath = window.location.pathname;
   
-  // Extract component name from path (e.g., /components/button/documentation -> button)
+  // Extract component name from path
   const pathParts = currentPath.split('/');
   let currentComponent = '';
+  
+  // Check if we're on a component page
   if (pathParts[1] === 'components' && pathParts[2]) {
     currentComponent = pathParts[2];
     // If it's a .html file, remove the extension
     if (currentComponent.endsWith('.html')) {
       currentComponent = currentComponent.replace('.html', '');
     }
+  }
+  
+  // Also check if we're on the components index page
+  if (currentPath === '/components.html' || currentPath === '/components') {
+    currentComponent = ''; // No specific component selected
   }
   
   // Component list with all components
@@ -291,6 +298,7 @@ export function loadSidebar() {
     { name: 'Icons', componentName: 'icons' },
     { name: 'Input', componentName: 'input' },
     { name: 'Menu', componentName: 'menu' },
+    { name: 'Sidebar', componentName: 'sidebar' },
     { name: 'Tab Selector', componentName: 'tab-selector' },
     { name: 'Theme Switch', componentName: 'theme-switch' },
     { name: 'Toast', componentName: 'toast' },
@@ -312,22 +320,53 @@ export function loadSidebar() {
   const faqActiveStyle = isFaqActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
   
   const sidebarHTML = `
-    <div class="pm7-card pm7-card--ghost" style="height: 100%; border-radius: 0; background-color: transparent;">
-      <div class="pm7-card-content" style="position: sticky; top: 64px; padding: var(--pm7-spacing-4);">
-        <h3 class="pm7-card-title" style="font-size: var(--pm7-text-sm); text-transform: uppercase; letter-spacing: 0.1em; color: var(--pm7-text-secondary); margin-bottom: var(--pm7-spacing-4);">Components</h3>
-        <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-          ${navLinks}
-        </nav>
-        <div style="margin: var(--pm7-spacing-4) 0; border-bottom: 1px solid var(--pm7-border);"></div>
-        <nav style="display: flex; flex-direction: column; gap: var(--pm7-spacing-1);">
-          <a href="/faq.html" class="pm7-button pm7-button--ghost pm7-button--full"${faqActiveStyle} data-pm7-route="faq">FAQ</a>
-        </nav>
+    <aside class="pm7-sidebar" style="position: sticky; top: 64px; height: calc(100vh - 64px);">
+      <div class="pm7-sidebar-content">
+        <div class="pm7-sidebar-section">
+          <h3 class="pm7-sidebar-section-title">Components</h3>
+          <nav class="pm7-sidebar-nav">
+            ${components.map(component => {
+              const isActive = component.componentName === currentComponent;
+              const activeClass = isActive ? ' pm7-sidebar-item--active' : '';
+              const hrefWithTab = `/components/${component.componentName}/documentation`;
+              const dataAttr = ` data-pm7-route="${component.componentName}"`;
+              return `<a href="${hrefWithTab}" class="pm7-sidebar-item${activeClass}"${dataAttr}>${component.name}</a>`;
+            }).join('\n            ')}
+          </nav>
+        </div>
+        <div class="pm7-sidebar-divider"></div>
+        <div class="pm7-sidebar-section">
+          <nav class="pm7-sidebar-nav">
+            <a href="/faq.html" class="pm7-sidebar-item${isFaqActive ? ' pm7-sidebar-item--active' : ''}" data-pm7-route="faq">FAQ</a>
+          </nav>
+        </div>
       </div>
-    </div>`;
+    </aside>`;
   
   const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
   if (sidebarPlaceholder) {
     sidebarPlaceholder.innerHTML = sidebarHTML;
+    
+    // Add click handlers to update active state immediately
+    const sidebarLinks = sidebarPlaceholder.querySelectorAll('.pm7-sidebar-item');
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Remove active class from all items
+        sidebarLinks.forEach(l => l.classList.remove('pm7-sidebar-item--active'));
+        // Add active class to clicked item
+        this.classList.add('pm7-sidebar-item--active');
+        
+        // Force remove hover state by triggering a reflow
+        this.style.pointerEvents = 'none';
+        void this.offsetHeight; // Trigger reflow
+        this.style.pointerEvents = '';
+        
+        // Remove hover state by blurring if the element is focused
+        if (document.activeElement === this) {
+          this.blur();
+        }
+      });
+    });
   }
 }
 

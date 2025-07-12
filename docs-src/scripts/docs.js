@@ -1,12 +1,20 @@
 // Documentation site JavaScript
 import { PM7Menu } from '/packages/core/src/scripts/menu.js';
 import { PM7ThemeSwitch } from '/packages/core/src/scripts/theme-switch.js';
-import { loadSharedComponents } from './components.js';
+import { loadSharedComponents, loadSidebar } from './components.js';
 import { initVersionDisplay } from './version.js';
 
 // Make PM7 components available globally for components.js
 window.PM7Menu = PM7Menu;
 window.PM7ThemeSwitch = PM7ThemeSwitch;
+
+// Force sidebar reload on every page load (including from cache)
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted || performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
+    // Page was loaded from cache, reload sidebar
+    loadSidebar();
+  }
+});
 
 // Load shared components (header and footer)
 document.addEventListener('DOMContentLoaded', () => {

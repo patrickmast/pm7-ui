@@ -11,6 +11,7 @@ export { PM7TabSelector } from './tab-selector.js';
 export { PM7Tooltip, initTooltips } from './tooltip.js';
 export { PM7Accordion } from './accordion.js';
 export { PM7ThemeSwitch } from './theme-switch.js';
+export { PM7Sidebar, initSidebars } from './sidebar.js';
 
 // Icons
 export { 
@@ -28,6 +29,7 @@ import { PM7TabSelector } from './tab-selector.js';
 import { PM7Tooltip, initTooltips } from './tooltip.js';
 import { PM7Accordion } from './accordion.js';
 import { PM7ThemeSwitch } from './theme-switch.js';
+import { PM7Sidebar, initSidebars } from './sidebar.js';
 
 // Auto-initialization - these imports trigger DOMContentLoaded listeners
 import './menu.js';
@@ -38,6 +40,7 @@ import './tab-selector.js';
 import './tooltip.js';
 import './accordion.js';
 import './theme-switch.js';
+import './sidebar.js';
 
 // Global PM7 object with helper functions
 const PM7 = {
@@ -86,6 +89,13 @@ const PM7 = {
       themeSwitch.setAttribute('data-pm7-theme-switch-initialized', 'true');
     });
     
+    // Initialize sidebars
+    const sidebars = container.querySelectorAll('[data-pm7-sidebar]:not([data-pm7-initialized])');
+    sidebars.forEach(sidebar => {
+      new PM7Sidebar(sidebar);
+      sidebar.setAttribute('data-pm7-initialized', 'true');
+    });
+    
     console.log('[PM7] All components initialized');
   },
   
@@ -112,6 +122,9 @@ const PM7 = {
     container.querySelectorAll('[data-pm7-theme-switch-initialized]').forEach(el => {
       el.removeAttribute('data-pm7-theme-switch-initialized');
     });
+    container.querySelectorAll('[data-pm7-initialized]').forEach(el => {
+      el.removeAttribute('data-pm7-initialized');
+    });
     
     // Re-initialize
     this.init(container);
@@ -126,6 +139,7 @@ const PM7 = {
   Tooltip: PM7Tooltip,
   Accordion: PM7Accordion,
   ThemeSwitch: PM7ThemeSwitch,
+  Sidebar: PM7Sidebar,
   
   // Utility functions
   showToast,

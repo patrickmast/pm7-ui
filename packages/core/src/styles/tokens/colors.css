@@ -11,7 +11,7 @@
   --pm7-background: #ffffff;
   --pm7-foreground: #000000;
   --pm7-muted: #f5f5f5;
-  --pm7-muted-foreground: #666666;
+  --pm7-muted-foreground: #333333;
   
   /* Border colors */
   --pm7-border: #e0e0e0;
@@ -65,7 +65,8 @@
   --pm7-input: #ffffff;
   
   /* Documentation site */
-  --pm7-sidebar-bg: #F8F9FA;
+  --pm7-sidebar-bg: #F3F4F6;
+  --pm7-sidebar-item-hover: #ffffff;
   --pm7-footer-bg: #f5f5f5;
   --pm7-footer-text: var(--pm7-text-secondary);
   --pm7-header-bg: var(--pm7-surface);
@@ -100,7 +101,7 @@
     
     /* Neutral colors */
     --pm7-muted: #2d2d2d;
-    --pm7-muted-foreground: #9ca3af;
+    --pm7-muted-foreground: #e6e6e6;
     
     /* Border colors */
     --pm7-border: #444;
@@ -121,6 +122,8 @@
     
     /* Additional dark mode colors from old site */
     --pm7-sidebar-bg: #1E1E1E;
+    --pm7-sidebar-item-hover: var(--pm7-surface-hover);
+    --pm7-sidebar-item-hover-dark: var(--pm7-surface-hover);
     --pm7-sidebar-active: #2a2a2a;
     --pm7-header-bg: var(--pm7-surface);
     --pm7-header-dark-bg: #0a4b87;
@@ -181,7 +184,7 @@
   
   /* Neutral colors */
   --pm7-muted: #2d2d2d;
-  --pm7-muted-foreground: #9ca3af;
+  --pm7-muted-foreground: #e6e6e6;
   
   /* Border colors */
   --pm7-border: #444;
@@ -202,6 +205,8 @@
   
   /* Additional dark mode colors from old site */
   --pm7-sidebar-bg: #1E1E1E;
+  --pm7-sidebar-item-hover: var(--pm7-surface-hover);
+  --pm7-sidebar-item-hover-dark: var(--pm7-surface-hover);
   --pm7-sidebar-active: #2a2a2a;
   --pm7-header-bg: var(--pm7-surface);
   --pm7-header-dark-bg: #0a4b87;

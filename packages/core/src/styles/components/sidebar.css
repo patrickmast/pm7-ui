@@ -1,0 +1,410 @@
+/* PM7 Sidebar Component
+   ========================================================================== */
+
+/* Only apply sidebar styles when data-pm7-sidebar attribute is present */
+.pm7-sidebar[data-pm7-sidebar] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--pm7-sidebar-width, 280px);
+  background-color: var(--pm7-sidebar-bg, var(--pm7-background));
+  border-right: 1px solid var(--pm7-border);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Default sidebar (without data attribute) */
+.pm7-sidebar {
+  width: var(--pm7-sidebar-width, 280px);
+  min-width: var(--pm7-sidebar-width, 280px);
+}
+
+/* Open state */
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--open,
+.pm7-sidebar[data-pm7-sidebar][data-state="open"] {
+  transform: translateX(0);
+}
+
+/* Right-aligned sidebar */
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--right {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--pm7-border);
+  transform: translateX(100%);
+}
+
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--right.pm7-sidebar--open,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--right[data-state="open"] {
+  transform: translateX(0);
+}
+
+/* Sidebar header */
+.pm7-sidebar-header {
+  padding: var(--pm7-spacing-4);
+  border-bottom: 1px solid var(--pm7-border);
+}
+
+/* Sidebar content */
+.pm7-sidebar-content {
+  padding: var(--pm7-spacing-4);
+}
+
+/* Sidebar footer */
+.pm7-sidebar-footer {
+  padding: var(--pm7-spacing-4);
+  border-top: 1px solid var(--pm7-border);
+  margin-top: auto;
+}
+
+/* Sidebar nav */
+.pm7-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm7-spacing-1);
+  padding: var(--pm7-spacing-2) 0;
+}
+
+/* Sidebar nav item */
+.pm7-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--pm7-spacing-3);
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+  color: var(--pm7-muted-foreground) !important; /* Force color over link styles */
+  text-decoration: none;
+  border-radius: var(--pm7-radius);
+  transition: none; /* No transition for instant feedback */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: var(--pm7-font-size-sm);
+  font-family: inherit;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Text wrapper */
+.pm7-sidebar-item-text {
+  flex: 1;
+  min-width: 0; /* Allow text to shrink */
+}
+
+/* Ensure link sidebar items also use the correct color */
+a.pm7-sidebar-item,
+a.pm7-sidebar-item:visited,
+a.pm7-sidebar-item:link {
+  color: var(--pm7-muted-foreground) !important;
+}
+
+.pm7-sidebar-item:not(.pm7-sidebar-item--active):hover {
+  /* Hover state with dynamic overlay - only for non-active items */
+  background-color: var(--pm7-sidebar-item-hover-bg, transparent);
+  color: var(--pm7-foreground) !important; /* Use foreground color on hover */
+}
+
+.pm7-sidebar-item:not(.pm7-sidebar-item--active):hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* In dark mode, use white overlay for 5% lighter effect */
+.dark .pm7-sidebar-item:not(.pm7-sidebar-item--active):hover::before {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.pm7-sidebar-item:focus-visible {
+  outline: 2px solid var(--pm7-ring);
+  outline-offset: 2px;
+}
+
+.pm7-sidebar-item--active,
+.pm7-sidebar-item--active:hover,
+.pm7-sidebar-item--active:focus,
+a.pm7-sidebar-item--active,
+a.pm7-sidebar-item--active:link,
+a.pm7-sidebar-item--active:visited,
+a.pm7-sidebar-item--active:hover,
+a.pm7-sidebar-item--active:focus,
+.pm7-sidebar a.pm7-sidebar-item--active,
+.pm7-sidebar-nav a.pm7-sidebar-item--active {
+  background-color: var(--pm7-primary) !important;
+  color: #ffffff !important; /* Always white in both light and dark mode */
+  font-weight: 500;
+}
+
+/* Active items don't show hover overlay */
+.pm7-sidebar-item--active:hover::before {
+  display: none;
+}
+
+/* Sidebar item icon */
+.pm7-sidebar-item-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Sidebar overlay */
+.pm7-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.pm7-sidebar-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sidebar trigger button */
+.pm7-sidebar-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pm7-spacing-2);
+  background-color: var(--pm7-background);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pm7-sidebar-trigger:hover {
+  background-color: var(--pm7-muted);
+}
+
+.pm7-sidebar-trigger:focus-visible {
+  outline: 2px solid var(--pm7-ring);
+  outline-offset: 2px;
+}
+
+/* Push content when sidebar is open */
+.pm7-sidebar-push {
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.pm7-sidebar-push--active {
+  margin-left: var(--pm7-sidebar-width, 280px);
+}
+
+/* Right-aligned push */
+.pm7-sidebar-push--right {
+  transition: margin-right 0.3s ease-in-out;
+}
+
+.pm7-sidebar-push--right.pm7-sidebar-push--active {
+  margin-left: 0;
+  margin-right: var(--pm7-sidebar-width, 280px);
+}
+
+/* Responsive behavior */
+@media (min-width: 768px) {
+  /* Static sidebar on larger screens */
+  .pm7-sidebar[data-pm7-sidebar].pm7-sidebar--static {
+    position: relative;
+    transform: translateX(0);
+    border-right: 1px solid var(--pm7-border);
+    height: 100%;
+  }
+
+  .pm7-sidebar[data-pm7-sidebar].pm7-sidebar--static.pm7-sidebar--right {
+    transform: translateX(0);
+  }
+
+  /* Hide overlay for static sidebars */
+  .pm7-sidebar[data-pm7-sidebar].pm7-sidebar--static ~ .pm7-sidebar-overlay {
+    display: none;
+  }
+
+  /* Adjust push behavior for static sidebars */
+  .pm7-sidebar[data-pm7-sidebar].pm7-sidebar--static ~ .pm7-sidebar-push,
+  .pm7-sidebar-push--static {
+    margin-left: 0;
+  }
+}
+
+/* Sidebar close button */
+.pm7-sidebar-close {
+  position: absolute;
+  top: var(--pm7-spacing-2);
+  right: var(--pm7-spacing-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--pm7-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--pm7-muted-foreground);
+}
+
+.pm7-sidebar-close:hover {
+  background-color: var(--pm7-muted);
+  color: var(--pm7-foreground);
+}
+
+.pm7-sidebar-close:focus-visible {
+  outline: 2px solid var(--pm7-ring);
+  outline-offset: 2px;
+}
+
+/* Sidebar section */
+.pm7-sidebar-section {
+  margin-bottom: var(--pm7-spacing-4);
+}
+
+.pm7-sidebar-section-title {
+  font-size: var(--pm7-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pm7-muted-foreground);
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+  margin-bottom: var(--pm7-spacing-1);
+}
+
+/* Sidebar divider */
+.pm7-sidebar-divider {
+  height: 1px;
+  background-color: var(--pm7-border);
+  margin: var(--pm7-spacing-2) 0;
+}
+
+/* Collapsible sections */
+.pm7-sidebar-collapsible {
+  overflow: hidden;
+}
+
+.pm7-sidebar-collapsible-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--pm7-spacing-2) var(--pm7-spacing-4);
+  background: transparent;
+  border: none;
+  color: var(--pm7-foreground);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--pm7-font-size-sm);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.pm7-sidebar-collapsible-trigger:hover {
+  background-color: var(--pm7-muted);
+}
+
+.pm7-sidebar-collapsible-trigger:focus-visible {
+  outline: 2px solid var(--pm7-ring);
+  outline-offset: -2px;
+}
+
+.pm7-sidebar-collapsible-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.pm7-sidebar-collapsible[data-state="open"] .pm7-sidebar-collapsible-icon {
+  transform: rotate(90deg);
+}
+
+.pm7-sidebar-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.pm7-sidebar-collapsible[data-state="open"] .pm7-sidebar-collapsible-content {
+  max-height: 1000px;
+}
+
+/* Nested navigation */
+.pm7-sidebar-nav--nested {
+  padding-left: var(--pm7-spacing-8);
+}
+
+.pm7-sidebar-nav--nested .pm7-sidebar-item {
+  font-size: var(--pm7-font-size-xs);
+}
+
+/* Mini sidebar variant */
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini {
+  --pm7-sidebar-width: 60px;
+}
+
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-item {
+  justify-content: center;
+  padding: var(--pm7-spacing-3);
+}
+
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-item-text,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-section-title,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-header,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-footer {
+  display: none;
+}
+
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--mini .pm7-sidebar-item-icon {
+  margin: 0;
+}
+
+/* Floating variant */
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--floating {
+  margin: var(--pm7-spacing-4);
+  height: calc(100% - var(--pm7-spacing-8));
+  border-radius: var(--pm7-radius-lg);
+  box-shadow: var(--pm7-shadow-lg);
+  border: 1px solid var(--pm7-border);
+}
+
+/* Compact spacing */
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--compact .pm7-sidebar-item {
+  padding: var(--pm7-spacing-1) var(--pm7-spacing-3);
+  font-size: var(--pm7-font-size-xs);
+}
+
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--compact .pm7-sidebar-header,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--compact .pm7-sidebar-content,
+.pm7-sidebar[data-pm7-sidebar].pm7-sidebar--compact .pm7-sidebar-footer {
+  padding: var(--pm7-spacing-3);
+}
+
+/* Ensure proper stacking with other PM7 components */
+.pm7-dialog {
+  z-index: 1100;
+}
+
+.pm7-tooltip {
+  z-index: 1200;
+}
+
+/* Dark mode adjustments */
+.dark .pm7-sidebar[data-pm7-sidebar] {
+  background-color: var(--pm7-card);
+}
+
+.dark .pm7-sidebar-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}

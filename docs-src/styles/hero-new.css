@@ -164,6 +164,11 @@ body .pm7-docs-hero .pm7-button--outline {
   transition: all 0.3s ease;
 }
 
+/* Light mode: white text for better contrast on dark hero background */
+body:not(.dark) .pm7-docs-hero .pm7-button--outline {
+  color: white !important;
+}
+
 body .pm7-docs-hero .pm7-button--outline:hover {
   background: rgba(255,255,255,0.1);
   border-color: rgba(147, 197, 253, 0.5);

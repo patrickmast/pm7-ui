@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1>
+        <svg width="32" height="32" viewBox="0 0 1563 1563" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+          <path d="M175 161q-16.5 4-28 9.5t-21 12-18.5 15-15.5 17T79 235t-12 33-5.5 513c0 328 .833 496.17 2.5 504.5s4.833 18 9.5 29 9.167 19.67 13.5 26 9.5 12.67 15.5 19 12.667 12.17 20 17.5 14.333 9.67 21 13q10 4.995 23 9c8.667 2.67 16.667 4.5 24 5.5q11 1.5 591 1.5 580.005 0 591-1.5c7.33-1 15.33-2.83 24-5.5s18.33-7 29-13 19.67-12.33 27-19 13-12.5 17-17.5 8.33-11.67 13-20 8.33-16.33 11-24q4.005-11.505 6-22.5c1.33-7.33 2-174.5 2-501.5s-.67-494.333-2-502-3.5-15.667-6.5-24-6.83-16.5-11.5-24.5-10.5-16-17.5-24q-10.5-12-19.5-19c-6-4.667-12.67-9-20-13s-14.17-7.167-20.5-9.5-13.67-4.333-22-6q-12.495-2.5-601.5-2.5-589 0-605.5 4"/>
+          <path d="M196.5 271.5q-6 2.5-10.5 6.5t-8.5 12.5-4 491c0 321.67.833 484.5 2.5 488.5s4 7.67 7 11 6.833 6.17 11.5 8.5 200.333 3.5 587 3.5c386.67 0 581.83-.83 585.5-2.5s7-3.83 10-6.5 5.83-6.83 8.5-12.5 4-169.17 4-490.5c0-321.333-.83-484.167-2.5-488.5s-3.83-8-6.5-11q-4.005-4.5-12-8.5c-5.33-2.667-201-4-587-4q-579 0-585 2.5" fill="#fff"/>
+          <path d="M288.5 361.5q-8 4.5-11 9t-4 8.5-1 402.5q0 398.505 1.5 403.5c1 3.33 3.333 7 7 11s8.167 6.83 13.5 8.5 70.167 2.5 194.5 2.5 188.167-.33 191.5-1 7.167-2.5 11.5-5.5 7.667-7.17 10-12.5q3.5-7.995 3.5-406.5 0-398.5-1-402.5t-5-9.5-10.5-9-199.5-3.5-201 4.5"/>
+        </svg>
+        Sidebar
+      </h1>
+      
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>A versatile sidebar component that provides navigation and content organization with multiple display modes and rich interaction patterns. Perfect for documentation sites, dashboards, and application navigation.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>Primary navigation for documentation or application</li>
+              <li>Hierarchical navigation structure</li>
+              <li>Persistent navigation across pages</li>
+              <li>Mobile-friendly navigation that can be toggled</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li>Multiple display modes: overlay, push, and static</li>
+              <li>Left or right positioning</li>
+              <li>Collapsible sections with smooth animations</li>
+              <li>Mini mode for icon-only navigation</li>
+              <li>Full keyboard navigation support</li>
+              <li>Focus trapping for accessibility</li>
+              <li>Responsive design with mobile support</li>
+              <li>Customizable colors, spacing, and animations</li>
+              <li>JavaScript API for programmatic control</li>
+              <li>ARIA attributes for screen readers</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A sidebar consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The main sidebar panel</li>
+              <li><strong>Header</strong> - Optional title and close button</li>
+              <li><strong>Navigation</strong> - List of navigation items</li>
+              <li><strong>Sections</strong> - Grouped navigation items</li>
+              <li><strong>Footer</strong> - Optional bottom section for actions</li>
+              <li><strong>Overlay</strong> - Background overlay for modal mode</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <h2>Live Application Demo</h2>
+            <p style="margin-bottom: 1rem;">Experience how the sidebar works in a real application context. The demo below shows a complete application layout with an interactive sidebar.</p>
+            
+            <div style="margin-bottom: 1rem;">
+              <a href="/demos/sidebar-live-app.html" target="_blank" class="pm7-button pm7-button--primary">
+                Open Full Demo in New Tab
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.5rem;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+              </a>
+            </div>
+            
+            <div class="pm7-docs-example">
+              <div class="pm7-docs-preview" style="padding: 0; height: 500px; overflow: hidden; position: relative; background: var(--pm7-background);">
+                <!-- Demo App Container -->
+                <div class="demo-app-container" style="height: 100%; display: flex; position: relative;">
+                  <!-- Demo Sidebar (Static Version) -->
+                  <aside class="pm7-sidebar pm7-sidebar--static" style="position: relative; height: 100%; flex-shrink: 0;">
+                    <div class="pm7-sidebar-header">
+                      <h3 style="margin: 0; font-size: 1.125rem;">MyApp</h3>
+                    </div>
+                    
+                    <div class="pm7-sidebar-content">
+                      <nav class="pm7-sidebar-nav">
+                        <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active" style="color: #ffffff !important;">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Dashboard</span>
+                        </a>
+                        <a href="#" class="pm7-sidebar-item">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Users</span>
+                        </a>
+                        
+                        <div class="pm7-sidebar-section">
+                          <div class="pm7-sidebar-section-title">Projects</div>
+                          <nav class="pm7-sidebar-nav">
+                            <a href="#" class="pm7-sidebar-item">
+                              <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                              </svg>
+                              <span class="pm7-sidebar-item-text">Project Alpha</span>
+                            </a>
+                            <a href="#" class="pm7-sidebar-item">
+                              <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                              </svg>
+                              <span class="pm7-sidebar-item-text">Project Beta</span>
+                            </a>
+                          </nav>
+                        </div>
+                        
+                        <a href="#" class="pm7-sidebar-item">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Settings</span>
+                        </a>
+                      </nav>
+                    </div>
+                    
+                    <div class="pm7-sidebar-footer">
+                      <a href="#" class="pm7-sidebar-item">
+                        <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5-5-5m5 5H9" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span class="pm7-sidebar-item-text">Logout</span>
+                      </a>
+                    </div>
+                  </aside>
+                  
+                  <!-- Demo Main Content -->
+                  <main style="flex: 1; padding: 2rem; overflow-y: auto; background: var(--pm7-background);">
+                    <h2 style="margin-top: 0; margin-bottom: 1rem;">Dashboard</h2>
+                    <div class="pm7-card" style="margin-bottom: 1rem;">
+                      <div class="pm7-card-content">
+                        <h3 style="margin-top: 0;">Welcome back!</h3>
+                        <p>This is a demo of how the sidebar component works within an application layout. The sidebar on the left provides navigation throughout the app.</p>
+                      </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                      <div class="pm7-card">
+                        <div class="pm7-card-content">
+                          <h4 style="margin-top: 0;">Total Users</h4>
+                          <p style="font-size: 2rem; margin: 0;">1,234</p>
+                        </div>
+                      </div>
+                      <div class="pm7-card">
+                        <div class="pm7-card-content">
+                          <h4 style="margin-top: 0;">Active Projects</h4>
+                          <p style="font-size: 2rem; margin: 0;">23</p>
+                        </div>
+                      </div>
+                      <div class="pm7-card">
+                        <div class="pm7-card-content">
+                          <h4 style="margin-top: 0;">Revenue</h4>
+                          <p style="font-size: 2rem; margin: 0;">$45,678</p>
+                        </div>
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              </div>
+              <pre><code class="language-html">&lt;!-- Complete Application Layout with Sidebar --&gt;
+&lt;div class="app-container"&gt;
+  &lt;!-- Static Sidebar (always visible on desktop) --&gt;
+  &lt;aside class="pm7-sidebar pm7-sidebar--static" data-pm7-sidebar&gt;
+    &lt;div class="pm7-sidebar-header"&gt;
+      &lt;h3&gt;MyApp&lt;/h3&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="pm7-sidebar-content"&gt;
+      &lt;nav class="pm7-sidebar-nav"&gt;
+        &lt;a href="#" class="pm7-sidebar-item pm7-sidebar-item--active"&gt;
+          &lt;svg class="pm7-sidebar-item-icon"&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
+          &lt;span class="pm7-sidebar-item-text"&gt;Dashboard&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;!-- More nav items --&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="pm7-sidebar-footer"&gt;
+      &lt;a href="#" class="pm7-sidebar-item"&gt;
+        &lt;svg class="pm7-sidebar-item-icon"&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
+        &lt;span class="pm7-sidebar-item-text"&gt;Logout&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+  
+  &lt;main class="app-main"&gt;
+    &lt;!-- Your main content here --&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h2>Mobile Overlay Sidebar</h2>
+            
+            <div style="margin-bottom: 1rem;">
+              <a href="/demos/sidebar-mobile-overlay.html" target="_blank" class="pm7-button pm7-button--primary">
+                Open Mobile Demo in New Tab
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.5rem;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+              </a>
+            </div>
+            
+            <div class="pm7-docs-example">
+              <div class="pm7-docs-preview" style="padding: 0; height: 400px; overflow: hidden; position: relative; background: var(--pm7-background);">
+                <!-- Mobile Demo Container -->
+                <div class="mobile-demo-container" style="width: 375px; height: 100%; margin: 0 auto; border: 1px solid var(--pm7-border); position: relative; background: var(--pm7-background); overflow: hidden;">
+                  <!-- Mobile Header -->
+                  <header style="height: 56px; border-bottom: 1px solid var(--pm7-border); display: flex; align-items: center; padding: 0 1rem; background: var(--pm7-surface); position: relative; z-index: 10;">
+                    <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="toggleMobileDemoSidebar()">
+                      <svg class="pm7-icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                    <h3 style="margin: 0 0 0 1rem; font-size: 1.125rem;">Mobile App</h3>
+                  </header>
+                  
+                  <!-- Mobile Content -->
+                  <div style="padding: 1rem; height: calc(100% - 56px); overflow-y: auto;">
+                    <div class="pm7-card">
+                      <div class="pm7-card-content">
+                        <p>On mobile devices, the sidebar appears as an overlay. Click the menu button above to see it in action.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Inline Mobile Sidebar Demo -->
+                  <aside class="mobile-demo-sidebar" style="position: absolute; top: 56px; left: -250px; height: calc(100% - 56px); width: 250px; transition: left 0.3s ease; z-index: 100; background: var(--pm7-sidebar-bg, var(--pm7-surface)); border-right: 1px solid var(--pm7-border);">
+                    <div style="padding: 1rem;">
+                      <nav style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.375rem; text-decoration: none; background: var(--pm7-primary); color: #ffffff !important;">
+                          <svg style="width: 20px; height: 20px; flex-shrink: 0;" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span>Home</span>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.375rem; text-decoration: none; color: var(--pm7-foreground); transition: background 0.15s ease;" onmouseover="this.style.background='var(--pm7-accent)'" onmouseout="this.style.background='transparent'">
+                          <svg style="width: 20px; height: 20px; flex-shrink: 0;" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span>Profile</span>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.375rem; text-decoration: none; color: var(--pm7-foreground); transition: background 0.15s ease;" onmouseover="this.style.background='var(--pm7-accent)'" onmouseout="this.style.background='transparent'">
+                          <svg style="width: 20px; height: 20px; flex-shrink: 0;" viewBox="0 0 24 24" width="20" height="20">
+                            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span>Settings</span>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.375rem; text-decoration: none; color: var(--pm7-foreground); transition: background 0.15s ease;" onmouseover="this.style.background='var(--pm7-accent)'" onmouseout="this.style.background='transparent'">
+                          <svg style="width: 20px; height: 20px; flex-shrink: 0;" viewBox="0 0 24 24" width="20" height="20">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 8v4l3 3" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span>Activity</span>
+                        </a>
+                      </nav>
+                    </div>
+                  </aside>
+                  
+                  <!-- Overlay backdrop -->
+                  <div id="mobile-demo-backdrop" style="position: absolute; top: 56px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; z-index: 90;" onclick="toggleMobileDemoSidebar()"></div>
+                </div>
+              </div>
+              <pre><code class="language-html">&lt;!-- Mobile Layout with Overlay Sidebar --&gt;
+&lt;header class="mobile-header"&gt;
+  &lt;button data-pm7-sidebar-trigger="mobile-sidebar"&gt;
+    &lt;svg class="pm7-icon pm7-icon-menu"&gt;&lt;!-- menu icon --&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;h1&gt;Mobile App&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;!-- Overlay Sidebar for Mobile --&gt;
+&lt;aside class="pm7-sidebar" id="mobile-sidebar" data-pm7-sidebar&gt;
+  &lt;div class="pm7-sidebar-header"&gt;
+    &lt;h2&gt;Menu&lt;/h2&gt;
+    &lt;button class="pm7-sidebar-close"&gt;
+      &lt;svg class="pm7-icon pm7-icon-x"&gt;&lt;!-- close icon --&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- sidebar content --&gt;
+&lt;/aside&gt;</code></pre>
+            </div>
+
+            <h2>Sidebar Variants</h2>
+            <div class="pm7-docs-example">
+              <h3>Mini Sidebar (Icon Only)</h3>
+              <div class="pm7-docs-preview" style="padding: 0; height: 300px; overflow: hidden; position: relative; background: var(--pm7-background);">
+                <div style="display: flex; height: 100%;">
+                  <!-- Mini Sidebar -->
+                  <aside class="pm7-sidebar pm7-sidebar--mini pm7-sidebar--static" style="position: relative;">
+                    <div class="pm7-sidebar-content">
+                      <nav class="pm7-sidebar-nav">
+                        <button class="pm7-sidebar-item pm7-sidebar-item--active" title="Dashboard">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        </button>
+                        <button class="pm7-sidebar-item" title="Users">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        </button>
+                        <button class="pm7-sidebar-item" title="Settings">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        </button>
+                      </nav>
+                    </div>
+                  </aside>
+                  
+                  <!-- Content -->
+                  <main style="flex: 1; padding: 2rem;">
+                    <h4 style="margin-top: 0;">Mini Sidebar</h4>
+                    <p>Perfect for when you need more screen space but still want quick navigation access.</p>
+                  </main>
+                </div>
+              </div>
+              <pre><code class="language-html">&lt;aside class="pm7-sidebar pm7-sidebar--mini pm7-sidebar--static" data-pm7-sidebar&gt;
+  &lt;nav class="pm7-sidebar-nav"&gt;
+    &lt;button class="pm7-sidebar-item" title="Dashboard"&gt;
+      &lt;svg class="pm7-sidebar-item-icon"&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;!-- More icon-only items --&gt;
+  &lt;/nav&gt;
+&lt;/aside&gt;</code></pre>
+            </div>
+
+            <h2>Collapsible Sidebar (Full ↔ Mini)</h2>
+            <div class="pm7-docs-example">
+              <div class="pm7-docs-preview" style="padding: 0; height: 400px; overflow: hidden; position: relative; background: var(--pm7-background);">
+                <div style="display: flex; height: 100%;">
+                  <!-- Collapsible Sidebar Demo -->
+                  <aside class="pm7-sidebar pm7-sidebar--static" id="demo-collapsible-sidebar" style="position: relative; transition: width 0.3s ease;">
+                    <div class="pm7-sidebar-header" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+                      <h3 style="margin: 0; font-size: 1.125rem; transition: opacity 0.3s ease;" class="sidebar-title">MyApp</h3>
+                      <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="toggleCollapsibleDemo()" title="Toggle sidebar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                        </svg>
+                      </button>
+                    </div>
+                    
+                    <div class="pm7-sidebar-content">
+                      <nav class="pm7-sidebar-nav">
+                        <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active" style="color: #ffffff !important;">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Dashboard</span>
+                        </a>
+                        <a href="#" class="pm7-sidebar-item">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Users</span>
+                        </a>
+                        <a href="#" class="pm7-sidebar-item">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Projects</span>
+                        </a>
+                        <a href="#" class="pm7-sidebar-item">
+                          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                          <span class="pm7-sidebar-item-text">Settings</span>
+                        </a>
+                      </nav>
+                    </div>
+                  </aside>
+                  
+                  <!-- Main Content -->
+                  <main style="flex: 1; padding: 2rem; overflow-y: auto;">
+                    <h3 style="margin-top: 0;">Collapsible Sidebar Demo</h3>
+                    <p>Click the toggle button in the sidebar header to switch between full and mini (icon-only) modes.</p>
+                    <div class="pm7-card">
+                      <div class="pm7-card-content">
+                        <p>In mini mode, the sidebar shows only icons to save space. Hover over icons to see tooltips with labels.</p>
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              </div>
+              <pre><code class="language-javascript">// Toggle between full and mini sidebar
+function toggleSidebar() {
+  const sidebar = document.querySelector('.pm7-sidebar');
+  sidebar.classList.toggle('pm7-sidebar--mini');
+  
+  // Optionally save user preference
+  localStorage.setItem('sidebar-collapsed', 
+    sidebar.classList.contains('pm7-sidebar--mini'));
+}
+
+// Restore saved preference on page load
+const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+if (isCollapsed) {
+  document.querySelector('.pm7-sidebar').classList.add('pm7-sidebar--mini');
+}</code></pre>
+            </div>
+
+            <script>
+              function toggleCollapsibleDemo() {
+                const sidebar = document.getElementById('demo-collapsible-sidebar');
+                const isCollapsed = sidebar.classList.contains('pm7-sidebar--mini');
+                
+                if (isCollapsed) {
+                  // Expand to full width
+                  sidebar.classList.remove('pm7-sidebar--mini');
+                  // Show text labels with slight delay for smooth animation
+                  setTimeout(() => {
+                    sidebar.querySelectorAll('.pm7-sidebar-item-text').forEach(text => {
+                      text.style.display = 'inline';
+                    });
+                    sidebar.querySelector('.sidebar-title').style.opacity = '1';
+                  }, 100);
+                } else {
+                  // Collapse to mini width
+                  sidebar.classList.add('pm7-sidebar--mini');
+                  // Hide text labels immediately
+                  sidebar.querySelectorAll('.pm7-sidebar-item-text').forEach(text => {
+                    text.style.display = 'none';
+                  });
+                  sidebar.querySelector('.sidebar-title').style.opacity = '0';
+                }
+              }
+              
+              function toggleMobileDemoSidebar() {
+                const sidebar = document.querySelector('.mobile-demo-sidebar');
+                const backdrop = document.getElementById('mobile-demo-backdrop');
+                const isOpen = sidebar.style.left === '0px';
+                
+                if (isOpen) {
+                  sidebar.style.left = '-250px';
+                  backdrop.style.display = 'none';
+                } else {
+                  sidebar.style.left = '0px';
+                  backdrop.style.display = 'block';
+                }
+              }
+            </script>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h2>Structure</h2>
+            <p>The sidebar component follows a consistent structure:</p>
+            <ol>
+              <li><code>.pm7-sidebar</code> - The main container</li>
+              <li><code>.pm7-sidebar-content</code> - Content wrapper with padding</li>
+              <li><code>.pm7-sidebar-section</code> - Section containers</li>
+              <li><code>.pm7-sidebar-nav</code> - Navigation container</li>
+              <li><code>.pm7-sidebar-item</code> - Individual navigation items</li>
+            </ol>
+
+            <h2>CSS Classes</h2>
+            <div class="pm7-docs-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.pm7-sidebar</code></td>
+                    <td>Base sidebar container</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-content</code></td>
+                    <td>Content wrapper with padding</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-section</code></td>
+                    <td>Section container for grouping items</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-section-title</code></td>
+                    <td>Section title styling</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-nav</code></td>
+                    <td>Navigation container</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-item</code></td>
+                    <td>Individual navigation item</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-item--active</code></td>
+                    <td>Active state for navigation item</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-item-icon</code></td>
+                    <td>Icon within navigation item</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar-item-text</code></td>
+                    <td>Text within navigation item</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar--collapsed</code></td>
+                    <td>Collapsed state modifier</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pm7-sidebar--open</code></td>
+                    <td>Mobile open state</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>CSS Variables</h2>
+            <div class="pm7-docs-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--pm7-sidebar-bg</code></td>
+                    <td>Background color</td>
+                    <td><code>#F3F4F6</code> (light) / <code>#1E1E1E</code> (dark)</td>
+                  </tr>
+                  <tr>
+                    <td><code>--pm7-sidebar-item-hover</code></td>
+                    <td>Item hover background</td>
+                    <td><code>#ffffff</code> (light) / <code>var(--pm7-surface-hover)</code> (dark)</td>
+                  </tr>
+                  <tr>
+                    <td><code>--pm7-sidebar-active</code></td>
+                    <td>Active item background</td>
+                    <td><code>var(--pm7-primary)</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Responsive Behavior</h2>
+            <p>On mobile devices (screens smaller than 768px):</p>
+            <ul>
+              <li>Sidebar is hidden off-screen by default</li>
+              <li>Use <code>.pm7-sidebar--open</code> class to show sidebar</li>
+              <li>Sidebar overlays content when open</li>
+              <li>Consider adding a backdrop element for better UX</li>
+            </ul>
+
+            <pre><code class="language-html">&lt;!-- Mobile sidebar with backdrop --&gt;
+&lt;div class="sidebar-backdrop" onclick="closeSidebar()"&gt;&lt;/div&gt;
+&lt;aside class="pm7-sidebar pm7-sidebar--open"&gt;
+  &lt;!-- sidebar content --&gt;
+&lt;/aside&gt;</code></pre>
+
+            <h2>Accessibility</h2>
+            <ul>
+              <li>Use semantic HTML (<code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code>)</li>
+              <li>Add <code>aria-current="page"</code> to active items</li>
+              <li>Include <code>aria-label</code> on the aside element</li>
+              <li>Ensure proper focus management for keyboard navigation</li>
+            </ul>
+
+            <pre><code class="language-html">&lt;aside class="pm7-sidebar" aria-label="Main navigation"&gt;
+  &lt;div class="pm7-sidebar-content"&gt;
+    &lt;nav class="pm7-sidebar-nav"&gt;
+      &lt;a href="#" class="pm7-sidebar-item pm7-sidebar-item--active" aria-current="page"&gt;
+        Current Page
+      &lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/sidebar/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/sidebar/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-docs-info pm7-docs-info--ai">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Sidebar implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+  <script type="module">
+    import { loadHeader, loadFooter, loadSidebar } from '../scripts/components.js';
+    import { PM7Sidebar } from '/packages/core/src/scripts/sidebar.js';
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Load page components
+    loadHeader();
+    loadFooter();
+    loadSidebar();
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('sidebar');
+    });
+  </script>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  <script type="module" src="/scripts/version-standalone.js"></script>
+
+</body>
+</html>

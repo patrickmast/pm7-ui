@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Live Application Demo - PM7 UI</title>
+  
+  <!-- PM7 Core CSS -->
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--pm7-font-sans);
+      background: var(--pm7-background);
+      color: var(--pm7-foreground);
+    }
+    
+    .app-layout {
+      display: flex;
+      height: 100vh;
+    }
+    
+    .app-main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      background: var(--pm7-background);
+    }
+    
+    .app-main h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    
+    .app-main h3 {
+      margin-top: 0;
+    }
+    
+    .pm7-sidebar {
+      position: relative;
+      height: 100%;
+      flex-shrink: 0;
+    }
+    
+    .pm7-sidebar-header h3 {
+      margin: 0;
+      font-size: 1.125rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- PM7 Sidebar Component -->
+    <aside class="pm7-sidebar pm7-sidebar--static">
+      <div class="pm7-sidebar-header">
+        <h3>MyApp</h3>
+      </div>
+      
+      <div class="pm7-sidebar-content">
+        <nav class="pm7-sidebar-nav">
+          <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Dashboard</span>
+          </a>
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Users</span>
+          </a>
+          
+          <div class="pm7-sidebar-section">
+            <div class="pm7-sidebar-section-title">Projects</div>
+            <nav class="pm7-sidebar-nav">
+              <a href="#" class="pm7-sidebar-item">
+                <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="pm7-sidebar-item-text">Project Alpha</span>
+              </a>
+              <a href="#" class="pm7-sidebar-item">
+                <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="pm7-sidebar-item-text">Project Beta</span>
+              </a>
+            </nav>
+          </div>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Settings</span>
+          </a>
+        </nav>
+      </div>
+      
+      <div class="pm7-sidebar-footer">
+        <a href="#" class="pm7-sidebar-item">
+          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5-5-5m5 5H9" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span class="pm7-sidebar-item-text">Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="app-main">
+      <h2>Dashboard</h2>
+      <div class="pm7-card" style="margin-bottom: 1rem;">
+        <div class="pm7-card-content">
+          <h3>Welcome back!</h3>
+          <p>This is a demo of how the sidebar component works within an application layout. The sidebar on the left provides navigation throughout the app.</p>
+        </div>
+      </div>
+      
+      <div class="pm7-card">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">Recent Activity</h3>
+        </div>
+        <div class="pm7-card-content">
+          <p>Your recent activity will appear here.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/dist/pm7.js"></script>
+  
+  <script>
+    // Add click handlers to sidebar items
+    document.querySelectorAll('.pm7-sidebar-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all items
+        document.querySelectorAll('.pm7-sidebar-item').forEach(el => {
+          el.classList.remove('pm7-sidebar-item--active');
+        });
+        
+        // Add active class to clicked item
+        this.classList.add('pm7-sidebar-item--active');
+      });
+    });
+    
+    // Add dark mode toggle (optional)
+    const darkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (darkModeEnabled) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</body>
+</html>

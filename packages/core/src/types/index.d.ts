@@ -3,6 +3,10 @@
 // Import attribute types for better IntelliSense
 export * from './attributes';
 
+// Import sidebar types
+export * from './sidebar';
+import { PM7Sidebar, initSidebars } from './sidebar';
+
 // Menu
 export class PM7Menu {
   constructor(element: HTMLElement);
@@ -175,6 +179,7 @@ declare const PM7: {
   Tooltip: typeof PM7Tooltip;
   Accordion: typeof PM7Accordion;
   ThemeSwitch: typeof PM7ThemeSwitch;
+  Sidebar: typeof PM7Sidebar;
   createDialog: typeof createDialog;
   confirm: typeof confirm;
   alert: typeof alert;
@@ -183,6 +188,7 @@ declare const PM7: {
   closeAllToasts: typeof closeAllToasts;
   initButtons: typeof initButtons;
   initTooltips: typeof initTooltips;
+  initSidebars: typeof initSidebars;
   initPM7: typeof initPM7;
 };
 

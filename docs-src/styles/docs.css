@@ -49,6 +49,12 @@ body.pm7-navigating .pm7-docs-sidebar a {
   transition: none !important;
 }
 
+/* Ensure sidebar items are full width */
+.pm7-sidebar .pm7-sidebar-item {
+  width: 100%;
+  display: flex;
+}
+
 /* Prevent flash of unstyled content */
 #header-placeholder {
   min-height: 64px; /* Match header height */
@@ -319,7 +325,7 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 }
 
 .pm7-docs-sidebar {
-  width: 200px;
+  --pm7-sidebar-width: 190px;
   flex-shrink: 0;
   background: var(--pm7-sidebar-bg);
   min-height: 100%;
@@ -340,6 +346,17 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
   background-color: var(--pm7-sidebar-active);
 }
 
+/* Core sidebar component now handles all hover and active states */
+
+/* Reduce spacing around sidebar divider */
+.pm7-docs-sidebar .pm7-sidebar-section:has(+ .pm7-sidebar-divider) {
+  margin-bottom: var(--pm7-spacing-2);
+}
+
+.pm7-docs-sidebar .pm7-sidebar-divider + .pm7-sidebar-section {
+  margin-top: 0;
+}
+
 /* Link styles */
 a {
   color: var(--pm7-primary);
@@ -350,17 +367,17 @@ a:hover {
   color: var(--pm7-primary-hover);
 }
 
-/* Dark mode link colors - exclude buttons */
-.dark a:not(.pm7-button) {
+/* Dark mode link colors - exclude buttons and menu items */
+.dark a:not(.pm7-button):not(.pm7-menu-item) {
   color: var(--pm7-primary);
 }
 
-.dark a:not(.pm7-button):hover {
+.dark a:not(.pm7-button):not(.pm7-menu-item):hover {
   color: var(--pm7-primary-hover);
 }
 
-/* Visited links should maintain primary color in dark mode - exclude buttons */
-.dark a:not(.pm7-button):visited {
+/* Visited links should maintain primary color in dark mode - exclude buttons and menu items */
+.dark a:not(.pm7-button):not(.pm7-menu-item):visited {
   color: var(--pm7-primary);
 }
 
@@ -379,8 +396,8 @@ a.pm7-menu-item:hover {
   color: inherit;
 }
 
-/* Override card padding for sidebar */
-.pm7-docs-sidebar .pm7-card {
+/* Override sidebar styles for documentation */
+.pm7-docs-sidebar .pm7-sidebar {
   background: transparent;
   border: none;
 }
