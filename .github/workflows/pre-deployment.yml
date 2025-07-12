@@ -1,0 +1,208 @@
+name: Pre-Deployment Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Pre-Deployment Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linting
+        run: npm run lint
+      
+      - name: Build packages
+        run: npm run build:packages
+      
+      - name: Build documentation
+        run: npm run build:docs
+      
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run quick smoke tests
+        run: npm run test:pre-deploy:quick
+      
+      - name: Run full pre-deployment tests
+        run: npm run test:pre-deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.os }}-node${{ matrix.node-version }}
+          path: playwright-report/
+          retention-days: 30
+      
+      - name: Upload test screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-screenshots-${{ matrix.os }}-node${{ matrix.node-version }}
+          path: tests/screenshots/
+          retention-days: 30
+
+  check-bundle-size:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build packages
+        run: npm run build:packages
+      
+      - name: Check bundle size
+        run: |
+          echo "Bundle sizes:"
+          ls -lh packages/core/dist/
+          
+          # Fail if JS bundle is over 100KB
+          JS_SIZE=$(stat -c%s packages/core/dist/pm7.min.js 2>/dev/null || stat -f%z packages/core/dist/pm7.min.js)
+          if [ $JS_SIZE -gt 102400 ]; then
+            echo "❌ JavaScript bundle is too large: $JS_SIZE bytes (max: 100KB)"
+            exit 1
+          else
+            echo "✅ JavaScript bundle size: $JS_SIZE bytes"
+          fi
+          
+          # Fail if CSS bundle is over 50KB
+          CSS_SIZE=$(stat -c%s packages/core/dist/pm7.min.css 2>/dev/null || stat -f%z packages/core/dist/pm7.min.css)
+          if [ $CSS_SIZE -gt 51200 ]; then
+            echo "❌ CSS bundle is too large: $CSS_SIZE bytes (max: 50KB)"
+            exit 1
+          else
+            echo "✅ CSS bundle size: $CSS_SIZE bytes"
+          fi
+
+  accessibility-check:
+    name: Accessibility Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build documentation
+        run: npm run build:docs
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+      
+      - name: Run accessibility tests
+        run: |
+          # Start server in background
+          npm run preview &
+          SERVER_PID=$!
+          
+          # Wait for server to start
+          sleep 5
+          
+          # Run accessibility-focused tests
+          npx playwright test tests/pre-deployment.spec.js -g "Accessibility Tests" --project=chromium
+          
+          # Kill server
+          kill $SERVER_PID
+
+  type-check:
+    name: TypeScript Type Checking
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Check TypeScript types
+        run: |
+          cd packages/core
+          npx tsc --noEmit --skipLibCheck
+        continue-on-error: true  # Don't fail the build, just report
+
+  security-check:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Run npm audit
+        run: npm audit --production
+        continue-on-error: true  # Don't fail on non-critical vulnerabilities
+
+  deploy-preview:
+    name: Deploy Preview
+    runs-on: ubuntu-latest
+    needs: [test, check-bundle-size]
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build everything
+        run: npm run build
+      
+      - name: Deploy to Vercel Preview
+        run: |
+          echo "Deploy preview URL will be posted by Vercel GitHub integration"

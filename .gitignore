@@ -47,10 +47,9 @@ tmp/
 temp/
 
 # Test files
-test-*.html
-**/test-*.html
-debug-*.html
-**/debug-*.html
+tests/
+test-results/
+playwright-report/
 
 # Backup files
 *.backup

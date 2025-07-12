@@ -2,6 +2,44 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## CRITICAL: Documentation Audience Strategy
+
+### AI Agents vs Humans - Know Your Audience
+
+**🤖 FOR AI CODING AGENTS (Claude, ChatGPT, Copilot, etc.):**
+- Component READMEs in `/packages/core/src/components/*/README.md`
+- `AI-AGENT-GUIDE.md`
+- `CLAUDE.md` (this file)
+- Test files and implementation examples
+- **Style**: Exact patterns, no ambiguity, copy-paste ready code
+
+**👥 FOR HUMANS:**
+- `/README.md` (GitHub repository homepage)
+- `/packages/core/README.md` (NPM package page)
+- Marketing website content
+- **Style**: Benefits, concepts, why use PM7, getting started
+
+### Writing for AI Agents
+
+When updating component documentation, remember:
+1. **No storytelling** - Only facts and patterns
+2. **Exact code blocks** - AI will copy these verbatim
+3. **Binary decisions** - "If X then Y, else Z"
+4. **No visual descriptions** - AI can't "see" if something "looks right"
+5. **Explicit anti-patterns** - Tell AI what NOT to do
+
+Example:
+```markdown
+<!-- WRONG (human-oriented) -->
+The Menu component provides a beautiful dropdown experience with smooth animations...
+
+<!-- CORRECT (AI-oriented) -->
+Component: Menu
+Required: <div class="pm7-menu" data-pm7-menu>
+Import: window.PM7 must exist
+Structure: Exact pattern below, no deviations allowed
+```
+
 ## PM7-UI Project Overview
 
 PM7-UI is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript. It provides a complete set of UI components that work with any JavaScript framework without requiring framework-specific wrappers.
@@ -753,10 +791,29 @@ export function initAccordions() {
 ```
 
 ## Testing Approach
-- No automated test suite currently
+- Playwright tests in `tests/` directory
 - Manual testing through documentation site
 - Each component has a dedicated demo page
 - Focus on real-world usage examples
+
+### Playwright Test Patterns
+When testing PM7 components, navigate to the demo tab first:
+
+```javascript
+// Navigate directly to demo tab
+await page.goto('/components/menu.html#demo');
+
+// Wait for demo panel to be visible
+await page.waitForSelector('#demo-panel', { state: 'visible' });
+
+// Select elements within demo panel
+const menu = page.locator('#demo-panel .pm7-menu');
+
+// Wait for PM7 to initialize
+await page.waitForFunction(() => window.PM7, { timeout: 10000 });
+```
+
+This ensures components are visible and initialized before testing.
 
 ## Important Files
 - `vite.config.js` - Documentation site configuration
@@ -783,6 +840,16 @@ var(--pm7-primary)       /* Primary brand color */
 var(--pm7-border)        /* Border colors */
 ```
 
+### Z-Index Scale
+PM7 uses a consistent z-index scale to prevent stacking conflicts:
+```css
+:root {
+  --pm7-z-dropdown: 50;    /* Menus, tooltips */
+  --pm7-z-modal: 100;      /* Dialogs, modals */
+  --pm7-z-toast: 150;      /* Toasts (highest) */
+}
+```
+
 ### Event Handling
 Components dispatch custom events for framework integration:
 ```javascript
@@ -804,3 +871,117 @@ interface HTMLElement {
 - Documentation auto-deploys to Vercel on push to main
 - NPM package published as @pm7/core
 - CDN available via unpkg and jsdelivr
+
+## Performance Patterns
+
+### Lazy Loading Components
+For pages with many components, use intersection observer for lazy initialization:
+
+```javascript
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      new PM7.Menu(entry.target);
+      observer.unobserve(entry.target);
+    }
+  });
+});
+
+// Observe all menu elements
+document.querySelectorAll('[data-pm7-menu]').forEach(el => {
+  observer.observe(el);
+});
+```
+
+This pattern prevents initializing components that aren't visible, improving initial page load performance.
+
+## Important Lessons Learned from PM7-UI Development
+
+### 1. Component Initialization Issues
+**Problem**: Tests failing with "window.PM7 is not defined" errors.
+
+**Root Cause**: Component documentation pages were not importing the main PM7 library script.
+
+**Solution**: Always ensure component pages include:
+```html
+<!-- PM7 Core JavaScript -->
+<script src="/packages/core/src/scripts/index.js" type="module"></script>
+```
+Or as an ES6 import:
+```javascript
+import '/packages/core/src/scripts/index.js';
+```
+
+**Key Takeaway**: The PM7 global object must be available before any component can initialize. Always verify imports when debugging initialization issues.
+
+### 2. CSS Specificity Conflicts
+**Problem**: Component styles being overridden by global styles, especially in dark mode.
+
+**Common Issues**:
+- Menu items showing wrong colors when using `<a>` tags
+- Global link styles overriding component-specific styles
+- Dark mode styles not applying correctly
+
+**Solutions**:
+```css
+/* BAD - Too generic */
+.dark a { color: var(--pm7-primary); }
+
+/* GOOD - Exclude component elements */
+.dark a:not(.pm7-menu-item) { color: var(--pm7-primary); }
+
+/* BEST - Use higher specificity for components */
+a.pm7-menu-item { color: var(--pm7-foreground) !important; }
+```
+
+**Key Takeaway**: Always test components with various content types (links, buttons, etc.) in both light and dark modes.
+
+### 3. Tab Navigation Structure
+**Problem**: Tab components not working due to incorrect HTML structure.
+
+**Wrong Approach**:
+```html
+<!-- DON'T USE THESE -->
+<div role="tablist">
+  <button role="tab">Tab 1</button>
+</div>
+<div role="tabpanel">Content</div>
+```
+
+**Correct Approach**:
+```html
+<div class="pm7-tab-selector" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="panel-1">Tab 1</button>
+  </div>
+  <div class="pm7-tab-content" id="panel-1">Content</div>
+</div>
+```
+
+**Key Takeaway**: PM7 uses its own tab implementation. Never use ARIA role attributes for tabs.
+
+### 4. Testing Best Practices
+**Problem**: Tests failing because components are in different tabs or not visible.
+
+**Solutions**:
+1. Navigate to the correct tab: `/components/accordion.html#demo`
+2. Wait for tab content to be visible: `await page.waitForSelector('#demo-panel', { state: 'visible' })`
+3. Use correct selectors: `.pm7-accordion` not `[data-pm7-accordion]`
+4. Scope searches to the active tab: `page.locator('#demo-panel .pm7-button')`
+
+**Key Takeaway**: Component demos are usually in the Demo tab, not the Overview tab.
+
+### 5. Performance Considerations
+**Problem**: Full test suite taking 10+ minutes to complete.
+
+**Reasons**:
+- Cross-browser testing (Chrome, Firefox, Safari)
+- Multiple viewport sizes (mobile, tablet, desktop)
+- Comprehensive interaction testing
+
+**Solutions**:
+- Use quick smoke tests for rapid feedback: `npm run test:pre-deploy:quick`
+- Run full tests only before deployment
+- Consider parallel test execution
+
+**Key Takeaway**: Long test duration is normal for comprehensive testing. Use quick tests during development.

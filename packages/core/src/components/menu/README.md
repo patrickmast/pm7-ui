@@ -1,6 +1,9 @@
-# Menu
+# PM7 Menu Component - AI Agent Implementation Guide
 
-Dropdown menus display a list of options on temporary surfaces. They appear when users interact with a button or other control.
+**Component Type**: Dropdown Menu
+**Import Required**: Yes (CSS + JavaScript)
+**Auto-Initialize**: Yes (with `data-pm7-menu`)
+**HTML Structure**: Fixed (must follow exact pattern)
 
 ## Installation
 
@@ -966,7 +969,27 @@ function MyComponent() {
 </button>
 ```
 
-## Common Issues
+## Common Issues & Troubleshooting
+
+### Menu Not Opening
+**Problem**: Clicking the trigger button does nothing.
+
+**Common Causes**:
+1. **Missing JavaScript**: PM7 JavaScript not loaded
+2. **Wrong initialization**: Component not properly initialized
+3. **CSS not loaded**: Menu styles missing
+
+**Solutions**:
+```html
+<!-- Make sure PM7 JavaScript is loaded -->
+<script src="/node_modules/@pm7/core/dist/pm7.js"></script>
+
+<!-- Or initialize manually -->
+<script type="module">
+  import { PM7Menu } from '@pm7/core';
+  const menu = new PM7Menu(document.querySelector('[data-pm7-menu]'));
+</script>
+```
 
 ### CSS Specificity with Button Classes
 When using PM7 button classes on menu triggers, be aware that button styles have high specificity:
@@ -1001,9 +1024,55 @@ When using `<a>` tags as menu items, global link styles might override menu colo
 a.pm7-menu-item {
   color: var(--pm7-foreground) !important;
 }
+
+/* Solution 3: Use more specific selectors in your global styles */
+.content a:not(.pm7-menu-item) {
+  color: var(--pm7-primary);
+}
 ```
 
 **Best practice**: Always test menu items with links in both light and dark modes.
+
+### Menu Position Issues
+**Problem**: Menu appears in wrong position or gets cut off.
+
+**Solutions**:
+1. **Use data-position**: Let PM7 handle positioning automatically
+2. **Check z-index**: Ensure menu has proper stacking context
+3. **Container overflow**: Parent elements shouldn't have `overflow: hidden`
+
+```html
+<!-- Let PM7 handle positioning -->
+<div class="pm7-menu" data-pm7-menu data-position="bottom-end">
+  <!-- Menu content -->
+</div>
+```
+
+### Dark Mode Color Issues
+**Problem**: Menu items showing incorrect colors in dark mode.
+
+**Common Scenarios**:
+- Links appearing blue instead of using foreground color
+- Hover states not contrasting properly
+- Icons not adapting to theme
+
+**Solutions**:
+```css
+/* Ensure proper dark mode support */
+.dark .pm7-menu-item {
+  color: var(--pm7-foreground);
+}
+
+/* For link menu items */
+.dark a.pm7-menu-item {
+  color: var(--pm7-foreground);
+}
+
+/* Icon color inheritance */
+.pm7-menu-item svg {
+  fill: currentColor;
+}
+```
 
 ## Related Components
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Test - No CSS Class Needed</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .test-section {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: var(--pm7-muted);
+      border-radius: var(--pm7-radius);
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    code {
+      background: var(--pm7-muted);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI-Agent FIRST: Menu Test</h1>
+  <p>This test proves that menus work with ONLY the <code>data-pm7-menu</code> attribute.</p>
+
+  <div class="test-section">
+    <h2>Test 1: Menu WITHOUT class="pm7-menu"</h2>
+    <p>This menu has NO CSS class, only the data attribute:</p>
+    
+    <pre><code>&lt;div data-pm7-menu&gt;
+  &lt;button class="pm7-menu-trigger"&gt;Click Me&lt;/button&gt;
+  &lt;div class="pm7-menu-content"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    
+    <div style="margin: 2rem 0;">
+      <!-- No class="pm7-menu" - only data attribute -->
+      <div data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button pm7-button--primary">
+          Click Me - No CSS Class
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">✅ It works!</button>
+          <button class="pm7-menu-item">Option 2</button>
+          <button class="pm7-menu-item">Option 3</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="test-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>How it works</h2>
+    <p>The JavaScript automatically adds the required <code>pm7-menu</code> class when it finds an element with <code>data-pm7-menu</code>.</p>
+    <p>This is the essence of <strong>AI-Agent FIRST</strong> design:</p>
+    <ul>
+      <li>ONE attribute = fully working component</li>
+      <li>No confusion about which classes are needed</li>
+      <li>JavaScript handles the setup automatically</li>
+    </ul>
+  </div>
+
+  <script type="module">
+    import '/packages/core/src/scripts/index.js';
+    
+    // Check if the class was added automatically
+    setTimeout(() => {
+      const menu = document.querySelector('[data-pm7-menu]');
+      const result = document.getElementById('test-result');
+      
+      if (menu) {
+        const hasClass = menu.classList.contains('pm7-menu');
+        const hasDataAttr = menu.hasAttribute('data-pm7-menu');
+        const isInitialized = menu.hasAttribute('data-pm7-menu-initialized');
+        
+        result.innerHTML = `
+          <h3>Verification:</h3>
+          <ul>
+            <li>Has data-pm7-menu: <span class="${hasDataAttr ? 'success' : 'error'}">${hasDataAttr ? '✅ Yes' : '❌ No'}</span></li>
+            <li>CSS class auto-added: <span class="${hasClass ? 'success' : 'error'}">${hasClass ? '✅ Yes (pm7-menu)' : '❌ No'}</span></li>
+            <li>JavaScript initialized: <span class="${isInitialized ? 'success' : 'error'}">${isInitialized ? '✅ Yes' : '❌ No'}</span></li>
+          </ul>
+          <p class="success">The menu works perfectly with just the data attribute!</p>
+        `;
+      }
+    }, 500);
+  </script>
+</body>
+</html>

@@ -221,14 +221,14 @@ Override CSS variables for custom theming:
   /* Colors */
   --pm7-primary: #your-brand-color;
   --pm7-primary-hover: #your-brand-hover;
-  
+
   /* Spacing */
   --pm7-spacing-1: 0.25rem;
   --pm7-spacing-2: 0.5rem;
-  
+
   /* Typography */
   --pm7-font-family: 'Your Font', system-ui, sans-serif;
-  
+
   /* Borders */
   --pm7-radius: 0.375rem;
   --pm7-border: 1px solid var(--pm7-border-color);
@@ -303,3 +303,4 @@ MIT © Patrick Mast
 - [GitHub](https://github.com/patrickmast/pm7-ui)
 - [Examples](https://pm7-ui.dev/components)
 - [NPM](https://www.npmjs.com/package/@pm7/core)
+

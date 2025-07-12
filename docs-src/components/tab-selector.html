@@ -394,6 +394,7 @@
             <p>Tab selectors are automatically initialized when the DOM loads:</p>
             <pre><code class="language-javascript">import { PM7TabSelector } from '@pm7/core';
 
+    import '/packages/core/src/scripts/index.js';
 // Create instance for auto-initialized tabs
 const tabElement = document.querySelector('[data-pm7-tab-selector]');
 const tabs = new PM7TabSelector(tabElement);
