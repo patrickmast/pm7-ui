@@ -7,6 +7,9 @@ export * from './attributes';
 export * from './sidebar';
 import { PM7Sidebar, initSidebars } from './sidebar';
 
+// Import callout types
+export * from './callout';
+
 // Menu
 export class PM7Menu {
   constructor(element: HTMLElement);

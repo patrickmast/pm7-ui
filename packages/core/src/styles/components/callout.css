@@ -1,0 +1,261 @@
+/* PM7 Callout Component */
+
+/* Base callout container */
+.pm7-callout {
+  position: relative;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: var(--pm7-radius);
+  border-left: 4px solid;
+  background-color: var(--pm7-muted);
+  border-left-color: var(--pm7-border);
+  color: var(--pm7-foreground);
+}
+
+/* Callout header - for title */
+.pm7-callout-header {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Callout body - for content */
+.pm7-callout-body {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* When body is directly after header */
+.pm7-callout-header + .pm7-callout-body {
+  margin-top: 0.5rem;
+}
+
+/* For callouts with only body content */
+.pm7-callout > p:first-child,
+.pm7-callout > .pm7-callout-body:first-child {
+  margin-top: 0;
+}
+
+.pm7-callout > p:last-child,
+.pm7-callout > .pm7-callout-body:last-child {
+  margin-bottom: 0;
+}
+
+/* Icon styling */
+.pm7-callout-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Variants */
+
+/* Info variant (default) */
+.pm7-callout--info {
+  background-color: var(--pm7-info-light, #dbeafe);
+  border-left-color: var(--pm7-info);
+}
+
+.pm7-callout--info .pm7-callout-header {
+  color: var(--pm7-info-dark, #1e40af);
+}
+
+/* Dark mode info */
+.dark .pm7-callout--info {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--pm7-foreground);
+}
+
+.dark .pm7-callout--info .pm7-callout-header {
+  color: var(--pm7-info);
+}
+
+/* Success variant */
+.pm7-callout--success {
+  background-color: var(--pm7-success-light, #dcfce7);
+  border-left-color: var(--pm7-success);
+}
+
+.pm7-callout--success .pm7-callout-header {
+  color: var(--pm7-success-dark, #166534);
+}
+
+.dark .pm7-callout--success {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--pm7-foreground);
+}
+
+.dark .pm7-callout--success .pm7-callout-header {
+  color: var(--pm7-success);
+}
+
+/* Warning variant */
+.pm7-callout--warning {
+  background-color: var(--pm7-warning-light, #fef3c7);
+  border-left-color: var(--pm7-warning);
+}
+
+.pm7-callout--warning .pm7-callout-header {
+  color: var(--pm7-warning-dark, #92400e);
+}
+
+.dark .pm7-callout--warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--pm7-foreground);
+}
+
+.dark .pm7-callout--warning .pm7-callout-header {
+  color: var(--pm7-warning);
+}
+
+/* Error/Danger variant */
+.pm7-callout--error,
+.pm7-callout--danger {
+  background-color: var(--pm7-error-light, #fee2e2);
+  border-left-color: var(--pm7-error);
+}
+
+.pm7-callout--error .pm7-callout-header,
+.pm7-callout--danger .pm7-callout-header {
+  color: var(--pm7-error-dark, #991b1b);
+}
+
+.dark .pm7-callout--error,
+.dark .pm7-callout--danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--pm7-foreground);
+}
+
+.dark .pm7-callout--error .pm7-callout-header,
+.dark .pm7-callout--danger .pm7-callout-header {
+  color: var(--pm7-error);
+}
+
+/* Tip variant (like AI tips) */
+.pm7-callout--tip {
+  background-color: var(--pm7-primary-light, #e6f2ff);
+  border-left-color: var(--pm7-primary);
+}
+
+.pm7-callout--tip .pm7-callout-header {
+  color: var(--pm7-primary-dark, #1565C0);
+}
+
+.dark .pm7-callout--tip {
+  background-color: rgba(28, 134, 239, 0.1);
+  color: var(--pm7-foreground);
+}
+
+.dark .pm7-callout--tip .pm7-callout-header {
+  color: var(--pm7-primary);
+}
+
+/* Neutral variant */
+.pm7-callout--neutral {
+  background-color: var(--pm7-muted);
+  border-left-color: var(--pm7-border);
+}
+
+.pm7-callout--neutral .pm7-callout-header {
+  color: var(--pm7-foreground);
+}
+
+/* Size modifiers */
+.pm7-callout--sm {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.pm7-callout--sm .pm7-callout-header {
+  font-size: 0.875rem;
+}
+
+.pm7-callout--lg {
+  padding: 1.5rem 2rem;
+  font-size: 1.125rem;
+}
+
+.pm7-callout--lg .pm7-callout-header {
+  font-size: 1.25rem;
+}
+
+/* No border variant */
+.pm7-callout--no-border {
+  border-left: none;
+  padding-left: 1.5rem;
+}
+
+/* Centered variant */
+.pm7-callout--center {
+  text-align: center;
+}
+
+.pm7-callout--center .pm7-callout-header {
+  justify-content: center;
+}
+
+/* Links inside callouts */
+.pm7-callout a {
+  color: var(--pm7-primary);
+  text-decoration: underline;
+}
+
+.pm7-callout a:hover {
+  text-decoration: none;
+}
+
+/* Code inside callouts */
+.pm7-callout code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.dark .pm7-callout code {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Lists inside callouts */
+.pm7-callout ul,
+.pm7-callout ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.pm7-callout li {
+  margin: 0.25rem 0;
+}
+
+/* Multiple paragraphs */
+.pm7-callout p {
+  margin: 0.5rem 0;
+}
+
+.pm7-callout p:first-child {
+  margin-top: 0;
+}
+
+.pm7-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Animation for attention */
+@keyframes pm7-callout-pulse {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  70% {
+    box-shadow: 0 0 0 4px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.pm7-callout--pulse {
+  animation: pm7-callout-pulse 2s infinite;
+}

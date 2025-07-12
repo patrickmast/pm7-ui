@@ -2,6 +2,35 @@
 
 A versatile sidebar component that provides navigation and content organization with multiple display modes and rich interaction patterns.
 
+## Important: Static vs Interactive Sidebars
+
+The PM7 Sidebar component can be used in two distinct ways:
+
+### 1. Static Sidebar (without `data-pm7-sidebar`)
+```html
+<aside class="pm7-sidebar">
+  <!-- content -->
+</aside>
+```
+- Remains in normal document flow
+- Scrolls with the page content
+- No JavaScript functionality
+- Only basic styling (width, min-width)
+- Perfect for documentation sites or static layouts
+
+### 2. Interactive Sidebar (with `data-pm7-sidebar`)
+```html
+<aside class="pm7-sidebar" data-pm7-sidebar>
+  <!-- content -->
+</aside>
+```
+- Fixed positioning with slide-in animations
+- JavaScript-powered open/close functionality
+- Overlay support
+- Focus management
+- Keyboard navigation
+- Perfect for mobile menus or collapsible navigation
+
 ## Installation
 
 The Sidebar component is included in the PM7 UI library:

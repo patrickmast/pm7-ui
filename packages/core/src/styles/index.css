@@ -23,6 +23,7 @@
 @import './components/accordion.css';
 @import './components/theme-switch.css';
 @import './components/sidebar.css';
+@import './components/callout.css';
 
 /* Import utilities */
 @import './utilities/helpers.css';

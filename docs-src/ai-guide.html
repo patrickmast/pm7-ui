@@ -25,19 +25,6 @@
       margin: 1.5rem 0;
     }
     
-    .ai-tip {
-      background: var(--pm7-primary-light, #e6f2ff);
-      border-left: 4px solid var(--pm7-primary);
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 0 var(--pm7-radius) var(--pm7-radius) 0;
-    }
-    
-    .ai-tip h4 {
-      margin: 0 0 0.5rem 0;
-      color: var(--pm7-primary);
-    }
-    
     .copy-paste-section {
       background: var(--pm7-card);
       border: 1px solid var(--pm7-border);
@@ -99,9 +86,11 @@
     <section style="margin-top: 60px;">
       <h2>Quick Start for AI Agents</h2>
       
-      <div class="ai-tip">
-        <h4>🤖 AI Tip</h4>
-        <p>Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."</p>
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">🤖 AI Tip</h4>
+        <div class="pm7-callout-body">
+          <p>Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."</p>
+        </div>
       </div>
       
       <h3>1. Basic Setup</h3>
@@ -235,32 +224,40 @@ PM7.init();</code></pre>
         <li><strong>Theme Switch</strong> - <code class="inline">[data-pm7-theme-switch]</code></li>
       </ul>
       
-      <div class="ai-tip">
-        <h4>📝 Note about Dialogs</h4>
-        <p>Dialogs use <code class="inline">data-pm7-dialog</code> for identification but are NOT auto-initialized. Use <code>openDialog('dialog-id')</code> to open them.</p>
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">📝 Note about Dialogs</h4>
+        <div class="pm7-callout-body">
+          <p>Dialogs use <code class="inline">data-pm7-dialog</code> for identification but are NOT auto-initialized. Use <code>openDialog('dialog-id')</code> to open them.</p>
+        </div>
       </div>
     </section>
     
     <section style="margin-top: 60px;">
       <h2>Documentation Links for AI</h2>
       
-      <div class="ai-tip">
-        <h4>🤖 AI Agent Reference</h4>
-        <p>For a complete reference of ALL PM7-UI attributes and patterns, see <a href="/AI-AGENT.md" style="color: var(--pm7-primary); text-decoration: underline;">AI-AGENT.md</a> - the definitive guide for AI agents using PM7-UI.</p>
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">🤖 AI Agent Reference</h4>
+        <div class="pm7-callout-body">
+          <p>For a complete reference of ALL PM7-UI attributes and patterns, see <a href="/AI-AGENT.md" style="color: var(--pm7-primary); text-decoration: underline;">AI-AGENT.md</a> - the definitive guide for AI agents using PM7-UI.</p>
+        </div>
       </div>
       
-      <div class="ai-tip">
-        <h4>📚 Component Documentation</h4>
-        <p>Need all pm7-ui documentation links in one place? Visit our <a href="/readme-links.html" style="color: var(--pm7-primary); text-decoration: underline;">README Links page</a> for easy access to all component documentation.</p>
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">📚 Component Documentation</h4>
+        <div class="pm7-callout-body">
+          <p>Need all pm7-ui documentation links in one place? Visit our <a href="/readme-links.html" style="color: var(--pm7-primary); text-decoration: underline;">README Links page</a> for easy access to all component documentation.</p>
+        </div>
       </div>
     </section>
     
     <section style="margin-top: 60px;">
       <h2>Tips for AI Agents</h2>
       
-      <div class="ai-tip">
-        <h4>💡 Pro Tip</h4>
-        <p>Always specify "pm7-ui" in your prompts to get consistent results.</p>
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">💡 Pro Tip</h4>
+        <div class="pm7-callout-body">
+          <p>Always specify "pm7-ui" in your prompts to get consistent results.</p>
+        </div>
       </div>
       
       <h3>DO:</h3>

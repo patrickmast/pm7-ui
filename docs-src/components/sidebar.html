@@ -100,8 +100,8 @@
               <div class="pm7-docs-preview" style="padding: 0; height: 500px; overflow: hidden; position: relative; background: var(--pm7-background);">
                 <!-- Demo App Container -->
                 <div class="demo-app-container" style="height: 100%; display: flex; position: relative;">
-                  <!-- Demo Sidebar (Static Version) -->
-                  <aside class="pm7-sidebar pm7-sidebar--static" style="position: relative; height: 100%; flex-shrink: 0;">
+                  <!-- Demo Sidebar (Static Version - no data-pm7-sidebar) -->
+                  <aside class="pm7-sidebar" style="height: 100%; flex-shrink: 0;">
                     <div class="pm7-sidebar-header">
                       <h3 style="margin: 0; font-size: 1.125rem;">MyApp</h3>
                     </div>
@@ -194,8 +194,8 @@
               </div>
               <pre><code class="language-html">&lt;!-- Complete Application Layout with Sidebar --&gt;
 &lt;div class="app-container"&gt;
-  &lt;!-- Static Sidebar (always visible on desktop) --&gt;
-  &lt;aside class="pm7-sidebar pm7-sidebar--static" data-pm7-sidebar&gt;
+  &lt;!-- Static Sidebar (always visible, scrolls with page) --&gt;
+  &lt;aside class="pm7-sidebar"&gt;
     &lt;div class="pm7-sidebar-header"&gt;
       &lt;h3&gt;MyApp&lt;/h3&gt;
     &lt;/div&gt;
@@ -352,7 +352,8 @@
                   </main>
                 </div>
               </div>
-              <pre><code class="language-html">&lt;aside class="pm7-sidebar pm7-sidebar--mini pm7-sidebar--static" data-pm7-sidebar&gt;
+              <pre><code class="language-html">&lt;!-- Mini sidebar with interactive features --&gt;
+&lt;aside class="pm7-sidebar pm7-sidebar--mini" data-pm7-sidebar&gt;
   &lt;nav class="pm7-sidebar-nav"&gt;
     &lt;button class="pm7-sidebar-item" title="Dashboard"&gt;
       &lt;svg class="pm7-sidebar-item-icon"&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
@@ -483,6 +484,36 @@ if (isCollapsed) {
         <!-- Usage Tab -->
         <div class="pm7-tab-content" id="usage-panel">
           <section class="pm7-docs-section">
+            <h2>Important: Static vs Interactive Sidebars</h2>
+            <div class="pm7-callout pm7-callout--info">
+              <p>The PM7 Sidebar component can be used in two fundamentally different ways:</p>
+            </div>
+            
+            <h3>1. Static Sidebar (without <code>data-pm7-sidebar</code>)</h3>
+            <pre><code class="language-html">&lt;aside class="pm7-sidebar"&gt;
+  &lt;!-- content --&gt;
+&lt;/aside&gt;</code></pre>
+            <ul>
+              <li>Remains in normal document flow</li>
+              <li>Scrolls with the page content</li>
+              <li>No JavaScript functionality</li>
+              <li>Only basic styling (width, min-width)</li>
+              <li>Perfect for documentation sites or static layouts</li>
+            </ul>
+            
+            <h3>2. Interactive Sidebar (with <code>data-pm7-sidebar</code>)</h3>
+            <pre><code class="language-html">&lt;aside class="pm7-sidebar" data-pm7-sidebar&gt;
+  &lt;!-- content --&gt;
+&lt;/aside&gt;</code></pre>
+            <ul>
+              <li>Fixed positioning with slide-in animations</li>
+              <li>JavaScript-powered open/close functionality</li>
+              <li>Overlay support</li>
+              <li>Focus management</li>
+              <li>Keyboard navigation</li>
+              <li>Perfect for mobile menus or collapsible navigation</li>
+            </ul>
+            
             <h2>Structure</h2>
             <p>The sidebar component follows a consistent structure:</p>
             <ol>
@@ -643,7 +674,7 @@ if (isCollapsed) {
               </div>
             </div>
             
-            <div class="pm7-docs-info pm7-docs-info--ai">
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
               <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
               <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Sidebar implementation guidance.</p>
               <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>

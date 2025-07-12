@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callout - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 375 375" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;">
+          <defs>
+            <clipPath id="callout-a">
+              <path d="M14.5 66.395h346.29v242.21H14.5Zm0 0"/>
+            </clipPath>
+            <clipPath id="callout-b">
+              <path d="M360.488 102.39v170.22a36 36 0 0 1-10.547 25.452 36 36 0 0 1-25.453 10.543H50.496A35.997 35.997 0 0 1 14.5 272.61V102.391c0-19.88 16.117-35.996 35.996-35.996h273.992a36 36 0 0 1 25.453 10.543 36 36 0 0 1 10.547 25.453m0 0"/>
+            </clipPath>
+            <clipPath id="callout-c">
+              <path d="M14.512 66.395H360.25v242.25H14.512Zm0 0"/>
+            </clipPath>
+            <clipPath id="callout-d">
+              <path d="M360.238 102.363v170.09c0 9.54-3.789 18.688-10.535 25.434a35.98 35.98 0 0 1-25.437 10.539H50.48a35.97 35.97 0 0 1-25.433-10.54 35.97 35.97 0 0 1-10.535-25.433v-170.09c0-19.867 16.105-35.968 35.968-35.968h273.786a35.97 35.97 0 0 1 35.973 35.969m0 0"/>
+            </clipPath>
+            <clipPath id="callout-e">
+              <path d="M37.5 93.29h63.46v188.65H37.5Zm0 0"/>
+            </clipPath>
+            <clipPath id="callout-f">
+              <path d="M51.75 93.29h34.96c7.872 0 14.25 6.382 14.25 14.25v159.92c0 7.868-6.378 14.25-14.25 14.25H51.75c-7.871 0-14.25-6.382-14.25-14.25V107.54c0-7.868 6.379-14.25 14.25-14.25m0 0"/>
+            </clipPath>
+            <clipPath id="callout-g">
+              <path d="M75.633 93.29h32.637v188.42H75.633Zm0 0"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#callout-a)">
+            <g clip-path="url(#callout-b)">
+              <path style="stroke:none;fill-rule:nonzero;fill:#fff;fill-opacity:1" d="M14.5 66.395h346.29v242.21H14.5Zm0 0"/>
+            </g>
+          </g>
+          <g clip-path="url(#callout-c)">
+            <g clip-path="url(#callout-d)">
+              <path style="fill:none;stroke-width:72;stroke-linecap:butt;stroke-linejoin:miter;stroke:currentColor;stroke-opacity:1;stroke-miterlimit:4" d="M461.298 47.994v226.948a48 48 0 0 1-14.057 33.936 48 48 0 0 1-33.94 14.062H47.992a48 48 0 0 1-33.935-14.062A48 48 0 0 1 0 274.942V47.994C.001 21.486 21.491.002 47.993.002H413.3a47.99 47.99 0 0 1 47.998 47.992Zm0 0" transform="translate(14.511 66.393)scale(.74947)"/>
+            </g>
+          </g>
+          <g clip-path="url(#callout-e)">
+            <g clip-path="url(#callout-f)">
+              <path style="stroke:none;fill-rule:nonzero;fill:var(--pm7-primary);fill-opacity:1" d="M37.5 93.29h63.46v188.4H37.5Zm0 0"/>
+            </g>
+          </g>
+          <g clip-path="url(#callout-g)">
+            <path style="stroke:none;fill-rule:nonzero;fill:var(--pm7-primary);fill-opacity:1" d="M75.633 93.29h32.637v188.429H75.633Zm0 0"/>
+          </g>
+        </svg>
+        Callout
+      </h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Callouts are used to highlight important information, tips, warnings, or errors with a distinctive visual style.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To highlight important information or notices</li>
+              <li>To provide tips or best practices</li>
+              <li>To warn users about potential issues</li>
+              <li>To display error messages prominently</li>
+              <li>To separate supplementary content from main content</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li>Six semantic variants for different message types</li>
+              <li>Support for headers and rich content</li>
+              <li>Three size options</li>
+              <li>Dark mode support with proper contrast</li>
+              <li>Optional animations and modifiers</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Callout Variants</h3>
+              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
+                
+                <div class="pm7-callout pm7-callout--info">
+                  <h4 class="pm7-callout-header">
+                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                    </svg>
+                    Information
+                  </h4>
+                  <div class="pm7-callout-body">
+                    This is an informational callout. Use it for general information or notices.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--success">
+                  <h4 class="pm7-callout-header">
+                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    Success
+                  </h4>
+                  <div class="pm7-callout-body">
+                    Great! Your operation completed successfully.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--warning">
+                  <h4 class="pm7-callout-header">
+                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    Warning
+                  </h4>
+                  <div class="pm7-callout-body">
+                    Please review this information before proceeding. This action may have consequences.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--error">
+                  <h4 class="pm7-callout-header">
+                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                    </svg>
+                    Error
+                  </h4>
+                  <div class="pm7-callout-body">
+                    Something went wrong. Please check your input and try again.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--tip">
+                  <h4 class="pm7-callout-header">💡 Pro Tip</h4>
+                  <div class="pm7-callout-body">
+                    Use callouts to draw attention to important information that might otherwise be overlooked.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--neutral">
+                  <h4 class="pm7-callout-header">Note</h4>
+                  <div class="pm7-callout-body">
+                    This is a neutral callout for general notes without specific semantic meaning.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Sizes</h3>
+              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
+                <div class="pm7-callout pm7-callout--info pm7-callout--sm">
+                  <div class="pm7-callout-body">Small callout with less padding</div>
+                </div>
+                
+                <div class="pm7-callout pm7-callout--info">
+                  <div class="pm7-callout-body">Medium callout (default size)</div>
+                </div>
+                
+                <div class="pm7-callout pm7-callout--info pm7-callout--lg">
+                  <div class="pm7-callout-body">Large callout with more padding and larger text</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Complex Content</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-callout pm7-callout--tip">
+                  <h4 class="pm7-callout-header">
+                    🚀 Getting Started with PM7
+                  </h4>
+                  <div class="pm7-callout-body">
+                    <p>Follow these steps to integrate PM7 components:</p>
+                    <ul>
+                      <li>Install the package: <code>npm install @pm7/core</code></li>
+                      <li>Import the CSS: <code>import '@pm7/core/dist/pm7.css'</code></li>
+                      <li>Start using components with simple CSS classes</li>
+                    </ul>
+                    <p>
+                      For detailed instructions, check out our 
+                      <a href="/getting-started.html">getting started guide</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Modifiers</h3>
+              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
+                <div class="pm7-callout pm7-callout--info pm7-callout--no-border">
+                  <h4 class="pm7-callout-header">No Border</h4>
+                  <div class="pm7-callout-body">
+                    This callout has no left border for a softer appearance.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--success pm7-callout--center">
+                  <h4 class="pm7-callout-header">Centered Content</h4>
+                  <div class="pm7-callout-body">
+                    This callout has centered text alignment.
+                  </div>
+                </div>
+
+                <div class="pm7-callout pm7-callout--warning pm7-callout--pulse">
+                  <h4 class="pm7-callout-header">⚠️ Attention Required</h4>
+                  <div class="pm7-callout-body">
+                    This callout pulses to grab attention for critical messages.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>AI Agent Example</h3>
+              <div class="pm7-docs-preview">
+                <div class="pm7-callout pm7-callout--tip">
+                  <h4 class="pm7-callout-header">🤖 AI Tip</h4>
+                  <div class="pm7-callout-body">
+                    Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout</code></td>
+                  <td>Base callout container (required)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout-header</code></td>
+                  <td>Header/title element</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout-body</code></td>
+                  <td>Body content container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout-icon</code></td>
+                  <td>Icon element styling</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--info</code></td>
+                  <td>Info variant (blue)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--success</code></td>
+                  <td>Success variant (green)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--warning</code></td>
+                  <td>Warning variant (yellow)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--error</code></td>
+                  <td>Error/danger variant (red)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--danger</code></td>
+                  <td>Alias for error variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--tip</code></td>
+                  <td>Tip variant (primary color)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--neutral</code></td>
+                  <td>Neutral variant (gray)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Sizes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--sm</code></td>
+                  <td>Small size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--lg</code></td>
+                  <td>Large size</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--no-border</code></td>
+                  <td>Remove left border</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--center</code></td>
+                  <td>Center align text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-callout--pulse</code></td>
+                  <td>Add pulse animation</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <p>Callouts do not use any special data attributes. They are purely CSS-based components that rely on class names for styling and structure.</p>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;div class="pm7-callout"&gt;
+  &lt;div class="pm7-callout-body"&gt;
+    This is a basic callout with default styling.
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>With Header</h3>
+            <pre><code class="language-html">&lt;div class="pm7-callout pm7-callout--info"&gt;
+  &lt;h4 class="pm7-callout-header"&gt;
+    &lt;svg class="pm7-callout-icon"&gt;...&lt;/svg&gt;
+    Information
+  &lt;/h4&gt;
+  &lt;div class="pm7-callout-body"&gt;
+    This is an informational message.
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Variants</h3>
+            <pre><code class="language-html">&lt;!-- Info (blue) --&gt;
+&lt;div class="pm7-callout pm7-callout--info"&gt;...&lt;/div&gt;
+
+&lt;!-- Success (green) --&gt;
+&lt;div class="pm7-callout pm7-callout--success"&gt;...&lt;/div&gt;
+
+&lt;!-- Warning (yellow) --&gt;
+&lt;div class="pm7-callout pm7-callout--warning"&gt;...&lt;/div&gt;
+
+&lt;!-- Error/Danger (red) --&gt;
+&lt;div class="pm7-callout pm7-callout--error"&gt;...&lt;/div&gt;
+
+&lt;!-- Tip (primary color) --&gt;
+&lt;div class="pm7-callout pm7-callout--tip"&gt;...&lt;/div&gt;
+
+&lt;!-- Neutral (gray) --&gt;
+&lt;div class="pm7-callout pm7-callout--neutral"&gt;...&lt;/div&gt;</code></pre>
+
+            <h3>Sizes</h3>
+            <pre><code class="language-html">&lt;!-- Small --&gt;
+&lt;div class="pm7-callout pm7-callout--info pm7-callout--sm"&gt;...&lt;/div&gt;
+
+&lt;!-- Medium (default) --&gt;
+&lt;div class="pm7-callout pm7-callout--info"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="pm7-callout pm7-callout--info pm7-callout--lg"&gt;...&lt;/div&gt;</code></pre>
+
+            <h3>Modifiers</h3>
+            <pre><code class="language-html">&lt;!-- Remove left border --&gt;
+&lt;div class="pm7-callout pm7-callout--info pm7-callout--no-border"&gt;...&lt;/div&gt;
+
+&lt;!-- Center align text --&gt;
+&lt;div class="pm7-callout pm7-callout--info pm7-callout--center"&gt;...&lt;/div&gt;
+
+&lt;!-- Add pulse animation for critical messages --&gt;
+&lt;div class="pm7-callout pm7-callout--warning pm7-callout--pulse"&gt;...&lt;/div&gt;</code></pre>
+
+            <h3>PM7 Special Features</h3>
+            <ul>
+              <li><strong>Auto Dark Mode</strong> - All variants adapt automatically to dark mode</li>
+              <li><strong>Rich Content Support</strong> - Callouts can contain links, code blocks, lists, and multiple paragraphs</li>
+              <li><strong>Flexible Structure</strong> - Use with or without headers, with or without icons</li>
+              <li><strong>Semantic Variants</strong> - Six pre-styled variants for different message types</li>
+              <li><strong>Pulse Animation</strong> - Optional attention-grabbing animation for critical messages</li>
+            </ul>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Use semantic HTML headings (<code>&lt;h4&gt;</code>, <code>&lt;h5&gt;</code>) for callout headers</li>
+              <li>Include descriptive text that doesn't rely solely on color to convey meaning</li>
+              <li>Icons should be decorative - the text should provide the actual meaning</li>
+              <li>Ensure links within callouts have sufficient contrast and underlines</li>
+              <li>For screen readers, consider adding <code>role="alert"</code> for critical warnings</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+              <li>Choose the appropriate variant for the message type (don't use success for errors)</li>
+              <li>Keep callout content concise and focused on a single message</li>
+              <li>Use headers to quickly summarize the callout's purpose</li>
+              <li>Reserve the pulse animation for truly critical messages that need immediate attention</li>
+              <li>Consider using smaller sizes for inline notifications within forms or lists</li>
+              <li>Don't overuse callouts - too many can reduce their effectiveness</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/callout/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/callout/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Callout implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <!-- Load header and sidebar -->
+  <script src="/scripts/components.js" type="module"></script>
+  
+  <!-- Prism for code highlighting -->
+  <link href="/styles/prism.css" rel="stylesheet">
+  <script src="/scripts/prism.js"></script>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+  <!-- Tab router initialization -->
+  <script type="module">
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('callout');
+    });
+  </script>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  <script type="module" src="/scripts/version-standalone.js"></script>
+</body>
+</html>

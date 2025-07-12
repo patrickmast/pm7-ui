@@ -6,7 +6,7 @@
 }
 
 html {
-  height: 100%;
+  /* height: 100%; - Removed to allow normal document scrolling */
 }
 
 body {
@@ -326,11 +326,13 @@ body > *:not(#header-placeholder):not(#footer-placeholder):not(script) {
 
 .pm7-docs-sidebar {
   --pm7-sidebar-width: 190px;
+  width: var(--pm7-sidebar-width);
   flex-shrink: 0;
   background: var(--pm7-sidebar-bg);
-  min-height: 100%;
   transition: background-color 0.3s;
+  min-height: 100%;
 }
+
 
 /* Ensure PM7 buttons in sidebar don't have default button height */
 .pm7-docs-sidebar .pm7-button {
@@ -518,25 +520,6 @@ a.pm7-menu-item:hover {
   border: 1px solid var(--pm7-border);
 }
 
-.pm7-docs-info--ai {
-  background: #e7f3ff;
-  border-color: #b3d9ff;
-  text-align: center;
-}
-
-/* Dark mode AI info card */
-.dark .pm7-docs-info--ai {
-  background: rgba(59, 158, 255, 0.1);
-  border-color: rgba(59, 158, 255, 0.3);
-}
-
-.pm7-docs-info--ai h3 {
-  font-weight: normal;
-}
-
-.pm7-docs-info--ai p {
-  font-weight: normal;
-}
 
 /* Ensure all text in documentation panel is not bold */
 #documentation-panel p {
@@ -837,17 +820,10 @@ a.pm7-menu-item:hover {
   }
 
   .pm7-docs-sidebar {
-    position: fixed;
-    top: 64px;
-    left: -200px;
-    height: calc(100vh - 64px);
-    transition: left 0.3s ease;
-    z-index: 100;
+    /* Remove fixed positioning - let sidebar scroll with page */
+    display: none; /* Hide on mobile for now */
   }
 
-  .pm7-docs-sidebar.active {
-    left: 0;
-  }
 
   /* Overlay for mobile menu */
   .pm7-mobile-overlay {

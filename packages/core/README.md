@@ -38,6 +38,7 @@ Or use via CDN:
 
 ### Core Components
 - **Button** - 7 variants, 4 sizes, with 6stars effect on primary buttons
+- **Callout** - Highlight important information with distinctive visual styles
 - **Card** - Content containers with hover effects
 - **Input** - Text inputs with validation states
 - **Badge** - Status indicators and labels

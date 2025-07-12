@@ -293,6 +293,7 @@ export function loadSidebar() {
   const components = [
     { name: 'Accordion', componentName: 'accordion' },
     { name: 'Button', componentName: 'button' },
+    { name: 'Callout', componentName: 'callout' },
     { name: 'Card', componentName: 'card' },
     { name: 'Dialog', componentName: 'dialog' },
     { name: 'Icons', componentName: 'icons' },
@@ -320,7 +321,7 @@ export function loadSidebar() {
   const faqActiveStyle = isFaqActive ? ' style="justify-content: flex-start; background-color: var(--pm7-primary); color: var(--pm7-primary-foreground);"' : ' style="justify-content: flex-start;"';
   
   const sidebarHTML = `
-    <aside class="pm7-sidebar" style="position: sticky; top: 64px; height: calc(100vh - 64px);">
+    <aside class="pm7-sidebar">
       <div class="pm7-sidebar-content">
         <div class="pm7-sidebar-section">
           <h3 class="pm7-sidebar-section-title">Components</h3>

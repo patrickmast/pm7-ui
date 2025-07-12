@@ -82,6 +82,29 @@ Three sizes are available to fit different contexts:
 <button class="pm7-button pm7-button--primary pm7-button--lg">Large</button>
 ```
 
+### On Dark Backgrounds
+
+When placing outline or ghost buttons on dark backgrounds in light mode, use the `--on-dark` modifier for proper contrast:
+
+```html
+<!-- Outline button on dark background -->
+<button class="pm7-button pm7-button--outline pm7-button--on-dark">
+  Light Text
+</button>
+
+<!-- Ghost button on dark background -->
+<button class="pm7-button pm7-button--ghost pm7-button--on-dark">
+  Light Text
+</button>
+
+<!-- Also works with links styled as buttons -->
+<a href="#" class="pm7-button pm7-button--outline pm7-button--on-dark">
+  Navigate
+</a>
+```
+
+**Note**: This modifier is only needed in light mode. In dark mode, buttons automatically have appropriate contrast.
+
 ### States
 
 ```html
@@ -404,6 +427,8 @@ The 6stars effect is automatically added to primary and default variant buttons.
 | `pm7-button--ghost` | Ghost button (minimal styling) |
 | `pm7-button--destructive` | Destructive/danger button |
 | `pm7-button--link` | Link-style button |
+| **Modifiers** | |
+| `pm7-button--on-dark` | For outline/ghost buttons on dark backgrounds |
 | **Sizes** | |
 | `pm7-button--xs` | Extra small size |
 | `pm7-button--sm` | Small size |

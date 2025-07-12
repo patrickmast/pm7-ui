@@ -140,6 +140,27 @@ a.pm7-button--primary:focus {
   color: var(--pm7-foreground);
 }
 
+/* On Dark Background Modifier - for buttons on dark backgrounds in light mode */
+.pm7-button--on-dark.pm7-button--outline {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.pm7-button--on-dark.pm7-button--outline:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.pm7-button--on-dark.pm7-button--ghost {
+  color: white;
+}
+
+.pm7-button--on-dark.pm7-button--ghost:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
 /* Destructive */
 .pm7-button--destructive {
   background-color: var(--pm7-error);

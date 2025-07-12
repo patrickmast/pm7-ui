@@ -197,6 +197,24 @@
                 </div>
               </div>
             </div>
+            <div class="pm7-docs-example">
+              <h3>
+                Buttons on Dark Background
+                <button class="pm7-button pm7-button--ghost pm7-button--sm pm7-info-dialog-trigger" data-dialog-id="button-on-dark-info" aria-label="Info about buttons on dark backgrounds">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                </button>
+              </h3>
+              <div class="pm7-docs-preview" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 2rem; border-radius: var(--pm7-radius);">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                  <button class="pm7-button pm7-button--outline pm7-button--on-dark">Outline on Dark</button>
+                  <button class="pm7-button pm7-button--ghost pm7-button--on-dark">Ghost on Dark</button>
+                  <a href="#" class="pm7-button pm7-button--outline pm7-button--on-dark">Link on Dark</a>
+                </div>
+              </div>
+            </div>
 
             <div class="pm7-docs-example">
               <h3>
@@ -312,6 +330,10 @@
                 <tr>
                   <td><code>.pm7-button--icon</code></td>
                   <td>Icon-only button (square shape, no padding)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--on-dark</code></td>
+                  <td>For outline/ghost buttons on dark backgrounds (light mode only)</td>
                 </tr>
                 <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Structure Classes</strong></td>
@@ -549,7 +571,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
               </div>
             </div>
             
-            <div class="pm7-docs-info pm7-docs-info--ai">
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
               <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
               <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Button implementation guidance.</p>
               <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
@@ -812,6 +834,34 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
 
       <div class="pm7-info-dialog-item">
         <p style="font-style: italic; margin-top: 16px;">Width modifier: --full</p>
+      </div>
+    </div>
+  </div>
+  <div data-pm7-dialog="button-on-dark-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Buttons on Dark Backgrounds"></span>
+      <span data-pm7-dialog-subtitle="Ensure proper contrast in light mode"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Usage</h4>
+        <p>Use the <code>--on-dark</code> modifier for outline and ghost buttons on dark backgrounds in light mode</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--outline pm7-button--on-dark"&gt;
+  Outline on Dark
+&lt;/button&gt;
+
+&lt;button class="pm7-button pm7-button--ghost pm7-button--on-dark"&gt;
+  Ghost on Dark
+&lt;/button&gt;</code></pre>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>When to use</h4>
+        <p>• Hero sections with dark backgrounds</p>
+        <p>• Dark cards or panels in light mode</p>
+        <p>• Marketing pages with dark sections</p>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Note: This modifier is only needed in light mode. Dark mode automatically handles contrast.</p>
       </div>
     </div>
   </div>

@@ -8,13 +8,6 @@
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   <link rel="stylesheet" href="/styles/docs.css">
   <link rel="stylesheet" href="/styles/hero-new.css">
-  <style>
-    /* Force white text on outline buttons in hero for light mode */
-    body:not(.dark) .pm7-docs-hero .pm7-button--outline,
-    body:not(.dark) .pm7-docs-hero a.pm7-button--outline {
-      color: white !important;
-    }
-  </style>
   <script>
     // Prevent dark mode flicker - must run before page renders
     (function() {
@@ -45,10 +38,10 @@
         <a href="/getting-started.html" class="pm7-button pm7-button--primary pm7-button--lg">
           Get Started
         </a>
-        <a href="/components.html" class="pm7-button pm7-button--outline pm7-button--lg">
+        <a href="/components.html" class="pm7-button pm7-button--outline pm7-button--on-dark pm7-button--lg">
           Components
         </a>
-        <a href="/ai-guide.html" class="pm7-button pm7-button--outline pm7-button--lg">
+        <a href="/ai-guide.html" class="pm7-button pm7-button--outline pm7-button--on-dark pm7-button--lg">
           AI Guide
         </a>
       </div>

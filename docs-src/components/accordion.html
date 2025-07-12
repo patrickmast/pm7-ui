@@ -995,10 +995,10 @@ const accordion = new PM7Accordion(element, {
             <pre><code class="language-bash">npm install @pm7/core</code></pre>
             
             <h3>Important Implementation Notes</h3>
-            <div class="pm7-card" style="background: var(--pm7-warning-light, #FFF4E5); border: 1px solid var(--pm7-warning, #FB8C00); margin: 1rem 0;">
-              <div class="pm7-card-body">
-                <h4 style="margin: 0 0 0.5rem 0; color: var(--pm7-warning-dark, #E65100);">⚠️ Common Issues & Solutions</h4>
-                <ul style="margin: 0; padding-left: 1.5rem;">
+            <div class="pm7-callout pm7-callout--warning">
+              <h4 class="pm7-callout-header">⚠️ Common Issues & Solutions</h4>
+              <div class="pm7-callout-body">
+                <ul>
                   <li><strong>Content structure</strong>: Always wrap content in <code>pm7-accordion-content-inner</code></li>
                   <li><strong>JavaScript loading</strong>: Include <code>&lt;script type="module" src="@pm7/core/dist/pm7.js"&gt;&lt;/script&gt;</code></li>
                   <li><strong>Full width</strong>: Use <code>pm7-accordion--width-max</code> to remove width constraints</li>
@@ -1346,7 +1346,7 @@ accordion.toggle(0);    // Toggle specific item</code></pre>
               </div>
             </div>
             
-            <div class="pm7-docs-info pm7-docs-info--ai">
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
               <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
               <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Accordion implementation guidance.</p>
               <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
