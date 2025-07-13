@@ -4,8 +4,8 @@
 export function loadHeader() {
   const headerHTML = `
   <nav class="pm7-docs-nav">
-    <div class="pm7-docs-nav-inner" style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
-      <!-- Left side: Menu button and Theme Switch -->
+    <div class="pm7-docs-nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
+      <!-- Left side: Menu button and Logo -->
       <div style="display: flex; align-items: center; gap: var(--pm7-spacing-3);">
         <!-- PM7 Menu Component -->
         <div class="pm7-menu pm7-docs-header-menu" data-pm7-menu>
@@ -200,18 +200,15 @@ export function loadHeader() {
           </div>
         </div>
         
-        <!-- Theme Switch -->
-        <div data-pm7-theme-switch class="pm7-theme-switch--sm"></div>
+        <!-- Logo -->
+        <a href="/" class="pm7-docs-logo" style="text-align: left;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: inline-block; vertical-align: middle; margin-right: 2px; fill: var(--pm7-primary);"><path d="M27 15a3 3 0 0 0-3-3h-5V3a3 3 0 1 0-6 0v9H8a3 3 0 0 0-3 3v6h2L6 32h20l-1-11h2zm-6 15v-6h-1v6h-6v-6h-1v6h-1v-8h-1v8H8.19l.909-10h13.802l.909 10zm4-11H7v-4c0-.551.449-1 1-1h7V3c0-.551.449-1 1-1s1 .449 1 1v11h7c.551 0 1 .449 1 1z"/></svg>
+          pm7-ui
+        </a>
       </div>
 
-      <!-- Center: Logo -->
-      <a href="/" class="pm7-docs-logo" style="text-align: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: inline-block; vertical-align: middle; margin-right: 2px; fill: var(--pm7-primary);"><path d="M27 15a3 3 0 0 0-3-3h-5V3a3 3 0 1 0-6 0v9H8a3 3 0 0 0-3 3v6h2L6 32h20l-1-11h2zm-6 15v-6h-1v6h-6v-6h-1v6h-1v-8h-1v8H8.19l.909-10h13.802l.909 10zm4-11H7v-4c0-.551.449-1 1-1h7V3c0-.551.449-1 1-1s1 .449 1 1v11h7c.551 0 1 .449 1 1z"/></svg>
-        pm7-ui
-      </a>
-
       <!-- Right side: Navigation menu -->
-      <ul class="pm7-docs-nav-menu" style="justify-self: end;">
+      <ul class="pm7-docs-nav-menu">
         <li><a href="/" class="${window.location.pathname === '/' ? 'active' : ''}">Home</a></li>
         <li><a href="/getting-started.html" class="${window.location.pathname === '/getting-started.html' ? 'active' : ''}">Getting Started</a></li>
         <li><a href="/components.html" class="${window.location.pathname.startsWith('/components') ? 'active' : ''}">Components</a></li>

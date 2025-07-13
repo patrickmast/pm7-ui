@@ -283,7 +283,7 @@ import '@pm7/core/dist/pm7.css';
 PM7 is the first UI library built specifically for AI coding agents. Give your AI assistant this link for complete documentation:
 
 ```
-https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md
+https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md
 ```
 
 ## Browser Support

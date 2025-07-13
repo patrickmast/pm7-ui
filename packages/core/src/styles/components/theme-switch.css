@@ -7,7 +7,7 @@
   --pm7-theme-switch-height: 28px;
   --pm7-theme-switch-thumb-size: 24px;
   --pm7-theme-switch-gap: 10px;
-  --pm7-theme-switch-transition: all 0.2s ease-in-out;
+  --pm7-theme-switch-transition: all 0.1s ease;
 }
 
 /* Container */
@@ -147,7 +147,7 @@
 /* Animation for smooth theme switching */
 @media (prefers-reduced-motion: no-preference) {
   .pm7-theme-switch-thumb {
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: transform 0.1s ease, background-color 0.1s ease;
   }
 }
 
@@ -204,14 +204,26 @@
   height: 40px;
   border-radius: 50%;
   background: var(--pm7-surface);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--pm7-border);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .pm7-theme-switch--fixed-icon .pm7-theme-switch-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--pm7-primary);
+}
+
+/* Dark mode adjustments for fixed icon */
+.dark .pm7-theme-switch--fixed-icon .pm7-theme-switch-button {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-color: var(--pm7-border);
+}
+
+.dark .pm7-theme-switch--fixed-icon .pm7-theme-switch-button:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  border-color: var(--pm7-primary);
 }
 
 /* Adjust thumb for icon-only variant */

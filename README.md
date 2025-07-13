@@ -76,15 +76,15 @@ See [TypeScript documentation](packages/core/TYPESCRIPT.md) for complete details
 Give your AI agent this documentation:
 
 ```
-https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md
+https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md
 ```
 
-The AI-README contains complete technical documentation, examples, and patterns optimized for AI code generation.
+The README-AI contains complete technical documentation, examples, and patterns optimized for AI code generation.
 
 ## Documentation
 
 - **Website**: [pm7-ui.dev](https://pm7-ui.dev) - Interactive examples and guides
-- **AI Documentation**: [AI-README.md](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/AI-README.md) - Technical reference for AI agents
+- **AI Documentation**: [README-AI.md](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md) - Technical reference for AI agents
 - **TypeScript Guide**: [TYPESCRIPT.md](packages/core/TYPESCRIPT.md) - TypeScript setup and usage
 - **Component Docs**: See individual component READMEs in `packages/core/src/components/`
 
