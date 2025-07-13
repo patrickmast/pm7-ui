@@ -16,246 +16,232 @@
       }
     })();
   </script>
+  <style>
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--pm7-primary);
+      color: white;
+      font-weight: bold;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+    
+    .step-container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    
+    .copy-box {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+    
+    .copy-box:hover {
+      border-color: var(--pm7-primary);
+      background: var(--pm7-background);
+    }
+    
+    .copy-box.copied {
+      border-color: var(--pm7-success);
+    }
+    
+    .prompt-example {
+      background: var(--pm7-surface);
+      border-left: 3px solid var(--pm7-primary);
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-style: italic;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .tip-box {
+      background: var(--pm7-info-bg, var(--pm7-primary-bg));
+      border: 1px solid var(--pm7-info-border, var(--pm7-primary));
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .tip-box h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-info-foreground, var(--pm7-primary));
+    }
+  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
 
   <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
-    <h1>Getting Started</h1>
-    <p class="pm7-docs-lead">Get up and running with pm7-ui - The First UI Library Built for AI Coding Agents.</p>
+    <h1>Get Your AI Agent Started with PM7-UI</h1>
+    <p class="pm7-docs-lead">The quickest way to build beautiful UIs with your AI coding assistant.</p>
     
     <section style="margin-top: 60px;">
-      <h2>Installation</h2>
-      <p>pm7-ui provides a single package that works with ALL frameworks:</p>
-      
-      <h3>NPM Installation</h3>
-      <pre><code>npm install @pm7/core</code></pre>
-      
-      <h3>CDN Installation</h3>
-      <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core@<span data-pm7-version>2.0.0</span>/dist/pm7.css"&gt;
-&lt;script src="https://unpkg.com/@pm7/core@<span data-pm7-version>2.0.0</span>/dist/pm7.js"&gt;&lt;/script&gt;</code></pre>
-      
-      <p>That's it! One package works with React, Vue, Angular, Svelte, or vanilla HTML.</p>
+      <div class="step-container">
+        <span class="step-number">1</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Give Your AI Agent the Documentation</h2>
+          <p>Copy and paste this message to your AI assistant (ChatGPT, Claude, Copilot, etc.):</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'We\'re using pm7-ui for our UI. Here\'s the documentation: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md')">
+            We're using pm7-ui for our UI. Here's the documentation: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md
+          </div>
+          
+          <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">
+            This single link contains everything your AI needs to know about PM7-UI components, patterns, and best practices.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-container">
+        <span class="step-number">2</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Install PM7-UI in Your Project</h2>
+          <p>Have your AI run this command in your project:</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'npm install @pm7/core')">
+            npm install @pm7/core
+          </div>
+          
+          <p>Then import the CSS (your AI will know where to put this):</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'import \'@pm7/core/dist/pm7.css\';')">
+            import '@pm7/core/dist/pm7.css';
+          </div>
+        </div>
+      </div>
+
+      <div class="step-container">
+        <span class="step-number">3</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Start Building with Natural Language</h2>
+          <p>Now you can ask your AI to build UI components using simple prompts:</p>
+          
+          <div class="prompt-example">
+            "Add a primary button that saves the form"
+          </div>
+          
+          <div class="prompt-example">
+            "Create a card with a header 'User Profile' and show the user data inside"
+          </div>
+          
+          <div class="prompt-example">
+            "Add a dropdown menu with options: Edit, Delete, Share"
+          </div>
+          
+          <div class="prompt-example">
+            "Show a success toast notification when the save is complete"
+          </div>
+          
+          <p>Your AI knows all PM7-UI components and will generate the correct code for your framework!</p>
+        </div>
+      </div>
     </section>
     
     <section style="margin-top: 60px;">
-      <h2>Basic Usage</h2>
+      <h2>Working with Specific Components</h2>
+      <p>Need your AI to work with a specific component? Give it the direct documentation:</p>
       
-      <h3>Step 1: Import the CSS</h3>
-      <pre><code>&lt;!-- In your HTML --&gt;
-&lt;link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css"&gt;
-
-// Or in JavaScript (React, Vue, etc.)
-import '@pm7/core/dist/pm7.css';</code></pre>
+      <div class="tip-box">
+        <h4>💡 Pro Tip</h4>
+        <p>Visit our <a href="/readme-links.html">README Links</a> page to get copy-paste ready documentation URLs for all components. Your AI will appreciate the direct links!</p>
+      </div>
       
-      <h3>Step 2: Use PM7 Components</h3>
-      <p>PM7 components work with simple CSS classes in ANY framework:</p>
-      
-      <h4>Vanilla HTML</h4>
-      <pre><code>&lt;button class="pm7-button pm7-button--primary"&gt;
-  Click me
-&lt;/button&gt;
-
-&lt;div class="pm7-card"&gt;
-  &lt;div class="pm7-card-header"&gt;Card Title&lt;/div&gt;
-  &lt;div class="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-      
-      <h4>React</h4>
-      <pre><code>function App() {
-  return (
-    &lt;div&gt;
-      &lt;button className="pm7-button pm7-button--primary" onClick={() => alert('Clicked!')}&gt;
-        Click me
-      &lt;/button&gt;
-      
-      &lt;div className="pm7-card"&gt;
-        &lt;div className="pm7-card-header"&gt;Card Title&lt;/div&gt;
-        &lt;div className="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
-      
-      <h4>Vue</h4>
-      <pre><code>&lt;template&gt;
-  &lt;div&gt;
-    &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
-      Click me
-    &lt;/button&gt;
-    
-    &lt;div class="pm7-card"&gt;
-      &lt;div class="pm7-card-header"&gt;Card Title&lt;/div&gt;
-      &lt;div class="pm7-card-body"&gt;Card content goes here.&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/template&gt;</code></pre>
-      
-      <h3>Step 3: Interactive Components (Optional)</h3>
-      <p>Interactive components like menus and dialogs auto-initialize. For manual control:</p>
-      <pre><code>&lt;script type="module"&gt;
-  import '@pm7/core';
-  
-  // Everything auto-initializes!
-  // Or manually initialize after adding dynamic content:
-  PM7.init();
-&lt;/script&gt;</code></pre>
+      <p>Example for the Menu component:</p>
+      <div class="copy-box" onclick="copyToClipboard(this, 'Implement a dropdown menu using: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/menu/README.md')">
+        Implement a dropdown menu using: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/menu/README.md
+      </div>
     </section>
     
     <section style="margin-top: 60px;">
-      <h2>TypeScript Support</h2>
-      <p>pm7-ui includes full TypeScript support with type definitions for all components.</p>
+      <h2>Tips for Success</h2>
       
-      <h3>Setup</h3>
-      <p>TypeScript types are automatically included when you install <code>@pm7/core</code>. No additional packages needed!</p>
-      
-      <h3>Using Component Instances</h3>
-      <p>Create and use component instances:</p>
-      <pre><code>// Access tab selector instance
-const tabElement = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
-const tabs = new PM7TabSelector(tabElement);
-tabs.selectTabById('settings-tab');
-const activeTab = tabs.getActiveTab();
-
-// Menu instance
-const menuElement = document.querySelector('[data-pm7-menu]') as HTMLElement;
-const menu = new PM7Menu(menuElement);
-menu.open();
-
-// Tooltip instance
-const tooltipElement = document.querySelector('.pm7-tooltip') as HTMLElement;
-const tooltip = new PM7Tooltip(tooltipElement);
-tooltip.updatePosition();</code></pre>
-      
-      <h3>Typed Utilities</h3>
-      <pre><code>import { showToast, confirm, createDialog } from '@pm7/core';
-
-// Fully typed toast options
-const toast = showToast({
-  message: 'Operation successful',
-  type: 'success',
-  duration: 3000,
-  position: 'top-right'
-});
-
-// Async confirmation dialogs
-const userConfirmed = await confirm('Delete this item?');
-if (userConfirmed) {
-  // Proceed with deletion
-}</code></pre>
-      
-      <p>See the <a href="https://github.com/patrickmast/pm7-ui/blob/main/packages/core/TYPESCRIPT.md">TypeScript documentation</a> for complete API reference and examples.</p>
-    </section>
-    
-    <section style="margin-top: 60px;">
-      <h2>Customization</h2>
-      <p>pm7-ui uses CSS custom properties (variables) for theming. You can customize colors, spacing, and more:</p>
-      
-      <h3>Override CSS Variables</h3>
-      <pre><code>:root {
-  /* Custom primary color */
-  --pm7-primary: #your-color;
-  --pm7-primary-hover: #your-hover-color;
-  
-  /* Custom spacing */
-  --pm7-spacing-unit: 0.25rem;
-  
-  /* Custom fonts */
-  --pm7-font-sans: 'Your Font', sans-serif;
-}</code></pre>
-      
-      <h3>Dark Mode</h3>
-      <p>pm7-ui includes comprehensive dark mode support with automatic theme detection and a built-in Theme Switch component. All components automatically adapt to dark mode.</p>
-      
-      <h4>Automatic Theme Detection</h4>
-      <p>pm7-ui automatically detects the user's system preference using <code>prefers-color-scheme</code>. No setup required!</p>
-      
-      <h4>Theme Switch Component</h4>
-      <p>Add a theme toggle to let users switch between light and dark modes:</p>
-      <pre><code>&lt;!-- Basic theme switch --&gt;
-&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
-  &lt;span&gt;Theme&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- Small size variant --&gt;
-&lt;div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
-      
-      <h4>Preventing Dark Mode Flicker</h4>
-      <p><strong>Important:</strong> To prevent a flash of light mode when loading dark mode, add this script to your <code>&lt;head&gt;</code> before any stylesheets:</p>
-      <pre><code>&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  
-  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
-  &lt;script&gt;
-    (function() {
-      const savedTheme = localStorage.getItem('pm7-theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  &lt;/script&gt;
-  
-  &lt;!-- Your stylesheets come AFTER the script --&gt;
-  &lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
-&lt;/head&gt;</code></pre>
-      
-      <h4>Manual Theme Control</h4>
-      <p>You can also manually control the theme by adding/removing the <code>dark</code> class:</p>
-      <pre><code>// Toggle dark mode programmatically
-document.documentElement.classList.toggle('dark');
-
-// Or set explicitly
-document.documentElement.classList.add('dark');    // Enable dark mode
-document.documentElement.classList.remove('dark'); // Enable light mode</code></pre>
-      
-      <h4>Custom Dark Mode Colors</h4>
-      <p>Override dark mode colors using CSS variables:</p>
-      <pre><code>.dark {
-  /* Custom dark mode colors */
-  --pm7-background: #0a0a0a;
-  --pm7-foreground: #fafafa;
-  --pm7-primary: #3b9eff;
-}</code></pre>
-      
-      <h4>Dark Mode Best Practices</h4>
-      <p>When implementing dark mode in your application, follow these best practices we've learned:</p>
+      <h3>✅ Do:</h3>
       <ul>
-        <li><strong>Use CSS variables everywhere</strong> - Never hardcode colors. Use <code>var(--pm7-surface)</code> instead of <code>white</code> or <code>#ffffff</code></li>
-        <li><strong>Test all pages</strong> - Dark mode should work consistently across your entire application</li>
-        <li><strong>Define link colors</strong> - Don't rely on browser defaults. Set link colors explicitly:
-          <pre><code>a { color: var(--pm7-primary); }
-.dark a { color: var(--pm7-primary); }
-.dark a:visited { color: var(--pm7-primary); }</code></pre>
-        </li>
-        <li><strong>Check inline styles</strong> - Replace inline <code>style="background: white"</code> with CSS variables</li>
-        <li><strong>Test component states</strong> - Verify hover, focus, active, and disabled states in both themes</li>
-        <li><strong>Avoid CSS conflicts</strong> - Be careful with global selectors that might override dark mode styles</li>
+        <li>Give your AI the main documentation link at the start of your session</li>
+        <li>Use natural language to describe what you want to build</li>
+        <li>Reference specific component docs when needed</li>
+        <li>Let your AI handle the implementation details</li>
+      </ul>
+      
+      <h3>❌ Don't:</h3>
+      <ul>
+        <li>Try to memorize CSS classes (that's your AI's job)</li>
+        <li>Write component code manually</li>
+        <li>Worry about framework-specific syntax</li>
       </ul>
     </section>
     
     <section style="margin-top: 60px;">
-      <h2>Browser Support</h2>
-      <p>pm7-ui supports all modern browsers:</p>
-      <ul>
-        <li>Chrome (last 2 versions)</li>
-        <li>Firefox (last 2 versions)</li>
-        <li>Safari (last 2 versions)</li>
-        <li>Edge (last 2 versions)</li>
-      </ul>
+      <h2>Troubleshooting</h2>
+      
+      <div class="pm7-card">
+        <div class="pm7-card-header">
+          <h3 style="margin: 0;">My AI doesn't know about PM7-UI</h3>
+        </div>
+        <div class="pm7-card-body">
+          <p>Make sure you've given it the documentation URL. Some AI assistants might need a reminder:</p>
+          <div class="copy-box" onclick="copyToClipboard(this, 'Please read this PM7-UI documentation first: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md')">
+            Please read this PM7-UI documentation first: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI.md
+          </div>
+        </div>
+      </div>
+      
+      <div class="pm7-card" style="margin-top: 1rem;">
+        <div class="pm7-card-header">
+          <h3 style="margin: 0;">My AI is using React component syntax</h3>
+        </div>
+        <div class="pm7-card-body">
+          <p>Remind your AI that PM7-UI uses CSS classes, not React components:</p>
+          <div class="copy-box" onclick="copyToClipboard(this, 'Remember: PM7-UI uses CSS classes like pm7-button, not React components. It works with ALL frameworks.')">
+            Remember: PM7-UI uses CSS classes like pm7-button, not React components. It works with ALL frameworks.
+          </div>
+        </div>
+      </div>
     </section>
     
     <section style="margin-top: 60px;">
       <h2>Next Steps</h2>
-      <p>Now that you've installed pm7-ui, check out:</p>
-      <ul>
-        <li><a href="/components.html">Component documentation</a> - See all available components</li>
-        <li><a href="https://github.com/patrickmast/pm7-ui/blob/main/packages/core/TYPESCRIPT.md">TypeScript guide</a> - Complete TypeScript API reference</li>
-        <li><a href="/ai-guide.html">AI Guide</a> - Learn how to use pm7-ui with AI coding agents</li>
-        <li><a href="https://github.com/patrickmast/pm7-ui">GitHub repository</a> - Source code and issues</li>
-      </ul>
+      <div class="pm7-button-group">
+        <a href="/components.html" class="pm7-button pm7-button--primary">
+          Browse Components
+        </a>
+        <a href="/ai-guide.html" class="pm7-button pm7-button--outline">
+          Advanced AI Guide
+        </a>
+        <a href="/readme-links.html" class="pm7-button pm7-button--outline">
+          Get Component Links
+        </a>
+      </div>
     </section>
   </div>
+
+  <script>
+    function copyToClipboard(element, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        element.classList.add('copied');
+        const originalHTML = element.innerHTML;
+        element.innerHTML = '✓ Copied to clipboard!';
+        
+        setTimeout(() => {
+          element.classList.remove('copied');
+          element.innerHTML = originalHTML;
+        }, 2000);
+      });
+    }
+  </script>
 
   <script type="module" src="/scripts/docs.js"></script>
 
