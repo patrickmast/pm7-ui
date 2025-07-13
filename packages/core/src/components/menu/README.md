@@ -999,12 +999,18 @@ When using PM7 button classes on menu triggers, be aware that button styles have
 <button class="pm7-menu-trigger pm7-button pm7-button--ghost">
   File
 </button>
+
+<!-- Menu triggers with borders (e.g., outline buttons) -->
+<button class="pm7-menu-trigger pm7-button pm7-button--outline">
+  Menu
+</button>
 ```
 
 **Important**: The menu component CSS accounts for this by using higher specificity selectors:
 - `.pm7-menu-trigger.pm7-button` overrides base button styles
 - `.pm7-menu-trigger.pm7-button--ghost` overrides ghost button hover styles
 - Transitions are disabled for instant menu feedback
+- **Border preservation**: Menu triggers with button classes that have borders (like `pm7-button--outline` and `pm7-button--secondary`) will keep their borders. The generic `border: none` rule only applies to plain menu triggers without these specific button classes.
 
 If you create custom button variants, ensure menu triggers still get proper hover styling.
 

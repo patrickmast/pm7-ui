@@ -61,9 +61,13 @@
   cursor: pointer;
   padding: var(--pm7-spacing-2);
   background: transparent;
-  border: none;
   border-radius: var(--pm7-radius);
   color: var(--pm7-foreground);
+}
+
+/* Only remove border when not using button classes that have borders */
+.pm7-menu-trigger:not(.pm7-button--outline):not(.pm7-button--secondary) {
+  border: none;
 }
 
 /* Override button transition for instant menu feedback */

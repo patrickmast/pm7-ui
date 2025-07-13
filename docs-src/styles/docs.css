@@ -718,20 +718,7 @@ a.pm7-menu-item:hover {
   position: relative;
 }
 
-.pm7-docs-menu-trigger {
-  width: 32px;
-  height: 32px;
-  padding: 0 !important;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  background: transparent;
-}
-
-.pm7-docs-menu-trigger:hover {
-  border-color: var(--pm7-border);
-}
+/* Menu trigger now uses pm7-button classes */
 
 
 /* Submenu wrapper for positioning */
