@@ -204,6 +204,11 @@
   box-shadow: var(--pm7-shadow-lg);
 }
 
+/* Card with dropdown - removes overflow:hidden to prevent clipping */
+.pm7-card--with-dropdown {
+  overflow: visible;
+}
+
 /* Status cards */
 .pm7-card--success {
   border-color: var(--pm7-success);

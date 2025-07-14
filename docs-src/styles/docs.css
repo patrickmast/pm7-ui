@@ -91,6 +91,7 @@ body.pm7-navigating .pm7-docs-sidebar a {
 .pm7-docs-header-menu {
   position: relative;
   z-index: 10;
+  overflow: visible; /* Allow gradient border to extend outside */
 }
 
 @media (max-width: 768px) {
@@ -1221,4 +1222,187 @@ pre code {
   font-family: var(--pm7-font-mono);
   background: none;
   padding: 0;
+}
+
+/* Menu trigger with gradient border on hover */
+.pm7-menu-trigger--gradient-hover {
+  position: relative;
+  z-index: 0;
+  isolation: isolate; /* Create a new stacking context */
+  overflow: visible !important; /* Ensure gradient border is visible */
+}
+
+/* Force pointer cursor on all states - target button element directly */
+button.pm7-menu-trigger--gradient-hover,
+button.pm7-menu-trigger--gradient-hover:hover,
+button.pm7-menu-trigger--gradient-hover:focus,
+button.pm7-menu-trigger--gradient-hover:active,
+.pm7-button.pm7-menu-trigger--gradient-hover,
+.pm7-button.pm7-menu-trigger--gradient-hover:hover,
+.pm7-button.pm7-menu-trigger--gradient-hover:focus,
+.pm7-button.pm7-menu-trigger--gradient-hover:active {
+  cursor: pointer !important;
+}
+
+/* Always show gradient border but with opacity 0 */
+.pm7-menu-trigger--gradient-hover::before {
+  content: '';
+  position: absolute;
+  inset: -1px; /* Position 1px outside to align with normal border */
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--pm7-gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: -1; /* Put gradient behind everything */
+}
+
+/* Show gradient on hover/active */
+.pm7-menu-trigger--gradient-hover:hover::before,
+.pm7-menu-trigger--gradient-hover[aria-expanded="true"]::before {
+  opacity: 1;
+}
+
+/* Prevent background change on hover - keep border visible */
+.pm7-menu-trigger--gradient-hover:hover {
+  background-color: transparent !important;
+  /* Keep normal border - gradient will overlay it */
+}
+
+/* Ensure button content stays above gradient border */
+.pm7-menu-trigger--gradient-hover > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Also ensure text nodes stay visible */
+.pm7-menu-trigger--gradient-hover {
+  color: var(--pm7-foreground) !important;
+}
+
+/* Demo Card Styles */
+.pm7-demo-card {
+  margin-bottom: var(--pm7-spacing-6);
+}
+
+/* Use card-content instead of card-header to avoid separator */
+.pm7-demo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--pm7-spacing-4);
+}
+
+.pm7-demo-card-info {
+  flex: 1;
+}
+
+.pm7-demo-card-info .pm7-card-title {
+  margin: 0 0 var(--pm7-spacing-2) 0;
+}
+
+.pm7-demo-card-info .pm7-card-description {
+  margin: 0;
+}
+
+.pm7-demo-card-actions {
+  display: flex;
+  gap: var(--pm7-spacing-2);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .pm7-demo-card-header {
+    flex-direction: column;
+  }
+  
+  .pm7-demo-card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Demo Accordion Styles */
+.pm7-demo-accordion {
+  margin-bottom: var(--pm7-spacing-6);
+}
+
+/* Simple variant without description */
+.pm7-demo-accordion--simple .pm7-demo-accordion-description {
+  display: none;
+}
+
+.pm7-demo-accordion--simple .pm7-demo-accordion-title {
+  margin-bottom: 0;
+}
+
+/* Let PM7 accordion handle most styling, just override what's needed */
+.pm7-demo-accordion .pm7-accordion-trigger {
+  font-weight: normal;
+}
+
+.pm7-demo-accordion .pm7-accordion-trigger:hover {
+  background: var(--pm7-muted);
+}
+
+/* Keep primary color for title on hover */
+.pm7-demo-accordion .pm7-accordion-trigger:hover .pm7-demo-accordion-title {
+  color: var(--pm7-primary);
+}
+
+.pm7-demo-accordion .pm7-accordion-content {
+  padding: 0;
+}
+
+.pm7-demo-accordion .pm7-accordion-content-inner {
+  padding: 0;
+}
+
+
+.pm7-demo-accordion-info {
+  text-align: left;
+}
+
+.pm7-demo-accordion-title {
+  display: block;
+  font-size: var(--pm7-text-lg);
+  font-weight: var(--pm7-font-semibold);
+  color: var(--pm7-primary);
+  margin: 0 0 var(--pm7-spacing-1) 0;
+}
+
+.pm7-demo-accordion-description {
+  display: block;
+  font-size: var(--pm7-text-sm);
+  color: var(--pm7-muted-foreground);
+  margin: 0;
+}
+
+
+.pm7-demo-accordion-full-description {
+  margin: 0 0 var(--pm7-spacing-4) 0;
+  color: var(--pm7-muted-foreground);
+}
+
+.pm7-demo-iframe-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.pm7-demo-iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .pm7-demo-iframe {
+    height: 300px;
+  }
 }

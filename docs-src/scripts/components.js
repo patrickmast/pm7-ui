@@ -9,15 +9,15 @@ export function loadHeader() {
       <div style="display: flex; align-items: center; gap: var(--pm7-spacing-3);">
         <!-- PM7 Menu Component -->
         <div class="pm7-menu pm7-docs-header-menu" data-pm7-menu>
-          <button class="pm7-menu-trigger pm7-button pm7-button--outline pm7-button--sm" aria-label="Toggle menu" aria-expanded="false" style="display: inline-flex; align-items: center;">
+          <button class="pm7-menu-trigger pm7-button pm7-button--outline pm7-button--sm pm7-menu-trigger--gradient-hover" aria-label="Toggle menu" aria-expanded="false" style="display: inline-flex; align-items: center; cursor: pointer;">
             <svg width="16" height="16" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
               <rect width="18" height="2.5" rx="1.25" fill="currentColor"/>
               <rect y="6.25" width="18" height="2.5" rx="1.25" fill="currentColor"/>
               <rect y="12.5" width="18" height="2.5" rx="1.25" fill="currentColor"/>
             </svg>
-            Menu
+            <span>Menu</span>
           </button>
-          <div class="pm7-menu-content pm7-menu-content--start">
+          <div class="pm7-menu-content pm7-menu-content--start pm7-gradient-border">
             <a href="/" class="pm7-menu-item">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

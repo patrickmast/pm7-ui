@@ -27,3 +27,4 @@
 
 /* Import utilities */
 @import './utilities/helpers.css';
+@import './utilities/gradient-border.css';

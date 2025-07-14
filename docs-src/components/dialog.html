@@ -280,6 +280,24 @@
               </div>
             </div>
 
+            <div class="pm7-docs-example">
+              <h3>Gradient Border Dialogs</h3>
+              <div class="pm7-docs-preview" style="gap: 1rem; flex-wrap: wrap;">
+                <button class="pm7-button pm7-button--primary" onclick="openDialog('gradient-dialog')">
+                  Default Gradient Dialog
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="openDialog('gradient-blue-dialog')">
+                  Blue Gradient Dialog
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="openDialog('gradient-green-dialog')">
+                  Green Gradient Dialog
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="openDialog('gradient-thick-dialog')">
+                  Thick Gradient Border
+                </button>
+              </div>
+            </div>
+
           </section>
         </div>
 
@@ -1336,6 +1354,107 @@ pm7Confirm('Are you sure?', (confirmed) => {
     <div data-pm7-body>
       <p>This dialog has a header and body section, but no footer with actions.</p>
       <p style="color: var(--pm7-muted-foreground); font-size: 14px; margin-top: 12px;">The user can close it using the X button or by clicking outside.</p>
+    </div>
+  </div>
+
+  <!-- Gradient Border Dialogs -->
+  <!-- Default Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border">
+      <div data-pm7-header
+           data-pm7-dialog-title="Gradient Border Dialog"
+           data-pm7-dialog-subtitle="Beautiful gradient border effect"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog features a stunning gradient border that transitions from purple to yellow to orange. The gradient effect is achieved using the <code>pm7-gradient-border</code> class on the dialog content.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--ghost" onclick="closeDialog('gradient-dialog')">
+          Cancel
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="closeDialog('gradient-dialog')">
+          Looks Great!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blue Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-blue-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-blue">
+      <div data-pm7-header
+           data-pm7-dialog-title="Blue Gradient Dialog"
+           data-pm7-dialog-icon="info"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog uses the <code>pm7-gradient-border-blue</code> variant for a cool blue gradient effect.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--outline" onclick="closeDialog('gradient-blue-dialog')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Green Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-green-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-green">
+      <div data-pm7-header
+           data-pm7-dialog-title="Success!"
+           data-pm7-dialog-icon="success"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>Operation completed successfully with a fresh green gradient border.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--primary" onclick="closeDialog('gradient-green-dialog')">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thick Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-thick-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-4">
+      <div data-pm7-header
+           data-pm7-dialog-title="Thick Gradient Border"
+           data-pm7-dialog-subtitle="4px gradient border for extra emphasis"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog demonstrates a thicker gradient border using the <code>pm7-gradient-border-4</code> class. The 4px border creates a more prominent visual effect.</p>
+        <p style="margin-top: 1rem;">You can combine different gradient colors with different thicknesses:</p>
+        <ul style="margin-top: 0.5rem;">
+          <li><code>pm7-gradient-border</code> - 1px (default)</li>
+          <li><code>pm7-gradient-border-2</code> - 2px</li>
+          <li><code>pm7-gradient-border-4</code> - 4px</li>
+        </ul>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--ghost" onclick="closeDialog('gradient-thick-dialog')">
+          Close
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="closeDialog('gradient-thick-dialog')">
+          Got it!
+        </button>
+      </div>
     </div>
   </div>
 

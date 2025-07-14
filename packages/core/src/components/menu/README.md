@@ -841,6 +841,51 @@ PM7 menus can be customized using CSS custom properties:
 }
 ```
 
+### Gradient Borders
+
+PM7 menus support gradient borders using the standard gradient border utility class:
+
+```html
+<!-- Menu with gradient border -->
+<div class="pm7-menu-content pm7-gradient-border">
+  <!-- Menu items -->
+</div>
+```
+
+The gradient border works perfectly with menu dropdowns without interfering with positioning or z-index stacking.
+
+#### Available Gradient Colors
+
+```html
+<!-- Default purple-yellow-orange gradient -->
+<div class="pm7-menu-content pm7-gradient-border">
+
+<!-- Blue gradient -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-blue">
+
+<!-- Green gradient -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-green">
+
+<!-- Red gradient -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-red">
+
+<!-- Primary color gradient -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-primary">
+```
+
+#### Border Thickness
+
+```html
+<!-- 1px border (default) -->
+<div class="pm7-menu-content pm7-gradient-border">
+
+<!-- 2px border -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-2">
+
+<!-- 4px border -->
+<div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-4">
+```
+
 ## React Usage
 
 When using @pm7/react:

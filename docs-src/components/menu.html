@@ -102,13 +102,13 @@
               </h3>
               <div class="pm7-docs-preview">
                 <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-button--secondary pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
+                  <button class="pm7-button pm7-button--secondary pm7-menu-trigger pm7-gradient-border pm7-gradient-border-2">
                     Options
                     <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
                       <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
                     </svg>
                   </button>
-                  <div class="pm7-menu-content">
+                  <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-2">
                     <button class="pm7-menu-item">Profile</button>
                     <button class="pm7-menu-item">Settings</button>
                     <button class="pm7-menu-item">Billing</button>
@@ -762,6 +762,166 @@ data-position="right-start/end"</code>
                       <div class="pm7-menu-separator"></div>
                       <button class="pm7-menu-item">About</button>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm7-docs-example">
+              <h3>Gradient Border Menus</h3>
+              
+              <h4>Menu with Gradient Borders</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                  <!-- Default Gradient -->
+                  <div class="pm7-menu" data-pm7-menu>
+                    <button class="pm7-button pm7-menu-trigger">
+                      Default Gradient
+                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-menu-content pm7-gradient-border">
+                      <a href="#" class="pm7-menu-item">
+                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M12 6v6l4 2"></path>
+                        </svg>
+                        Recent
+                      </a>
+                      <a href="#" class="pm7-menu-item">
+                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        Favorites
+                      </a>
+                      <div class="pm7-menu-separator"></div>
+                      <a href="#" class="pm7-menu-item">Settings</a>
+                    </div>
+                  </div>
+
+                  <!-- Blue Gradient -->
+                  <div class="pm7-menu" data-pm7-menu>
+                    <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+                      Blue Gradient
+                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-blue">
+                      <button class="pm7-menu-item">New File</button>
+                      <button class="pm7-menu-item">Open File</button>
+                      <button class="pm7-menu-item">Save File</button>
+                      <div class="pm7-menu-separator"></div>
+                      <button class="pm7-menu-item">Export</button>
+                    </div>
+                  </div>
+
+                  <!-- Green Gradient -->
+                  <div class="pm7-menu" data-pm7-menu>
+                    <button class="pm7-button pm7-button--ghost pm7-menu-trigger">
+                      Green Gradient
+                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-green">
+                      <button class="pm7-menu-item">
+                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Completed
+                      </button>
+                      <button class="pm7-menu-item">In Progress</button>
+                      <button class="pm7-menu-item">Pending</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Different Border Thicknesses</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                  <!-- 2px Border -->
+                  <div class="pm7-menu" data-pm7-menu>
+                    <button class="pm7-button pm7-menu-trigger">
+                      2px Border
+                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-2">
+                      <a href="#" class="pm7-menu-item">Profile</a>
+                      <a href="#" class="pm7-menu-item">Settings</a>
+                      <div class="pm7-menu-separator"></div>
+                      <a href="#" class="pm7-menu-item">Logout</a>
+                    </div>
+                  </div>
+
+                  <!-- 4px Border -->
+                  <div class="pm7-menu" data-pm7-menu>
+                    <button class="pm7-button pm7-menu-trigger">
+                      4px Border
+                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                      </svg>
+                    </button>
+                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-red pm7-gradient-border-4">
+                      <button class="pm7-menu-item" style="color: var(--pm7-destructive);">
+                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Delete
+                      </button>
+                      <button class="pm7-menu-item" style="color: var(--pm7-destructive);">Remove All</button>
+                      <div class="pm7-menu-separator"></div>
+                      <button class="pm7-menu-item">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4>Complex Menu with Gradient</h4>
+              <div class="pm7-docs-preview">
+                <div class="pm7-menu" data-pm7-menu>
+                  <button class="pm7-button pm7-button--primary pm7-menu-trigger">
+                    Options
+                    <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-primary pm7-gradient-border-2">
+                    <h3 class="pm7-menu-header">Account</h3>
+                    <a href="#" class="pm7-menu-item">
+                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                      Profile
+                      <span class="pm7-menu-shortcut">⌘P</span>
+                    </a>
+                    <a href="#" class="pm7-menu-item">
+                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"></path>
+                      </svg>
+                      Settings
+                      <span class="pm7-menu-shortcut">⌘,</span>
+                    </a>
+                    <div class="pm7-menu-separator"></div>
+                    <h3 class="pm7-menu-header">Team</h3>
+                    <a href="#" class="pm7-menu-item">Invite Members</a>
+                    <a href="#" class="pm7-menu-item">Team Settings</a>
+                    <div class="pm7-menu-separator"></div>
+                    <a href="#" class="pm7-menu-item">
+                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                      </svg>
+                      Logout
+                    </a>
                   </div>
                 </div>
               </div>

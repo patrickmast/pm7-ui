@@ -72,40 +72,52 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>
-                Button Variants
-                <button class="pm7-button pm7-button--ghost pm7-button--sm pm7-info-dialog-trigger" data-dialog-id="button-variants-info" aria-label="Info about button variants">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                  </svg>
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button Variants</span>
+                    <span class="pm7-demo-accordion-description">Different button styles for various use cases</span>
+                  </span>
                 </button>
-              </h3>
-              <div class="pm7-docs-preview" style="gap: 1rem; flex-wrap: wrap;">
-                <button class="pm7-button pm7-button--primary">Primary</button>
-                <button class="pm7-button pm7-button--secondary">Secondary</button>
-                <button class="pm7-button pm7-button--outline">Outline</button>
-                <button class="pm7-button pm7-button--ghost">Ghost</button>
-                <button class="pm7-button pm7-button--destructive">Destructive</button>
-                <button class="pm7-button pm7-button--link">Link</button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p class="pm7-demo-accordion-full-description">Primary for main actions, Secondary for alternatives, Outline for less prominent actions, Ghost for minimal styling, Destructive for dangerous actions, and Link for navigation.</p>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/variants.html" 
+                        class="pm7-demo-iframe"
+                        title="Button Variants Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="pm7-docs-example">
-              <h3>
-                Button Sizes
-                <button class="pm7-button pm7-button--ghost pm7-button--sm pm7-info-dialog-trigger" data-dialog-id="button-sizes-info" aria-label="Info about button sizes">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                  </svg>
+            <!-- Button Sizes Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button Sizes</span>
+                    <span class="pm7-demo-accordion-description">Three sizes to fit different contexts</span>
+                  </span>
                 </button>
-              </h3>
-              <div class="pm7-docs-preview" style="gap: 1rem; align-items: center;">
-                <button class="pm7-button pm7-button--primary pm7-button--sm">Small</button>
-                <button class="pm7-button pm7-button--primary">Medium</button>
-                <button class="pm7-button pm7-button--primary pm7-button--lg">Large</button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p class="pm7-demo-accordion-full-description">Small (36px height) for compact interfaces, Medium (40px height) as the default, and Large (48px height) for emphasis or touch targets.</p>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/sizes.html" 
+                        class="pm7-demo-iframe"
+                        title="Button Sizes Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -185,6 +197,31 @@
               </div>
             </div>
 
+            <!-- Slider Button Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Slider Button</span>
+                    <span class="pm7-demo-accordion-description">Swipe-to-confirm interaction for critical actions</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p class="pm7-demo-accordion-full-description">Prevents accidental clicks by requiring a deliberate swipe gesture. Perfect for delete operations, order submissions, or any irreversible action.</p>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/slider.html" 
+                        class="pm7-demo-iframe"
+                        title="Slider Button Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="pm7-docs-example">
               <h3>
                 Button Group
@@ -249,6 +286,74 @@
                 </div>
               </div>
             </div>
+
+            <div class="pm7-docs-example">
+              <h3>Gradient Border Buttons</h3>
+              
+              <h4>Default Gradient Borders</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <button class="pm7-button pm7-gradient-border">Default Gradient</button>
+                  <button class="pm7-button pm7-button--primary pm7-gradient-border">Primary Gradient</button>
+                  <button class="pm7-button pm7-button--secondary pm7-gradient-border">Secondary Gradient</button>
+                  <button class="pm7-button pm7-button--outline pm7-gradient-border">Outline Gradient</button>
+                  <button class="pm7-button pm7-button--ghost pm7-gradient-border">Ghost Gradient</button>
+                </div>
+              </div>
+              
+              <h4>Color Variations</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-blue">Blue Gradient</button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-green">Green Gradient</button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-red">Red Gradient</button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-primary">Primary Gradient</button>
+                </div>
+              </div>
+              
+              <h4>Border Thickness Variations</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                  <button class="pm7-button pm7-gradient-border">1px (default)</button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-2">2px Border</button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-4">4px Border</button>
+                </div>
+              </div>
+              
+              <h4>Different Sizes with Gradient Borders</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                  <button class="pm7-button pm7-button--sm pm7-gradient-border">Small</button>
+                  <button class="pm7-button pm7-gradient-border">Medium</button>
+                  <button class="pm7-button pm7-button--lg pm7-gradient-border">Large</button>
+                </div>
+              </div>
+              
+              <h4>With Icons</h4>
+              <div class="pm7-docs-preview">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                  <button class="pm7-button pm7-gradient-border">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Add Item
+                  </button>
+                  <button class="pm7-button pm7-gradient-border pm7-gradient-border-blue">
+                    Settings
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"></path>
+                    </svg>
+                  </button>
+                  <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-gradient-border pm7-gradient-border-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -305,6 +410,10 @@
                   <td><code>.pm7-button--link</code></td>
                   <td>Link button variant (styled as text link)</td>
                 </tr>
+                <tr>
+                  <td><code>.pm7-button--slider</code></td>
+                  <td>Slider button variant (swipe-to-confirm)</td>
+                </tr>
                 <tr class="pm7-table-section-header">
                   <td colspan="2"><strong>Size Modifiers</strong></td>
                 </tr>
@@ -343,6 +452,14 @@
                   <td>Container for grouped buttons</td>
                 </tr>
                 <tr>
+                  <td><code>.pm7-button--slider-text</code></td>
+                  <td>Text element inside slider button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--slider-handle</code></td>
+                  <td>Draggable handle element for slider button</td>
+                </tr>
+                <tr>
                   <td><code>.pm7-button__6stars</code></td>
                   <td>Container for 6stars hover effect (auto-added via JS)</td>
                 </tr>
@@ -374,7 +491,13 @@
 &lt;button class="pm7-button pm7-button--destructive"&gt;Delete&lt;/button&gt;
 
 &lt;!-- Link: Navigation styled as button --&gt;
-&lt;button class="pm7-button pm7-button--link"&gt;Link&lt;/button&gt;</code></pre>
+&lt;button class="pm7-button pm7-button--link"&gt;Link&lt;/button&gt;
+
+&lt;!-- Slider: Swipe-to-confirm button --&gt;
+&lt;button class="pm7-button pm7-button--slider"&gt;
+  &lt;span class="pm7-button--slider-text"&gt;Slide to confirm&lt;/span&gt;
+  &lt;span class="pm7-button--slider-handle"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
 
             <h3>Sizes</h3>
             <pre><code class="language-html">&lt;!-- Small (36px height) --&gt;
@@ -680,7 +803,8 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
   <div id="footer-placeholder"></div>
 
   <!-- Info Dialogs -->
-  <div data-pm7-dialog="button-variants-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div style="display: none;">
+  <div class="pm7-dialog" data-pm7-dialog="button-variants-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Button Variant Types"></span>
       <span data-pm7-dialog-subtitle="Each variant serves a specific purpose"></span>
@@ -724,7 +848,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     </div>
   </div>
 
-  <div data-pm7-dialog="button-sizes-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div class="pm7-dialog" data-pm7-dialog="button-sizes-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Size Modifiers"></span>
       <span data-pm7-dialog-subtitle="Control button size with modifier classes"></span>
@@ -754,7 +878,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     </div>
   </div>
 
-  <div data-pm7-dialog="button-states-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div class="pm7-dialog" data-pm7-dialog="button-states-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Button State Management"></span>
       <span data-pm7-dialog-subtitle="Buttons have different states for user feedback"></span>
@@ -787,7 +911,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     </div>
   </div>
 
-  <div data-pm7-dialog="button-icons-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div class="pm7-dialog" data-pm7-dialog="button-icons-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Button Icons"></span>
       <span data-pm7-dialog-subtitle="Add icons to enhance button meaning"></span>
@@ -821,7 +945,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     </div>
   </div>
 
-  <div data-pm7-dialog="button-full-width-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div class="pm7-dialog" data-pm7-dialog="button-full-width-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Full Width Modifier"></span>
       <span data-pm7-dialog-subtitle="Makes button span 100% of its container width"></span>
@@ -838,7 +962,7 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
       </div>
     </div>
   </div>
-  <div data-pm7-dialog="button-on-dark-info" data-pm7-dialog-size="md" data-pm7-show-close>
+  <div class="pm7-dialog" data-pm7-dialog="button-on-dark-info" data-pm7-dialog-size="md" data-pm7-show-close>
     <div data-pm7-header>
       <span data-pm7-dialog-title="Buttons on Dark Backgrounds"></span>
       <span data-pm7-dialog-subtitle="Ensure proper contrast in light mode"></span>
@@ -866,5 +990,63 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
       </div>
     </div>
   </div>
+  
+  <div class="pm7-dialog" data-pm7-dialog="button-slider-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Slider Button Variant"></span>
+      <span data-pm7-dialog-subtitle="Swipe-to-confirm interaction for critical actions"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Purpose</h4>
+        <p>Prevents accidental clicks on critical actions by requiring a deliberate swipe gesture.</p>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>Features</h4>
+        <ul>
+          <li>Touch and mouse support</li>
+          <li>Visual feedback during drag</li>
+          <li>Success state animation</li>
+          <li>Programmatic reset capability</li>
+          <li>Automatic click event on completion</li>
+        </ul>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>Example</h4>
+        <pre><code>&lt;button class="pm7-button pm7-button--slider"&gt;
+  &lt;span class="pm7-button--slider-text"&gt;Slide to confirm&lt;/span&gt;
+  &lt;span class="pm7-button--slider-handle"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Variant: --slider | Sizes: --sm, --lg</p>
+      </div>
+    </div>
+  </div>
+  
+  </div><!-- End of dialogs wrapper -->
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <!-- Load header and sidebar -->
+  <script src="/scripts/components.js" type="module"></script>
+  
+  <!-- Prism for code highlighting -->
+  <link href="/styles/prism.css" rel="stylesheet">
+  <script src="/scripts/prism.js"></script>
+
+  <!-- Tab router initialization -->
+  <script type="module">
+    import { initTabRouter } from '/scripts/tab-router.js';
+    
+    // Initialize tab routing
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabRouter('button');
+    });
+  </script>
+
+  <script type="module" src="/scripts/docs.js"></script>
+  <script type="module" src="/scripts/version-standalone.js"></script>
 </body>
 </html>

@@ -97,6 +97,57 @@ npm run build:types  # Copy TypeScript definitions
 .pm7-[component]--[modifier]  /* Modifiers (double dash) */
 ```
 
+## Demo Pages Development
+
+### Creating Standalone Demo Pages
+
+When creating demo pages in `docs-src/components/demos/`, use these guidelines:
+
+#### CSS Path Rules
+```html
+<!-- DEVELOPMENT (correct) -->
+<link rel="stylesheet" href="/packages/core/src/styles/index.css">
+
+<!-- PRODUCTION/BUILD (incorrect for dev) -->
+<link rel="stylesheet" href="/packages/core/dist/pm7.css">
+```
+
+**IMPORTANT**: Always use the source path (`/packages/core/src/styles/index.css`) in demo pages. Vite will handle the correct path resolution in both development and production builds.
+
+#### Demo Page Template
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Component] Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css"> <!-- SOURCE PATH! -->
+  
+  <!-- Dark mode flicker prevention -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    /* Demo-specific styles */
+  </style>
+</head>
+<body>
+  <!-- Demo content -->
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>
+```
+
 ## Component Development Workflow
 
 ### Adding a New Component - Complete Checklist

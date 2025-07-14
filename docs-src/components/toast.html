@@ -138,6 +138,52 @@
                 </button>
               </div>
             </div>
+
+            <div class="pm7-docs-example">
+              <h3>Gradient Border Toasts</h3>
+              
+              <h4>Basic Gradient Toasts</h4>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--primary" onclick="showGradientToast()">
+                  Default Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientToastBlue()">
+                  Blue Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientToastGreen()">
+                  Green Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientToastRed()">
+                  Red Gradient
+                </button>
+              </div>
+              
+              <h4>Border Thickness</h4>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--outline" onclick="showGradientToast2px()">
+                  2px Border
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientToast4px()">
+                  4px Border
+                </button>
+              </div>
+              
+              <h4>Toast Types with Gradient</h4>
+              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button class="pm7-button pm7-button--outline" onclick="showGradientSuccess()">
+                  Success Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientError()">
+                  Error Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientWarning()">
+                  Warning Gradient
+                </button>
+                <button class="pm7-button pm7-button--outline" onclick="showGradientInfo()">
+                  Info Gradient
+                </button>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -518,6 +564,91 @@ PM7Toast.closeAll();</code></pre>
 
       messages.forEach((msg, index) => {
         setTimeout(() => showToast(msg), index * 500);
+      });
+    }
+
+    // Gradient Toast Functions
+    function showGradientToast() {
+      showToast({
+        title: 'Gradient Border Toast',
+        description: 'Beautiful purple to yellow to orange gradient',
+        className: 'pm7-gradient-border'
+      });
+    }
+
+    function showGradientToastBlue() {
+      showToast({
+        title: 'Blue Gradient Toast',
+        description: 'Cool blue gradient border',
+        className: 'pm7-gradient-border pm7-gradient-border-blue'
+      });
+    }
+
+    function showGradientToastGreen() {
+      showToast({
+        title: 'Green Gradient Toast',
+        description: 'Fresh green gradient border',
+        className: 'pm7-gradient-border pm7-gradient-border-green'
+      });
+    }
+
+    function showGradientToastRed() {
+      showToast({
+        title: 'Red Gradient Toast',
+        description: 'Bold red gradient border',
+        className: 'pm7-gradient-border pm7-gradient-border-red'
+      });
+    }
+
+    function showGradientToast2px() {
+      showToast({
+        title: '2px Gradient Border',
+        description: 'Medium thickness gradient border',
+        className: 'pm7-gradient-border pm7-gradient-border-2'
+      });
+    }
+
+    function showGradientToast4px() {
+      showToast({
+        title: '4px Gradient Border',
+        description: 'Bold thickness gradient border',
+        className: 'pm7-gradient-border pm7-gradient-border-4'
+      });
+    }
+
+    function showGradientSuccess() {
+      showToast({
+        title: 'Success!',
+        description: 'Operation completed successfully',
+        variant: 'success',
+        className: 'pm7-gradient-border pm7-gradient-border-green'
+      });
+    }
+
+    function showGradientError() {
+      showToast({
+        title: 'Error occurred',
+        description: 'Something went wrong',
+        variant: 'destructive',
+        className: 'pm7-gradient-border pm7-gradient-border-red'
+      });
+    }
+
+    function showGradientWarning() {
+      showToast({
+        title: 'Warning',
+        description: 'Please check your input',
+        variant: 'warning',
+        className: 'pm7-gradient-border pm7-gradient-border-2'
+      });
+    }
+
+    function showGradientInfo() {
+      showToast({
+        title: 'Information',
+        description: 'Here\'s something you should know',
+        variant: 'info',
+        className: 'pm7-gradient-border pm7-gradient-border-blue'
       });
     }
   </script>

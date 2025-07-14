@@ -65,6 +65,34 @@ PM7 buttons come in several variants, each with a specific purpose:
 
 <!-- Link: Navigation styled as button -->
 <button class="pm7-button pm7-button--link">Link</button>
+
+<!-- Slider: Swipe-to-confirm actions -->
+<button class="pm7-button pm7-button--slider">
+  <span class="pm7-button--slider-text">Slide to confirm</span>
+  <span class="pm7-button--slider-handle"></span>
+</button>
+```
+
+### Gradient Borders
+
+Add eye-catching gradient borders to buttons:
+
+```html
+<!-- Default gradient border -->
+<button class="pm7-button pm7-gradient-border">Gradient Border</button>
+
+<!-- With button variants -->
+<button class="pm7-button pm7-button--primary pm7-gradient-border">Primary Gradient</button>
+<button class="pm7-button pm7-button--outline pm7-gradient-border">Outline Gradient</button>
+
+<!-- Different gradient colors -->
+<button class="pm7-button pm7-gradient-border pm7-gradient-border-blue">Blue Gradient</button>
+<button class="pm7-button pm7-gradient-border pm7-gradient-border-green">Green Gradient</button>
+<button class="pm7-button pm7-gradient-border pm7-gradient-border-red">Red Gradient</button>
+
+<!-- Different border thicknesses -->
+<button class="pm7-button pm7-gradient-border pm7-gradient-border-2">2px Border</button>
+<button class="pm7-button pm7-gradient-border pm7-gradient-border-4">4px Border</button>
 ```
 
 ### Sizes
@@ -126,6 +154,64 @@ Make a button span the full width of its container:
   Full Width Button
 </button>
 ```
+
+### Slider Button
+
+The slider button provides a swipe-to-confirm interaction, perfect for preventing accidental clicks on critical actions:
+
+```html
+<!-- Basic slider button -->
+<button class="pm7-button pm7-button--slider">
+  <span class="pm7-button--slider-text">Slide to confirm</span>
+  <span class="pm7-button--slider-handle"></span>
+</button>
+
+<!-- Small slider button -->
+<button class="pm7-button pm7-button--slider pm7-button--sm">
+  <span class="pm7-button--slider-text">Slide to delete</span>
+  <span class="pm7-button--slider-handle"></span>
+</button>
+
+<!-- Large slider button -->
+<button class="pm7-button pm7-button--slider pm7-button--lg">
+  <span class="pm7-button--slider-text">Slide to submit order</span>
+  <span class="pm7-button--slider-handle"></span>
+</button>
+
+<!-- Disabled slider button -->
+<button class="pm7-button pm7-button--slider" disabled>
+  <span class="pm7-button--slider-text">Processing...</span>
+  <span class="pm7-button--slider-handle"></span>
+</button>
+```
+
+#### Slider Button Events
+
+```javascript
+// Listen for slider completion
+document.querySelector('.pm7-button--slider').addEventListener('pm7:slider:complete', (e) => {
+  console.log('Slider completed!', e.detail.button);
+  
+  // The button will trigger a click event after completion
+  // You can also reset the slider:
+  setTimeout(() => {
+    e.detail.button.PM7Button.reset();
+  }, 2000);
+});
+
+// Manual reset
+const sliderButton = document.querySelector('.pm7-button--slider');
+sliderButton.PM7Button.reset();
+```
+
+#### Slider Button Features
+
+- **Touch and mouse support**: Works on desktop and mobile devices
+- **Visual feedback**: Shows progress and success states
+- **Automatic reset**: Can be reset programmatically after completion
+- **Customizable text**: Change the instruction text as needed
+- **Size variants**: Available in small, medium, and large sizes
+- **Accessibility**: Fully keyboard accessible with proper ARIA attributes
 
 ### With Icons
 
@@ -210,11 +296,21 @@ PM7 buttons can be customized using CSS custom properties:
 | `pm7-button--ghost` | Ghost button variant |
 | `pm7-button--destructive` | Destructive button variant |
 | `pm7-button--link` | Link button variant |
+| `pm7-button--slider` | Slider button variant |
 | `pm7-button--sm` | Small size (36px height) |
 | `pm7-button--lg` | Large size (48px height) |
 | `pm7-button--full` | Full width button |
 | `pm7-button--icon` | Icon-only button |
 | `pm7-button-group` | Container for grouped buttons |
+| `pm7-button--slider-text` | Text inside slider button |
+| `pm7-button--slider-handle` | Draggable handle for slider |
+| `pm7-gradient-border` | Gradient border effect |
+| `pm7-gradient-border-blue` | Blue gradient border |
+| `pm7-gradient-border-green` | Green gradient border |
+| `pm7-gradient-border-red` | Red gradient border |
+| `pm7-gradient-border-primary` | Primary color gradient |
+| `pm7-gradient-border-2` | 2px gradient border |
+| `pm7-gradient-border-4` | 4px gradient border |
 
 ## Accessibility
 
@@ -242,6 +338,8 @@ PM7 buttons can be customized using CSS custom properties:
 | `type` | Button type (button, submit, reset) | `type="submit"` |
 | `aria-label` | Accessibility label for icon-only buttons | `aria-label="Close dialog"` |
 | `data-loading` | Custom loading state (requires custom implementation) | `data-loading="true"` |
+| `data-pm7-slider-dragging` | Applied while slider is being dragged | Auto-managed |
+| `data-pm7-slider-complete` | Applied when slider reaches end | Auto-managed |
 
 ## Common Pitfalls
 
@@ -361,6 +459,31 @@ PM7 buttons can be customized using CSS custom properties:
 
 **Note**: PM7 doesn't include built-in loading spinners. You'll need to add your own spinner SVG or use a loading library.
 
+### Slider Confirmation
+
+```html
+<!-- Delete confirmation slider -->
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <h3>Delete Account</h3>
+    <p>This action cannot be undone. All your data will be permanently deleted.</p>
+    
+    <button class="pm7-button pm7-button--slider" onclick="deleteAccount()" style="margin-top: 1rem;">
+      <span class="pm7-button--slider-text">Slide to delete account</span>
+      <span class="pm7-button--slider-handle"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+function deleteAccount() {
+  // Only called when slider is completed
+  console.log('Deleting account...');
+  // Add your delete logic here
+}
+</script>
+```
+
 ## JavaScript API
 
 ### Auto-initialization
@@ -382,7 +505,31 @@ The PM7Button class is minimal and primarily handles the 6stars effect for prima
 
 ### Methods
 
-The PM7Button class has no public methods. All styling and behavior is controlled through CSS classes.
+#### For Slider Buttons
+
+##### reset()
+
+Resets the slider button to its initial state.
+
+```javascript
+const sliderButton = document.querySelector('.pm7-button--slider');
+sliderButton.PM7Button.reset();
+```
+
+#### Events
+
+##### pm7:slider:complete
+
+Fired when the slider reaches the end and completes the action.
+
+```javascript
+button.addEventListener('pm7:slider:complete', (e) => {
+  console.log('Slider completed', e.detail.button);
+});
+```
+
+The event detail contains:
+- `button`: The button element that triggered the event
 
 ### Global Functions
 
@@ -427,6 +574,7 @@ The 6stars effect is automatically added to primary and default variant buttons.
 | `pm7-button--ghost` | Ghost button (minimal styling) |
 | `pm7-button--destructive` | Destructive/danger button |
 | `pm7-button--link` | Link-style button |
+| `pm7-button--slider` | Slider button |
 | **Modifiers** | |
 | `pm7-button--on-dark` | For outline/ghost buttons on dark backgrounds |
 | **Sizes** | |

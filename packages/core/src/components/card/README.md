@@ -97,6 +97,24 @@ import '@pm7/core/dist/pm7.css'; // Don't forget this!
     <p>Elevated card with larger shadow, no border</p>
   </div>
 </div>
+
+<!-- Card with dropdown (prevents menu clipping) -->
+<div class="pm7-card pm7-card--with-dropdown">
+  <div class="pm7-card-content">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span>Card with dropdown menu</span>
+      <div data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+          ⋮
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Edit</button>
+          <button class="pm7-menu-item">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 ```
 
 ### Interactive Cards
@@ -313,6 +331,7 @@ PM7 cards can be customized using CSS custom properties:
 | `pm7-card--ghost` | Card with no border or shadow |
 | `pm7-card--elevated` | Card with larger shadow, no border |
 | `pm7-card--hoverable` | Card with hover lift effect |
+| `pm7-card--with-dropdown` | Card with overflow visible for dropdown menus |
 | **Padding Modifiers** | |
 | `pm7-card--sm` | Small padding |
 | `pm7-card--md` | Medium padding (default) |
@@ -361,8 +380,39 @@ The card grid system provides flexible layout options:
 4. **Status communication**: Use status variants for important state information
 5. **Padding choices**: Select appropriate padding based on content density
 6. **Images**: Use `pm7-card--no-padding` with `pm7-card-image--top` for edge-to-edge images
+7. **Dropdown menus**: Always use `pm7-card--with-dropdown` when placing dropdown menus inside cards to prevent clipping
 
 ## Advanced Examples
+
+### Card with Action Menu
+
+```html
+<div class="pm7-card pm7-card--with-dropdown">
+  <div class="pm7-card-header">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h3 class="pm7-card-title">Task Details</h3>
+        <p class="pm7-card-description">Due tomorrow</p>
+      </div>
+      <div data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+          ⋮
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Edit</button>
+          <button class="pm7-menu-item">Duplicate</button>
+          <button class="pm7-menu-item">Archive</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item" style="color: var(--pm7-destructive);">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pm7-card-content">
+    <p>Complete the quarterly report and send to stakeholders.</p>
+  </div>
+</div>
+```
 
 ### Stats Card
 
@@ -434,6 +484,35 @@ Cards don't have specific data attributes, but can use standard HTML attributes:
 | `aria-label` | Accessibility label | `aria-label="Product card"` |
 
 ## Common Pitfalls
+
+### ❌ Don't use dropdown menus without --with-dropdown modifier
+```html
+<!-- Wrong - dropdown menu will be clipped -->
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <div data-pm7-menu>
+      <button class="pm7-menu-trigger">Menu</button>
+      <div class="pm7-menu-content">
+        <button class="pm7-menu-item">Hidden option</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Correct - use --with-dropdown modifier -->
+<div class="pm7-card pm7-card--with-dropdown">
+  <div class="pm7-card-content">
+    <div data-pm7-menu>
+      <button class="pm7-menu-trigger">Menu</button>
+      <div class="pm7-menu-content">
+        <button class="pm7-menu-item">Visible option</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Why this happens**: Cards use `overflow: hidden` by default to ensure content like images and borders render correctly. This clips any content that extends outside the card boundaries, including dropdown menus. The `--with-dropdown` modifier sets `overflow: visible` to allow dropdowns to display properly.
 
 ### ❌ Don't forget card structure elements
 ```html

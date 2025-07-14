@@ -1,0 +1,232 @@
+/* PM7 Gradient Border Utilities */
+
+/* Gradient Border Variables */
+:root {
+  /* Default gradient colors */
+  --pm7-gradient-border-1: #a855f7; /* Purple */
+  --pm7-gradient-border-2: #eab308; /* Yellow */
+  --pm7-gradient-border-3: #f97316; /* Orange */
+  
+  /* Gradient definition */
+  --pm7-gradient-border: linear-gradient(
+    to right, 
+    var(--pm7-gradient-border-1), 
+    var(--pm7-gradient-border-2), 
+    var(--pm7-gradient-border-3)
+  );
+  
+  /* Alternative gradients */
+  --pm7-gradient-border-blue: linear-gradient(
+    to right,
+    #3b82f6,
+    #0ea5e9,
+    #06b6d4
+  );
+  
+  --pm7-gradient-border-green: linear-gradient(
+    to right,
+    #10b981,
+    #22c55e,
+    #84cc16
+  );
+  
+  --pm7-gradient-border-red: linear-gradient(
+    to right,
+    #ef4444,
+    #f97316,
+    #f59e0b
+  );
+  
+  --pm7-gradient-border-primary: linear-gradient(
+    to right,
+    var(--pm7-primary),
+    var(--pm7-primary-hover),
+    var(--pm7-primary-active)
+  );
+}
+
+/* Gradient Border Modifier */
+.pm7-gradient-border {
+  position: relative;
+  background: var(--pm7-background) !important;
+}
+
+.pm7-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: var(--pm7-border-width);
+  background: var(--pm7-gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure content stays above gradient border */
+.pm7-gradient-border > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Gradient border thickness variants */
+.pm7-gradient-border-2::before {
+  padding: 2px;
+}
+
+.pm7-gradient-border-4::before {
+  padding: 4px;
+}
+
+/* Alternative gradient modifiers */
+.pm7-gradient-border-blue::before {
+  background: var(--pm7-gradient-border-blue);
+}
+
+.pm7-gradient-border-green::before {
+  background: var(--pm7-gradient-border-green);
+}
+
+.pm7-gradient-border-red::before {
+  background: var(--pm7-gradient-border-red);
+}
+
+.pm7-gradient-border-primary::before {
+  background: var(--pm7-gradient-border-primary);
+}
+
+/* Animation for gradient borders */
+@keyframes pm7-gradient-rotate {
+  0% {
+    background: linear-gradient(0deg, 
+      var(--pm7-gradient-border-1), 
+      var(--pm7-gradient-border-2), 
+      var(--pm7-gradient-border-3)
+    );
+  }
+  100% {
+    background: linear-gradient(360deg, 
+      var(--pm7-gradient-border-1), 
+      var(--pm7-gradient-border-2), 
+      var(--pm7-gradient-border-3)
+    );
+  }
+}
+
+.pm7-gradient-border-animated::before {
+  background-size: 200% 200%;
+  animation: pm7-gradient-rotate 3s linear infinite;
+}
+
+/* Component-specific gradient border adjustments */
+
+/* Button gradient border */
+.pm7-button.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-button-bg) !important;
+}
+
+/* Card gradient border */
+.pm7-card.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-card-bg) !important;
+}
+
+/* Input gradient border */
+.pm7-input.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-input-bg) !important;
+}
+
+.pm7-input.pm7-gradient-border::before {
+  border-radius: var(--pm7-input-radius);
+}
+
+/* Dialog gradient border */
+.pm7-dialog-content.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-dialog-bg) !important;
+}
+
+/* Menu gradient border */
+.pm7-menu.pm7-gradient-border,
+.pm7-menu-content.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-menu-bg) !important;
+}
+
+/* Fix: Ensure menu content maintains absolute positioning */
+.pm7-menu-content.pm7-gradient-border {
+  position: absolute !important;
+}
+
+/* Accordion gradient border */
+.pm7-accordion-item.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-accordion-bg) !important;
+}
+
+/* Tab selector gradient border */
+.pm7-tab-selector.pm7-gradient-border .pm7-tab-list {
+  border: none;
+  position: relative;
+}
+
+.pm7-tab-selector.pm7-gradient-border .pm7-tab-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--pm7-radius);
+  padding: var(--pm7-border-width);
+  background: var(--pm7-gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Toast gradient border */
+.pm7-toast.pm7-gradient-border {
+  border: none;
+  background: var(--pm7-toast-bg) !important;
+}
+
+/* 
+ * Note: The --dropdown variant has been removed because the regular 
+ * .pm7-gradient-border works perfectly with menu dropdowns.
+ * 
+ * The position: relative on the base class does not interfere with
+ * menu positioning as previously thought. Use the regular gradient
+ * border class for all components including menus.
+ */
+
+/* Focus states for interactive elements with gradient borders */
+.pm7-button.pm7-gradient-border:focus-visible::after,
+.pm7-input.pm7-gradient-border:focus-visible::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--pm7-gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  z-index: 0;
+}
