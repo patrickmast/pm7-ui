@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slider Button Demo - PM7 UI</title>
+  <title>Button Group Demo - PM7 UI</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
   
@@ -40,9 +40,8 @@
     
     .demo-content {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
       align-items: center;
+      justify-content: center;
     }
     
     .demo-header {
@@ -79,53 +78,21 @@
       right: 2rem;
       z-index: 50;
     }
-    
-    .demo-result {
-      margin-top: 2rem;
-      padding: 1rem;
-      background: var(--pm7-background);
-      border: 1px solid var(--pm7-border);
-      border-radius: var(--pm7-radius);
-      text-align: center;
-      color: var(--pm7-muted-foreground);
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   </style>
 </head>
 <body>
   <div class="demo-container">
     <div class="demo-header">
-      <h1 class="demo-title">Slider Button</h1>
-      <p class="demo-description">Swipe-to-confirm interaction for critical actions</p>
+      <h1 class="demo-title">Button Group</h1>
+      <p class="demo-description">Group related actions together</p>
     </div>
     
     <div class="demo-content">
-      <button class="pm7-button pm7-button--slider pm7-button--sm" onclick="handleSliderAction(this, 'Small slider confirmed!')">
-        <span class="pm7-button--slider-text">Slide to unlock</span>
-        <span class="pm7-button--slider-handle"></span>
-      </button>
-      
-      <button class="pm7-button pm7-button--slider" onclick="handleSliderAction(this, 'Action confirmed!')">
-        <span class="pm7-button--slider-text">Slide to confirm</span>
-        <span class="pm7-button--slider-handle"></span>
-      </button>
-      
-      <button class="pm7-button pm7-button--slider pm7-button--lg" onclick="handleSliderAction(this, 'Order submitted!')">
-        <span class="pm7-button--slider-text">Slide to submit order</span>
-        <span class="pm7-button--slider-handle"></span>
-      </button>
-      
-      <button class="pm7-button pm7-button--slider" disabled>
-        <span class="pm7-button--slider-text">Processing...</span>
-        <span class="pm7-button--slider-handle"></span>
-      </button>
-    </div>
-    
-    <div class="demo-result" id="demo-result">
-      Slide any button above to see the result
+      <div class="pm7-button-group">
+        <button class="pm7-button pm7-button--outline">Left</button>
+        <button class="pm7-button pm7-button--outline">Center</button>
+        <button class="pm7-button pm7-button--outline">Right</button>
+      </div>
     </div>
     
     <div class="demo-footer">
@@ -156,34 +123,12 @@
   <script src="/packages/core/src/scripts/index.js" type="module"></script>
   
   <script>
-    function handleSliderAction(button, message) {
-      console.log(message);
-      
-      // Update result display
-      const resultEl = document.getElementById('demo-result');
-      resultEl.textContent = message;
-      resultEl.style.color = 'var(--pm7-success)';
-      
-      // Show toast if available
-      if (window.showToast) {
-        window.showToast(message, { variant: 'success' });
-      }
-      
-      // Reset the slider after 2 seconds
-      setTimeout(() => {
-        if (button.PM7Button) {
-          button.PM7Button.reset();
-        }
-        resultEl.textContent = 'Slide any button above to see the result';
-        resultEl.style.color = 'var(--pm7-muted-foreground)';
-      }, 2000);
-    }
-    
     function copyDemoCode() {
-      const code = `<button class="pm7-button pm7-button--slider">
-  <span class="pm7-button--slider-text">Slide to confirm</span>
-  <span class="pm7-button--slider-handle"></span>
-</button>`;
+      const code = `<div class="pm7-button-group">
+  <button class="pm7-button pm7-button--outline">Left</button>
+  <button class="pm7-button pm7-button--outline">Center</button>
+  <button class="pm7-button pm7-button--outline">Right</button>
+</div>`;
       
       navigator.clipboard.writeText(code).then(() => {
         // Show toast if available

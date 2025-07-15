@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2025-01-15
+
+### 🎉 New Features
+- **Gradient Borders**: Added gradient border utility classes for all components
+  - Support for Accordion, Button, Card, Dialog, Input, Menu, Tab Selector, and Toast
+  - Multiple gradient color variations (default, blue, green, red, primary)
+  - Configurable border thickness (1px, 2px, 4px)
+  - Works seamlessly with existing component modifiers
+
+### 🐛 Bug Fixes
+- Fixed button cursor to use `pointer` consistently across all button variants
+- Changed `-webkit-appearance: button` to `none` to ensure proper cursor behavior
+- Fixed menu dropdown positioning when used with gradient borders
+- Added `pm7-card--with-dropdown` variant to prevent dropdown clipping
+- Enhanced menu trigger gradient hover effect with proper layering
+
+### 🔧 Improvements
+- Main navigation menu now features gradient border on hover
+- Improved z-index management for gradient borders
+- Better isolation of gradient border effects to prevent side effects
+
 ## [2.2.0] - 2025-01-08
 
 ### 🎉 New Features
