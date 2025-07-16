@@ -12,6 +12,15 @@ const componentFiles = readdirSync('./docs-src/components')
     return acc;
   }, {});
 
+// Get all HTML files from docs-src/demos
+const demoFiles = readdirSync('./docs-src/demos')
+  .filter(file => file.endsWith('.html'))
+  .reduce((acc, file) => {
+    const name = file.replace('.html', '');
+    acc[`demos/${name}`] = resolve(__dirname, `docs-src/demos/${file}`);
+    return acc;
+  }, {});
+
 export default defineConfig({
   plugins: [spaFallback()],
   root: './docs-src',
@@ -38,6 +47,7 @@ export default defineConfig({
         readmeLinks: resolve(__dirname, 'docs-src/readme-links.html'),
         testAllComponents: resolve(__dirname, 'docs-src/test-all-components.html'),
         ...componentFiles,
+        ...demoFiles,
       },
     },
   },

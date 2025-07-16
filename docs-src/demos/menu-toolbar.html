@@ -394,11 +394,13 @@
   <script src="/packages/core/src/scripts/index.js" type="module"></script>
 
   <script type="module">
-    // Wait for modules to load
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-    // Initialize TipTap Editor
-    const editor = new window.Editor({
+    // Initialize editor after modules load
+    (async () => {
+      // Wait for modules to load
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Initialize TipTap Editor
+      const editor = new window.Editor({
       element: document.querySelector('#editor'),
       extensions: [
         window.StarterKit,
@@ -603,6 +605,7 @@ function greet(name) {
       const col = lines[lines.length - 1].length + 1;
       document.querySelector('.status-bar span:last-child').textContent = `Line ${line}, Column ${col}`;
     });
+    })(); // End of async initialization
   </script>
 </body>
 </html>
