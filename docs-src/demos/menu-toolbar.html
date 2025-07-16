@@ -3,10 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Toolbar Menu Demo - PM7 UI</title>
+  <title>TipTap Editor with PM7 Toolbar - PM7 UI</title>
 
   <!-- PM7 Core CSS -->
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- TipTap Editor Dependencies -->
+  <script type="module">
+    import { Editor } from 'https://esm.sh/@tiptap/core@2.1.13'
+    import StarterKit from 'https://esm.sh/@tiptap/starter-kit@2.1.13'
+    import { Color } from 'https://esm.sh/@tiptap/extension-color@2.1.13'
+    import TextStyle from 'https://esm.sh/@tiptap/extension-text-style@2.1.13'
+    import Underline from 'https://esm.sh/@tiptap/extension-underline@2.1.13'
+    import Link from 'https://esm.sh/@tiptap/extension-link@2.1.13'
+    
+    window.Editor = Editor;
+    window.StarterKit = StarterKit;
+    window.Color = Color;
+    window.TextStyle = TextStyle;
+    window.Underline = Underline;
+    window.Link = Link;
+  </script>
 
   <style>
     body {
@@ -39,17 +56,119 @@
       width: 100%;
     }
 
-    .demo-editor {
+    /* TipTap Editor Styles */
+    .tiptap {
       background: var(--pm7-card);
       border: 1px solid var(--pm7-border);
       border-radius: var(--pm7-radius);
       padding: 1.5rem;
       min-height: 400px;
-      font-family: var(--pm7-font-mono);
-      font-size: 14px;
+      font-family: var(--pm7-font-sans);
+      font-size: 16px;
       line-height: 1.6;
-      white-space: pre-wrap;
       outline: none;
+    }
+
+    .tiptap:focus {
+      border-color: var(--pm7-primary);
+    }
+
+    .tiptap h1, .tiptap h2, .tiptap h3 {
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tiptap h1 { font-size: 2rem; }
+    .tiptap h2 { font-size: 1.5rem; }
+    .tiptap h3 { font-size: 1.25rem; }
+
+    .tiptap p {
+      margin-bottom: 1rem;
+    }
+
+    .tiptap ul, .tiptap ol {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+    }
+
+    .tiptap code {
+      background: var(--pm7-muted);
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      font-family: var(--pm7-font-mono);
+      font-size: 0.875em;
+    }
+
+    .tiptap pre {
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: var(--pm7-radius);
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .tiptap pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .tiptap blockquote {
+      border-left: 3px solid var(--pm7-border);
+      padding-left: 1rem;
+      margin-left: 0;
+      font-style: italic;
+      color: var(--pm7-muted-foreground);
+    }
+
+    .tiptap a {
+      color: var(--pm7-primary);
+      text-decoration: underline;
+    }
+
+    .tiptap a:hover {
+      text-decoration: none;
+    }
+
+    /* Formatting toolbar */
+    .format-toolbar {
+      display: flex;
+      gap: 0.25rem;
+      padding: 0.5rem;
+      background: var(--pm7-surface);
+      border-bottom: 1px solid var(--pm7-border);
+      flex-wrap: wrap;
+    }
+
+    .format-group {
+      display: flex;
+      gap: 0.25rem;
+      padding: 0 0.5rem;
+      border-right: 1px solid var(--pm7-border);
+    }
+
+    .format-group:last-child {
+      border-right: none;
+    }
+
+    .format-button {
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--pm7-radius);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--pm7-foreground);
+      transition: all 0.2s;
+    }
+
+    .format-button:hover {
+      background: var(--pm7-muted);
+    }
+
+    .format-button.is-active {
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
     }
 
     .status-bar {
@@ -102,30 +221,68 @@
             Edit
           </button>
           <div class="pm7-menu-content">
-            <button class="pm7-menu-item" onclick="undo()">
+            <button class="pm7-menu-item" id="undo-btn">
               Undo
               <span class="pm7-menu-shortcut">⌘Z</span>
             </button>
-            <button class="pm7-menu-item" onclick="redo()">
+            <button class="pm7-menu-item" id="redo-btn">
               Redo
               <span class="pm7-menu-shortcut">⌘⇧Z</span>
             </button>
             <div class="pm7-menu-separator"></div>
-            <button class="pm7-menu-item">
+            <button class="pm7-menu-item" id="cut-btn">
               Cut
               <span class="pm7-menu-shortcut">⌘X</span>
             </button>
-            <button class="pm7-menu-item">
+            <button class="pm7-menu-item" id="copy-btn">
               Copy
               <span class="pm7-menu-shortcut">⌘C</span>
             </button>
-            <button class="pm7-menu-item">
+            <button class="pm7-menu-item" id="paste-btn">
               Paste
               <span class="pm7-menu-shortcut">⌘V</span>
             </button>
             <div class="pm7-menu-separator"></div>
-            <button class="pm7-menu-item">Find...</button>
-            <button class="pm7-menu-item">Replace...</button>
+            <button class="pm7-menu-item" id="select-all-btn">
+              Select All
+              <span class="pm7-menu-shortcut">⌘A</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Format Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Format
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" id="bold-menu">
+              Bold
+              <span class="pm7-menu-shortcut">⌘B</span>
+            </button>
+            <button class="pm7-menu-item" id="italic-menu">
+              Italic
+              <span class="pm7-menu-shortcut">⌘I</span>
+            </button>
+            <button class="pm7-menu-item" id="underline-menu">
+              Underline
+              <span class="pm7-menu-shortcut">⌘U</span>
+            </button>
+            <button class="pm7-menu-item" id="strike-menu">
+              Strikethrough
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="h1-menu">Heading 1</button>
+            <button class="pm7-menu-item" id="h2-menu">Heading 2</button>
+            <button class="pm7-menu-item" id="h3-menu">Heading 3</button>
+            <button class="pm7-menu-item" id="paragraph-menu">Paragraph</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="bullet-list-menu">Bullet List</button>
+            <button class="pm7-menu-item" id="ordered-list-menu">Numbered List</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="code-menu">Code</button>
+            <button class="pm7-menu-item" id="code-block-menu">Code Block</button>
+            <button class="pm7-menu-item" id="blockquote-menu">Blockquote</button>
           </div>
         </div>
 
@@ -135,11 +292,8 @@
             View
           </button>
           <div class="pm7-menu-content">
-            <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
-              Word Wrap
-            </button>
-            <button class="pm7-menu-item pm7-menu-item--checkbox">
-              Line Numbers
+            <button class="pm7-menu-item pm7-menu-item--checkbox" id="show-toolbar" data-checked="true">
+              Show Formatting Toolbar
             </button>
             <div class="pm7-menu-separator"></div>
             <div class="pm7-menu-label">Theme</div>
@@ -149,10 +303,6 @@
             <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="dark">
               Dark
             </button>
-            <div class="pm7-menu-separator"></div>
-            <button class="pm7-menu-item">Zoom In</button>
-            <button class="pm7-menu-item">Zoom Out</button>
-            <button class="pm7-menu-item">Reset Zoom</button>
           </div>
         </div>
 
@@ -186,26 +336,51 @@
 
     <!-- Main Content Area -->
     <main class="app-content">
-      <h2>Text Editor Demo</h2>
-      <div class="demo-editor" contenteditable="true" id="editor">
-Welcome to the PM7 UI Application Toolbar Menu Demo!
-
-This demo shows how the PM7 Menu component can be used to create a traditional desktop application menu bar. Try clicking on the menu items above to see them in action.
-
-Features demonstrated:
-- Multiple menus in a toolbar layout
-- Keyboard shortcuts display
-- Checkbox menu items (see View menu)
-- Menu separators for grouping
-- Nested menu organization
-
-The menu component handles all the complex interactions:
-- Click to open/close
-- Keyboard navigation
-- Proper focus management
-- Accessibility features
-
-Start typing here to edit this text...</div>
+      <h2>TipTap Editor with PM7 Toolbar</h2>
+      
+      <!-- Formatting Toolbar -->
+      <div class="format-toolbar" id="format-toolbar">
+        <div class="format-group">
+          <button class="format-button" id="bold-btn" title="Bold (Cmd+B)">
+            <strong>B</strong>
+          </button>
+          <button class="format-button" id="italic-btn" title="Italic (Cmd+I)">
+            <em>I</em>
+          </button>
+          <button class="format-button" id="underline-btn" title="Underline (Cmd+U)">
+            <u>U</u>
+          </button>
+          <button class="format-button" id="strike-btn" title="Strikethrough">
+            <s>S</s>
+          </button>
+        </div>
+        
+        <div class="format-group">
+          <button class="format-button" id="h1-btn" title="Heading 1">H1</button>
+          <button class="format-button" id="h2-btn" title="Heading 2">H2</button>
+          <button class="format-button" id="h3-btn" title="Heading 3">H3</button>
+          <button class="format-button" id="p-btn" title="Paragraph">P</button>
+        </div>
+        
+        <div class="format-group">
+          <button class="format-button" id="ul-btn" title="Bullet List">• List</button>
+          <button class="format-button" id="ol-btn" title="Numbered List">1. List</button>
+        </div>
+        
+        <div class="format-group">
+          <button class="format-button" id="code-btn" title="Code">&lt;/&gt;</button>
+          <button class="format-button" id="codeblock-btn" title="Code Block">[&lt;/&gt;]</button>
+          <button class="format-button" id="quote-btn" title="Blockquote">"</button>
+        </div>
+        
+        <div class="format-group">
+          <button class="format-button" id="link-btn" title="Add Link">🔗</button>
+          <button class="format-button" id="hr-btn" title="Horizontal Rule">—</button>
+        </div>
+      </div>
+      
+      <!-- TipTap Editor Container -->
+      <div id="editor"></div>
     </main>
 
     <!-- Status Bar -->
@@ -218,41 +393,60 @@ Start typing here to edit this text...</div>
   <!-- PM7 Core JavaScript -->
   <script src="/packages/core/src/scripts/index.js" type="module"></script>
 
-  <script>
-    // Demo functions
-    function newFile() {
-      document.getElementById('editor').textContent = '';
-      updateStatus('New file created');
-    }
+  <script type="module">
+    // Wait for modules to load
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Initialize TipTap Editor
+    const editor = new window.Editor({
+      element: document.querySelector('#editor'),
+      extensions: [
+        window.StarterKit,
+        window.Underline,
+        window.TextStyle,
+        window.Color,
+        window.Link.configure({
+          openOnClick: false,
+          HTMLAttributes: {
+            class: 'tiptap-link',
+          },
+        }),
+      ],
+      content: `
+        <h1>Welcome to TipTap Editor with PM7 UI!</h1>
+        <p>This demo integrates the powerful <strong>TipTap editor</strong> with <em>PM7 UI components</em> for a seamless editing experience.</p>
+        
+        <h2>Features</h2>
+        <ul>
+          <li><strong>Rich text formatting</strong> - Bold, italic, underline, and strikethrough</li>
+          <li><strong>Headings</strong> - Support for H1, H2, and H3</li>
+          <li><strong>Lists</strong> - Both bullet and numbered lists</li>
+          <li><strong>Code formatting</strong> - Inline <code>code</code> and code blocks</li>
+          <li><strong>Blockquotes</strong> - For highlighting important text</li>
+          <li><strong>Links</strong> - Add hyperlinks to your content</li>
+        </ul>
+        
+        <h2>Try it out!</h2>
+        <p>Use the menu bar above or the formatting toolbar to style your content. All PM7 UI styles are applied for a consistent look and feel.</p>
+        
+        <blockquote>
+          <p>"The best way to predict the future is to invent it." - Alan Kay</p>
+        </blockquote>
+        
+        <pre><code>// Example code block
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+}</code></pre>
+      `,
+      autofocus: true,
+      editorProps: {
+        attributes: {
+          class: 'tiptap',
+        },
+      },
+    });
 
-    function openFile() {
-      updateStatus('Open file dialog would appear here...');
-    }
-
-    function saveFile() {
-      updateStatus('File saved');
-    }
-
-    function exitApp() {
-      if (confirm('Are you sure you want to exit?')) {
-        updateStatus('Exiting application...');
-      }
-    }
-
-    function undo() {
-      document.execCommand('undo');
-      updateStatus('Undo');
-    }
-
-    function redo() {
-      document.execCommand('redo');
-      updateStatus('Redo');
-    }
-
-    function showAbout() {
-      alert('PM7 UI Text Editor Demo\nVersion 1.0.0\n\nDemonstrating the PM7 Menu component in a toolbar layout.');
-    }
-
+    // Update status function
     function updateStatus(message) {
       const statusBar = document.querySelector('.status-bar span');
       statusBar.textContent = message;
@@ -261,18 +455,153 @@ Start typing here to edit this text...</div>
       }, 2000);
     }
 
-    // Checkbox functionality is handled by PM7Menu component
+    // File menu functions
+    window.newFile = function() {
+      editor.commands.clearContent();
+      updateStatus('New file created');
+    };
 
-    // Add dark mode support
+    window.openFile = function() {
+      updateStatus('Open file dialog would appear here...');
+    };
+
+    window.saveFile = function() {
+      const content = editor.getHTML();
+      console.log('Saving content:', content);
+      updateStatus('File saved');
+    };
+
+    window.exitApp = function() {
+      if (confirm('Are you sure you want to exit?')) {
+        updateStatus('Exiting application...');
+      }
+    };
+
+    window.showAbout = function() {
+      alert('PM7 UI TipTap Editor Demo\nVersion 2.0.0\n\nIntegrating TipTap editor with PM7 UI components.');
+    };
+
+    // Toolbar button handlers
+    document.getElementById('bold-btn').onclick = () => editor.chain().focus().toggleBold().run();
+    document.getElementById('italic-btn').onclick = () => editor.chain().focus().toggleItalic().run();
+    document.getElementById('underline-btn').onclick = () => editor.chain().focus().toggleUnderline().run();
+    document.getElementById('strike-btn').onclick = () => editor.chain().focus().toggleStrike().run();
+    
+    document.getElementById('h1-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 1 }).run();
+    document.getElementById('h2-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 2 }).run();
+    document.getElementById('h3-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 3 }).run();
+    document.getElementById('p-btn').onclick = () => editor.chain().focus().setParagraph().run();
+    
+    document.getElementById('ul-btn').onclick = () => editor.chain().focus().toggleBulletList().run();
+    document.getElementById('ol-btn').onclick = () => editor.chain().focus().toggleOrderedList().run();
+    
+    document.getElementById('code-btn').onclick = () => editor.chain().focus().toggleCode().run();
+    document.getElementById('codeblock-btn').onclick = () => editor.chain().focus().toggleCodeBlock().run();
+    document.getElementById('quote-btn').onclick = () => editor.chain().focus().toggleBlockquote().run();
+    
+    document.getElementById('link-btn').onclick = () => {
+      const url = prompt('Enter URL:');
+      if (url) {
+        editor.chain().focus().setLink({ href: url }).run();
+      }
+    };
+    
+    document.getElementById('hr-btn').onclick = () => editor.chain().focus().setHorizontalRule().run();
+
+    // Menu bar handlers
+    document.getElementById('undo-btn').onclick = () => {
+      editor.chain().focus().undo().run();
+      updateStatus('Undo');
+    };
+    
+    document.getElementById('redo-btn').onclick = () => {
+      editor.chain().focus().redo().run();
+      updateStatus('Redo');
+    };
+    
+    document.getElementById('cut-btn').onclick = () => {
+      document.execCommand('cut');
+      updateStatus('Cut');
+    };
+    
+    document.getElementById('copy-btn').onclick = () => {
+      document.execCommand('copy');
+      updateStatus('Copied');
+    };
+    
+    document.getElementById('paste-btn').onclick = () => {
+      document.execCommand('paste');
+      updateStatus('Pasted');
+    };
+    
+    document.getElementById('select-all-btn').onclick = () => {
+      editor.chain().focus().selectAll().run();
+      updateStatus('Selected all');
+    };
+
+    // Format menu handlers
+    document.getElementById('bold-menu').onclick = () => editor.chain().focus().toggleBold().run();
+    document.getElementById('italic-menu').onclick = () => editor.chain().focus().toggleItalic().run();
+    document.getElementById('underline-menu').onclick = () => editor.chain().focus().toggleUnderline().run();
+    document.getElementById('strike-menu').onclick = () => editor.chain().focus().toggleStrike().run();
+    document.getElementById('h1-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 1 }).run();
+    document.getElementById('h2-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 2 }).run();
+    document.getElementById('h3-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 3 }).run();
+    document.getElementById('paragraph-menu').onclick = () => editor.chain().focus().setParagraph().run();
+    document.getElementById('bullet-list-menu').onclick = () => editor.chain().focus().toggleBulletList().run();
+    document.getElementById('ordered-list-menu').onclick = () => editor.chain().focus().toggleOrderedList().run();
+    document.getElementById('code-menu').onclick = () => editor.chain().focus().toggleCode().run();
+    document.getElementById('code-block-menu').onclick = () => editor.chain().focus().toggleCodeBlock().run();
+    document.getElementById('blockquote-menu').onclick = () => editor.chain().focus().toggleBlockquote().run();
+
+    // Show/hide toolbar
+    document.getElementById('show-toolbar').onclick = function() {
+      const toolbar = document.getElementById('format-toolbar');
+      const isChecked = this.dataset.checked === 'true';
+      toolbar.style.display = isChecked ? 'flex' : 'none';
+    };
+
+    // Update button states based on editor state
+    editor.on('selectionUpdate', () => {
+      // Toolbar buttons
+      document.getElementById('bold-btn').classList.toggle('is-active', editor.isActive('bold'));
+      document.getElementById('italic-btn').classList.toggle('is-active', editor.isActive('italic'));
+      document.getElementById('underline-btn').classList.toggle('is-active', editor.isActive('underline'));
+      document.getElementById('strike-btn').classList.toggle('is-active', editor.isActive('strike'));
+      document.getElementById('h1-btn').classList.toggle('is-active', editor.isActive('heading', { level: 1 }));
+      document.getElementById('h2-btn').classList.toggle('is-active', editor.isActive('heading', { level: 2 }));
+      document.getElementById('h3-btn').classList.toggle('is-active', editor.isActive('heading', { level: 3 }));
+      document.getElementById('p-btn').classList.toggle('is-active', editor.isActive('paragraph'));
+      document.getElementById('ul-btn').classList.toggle('is-active', editor.isActive('bulletList'));
+      document.getElementById('ol-btn').classList.toggle('is-active', editor.isActive('orderedList'));
+      document.getElementById('code-btn').classList.toggle('is-active', editor.isActive('code'));
+      document.getElementById('codeblock-btn').classList.toggle('is-active', editor.isActive('codeBlock'));
+      document.getElementById('quote-btn').classList.toggle('is-active', editor.isActive('blockquote'));
+    });
+
+    // Dark mode support
     const darkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (darkModeEnabled) {
       document.documentElement.classList.add('dark');
     }
 
+    // Handle theme switching
+    document.querySelectorAll('[data-name="theme"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isDark = btn.dataset.value === 'dark';
+        document.documentElement.classList.toggle('dark', isDark);
+      });
+    });
+
     // Update cursor position
-    document.getElementById('editor').addEventListener('click', function() {
-      // In a real app, this would calculate actual line/column
-      document.querySelector('.status-bar span:last-child').textContent = 'Line 1, Column 1';
+    editor.on('selectionUpdate', () => {
+      // This is a simplified version - real implementation would calculate actual line/column
+      const { from } = editor.state.selection;
+      const text = editor.state.doc.textContent;
+      const lines = text.substring(0, from).split('\n');
+      const line = lines.length;
+      const col = lines[lines.length - 1].length + 1;
+      document.querySelector('.status-bar span:last-child').textContent = `Line ${line}, Column ${col}`;
     });
   </script>
 </body>
