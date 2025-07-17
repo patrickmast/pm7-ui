@@ -8,8 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **🤖 FOR AI CODING AGENTS (Claude, ChatGPT, Copilot, etc.):**
 - Component READMEs in `/packages/core/src/components/*/README.md`
-- `AI-AGENT-GUIDE.md`
+- `AI-AGENT-GUIDE.md` - **START HERE** for understanding PM7-UI's AI-only documentation
 - `CLAUDE.md` (this file)
+- `COMPONENT-TEMPLATE.md` - Template for creating new AI-first documentation
 - Test files and implementation examples
 - **Style**: Exact patterns, no ambiguity, copy-paste ready code
 
@@ -28,6 +29,8 @@ When updating component documentation, remember:
 4. **No visual descriptions** - AI can't "see" if something "looks right"
 5. **Explicit anti-patterns** - Tell AI what NOT to do
 
+**IMPORTANT**: See `AI-AGENT-GUIDE.md` for the complete documentation philosophy and rules.
+
 Example:
 ```markdown
 <!-- WRONG (human-oriented) -->
@@ -39,6 +42,16 @@ Required: <div class="pm7-menu" data-pm7-menu>
 Import: window.PM7 must exist
 Structure: Exact pattern below, no deviations allowed
 ```
+
+### AI-Only Documentation Standard
+
+All component documentation follows these principles:
+- **Header**: Contains AI-ONLY warning and metadata
+- **Structure**: IF/THEN decisions, ALWAYS/NEVER rules
+- **Code**: Exact patterns that work without modification
+- **Tables**: Concise with exact values, no explanations
+
+See `COMPONENT-TEMPLATE.md` for the standard structure when creating new component docs.
 
 ## PM7-UI Project Overview
 

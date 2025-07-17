@@ -1,779 +1,392 @@
-# PM7 Sidebar Component
+<!-- AI-ONLY DOCUMENTATION -->
+---
+type: ai-agent-documentation
+audience: ai-coding-agents-only
+style: exact-patterns
+human-readable: false
+documentation-rules:
+  - NO storytelling or explanations
+  - ONLY exact code patterns
+  - Binary IF/THEN decisions
+  - Explicit anti-patterns with NEVER/ALWAYS
+  - Copy-paste ready code blocks
+---
 
-A versatile sidebar component that provides navigation and content organization with multiple display modes and rich interaction patterns.
+# Component: Sidebar
 
-## ⚠️ CRITICAL: Default Hidden State
-
-**The PM7 sidebar with `data-pm7-sidebar` is HIDDEN by default!**
-
-When you add `data-pm7-sidebar` to your sidebar, PM7 applies:
-- `transform: translateX(-100%)` - pushes sidebar completely off-screen
-- `z-index: 1000` - ensures it appears above content when shown
-- Requires JavaScript (`PM7.initSidebars()`) to become visible
-
-This means:
-- ❌ Without PM7 JavaScript, your sidebar will NOT be visible
-- ❌ Server-side rendered pages will show no sidebar until JS loads
-- ❌ Users with JavaScript disabled will never see the sidebar
-
-## Important: Static vs Interactive Sidebars
-
-The PM7 Sidebar component can be used in two distinct ways:
-
-### 1. Static Sidebar (without `data-pm7-sidebar`)
-```html
-<aside class="pm7-sidebar">
-  <!-- content -->
-</aside>
-```
-- ✅ Always visible
-- ✅ Works without JavaScript
-- Remains in normal document flow
-- Scrolls with the page content
-- No JavaScript functionality
-- Only basic styling (width, min-width)
-- Perfect for documentation sites or static layouts
-
-### 2. Interactive Sidebar (with `data-pm7-sidebar`)
-```html
-<aside class="pm7-sidebar" data-pm7-sidebar>
-  <!-- content -->
-</aside>
-```
-- ⚠️ Hidden by default (transform: translateX(-100%))
-- Requires JavaScript for visibility
-- Fixed positioning with slide-in animations
-- JavaScript-powered open/close functionality
-- Overlay support
-- Focus management
-- Keyboard navigation
-- Perfect for mobile menus or collapsible navigation
+Navigation panel component with static and interactive modes.
 
 ## Installation
-
-The Sidebar component is included in the PM7 UI library:
 
 ```bash
 npm install @pm7/core
 ```
 
-```html
-<!-- Include PM7 UI -->
-<link rel="stylesheet" href="path/to/@pm7/core/dist/pm7.css">
-<script src="path/to/@pm7/core/dist/pm7.js"></script>
+### CSS Import
+
+```javascript
+// ES modules
+import '@pm7/core/dist/pm7.css';
+
+// HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
 ```
 
-## Basic Usage
+### JavaScript Setup
 
-### ⚠️ Default Hidden Sidebar (Interactive)
+```javascript
+// ES modules - adds PM7 to window
+import '@pm7/core';
 
+// Dynamic import (Next.js)
+import('@pm7/core').then(() => {
+  window.PM7.init();
+});
+
+// TypeScript declarations
+declare global {
+  interface Window {
+    PM7: {
+      init: () => void;
+      initSidebars?: () => void;
+      Sidebar?: new (element: Element) => any;
+    }
+  }
+}
+```
+
+## Required Structure
+
+### Static Sidebar (No JavaScript)
 ```html
-<!-- IMPORTANT: This sidebar is HIDDEN by default! -->
-<!-- It has transform: translateX(-100%) applied -->
-<aside class="pm7-sidebar" id="sidebar" data-pm7-sidebar>
-  <div class="pm7-sidebar-header">
-    <h2>Navigation</h2>
-    <button class="pm7-sidebar-close" aria-label="Close sidebar">
-      <svg class="pm7-icon"><!-- close icon --></svg>
-    </button>
-  </div>
-  
+<aside class="pm7-sidebar">
   <div class="pm7-sidebar-content">
     <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active">
-        <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
+      <a href="#" class="pm7-sidebar-item">Link</a>
+    </nav>
+  </div>
+</aside>
+```
+
+### Interactive Sidebar (JavaScript Required)
+```html
+<aside class="pm7-sidebar" data-pm7-sidebar id="sidebar-1">
+  <div class="pm7-sidebar-header">
+    <h3 class="pm7-sidebar-title">Title</h3>
+    <button class="pm7-sidebar-close">×</button>
+  </div>
+  <div class="pm7-sidebar-content">
+    <nav class="pm7-sidebar-nav">
+      <a href="#" class="pm7-sidebar-item">Link</a>
+    </nav>
+  </div>
+</aside>
+```
+
+## Attributes
+
+| Attribute | Values | Effect |
+|-----------|---------|---------|
+| `data-pm7-sidebar` | presence | Makes sidebar interactive (hidden by default) |
+| `data-pm7-sidebar-trigger` | sidebar ID | Opens specific sidebar |
+| `data-state` | `open`, `closed` | Current sidebar state |
+
+## CSS Classes
+
+| Class | Required | Usage |
+|-------|----------|-------|
+| `.pm7-sidebar` | YES | Base container |
+| `.pm7-sidebar-static` | NO | Always visible sidebar |
+| `.pm7-sidebar-header` | NO | Header section |
+| `.pm7-sidebar-title` | NO | Header title |
+| `.pm7-sidebar-close` | NO | Close button |
+| `.pm7-sidebar-content` | NO | Content wrapper |
+| `.pm7-sidebar-nav` | NO | Navigation container |
+| `.pm7-sidebar-item` | NO | Navigation item |
+| `.pm7-sidebar-item--active` | NO | Active navigation item |
+| `.pm7-sidebar-section` | NO | Content section |
+| `.pm7-sidebar-section-title` | NO | Section title |
+| `.pm7-sidebar--right` | NO | Right-aligned sidebar |
+| `.pm7-sidebar--push` | NO | Push content instead of overlay |
+| `.pm7-sidebar--mini` | NO | Collapsed sidebar with icons |
+
+## Patterns
+
+### Pattern: Static Documentation Sidebar
+```html
+<aside class="pm7-sidebar pm7-sidebar-static">
+  <div class="pm7-sidebar-content">
+    <div class="pm7-sidebar-section">
+      <h3 class="pm7-sidebar-section-title">Documentation</h3>
+      <nav class="pm7-sidebar-nav">
+        <a href="/docs" class="pm7-sidebar-item pm7-sidebar-item--active">
+          Getting Started
+        </a>
+        <a href="/docs/api" class="pm7-sidebar-item">
+          API Reference
+        </a>
+      </nav>
+    </div>
+  </div>
+</aside>
+```
+
+### Pattern: Interactive Mobile Menu
+```html
+<!-- Trigger -->
+<button data-pm7-sidebar-trigger="mobile-menu">Menu</button>
+
+<!-- Sidebar -->
+<aside class="pm7-sidebar" data-pm7-sidebar id="mobile-menu">
+  <div class="pm7-sidebar-header">
+    <h3 class="pm7-sidebar-title">Menu</h3>
+    <button class="pm7-sidebar-close">×</button>
+  </div>
+  <div class="pm7-sidebar-content">
+    <nav class="pm7-sidebar-nav">
+      <a href="#" class="pm7-sidebar-item">Home</a>
+      <a href="#" class="pm7-sidebar-item">About</a>
+    </nav>
+  </div>
+</aside>
+```
+
+### Pattern: With Icons
+```html
+<aside class="pm7-sidebar" data-pm7-sidebar>
+  <div class="pm7-sidebar-content">
+    <nav class="pm7-sidebar-nav">
+      <a href="#" class="pm7-sidebar-item">
+        <svg class="pm7-sidebar-item-icon" width="20" height="20">...</svg>
         <span class="pm7-sidebar-item-text">Dashboard</span>
       </a>
-      <a href="#" class="pm7-sidebar-item">
-        <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
-        <span class="pm7-sidebar-item-text">Projects</span>
-      </a>
-      <a href="#" class="pm7-sidebar-item">
-        <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
-        <span class="pm7-sidebar-item-text">Settings</span>
-      </a>
     </nav>
   </div>
-  
-  <div class="pm7-sidebar-footer">
-    <a href="#" class="pm7-sidebar-item">
-      <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
-      <span class="pm7-sidebar-item-text">Logout</span>
-    </a>
-  </div>
-</aside>
-
-<!-- Trigger button REQUIRED to show the sidebar -->
-<button class="pm7-sidebar-trigger" data-pm7-sidebar-trigger="sidebar">
-  <svg class="pm7-icon pm7-icon-menu"><!-- menu icon --></svg>
-</button>
-```
-
-### ✅ Always Visible Sidebar (No-JS Fallback)
-
-To ensure your sidebar is visible even without JavaScript:
-
-```html
-<!-- Option 1: Force visibility with inline styles -->
-<aside class="pm7-sidebar" 
-       data-pm7-sidebar 
-       style="transform: translateX(0) !important; left: 0 !important;">
-  <!-- sidebar content -->
-</aside>
-
-<!-- Option 2: Use static sidebar (no interactive features) -->
-<aside class="pm7-sidebar pm7-sidebar--static">
-  <!-- sidebar content -->
-</aside>
-
-<!-- Option 3: CSS override approach -->
-<style>
-  .pm7-sidebar-always-visible {
-    transform: translateX(0) !important;
-    left: 0 !important;
-    position: relative !important;
-  }
-</style>
-
-<aside class="pm7-sidebar pm7-sidebar-always-visible" data-pm7-sidebar>
-  <!-- sidebar content -->
 </aside>
 ```
 
-## Display Modes
-
-### Overlay Mode (Default)
-
-The sidebar overlays the content with a semi-transparent backdrop:
-
-```html
-<aside class="pm7-sidebar" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-```
-
-### Push Mode
-
-The sidebar pushes the main content aside when open:
-
-```html
-<aside class="pm7-sidebar" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-
-<main class="pm7-sidebar-push">
-  <!-- main content that gets pushed -->
-</main>
-```
-
-### Static Mode
-
-The sidebar is always visible and doesn't overlay content:
-
-```html
-<aside class="pm7-sidebar pm7-sidebar--static" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-```
-
-## Sidebar Variants
-
-### Right-Aligned Sidebar
-
-```html
-<aside class="pm7-sidebar pm7-sidebar--right" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-```
-
-### Mini Sidebar
-
-A compact sidebar showing only icons:
-
+### Pattern: Mini Sidebar
 ```html
 <aside class="pm7-sidebar pm7-sidebar--mini" data-pm7-sidebar>
-  <nav class="pm7-sidebar-nav">
-    <button class="pm7-sidebar-item" title="Dashboard">
-      <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
-    </button>
-    <button class="pm7-sidebar-item" title="Projects">
-      <svg class="pm7-sidebar-item-icon"><!-- icon --></svg>
-    </button>
-  </nav>
-</aside>
-```
-
-### Floating Sidebar
-
-A sidebar with rounded corners and shadow:
-
-```html
-<aside class="pm7-sidebar pm7-sidebar--floating" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-```
-
-### Compact Spacing
-
-Reduced padding for dense navigation:
-
-```html
-<aside class="pm7-sidebar pm7-sidebar--compact" data-pm7-sidebar>
-  <!-- sidebar content -->
-</aside>
-```
-
-## Navigation Patterns
-
-### Sections with Titles
-
-```html
-<div class="pm7-sidebar-content">
-  <div class="pm7-sidebar-section">
-    <h3 class="pm7-sidebar-section-title">Main</h3>
+  <div class="pm7-sidebar-content">
     <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item">Dashboard</a>
-      <a href="#" class="pm7-sidebar-item">Analytics</a>
+      <a href="#" class="pm7-sidebar-item" title="Dashboard">
+        <svg class="pm7-sidebar-item-icon" width="20" height="20">...</svg>
+      </a>
     </nav>
   </div>
-  
-  <div class="pm7-sidebar-divider"></div>
-  
-  <div class="pm7-sidebar-section">
-    <h3 class="pm7-sidebar-section-title">Settings</h3>
-    <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item">Profile</a>
-      <a href="#" class="pm7-sidebar-item">Preferences</a>
-    </nav>
-  </div>
-</div>
-```
-
-### Collapsible Sections
-
-```html
-<div class="pm7-sidebar-collapsible" data-state="open">
-  <button class="pm7-sidebar-collapsible-trigger">
-    <span>Projects</span>
-    <svg class="pm7-sidebar-collapsible-icon"><!-- chevron icon --></svg>
-  </button>
-  <div class="pm7-sidebar-collapsible-content">
-    <nav class="pm7-sidebar-nav pm7-sidebar-nav--nested">
-      <a href="#" class="pm7-sidebar-item">Project Alpha</a>
-      <a href="#" class="pm7-sidebar-item">Project Beta</a>
-    </nav>
-  </div>
-</div>
-```
-
-### Navigation with Icons and Badges
-
-```html
-<nav class="pm7-sidebar-nav">
-  <a href="#" class="pm7-sidebar-item">
-    <svg class="pm7-sidebar-item-icon"><!-- inbox icon --></svg>
-    <span class="pm7-sidebar-item-text">Inbox</span>
-    <span class="pm7-badge pm7-badge--primary">5</span>
-  </a>
-  <a href="#" class="pm7-sidebar-item">
-    <svg class="pm7-sidebar-item-icon"><!-- star icon --></svg>
-    <span class="pm7-sidebar-item-text">Starred</span>
-  </a>
-</nav>
-```
-
-## Responsive Behavior
-
-### Mobile-First Approach
-
-```html
-<!-- Mobile: Overlay sidebar -->
-<aside class="pm7-sidebar" data-pm7-sidebar>
-  <!-- sidebar content -->
 </aside>
-
-<!-- Desktop: Static sidebar -->
-<style>
-  @media (min-width: 768px) {
-    .pm7-sidebar {
-      position: relative;
-      transform: translateX(0);
-    }
-  }
-</style>
 ```
 
-### Responsive Static Sidebar
+### Pattern: JavaScript Control
+```javascript
+// Manual initialization
+const sidebar = document.querySelector('[data-pm7-sidebar]');
+const instance = new PM7.Sidebar(sidebar);
 
-Use the `pm7-sidebar--static` modifier for automatic responsive behavior:
+// Methods
+instance.open();
+instance.close();
+instance.toggle();
 
-```html
-<div class="app-layout">
-  <aside class="pm7-sidebar pm7-sidebar--static" data-pm7-sidebar>
-    <!-- sidebar content -->
-  </aside>
-  <main class="app-content">
-    <!-- main content -->
-  </main>
-</div>
+// Check state
+const isOpen = sidebar.getAttribute('data-state') === 'open';
 
-<style>
-  .app-layout {
-    display: flex;
-  }
-  
-  .app-content {
-    flex: 1;
-  }
-  
-  @media (max-width: 767px) {
-    .pm7-sidebar--static {
-      position: fixed;
-      transform: translateX(-100%);
-    }
-    
-    .pm7-sidebar--static.pm7-sidebar--open {
-      transform: translateX(0);
-    }
-  }
-</style>
+// Events
+sidebar.addEventListener('pm7-sidebar-open', (e) => {
+  // e.detail = { sidebar: HTMLElement }
+});
+
+sidebar.addEventListener('pm7-sidebar-close', (e) => {
+  // e.detail = { sidebar: HTMLElement }
+});
 ```
 
-## Framework Integration
-
-### React/Next.js Integration
-
+### Pattern: Next.js Implementation
 ```jsx
-import { useEffect, useState } from 'react';
+'use client'
 
-function Sidebar() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  useEffect(() => {
-    // Wait for PM7 to load
-    if (typeof window !== 'undefined' && window.PM7) {
-      window.PM7.initSidebars();
-      setIsLoaded(true);
-    }
-  }, []);
-  
+export default function Layout({ children }) {
   return (
-    <aside 
-      className="pm7-sidebar" 
-      data-pm7-sidebar
-      // Force visibility until JS loads
-      style={{ 
-        transform: isLoaded ? '' : 'translateX(0)',
-        left: isLoaded ? '' : '0'
-      }}
-    >
-      {/* sidebar content */}
-    </aside>
+    <>
+      <aside className="pm7-sidebar pm7-sidebar-static">
+        <div className="pm7-sidebar-content">
+          <nav className="pm7-sidebar-nav">
+            <Link href="/" className="pm7-sidebar-item">
+              Home
+            </Link>
+          </nav>
+        </div>
+      </aside>
+      <main>{children}</main>
+    </>
   );
 }
 ```
 
-### Vue.js Integration
-
-```vue
-<template>
-  <aside 
-    class="pm7-sidebar" 
-    data-pm7-sidebar
-    :style="sidebarStyle"
-  >
+### Pattern: Layout Integration
+```html
+<!-- Documentation Layout -->
+<div class="pm7-docs-layout">
+  <aside class="pm7-sidebar pm7-sidebar-static">
     <!-- sidebar content -->
   </aside>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      pm7Loaded: false
-    }
-  },
-  computed: {
-    sidebarStyle() {
-      // Force visibility until PM7 loads
-      return this.pm7Loaded ? {} : {
-        transform: 'translateX(0)',
-        left: '0'
-      }
-    }
-  },
-  mounted() {
-    if (typeof window !== 'undefined' && window.PM7) {
-      window.PM7.initSidebars();
-      this.pm7Loaded = true;
-    }
-  }
-}
-</script>
+  <main class="pm7-docs-content">
+    <!-- main content -->
+  </main>
+</div>
 ```
 
 ## JavaScript API
 
 ### Initialization
 
-Sidebars with `data-pm7-sidebar` are automatically initialized when PM7 loads:
-
-```javascript
-// Wait for PM7 to be available
-if (window.PM7) {
-  window.PM7.initSidebars();
-}
-
-// Manual initialization
-const sidebar = new PM7.Sidebar(element);
-
-// Access instance
-const sidebar = element.PM7Sidebar;
-```
+IF static sidebar THEN no JavaScript needed
+IF interactive THEN add `data-pm7-sidebar`
+IF manual control THEN `new PM7.Sidebar(element)`
 
 ### Methods
 
-```javascript
-// Open sidebar
-sidebar.open();
-
-// Close sidebar
-sidebar.close();
-
-// Toggle sidebar
-sidebar.toggle();
-
-// Destroy instance
-sidebar.destroy();
-```
+| Method | Parameters | Returns | Usage |
+|--------|------------|---------|--------|
+| `open()` | none | void | `sidebar.open()` |
+| `close()` | none | void | `sidebar.close()` |
+| `toggle()` | none | void | `sidebar.toggle()` |
+| `destroy()` | none | void | `sidebar.destroy()` |
 
 ### Events
 
-```javascript
-// Sidebar opened
-element.addEventListener('pm7:sidebar:open', (e) => {
-  console.log('Sidebar opened', e.detail.sidebar);
-});
+| Event | When Fired | Detail |
+|-------|------------|---------|
+| `pm7-sidebar-open` | On open | `{ sidebar: HTMLElement }` |
+| `pm7-sidebar-close` | On close | `{ sidebar: HTMLElement }` |
 
-// Sidebar closed
-element.addEventListener('pm7:sidebar:close', (e) => {
-  console.log('Sidebar closed', e.detail.sidebar);
-});
+## Anti-Patterns
 
-// Collapsible toggled
-element.addEventListener('pm7:sidebar:collapsible:toggle', (e) => {
-  console.log('Collapsible toggled', e.detail.isOpen);
-});
+### Anti-Pattern: Wrong Structure
+```html
+<!-- NEVER -->
+<div class="sidebar">
+  <nav>Links</nav>
+</div>
+
+<!-- ALWAYS -->
+<aside class="pm7-sidebar">
+  <div class="pm7-sidebar-content">
+    <nav class="pm7-sidebar-nav">Links</nav>
+  </div>
+</aside>
 ```
+
+### Anti-Pattern: Direct Method Calls
+```javascript
+// NEVER
+window.PM7.initSidebars();
+
+// ALWAYS
+if (window.PM7?.initSidebars) {
+  window.PM7.initSidebars();
+}
+```
+
+### Anti-Pattern: Inline Styles for Layout
+```html
+<!-- NEVER -->
+<aside class="pm7-sidebar" style="width: 280px; background: #f3f4f6;">
+
+<!-- ALWAYS -->
+<aside class="pm7-sidebar">
+```
+
+### Anti-Pattern: Missing Trigger Association
+```html
+<!-- NEVER -->
+<button onclick="openSidebar()">Menu</button>
+
+<!-- ALWAYS -->
+<button data-pm7-sidebar-trigger="sidebar-id">Menu</button>
+```
+
+### Anti-Pattern: PM7 Layout Classes Not Documented
+```html
+<!-- NEVER - these don't exist in PM7 -->
+<div class="pm7-layout pm7-layout-sidebar">
+
+<!-- ALWAYS - use custom CSS for layouts -->
+<div style="display: flex;">
+  <aside class="pm7-sidebar">...</aside>
+  <main style="flex: 1;">...</main>
+</div>
+```
+
+## Rules
+
+- ALWAYS: Use `<aside>` element for sidebars
+- ALWAYS: Include `pm7-sidebar` class
+- ALWAYS: Check PM7 exists before calling methods
+- ALWAYS: Use `data-pm7-sidebar-trigger` for trigger buttons
+- NEVER: Use role attributes (auto-applied)
+- NEVER: Apply manual transform or visibility styles
+- NEVER: Nest interactive sidebars
+- NEVER: Initialize sidebars multiple times
+
+## CSS Variables
+
+| Variable | Default Light | Default Dark | Usage |
+|----------|---------------|--------------|--------|
+| `--pm7-sidebar-width` | `280px` | `280px` | Sidebar width |
+| `--pm7-sidebar-bg` | `#f3f4f6` | `#1E1E1E` | Background color |
+| `--pm7-sidebar-item-hover` | `#ffffff` | `var(--pm7-surface-hover)` | Item hover background |
+| `--pm7-sidebar-active` | `var(--pm7-primary)` | `#2a2a2a` | Active item background |
+
+## State Management
+
+IF `data-pm7-sidebar` THEN hidden by default with `transform: translateX(-100%)`
+IF `data-state="open"` THEN visible with `transform: translateX(0)`
+IF static sidebar THEN always visible, no transform
+
+## Keyboard Navigation
+
+- Escape: Close sidebar
+- Tab: Navigate through sidebar items
+- Enter/Space: Activate focused item
 
 ## Accessibility
 
-### ARIA Attributes
+- Focus trap when open
+- ARIA attributes auto-applied
+- Keyboard navigation enabled
+- Screen reader announcements
 
-The sidebar component automatically manages ARIA attributes:
+## Framework Usage
 
-```html
-<!-- Sidebar with proper ARIA -->
-<aside 
-  class="pm7-sidebar" 
-  id="main-sidebar"
-  data-pm7-sidebar
-  aria-label="Main navigation"
-  aria-hidden="true"
->
-  <!-- content -->
-</aside>
+### React
+```jsx
+'use client'
 
-<!-- Trigger with ARIA -->
-<button 
-  data-pm7-sidebar-trigger="main-sidebar"
-  aria-controls="main-sidebar"
-  aria-expanded="false"
->
-  Menu
-</button>
-```
-
-### Keyboard Navigation
-
-- `Tab` - Navigate through sidebar items
-- `Arrow Up/Down` - Navigate between items
-- `Home` - Jump to first item
-- `End` - Jump to last item
-- `Escape` - Close sidebar (when in overlay mode)
-
-### Focus Management
-
-The sidebar automatically:
-- Traps focus when open in overlay mode
-- Returns focus to trigger when closed
-- Manages focus for keyboard navigation
-
-## Customization
-
-### CSS Variables
-
-```css
-:root {
-  /* Sidebar dimensions */
-  --pm7-sidebar-width: 280px;
-  --pm7-sidebar-bg: var(--pm7-background);
-  
-  /* Z-index (be careful when changing) */
-  --pm7-sidebar-z-index: 1000;
-  
-  /* Animation duration */
-  --pm7-sidebar-transition-duration: 0.3s;
-  
-  /* Item hover state - optional override */
-  --pm7-sidebar-item-hover-bg: transparent; /* Default: uses dynamic 20% overlay */
-}
-
-/* Custom mini sidebar width */
-.pm7-sidebar--mini {
-  --pm7-sidebar-width: 60px;
-}
-```
-
-#### Dynamic Hover Effect
-
-By default, sidebar items have a smart hover effect that automatically creates a 20% darker background in light mode and 20% lighter background in dark mode. This works regardless of the sidebar's background color, ensuring consistent visual feedback.
-
-```css
-/* The hover effect adapts to any background color */
-.my-custom-sidebar {
-  --pm7-sidebar-bg: #6B46C1; /* Purple sidebar */
-}
-/* Hover will automatically be 20% darker than #6B46C1 */
-
-/* Override with custom hover color if needed */
-.my-custom-sidebar .pm7-sidebar-item {
-  --pm7-sidebar-item-hover-bg: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Custom Styling
-
-```css
-/* Brand-colored sidebar */
-.pm7-sidebar--brand {
-  background-color: var(--pm7-primary);
-  color: var(--pm7-primary-foreground);
-}
-
-.pm7-sidebar--brand .pm7-sidebar-item {
-  color: var(--pm7-primary-foreground);
-}
-
-.pm7-sidebar--brand .pm7-sidebar-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Transparent sidebar */
-.pm7-sidebar--transparent {
-  background-color: transparent;
-  backdrop-filter: blur(10px);
-}
-```
-
-## Complete Examples
-
-### Dashboard Layout with Sidebar
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="path/to/@pm7/core/dist/pm7.css">
-</head>
-<body>
-  <!-- Sidebar -->
-  <aside class="pm7-sidebar" id="app-sidebar" data-pm7-sidebar>
-    <div class="pm7-sidebar-header">
-      <img src="logo.svg" alt="Logo" class="logo">
-      <button class="pm7-sidebar-close">×</button>
-    </div>
-    
-    <div class="pm7-sidebar-content">
-      <!-- Main navigation -->
-      <nav class="pm7-sidebar-nav">
-        <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active">
-          <svg class="pm7-sidebar-item-icon"><!-- home icon --></svg>
-          <span>Home</span>
-        </a>
-        <a href="#" class="pm7-sidebar-item">
-          <svg class="pm7-sidebar-item-icon"><!-- projects icon --></svg>
-          <span>Projects</span>
-        </a>
-      </nav>
-      
-      <!-- Collapsible section -->
-      <div class="pm7-sidebar-collapsible" data-state="open">
-        <button class="pm7-sidebar-collapsible-trigger">
-          <span>Team</span>
-          <svg class="pm7-sidebar-collapsible-icon"><!-- chevron --></svg>
-        </button>
-        <div class="pm7-sidebar-collapsible-content">
-          <nav class="pm7-sidebar-nav pm7-sidebar-nav--nested">
-            <a href="#" class="pm7-sidebar-item">Members</a>
-            <a href="#" class="pm7-sidebar-item">Roles</a>
-          </nav>
-        </div>
-      </div>
-    </div>
-    
-    <div class="pm7-sidebar-footer">
-      <a href="#" class="pm7-sidebar-item">
-        <img src="avatar.jpg" alt="User" class="avatar">
-        <span>John Doe</span>
-      </a>
-    </div>
-  </aside>
-  
-  <!-- Main content -->
-  <div class="pm7-sidebar-push">
-    <header>
-      <button class="pm7-sidebar-trigger" data-pm7-sidebar-trigger="app-sidebar">
-        <svg class="pm7-icon"><!-- menu icon --></svg>
-      </button>
-      <h1>Dashboard</h1>
-    </header>
-    
-    <main>
-      <!-- page content -->
-    </main>
-  </div>
-  
-  <script src="path/to/@pm7/core/dist/pm7.js"></script>
-</body>
-</html>
-```
-
-### Settings Page with Static Sidebar
-
-```html
-<div class="settings-layout">
-  <!-- Settings sidebar -->
-  <aside class="pm7-sidebar pm7-sidebar--static pm7-sidebar--compact">
-    <nav class="pm7-sidebar-nav">
-      <a href="#general" class="pm7-sidebar-item pm7-sidebar-item--active">
-        General
-      </a>
-      <a href="#security" class="pm7-sidebar-item">
-        Security
-      </a>
-      <a href="#notifications" class="pm7-sidebar-item">
-        Notifications
-      </a>
-      <a href="#integrations" class="pm7-sidebar-item">
-        Integrations
-      </a>
+<aside className="pm7-sidebar" data-pm7-sidebar id="react-sidebar">
+  <div className="pm7-sidebar-content">
+    <nav className="pm7-sidebar-nav">
+      <Link href="/" className="pm7-sidebar-item">Home</Link>
     </nav>
-  </aside>
-  
-  <!-- Settings content -->
-  <div class="settings-content">
-    <section id="general">
-      <h2>General Settings</h2>
-      <!-- settings form -->
-    </section>
   </div>
-</div>
-
-<style>
-  .settings-layout {
-    display: flex;
-    gap: var(--pm7-spacing-6);
-  }
-  
-  .settings-content {
-    flex: 1;
-  }
-</style>
+</aside>
 ```
 
-## CSS Classes
+### Vue
+```vue
+<template>
+  <aside class="pm7-sidebar" data-pm7-sidebar id="vue-sidebar">
+    <div class="pm7-sidebar-content">
+      <nav class="pm7-sidebar-nav">
+        <router-link to="/" class="pm7-sidebar-item">Home</router-link>
+      </nav>
+    </div>
+  </aside>
+</template>
+```
 
-| Class | Description |
-|-------|-------------|
-| `.pm7-sidebar` | Base sidebar container |
-| `.pm7-sidebar--open` | Open state modifier |
-| `.pm7-sidebar--right` | Right-aligned sidebar |
-| `.pm7-sidebar--static` | Static/always visible mode |
-| `.pm7-sidebar--mini` | Mini/collapsed sidebar |
-| `.pm7-sidebar--floating` | Floating variant with shadow |
-| `.pm7-sidebar--compact` | Compact spacing variant |
-| `.pm7-sidebar-header` | Sidebar header section |
-| `.pm7-sidebar-content` | Main content area |
-| `.pm7-sidebar-footer` | Sidebar footer section |
-| `.pm7-sidebar-nav` | Navigation container |
-| `.pm7-sidebar-nav--nested` | Nested navigation |
-| `.pm7-sidebar-item` | Navigation item |
-| `.pm7-sidebar-item--active` | Active navigation item (primary background) |
-| `.pm7-sidebar-item-icon` | Item icon element |
-| `.pm7-sidebar-item-text` | Item text element |
-| `.pm7-sidebar-overlay` | Background overlay |
-| `.pm7-sidebar-trigger` | Trigger button |
-| `.pm7-sidebar-push` | Content that gets pushed |
-| `.pm7-sidebar-close` | Close button |
-| `.pm7-sidebar-section` | Content section |
-| `.pm7-sidebar-section-title` | Section title |
-| `.pm7-sidebar-divider` | Horizontal divider |
-| `.pm7-sidebar-collapsible` | Collapsible section |
-| `.pm7-sidebar-collapsible-trigger` | Collapsible trigger |
-| `.pm7-sidebar-collapsible-content` | Collapsible content |
+## Related Components
 
-## Best Practices
-
-1. **Use Semantic HTML**: Use `<aside>` for sidebars and `<nav>` for navigation
-2. **Provide Labels**: Always include aria-label for screen readers
-3. **Active States**: Clearly indicate the current page/section
-4. **Touch Targets**: Ensure items are at least 44x44px for mobile
-5. **Responsive Design**: Test sidebar behavior across different screen sizes
-6. **Performance**: Use CSS transforms for smooth animations
-7. **Focus Indicators**: Ensure visible focus states for keyboard navigation
-
-## Troubleshooting
-
-### Sidebar Not Visible?
-
-1. **Check if PM7 is loaded:**
-   ```javascript
-   console.log('PM7 loaded:', typeof window.PM7 !== 'undefined');
-   ```
-
-2. **Check transform style:**
-   ```javascript
-   const sidebar = document.querySelector('.pm7-sidebar');
-   console.log('Transform:', getComputedStyle(sidebar).transform);
-   // If it shows translateX(-280px) or similar, sidebar is hidden
-   ```
-
-3. **Force visibility (temporary fix):**
-   ```javascript
-   document.querySelector('.pm7-sidebar').style.transform = 'translateX(0)';
-   document.querySelector('.pm7-sidebar').style.left = '0';
-   ```
-
-4. **Check z-index conflicts:**
-   - PM7 sidebar uses `z-index: 1000`
-   - Ensure no other elements have higher z-index
-
-### Common Issues
-
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Sidebar not visible | Default hidden state | Add inline styles or use static mode |
-| Sidebar behind content | Z-index conflict | Check overlapping elements' z-index |
-| No animations | PM7 JS not loaded | Ensure PM7.js is loaded and initialized |
-| Sidebar stuck open/closed | State management issue | Check trigger button setup |
-
-## Browser Support
-
-The Sidebar component supports all modern browsers:
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Android)
-
-**Note**: Interactive features require JavaScript. Static sidebars work in all browsers including those with JavaScript disabled.
+- Menu: For dropdown navigation
+- Button: For trigger elements

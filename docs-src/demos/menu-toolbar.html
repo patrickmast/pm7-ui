@@ -50,9 +50,7 @@
 
     .app-content {
       flex: 1;
-      padding: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
+      padding: 1rem 2rem 2rem 2rem;
       width: 100%;
     }
 
@@ -135,8 +133,9 @@
       display: flex;
       gap: 0.25rem;
       padding: 0.5rem;
-      background: var(--pm7-surface);
       flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+      justify-content: center;
     }
 
     .format-group {
@@ -178,6 +177,87 @@
       color: var(--pm7-muted-foreground);
       display: flex;
       justify-content: space-between;
+    }
+
+    /* Resizable editor container */
+    .editor-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .editor-wrapper {
+      position: relative;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      overflow: hidden;
+      width: 800px; /* Default starting width */
+    }
+
+    /* Resize handle */
+    .resize-handle {
+      position: absolute;
+      top: 0;
+      width: 12px;
+      cursor: ew-resize;
+      background: transparent;
+      z-index: 10;
+    }
+
+    .resize-handle.resizing {
+      /* No visual change during resize */
+    }
+
+    /* Visual indicator */
+    .resize-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 40px;
+      background: var(--pm7-muted-foreground);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    /* Keep handle appearance consistent during resize */
+
+    /* Dialog backdrop styles */
+    .pm7-dialog-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      z-index: var(--pm7-z-modal, 100);
+    }
+    
+    .pm7-dialog-backdrop[data-state="open"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Ensure dialog close button matches PM7 style */
+    #about-dialog .pm7-dialog-close {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Adjust TipTap styles for wrapper */
+    .editor-wrapper .tiptap {
+      border: none;
+      border-radius: 0;
     }
 
 
@@ -335,9 +415,9 @@
 
     <!-- Main Content Area -->
     <main class="app-content">
-      <h2>TipTap Editor with PM7 Toolbar</h2>
+      <h2 style="text-align: center;">TipTap Editor with PM7 Toolbar</h2>
       
-      <!-- Formatting Toolbar -->
+      <!-- Formatting Toolbar (outside card) -->
       <div class="format-toolbar" id="format-toolbar">
         <div class="format-group">
           <button class="format-button" id="bold-btn" title="Bold (Cmd+B)">
@@ -378,8 +458,16 @@
         </div>
       </div>
       
-      <!-- TipTap Editor Container -->
-      <div id="editor"></div>
+      <!-- Resizable Editor Container -->
+      <div class="editor-container" id="editor-container">
+        <div class="editor-wrapper">
+          <!-- TipTap Editor -->
+          <div id="editor"></div>
+        </div>
+        
+        <!-- Resize Handle (moved outside wrapper) -->
+        <div class="resize-handle" id="resize-handle"></div>
+      </div>
     </main>
 
     <!-- Status Bar -->
@@ -478,8 +566,35 @@ function greet(name) {
       }
     };
 
+    // Initialize dialog once
+    window.aboutDialog = null;
+    let aboutBackdrop;
+    setTimeout(() => {
+      const dialogElement = document.querySelector('#about-dialog [data-pm7-dialog]');
+      aboutBackdrop = document.getElementById('about-dialog');
+      if (dialogElement) {
+        window.aboutDialog = new PM7.Dialog(dialogElement);
+        
+        // Override open/close to handle backdrop
+        const originalOpen = window.aboutDialog.open.bind(window.aboutDialog);
+        const originalClose = window.aboutDialog.close.bind(window.aboutDialog);
+        
+        window.aboutDialog.open = function() {
+          aboutBackdrop.setAttribute('data-state', 'open');
+          originalOpen();
+        };
+        
+        window.aboutDialog.close = function() {
+          aboutBackdrop.removeAttribute('data-state');
+          originalClose();
+        };
+      }
+    }, 100);
+    
     window.showAbout = function() {
-      alert('PM7 UI TipTap Editor Demo\nVersion 2.0.0\n\nIntegrating TipTap editor with PM7 UI components.');
+      if (window.aboutDialog) {
+        window.aboutDialog.open();
+      }
     };
 
     // Toolbar button handlers
@@ -604,7 +719,204 @@ function greet(name) {
       const col = lines[lines.length - 1].length + 1;
       document.querySelector('.status-bar span:last-child').textContent = `Line ${line}, Column ${col}`;
     });
+
+    // Resize functionality
+    const resizeHandle = document.getElementById('resize-handle');
+    const editorContainer = document.getElementById('editor-container');
+    const editorWrapper = editorContainer.querySelector('.editor-wrapper');
+    let isResizing = false;
+    let startX;
+    let startWidth;
+    
+    // Position handle next to wrapper
+    function positionHandle() {
+      const wrapperRect = editorWrapper.getBoundingClientRect();
+      const containerRect = editorContainer.getBoundingClientRect();
+      const rightEdge = wrapperRect.right - containerRect.left + 8;
+      resizeHandle.style.left = rightEdge + 'px';
+      resizeHandle.style.height = wrapperRect.height + 'px';
+    }
+    
+    // Initial positioning after a short delay to ensure DOM is ready
+    setTimeout(positionHandle, 100);
+    window.addEventListener('resize', positionHandle);
+    
+    // Also reposition when editor content changes
+    editor.on('update', () => {
+      setTimeout(positionHandle, 50);
+    });
+
+    resizeHandle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      startX = e.pageX;
+      startWidth = editorWrapper.offsetWidth;
+      resizeHandle.classList.add('resizing');
+      document.body.style.cursor = 'ew-resize';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      
+      const containerRect = editorContainer.getBoundingClientRect();
+      const wrapperRect = editorWrapper.getBoundingClientRect();
+      
+      // Calculate new width based on mouse position
+      const newWidth = (e.pageX - containerRect.left) - (wrapperRect.left - containerRect.left) - 8;
+      
+      // Set minimum width only (no maximum)
+      const minWidth = 400;
+      
+      if (newWidth >= minWidth) {
+        editorWrapper.style.width = newWidth + 'px';
+        // Update handle position directly during drag
+        resizeHandle.style.left = (e.pageX - containerRect.left) + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        resizeHandle.classList.remove('resizing');
+        document.body.style.cursor = '';
+        // Reposition handle properly after resize
+        positionHandle();
+      }
+    });
+
+    // Touch support for mobile
+    resizeHandle.addEventListener('touchstart', (e) => {
+      isResizing = true;
+      startX = e.touches[0].pageX;
+      startWidth = editorWrapper.offsetWidth;
+      resizeHandle.classList.add('resizing');
+      e.preventDefault();
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isResizing) return;
+      
+      const containerRect = editorContainer.getBoundingClientRect();
+      const wrapperRect = editorWrapper.getBoundingClientRect();
+      
+      // Calculate new width based on touch position
+      const newWidth = (e.touches[0].pageX - containerRect.left) - (wrapperRect.left - containerRect.left) - 8;
+      
+      // Set minimum width only (no maximum)
+      const minWidth = 400;
+      
+      if (newWidth >= minWidth) {
+        editorWrapper.style.width = newWidth + 'px';
+        // Update handle position directly during drag
+        resizeHandle.style.left = (e.touches[0].pageX - containerRect.left) + 'px';
+      }
+    });
+
+    document.addEventListener('touchend', () => {
+      if (isResizing) {
+        isResizing = false;
+        resizeHandle.classList.remove('resizing');
+        // Reposition handle properly after resize
+        positionHandle();
+      }
+    });
     })(); // End of async initialization
   </script>
+
+  <!-- About Dialog -->
+  <div class="pm7-dialog-backdrop" id="about-dialog">
+    <div class="pm7-dialog" data-pm7-dialog>
+    <div class="pm7-dialog-content">
+      <div class="pm7-dialog-header">
+        <h2 class="pm7-dialog-title">About TipTap Editor with PM7 UI</h2>
+        <button class="pm7-dialog-close" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="pm7-dialog-body">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 80px; height: 80px; background: var(--pm7-primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Version 2.0.0</h3>
+          <p style="color: var(--pm7-muted-foreground);">A powerful rich text editor integration</p>
+        </div>
+
+        <div class="pm7-card" style="background: var(--pm7-muted); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h4 style="margin-bottom: 1rem;">What's Included</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="width: 8px; height: 8px; background: var(--pm7-primary); border-radius: 50%;"></div>
+                <strong>TipTap Editor</strong>
+              </div>
+              <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-left: 1rem;">
+                Advanced rich text editing with full keyboard support
+              </p>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="width: 8px; height: 8px; background: var(--pm7-primary); border-radius: 50%;"></div>
+                <strong>PM7 UI Components</strong>
+              </div>
+              <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-left: 1rem;">
+                Beautiful, accessible UI components
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="margin-bottom: 1rem;">Key Features</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Resizable editor with smooth drag handle</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Traditional desktop-style menu bar</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Rich text formatting toolbar</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Dark mode support</span>
+            </li>
+          </ul>
+        </div>
+
+        <div style="padding: 1rem; background: var(--pm7-card); border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); text-align: center;">
+          <p style="margin-bottom: 0.5rem; color: var(--pm7-muted-foreground); font-size: 0.875rem;">Built with</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; align-items: center;">
+            <a href="https://tiptap.dev" target="_blank" style="color: var(--pm7-primary); text-decoration: none; font-weight: 500;">TipTap</a>
+            <span style="color: var(--pm7-muted-foreground);">•</span>
+            <a href="https://pm7-ui.com" target="_blank" style="color: var(--pm7-primary); text-decoration: none; font-weight: 500;">PM7 UI</a>
+          </div>
+        </div>
+      </div>
+      <div class="pm7-dialog-footer">
+        <button class="pm7-button pm7-button--primary" onclick="if(window.aboutDialog) aboutDialog.close()">
+          Got it!
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
 </body>
 </html>

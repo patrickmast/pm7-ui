@@ -1,6 +1,20 @@
-# PM7 Theme Switch Component
+<!-- AI-ONLY DOCUMENTATION -->
+---
+type: ai-agent-documentation
+audience: ai-coding-agents-only
+style: exact-patterns
+human-readable: false
+documentation-rules:
+  - NO storytelling or explanations
+  - ONLY exact code patterns
+  - Binary IF/THEN decisions
+  - Explicit anti-patterns with NEVER/ALWAYS
+  - Copy-paste ready code blocks
+---
 
-A modern, accessible theme toggle switch for switching between light and dark modes. Features automatic system preference detection, localStorage persistence, and smooth animations.
+# Component: ThemeSwitch
+
+Light/dark mode toggle switch component.
 
 ## Installation
 
@@ -8,40 +22,185 @@ A modern, accessible theme toggle switch for switching between light and dark mo
 npm install @pm7/core
 ```
 
-Import the CSS and JavaScript:
+### CSS Import
 
 ```javascript
-// CSS
+// ES modules
 import '@pm7/core/dist/pm7.css';
 
-// JavaScript (if using the component programmatically)
-import { PM7ThemeSwitch } from '@pm7/core';
+// HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
 ```
 
-## Basic Usage
+### JavaScript Setup
 
-### HTML
+```javascript
+// ES modules - adds PM7 to window
+import '@pm7/core';
+
+// Dynamic import (Next.js)
+import('@pm7/core').then(() => {
+  window.PM7.init();
+});
+
+// TypeScript declarations
+declare global {
+  interface Window {
+    PM7: {
+      init: () => void;
+      initThemeSwitches?: () => void;
+      ThemeSwitch?: new (element: Element, options?: any) => any;
+    }
+  }
+}
+```
+
+## Required Structure
 
 ```html
-<!-- AI-Agent FIRST: Only data-pm7-theme-switch needed, CSS class is auto-added -->
-<!-- Basic theme switch with label -->
+<div data-pm7-theme-switch></div>
+```
+
+## Attributes
+
+| Attribute | Values | Effect |
+|-----------|---------|---------|
+| `data-pm7-theme-switch` | presence | Auto-initializes component |
+| `data-theme` | `light`, `dark` | Current theme (auto-managed) |
+| `data-default-theme` | `light`, `dark` | Override default |
+| `data-storage-key` | string | LocalStorage key |
+| `data-apply-to-root` | `true`, `false` | Apply dark class to document |
+
+## CSS Classes
+
+| Class | Required | Usage |
+|-------|----------|-------|
+| `.pm7-theme-switch` | AUTO | Container (added by JS) |
+| `.pm7-theme-switch--sm` | NO | Small size |
+| `.pm7-theme-switch--lg` | NO | Large size |
+| `.pm7-theme-switch--disabled` | NO | Disabled state |
+| `.pm7-theme-switch--no-hover` | NO | No hover effects |
+| `.pm7-theme-switch--label-start` | NO | Label before switch |
+| `.pm7-theme-switch--fixed` | NO | Fixed position with label |
+| `.pm7-theme-switch--fixed-icon` | NO | Fixed icon button |
+| `.pm7-theme-switch-button` | AUTO | Toggle button |
+| `.pm7-theme-switch-thumb` | AUTO | Moving thumb |
+| `.pm7-theme-switch-icon` | AUTO | Icon container |
+
+## Patterns
+
+### Pattern: Basic Theme Switch
+```html
+<div data-pm7-theme-switch></div>
+```
+
+### Pattern: With Label
+```html
 <div data-pm7-theme-switch>
   <span>Theme</span>
 </div>
+```
 
-<!-- Without label -->
-<div data-pm7-theme-switch></div>
-
-<!-- Small size -->
+### Pattern: Small Size
+```html
 <div data-pm7-theme-switch class="pm7-theme-switch--sm">
   <span>Dark mode</span>
 </div>
 ```
 
-### React
+### Pattern: Large Size
+```html
+<div data-pm7-theme-switch class="pm7-theme-switch--lg">
+  <span>Theme</span>
+</div>
+```
 
+### Pattern: Label Start
+```html
+<div data-pm7-theme-switch class="pm7-theme-switch--label-start">
+  <span>Dark mode</span>
+</div>
+```
+
+### Pattern: Fixed Position Icon
+```html
+<div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+```
+
+### Pattern: Fixed Position with Label
+```html
+<div class="pm7-theme-switch--fixed" data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+```
+
+### Pattern: Custom Storage Key
+```html
+<div data-pm7-theme-switch data-storage-key="my-app-theme"></div>
+```
+
+### Pattern: Without Root Class
+```html
+<div data-pm7-theme-switch data-apply-to-root="false"></div>
+```
+
+### Pattern: Force Default Theme
+```html
+<div data-pm7-theme-switch data-default-theme="dark"></div>
+```
+
+### Pattern: Dark Mode Flicker Prevention
+```html
+<head>
+  <!-- MUST be BEFORE any stylesheets -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- Stylesheets AFTER script -->
+  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+</head>
+```
+
+### Pattern: JavaScript Control
+```javascript
+// Manual initialization
+const element = document.querySelector('.my-theme-switch');
+const themeSwitch = new PM7.ThemeSwitch(element, {
+  defaultTheme: 'dark',
+  storageKey: 'my-app-theme',
+  applyToRoot: true,
+  onChange: (theme) => {
+    // theme = 'light' or 'dark'
+  }
+});
+
+// Methods
+themeSwitch.setTheme('dark');
+themeSwitch.toggle();
+const theme = themeSwitch.getTheme(); // 'light' or 'dark'
+```
+
+### Pattern: Next.js Implementation
 ```jsx
-function ThemeToggle() {
+'use client'
+
+import { useEffect } from 'react'
+
+export default function ThemeToggle() {
+  useEffect(() => {
+    import('@pm7/core').then(() => {
+      if (window.PM7?.initThemeSwitches) {
+        window.PM7.initThemeSwitches();
+      }
+    });
+  }, []);
+
   return (
     <div data-pm7-theme-switch>
       <span>Theme</span>
@@ -50,8 +209,185 @@ function ThemeToggle() {
 }
 ```
 
-### Vue
+### Pattern: Header with Theme Switch
+```html
+<header>
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button class="pm7-menu-trigger" aria-label="Toggle menu">
+        <svg width="24" height="24">...</svg>
+      </button>
+      <div data-pm7-theme-switch class="pm7-theme-switch--sm"></div>
+    </div>
+    <div style="text-align: center;">
+      <img src="logo.svg" alt="Logo" height="32">
+    </div>
+    <div style="text-align: right;">
+      <a href="/login">Login</a>
+    </div>
+  </div>
+</header>
+```
 
+### Pattern: Settings Panel
+```html
+<div class="settings-panel">
+  <h3>Appearance</h3>
+  <div class="setting-item">
+    <label>Theme</label>
+    <div data-pm7-theme-switch>
+      <span>Dark mode</span>
+    </div>
+  </div>
+</div>
+```
+
+## JavaScript API
+
+### Initialization
+
+IF auto-init THEN add `data-pm7-theme-switch`
+IF manual THEN `new PM7.ThemeSwitch(element, options)`
+IF Next.js THEN dynamic import with optional chaining
+
+### Options
+
+| Option | Type | Default | Effect |
+|--------|------|---------|--------|
+| `defaultTheme` | `light`, `dark`, `null` | `null` | Initial theme |
+| `storageKey` | string | `pm7-theme` | LocalStorage key |
+| `applyToRoot` | boolean | `true` | Apply dark class |
+| `onChange` | function | `null` | Change callback |
+
+### Methods
+
+| Method | Parameters | Returns | Usage |
+|--------|------------|---------|-------|
+| `setTheme()` | theme: string | void | `themeSwitch.setTheme('dark')` |
+| `getTheme()` | none | string | `themeSwitch.getTheme()` |
+| `toggle()` | none | void | `themeSwitch.toggle()` |
+
+## Anti-Patterns
+
+### Anti-Pattern: Wrong Element Type
+```html
+<!-- NEVER -->
+<button data-pm7-theme-switch>Theme</button>
+
+<!-- ALWAYS -->
+<div data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+```
+
+### Anti-Pattern: Manual Button Creation
+```html
+<!-- NEVER -->
+<div data-pm7-theme-switch>
+  <button class="pm7-theme-switch-button">
+    <div class="pm7-theme-switch-thumb"></div>
+  </button>
+</div>
+
+<!-- ALWAYS -->
+<div data-pm7-theme-switch></div>
+```
+
+### Anti-Pattern: Multiple Initializations
+```javascript
+// NEVER
+const switch1 = new PM7.ThemeSwitch(element);
+const switch2 = new PM7.ThemeSwitch(element);
+
+// ALWAYS
+const themeSwitch = new PM7.ThemeSwitch(element);
+```
+
+### Anti-Pattern: Direct Method Calls
+```javascript
+// NEVER
+window.PM7.initThemeSwitches();
+
+// ALWAYS
+if (window.PM7?.initThemeSwitches) {
+  window.PM7.initThemeSwitches();
+}
+```
+
+### Anti-Pattern: Flicker Script After Styles
+```html
+<!-- NEVER -->
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <script>/* flicker prevention */</script>
+</head>
+
+<!-- ALWAYS -->
+<head>
+  <script>/* flicker prevention */</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+```
+
+## Rules
+
+- ALWAYS: Use `div` element for container
+- ALWAYS: Place flicker prevention script BEFORE stylesheets
+- ALWAYS: Check PM7 exists before calling methods
+- ALWAYS: Use data attributes for configuration
+- NEVER: Create button structure manually
+- NEVER: Use button element as container
+- NEVER: Initialize same element multiple times
+- NEVER: Apply manual styles to internal elements
+
+## CSS Variables
+
+| Variable | Default Light | Default Dark | Usage |
+|----------|---------------|--------------|-------|
+| `--pm7-theme-switch-bg` | `white` | `white` | Background |
+| `--pm7-theme-switch-thumb-bg-light` | `#FFD43B` | `#FFD43B` | Light thumb |
+| `--pm7-theme-switch-thumb-bg-dark` | `#6E6E6E` | `#6E6E6E` | Dark thumb |
+| `--pm7-theme-switch-icon-light` | `black` | `black` | Light icon |
+| `--pm7-theme-switch-icon-dark` | `white` | `white` | Dark icon |
+| `--pm7-theme-switch-width` | `56px` | `56px` | Width |
+| `--pm7-theme-switch-height` | `28px` | `28px` | Height |
+| `--pm7-theme-switch-thumb-size` | `24px` | `24px` | Thumb size |
+
+## Sizes
+
+| Size | Width × Height | Thumb |
+|------|----------------|-------|
+| Small | `42px × 21px` | `18px` |
+| Default | `56px × 28px` | `24px` |
+| Large | `70px × 35px` | `30px` |
+
+## Theme Detection Order
+
+1. LocalStorage saved preference
+2. System preference via `prefers-color-scheme`
+3. Default to light mode
+
+## Accessibility
+
+- Role: `switch`
+- ARIA: `aria-checked` reflects state
+- ARIA: `aria-label` provides context
+- Keyboard: Space/Enter toggles
+- Focus: Visible focus indicator
+- Motion: Respects `prefers-reduced-motion`
+
+## Framework Usage
+
+### React
+```jsx
+'use client'
+
+<div data-pm7-theme-switch>
+  <span>Theme</span>
+</div>
+```
+
+### Vue
 ```vue
 <template>
   <div data-pm7-theme-switch>
@@ -60,369 +396,15 @@ function ThemeToggle() {
 </template>
 ```
 
-## Features
-
-- **Auto-initialization**: Components with `data-pm7-theme-switch` are automatically initialized
-- **System preference detection**: Respects user's OS theme preference
-- **LocalStorage persistence**: Remembers user's choice across sessions
-- **Smooth animations**: Elegant transitions between states
-- **Keyboard accessible**: Full keyboard navigation support
-- **Framework agnostic**: Works with any JavaScript framework
-- **Zero dependencies**: Pure CSS and vanilla JavaScript
-
-## CSS Classes
-
-### Base Classes
-- `pm7-theme-switch` - Container element
-- `pm7-theme-switch-button` - Toggle button (auto-created)
-- `pm7-theme-switch-thumb` - Moving thumb indicator (auto-created)
-- `pm7-theme-switch-icon` - Icon container (auto-created)
-
-### Size Modifiers
-- `pm7-theme-switch--sm` - Small size (42px × 21px)
-- `pm7-theme-switch--lg` - Large size (70px × 35px)
-
-### State Modifiers
-- `pm7-theme-switch--disabled` - Disabled state
-- `pm7-theme-switch--no-hover` - Removes hover effects
-
-### Layout Modifiers
-- `pm7-theme-switch--label-start` - Places label before the switch
-
-### Position Modifiers
-- `pm7-theme-switch--fixed` - Fixed position (bottom right) with label
-- `pm7-theme-switch--fixed-icon` - Fixed position circular button (icon only)
-
-## Data Attributes
-
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `data-pm7-theme-switch` | boolean | - | Marks element for auto-initialization |
-| `data-theme` | string | 'light' | Current theme state (auto-managed) |
-| `data-default-theme` | string | null | Override default theme |
-| `data-storage-key` | string | 'pm7-theme' | LocalStorage key |
-| `data-apply-to-root` | boolean | true | Apply 'dark' class to document |
-
-## JavaScript API
-
-### Initialization
-
-```javascript
-import { PM7ThemeSwitch } from '@pm7/core';
-
-// Auto-initialization (happens on DOMContentLoaded)
-// Elements with data-pm7-theme-switch are initialized automatically
-
-// Manual initialization
-const element = document.querySelector('.my-theme-switch');
-const themeSwitch = new PM7ThemeSwitch(element, {
-  defaultTheme: 'dark',
-  storageKey: 'my-app-theme',
-  applyToRoot: true,
-  onChange: (theme) => {
-    console.log('Theme changed to:', theme);
-  }
-});
-```
-
-### Methods
-
-```javascript
-// Set theme programmatically
-themeSwitch.setTheme('dark');
-
-// Get current theme
-const currentTheme = themeSwitch.getTheme(); // 'light' or 'dark'
-
-// Toggle theme
-themeSwitch.toggle();
-```
-
-### Options
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `defaultTheme` | string | null | Initial theme ('light', 'dark', or null for auto) |
-| `storageKey` | string | 'pm7-theme' | LocalStorage key for persistence |
-| `applyToRoot` | boolean | true | Apply 'dark' class to document root |
-| `onChange` | function | null | Callback when theme changes |
-
-## Examples
-
-### Custom Storage Key
-
-```html
-<div class="pm7-theme-switch" 
-     data-pm7-theme-switch
-     data-storage-key="my-app-theme">
-</div>
-```
-
-### Without Root Class Application
-
-```html
-<!-- Useful when managing theme at component level -->
-<div class="pm7-theme-switch" 
-     data-pm7-theme-switch
-     data-apply-to-root="false">
-</div>
-```
-
-### Force Default Theme
-
-```html
-<!-- Always start with dark theme -->
-<div class="pm7-theme-switch" 
-     data-pm7-theme-switch
-     data-default-theme="dark">
-</div>
-```
-
-### In a Navigation Bar
-
-```html
-<nav class="navbar">
-  <div class="navbar-brand">My App</div>
-  <div class="navbar-menu">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-  </div>
-  <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
-</nav>
-```
-
-### Fixed/Floating Theme Switch
-
-Create a persistent theme switch that stays fixed in the corner of the viewport:
-
-```html
-<!-- Fixed icon-only variant (recommended) -->
-<div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
-
-<!-- Fixed with label -->
-<div class="pm7-theme-switch--fixed" data-pm7-theme-switch>
+### Svelte
+```svelte
+<div data-pm7-theme-switch>
   <span>Theme</span>
 </div>
-
-<!-- Small fixed icon -->
-<div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
 ```
 
-The fixed theme switch:
-- Stays in the bottom-right corner (24px from edges)
-- Remains visible when scrolling
-- Has a higher z-index (9999) to stay above other content
-- Includes entrance animation
-- Scales on hover for better interaction feedback
+## Related Components
 
-### Header with Menu and Centered Logo
-
-Common pattern for headers with hamburger menu, theme switch, and centered logo:
-
-```html
-<header class="header">
-  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
-    <!-- Left: Menu button and Theme Switch -->
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <button class="pm7-menu-trigger" aria-label="Toggle menu">
-        <svg width="24" height="24"><!-- hamburger icon --></svg>
-      </button>
-      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
-    </div>
-    
-    <!-- Center: Logo -->
-    <div style="text-align: center;">
-      <img src="logo.svg" alt="Company Logo" height="32">
-    </div>
-    
-    <!-- Right: Additional navigation -->
-    <div style="text-align: right;">
-      <a href="/login">Login</a>
-    </div>
-  </div>
-</header>
-```
-
-### Settings Panel
-
-```html
-<div class="settings-panel">
-  <h3>Appearance</h3>
-  <div class="setting-item">
-    <label>Theme</label>
-    <div class="pm7-theme-switch" data-pm7-theme-switch>
-      <span>Dark mode</span>
-    </div>
-  </div>
-</div>
-```
-
-### With Custom onChange Handler
-
-```javascript
-const themeSwitch = new PM7ThemeSwitch(element, {
-  onChange: (theme) => {
-    // Update your app's theme
-    updateAppTheme(theme);
-    
-    // Track analytics
-    analytics.track('theme_changed', { theme });
-    
-    // Update other components
-    document.querySelectorAll('.theme-aware').forEach(el => {
-      el.dataset.theme = theme;
-    });
-  }
-});
-```
-
-## Dark Mode Implementation
-
-### Preventing Dark Mode Flicker
-
-To prevent a flash of light mode when your page loads in dark mode, add this script to your `<head>` BEFORE any stylesheets:
-
-```html
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Dark mode flicker prevention - MUST come BEFORE stylesheets -->
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('pm7-theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
-  
-  <!-- Your stylesheets come AFTER the script -->
-  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
-  <link rel="stylesheet" href="your-styles.css">
-</head>
-```
-
-### Full Implementation Example
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Flicker prevention script here -->
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('pm7-theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
-  
-  <link rel="stylesheet" href="@pm7/core/dist/pm7.css">
-</head>
-<body>
-  <!-- Theme switch auto-initializes on page load -->
-  <div class="pm7-theme-switch" data-pm7-theme-switch>
-    <span>Theme</span>
-  </div>
-  
-  <script type="module">
-    import '@pm7/core';
-    // Theme switch is now active!
-  </script>
-</body>
-</html>
-```
-
-## Styling
-
-### CSS Variables
-
-The component uses these CSS variables:
-
-```css
-:root {
-  --pm7-theme-switch-bg: white;
-  --pm7-theme-switch-thumb-bg-light: #FFD43B;
-  --pm7-theme-switch-thumb-bg-dark: #6E6E6E;
-  --pm7-theme-switch-icon-light: black;
-  --pm7-theme-switch-icon-dark: white;
-  --pm7-theme-switch-width: 56px;
-  --pm7-theme-switch-height: 28px;
-  --pm7-theme-switch-thumb-size: 24px;
-}
-```
-
-### Custom Styling
-
-```css
-/* Custom colors */
-.my-custom-switch {
-  --pm7-theme-switch-thumb-bg-light: #FFA500;
-  --pm7-theme-switch-thumb-bg-dark: #4B0082;
-}
-
-/* Custom size */
-.my-custom-switch {
-  --pm7-theme-switch-width: 80px;
-  --pm7-theme-switch-height: 40px;
-  --pm7-theme-switch-thumb-size: 36px;
-}
-```
-
-## Accessibility
-
-The Theme Switch component follows WCAG 2.1 AA guidelines:
-
-- **Keyboard Navigation**: Fully navigable with Tab key
-- **Keyboard Activation**: Toggle with Space or Enter keys
-- **ARIA Attributes**: 
-  - `role="switch"` on the button
-  - `aria-checked` reflects current state
-  - `aria-label` provides context
-- **Focus Indicators**: Clear focus state for keyboard users
-- **Motion Preferences**: Respects `prefers-reduced-motion`
-- **Screen Reader Support**: Announces state changes
-
-## Browser Support
-
-- Chrome/Edge: Latest versions
-- Firefox: Latest version
-- Safari: 14+
-- Mobile browsers: iOS Safari 14+, Chrome Android
-
-## Tips
-
-1. **Place strategically**: Common locations include header navigation, settings panels, or footer
-2. **Use appropriate size**: Small for navigation bars, medium/large for settings pages
-3. **Consider label**: Include label for clarity, especially in settings contexts
-4. **Test both themes**: Ensure your app looks good in both light and dark modes
-5. **Respect user choice**: The component automatically remembers and applies user preference
-
-## Common Issues
-
-### Theme not persisting
-- Check if localStorage is available/enabled
-- Verify the storage key isn't conflicting with other scripts
-- Ensure JavaScript is loaded and executing
-
-### Theme not applying to page
-- Verify `data-apply-to-root` isn't set to "false"
-- Check if your CSS uses the `.dark` class for dark mode styles
-- Ensure the component is initialized before other theme-dependent scripts
-
-### Icons not showing
-- The component creates SVG icons automatically
-- If overriding styles, ensure the icons remain visible
-- Check for CSS conflicts that might hide the SVG elements
-
-### Size modifiers not working
-- The component preserves existing CSS classes when initializing
-- Ensure size modifier classes (e.g., `pm7-theme-switch--sm`) are present in the HTML
-- If adding size dynamically, do so before initialization or reinitialize the component
-
-### Dark mode flicker on page load
-- Add the flicker prevention script to your `<head>` BEFORE any stylesheets
-- The script must run synchronously to set the dark class before rendering
-- See the "Dark Mode Implementation" section for the complete solution
+- Button: Alternative toggle style
+- Menu: Theme options in dropdown
+- Settings: Common usage context
