@@ -31,13 +31,16 @@
       font-family: var(--pm7-font-sans);
       background: var(--pm7-background);
       color: var(--pm7-foreground);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    html {
+      overflow: hidden;
     }
 
     .app-container {
-      flex: 1;
+      height: 100vh;
       display: flex;
       flex-direction: column;
     }
@@ -46,28 +49,44 @@
       background: var(--pm7-surface);
       border-bottom: 1px solid var(--pm7-border);
       padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .app-content {
       flex: 1;
-      padding: 1rem 2rem 2rem 2rem;
+      padding: 1rem 2rem 0 2rem;
+      padding-bottom: calc(20px + 2.5rem); /* 20px spacing + footer height */
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0; /* Important for Firefox */
     }
 
+    /* Editor container */
+    #editor {
+      height: 100%;
+      overflow: hidden;
+    }
+    
     /* TipTap Editor Styles */
     .tiptap {
       background: var(--pm7-card);
-      border: 1px solid var(--pm7-border);
-      border-radius: var(--pm7-radius);
+      border: none;
+      border-radius: 0;
       padding: 1.5rem;
-      min-height: 400px;
+      height: 100%;
       font-family: var(--pm7-font-sans);
       font-size: 16px;
       line-height: 1.6;
       outline: none;
+      overflow-y: scroll;
+      box-sizing: border-box;
     }
 
-    .tiptap:focus {
+    .editor-wrapper:has(.tiptap:focus) {
       border-color: var(--pm7-primary);
     }
 
@@ -136,6 +155,14 @@
       flex-wrap: wrap;
       margin-bottom: 0.5rem;
       justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    /* Page title */
+    .app-content h2 {
+      flex-shrink: 0;
+      margin-top: 0;
+      margin-bottom: 1rem;
     }
 
     .format-group {
@@ -170,13 +197,56 @@
     }
 
     .status-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       background: var(--pm7-muted);
       border-top: 1px solid var(--pm7-border);
       padding: 0.5rem 1rem;
       font-size: 0.75rem;
       color: var(--pm7-muted-foreground);
       display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+    
+    .status-left {
+      flex: 1;
+      text-align: left;
+    }
+    
+    .status-center {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .status-right {
+      flex: 1;
+      text-align: right;
+    }
+    
+    .text-stats {
+      font-weight: 500;
+      background: white;
+      border: 1px solid #E0E0E0;
+      border-radius: 45px;
+      padding: 0.25rem 0.75rem;
+      display: inline-block;
+    }
+    
+    .tooltip-stats-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+    }
+    
+    .tooltip-stats-detail div {
+      display: flex;
       justify-content: space-between;
+      gap: 1rem;
+      white-space: nowrap;
     }
 
     /* Resizable editor container */
@@ -186,6 +256,8 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      flex: 1;
+      min-height: 0;
     }
 
     .editor-wrapper {
@@ -193,8 +265,11 @@
       background: var(--pm7-card);
       border: 1px solid var(--pm7-border);
       border-radius: var(--pm7-radius);
-      overflow: hidden;
       width: 800px; /* Default starting width */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     /* Resize handle */
@@ -205,6 +280,13 @@
       cursor: ew-resize;
       background: transparent;
       z-index: 10;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      user-select: none;
+    }
+    
+    .resize-handle.visible {
+      opacity: 1;
     }
 
     .resize-handle.resizing {
@@ -220,12 +302,21 @@
       transform: translateY(-50%);
       width: 4px;
       height: 40px;
-      background: var(--pm7-muted-foreground);
+      background: #E0E0E0;
       border-radius: 2px;
-      opacity: 0.5;
+      transition: background 0.2s ease;
+    }
+    
+    .resize-handle:hover::before {
+      background: #999999;
     }
 
     /* Keep handle appearance consistent during resize */
+    
+    /* Prevent menu item text wrapping */
+    .pm7-menu-item {
+      white-space: nowrap;
+    }
 
     /* Dialog backdrop styles */
     .pm7-dialog-backdrop {
@@ -282,13 +373,13 @@
               Open...
               <span class="pm7-menu-shortcut">⌘O</span>
             </button>
-            <button class="pm7-menu-item">Recent Files</button>
+            <button class="pm7-menu-item" onclick="showRecentFiles()">Recent Files</button>
             <div class="pm7-menu-separator"></div>
             <button class="pm7-menu-item" onclick="saveFile()">
               Save
               <span class="pm7-menu-shortcut">⌘S</span>
             </button>
-            <button class="pm7-menu-item">Save As...</button>
+            <button class="pm7-menu-item" onclick="saveAsFile()">Save As...</button>
             <div class="pm7-menu-separator"></div>
             <button class="pm7-menu-item" onclick="exitApp()">Exit</button>
           </div>
@@ -371,6 +462,9 @@
             View
           </button>
           <div class="pm7-menu-content">
+            <button class="pm7-menu-item pm7-menu-item--checkbox" id="show-document-name" data-checked="true">
+              Show document name
+            </button>
             <button class="pm7-menu-item pm7-menu-item--checkbox" id="show-toolbar" data-checked="true">
               Show Formatting Toolbar
             </button>
@@ -472,8 +566,21 @@
 
     <!-- Status Bar -->
     <div class="status-bar">
-      <span>Ready</span>
-      <span>Line 1, Column 1</span>
+      <div class="status-left">Ready</div>
+      <div class="status-center">
+        <div class="pm7-tooltip" data-pm7-tooltip data-delay="500" style="display: inline-block;">
+          <span class="text-stats pm7-tooltip-trigger">0 | 0 | 0</span>
+          <div class="pm7-tooltip-content" data-side="top">
+            <div class="tooltip-stats-detail">
+              <div>Letters: <strong>0</strong></div>
+              <div>Words: <strong>0</strong></div>
+              <div>Sentences: <strong>0</strong></div>
+            </div>
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+      <div class="status-right">Line 1, Column 1</div>
     </div>
   </div>
 
@@ -537,32 +644,128 @@ function greet(name) {
 
     // Update status function
     function updateStatus(message) {
-      const statusBar = document.querySelector('.status-bar span');
-      statusBar.textContent = message;
+      const statusLeft = document.querySelector('.status-left');
+      statusLeft.textContent = message;
       setTimeout(() => {
-        statusBar.textContent = 'Ready';
+        statusLeft.textContent = 'Ready';
       }, 2000);
     }
 
     // File menu functions
+    let currentFileName = 'Untitled.html';
+    let hasUnsavedChanges = false;
+    let recentFiles = JSON.parse(localStorage.getItem('pm7-editor-recent-files') || '[]');
+    
+    // Track changes
+    editor.on('update', () => {
+      hasUnsavedChanges = true;
+      updateStatus('Modified');
+    });
+    
+    // Add file to recent files list
+    function addToRecentFiles(fileName) {
+      recentFiles = recentFiles.filter(f => f !== fileName);
+      recentFiles.unshift(fileName);
+      recentFiles = recentFiles.slice(0, 5); // Keep only 5 recent files
+      localStorage.setItem('pm7-editor-recent-files', JSON.stringify(recentFiles));
+    }
+    
+    window.showRecentFiles = function() {
+      if (recentFiles.length === 0) {
+        alert('No recent files');
+        return;
+      }
+      
+      const fileList = recentFiles.map((file, index) => `${index + 1}. ${file}`).join('\n');
+      const choice = prompt(`Recent files:\n${fileList}\n\nEnter number to open:`);
+      
+      if (choice && !isNaN(choice)) {
+        const index = parseInt(choice) - 1;
+        if (index >= 0 && index < recentFiles.length) {
+          // Simulate opening the file
+          currentFileName = recentFiles[index];
+          hasUnsavedChanges = false;
+          updateStatus(`Opened ${currentFileName} from recent files`);
+        }
+      }
+    };
+    
     window.newFile = function() {
+      if (hasUnsavedChanges) {
+        if (!confirm('You have unsaved changes. Create a new file anyway?')) {
+          return;
+        }
+      }
       editor.commands.clearContent();
+      currentFileName = 'Untitled.html';
+      hasUnsavedChanges = false;
       updateStatus('New file created');
     };
 
     window.openFile = function() {
-      updateStatus('Open file dialog would appear here...');
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.html,.txt,.md';
+      
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const content = e.target.result;
+            // Convert plain text or markdown to HTML if needed
+            if (file.name.endsWith('.txt') || file.name.endsWith('.md')) {
+              editor.commands.setContent('<p>' + content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p>');
+            } else {
+              editor.commands.setContent(content);
+            }
+            currentFileName = file.name;
+            hasUnsavedChanges = false;
+            addToRecentFiles(file.name);
+            updateStatus(`Opened ${file.name}`);
+          };
+          reader.readAsText(file);
+        }
+      };
+      
+      input.click();
     };
 
     window.saveFile = function() {
       const content = editor.getHTML();
-      console.log('Saving content:', content);
-      updateStatus('File saved');
+      const blob = new Blob([content], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = currentFileName;
+      a.click();
+      
+      URL.revokeObjectURL(url);
+      hasUnsavedChanges = false;
+      addToRecentFiles(currentFileName);
+      updateStatus(`Saved ${currentFileName}`);
+    };
+    
+    window.saveAsFile = function() {
+      const fileName = prompt('Save as:', currentFileName);
+      if (fileName) {
+        currentFileName = fileName;
+        saveFile();
+      }
     };
 
     window.exitApp = function() {
+      if (hasUnsavedChanges) {
+        const response = confirm('You have unsaved changes. Do you want to save before exiting?');
+        if (response) {
+          saveFile();
+        }
+      }
       if (confirm('Are you sure you want to exit?')) {
         updateStatus('Exiting application...');
+        // In a real app, this would close the window/tab
+        window.close();
       }
     };
 
@@ -656,25 +859,75 @@ function greet(name) {
     };
 
     // Format menu handlers
-    document.getElementById('bold-menu').onclick = () => editor.chain().focus().toggleBold().run();
-    document.getElementById('italic-menu').onclick = () => editor.chain().focus().toggleItalic().run();
-    document.getElementById('underline-menu').onclick = () => editor.chain().focus().toggleUnderline().run();
-    document.getElementById('strike-menu').onclick = () => editor.chain().focus().toggleStrike().run();
-    document.getElementById('h1-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 1 }).run();
-    document.getElementById('h2-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 2 }).run();
-    document.getElementById('h3-menu').onclick = () => editor.chain().focus().toggleHeading({ level: 3 }).run();
-    document.getElementById('paragraph-menu').onclick = () => editor.chain().focus().setParagraph().run();
-    document.getElementById('bullet-list-menu').onclick = () => editor.chain().focus().toggleBulletList().run();
-    document.getElementById('ordered-list-menu').onclick = () => editor.chain().focus().toggleOrderedList().run();
-    document.getElementById('code-menu').onclick = () => editor.chain().focus().toggleCode().run();
-    document.getElementById('code-block-menu').onclick = () => editor.chain().focus().toggleCodeBlock().run();
-    document.getElementById('blockquote-menu').onclick = () => editor.chain().focus().toggleBlockquote().run();
+    document.getElementById('bold-menu').onclick = () => {
+      editor.chain().focus().toggleBold().run();
+      updateStatus('Bold toggled');
+    };
+    document.getElementById('italic-menu').onclick = () => {
+      editor.chain().focus().toggleItalic().run();
+      updateStatus('Italic toggled');
+    };
+    document.getElementById('underline-menu').onclick = () => {
+      editor.chain().focus().toggleUnderline().run();
+      updateStatus('Underline toggled');
+    };
+    document.getElementById('strike-menu').onclick = () => {
+      editor.chain().focus().toggleStrike().run();
+      updateStatus('Strikethrough toggled');
+    };
+    document.getElementById('h1-menu').onclick = () => {
+      editor.chain().focus().toggleHeading({ level: 1 }).run();
+      updateStatus('Heading 1 applied');
+    };
+    document.getElementById('h2-menu').onclick = () => {
+      editor.chain().focus().toggleHeading({ level: 2 }).run();
+      updateStatus('Heading 2 applied');
+    };
+    document.getElementById('h3-menu').onclick = () => {
+      editor.chain().focus().toggleHeading({ level: 3 }).run();
+      updateStatus('Heading 3 applied');
+    };
+    document.getElementById('paragraph-menu').onclick = () => {
+      editor.chain().focus().setParagraph().run();
+      updateStatus('Paragraph style applied');
+    };
+    document.getElementById('bullet-list-menu').onclick = () => {
+      editor.chain().focus().toggleBulletList().run();
+      updateStatus('Bullet list toggled');
+    };
+    document.getElementById('ordered-list-menu').onclick = () => {
+      editor.chain().focus().toggleOrderedList().run();
+      updateStatus('Numbered list toggled');
+    };
+    document.getElementById('code-menu').onclick = () => {
+      editor.chain().focus().toggleCode().run();
+      updateStatus('Code formatting toggled');
+    };
+    document.getElementById('code-block-menu').onclick = () => {
+      editor.chain().focus().toggleCodeBlock().run();
+      updateStatus('Code block toggled');
+    };
+    document.getElementById('blockquote-menu').onclick = () => {
+      editor.chain().focus().toggleBlockquote().run();
+      updateStatus('Blockquote toggled');
+    };
 
+    // Show/hide document name
+    document.getElementById('show-document-name').onclick = function() {
+      const title = document.querySelector('.app-content h2');
+      const isChecked = this.dataset.checked === 'true';
+      title.style.display = isChecked ? 'block' : 'none';
+      // Reposition handle when title visibility changes
+      setTimeout(positionHandle, 50);
+    };
+    
     // Show/hide toolbar
     document.getElementById('show-toolbar').onclick = function() {
       const toolbar = document.getElementById('format-toolbar');
       const isChecked = this.dataset.checked === 'true';
       toolbar.style.display = isChecked ? 'flex' : 'none';
+      // Reposition handle when toolbar visibility changes
+      setTimeout(positionHandle, 50);
     };
 
     // Update button states based on editor state
@@ -709,6 +962,48 @@ function greet(name) {
       });
     });
 
+    // Function to count sentences
+    function countSentences(text) {
+      // Remove extra spaces and newlines
+      text = text.replace(/\s+/g, ' ').trim();
+      if (text.length === 0) return 0;
+      
+      // Split by sentence-ending punctuation followed by space or end of string
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      return sentences.length;
+    }
+    
+    // Function to update text statistics
+    function updateTextStats() {
+      const text = editor.state.doc.textContent;
+      
+      // Count letters (excluding spaces)
+      const letters = text.replace(/\s/g, '').length;
+      
+      // Count words
+      const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+      
+      // Count sentences
+      const sentences = countSentences(text);
+      
+      // Update display
+      document.querySelector('.text-stats').textContent = `${letters} | ${words} | ${sentences}`;
+      
+      // Update tooltip details
+      const tooltipDetail = document.querySelector('.tooltip-stats-detail');
+      tooltipDetail.innerHTML = `
+        <div>Letters: <strong>${letters}</strong></div>
+        <div>Words: <strong>${words}</strong></div>
+        <div>Sentences: <strong>${sentences}</strong></div>
+      `;
+    }
+    
+    // Update statistics on content change
+    editor.on('update', updateTextStats);
+    
+    // Initial statistics update
+    updateTextStats();
+    
     // Update cursor position
     editor.on('selectionUpdate', () => {
       // This is a simplified version - real implementation would calculate actual line/column
@@ -717,7 +1012,7 @@ function greet(name) {
       const lines = text.substring(0, from).split('\n');
       const line = lines.length;
       const col = lines[lines.length - 1].length + 1;
-      document.querySelector('.status-bar span:last-child').textContent = `Line ${line}, Column ${col}`;
+      document.querySelector('.status-right').textContent = `Line ${line}, Column ${col}`;
     });
 
     // Resize functionality
@@ -728,6 +1023,12 @@ function greet(name) {
     let startX;
     let startWidth;
     
+    // Load saved width from localStorage
+    const savedWidth = localStorage.getItem('pm7-editor-width');
+    if (savedWidth) {
+      editorWrapper.style.width = savedWidth + 'px';
+    }
+    
     // Position handle next to wrapper
     function positionHandle() {
       const wrapperRect = editorWrapper.getBoundingClientRect();
@@ -735,6 +1036,9 @@ function greet(name) {
       const rightEdge = wrapperRect.right - containerRect.left + 8;
       resizeHandle.style.left = rightEdge + 'px';
       resizeHandle.style.height = wrapperRect.height + 'px';
+      
+      // Show the handle after positioning
+      resizeHandle.classList.add('visible');
     }
     
     // Initial positioning after a short delay to ensure DOM is ready
@@ -746,6 +1050,18 @@ function greet(name) {
       setTimeout(positionHandle, 50);
     });
 
+    // Double-click to reset to default width
+    resizeHandle.addEventListener('dblclick', (e) => {
+      const defaultWidth = 800;
+      const maxWidth = window.innerWidth * 0.9;
+      const newWidth = Math.min(defaultWidth, maxWidth);
+      
+      editorWrapper.style.width = newWidth + 'px';
+      localStorage.setItem('pm7-editor-width', newWidth);
+      positionHandle();
+      e.preventDefault();
+    });
+    
     resizeHandle.addEventListener('mousedown', (e) => {
       isResizing = true;
       startX = e.pageX;
@@ -779,6 +1095,8 @@ function greet(name) {
         isResizing = false;
         resizeHandle.classList.remove('resizing');
         document.body.style.cursor = '';
+        // Save the new width to localStorage
+        localStorage.setItem('pm7-editor-width', editorWrapper.offsetWidth);
         // Reposition handle properly after resize
         positionHandle();
       }
@@ -816,6 +1134,8 @@ function greet(name) {
       if (isResizing) {
         isResizing = false;
         resizeHandle.classList.remove('resizing');
+        // Save the new width to localStorage
+        localStorage.setItem('pm7-editor-width', editorWrapper.offsetWidth);
         // Reposition handle properly after resize
         positionHandle();
       }
