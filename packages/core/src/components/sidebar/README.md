@@ -2,6 +2,20 @@
 
 A versatile sidebar component that provides navigation and content organization with multiple display modes and rich interaction patterns.
 
+## ⚠️ CRITICAL: Default Hidden State
+
+**The PM7 sidebar with `data-pm7-sidebar` is HIDDEN by default!**
+
+When you add `data-pm7-sidebar` to your sidebar, PM7 applies:
+- `transform: translateX(-100%)` - pushes sidebar completely off-screen
+- `z-index: 1000` - ensures it appears above content when shown
+- Requires JavaScript (`PM7.initSidebars()`) to become visible
+
+This means:
+- ❌ Without PM7 JavaScript, your sidebar will NOT be visible
+- ❌ Server-side rendered pages will show no sidebar until JS loads
+- ❌ Users with JavaScript disabled will never see the sidebar
+
 ## Important: Static vs Interactive Sidebars
 
 The PM7 Sidebar component can be used in two distinct ways:
@@ -12,6 +26,8 @@ The PM7 Sidebar component can be used in two distinct ways:
   <!-- content -->
 </aside>
 ```
+- ✅ Always visible
+- ✅ Works without JavaScript
 - Remains in normal document flow
 - Scrolls with the page content
 - No JavaScript functionality
@@ -24,6 +40,8 @@ The PM7 Sidebar component can be used in two distinct ways:
   <!-- content -->
 </aside>
 ```
+- ⚠️ Hidden by default (transform: translateX(-100%))
+- Requires JavaScript for visibility
 - Fixed positioning with slide-in animations
 - JavaScript-powered open/close functionality
 - Overlay support
@@ -47,10 +65,11 @@ npm install @pm7/core
 
 ## Basic Usage
 
-### Simple Sidebar
+### ⚠️ Default Hidden Sidebar (Interactive)
 
 ```html
-<!-- Sidebar -->
+<!-- IMPORTANT: This sidebar is HIDDEN by default! -->
+<!-- It has transform: translateX(-100%) applied -->
 <aside class="pm7-sidebar" id="sidebar" data-pm7-sidebar>
   <div class="pm7-sidebar-header">
     <h2>Navigation</h2>
@@ -84,10 +103,41 @@ npm install @pm7/core
   </div>
 </aside>
 
-<!-- Trigger button -->
+<!-- Trigger button REQUIRED to show the sidebar -->
 <button class="pm7-sidebar-trigger" data-pm7-sidebar-trigger="sidebar">
   <svg class="pm7-icon pm7-icon-menu"><!-- menu icon --></svg>
 </button>
+```
+
+### ✅ Always Visible Sidebar (No-JS Fallback)
+
+To ensure your sidebar is visible even without JavaScript:
+
+```html
+<!-- Option 1: Force visibility with inline styles -->
+<aside class="pm7-sidebar" 
+       data-pm7-sidebar 
+       style="transform: translateX(0) !important; left: 0 !important;">
+  <!-- sidebar content -->
+</aside>
+
+<!-- Option 2: Use static sidebar (no interactive features) -->
+<aside class="pm7-sidebar pm7-sidebar--static">
+  <!-- sidebar content -->
+</aside>
+
+<!-- Option 3: CSS override approach -->
+<style>
+  .pm7-sidebar-always-visible {
+    transform: translateX(0) !important;
+    left: 0 !important;
+    position: relative !important;
+  }
+</style>
+
+<aside class="pm7-sidebar pm7-sidebar-always-visible" data-pm7-sidebar>
+  <!-- sidebar content -->
+</aside>
 ```
 
 ## Display Modes
@@ -289,13 +339,91 @@ Use the `pm7-sidebar--static` modifier for automatic responsive behavior:
 </style>
 ```
 
+## Framework Integration
+
+### React/Next.js Integration
+
+```jsx
+import { useEffect, useState } from 'react';
+
+function Sidebar() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  useEffect(() => {
+    // Wait for PM7 to load
+    if (typeof window !== 'undefined' && window.PM7) {
+      window.PM7.initSidebars();
+      setIsLoaded(true);
+    }
+  }, []);
+  
+  return (
+    <aside 
+      className="pm7-sidebar" 
+      data-pm7-sidebar
+      // Force visibility until JS loads
+      style={{ 
+        transform: isLoaded ? '' : 'translateX(0)',
+        left: isLoaded ? '' : '0'
+      }}
+    >
+      {/* sidebar content */}
+    </aside>
+  );
+}
+```
+
+### Vue.js Integration
+
+```vue
+<template>
+  <aside 
+    class="pm7-sidebar" 
+    data-pm7-sidebar
+    :style="sidebarStyle"
+  >
+    <!-- sidebar content -->
+  </aside>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      pm7Loaded: false
+    }
+  },
+  computed: {
+    sidebarStyle() {
+      // Force visibility until PM7 loads
+      return this.pm7Loaded ? {} : {
+        transform: 'translateX(0)',
+        left: '0'
+      }
+    }
+  },
+  mounted() {
+    if (typeof window !== 'undefined' && window.PM7) {
+      window.PM7.initSidebars();
+      this.pm7Loaded = true;
+    }
+  }
+}
+</script>
+```
+
 ## JavaScript API
 
 ### Initialization
 
-Sidebars with `data-pm7-sidebar` are automatically initialized:
+Sidebars with `data-pm7-sidebar` are automatically initialized when PM7 loads:
 
 ```javascript
+// Wait for PM7 to be available
+if (window.PM7) {
+  window.PM7.initSidebars();
+}
+
 // Manual initialization
 const sidebar = new PM7.Sidebar(element);
 
@@ -390,6 +518,12 @@ The sidebar automatically:
   /* Sidebar dimensions */
   --pm7-sidebar-width: 280px;
   --pm7-sidebar-bg: var(--pm7-background);
+  
+  /* Z-index (be careful when changing) */
+  --pm7-sidebar-z-index: 1000;
+  
+  /* Animation duration */
+  --pm7-sidebar-transition-duration: 0.3s;
   
   /* Item hover state - optional override */
   --pm7-sidebar-item-hover-bg: transparent; /* Default: uses dynamic 20% overlay */
@@ -599,6 +733,41 @@ By default, sidebar items have a smart hover effect that automatically creates a
 6. **Performance**: Use CSS transforms for smooth animations
 7. **Focus Indicators**: Ensure visible focus states for keyboard navigation
 
+## Troubleshooting
+
+### Sidebar Not Visible?
+
+1. **Check if PM7 is loaded:**
+   ```javascript
+   console.log('PM7 loaded:', typeof window.PM7 !== 'undefined');
+   ```
+
+2. **Check transform style:**
+   ```javascript
+   const sidebar = document.querySelector('.pm7-sidebar');
+   console.log('Transform:', getComputedStyle(sidebar).transform);
+   // If it shows translateX(-280px) or similar, sidebar is hidden
+   ```
+
+3. **Force visibility (temporary fix):**
+   ```javascript
+   document.querySelector('.pm7-sidebar').style.transform = 'translateX(0)';
+   document.querySelector('.pm7-sidebar').style.left = '0';
+   ```
+
+4. **Check z-index conflicts:**
+   - PM7 sidebar uses `z-index: 1000`
+   - Ensure no other elements have higher z-index
+
+### Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Sidebar not visible | Default hidden state | Add inline styles or use static mode |
+| Sidebar behind content | Z-index conflict | Check overlapping elements' z-index |
+| No animations | PM7 JS not loaded | Ensure PM7.js is loaded and initialized |
+| Sidebar stuck open/closed | State management issue | Check trigger button setup |
+
 ## Browser Support
 
 The Sidebar component supports all modern browsers:
@@ -606,3 +775,5 @@ The Sidebar component supports all modern browsers:
 - Firefox (latest)
 - Safari (latest)
 - Mobile browsers (iOS Safari, Chrome Android)
+
+**Note**: Interactive features require JavaScript. Static sidebars work in all browsers including those with JavaScript disabled.
