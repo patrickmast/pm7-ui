@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Menu Dialog Z-Index - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--pm7-background);
+      color: var(--pm7-foreground);
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .test-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+    }
+    
+    .z-index-info {
+      margin-top: 1rem;
+      font-family: monospace;
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test Menu Dialog Z-Index</h1>
+    
+    <div class="test-section">
+      <h2>Simple Menu with Dialog</h2>
+      
+      <div data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+          Open Menu
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item" onclick="testOpenDialog()">
+            Open Dialog
+          </button>
+          <button class="pm7-menu-item">
+            Other Item
+          </button>
+        </div>
+      </div>
+      
+      <div class="z-index-info" id="z-index-info">
+        Click "Open Menu" then "Open Dialog" to test z-index behavior
+      </div>
+    </div>
+  </div>
+
+  <!-- Test Dialog -->
+  <div class="pm7-dialog" id="test-dialog">
+    <div class="pm7-dialog-overlay"></div>
+    <div class="pm7-dialog-content">
+      <div class="pm7-dialog-header">
+        <h2 class="pm7-dialog-title">Test Dialog</h2>
+        <button class="pm7-dialog-close" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="pm7-dialog-body">
+        <p>This dialog should appear above the menu.</p>
+        <p>Check if the menu is still visible behind the dialog overlay.</p>
+      </div>
+      <div class="pm7-dialog-footer">
+        <button class="pm7-button pm7-button--ghost" onclick="window.PM7.closeDialog('test-dialog')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function testOpenDialog() {
+      console.log('Opening dialog...');
+      
+      // Get computed styles before opening dialog
+      const menuContent = document.querySelector('.pm7-menu-content');
+      if (menuContent) {
+        const menuZIndex = window.getComputedStyle(menuContent).zIndex;
+        console.log('Menu z-index:', menuZIndex);
+      }
+      
+      // Open dialog
+      window.PM7.openDialog('test-dialog');
+      
+      // Check z-indexes after dialog opens
+      setTimeout(() => {
+        const overlay = document.querySelector('.pm7-dialog-overlay');
+        const dialogContent = document.querySelector('.pm7-dialog-content');
+        
+        if (overlay && dialogContent) {
+          const overlayZIndex = window.getComputedStyle(overlay).zIndex;
+          const dialogZIndex = window.getComputedStyle(dialogContent).zIndex;
+          
+          console.log('Dialog overlay z-index:', overlayZIndex);
+          console.log('Dialog content z-index:', dialogZIndex);
+          
+          document.getElementById('z-index-info').innerHTML = `
+            <strong>Z-Index Values:</strong><br>
+            Menu: ${menuZIndex || 'auto'}<br>
+            Dialog Overlay: ${overlayZIndex}<br>
+            Dialog Content: ${dialogZIndex}
+          `;
+        }
+      }, 100);
+    }
+  </script>
+</body>
+</html>

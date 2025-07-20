@@ -243,6 +243,24 @@ if (window.PM7?.pm7Confirm) {
 }
 ```
 
+### Pattern: Dynamic Dialog Addition
+WHEN: Adding dialog after page load
+```javascript
+// Add dialog HTML
+document.body.insertAdjacentHTML('beforeend', `
+  <div data-pm7-dialog="new-dialog" data-pm7-dialog-size="md">
+    <h2 data-pm7-header>Dynamic Dialog</h2>
+    <div data-pm7-body>Content</div>
+  </div>
+`);
+
+// MUST initialize PM7 components
+window.PM7.init();
+
+// Now can open
+window.PM7.openDialog('new-dialog');
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -287,11 +305,19 @@ export default function DialogPage() {
 
 ## JavaScript API
 
+### Automatic Menu Closing
+
+WHEN: Dialog opens
+THEN: All open menus close automatically
+WHY: Prevents menu overlap with dialog overlay
+
 ### Initialization
 
-IF dialog element exists THEN `new PM7.Dialog(element)`
-IF open dialog THEN `window.PM7.openDialog(id)`
-IF close dialog THEN `window.PM7.closeDialog(id)`
+IF dialog in DOM at page load THEN auto-initialized
+IF dialog added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.Dialog(element)`
+IF open dialog THEN `window.PM7.openDialog(id)` (NOT `window.openDialog`)
+IF close dialog THEN `window.PM7.closeDialog(id)` (NOT `window.closeDialog`)
 
 ### Methods
 
@@ -383,17 +409,43 @@ if (window.PM7?.openDialog) {
 <div data-pm7-dialog="dialog">
 ```
 
+### Anti-Pattern: Dynamic Dialog Without Init
+```javascript
+// NEVER - dialog won't work
+document.body.innerHTML += `<div data-pm7-dialog="new">...</div>`;
+window.PM7.openDialog('new'); // FAILS
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `<div data-pm7-dialog="new">...</div>`;
+window.PM7.init(); // REQUIRED
+window.PM7.openDialog('new'); // WORKS
+```
+
+### Anti-Pattern: Wrong API Location
+```javascript
+// NEVER - functions not on window directly
+window.openDialog('dialog-id');
+window.closeDialog('dialog-id');
+
+// ALWAYS - functions on window.PM7
+window.PM7.openDialog('dialog-id');
+window.PM7.closeDialog('dialog-id');
+```
+
 ## Rules
 
 - ALWAYS: Use unique IDs for `data-pm7-dialog`
 - ALWAYS: Include content markers (`data-pm7-header`, `data-pm7-body`, etc.)
 - ALWAYS: Check PM7 exists before calling methods
+- ALWAYS: Call `window.PM7.init()` after adding dialogs dynamically
+- ALWAYS: Use `window.PM7.openDialog()` NOT `window.openDialog()`
 - ALWAYS: Provide close mechanism (button, ESC, or overlay)
 - NEVER: Nest dialogs inside dialogs
 - NEVER: Use role attributes (auto-applied)
 - NEVER: Initialize same dialog multiple times
 - NEVER: Add manual display styles
 - NEVER: Mix size attributes and classes
+- NEVER: Call dialog functions without PM7.init() for dynamic content
 
 ## CSS Variables
 

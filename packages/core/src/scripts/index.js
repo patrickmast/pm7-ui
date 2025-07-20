@@ -4,7 +4,7 @@
  */
 
 export { PM7Menu } from './menu.js';
-export { PM7Dialog, createDialog, pm7Confirm as confirm, pm7Alert as alert } from './dialog.js';
+export { PM7Dialog, createDialog, pm7Confirm as confirm, pm7Alert as alert, openDialog, closeDialog } from './dialog.js';
 export { PM7Button, initButtons } from './button.js';
 export { PM7Toast, showToast, closeToast, closeAllToasts } from './toast.js';
 export { PM7TabSelector } from './tab-selector.js';
@@ -22,7 +22,7 @@ export {
 
 // Import components first
 import { PM7Menu } from './menu.js';
-import { PM7Dialog, createDialog, pm7Confirm as confirm, pm7Alert as alert } from './dialog.js';
+import { PM7Dialog, createDialog, pm7Confirm as confirm, pm7Alert as alert, openDialog, closeDialog } from './dialog.js';
 import { PM7Button, initButtons } from './button.js';
 import { PM7Toast, showToast, closeToast, closeAllToasts } from './toast.js';
 import { PM7TabSelector } from './tab-selector.js';
@@ -147,7 +147,9 @@ const PM7 = {
   closeAllToasts,
   alert,
   confirm,
-  createDialog
+  createDialog,
+  openDialog,
+  closeDialog
 };
 
 // Make PM7 globally available

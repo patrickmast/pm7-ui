@@ -7,7 +7,7 @@
 
   <!-- PM7 Core CSS -->
   <link rel="stylesheet" href="/packages/core/src/styles/index.css">
-  
+
   <!-- TipTap Editor Dependencies -->
   <script type="module">
     import { Editor } from 'https://esm.sh/@tiptap/core@2.1.13'
@@ -16,27 +16,60 @@
     import TextStyle from 'https://esm.sh/@tiptap/extension-text-style@2.1.13'
     import Underline from 'https://esm.sh/@tiptap/extension-underline@2.1.13'
     import Link from 'https://esm.sh/@tiptap/extension-link@2.1.13'
-    
+    import Image from 'https://esm.sh/@tiptap/extension-image@2.1.13'
+    import Youtube from 'https://esm.sh/@tiptap/extension-youtube@2.1.13'
+
     window.Editor = Editor;
     window.StarterKit = StarterKit;
     window.Color = Color;
     window.TextStyle = TextStyle;
     window.Underline = Underline;
     window.Link = Link;
+    window.Image = Image;
+    window.Youtube = Youtube;
   </script>
 
   <style>
     body {
       margin: 0;
       font-family: var(--pm7-font-sans);
-      background: var(--pm7-background);
+      background: linear-gradient(135deg, #fafbfc 0%, #f0f2f5 100%);
       color: var(--pm7-foreground);
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
-    
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+      background-size: 20px 20px;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 80%);
+      pointer-events: none;
+    }
+
     html {
       overflow: hidden;
+    }
+    
+    /* CRITICAL Z-INDEX FIX: Ensure dialogs appear above menus */
+    .pm7-dialog-overlay {
+      z-index: 10000 !important;
+    }
+    
+    .pm7-dialog-content {
+      z-index: 10001 !important;
+    }
+    
+    /* Ensure menu content has lower z-index */
+    .pm7-menu-content {
+      z-index: 50 !important;
     }
 
     .app-container {
@@ -70,10 +103,10 @@
       height: 100%;
       overflow: hidden;
     }
-    
+
     /* TipTap Editor Styles */
     .tiptap {
-      background: var(--pm7-card);
+      background: white;
       border: none;
       border-radius: 0;
       padding: 1.5rem;
@@ -147,22 +180,124 @@
       text-decoration: none;
     }
 
+    /* Image styles */
+    .tiptap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--pm7-radius);
+      margin: 1rem 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .tiptap img.ProseMirror-selectednode {
+      outline: 2px solid var(--pm7-primary);
+    }
+
+    /* Image resize wrapper */
+    .image-resize-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 1rem 0;
+      max-width: 100%;
+    }
+
+    .image-resize-wrapper.ProseMirror-selectednode {
+      outline: 2px solid var(--pm7-primary);
+    }
+
+    .image-resize-wrapper img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+    }
+
+    /* Resize handles */
+    .resize-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--pm7-primary);
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: nwse-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .image-resize-wrapper.ProseMirror-selectednode .resize-handle {
+      opacity: 1;
+    }
+
+    .resize-handle.nw {
+      top: -6px;
+      left: -6px;
+      cursor: nw-resize;
+    }
+
+    .resize-handle.ne {
+      top: -6px;
+      right: -6px;
+      cursor: ne-resize;
+    }
+
+    .resize-handle.sw {
+      bottom: -6px;
+      left: -6px;
+      cursor: sw-resize;
+    }
+
+    .resize-handle.se {
+      bottom: -6px;
+      right: -6px;
+      cursor: se-resize;
+    }
+
+    /* YouTube video styles */
+    .tiptap iframe[src*="youtube.com"],
+    .tiptap iframe[src*="youtu.be"] {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: var(--pm7-radius);
+      margin: 1rem 0;
+      display: block;
+    }
+
+    .tiptap div[data-youtube-video] {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin: 1rem 0;
+    }
+
+    .tiptap div[data-youtube-video] iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: var(--pm7-radius);
+    }
+
     /* Formatting toolbar */
     .format-toolbar {
       display: flex;
-      gap: 0.25rem;
-      padding: 0.5rem;
+      gap: 0.15rem;
+      padding: 0.10rem;
       flex-wrap: wrap;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       justify-content: center;
       flex-shrink: 0;
     }
-    
+
     /* Page title */
     .app-content h2 {
       flex-shrink: 0;
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 0.35rem;
     }
 
     .format-group {
@@ -210,22 +345,22 @@
       align-items: center;
       z-index: 10;
     }
-    
+
     .status-left {
       flex: 1;
       text-align: left;
     }
-    
+
     .status-center {
       flex: 1;
       text-align: center;
     }
-    
+
     .status-right {
       flex: 1;
       text-align: right;
     }
-    
+
     .text-stats {
       font-weight: 500;
       background: white;
@@ -234,14 +369,14 @@
       padding: 0.25rem 0.75rem;
       display: inline-block;
     }
-    
+
     .tooltip-stats-detail {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
       font-size: 0.875rem;
     }
-    
+
     .tooltip-stats-detail div {
       display: flex;
       justify-content: space-between;
@@ -262,7 +397,7 @@
 
     .editor-wrapper {
       position: relative;
-      background: var(--pm7-card);
+      background: white;
       border: 1px solid var(--pm7-border);
       border-radius: var(--pm7-radius);
       width: 800px; /* Default starting width */
@@ -284,7 +419,7 @@
       transition: opacity 0.2s ease;
       user-select: none;
     }
-    
+
     .resize-handle.visible {
       opacity: 1;
     }
@@ -306,16 +441,28 @@
       border-radius: 2px;
       transition: background 0.2s ease;
     }
-    
+
     .resize-handle:hover::before {
       background: #999999;
     }
 
     /* Keep handle appearance consistent during resize */
-    
+
     /* Prevent menu item text wrapping */
     .pm7-menu-item {
       white-space: nowrap;
+    }
+
+    /* Make menu bar triggers same height as menu items */
+    .pm7-menu-bar .pm7-menu-trigger {
+      padding: var(--pm7-menu-padding-y) var(--pm7-menu-padding-x) !important;
+    }
+
+    /* Custom menu padding - 6px vertical instead of 8px */
+    .pm7-menu-bar .pm7-menu-trigger,
+    .pm7-menu-item {
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
     }
 
     /* Dialog backdrop styles */
@@ -331,7 +478,7 @@
       display: none;
       z-index: var(--pm7-z-modal, 100);
     }
-    
+
     .pm7-dialog-backdrop[data-state="open"] {
       display: flex;
       align-items: center;
@@ -350,8 +497,69 @@
       border: none;
       border-radius: 0;
     }
+    
+    /* Custom checkbox styling */
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--pm7-primary);
+    }
+    
+    
 
 
+    /* Connected columns card styles */
+    .connected-columns-card {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+    }
+    
+    .connected-columns-card .pm7-card-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    
+    .connected-columns-card .pm7-card-content {
+      padding: 1rem;
+    }
+    
+    .connected-columns-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    
+    .column-list {
+      margin-top: 1rem;
+    }
+    
+    .column-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+    }
+    
+    .column-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--pm7-primary);
+    }
+    
+    .column-item label {
+      flex: 1;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
   </style>
 </head>
 <body>
@@ -453,6 +661,9 @@
             <button class="pm7-menu-item" id="code-menu">Code</button>
             <button class="pm7-menu-item" id="code-block-menu">Code Block</button>
             <button class="pm7-menu-item" id="blockquote-menu">Blockquote</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="image-menu">Insert Image...</button>
+            <button class="pm7-menu-item" id="video-menu">Insert YouTube Video...</button>
           </div>
         </div>
 
@@ -504,13 +715,55 @@
             <button class="pm7-menu-item" onclick="showAbout()">About</button>
           </div>
         </div>
+
+        <!-- Spacer to push Sign in to the right -->
+        <div style="flex: 1;"></div>
+
+        <!-- Sign in / User Menu -->
+        <div class="pm7-menu" data-pm7-menu id="user-menu">
+          <div class="pm7-tooltip" data-pm7-tooltip id="user-menu-tooltip-wrapper">
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm pm7-tooltip-trigger" id="user-menu-trigger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span id="user-menu-label">Sign in</span>
+            </button>
+            <div class="pm7-tooltip-content" data-side="bottom" id="sign-in-tooltip" style="display: none;">
+              Sign in to save documents to the cloud
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-menu-content" id="user-menu-content">
+            <button class="pm7-menu-item" onclick="(function(){ 
+              // Close the menu immediately
+              const menu = document.querySelector('#user-menu');
+              if (menu && menu.PM7Menu) {
+                menu.PM7Menu.close();
+              } else {
+                // Fallback: manually close the menu
+                const menuContent = document.querySelector('#user-menu-content');
+                if (menuContent) {
+                  menuContent.classList.remove('pm7-menu-content--open');
+                  menuContent.removeAttribute('data-state');
+                }
+                const trigger = document.querySelector('#user-menu-trigger');
+                if (trigger) {
+                  trigger.setAttribute('aria-expanded', 'false');
+                }
+              }
+              // Then open sign in dialog
+              window.signIn();
+            })()">Sign in</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Main Content Area -->
     <main class="app-content">
       <h2 style="text-align: center;">TipTap Editor with PM7 Toolbar</h2>
-      
+
       <!-- Formatting Toolbar (outside card) -->
       <div class="format-toolbar" id="format-toolbar">
         <div class="format-group">
@@ -527,38 +780,40 @@
             <s>S</s>
           </button>
         </div>
-        
+
         <div class="format-group">
           <button class="format-button" id="h1-btn" title="Heading 1">H1</button>
           <button class="format-button" id="h2-btn" title="Heading 2">H2</button>
           <button class="format-button" id="h3-btn" title="Heading 3">H3</button>
           <button class="format-button" id="p-btn" title="Paragraph">P</button>
         </div>
-        
+
         <div class="format-group">
           <button class="format-button" id="ul-btn" title="Bullet List">• List</button>
           <button class="format-button" id="ol-btn" title="Numbered List">1. List</button>
         </div>
-        
+
         <div class="format-group">
           <button class="format-button" id="code-btn" title="Code">&lt;/&gt;</button>
           <button class="format-button" id="codeblock-btn" title="Code Block">[&lt;/&gt;]</button>
           <button class="format-button" id="quote-btn" title="Blockquote">"</button>
         </div>
-        
+
         <div class="format-group">
           <button class="format-button" id="link-btn" title="Add Link">🔗</button>
+          <button class="format-button" id="image-btn" title="Add Image">🖼️</button>
+          <button class="format-button" id="video-btn" title="Add YouTube Video">📹</button>
           <button class="format-button" id="hr-btn" title="Horizontal Rule">—</button>
         </div>
       </div>
-      
+
       <!-- Resizable Editor Container -->
       <div class="editor-container" id="editor-container">
         <div class="editor-wrapper">
           <!-- TipTap Editor -->
           <div id="editor"></div>
         </div>
-        
+
         <!-- Resize Handle (moved outside wrapper) -->
         <div class="resize-handle" id="resize-handle"></div>
       </div>
@@ -593,6 +848,22 @@
       // Wait for modules to load
       await new Promise(resolve => setTimeout(resolve, 100));
       
+      // Wait for PM7 to be available
+      let attempts = 0;
+      while (!window.PM7?.openDialog && attempts < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+      }
+      
+      if (!window.PM7?.openDialog) {
+        console.error('PM7 dialog functions not available after 5 seconds');
+      } else {
+        console.log('PM7 dialog functions loaded successfully');
+        // Initialize PM7 components including dialogs
+        window.PM7.init();
+        console.log('PM7 components initialized');
+      }
+
       // Initialize TipTap Editor
       const editor = new window.Editor({
       element: document.querySelector('#editor'),
@@ -607,11 +878,25 @@
             class: 'tiptap-link',
           },
         }),
+        window.Image.configure({
+          inline: true,
+          allowBase64: true,
+          HTMLAttributes: {
+            class: 'resizable-img',
+          },
+        }),
+        window.Youtube.configure({
+          inline: false,
+          width: 640,
+          height: 480,
+          nocookie: true,
+          autoplay: false,
+        }),
       ],
       content: `
         <h1>Welcome to TipTap Editor with PM7 UI!</h1>
         <p>This demo integrates the powerful <strong>TipTap editor</strong> with <em>PM7 UI components</em> for a seamless editing experience.</p>
-        
+
         <h2>Features</h2>
         <ul>
           <li><strong>Rich text formatting</strong> - Bold, italic, underline, and strikethrough</li>
@@ -620,15 +905,29 @@
           <li><strong>Code formatting</strong> - Inline <code>code</code> and code blocks</li>
           <li><strong>Blockquotes</strong> - For highlighting important text</li>
           <li><strong>Links</strong> - Add hyperlinks to your content</li>
+          <li><strong>Images</strong> - Insert images from URLs or paste image data</li>
+          <li><strong>YouTube Videos</strong> - Embed YouTube videos directly in your content</li>
         </ul>
-        
+
+        <h2>Media Support</h2>
+        <p>You can now add images and YouTube videos to your documents! Use the 🖼️ button to insert images and the 📹 button to embed YouTube videos.</p>
+
+        <h3>Example Image</h3>
+        <p>Click the image button and try adding an image URL, for example:</p>
+        <p><code>https://picsum.photos/600/400</code></p>
+        <p><strong>Resize tip:</strong> After inserting an image, click on it to see resize handles at the corners. Drag any corner to resize the image while maintaining aspect ratio!</p>
+
+        <h3>Example Video</h3>
+        <p>Click the video button and paste a YouTube URL, for example:</p>
+        <p><code>https://www.youtube.com/watch?v=dQw4w9WgXcQ</code></p>
+
         <h2>Try it out!</h2>
         <p>Use the menu bar above or the formatting toolbar to style your content. All PM7 UI styles are applied for a consistent look and feel.</p>
-        
+
         <blockquote>
           <p>"The best way to predict the future is to invent it." - Alan Kay</p>
         </blockquote>
-        
+
         <pre><code>// Example code block
 function greet(name) {
   console.log(\`Hello, \${name}!\`);
@@ -655,13 +954,16 @@ function greet(name) {
     let currentFileName = 'Untitled.html';
     let hasUnsavedChanges = false;
     let recentFiles = JSON.parse(localStorage.getItem('pm7-editor-recent-files') || '[]');
-    
+
+    // User state
+    let currentUser = JSON.parse(localStorage.getItem('pm7-editor-user') || 'null');
+
     // Track changes
     editor.on('update', () => {
       hasUnsavedChanges = true;
       updateStatus('Modified');
     });
-    
+
     // Add file to recent files list
     function addToRecentFiles(fileName) {
       recentFiles = recentFiles.filter(f => f !== fileName);
@@ -669,16 +971,16 @@ function greet(name) {
       recentFiles = recentFiles.slice(0, 5); // Keep only 5 recent files
       localStorage.setItem('pm7-editor-recent-files', JSON.stringify(recentFiles));
     }
-    
+
     window.showRecentFiles = function() {
       if (recentFiles.length === 0) {
         alert('No recent files');
         return;
       }
-      
+
       const fileList = recentFiles.map((file, index) => `${index + 1}. ${file}`).join('\n');
       const choice = prompt(`Recent files:\n${fileList}\n\nEnter number to open:`);
-      
+
       if (choice && !isNaN(choice)) {
         const index = parseInt(choice) - 1;
         if (index >= 0 && index < recentFiles.length) {
@@ -689,7 +991,7 @@ function greet(name) {
         }
       }
     };
-    
+
     window.newFile = function() {
       if (hasUnsavedChanges) {
         if (!confirm('You have unsaved changes. Create a new file anyway?')) {
@@ -706,7 +1008,7 @@ function greet(name) {
       const input = document.createElement('input');
       input.type = 'file';
       input.accept = '.html,.txt,.md';
-      
+
       input.onchange = function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -727,7 +1029,7 @@ function greet(name) {
           reader.readAsText(file);
         }
       };
-      
+
       input.click();
     };
 
@@ -735,18 +1037,18 @@ function greet(name) {
       const content = editor.getHTML();
       const blob = new Blob([content], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      
+
       const a = document.createElement('a');
       a.href = url;
       a.download = currentFileName;
       a.click();
-      
+
       URL.revokeObjectURL(url);
       hasUnsavedChanges = false;
       addToRecentFiles(currentFileName);
       updateStatus(`Saved ${currentFileName}`);
     };
-    
+
     window.saveAsFile = function() {
       const fileName = prompt('Save as:', currentFileName);
       if (fileName) {
@@ -777,54 +1079,419 @@ function greet(name) {
       aboutBackdrop = document.getElementById('about-dialog');
       if (dialogElement) {
         window.aboutDialog = new PM7.Dialog(dialogElement);
-        
+
         // Override open/close to handle backdrop
         const originalOpen = window.aboutDialog.open.bind(window.aboutDialog);
         const originalClose = window.aboutDialog.close.bind(window.aboutDialog);
-        
+
         window.aboutDialog.open = function() {
           aboutBackdrop.setAttribute('data-state', 'open');
           originalOpen();
         };
-        
+
         window.aboutDialog.close = function() {
           aboutBackdrop.removeAttribute('data-state');
           originalClose();
         };
       }
     }, 100);
-    
+
     window.showAbout = function() {
       if (window.aboutDialog) {
         window.aboutDialog.open();
       }
     };
 
+
+    // User authentication functions
+    function updateUserMenu() {
+      const menuLabel = document.getElementById('user-menu-label');
+      const menuContent = document.getElementById('user-menu-content');
+
+      if (currentUser) {
+        // User is signed in
+        menuLabel.textContent = currentUser.name;
+        menuContent.innerHTML = `
+          <button class="pm7-menu-item" onclick="(function(){ document.querySelectorAll('.pm7-menu-content, .pm7-menu, [data-pm7-menu]').forEach(el => el.style.display = 'none'); setTimeout(() => window.accountSettings(), 10); })()">Account settings</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item" onclick="(function(){ document.querySelectorAll('.pm7-menu-content, .pm7-menu, [data-pm7-menu]').forEach(el => el.style.display = 'none'); setTimeout(() => window.signOut(), 10); })()">Sign out</button>
+        `;
+        
+        // Hide tooltip when signed in
+        const tooltipContent = document.getElementById('sign-in-tooltip');
+        if (tooltipContent) {
+          tooltipContent.style.display = 'none';
+        }
+        
+        // Restore menu functionality
+        const menuElement = document.getElementById('user-menu');
+        const menuTrigger = document.getElementById('user-menu-trigger');
+        if (menuElement) {
+          // Remove direct onclick
+          if (menuTrigger) {
+            menuTrigger.onclick = null;
+          }
+          // Ensure menu is properly initialized
+          if (!menuElement.PM7Menu) {
+            new PM7.Menu(menuElement);
+          }
+        }
+      } else {
+        // User is not signed in - no submenu needed
+        menuLabel.textContent = 'Sign in';
+        menuContent.innerHTML = `
+          <button class="pm7-menu-item" onclick="(function(){ 
+            // Close the menu immediately
+            const menu = document.querySelector('#user-menu');
+            if (menu && menu.PM7Menu) {
+              menu.PM7Menu.close();
+            } else {
+              // Fallback: manually close the menu
+              const menuContent = document.querySelector('#user-menu-content');
+              if (menuContent) {
+                menuContent.classList.remove('pm7-menu-content--open');
+                menuContent.removeAttribute('data-state');
+              }
+              const trigger = document.querySelector('#user-menu-trigger');
+              if (trigger) {
+                trigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+            // Then open sign in dialog
+            window.signIn();
+          })()">Sign in</button>
+        `;
+        
+        // Show tooltip for sign in
+        const tooltipContent = document.getElementById('sign-in-tooltip');
+        if (tooltipContent) {
+          tooltipContent.style.display = '';
+        }
+        
+        // Remove menu trigger functionality and make it a direct button
+        const menuElement = document.getElementById('user-menu');
+        if (menuElement && menuElement.PM7Menu) {
+          // Remove the menu functionality temporarily
+          menuElement.PM7Menu.close();
+        }
+        // Change onclick to directly open login
+        const menuTrigger = document.getElementById('user-menu-trigger');
+        if (menuTrigger) {
+          menuTrigger.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.signIn();
+            return false;
+          };
+        }
+      }
+    }
+
+    window.signIn = function() {
+      // Open the login dialog - our patch will close menus
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('login-dialog');
+        // Focus on username field after dialog opens
+        setTimeout(() => {
+          const usernameField = document.getElementById('username');
+          if (usernameField) {
+            usernameField.focus();
+          }
+        }, 200);
+      } else {
+        console.error('PM7.openDialog is not available');
+      }
+    };
+
+    window.signOut = function() {
+      // Open the sign out confirmation dialog - PM7 now automatically closes menus
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('signout-dialog');
+      } else {
+        console.error('PM7.openDialog not available');
+      }
+    };
+
+    window.confirmSignOut = function() {
+      currentUser = null;
+      localStorage.removeItem('pm7-editor-user');
+      updateUserMenu();
+      updateStatus('Signed out successfully');
+      
+      // Close the dialog
+      if (window.PM7?.closeDialog) {
+        window.PM7.closeDialog('signout-dialog');
+      }
+    };
+
+    window.accountSettings = function() {
+      // First, aggressively hide ALL menus
+      const hideMenus = () => {
+        // Hide all menu-related elements
+        const elements = document.querySelectorAll('.pm7-menu-content, .pm7-menu, [data-pm7-menu]');
+        elements.forEach(el => {
+          el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; z-index: 1 !important;';
+        });
+        
+        // Add global style to ensure menus stay hidden
+        let globalStyle = document.getElementById('global-menu-hide');
+        if (!globalStyle) {
+          globalStyle = document.createElement('style');
+          globalStyle.id = 'global-menu-hide';
+          document.head.appendChild(globalStyle);
+        }
+        globalStyle.textContent = `
+          .pm7-menu-content,
+          .pm7-menu,
+          [data-pm7-menu] {
+            display: none !important;
+          }
+        `;
+        
+        // Remove after delay
+        setTimeout(() => {
+          if (globalStyle) globalStyle.remove();
+        }, 500);
+      };
+      
+      // Hide menus immediately
+      hideMenus();
+      
+      if (!currentUser) {
+        console.error('No current user');
+        return;
+      }
+      
+      // Populate the account settings form with current user data
+      document.getElementById('settings-username').value = currentUser.name;
+      document.getElementById('settings-user-email').value = currentUser.email;
+      document.getElementById('settings-name').textContent = currentUser.name;
+      document.getElementById('settings-email').textContent = currentUser.email;
+      
+      // Set avatar
+      const avatarDiv = document.getElementById('settings-avatar');
+      if (currentUser.avatar && avatarDiv) {
+        // Use saved photo
+        avatarDiv.style.backgroundImage = `url(${currentUser.avatar})`;
+        avatarDiv.style.backgroundSize = 'cover';
+        avatarDiv.style.backgroundPosition = 'center';
+        avatarDiv.style.backgroundColor = 'transparent';
+        avatarDiv.innerHTML = ''; // Remove initials
+      } else {
+        // Use initials
+        const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        const initialsSpan = document.getElementById('avatar-initials');
+        if (initialsSpan) {
+          initialsSpan.textContent = initials;
+        }
+        if (avatarDiv) {
+          avatarDiv.style.backgroundImage = '';
+          avatarDiv.style.backgroundColor = 'var(--pm7-primary)';
+          // Re-add initials span if it was removed
+          if (!avatarDiv.querySelector('#avatar-initials')) {
+            avatarDiv.innerHTML = `<span style="color: var(--pm7-primary-foreground); font-size: 2rem; font-weight: 600;" id="avatar-initials">${initials}</span>`;
+          }
+        }
+      }
+      
+      // Open the account settings dialog - our patch will close menus
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('account-settings-dialog');
+      } else {
+        console.error('PM7.openDialog not available');
+      }
+    };
+
+    window.handleAccountSettings = function(event) {
+      event.preventDefault();
+      
+      const newName = document.getElementById('settings-username').value;
+      const newEmail = document.getElementById('settings-user-email').value;
+      const emailNotifications = document.getElementById('email-notifications').checked;
+      const autoSave = document.getElementById('auto-save').checked;
+      const showTips = document.getElementById('show-tips').checked;
+      
+      // Update user data
+      currentUser.name = newName;
+      currentUser.email = newEmail;
+      currentUser.preferences = {
+        emailNotifications,
+        autoSave,
+        showTips
+      };
+      
+      // Save to localStorage
+      localStorage.setItem('pm7-editor-user', JSON.stringify(currentUser));
+      
+      // Update UI
+      updateUserMenu();
+      updateStatus('Settings saved successfully');
+      
+      // Close the dialog
+      if (window.PM7?.closeDialog) {
+        window.PM7.closeDialog('account-settings-dialog');
+      }
+    };
+
+    window.deleteAccount = function() {
+      if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        currentUser = null;
+        localStorage.removeItem('pm7-editor-user');
+        updateUserMenu();
+        updateStatus('Account deleted');
+        
+        // Close the settings dialog
+        if (window.PM7?.closeDialog) {
+          window.PM7.closeDialog('account-settings-dialog');
+        }
+      }
+    };
+
+    window.changePhoto = function() {
+      // Create a file input element
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      
+      fileInput.onchange = function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          // Check file size (max 5MB)
+          if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB');
+            return;
+          }
+          
+          // Check file type
+          if (!file.type.startsWith('image/')) {
+            alert('Please select an image file');
+            return;
+          }
+          
+          // Read the file and convert to base64
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            // Update the avatar with the uploaded image
+            const avatarDiv = document.getElementById('settings-avatar');
+            if (avatarDiv) {
+              avatarDiv.style.backgroundImage = `url(${e.target.result})`;
+              avatarDiv.style.backgroundSize = 'cover';
+              avatarDiv.style.backgroundPosition = 'center';
+              avatarDiv.style.backgroundColor = 'transparent';
+              avatarDiv.innerHTML = ''; // Remove initials
+              
+              // Save to user data
+              if (currentUser) {
+                currentUser.avatar = e.target.result;
+                localStorage.setItem('pm7-editor-user', JSON.stringify(currentUser));
+                updateStatus('Photo updated');
+              }
+            } else {
+              console.error('Avatar element not found');
+            }
+          };
+          
+          reader.readAsDataURL(file);
+        }
+      };
+      
+      // Trigger file selection
+      fileInput.click();
+    };
+
+    // Handle login form submission
+    window.handleLogin = function(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('remember').checked;
+      
+      // Simulate login (in real app, this would validate credentials)
+      if (username && password) {
+        // Extract name from username/email
+        const name = username.includes('@') ? username.split('@')[0] : username;
+        const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+        
+        currentUser = { 
+          name: formattedName, 
+          email: username.includes('@') ? username : `${username}@example.com`,
+          remember: remember
+        };
+        
+        localStorage.setItem('pm7-editor-user', JSON.stringify(currentUser));
+        updateUserMenu();
+        updateStatus(`Welcome, ${formattedName}!`);
+        
+        // Close the dialog
+        if (window.PM7?.closeDialog) {
+          window.PM7.closeDialog('login-dialog');
+        }
+        
+        // Clear the form
+        document.getElementById('login-form').reset();
+      }
+    };
+    
+
+    // Initialize user menu on load
+    updateUserMenu();
+    
+    // Initialize dialog after PM7 is loaded
+    setTimeout(() => {
+      const loginDialog = document.querySelector('[data-pm7-dialog="login-dialog"]');
+      if (loginDialog && window.PM7?.Dialog && !loginDialog.hasAttribute('data-pm7-dialog-initialized')) {
+        new window.PM7.Dialog(loginDialog);
+        loginDialog.setAttribute('data-pm7-dialog-initialized', 'true');
+        console.log('Login dialog initialized');
+      }
+    }, 200);
+
     // Toolbar button handlers
     document.getElementById('bold-btn').onclick = () => editor.chain().focus().toggleBold().run();
     document.getElementById('italic-btn').onclick = () => editor.chain().focus().toggleItalic().run();
     document.getElementById('underline-btn').onclick = () => editor.chain().focus().toggleUnderline().run();
     document.getElementById('strike-btn').onclick = () => editor.chain().focus().toggleStrike().run();
-    
+
     document.getElementById('h1-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 1 }).run();
     document.getElementById('h2-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 2 }).run();
     document.getElementById('h3-btn').onclick = () => editor.chain().focus().toggleHeading({ level: 3 }).run();
     document.getElementById('p-btn').onclick = () => editor.chain().focus().setParagraph().run();
-    
+
     document.getElementById('ul-btn').onclick = () => editor.chain().focus().toggleBulletList().run();
     document.getElementById('ol-btn').onclick = () => editor.chain().focus().toggleOrderedList().run();
-    
+
     document.getElementById('code-btn').onclick = () => editor.chain().focus().toggleCode().run();
     document.getElementById('codeblock-btn').onclick = () => editor.chain().focus().toggleCodeBlock().run();
     document.getElementById('quote-btn').onclick = () => editor.chain().focus().toggleBlockquote().run();
-    
+
     document.getElementById('link-btn').onclick = () => {
       const url = prompt('Enter URL:');
       if (url) {
         editor.chain().focus().setLink({ href: url }).run();
       }
     };
-    
+
+    document.getElementById('image-btn').onclick = () => {
+      const url = prompt('Enter image URL or paste image data:');
+      if (url) {
+        // Ask for size preference
+        const size = prompt('Image width in pixels (leave empty for auto):', '600');
+        if (size && !isNaN(size)) {
+          editor.chain().focus().setImage({ src: url, width: parseInt(size) }).run();
+        } else {
+          editor.chain().focus().setImage({ src: url }).run();
+        }
+      }
+    };
+
+    document.getElementById('video-btn').onclick = () => {
+      const url = prompt('Enter YouTube video URL:');
+      if (url) {
+        editor.chain().focus().setYoutubeVideo({ src: url }).run();
+      }
+    };
+
     document.getElementById('hr-btn').onclick = () => editor.chain().focus().setHorizontalRule().run();
 
     // Menu bar handlers
@@ -832,27 +1499,27 @@ function greet(name) {
       editor.chain().focus().undo().run();
       updateStatus('Undo');
     };
-    
+
     document.getElementById('redo-btn').onclick = () => {
       editor.chain().focus().redo().run();
       updateStatus('Redo');
     };
-    
+
     document.getElementById('cut-btn').onclick = () => {
       document.execCommand('cut');
       updateStatus('Cut');
     };
-    
+
     document.getElementById('copy-btn').onclick = () => {
       document.execCommand('copy');
       updateStatus('Copied');
     };
-    
+
     document.getElementById('paste-btn').onclick = () => {
       document.execCommand('paste');
       updateStatus('Pasted');
     };
-    
+
     document.getElementById('select-all-btn').onclick = () => {
       editor.chain().focus().selectAll().run();
       updateStatus('Selected all');
@@ -911,6 +1578,26 @@ function greet(name) {
       editor.chain().focus().toggleBlockquote().run();
       updateStatus('Blockquote toggled');
     };
+    document.getElementById('image-menu').onclick = () => {
+      const url = prompt('Enter image URL or paste image data:');
+      if (url) {
+        // Ask for size preference
+        const size = prompt('Image width in pixels (leave empty for auto):', '600');
+        if (size && !isNaN(size)) {
+          editor.chain().focus().setImage({ src: url, width: parseInt(size) }).run();
+        } else {
+          editor.chain().focus().setImage({ src: url }).run();
+        }
+        updateStatus('Image inserted');
+      }
+    };
+    document.getElementById('video-menu').onclick = () => {
+      const url = prompt('Enter YouTube video URL:');
+      if (url) {
+        editor.chain().focus().setYoutubeVideo({ src: url }).run();
+        updateStatus('Video inserted');
+      }
+    };
 
     // Show/hide document name
     document.getElementById('show-document-name').onclick = function() {
@@ -920,7 +1607,7 @@ function greet(name) {
       // Reposition handle when title visibility changes
       setTimeout(positionHandle, 50);
     };
-    
+
     // Show/hide toolbar
     document.getElementById('show-toolbar').onclick = function() {
       const toolbar = document.getElementById('format-toolbar');
@@ -967,28 +1654,28 @@ function greet(name) {
       // Remove extra spaces and newlines
       text = text.replace(/\s+/g, ' ').trim();
       if (text.length === 0) return 0;
-      
+
       // Split by sentence-ending punctuation followed by space or end of string
       const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
       return sentences.length;
     }
-    
+
     // Function to update text statistics
     function updateTextStats() {
       const text = editor.state.doc.textContent;
-      
+
       // Count letters (excluding spaces)
       const letters = text.replace(/\s/g, '').length;
-      
+
       // Count words
       const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-      
+
       // Count sentences
       const sentences = countSentences(text);
-      
+
       // Update display
       document.querySelector('.text-stats').textContent = `${letters} | ${words} | ${sentences}`;
-      
+
       // Update tooltip details
       const tooltipDetail = document.querySelector('.tooltip-stats-detail');
       tooltipDetail.innerHTML = `
@@ -997,13 +1684,146 @@ function greet(name) {
         <div>Sentences: <strong>${sentences}</strong></div>
       `;
     }
-    
+
     // Update statistics on content change
     editor.on('update', updateTextStats);
-    
+
     // Initial statistics update
     updateTextStats();
-    
+
+    // Image resize functionality
+    let currentResizingImage = null;
+    let imgStartWidth = 0;
+    let imgStartHeight = 0;
+    let imgStartX = 0;
+    let imgStartY = 0;
+    let imgAspectRatio = 1;
+
+    // Add resize functionality to images
+    function makeImageResizable(img) {
+      if (img.dataset.resizable === 'true') return;
+      
+      img.dataset.resizable = 'true';
+      img.style.cursor = 'pointer';
+      
+      // Create a wrapper for the image if it doesn't exist
+      let wrapper = img.parentElement;
+      if (!wrapper || !wrapper.classList.contains('image-resize-wrapper')) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'image-resize-wrapper';
+        
+        // Check if image has width attribute
+        const imgWidth = img.getAttribute('width') || img.naturalWidth || img.width;
+        wrapper.style.width = imgWidth + 'px';
+        
+        img.parentNode.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+      }
+
+      // Add resize handles
+      const handles = ['nw', 'ne', 'sw', 'se'];
+      handles.forEach(handle => {
+        const resizeHandle = document.createElement('div');
+        resizeHandle.className = `resize-handle ${handle}`;
+        resizeHandle.addEventListener('mousedown', (e) => startResize(e, img, handle));
+        wrapper.appendChild(resizeHandle);
+      });
+    }
+
+    function startResize(e, img, handle) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      currentResizingImage = img;
+      const wrapper = img.parentElement;
+      imgStartWidth = wrapper.offsetWidth;
+      imgStartHeight = wrapper.offsetHeight;
+      imgStartX = e.clientX;
+      imgStartY = e.clientY;
+      imgAspectRatio = imgStartWidth / imgStartHeight;
+      
+      document.addEventListener('mousemove', handleResize);
+      document.addEventListener('mouseup', stopResize);
+      document.body.style.cursor = `${handle}-resize`;
+    }
+
+    function handleResize(e) {
+      if (!currentResizingImage) return;
+      
+      const wrapper = currentResizingImage.parentElement;
+      const deltaX = e.clientX - imgStartX;
+      const deltaY = e.clientY - imgStartY;
+      
+      // Calculate new dimensions maintaining aspect ratio
+      let newWidth = imgStartWidth + deltaX;
+      let newHeight = newWidth / imgAspectRatio;
+      
+      // Set minimum size
+      newWidth = Math.max(100, newWidth);
+      newHeight = Math.max(100, newHeight);
+      
+      // Set maximum size (container width)
+      const maxWidth = editor.view.dom.offsetWidth - 40;
+      if (newWidth > maxWidth) {
+        newWidth = maxWidth;
+        newHeight = newWidth / imgAspectRatio;
+      }
+      
+      wrapper.style.width = newWidth + 'px';
+      currentResizingImage.style.width = '100%';
+      currentResizingImage.style.height = 'auto';
+      
+      // Update the image attributes in the editor
+      const transaction = editor.state.tr;
+      editor.view.state.doc.descendants((node, pos) => {
+        if (node.type.name === 'image' && node.attrs.src === currentResizingImage.src) {
+          transaction.setNodeMarkup(pos, null, {
+            ...node.attrs,
+            width: Math.round(newWidth),
+          });
+        }
+      });
+      editor.view.dispatch(transaction);
+    }
+
+    function stopResize() {
+      currentResizingImage = null;
+      document.removeEventListener('mousemove', handleResize);
+      document.removeEventListener('mouseup', stopResize);
+      document.body.style.cursor = '';
+    }
+
+    // Observer to watch for new images
+    const imageObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeName === 'IMG' && node.classList.contains('resizable-img')) {
+            // Wait for image to load
+            if (node.complete) {
+              makeImageResizable(node);
+            } else {
+              node.addEventListener('load', () => makeImageResizable(node));
+            }
+          }
+        });
+      });
+    });
+
+    // Start observing the editor for new images
+    imageObserver.observe(editor.view.dom, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Make existing images resizable
+    editor.view.dom.querySelectorAll('img.resizable-img').forEach(img => {
+      if (img.complete) {
+        makeImageResizable(img);
+      } else {
+        img.addEventListener('load', () => makeImageResizable(img));
+      }
+    });
+
     // Update cursor position
     editor.on('selectionUpdate', () => {
       // This is a simplified version - real implementation would calculate actual line/column
@@ -1022,13 +1842,13 @@ function greet(name) {
     let isResizing = false;
     let startX;
     let startWidth;
-    
+
     // Load saved width from localStorage
     const savedWidth = localStorage.getItem('pm7-editor-width');
     if (savedWidth) {
       editorWrapper.style.width = savedWidth + 'px';
     }
-    
+
     // Position handle next to wrapper
     function positionHandle() {
       const wrapperRect = editorWrapper.getBoundingClientRect();
@@ -1036,15 +1856,15 @@ function greet(name) {
       const rightEdge = wrapperRect.right - containerRect.left + 8;
       resizeHandle.style.left = rightEdge + 'px';
       resizeHandle.style.height = wrapperRect.height + 'px';
-      
+
       // Show the handle after positioning
       resizeHandle.classList.add('visible');
     }
-    
+
     // Initial positioning after a short delay to ensure DOM is ready
     setTimeout(positionHandle, 100);
     window.addEventListener('resize', positionHandle);
-    
+
     // Also reposition when editor content changes
     editor.on('update', () => {
       setTimeout(positionHandle, 50);
@@ -1055,13 +1875,13 @@ function greet(name) {
       const defaultWidth = 800;
       const maxWidth = window.innerWidth * 0.9;
       const newWidth = Math.min(defaultWidth, maxWidth);
-      
+
       editorWrapper.style.width = newWidth + 'px';
       localStorage.setItem('pm7-editor-width', newWidth);
       positionHandle();
       e.preventDefault();
     });
-    
+
     resizeHandle.addEventListener('mousedown', (e) => {
       isResizing = true;
       startX = e.pageX;
@@ -1073,16 +1893,16 @@ function greet(name) {
 
     document.addEventListener('mousemove', (e) => {
       if (!isResizing) return;
-      
+
       const containerRect = editorContainer.getBoundingClientRect();
       const wrapperRect = editorWrapper.getBoundingClientRect();
-      
+
       // Calculate new width based on mouse position
       const newWidth = (e.pageX - containerRect.left) - (wrapperRect.left - containerRect.left) - 8;
-      
+
       // Set minimum width only (no maximum)
       const minWidth = 400;
-      
+
       if (newWidth >= minWidth) {
         editorWrapper.style.width = newWidth + 'px';
         // Update handle position directly during drag
@@ -1113,16 +1933,16 @@ function greet(name) {
 
     document.addEventListener('touchmove', (e) => {
       if (!isResizing) return;
-      
+
       const containerRect = editorContainer.getBoundingClientRect();
       const wrapperRect = editorWrapper.getBoundingClientRect();
-      
+
       // Calculate new width based on touch position
       const newWidth = (e.touches[0].pageX - containerRect.left) - (wrapperRect.left - containerRect.left) - 8;
-      
+
       // Set minimum width only (no maximum)
       const minWidth = 400;
-      
+
       if (newWidth >= minWidth) {
         editorWrapper.style.width = newWidth + 'px';
         // Update handle position directly during drag
@@ -1238,5 +2058,230 @@ function greet(name) {
     </div>
   </div>
   </div>
+  
+  <!-- Login Dialog -->
+  <div data-pm7-dialog="login-dialog" data-pm7-dialog-size="sm" data-pm7-show-close="true">
+    <h2 data-pm7-header>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      Sign In
+    </h2>
+    <div data-pm7-body>
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="pm7-form-group" style="margin-bottom: 1rem;">
+          <label for="username" class="pm7-label">Username or Email</label>
+          <input type="text" id="username" name="username" class="pm7-input" placeholder="Enter your username" required>
+        </div>
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="password" class="pm7-label">Password</label>
+          <input type="password" id="password" name="password" class="pm7-input" placeholder="Enter your password" required>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <label class="pm7-checkbox">
+            <input type="checkbox" id="remember" name="remember">
+            <span class="pm7-checkbox-indicator"></span>
+            <span class="pm7-checkbox-label">Remember me</span>
+          </label>
+          <a href="#" style="font-size: 0.875rem; color: var(--pm7-primary); text-decoration: none;">Forgot password?</a>
+        </div>
+      </form>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('login-dialog')">Cancel</button>
+      <button type="submit" form="login-form" class="pm7-button pm7-button--primary">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Account Settings Dialog -->
+  <div data-pm7-dialog="account-settings-dialog" data-pm7-dialog-size="md" data-pm7-show-close="true">
+    <h2 data-pm7-header>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      Account Settings
+    </h2>
+    <div data-pm7-body>
+      <form id="account-settings-form" onsubmit="handleAccountSettings(event)">
+        <div style="display: flex; align-items: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--pm7-border);">
+          <div id="settings-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: var(--pm7-primary); display: flex; align-items: center; justify-content: center; margin-right: 1.5rem; flex-shrink: 0;">
+            <span style="color: var(--pm7-primary-foreground); font-size: 2rem; font-weight: 600;" id="avatar-initials">JD</span>
+          </div>
+          <div style="flex: 1;">
+            <h3 style="margin: 0 0 0.25rem 0; font-size: 1.25rem;" id="settings-name">John Doe</h3>
+            <p style="margin: 0; color: var(--pm7-muted-foreground);" id="settings-email">john@example.com</p>
+            <button type="button" class="pm7-button pm7-button--ghost pm7-button--sm" style="margin-top: 0.5rem;" onclick="changePhoto()">Change Photo</button>
+          </div>
+        </div>
+
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="settings-username" class="pm7-label">Display Name</label>
+          <input type="text" id="settings-username" name="username" class="pm7-input" value="John Doe" required>
+        </div>
+
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="settings-user-email" class="pm7-label">Email Address</label>
+          <input type="email" id="settings-user-email" name="email" class="pm7-input" value="john@example.com" required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label class="pm7-label" style="display: block; margin-bottom: 0.5rem;">Preferences</label>
+          <div style="space-y: 0.5rem;">
+            <label class="pm7-checkbox" style="margin-bottom: 0.75rem;">
+              <input type="checkbox" id="email-notifications" name="emailNotifications" checked>
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Email notifications</span>
+            </label>
+            <label class="pm7-checkbox" style="margin-bottom: 0.75rem;">
+              <input type="checkbox" id="auto-save" name="autoSave" checked>
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Auto-save documents</span>
+            </label>
+            <label class="pm7-checkbox">
+              <input type="checkbox" id="show-tips" name="showTips">
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Show helpful tips</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--pm7-border);">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--pm7-destructive);">Danger Zone</label>
+          <button type="button" class="pm7-button pm7-button--destructive pm7-button--outline" onclick="deleteAccount()">Delete Account</button>
+        </div>
+      </form>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('account-settings-dialog')">Cancel</button>
+      <button type="submit" form="account-settings-form" class="pm7-button pm7-button--primary">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Sign Out Confirmation Dialog -->
+  <div data-pm7-dialog="signout-dialog" data-pm7-dialog-size="sm" data-pm7-dialog-icon="warning">
+    <h2 data-pm7-header>Sign Out</h2>
+    <div data-pm7-body>
+      <p style="margin-bottom: 0;">Are you sure you want to sign out? Any unsaved changes will be lost.</p>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('signout-dialog')">Cancel</button>
+      <button type="button" class="pm7-button pm7-button--primary" onclick="confirmSignOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Connected Columns Card -->
+  <div class="pm7-card connected-columns-card">
+    <div class="pm7-card-header">
+      <h3>Connected columns</h3>
+    </div>
+    <div class="pm7-card-content">
+      <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-bottom: 1rem;">
+        Select which columns to include in your export.
+      </p>
+      
+      <div class="column-list">
+        <div class="column-item">
+          <input type="checkbox" id="col-id" checked>
+          <label for="col-id">ID</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-name" checked>
+          <label for="col-name">Name</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-email" checked>
+          <label for="col-email">Email</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-status" checked>
+          <label for="col-status">Status</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-created" checked>
+          <label for="col-created">Created Date</label>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--pm7-border);">
+        <button class="pm7-button pm7-button--primary pm7-button--sm" style="width: 100%;" onclick="exportCSV()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Exporteer CSV
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Export CSV function
+    function exportCSV() {
+      // Get selected columns
+      const selectedColumns = [];
+      const columnIds = ['id', 'name', 'email', 'status', 'created'];
+      const columnNames = ['ID', 'Name', 'Email', 'Status', 'Created Date'];
+      
+      columnIds.forEach((id, index) => {
+        const checkbox = document.getElementById(`col-${id}`);
+        if (checkbox && checkbox.checked) {
+          selectedColumns.push({
+            id: id,
+            name: columnNames[index]
+          });
+        }
+      });
+      
+      if (selectedColumns.length === 0) {
+        alert('Please select at least one column to export.');
+        return;
+      }
+      
+      // Sample data for demonstration
+      const data = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', created: '2024-01-15' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Active', created: '2024-01-16' },
+        { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Inactive', created: '2024-01-17' },
+        { id: 4, name: 'Alice Williams', email: 'alice@example.com', status: 'Active', created: '2024-01-18' },
+        { id: 5, name: 'Charlie Brown', email: 'charlie@example.com', status: 'Pending', created: '2024-01-19' }
+      ];
+      
+      // Build CSV content
+      let csvContent = selectedColumns.map(col => col.name).join(',') + '\n';
+      
+      data.forEach(row => {
+        const rowData = selectedColumns.map(col => {
+          const value = row[col.id] || '';
+          // Escape values containing commas or quotes
+          if (value.toString().includes(',') || value.toString().includes('"')) {
+            return '"' + value.toString().replace(/"/g, '""') + '"';
+          }
+          return value;
+        });
+        csvContent += rowData.join(',') + '\n';
+      });
+      
+      // Create and download the file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'export_' + new Date().toISOString().split('T')[0] + '.csv');
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Update status
+      if (window.updateStatus) {
+        window.updateStatus(`Exported ${data.length} rows to CSV`);
+      }
+    }
+  </script>
 </body>
 </html>

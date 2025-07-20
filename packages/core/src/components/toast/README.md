@@ -205,6 +205,26 @@ try {
 }
 ```
 
+### Pattern: Dynamic Toast Addition
+WHEN: Adding toast after page load
+```javascript
+// Add toast HTML
+document.getElementById('container').innerHTML = `
+  <button id="show-toast">Show Toast</button>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+
+// Then use showToast function
+document.getElementById('show-toast').onclick = () => {
+  window.PM7.showToast({
+    title: 'Dynamic Toast',
+    description: 'Added after page load'
+  });
+};
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -336,18 +356,46 @@ showToast({ title: 'Auto-created' });
 </script>
 ```
 
+### Anti-Pattern: Dynamic Toast Without Init
+```javascript
+// NEVER - toast won't work
+document.body.innerHTML += `
+  <button onclick="window.PM7.showToast({ title: 'Test' })">Show</button>
+`;
+// Toast is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `
+  <button id="toast-btn">Show</button>
+`;
+window.PM7.init(); // REQUIRED
+document.getElementById('toast-btn').onclick = () => {
+  window.PM7.showToast({ title: 'Test' });
+};
+// Toast now works
+```
+
 ## Rules
 
 - ALWAYS: Include title for accessibility
 - ALWAYS: Use appropriate variant for message type
 - ALWAYS: Keep messages brief
 - ALWAYS: Handle errors in action callbacks
+- ALWAYS: Call window.PM7.init() after adding toasts dynamically
 - NEVER: Use toasts for critical user decisions
 - NEVER: Show multiple toasts for batch operations
 - NEVER: Create viewport container manually
 - NEVER: Use long durations for simple messages
+- NEVER: Expect toast to work without PM7.init() for dynamic content
 
 ## JavaScript API
+
+### Initialization
+
+IF toast in DOM at page load THEN auto-initialized
+IF toast added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN use `showToast()` function
+IF Next.js THEN dynamic import with optional chaining
 
 ### Functions
 

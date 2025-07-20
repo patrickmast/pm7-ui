@@ -259,6 +259,20 @@ element.addEventListener('pm7:tooltip:show', (e) => {
 });
 ```
 
+### Pattern: Dynamic Tooltip Addition
+WHEN: Adding tooltip after page load
+```javascript
+// Add tooltip HTML
+document.getElementById('container').innerHTML = `
+  <button data-pm7-tooltip="Dynamic tooltip">
+    Hover for info
+  </button>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -286,9 +300,11 @@ export default function TooltipDemo() {
 
 ### Initialization
 
+IF tooltip in DOM at page load THEN auto-initialized
+IF tooltip added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.Tooltip(element)`
 IF simple tooltip THEN use `data-pm7-tooltip="content"`
 IF structured tooltip THEN use `data-pm7-tooltip` on container
-IF manual THEN `new PM7.Tooltip(element)`
 IF Next.js THEN dynamic import with optional chaining
 
 ### Methods
@@ -387,16 +403,38 @@ if (window.PM7?.initTooltips) {
 <div class="pm7-tooltip-content" style="max-width: 500px;">
 ```
 
+### Anti-Pattern: Dynamic Tooltip Without Init
+```javascript
+// NEVER - tooltip won't work
+document.body.innerHTML += `
+  <button data-pm7-tooltip="This won't show">
+    Hover me
+  </button>
+`;
+// Tooltip is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `
+  <button data-pm7-tooltip="This will show">
+    Hover me
+  </button>
+`;
+window.PM7.init(); // REQUIRED
+// Tooltip now works
+```
+
 ## Rules
 
 - ALWAYS: Include arrow element in structured tooltips
 - ALWAYS: Keep content brief and helpful
 - ALWAYS: Use appropriate delays for context
 - ALWAYS: Check PM7 exists before calling methods
+- ALWAYS: Call window.PM7.init() after adding tooltips dynamically
 - NEVER: Put essential information only in tooltips
 - NEVER: Include interactive elements in tooltips
 - NEVER: Make tooltips wider than viewport
 - NEVER: Use tooltips for mobile-primary interfaces
+- NEVER: Expect tooltip to work without PM7.init() for dynamic content
 
 ## Size Specifications
 

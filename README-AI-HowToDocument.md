@@ -171,3 +171,9 @@ This approach is unique to PM7-UI. When working with other projects, always chec
 - Exact patterns prevent implementation errors
 - Binary decisions eliminate ambiguity
 - Copy-paste ready code speeds development
+
+### Philosophy
+
+> "An AI Agent wants to use the most boring, well-documented technology possible"
+
+This perfectly captures why PM7-UI uses vanilla JavaScript and pure CSS. No framework magic, no build steps, no dependencies - just standard web technologies that have been stable for decades. AI agents can rely on patterns that work everywhere, without needing to understand framework-specific syntax or conventions.

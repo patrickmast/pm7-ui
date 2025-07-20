@@ -202,6 +202,25 @@ sidebar.addEventListener('pm7-sidebar-close', (e) => {
 });
 ```
 
+### Pattern: Dynamic Sidebar Addition
+WHEN: Adding interactive sidebar after page load
+```javascript
+// Add sidebar HTML
+document.body.insertAdjacentHTML('beforeend', `
+  <aside class="pm7-sidebar pm7-sidebar--right" data-pm7-sidebar>
+    <button class="pm7-sidebar-toggle" aria-label="Toggle sidebar">
+      <svg>...</svg>
+    </button>
+    <div class="pm7-sidebar-content">
+      <h2>Dynamic Sidebar</h2>
+    </div>
+  </aside>
+`);
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -242,7 +261,8 @@ export default function Layout({ children }) {
 ### Initialization
 
 IF static sidebar THEN no JavaScript needed
-IF interactive THEN add `data-pm7-sidebar`
+IF interactive sidebar in DOM at page load THEN auto-initialized
+IF interactive sidebar added dynamically THEN MUST call `window.PM7.init()`
 IF manual control THEN `new PM7.Sidebar(element)`
 
 ### Methods
@@ -319,16 +339,30 @@ if (window.PM7?.initSidebars) {
 </div>
 ```
 
+### Anti-Pattern: Dynamic Interactive Sidebar Without Init
+```javascript
+// NEVER - toggle won't work
+document.body.innerHTML += `<aside data-pm7-sidebar>...</aside>`;
+// Sidebar toggle is not functional
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `<aside data-pm7-sidebar>...</aside>`;
+window.PM7.init(); // REQUIRED for interactive features
+// Toggle now works
+```
+
 ## Rules
 
 - ALWAYS: Use `<aside>` element for sidebars
 - ALWAYS: Include `pm7-sidebar` class
 - ALWAYS: Check PM7 exists before calling methods
 - ALWAYS: Use `data-pm7-sidebar-trigger` for trigger buttons
+- ALWAYS: Call `window.PM7.init()` after adding interactive sidebars dynamically
 - NEVER: Use role attributes (auto-applied)
 - NEVER: Apply manual transform or visibility styles
 - NEVER: Nest interactive sidebars
 - NEVER: Initialize sidebars multiple times
+- NEVER: Expect toggle functionality without PM7.init() for dynamic content
 
 ## CSS Variables
 

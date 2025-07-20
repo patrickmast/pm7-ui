@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Dialog Fix Test - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body {
+      padding: 40px;
+      font-family: var(--pm7-font-sans);
+      background: var(--pm7-background);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .demo-section {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+    }
+    .menu-bar-demo {
+      background: var(--pm7-surface);
+      padding: 0;
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      margin-bottom: 20px;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background: var(--pm7-muted);
+      border-radius: var(--pm7-radius);
+      font-family: monospace;
+      font-size: 0.875rem;
+    }
+    .status-line {
+      margin-bottom: 5px;
+    }
+    .status-line:last-child {
+      margin-bottom: 0;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Menu Dialog Fix Test</h1>
+    <p>This test demonstrates that menus are properly closed when dialogs open.</p>
+    
+    <div class="demo-section">
+      <h2>Test Scenario</h2>
+      <p>Click on the user menu below, then click "Account Settings". The menu should automatically close when the dialog opens.</p>
+      
+      <div class="menu-bar-demo">
+        <div class="pm7-menu-bar pm7-menu-bar--borderless">
+          <!-- File Menu -->
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+              File
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item" onclick="showStatus('File > New clicked')">New</button>
+              <button class="pm7-menu-item" onclick="showStatus('File > Open clicked')">Open</button>
+              <button class="pm7-menu-item" onclick="openTestDialog('file')">Open Dialog</button>
+            </div>
+          </div>
+          
+          <!-- Edit Menu -->
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+              Edit
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item" onclick="showStatus('Edit > Copy clicked')">Copy</button>
+              <button class="pm7-menu-item" onclick="showStatus('Edit > Paste clicked')">Paste</button>
+              <button class="pm7-menu-item" onclick="openTestDialog('edit')">Settings Dialog</button>
+            </div>
+          </div>
+          
+          <!-- Spacer -->
+          <div style="flex: 1;"></div>
+          
+          <!-- User Menu -->
+          <div class="pm7-menu" data-pm7-menu id="user-menu">
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              Test User
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item" onclick="openAccountSettings()">
+                Account Settings
+              </button>
+              <div class="pm7-menu-separator"></div>
+              <button class="pm7-menu-item" onclick="showStatus('Sign out clicked')">
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="pm7-button pm7-button--primary" onclick="checkMenuStates()">Check Menu States</button>
+      <button class="pm7-button pm7-button--secondary" onclick="openTestDialog('button')">Open Test Dialog</button>
+      
+      <div class="status" id="status">
+        <div class="status-line">Ready. Try opening a menu and then clicking an item that opens a dialog.</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Account Settings Dialog -->
+  <div data-pm7-dialog="account-settings" data-pm7-dialog-size="md" data-pm7-show-close="true">
+    <h2 data-pm7-header>Account Settings</h2>
+    <div data-pm7-body>
+      <p>This is the account settings dialog. When this opens, any open menus should have been automatically closed.</p>
+      <p>Check the page to verify that no menus are still visible behind this dialog.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('account-settings')">
+        Close
+      </button>
+    </div>
+  </div>
+  
+  <!-- Generic Test Dialog -->
+  <div data-pm7-dialog="test-dialog" data-pm7-dialog-size="sm" data-pm7-show-close="true">
+    <h2 data-pm7-header>Test Dialog</h2>
+    <div data-pm7-body>
+      <p id="dialog-message">This dialog was opened from the menu.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('test-dialog')">
+        OK
+      </button>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    let statusLines = [];
+    const maxStatusLines = 5;
+    
+    function showStatus(message, type = 'info') {
+      const timestamp = new Date().toLocaleTimeString();
+      const line = `[${timestamp}] ${message}`;
+      statusLines.unshift({ text: line, type: type });
+      
+      // Keep only the last N lines
+      if (statusLines.length > maxStatusLines) {
+        statusLines = statusLines.slice(0, maxStatusLines);
+      }
+      
+      // Update display
+      const statusEl = document.getElementById('status');
+      statusEl.innerHTML = statusLines.map(line => 
+        `<div class="status-line ${line.type}">${line.text}</div>`
+      ).join('');
+    }
+    
+    function checkMenuStates() {
+      showStatus('=== Checking all menu states ===');
+      
+      const menus = document.querySelectorAll('[data-pm7-menu]');
+      let openCount = 0;
+      
+      menus.forEach((menu, index) => {
+        const menuContent = menu.querySelector('.pm7-menu-content');
+        const isOpen = menuContent.classList.contains('pm7-menu-content--open');
+        const trigger = menu.querySelector('.pm7-menu-trigger');
+        const triggerText = trigger ? trigger.textContent.trim() : 'Unknown';
+        
+        if (isOpen) {
+          openCount++;
+          showStatus(`Menu "${triggerText}" is OPEN`, 'error');
+        }
+      });
+      
+      if (openCount === 0) {
+        showStatus('All menus are closed ✓', 'success');
+      } else {
+        showStatus(`${openCount} menu(s) are still open!`, 'error');
+      }
+    }
+    
+    function openAccountSettings() {
+      showStatus('Opening Account Settings dialog...');
+      
+      // Check menu states before opening
+      const userMenu = document.getElementById('user-menu');
+      const menuContent = userMenu.querySelector('.pm7-menu-content');
+      const wasOpen = menuContent.classList.contains('pm7-menu-content--open');
+      
+      if (wasOpen) {
+        showStatus('User menu was open before dialog', 'info');
+      }
+      
+      // Open the dialog
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('account-settings');
+        
+        // Check menu states after dialog opens
+        setTimeout(() => {
+          const isStillOpen = menuContent.classList.contains('pm7-menu-content--open');
+          if (isStillOpen) {
+            showStatus('ERROR: User menu is still open after dialog!', 'error');
+          } else {
+            showStatus('SUCCESS: User menu was closed when dialog opened', 'success');
+          }
+          checkMenuStates();
+        }, 100);
+      }
+    }
+    
+    function openTestDialog(source) {
+      showStatus(`Opening test dialog from ${source}...`);
+      
+      // Update dialog message
+      const messageEl = document.getElementById('dialog-message');
+      if (messageEl) {
+        messageEl.textContent = `This dialog was opened from: ${source}`;
+      }
+      
+      // Open dialog
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('test-dialog');
+        
+        // Check menu states after opening
+        setTimeout(() => {
+          checkMenuStates();
+        }, 100);
+      }
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      showStatus('Page loaded, PM7 initialized', 'success');
+      
+      // Add observer to track menu state changes
+      const menus = document.querySelectorAll('.pm7-menu-content');
+      menus.forEach(menu => {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach(mutation => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const menuName = menu.closest('[data-pm7-menu]').querySelector('.pm7-menu-trigger').textContent.trim();
+              const isOpen = menu.classList.contains('pm7-menu-content--open');
+              showStatus(`Menu "${menuName}" ${isOpen ? 'opened' : 'closed'}`);
+            }
+          });
+        });
+        
+        observer.observe(menu, { attributes: true, attributeFilter: ['class'] });
+      });
+    });
+  </script>
+</body>
+</html>

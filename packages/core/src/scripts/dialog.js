@@ -54,6 +54,9 @@ export class PM7Dialog {
   open() {
     if (this.isOpen) return;
     
+    // Close all open menus before opening dialog
+    this.closeAllMenus();
+    
     this.isOpen = true;
     this.previousActiveElement = document.activeElement;
     
@@ -138,6 +141,37 @@ export class PM7Dialog {
       if (document.activeElement === lastFocusable) {
         e.preventDefault();
         firstFocusable.focus();
+      }
+    }
+  }
+  
+  closeAllMenus() {
+    // Close all open menus
+    const openMenus = document.querySelectorAll('.pm7-menu-content--open, .pm7-menu-content[data-state="open"]');
+    openMenus.forEach(menu => {
+      menu.classList.remove('pm7-menu-content--open');
+      menu.removeAttribute('data-state');
+      
+      // Update trigger state
+      const menuContainer = menu.closest('.pm7-menu');
+      if (menuContainer) {
+        const trigger = menuContainer.querySelector('.pm7-menu-trigger');
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+    
+    // Also try using PM7Menu instances if available
+    if (typeof window !== 'undefined' && window.PM7?.Menu) {
+      // Access the static instances Map from the Menu class
+      const MenuClass = window.PM7.Menu;
+      if (MenuClass.instances && MenuClass.instances.forEach) {
+        MenuClass.instances.forEach((instance) => {
+          if (instance.isOpen) {
+            instance.close();
+          }
+        });
       }
     }
   }
@@ -306,6 +340,38 @@ export function pm7Alert(message, options = {}) {
 // Store ESC handlers to properly clean them up
 const escHandlers = new Map();
 
+// Helper function to close all open menus
+function closeAllOpenMenus() {
+  // First try to close menus by removing open classes
+  const openMenus = document.querySelectorAll('.pm7-menu-content--open, .pm7-menu-content[data-state="open"]');
+  openMenus.forEach(menu => {
+    menu.classList.remove('pm7-menu-content--open');
+    menu.removeAttribute('data-state');
+    
+    // Update trigger state
+    const menuContainer = menu.closest('.pm7-menu');
+    if (menuContainer) {
+      const trigger = menuContainer.querySelector('.pm7-menu-trigger');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+  
+  // Also try using PM7Menu instances if available
+  if (typeof window !== 'undefined' && window.PM7?.Menu) {
+    // Access the static instances Map from the Menu class
+    const MenuClass = window.PM7.Menu;
+    if (MenuClass.instances && MenuClass.instances.forEach) {
+      MenuClass.instances.forEach((instance) => {
+        if (instance.isOpen) {
+          instance.close();
+        }
+      });
+    }
+  }
+}
+
 // Predefined icons
 const dialogIcons = {
   info: `<svg class="pm7-dialog-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: rgb(28, 134, 239);">
@@ -470,6 +536,9 @@ export function openDialog(dialogId) {
     console.warn(`Dialog with id "${dialogId}" not found`);
     return;
   }
+  
+  // Close all open menus before opening dialog
+  closeAllOpenMenus();
   
   // Transform dialog if needed
   transformDialog(dialogElement);

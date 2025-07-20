@@ -203,6 +203,29 @@ accordion.closeAll();
 const isOpen = accordion.isOpen(0);
 ```
 
+### Pattern: Dynamic Accordion Addition
+WHEN: Adding accordion after page load
+```javascript
+// Add accordion HTML
+document.getElementById('container').innerHTML = `
+  <div class="pm7-accordion" data-pm7-accordion>
+    <div class="pm7-accordion-item">
+      <button class="pm7-accordion-trigger">
+        <span>New Item</span>
+      </button>
+      <div class="pm7-accordion-content">
+        <div class="pm7-accordion-content-inner">
+          Dynamic content
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -240,9 +263,10 @@ export default function AccordionPage() {
 
 ### Initialization
 
-IF auto-init THEN add `data-pm7-accordion`
-IF manual THEN `new PM7.Accordion(element, options)`
-IF Next.js THEN dynamic import with optional chaining
+IF accordion in DOM at page load THEN auto-initialized
+IF accordion added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.Accordion(element, options)`
+IF Next.js THEN dynamic import with `window.PM7.init()`
 
 ### Options
 
@@ -337,16 +361,30 @@ if (window.PM7?.initAccordions) {
 </div>
 ```
 
+### Anti-Pattern: Dynamic Accordion Without Init
+```javascript
+// NEVER - accordion won't work
+document.body.innerHTML += `<div class="pm7-accordion" data-pm7-accordion>...</div>`;
+// Accordion is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `<div class="pm7-accordion" data-pm7-accordion>...</div>`;
+window.PM7.init(); // REQUIRED
+// Accordion now works
+```
+
 ## Rules
 
 - ALWAYS: Include both trigger and content elements
 - ALWAYS: Use `pm7-accordion-content-inner` for content padding
 - ALWAYS: Check PM7 exists before calling methods
 - ALWAYS: Include proper SVG icon with class
+- ALWAYS: Call `window.PM7.init()` after adding accordions dynamically
 - NEVER: Use role attributes (auto-applied)
 - NEVER: Manually toggle display styles
 - NEVER: Nest accordions within accordions
 - NEVER: Omit the content inner wrapper
+- NEVER: Expect accordions to work without PM7.init() for dynamic content
 
 ## CSS Variables
 

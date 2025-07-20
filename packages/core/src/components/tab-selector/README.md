@@ -175,6 +175,25 @@ element.addEventListener('pm7-tab-change', (e) => {
 });
 ```
 
+### Pattern: Dynamic Tab Selector Addition
+WHEN: Adding tab selector after page load
+```javascript
+// Add tab selector HTML
+document.getElementById('container').innerHTML = `
+  <div class="pm7-tab-selector" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="dyn-1">Tab 1</button>
+      <button class="pm7-tab-trigger" aria-controls="dyn-2">Tab 2</button>
+    </div>
+    <div class="pm7-tab-content" id="dyn-1">Content 1</div>
+    <div class="pm7-tab-content" id="dyn-2">Content 2</div>
+  </div>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -207,8 +226,9 @@ export default function TabsPage() {
 
 ### Initialization
 
-IF auto-init THEN add `data-pm7-tab-selector`
-IF manual THEN `new PM7.TabSelector(element)`
+IF tab-selector in DOM at page load THEN auto-initialized
+IF tab-selector added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.TabSelector(element)`
 IF Next.js THEN dynamic import with optional chaining
 
 ### Methods
@@ -307,18 +327,46 @@ import('@pm7/core').then(() => {
 });
 ```
 
+### Anti-Pattern: Dynamic Tab Selector Without Init
+```javascript
+// NEVER - tab selector won't work
+document.body.innerHTML += `
+  <div class="pm7-tab-selector" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="fail-1">Tab 1</button>
+    </div>
+    <div class="pm7-tab-content" id="fail-1">Content</div>
+  </div>
+`;
+// Tab selector is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `
+  <div class="pm7-tab-selector" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="work-1">Tab 1</button>
+    </div>
+    <div class="pm7-tab-content" id="work-1">Content</div>
+  </div>
+`;
+window.PM7.init(); // REQUIRED
+// Tab selector now works
+```
+
 ## Rules
 
 - ALWAYS: Include both `class="pm7-tab-selector"` AND `data-pm7-tab-selector`
 - ALWAYS: Use `aria-controls` on triggers pointing to panel `id`
 - ALWAYS: Check `window.PM7` exists before calling methods
 - ALWAYS: Use optional chaining for PM7 methods that might not exist
+- ALWAYS: Call window.PM7.init() after adding tab selectors dynamically
 - NEVER: Use role attributes (auto-applied)
 - NEVER: Use deprecated attributes (`data-tab`, `data-panel`, `data-tab-key`)
 - NEVER: Mix React components with vanilla classes
 - NEVER: Manually set `display: none` on tab content
 - NEVER: Add onClick handlers when using PM7 tabs
 - NEVER: Call PM7 methods without checking they exist
+- NEVER: Expect tab selector to work without PM7.init() for dynamic content
 
 ## CSS Variables
 

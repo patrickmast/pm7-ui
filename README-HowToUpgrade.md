@@ -1,262 +1,230 @@
-# Upgrade Guide: PM7 UI v1 to v2
+# PM7 UI v1 to v2 Migration for AI Agents
 
-This guide covers upgrading from PM7 UI v1.x to v2.x.
+---
+type: ai-agent-documentation
+audience: ai-coding-agents-only
+version: 2.0.0
+style: exact-patterns
+human-readable: false
+documentation-rules:
+  - NO storytelling or explanations
+  - ONLY exact code patterns
+  - Binary IF/THEN decisions
+  - Explicit anti-patterns with NEVER/ALWAYS
+  - Copy-paste ready code blocks
+---
 
-## 🚨 CRITICAL: @pm7/react NO LONGER EXISTS IN v2 🚨
-
-**STOP! Before you continue:**
-- ❌ `@pm7/react` v2 does NOT exist - it was completely removed
-- ✅ Only `@pm7/core` v2 exists - all components are now HTML + CSS
-- 🔄 You MUST rewrite all React components to HTML structure
-
-## ⚠️ IMPORTANT: Major Architecture Change
-
-PM7 UI v2 is now **framework-agnostic**. The `@pm7/react` package has been **completely removed** and no longer exists. All components are now pure HTML + CSS with optional JavaScript enhancements.
-
-## Pre-Migration Checklist
-
-Before starting your migration, check these items:
-
-- [ ] **Identify all PM7 components used** - Search for `@pm7/react` imports
-- [ ] **Check for dynamic imports** - Look for `dynamic(() => import('@pm7/react'))`
-- [ ] **List interactive components** - Note which need state management (Tabs, Accordions, Dialogs)
-- [ ] **Review custom styling** - Check if you override PM7 component styles
-- [ ] **Estimate complexity** - Count files using PM7 components
-- [ ] **Backup your project** - Create a branch or backup before starting
-
-## Quick Migration Path Decision
+## ⚠️ CRITICAL UNDERSTANDING ⚠️
 
 ```
-Do you use interactive components (Tabs, Accordions, Dialogs)?
-├─ NO → Simple migration (30 min)
-│   └─ Just replace component markup
-└─ YES → Complex migration (2-4 hours)
-    ├─ Need state management?
-    │   ├─ YES → Add React hooks for state
-    │   └─ NO → Use PM7 JavaScript initialization
-    └─ Using Next.js with dynamic imports?
-        ├─ YES → Remove all dynamic imports first
-        └─ NO → Proceed with standard migration
+PM7 UI IS NOT A REACT COMPONENT LIBRARY
+PM7 UI IS NOT A VUE COMPONENT LIBRARY
+PM7 UI IS A PURE HTML/CSS FRAMEWORK
+
+NEVER CREATE:
+- React components inside PM7 UI
+- "PM7 React wrappers"
+- Framework-specific PM7 packages
+
+ALWAYS:
+- Use PM7 HTML/CSS in YOUR components
+- YOU manage state in YOUR framework
+- PM7 only provides styling
 ```
 
-## Common Migration Errors and Solutions
+## ARCHITECTURE CLARIFICATION
 
-### Error: "Element type is invalid. Received a promise that resolves to: undefined"
-**Cause**: Your code is still trying to import from `@pm7/react`
-**Solution**: Remove all React component imports and dynamic imports
+```
+PM7 UI v2 = PURE HTML/CSS FRAMEWORK
+- NO React components in PM7
+- NO Vue components in PM7  
+- NO framework-specific code
+- ONLY HTML structure + CSS classes + optional JS
 
-### Error: "Module not found: Can't resolve '@pm7/react'"
-**Cause**: `@pm7/react` is still in your imports
-**Solution**: Replace all React components with HTML + CSS classes
-
-### Error: "Cannot find module '@pm7/react' or its corresponding type declarations"
-**Cause**: TypeScript is looking for `@pm7/react` types
-**Solution**: Remove the package and update imports
-
-## Migration Gotchas We Learned The Hard Way
-
-### 1. Don't Try to Find @pm7/react v2
-**What we tried**: Updating `@pm7/react` from v1 to v2
-**Why it failed**: @pm7/react v2 doesn't exist!
-**Lesson**: Read the architecture change note first
-
-### 2. Dynamic Imports Are Not Needed Anymore
-**What we tried**: Converting dynamic imports to v2 syntax
-**Why it failed**: HTML/CSS doesn't need dynamic imports
-**Lesson**: Remove ALL dynamic import logic
-
-### 3. State Management Is Now Your Responsibility
-**What we expected**: Components to manage their own state
-**Reality**: You must add React hooks for interactive behavior
-**Lesson**: Budget time for adding state management
-
-### 4. CSS Classes Don't Auto-Apply (except with data attributes)
-**What we expected**: `<Tabs>` to have all styling
-**Reality**: Must add `pm7-tab-selector` class (or use `data-pm7-tab-selector`)
-**Lesson**: Reference the HTML structure docs carefully
-
-### 5. TypeScript Won't Help You
-**What we expected**: TypeScript errors for wrong props
-**Reality**: No component types = no TypeScript help
-**Lesson**: Keep the documentation open while migrating
-
-## Migration Steps
-
-### 1. Update package.json
-
-```json
-// REMOVE this line:
-"@pm7/react": "^1.x.x",
-
-// ADD or UPDATE to:
-"@pm7/core": "^2.x.x",
+USING PM7 IN REACT:
+- YOU write React components
+- YOUR components render PM7 HTML
+- YOU manage state (useState, etc)
+- PM7 provides styling via CSS classes
 ```
 
-**Important**: Run `npm install` after updating to remove the old package.
+## CRITICAL FACTS
 
-### 2. Remove ALL React Component Imports
+```
+IF import contains '@pm7/react' THEN:
+  - NEVER install @pm7/react v2 (does not exist)
+  - ALWAYS replace with HTML structure
+  - ALWAYS remove React component imports
+  
+IF package.json contains '@pm7/react' THEN:
+  - REMOVE '@pm7/react' entry
+  - ADD '@pm7/core': '^2.0.0'
+  - RUN npm install
+```
+
+## DETECTION PATTERNS
+
+```bash
+# Find all PM7 v1 usage
+grep -r "@pm7/react" --include="*.tsx" --include="*.jsx" .
+grep -r "dynamic.*@pm7/react" .
+```
+
+## ERROR RESOLUTION MATRIX
+
+```
+ERROR: "Cannot resolve '@pm7/react'"
+ACTION: Expected behavior. Proceed with component rewrite.
+
+ERROR: "Element type is invalid"
+ACTION: Remove ALL dynamic imports.
+
+ERROR: "window.PM7 is undefined"
+ACTION: Optional. Components work without PM7 JavaScript.
+```
+
+## ANTI-PATTERNS
 
 ```javascript
-// ❌ REMOVE all of these:
-import { Button, Card, Tabs, Accordion } from '@pm7/react';
-import dynamic from 'next/dynamic';
-const Card = dynamic(() => import('@pm7/react').then(mod => mod.Card), { ssr: false });
+// NEVER DO THIS
+import { Dialog } from '@pm7/react'; // WRONG: Package removed
+import dynamic from 'next/dynamic'; // WRONG: Not needed
+const Dialog = dynamic(() => import('@pm7/react')); // WRONG: Double wrong
 
-// ✅ ADD only this:
-import '@pm7/core/dist/pm7.css';
+// NEVER ATTEMPT
+npm install @pm7/react@2 // Does not exist
+npm install @pm7/react@latest // Still v1
+alias: { '@pm7/react': '@pm7/core' } // Incompatible APIs
 ```
 
-### 3. Replace React Components with HTML
+## EXACT REPLACEMENT PATTERNS
 
-#### Card Component
+### STEP 1: package.json
+```diff
+- "@pm7/react": "^1.x.x",
++ "@pm7/core": "^2.0.0",
+```
+THEN: npm install
 
-**Before (v1.x with React):**
-```jsx
-import { Card } from '@pm7/react';
-
-<Card className="p-6">
-  <h2>Title</h2>
-  <p>Content</p>
-</Card>
+### STEP 2: Import Replacement
+```diff
+- import { Button, Card, Dialog } from '@pm7/react';
+- import dynamic from 'next/dynamic';
+- const Dialog = dynamic(() => import('@pm7/react'));
++ import '@pm7/core/dist/pm7.css';
 ```
 
-**After (v2.x with HTML):**
-```jsx
+### COMPONENT MAPPINGS
+
+```javascript
+// CARD
+IF <Card>{children}</Card> THEN:
 <div className="pm7-card">
-  <div className="pm7-card-content">
-    <h2>Title</h2>
-    <p>Content</p>
-  </div>
+  <div className="pm7-card-content">{children}</div>
 </div>
-```
 
-#### Tabs Component (Complex Example)
+// BUTTON
+IF <Button variant="primary">{text}</Button> THEN:
+<button className="pm7-button pm7-button--primary">{text}</button>
 
-**Before (v1.x with React):**
-```jsx
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@pm7/react';
-
-export function MyComponent() {
-  const [activeTab, setActiveTab] = useState("tab1");
-
-  return (
-    <Tabs value={activeTab} onValueChange={setActiveTab}>
-      <TabsList>
-        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-      </TabsList>
-      <TabsContent value="tab1">Content 1</TabsContent>
-      <TabsContent value="tab2">Content 2</TabsContent>
-    </Tabs>
-  );
-}
-```
-
-**After (v2.x with HTML + React state):**
-```jsx
-export function MyComponent() {
-  const [activeTab, setActiveTab] = useState("tab1");
-
-  return (
-    <div className="pm7-tab-selector" data-pm7-tab-selector>
-      <div className="pm7-tab-list">
-        <button
-          className="pm7-tab-trigger"
-          aria-controls="tab-panel-1"
-          data-state={activeTab === "tab1" ? "active" : ""}
-          onClick={() => setActiveTab("tab1")}
-        >
-          Tab 1
-        </button>
-        <button
-          className="pm7-tab-trigger"
-          aria-controls="tab-panel-2"
-          data-state={activeTab === "tab2" ? "active" : ""}
-          onClick={() => setActiveTab("tab2")}
-        >
-          Tab 2
-        </button>
-      </div>
-
-      <div
-        className="pm7-tab-content"
-        id="tab-panel-1"
-        data-state={activeTab === "tab1" ? "active" : ""}
-        style={{ display: activeTab === "tab1" ? "block" : "none" }}
-      >
-        Content 1
-      </div>
-      <div
-        className="pm7-tab-content"
-        id="tab-panel-2"
-        data-state={activeTab === "tab2" ? "active" : ""}
-        style={{ display: activeTab === "tab2" ? "block" : "none" }}
-      >
-        Content 2
-      </div>
+// DIALOG STRUCTURE
+IF <Dialog open={open} onOpenChange={onOpenChange}> THEN:
+{open && (
+  <>
+    <div className="pm7-dialog-backdrop" onClick={() => onOpenChange(false)} />
+    <div className="pm7-dialog" data-pm7-dialog>
+      {/* content */}
     </div>
-  );
-}
-```
+  </>
+)}
 
-#### Accordion Component
+// DIALOG PARTS
+IF <DialogContent> THEN: <div className="pm7-dialog-content">
+IF <DialogHeader> THEN: <div className="pm7-dialog-header">
+IF <DialogTitle> THEN: <h2 className="pm7-dialog-title">
+IF <DialogDescription> THEN: <p className="pm7-dialog-description">
+IF <DialogFooter> THEN: <div className="pm7-dialog-footer">
 
-**Before (v1.x with React):**
-```jsx
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@pm7/react';
-
-<Accordion>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Section 1</AccordionTrigger>
-    <AccordionContent>Content 1</AccordionContent>
-  </AccordionItem>
-</Accordion>
-```
-
-**After (v2.x with HTML):**
-```jsx
-<div className="pm7-accordion" data-pm7-accordion>
-  <div className="pm7-accordion-item">
-    <button className="pm7-accordion-trigger">
-      <span>Section 1</span>
-      <svg className="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M6 9l6 6 6-6"/>
-      </svg>
-    </button>
-    <div className="pm7-accordion-content">
-      <div className="pm7-accordion-content-inner">
-        Content 1
-      </div>
+// MENU
+IF <Menu> with items THEN:
+<div className="pm7-menu" data-pm7-menu>
+  <button className="pm7-menu-trigger" onClick={() => setIsOpen(!isOpen)}>Label</button>
+  {isOpen && (
+    <div className="pm7-menu-content">
+      {/* items */}
     </div>
-  </div>
+  )}
 </div>
+
+IF <MenuItem onClick={fn}> THEN:
+<div className="pm7-menu-item" onClick={fn}>Label</div>
+
+IF <MenuSeparator /> THEN:
+<div className="pm7-menu-separator" />
 ```
 
-### 4. Handle State Management
-
-Since PM7 UI v2 uses HTML + CSS, you need to manage state yourself in React:
-
-```jsx
-// For tabs: manage active tab with useState
+```javascript
+// TABS
+IF <Tabs> component THEN:
 const [activeTab, setActiveTab] = useState("tab1");
+<div className="pm7-tab-selector" data-pm7-tab-selector>
+  <div className="pm7-tab-list">
+    {/* triggers */}
+  </div>
+  {/* contents */}
+</div>
 
-// For accordions: manage open items
-const [openItems, setOpenItems] = useState([]);
+IF <TabsTrigger value="{id}"> THEN:
+<button
+  className="pm7-tab-trigger"
+  data-state={activeTab === "{id}" ? "active" : ""}
+  onClick={() => setActiveTab("{id}")}
+>
 
-// For modals/dialogs: manage open state
-const [isOpen, setIsOpen] = useState(false);
+IF <TabsContent value="{id}"> THEN:
+<div
+  className="pm7-tab-content"
+  data-state={activeTab === "{id}" ? "active" : ""}
+  style={{ display: activeTab === "{id}" ? "block" : "none" }}
+>
 ```
 
-### 5. Initialize Interactive Components (Optional)
+```javascript
+// ACCORDION
+IF <Accordion> THEN:
+<div className="pm7-accordion" data-pm7-accordion>
 
-For enhanced functionality, initialize PM7 components:
+IF <AccordionItem> THEN:
+<div className="pm7-accordion-item">
 
-```jsx
+IF <AccordionTrigger> THEN:
+<button className="pm7-accordion-trigger">
+  <span>{text}</span>
+  <svg className="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M6 9l6 6 6-6"/>
+  </svg>
+</button>
+
+IF <AccordionContent> THEN:
+<div className="pm7-accordion-content">
+  <div className="pm7-accordion-content-inner">{content}</div>
+</div>
+```
+
+### STATE MANAGEMENT REQUIREMENTS
+
+```javascript
+// REQUIRED STATE HOOKS
+IF Dialog THEN: const [isOpen, setIsOpen] = useState(false);
+IF Tabs THEN: const [activeTab, setActiveTab] = useState("tab1");
+IF Menu THEN: const [isOpen, setIsOpen] = useState(false);
+IF Accordion THEN: const [openItems, setOpenItems] = useState([]);
+
+// OPTIONAL PM7 INITIALIZATION
+IF need keyboard/focus handling THEN:
 useEffect(() => {
-  if (typeof window !== 'undefined' && window.PM7) {
-    window.PM7.initTabSelectors();
-    window.PM7.initAccordions();
-  }
+  window.PM7?.initTabSelectors?.();
+  window.PM7?.initAccordions?.();
 }, []);
 ```
 
@@ -493,8 +461,132 @@ echo "Component usage count:"
 grep -roh "pm7-[a-z-]*" --include="*.tsx" --include="*.jsx" . | grep -v node_modules | sort | uniq -c | sort -nr
 ```
 
-## Need Help?
+## TEMPORARY WRAPPER PATTERN (IF REQUIRED)
 
-- Check the [documentation](https://pm7-ui.dev)
-- View [component examples](https://pm7-ui.dev/components)
-- Open an [issue on GitHub](https://github.com/patrickmast/pm7-ui/issues)
+```javascript
+// FILE: src/pm7-react-compat.tsx
+import '@pm7/core/dist/pm7.css';
+
+export const Dialog = ({ children, open }) => 
+  open ? <div className="pm7-dialog" data-pm7-dialog>{children}</div> : null;
+
+export const DialogContent = ({ children }) => 
+  <div className="pm7-dialog-content">{children}</div>;
+
+export const Button = ({ children, variant = 'primary', ...props }) => 
+  <button className={`pm7-button pm7-button--${variant}`} {...props}>{children}</button>;
+
+// THEN IN tsconfig.json:
+"paths": {
+  "@pm7/react": ["./src/pm7-react-compat.tsx"]
+}
+
+// THEN IN vite.config.ts:
+alias: {
+  '@pm7/react': path.resolve(__dirname, './src/pm7-react-compat.tsx')
+}
+```
+
+## REAL-WORLD MIGRATION PATTERNS
+
+### PATTERN 1: React Component Using PM7 Dialog (with Portal)
+```javascript
+// YOUR React component (not from PM7!)
+import { createPortal } from 'react-dom';
+
+export function ExportDialog({ open, onClose, data }) {
+  if (!open) return null;
+  
+  return createPortal(
+    <div className="pm7-dialog">
+      <div className="pm7-dialog-overlay" onClick={onClose} />
+      <div className="pm7-dialog-content">
+        <div className="pm7-dialog-header">
+          <h2 className="pm7-dialog-title">Export Report</h2>
+          <p className="pm7-dialog-description">Processing complete</p>
+        </div>
+        <div className="pm7-dialog-body">
+          <pre style={{ 
+            fontFamily: 'monospace',
+            fontSize: '0.875rem',
+            whiteSpace: 'pre-wrap',
+            backgroundColor: '#f9fafb',
+            padding: '1.5rem',
+            borderRadius: '0.375rem',
+            overflowX: 'auto'
+          }}>
+            {data}
+          </pre>
+        </div>
+        <div className="pm7-dialog-footer">
+          <button className="pm7-button pm7-button--ghost" onClick={onClose}>
+            Close
+          </button>
+          <button className="pm7-button pm7-button--primary">
+            Download CSV
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+```
+
+### CRITICAL: Dialog Best Practices
+```
+ALWAYS use createPortal for dialogs/modals
+NEVER use Tailwind classes for PM7 components
+INLINE STYLES only for specific needs (e.g. monospace font)
+PM7 CLASSES handle all layout and spacing
+```
+
+### PATTERN 2: Large Project Migration Strategy
+```
+IF project has 20+ files using @pm7/react THEN:
+  STEP 1: Create compatibility layer (1 hour)
+  STEP 2: Migrate components by priority
+  STEP 3: Delete compatibility layer when done
+  
+COMPATIBILITY LAYER EXAMPLE:
+// pm7-compat.ts
+export const Dialog = ({ children, open }) => {
+  if (!open) return null;
+  return children;
+};
+export const DialogContent = ({ children }) => 
+  <div className="pm7-dialog-content">{children}</div>;
+```
+
+## COMPLETE MIGRATION DECISION TREE
+
+```
+IF error contains "@pm7/react" THEN:
+  IF project_size > 20_files THEN:
+    ACTION: Create compatibility layer first
+  ELSE:
+    ACTION: Migrate components directly
+    
+IF component = Dialog THEN:
+  PRIORITY: High (most complex)
+  TIME: 5 min with HTML copy-paste
+  
+IF component = Button THEN:
+  PRIORITY: Low (simple replacement)
+  TIME: 30 sec per button
+  
+IF using compatibility layer THEN:
+  ALWAYS: Mark as technical debt
+  ALWAYS: Plan removal timeline
+  NEVER: Consider it permanent solution
+```
+
+## VALIDATION CHECKLIST
+
+```
+□ grep -r "@pm7/react" . returns no results
+□ npm ls @pm7/react shows "empty"
+□ All components render without console errors
+□ Dark mode classes apply correctly
+□ Interactive components have state management
+```

@@ -306,6 +306,37 @@ element.addEventListener('pm7-menu-select', (e) => {
 });
 ```
 
+### Pattern: Dynamic Menu Addition
+WHEN: Adding menu after page load
+```javascript
+// Add menu HTML
+document.getElementById('container').innerHTML = `
+  <div data-pm7-menu>
+    <button class="pm7-menu-trigger">Options</button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">Action</button>
+    </div>
+  </div>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
+### Pattern: Dynamic Menu Items
+WHEN: Menu items added via innerHTML
+```javascript
+// Dynamic menu items work automatically
+menuContent.innerHTML = `
+  <button class="pm7-menu-item" onclick="openSettings()">Settings</button>
+`;
+
+// PM7 dialogs now auto-close menus
+function openSettings() {
+  window.PM7.openDialog('settings-dialog'); // Menu closes automatically
+}
+```
+
 ### Pattern: Next.js Implementation
 ```jsx
 'use client'
@@ -339,9 +370,10 @@ export default function MenuPage() {
 
 ### Initialization
 
-IF auto-init THEN add `data-pm7-menu`
-IF manual THEN `new PM7.Menu(element)`
-IF Next.js THEN dynamic import with optional chaining
+IF menu in DOM at page load THEN auto-initialized
+IF menu added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.Menu(element)`
+IF Next.js THEN dynamic import with `window.PM7.init()`
 
 ### Methods
 
@@ -447,6 +479,34 @@ if (window.PM7?.initMenus) {
 }
 ```
 
+### Anti-Pattern: Dynamic Menu Without Init
+```javascript
+// NEVER - menu won't work
+document.body.innerHTML += `<div data-pm7-menu>...</div>`;
+// Menu is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `<div data-pm7-menu>...</div>`;
+window.PM7.init(); // REQUIRED
+// Menu now works
+```
+
+### Anti-Pattern: Re-initializing PM7 After Menu Update
+```javascript
+// NEVER - breaks menu state
+function updateMenu() {
+  menuContent.innerHTML = `<button class="pm7-menu-item">New Item</button>`;
+  window.PM7.init(); // This re-initializes ALL components!
+}
+
+// ALWAYS - just update content
+function updateMenu() {
+  menuContent.innerHTML = `<button class="pm7-menu-item">New Item</button>`;
+  // Menu items are just buttons - no PM7.init() needed
+}
+```
+
+
 ## Rules
 
 - ALWAYS: Use `button` elements for menu items
@@ -454,10 +514,12 @@ if (window.PM7?.initMenus) {
 - ALWAYS: Use `data-name` for radio groups
 - ALWAYS: Add `aria-label` to icon-only triggers
 - ALWAYS: Check PM7 exists before calling methods
+- ALWAYS: Call `window.PM7.init()` after adding NEW menu containers
 - NEVER: Use div elements for interactive items
 - NEVER: Apply manual positioning styles
 - NEVER: Nest menus inside other menus
 - NEVER: Initialize same menu multiple times
+- NEVER: Call PM7.init() after updating existing menu content
 
 ## CSS Variables
 

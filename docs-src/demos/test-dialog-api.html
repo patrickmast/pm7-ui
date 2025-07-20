@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Dialog API - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <script>
+    // Prevent dark mode flicker
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .test-section {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      background: var(--pm7-surface);
+    }
+    .test-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    h1 { margin-bottom: 2rem; }
+    h2 { margin-bottom: 1rem; }
+    .status {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--pm7-radius);
+      background: var(--pm7-muted);
+      font-family: monospace;
+      min-height: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>PM7 Dialog API Test</h1>
+  
+  <div class="test-section">
+    <h2>Test Both API Methods</h2>
+    <p>Testing that both <code>window.openDialog()</code> (legacy) and <code>window.PM7.openDialog()</code> (new) work correctly.</p>
+    
+    <div class="test-buttons">
+      <button class="pm7-button pm7-button--primary" onclick="testLegacyAPI()">
+        Test window.openDialog()
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="testNewAPI()">
+        Test PM7.openDialog()
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="testBothClose()">
+        Test Both Close Methods
+      </button>
+    </div>
+    
+    <div id="status" class="status">Click a button to test...</div>
+  </div>
+
+  <!-- Test Dialog -->
+  <div data-pm7-dialog="test-dialog" data-pm7-dialog-size="sm" data-pm7-show-close>
+    <h2 data-pm7-header>Test Dialog</h2>
+    <div data-pm7-body>
+      <p>This dialog was opened using: <strong id="method-used">Unknown</strong></p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--ghost" onclick="closeLegacy()">
+        Close (Legacy)
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="closeNew()">
+        Close (New)
+      </button>
+    </div>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    const status = document.getElementById('status');
+    const methodUsed = document.getElementById('method-used');
+    
+    function updateStatus(message, success = true) {
+      status.textContent = message;
+      status.style.background = success ? 'var(--pm7-success)' : 'var(--pm7-destructive)';
+      status.style.color = success ? 'var(--pm7-success-foreground)' : 'var(--pm7-destructive-foreground)';
+    }
+    
+    function testLegacyAPI() {
+      try {
+        if (window.openDialog) {
+          methodUsed.textContent = 'window.openDialog()';
+          window.openDialog('test-dialog');
+          updateStatus('✓ Legacy API (window.openDialog) works!');
+        } else {
+          updateStatus('✗ Legacy API not found', false);
+        }
+      } catch (e) {
+        updateStatus('✗ Legacy API error: ' + e.message, false);
+      }
+    }
+    
+    function testNewAPI() {
+      try {
+        if (window.PM7?.openDialog) {
+          methodUsed.textContent = 'window.PM7.openDialog()';
+          window.PM7.openDialog('test-dialog');
+          updateStatus('✓ New API (PM7.openDialog) works!');
+        } else {
+          updateStatus('✗ New API not found', false);
+        }
+      } catch (e) {
+        updateStatus('✗ New API error: ' + e.message, false);
+      }
+    }
+    
+    function closeLegacy() {
+      try {
+        if (window.closeDialog) {
+          window.closeDialog('test-dialog');
+          updateStatus('✓ Closed using legacy API');
+        } else {
+          updateStatus('✗ Legacy close API not found', false);
+        }
+      } catch (e) {
+        updateStatus('✗ Legacy close error: ' + e.message, false);
+      }
+    }
+    
+    function closeNew() {
+      try {
+        if (window.PM7?.closeDialog) {
+          window.PM7.closeDialog('test-dialog');
+          updateStatus('✓ Closed using new API');
+        } else {
+          updateStatus('✗ New close API not found', false);
+        }
+      } catch (e) {
+        updateStatus('✗ New close error: ' + e.message, false);
+      }
+    }
+    
+    function testBothClose() {
+      // First open with new API
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('test-dialog');
+        methodUsed.textContent = 'Testing both close methods';
+      }
+    }
+  </script>
+</body>
+</html>

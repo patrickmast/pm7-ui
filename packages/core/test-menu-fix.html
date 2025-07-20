@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Close Test - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <style>
+    body {
+      padding: 40px;
+      font-family: var(--pm7-font-sans);
+    }
+    .test-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .log {
+      margin-top: 20px;
+      padding: 10px;
+      background: var(--pm7-muted);
+      border-radius: var(--pm7-radius);
+      font-family: monospace;
+      font-size: 0.875rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      margin-bottom: 4px;
+    }
+    .log-entry.error {
+      color: red;
+    }
+    .log-entry.success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>Menu Close Test</h1>
+    <p>This test demonstrates the menu closing issue when opening dialogs.</p>
+    
+    <div style="margin-bottom: 20px;">
+      <!-- Test Menu -->
+      <div class="pm7-menu" data-pm7-menu id="test-menu">
+        <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+          Test Menu
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item" onclick="openTestDialog()">
+            Open Dialog
+          </button>
+          <button class="pm7-menu-item">
+            Another Item
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <button class="pm7-button pm7-button--primary" onclick="checkMenuState()">Check Menu State</button>
+    <button class="pm7-button pm7-button--secondary" onclick="forceCloseMenus()">Force Close Menus</button>
+    <button class="pm7-button pm7-button--ghost" onclick="clearLog()">Clear Log</button>
+    
+    <div class="log" id="log"></div>
+  </div>
+  
+  <!-- Test Dialog -->
+  <div data-pm7-dialog="test-dialog" data-pm7-dialog-size="sm" data-pm7-show-close="true">
+    <h2 data-pm7-header>Test Dialog</h2>
+    <div data-pm7-body>
+      <p>This dialog was opened from the menu. The menu should be closed automatically.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('test-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    const log = document.getElementById('log');
+    
+    function addLog(message, type = 'info') {
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      log.insertBefore(entry, log.firstChild);
+    }
+    
+    function clearLog() {
+      log.innerHTML = '';
+      addLog('Log cleared');
+    }
+    
+    function checkMenuState() {
+      addLog('=== Checking Menu State ===');
+      
+      const menu = document.getElementById('test-menu');
+      const menuContent = menu.querySelector('.pm7-menu-content');
+      
+      // Check various states
+      const hasOpenClass = menuContent.classList.contains('pm7-menu-content--open');
+      const dataState = menuContent.getAttribute('data-state');
+      const ariaExpanded = menu.querySelector('.pm7-menu-trigger').getAttribute('aria-expanded');
+      
+      addLog(`Class 'pm7-menu-content--open': ${hasOpenClass}`);
+      addLog(`data-state attribute: ${dataState || 'not set'}`);
+      addLog(`aria-expanded on trigger: ${ariaExpanded}`);
+      
+      // Check PM7Menu instance
+      if (menu.PM7Menu) {
+        addLog(`PM7Menu.isOpen: ${menu.PM7Menu.isOpen}`);
+      } else {
+        addLog('No PM7Menu instance found', 'error');
+      }
+      
+      // Check visibility
+      const isVisible = window.getComputedStyle(menuContent).display !== 'none';
+      addLog(`Menu content visible: ${isVisible}`);
+    }
+    
+    function forceCloseMenus() {
+      addLog('=== Force Closing All Menus ===');
+      
+      // Method 1: Close via PM7Menu instances
+      const menuElements = document.querySelectorAll('[data-pm7-menu]');
+      let closedCount = 0;
+      
+      menuElements.forEach(menuEl => {
+        const instance = PM7.Menu.instances.get(menuEl);
+        if (instance && instance.isOpen) {
+          instance.close();
+          closedCount++;
+          addLog(`Closed menu via instance: ${menuEl.id || 'unnamed'}`, 'success');
+        }
+      });
+      
+      if (closedCount === 0) {
+        addLog('No open menus found to close');
+      }
+      
+      // Method 2: Direct DOM manipulation (fallback)
+      const openMenuContents = document.querySelectorAll('.pm7-menu-content--open');
+      if (openMenuContents.length > 0) {
+        addLog(`Found ${openMenuContents.length} menus with open class (fallback method)`);
+        openMenuContents.forEach(content => {
+          content.classList.remove('pm7-menu-content--open');
+        });
+      }
+    }
+    
+    function openTestDialog() {
+      addLog('Opening dialog from menu...');
+      
+      // First, let's check the current menu state
+      checkMenuState();
+      
+      // Try to close all menus before opening dialog
+      forceCloseMenus();
+      
+      // Open the dialog
+      if (window.PM7?.openDialog) {
+        window.PM7.openDialog('test-dialog');
+        addLog('Dialog opened', 'success');
+        
+        // Check menu state after dialog opens
+        setTimeout(() => {
+          addLog('=== Menu State After Dialog Open ===');
+          checkMenuState();
+        }, 100);
+      } else {
+        addLog('PM7.openDialog not available', 'error');
+      }
+    }
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      addLog('Page loaded, PM7 initialized');
+      
+      // Add event listeners to track menu state changes
+      const menu = document.getElementById('test-menu');
+      const menuContent = menu.querySelector('.pm7-menu-content');
+      
+      // Create a MutationObserver to track class changes
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const hasOpenClass = menuContent.classList.contains('pm7-menu-content--open');
+            addLog(`Menu class changed - open: ${hasOpenClass}`);
+          }
+        });
+      });
+      
+      observer.observe(menuContent, { attributes: true, attributeFilter: ['class'] });
+    });
+  </script>
+</body>
+</html>

@@ -242,12 +242,27 @@ export default function ThemeToggle() {
 </div>
 ```
 
+### Pattern: Dynamic Theme Switch Addition
+WHEN: Adding theme switch after page load
+```javascript
+// Add theme switch HTML
+document.getElementById('container').innerHTML = `
+  <div data-pm7-theme-switch>
+    <span>Dark mode</span>
+  </div>
+`;
+
+// MUST initialize PM7 components
+window.PM7.init();
+```
+
 ## JavaScript API
 
 ### Initialization
 
-IF auto-init THEN add `data-pm7-theme-switch`
-IF manual THEN `new PM7.ThemeSwitch(element, options)`
+IF theme-switch in DOM at page load THEN auto-initialized
+IF theme-switch added dynamically THEN MUST call `window.PM7.init()`
+IF manual init THEN `new PM7.ThemeSwitch(element, options)`
 IF Next.js THEN dynamic import with optional chaining
 
 ### Options
@@ -329,16 +344,38 @@ if (window.PM7?.initThemeSwitches) {
 </head>
 ```
 
+### Anti-Pattern: Dynamic Theme Switch Without Init
+```javascript
+// NEVER - theme switch won't work
+document.body.innerHTML += `
+  <div data-pm7-theme-switch>
+    <span>Theme</span>
+  </div>
+`;
+// Theme switch is not interactive
+
+// ALWAYS - initialize after adding
+document.body.innerHTML += `
+  <div data-pm7-theme-switch>
+    <span>Theme</span>
+  </div>
+`;
+window.PM7.init(); // REQUIRED
+// Theme switch now works
+```
+
 ## Rules
 
 - ALWAYS: Use `div` element for container
 - ALWAYS: Place flicker prevention script BEFORE stylesheets
 - ALWAYS: Check PM7 exists before calling methods
 - ALWAYS: Use data attributes for configuration
+- ALWAYS: Call window.PM7.init() after adding theme switches dynamically
 - NEVER: Create button structure manually
 - NEVER: Use button element as container
 - NEVER: Initialize same element multiple times
 - NEVER: Apply manual styles to internal elements
+- NEVER: Expect theme switch to work without PM7.init() for dynamic content
 
 ## CSS Variables
 

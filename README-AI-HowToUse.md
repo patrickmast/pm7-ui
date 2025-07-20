@@ -2,6 +2,10 @@
 
 pm7-ui is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript with full TypeScript support.
 
+## Key Principles
+*   **100% Framework-Agnostic:** Built with pure vanilla JavaScript and CSS. It is **NOT** a React, Vue, or Angular library, but works seamlessly inside of them or with plain HTML.
+*   **AI-First Design:** Components, class names, and documentation are optimized for clarity and predictability, ensuring AI agents can easily understand and use the library without guesswork.
+*   **Lightweight & Performant:** No external dependencies. No complex build steps. Just pure, efficient code.
 ## Installation
 
 ### NPM/Yarn/PNPM

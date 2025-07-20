@@ -43,6 +43,20 @@
   --pm7-tracking-wider: 0.05em;
   --pm7-tracking-widest: 0.1em;
   
+  /* Font size aliases for components */
+  --pm7-font-size-xs: var(--pm7-text-xs);
+  --pm7-font-size-sm: var(--pm7-text-sm);
+  --pm7-font-size-base: var(--pm7-text-base);
+  --pm7-font-size-lg: var(--pm7-text-lg);
+  --pm7-font-size-xl: var(--pm7-text-xl);
+  
+  /* Line height aliases for components */
+  --pm7-line-height-xs: var(--pm7-leading-tight);
+  --pm7-line-height-sm: var(--pm7-leading-snug);
+  --pm7-line-height-base: var(--pm7-leading-normal);
+  --pm7-line-height-lg: var(--pm7-leading-relaxed);
+  --pm7-line-height-xl: var(--pm7-leading-loose);
+  
   /* Component specific typography */
   --pm7-button-font-size: var(--pm7-text-sm);
   --pm7-button-font-weight: var(--pm7-font-medium);
