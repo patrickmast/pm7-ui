@@ -289,14 +289,17 @@ export default function DialogPage() {
         <div data-pm7-body>
           <p>Dialog content</p>
         </div>
-        <div data-pm7-footer>
-          <button 
-            className="pm7-button pm7-button--primary" 
-            onClick={() => window.PM7?.closeDialog?.('my-dialog')}
-          >
-            Close
-          </button>
-        </div>
+        {/* CRITICAL: Use HTML onclick, not React onClick! */}
+        <div data-pm7-footer dangerouslySetInnerHTML={{
+          __html: `
+            <button 
+              class="pm7-button pm7-button--primary" 
+              onclick="window.PM7.closeDialog('my-dialog')"
+            >
+              Close
+            </button>
+          `
+        }} />
       </div>
     </>
   );
@@ -431,6 +434,19 @@ window.PM7.openDialog('dialog-id');
 window.PM7.closeDialog('dialog-id');
 ```
 
+### Anti-Pattern: React onClick in Dialog Footer
+```jsx
+// NEVER - React onClick handlers don't work in dialog footers!
+<div data-pm7-footer>
+  <button onClick={handleClick}>This won't work!</button>
+</div>
+
+// ALWAYS - Use HTML onclick or dangerouslySetInnerHTML
+<div data-pm7-footer dangerouslySetInnerHTML={{
+  __html: `<button onclick="handleClick()">This works!</button>`
+}} />
+```
+
 ## Rules
 
 - ALWAYS: Use unique IDs for `data-pm7-dialog`
@@ -439,12 +455,14 @@ window.PM7.closeDialog('dialog-id');
 - ALWAYS: Call `window.PM7.init()` after adding dialogs dynamically
 - ALWAYS: Use `window.PM7.openDialog()` for opening dialogs
 - ALWAYS: Provide close mechanism (button, ESC, or overlay)
+- ALWAYS: Use HTML `onclick` for buttons in dialog footers (React)
 - NEVER: Nest dialogs inside dialogs
 - NEVER: Use role attributes (auto-applied)
 - NEVER: Initialize same dialog multiple times
 - NEVER: Add manual display styles
 - NEVER: Mix size attributes and classes
 - NEVER: Call dialog functions without PM7.init() for dynamic content
+- NEVER: Use React `onClick` handlers in dialog footers (they won't work!)
 
 ## CSS Variables
 
@@ -477,19 +495,237 @@ window.PM7.closeDialog('dialog-id');
 
 ## Framework Usage
 
-### React
+### React Integration - CRITICAL WARNING
+
+⚠️ **CRITICAL**: React's `onClick` handlers DO NOT WORK inside dialog footers!
+
+PM7 manipulates the dialog DOM structure during initialization, which causes React event handlers to be lost. This is a known limitation when PM7 reconstructs the dialog for proper styling and functionality.
+
+#### ❌ WRONG - This will NOT work:
+```jsx
+// Button onClick will never fire!
+<div data-pm7-footer>
+  <button onClick={() => handleSave()}>Save</button>
+  <button onClick={() => window.PM7.closeDialog('id')}>Close</button>
+</div>
+```
+
+#### ✅ CORRECT - Use one of these approaches:
+
+**Option 1: HTML onclick with global functions**
 ```jsx
 'use client'
 
-<>
-  <button onClick={() => window.PM7?.openDialog?.('react-dialog')}>
-    Open
-  </button>
-  <div data-pm7-dialog="react-dialog" data-pm7-dialog-size="md">
-    <h2 data-pm7-header>React Dialog</h2>
-    <div data-pm7-body>{content}</div>
-  </div>
-</>
+export function MyDialog() {
+  const [data, setData] = useState('');
+  
+  // Make function globally available
+  useEffect(() => {
+    window.handleSave = () => {
+      console.log('Saving:', data);
+      // Your save logic here
+      window.PM7.closeDialog('my-dialog');
+    };
+    
+    return () => {
+      delete window.handleSave;
+    };
+  }, [data]);
+
+  return (
+    <div data-pm7-dialog="my-dialog" data-pm7-dialog-size="md">
+      <h2 data-pm7-header>React Dialog</h2>
+      <div data-pm7-body>
+        <input 
+          type="text" 
+          className="pm7-input" 
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+        />
+      </div>
+      <div data-pm7-footer dangerouslySetInnerHTML={{
+        __html: `
+          <button 
+            class="pm7-button pm7-button--outline" 
+            onclick="window.PM7.closeDialog('my-dialog')"
+          >
+            Cancel
+          </button>
+          <button 
+            class="pm7-button pm7-button--primary" 
+            onclick="window.handleSave()"
+          >
+            Save
+          </button>
+        `
+      }} />
+    </div>
+  );
+}
+```
+
+**Option 2: Event delegation on dialog body**
+```jsx
+'use client'
+
+export function MyDialog() {
+  const dialogRef = useRef(null);
+  
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (e.target.matches('[data-action="save"]')) {
+        // Handle save
+        window.PM7.closeDialog('my-dialog');
+      }
+    };
+    
+    dialogRef.current?.addEventListener('click', handleClick);
+    return () => {
+      dialogRef.current?.removeEventListener('click', handleClick);
+    };
+  }, []);
+
+  return (
+    <div ref={dialogRef} data-pm7-dialog="my-dialog" data-pm7-dialog-size="md">
+      <h2 data-pm7-header>React Dialog</h2>
+      <div data-pm7-body>Content</div>
+      <div data-pm7-footer>
+        <button 
+          className="pm7-button pm7-button--primary"
+          data-action="save"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+### Complete React Form Dialog Example
+```jsx
+'use client'
+
+import { useState, useEffect, useRef } from 'react';
+
+export function UserFormDialog({ isOpen, onClose, onSave }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    role: ''
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const dialogRef = useRef(null);
+  
+  // Open/close dialog based on isOpen prop
+  useEffect(() => {
+    if (isOpen && window.PM7?.openDialog) {
+      window.PM7.openDialog('user-form-dialog');
+    }
+  }, [isOpen]);
+  
+  // Make save function globally available for onclick
+  useEffect(() => {
+    window.saveUserForm = () => {
+      if (formData.name && formData.email) {
+        onSave(formData);
+        window.PM7?.closeDialog('user-form-dialog');
+      }
+    };
+    
+    window.cancelUserForm = () => {
+      onClose();
+      window.PM7?.closeDialog('user-form-dialog');
+    };
+    
+    return () => {
+      delete window.saveUserForm;
+      delete window.cancelUserForm;
+    };
+  }, [formData, onSave, onClose]);
+  
+  return (
+    <div 
+      ref={dialogRef} 
+      data-pm7-dialog="user-form-dialog" 
+      data-pm7-dialog-size="md" 
+      data-pm7-show-close
+      data-pm7-header-separator
+    >
+      <div data-pm7-header>
+        <h2 className="pm7-dialog-title">Edit User</h2>
+      </div>
+      
+      <div data-pm7-body>
+        <div className="pm7-form-group">
+          <label htmlFor="name" className="pm7-label pm7-label--required">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            className="pm7-input"
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            placeholder="Enter user name"
+          />
+        </div>
+        
+        <div className="pm7-form-group">
+          <label htmlFor="email" className="pm7-label pm7-label--required">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            className="pm7-input"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            placeholder="user@example.com"
+          />
+        </div>
+        
+        <div className="pm7-form-group">
+          <label htmlFor="role" className="pm7-label">
+            Role
+          </label>
+          <select
+            id="role"
+            className="pm7-select"
+            value={formData.role}
+            onChange={(e) => setFormData({...formData, role: e.target.value})}
+          >
+            <option value="">Select a role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="guest">Guest</option>
+          </select>
+        </div>
+      </div>
+      
+      {/* CRITICAL: Use dangerouslySetInnerHTML for footer buttons! */}
+      <div data-pm7-footer dangerouslySetInnerHTML={{
+        __html: `
+          <button 
+            type="button"
+            class="pm7-button pm7-button--outline" 
+            onclick="window.cancelUserForm()"
+          >
+            Cancel
+          </button>
+          <button 
+            type="button"
+            class="pm7-button pm7-button--primary" 
+            onclick="window.saveUserForm()"
+            ${!formData.name || !formData.email ? 'disabled' : ''}
+          >
+            Save User
+          </button>
+        `
+      }} />
+    </div>
+  );
+}
 ```
 
 ### Vue
@@ -506,6 +742,67 @@ window.PM7.closeDialog('dialog-id');
   </div>
 </template>
 ```
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### 1. Buttons in dialog footer don't respond to clicks (React)
+**Problem**: React `onClick` handlers don't fire on buttons inside `data-pm7-footer`.
+
+**Cause**: PM7 reconstructs the dialog DOM during initialization, breaking React event bindings.
+
+**Solution**: Use HTML `onclick` with global functions or `dangerouslySetInnerHTML`:
+```jsx
+// Instead of:
+<button onClick={handleClick}>Save</button>
+
+// Use:
+<div data-pm7-footer dangerouslySetInnerHTML={{
+  __html: `<button onclick="window.handleClick()">Save</button>`
+}} />
+```
+
+#### 2. Dialog doesn't open/close
+**Problem**: `window.PM7.openDialog()` or `closeDialog()` not working.
+
+**Solutions**:
+- Ensure PM7 is loaded: `import '@pm7/core'`
+- Check if dialog ID matches: `data-pm7-dialog="my-id"` and `openDialog('my-id')`
+- Verify PM7 is initialized: `window.PM7.init()` after dynamic dialog creation
+- Use correct namespace: `window.PM7.openDialog()` not `window.openDialog()`
+
+#### 3. Dialog content not updating (React)
+**Problem**: Dialog shows stale data when reopened.
+
+**Solution**: Reset state when dialog opens:
+```jsx
+useEffect(() => {
+  if (isOpen) {
+    // Reset form data
+    setFormData(initialData);
+    window.PM7?.openDialog('dialog-id');
+  }
+}, [isOpen]);
+```
+
+#### 4. Multiple dialogs interfering
+**Problem**: Opening one dialog affects another.
+
+**Solution**: Use unique IDs for each dialog:
+```jsx
+<div data-pm7-dialog="user-dialog-1">...</div>
+<div data-pm7-dialog="confirm-dialog-2">...</div>
+```
+
+#### 5. Dialog not styled correctly
+**Problem**: Dialog appears unstyled or broken.
+
+**Solutions**:
+- Import CSS: `import '@pm7/core/dist/pm7.css'`
+- Use correct structure with data attributes
+- Don't mix traditional and content marker patterns
+- Ensure no CSS conflicts with global styles
 
 ## Related Components
 
