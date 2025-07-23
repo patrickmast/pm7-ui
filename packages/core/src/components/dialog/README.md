@@ -316,8 +316,8 @@ WHY: Prevents menu overlap with dialog overlay
 IF dialog in DOM at page load THEN auto-initialized
 IF dialog added dynamically THEN MUST call `window.PM7.init()`
 IF manual init THEN `new PM7.Dialog(element)`
-IF open dialog THEN `window.PM7.openDialog(id)` (NOT `window.openDialog`)
-IF close dialog THEN `window.PM7.closeDialog(id)` (NOT `window.closeDialog`)
+IF open dialog THEN `window.PM7.openDialog(id)`
+IF close dialog THEN `window.PM7.closeDialog(id)`
 
 ### Methods
 
@@ -334,10 +334,9 @@ IF close dialog THEN `window.PM7.closeDialog(id)` (NOT `window.closeDialog`)
 |----------|------------|---------|-------|
 | `openDialog()` | id: string | void | `window.PM7.openDialog('id')` |
 | `closeDialog()` | id: string | void | `window.PM7.closeDialog('id')` |
-| `closeAllDialogs()` | none | void | `window.PM7.closeAllDialogs()` |
 | `createDialog()` | options: object | HTMLElement | `window.PM7.createDialog({...})` |
-| `pm7Alert()` | message: string, title?: string | void | `window.PM7.pm7Alert('Error!')` |
-| `pm7Confirm()` | message: string, callback: function, title?: string | void | `window.PM7.pm7Confirm('Sure?', (yes) => {})` |
+| `alert()` | message: string, options?: object | Promise | `window.PM7.alert('Error!')` |
+| `confirm()` | message: string, options?: object | Promise | `window.PM7.confirm('Sure?').then(result => {})` |
 
 ### Events
 
@@ -421,13 +420,13 @@ window.PM7.init(); // REQUIRED
 window.PM7.openDialog('new'); // WORKS
 ```
 
-### Anti-Pattern: Wrong API Location
+### Anti-Pattern: Missing PM7 Namespace
 ```javascript
-// NEVER - functions not on window directly
+// NEVER - don't try to call directly on window
 window.openDialog('dialog-id');
 window.closeDialog('dialog-id');
 
-// ALWAYS - functions on window.PM7
+// ALWAYS - use PM7 namespace
 window.PM7.openDialog('dialog-id');
 window.PM7.closeDialog('dialog-id');
 ```
@@ -438,7 +437,7 @@ window.PM7.closeDialog('dialog-id');
 - ALWAYS: Include content markers (`data-pm7-header`, `data-pm7-body`, etc.)
 - ALWAYS: Check PM7 exists before calling methods
 - ALWAYS: Call `window.PM7.init()` after adding dialogs dynamically
-- ALWAYS: Use `window.PM7.openDialog()` NOT `window.openDialog()`
+- ALWAYS: Use `window.PM7.openDialog()` for opening dialogs
 - ALWAYS: Provide close mechanism (button, ESC, or overlay)
 - NEVER: Nest dialogs inside dialogs
 - NEVER: Use role attributes (auto-applied)

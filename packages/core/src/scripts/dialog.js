@@ -608,10 +608,4 @@ export function closeDialog(dialogId) {
 }
 
 // Don't automatically pollute global scope
-// Consumers should explicitly assign these if needed
-if (typeof window !== 'undefined') {
-  window.openDialog = openDialog;
-  window.closeDialog = closeDialog;
-  window.pm7Alert = pm7Alert;
-  window.pm7Confirm = pm7Confirm;
-}
+// These functions are available via window.PM7 namespace
