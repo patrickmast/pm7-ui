@@ -40,12 +40,12 @@ echo -e "${GREEN}✅ Build completed successfully${NC}\n"
 
 # Deploy to Vercel production
 echo -e "${YELLOW}🌐 Deploying to Vercel production...${NC}"
-echo -e "${YELLOW}This will deploy the docs-src directory${NC}\n"
+echo -e "${YELLOW}This will deploy the built docs directory${NC}\n"
 
-# Deploy with production flag
+# Deploy with production flag from docs directory
 # The --prod flag ensures it goes to production
 # The --yes flag skips confirmation prompts
-vercel --prod --yes ./docs-src
+cd docs && vercel --prod --yes
 
 if [ $? -eq 0 ]; then
     echo -e "\n${GREEN}✅ Deployment successful!${NC}"
