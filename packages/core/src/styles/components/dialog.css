@@ -28,11 +28,19 @@
   pointer-events: none; /* Prevent blocking when hidden */
 }
 
+/* Hide original dialog structure before transformation */
+[data-pm7-dialog] {
+  display: none;
+}
+
+/* Show when open */
+[data-pm7-dialog][data-state="open"] {
+  display: block !important;
+}
+
 /* Hide dialog content until transformed */
 .pm7-dialog:not([data-state]) {
-  visibility: hidden;
-  position: absolute;
-  left: -9999px;
+  display: none;
 }
 
 .pm7-dialog[data-state="closed"] {

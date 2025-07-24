@@ -495,6 +495,53 @@ window.PM7.closeDialog('dialog-id');
 
 ## Framework Usage
 
+### Auto-Initialization (v2.3.0+)
+
+Since v2.3.0, PM7 dialogs auto-initialize on DOMContentLoaded:
+- Automatically transforms dialog structure
+- Sets initial `data-state="closed"` 
+- No manual PM7.init() needed
+- No visibility flash on page load
+
+⚠️ **IMPORTANT**: Dialogs work differently than other PM7 components!
+- Other components (menu, button, etc.) just enhance existing HTML
+- Dialogs completely transform their DOM structure for proper modal behavior
+- This transformation can break framework event handlers
+
+### React/Vue/Angular Integration - CRITICAL
+
+⚠️ **IMPORTANT**: PM7 dialogs require special handling in component frameworks!
+
+#### State Synchronization Required
+PM7 dialogs operate independently of React/Vue state. You MUST sync them:
+
+```jsx
+// React Example - Use MutationObserver to sync state
+useEffect(() => {
+  const observer = new MutationObserver(() => {
+    const state = dialogRef.current?.getAttribute('data-state');
+    if (state === 'closed' && isOpen) {
+      onClose(); // Sync React state
+    }
+  });
+  
+  observer.observe(dialogRef.current, { 
+    attributes: true, 
+    attributeFilter: ['data-state'] 
+  });
+  
+  return () => observer.disconnect();
+}, [isOpen, onClose]);
+```
+
+#### Initialization Timing
+```jsx
+// Call autoInitDialogs AFTER React renders
+useEffect(() => {
+  window.PM7?.autoInitDialogs?.();
+}, []);
+```
+
 ### React Integration - CRITICAL WARNING
 
 ⚠️ **CRITICAL**: React's `onClick` handlers DO NOT WORK inside dialog footers!
@@ -602,6 +649,47 @@ export function MyDialog() {
 }
 ```
 
+### Pattern: React Dialog with Conditional Rendering (RECOMMENDED)
+
+```jsx
+export function MyDialog({ isOpen, onClose }) {
+  useEffect(() => {
+    if (isOpen) {
+      // CRITICAL: Wait for DOM to be ready
+      const timer = setTimeout(() => {
+        // Re-initialize PM7 for dynamically added dialog
+        window.PM7?.init();
+        // Then open the dialog
+        window.openDialog?.('my-dialog');
+      }, 50);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  // CRITICAL: Only render when needed
+  if (!isOpen) return null;
+
+  return (
+    <div data-pm7-dialog="my-dialog">
+      {/* dialog content */}
+    </div>
+  );
+}
+```
+
+### Anti-Pattern: Always Rendering Dialog
+```jsx
+// NEVER - Dialog content visible on page load!
+export function MyDialog({ isOpen }) {
+  return (
+    <div data-pm7-dialog="my-dialog">
+      {/* This will be visible even when closed! */}
+    </div>
+  );
+}
+```
+
 ### Complete React Form Dialog Example
 ```jsx
 'use client'
@@ -617,10 +705,16 @@ export function UserFormDialog({ isOpen, onClose, onSave }) {
   const [showPassword, setShowPassword] = useState(false);
   const dialogRef = useRef(null);
   
-  // Open/close dialog based on isOpen prop
+  // Open dialog when isOpen changes
   useEffect(() => {
-    if (isOpen && window.PM7?.openDialog) {
-      window.PM7.openDialog('user-form-dialog');
+    if (isOpen) {
+      // Wait for DOM to be ready, then initialize and open
+      const timer = setTimeout(() => {
+        window.PM7?.init();
+        window.PM7?.openDialog('user-form-dialog');
+      }, 50);
+      
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
   
@@ -643,6 +737,9 @@ export function UserFormDialog({ isOpen, onClose, onSave }) {
       delete window.cancelUserForm;
     };
   }, [formData, onSave, onClose]);
+  
+  // CRITICAL: Only render when dialog should be visible
+  if (!isOpen) return null;
   
   return (
     <div 
@@ -728,6 +825,56 @@ export function UserFormDialog({ isOpen, onClose, onSave }) {
 }
 ```
 
+### Pattern: Complete Dialog Lifecycle Management
+```jsx
+export function DialogExample() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleOpen = () => setShowDialog(true);
+  const handleClose = () => setShowDialog(false);
+
+  return (
+    <>
+      <button onClick={handleOpen}>Open Dialog</button>
+      
+      {/* Only render dialog when needed */}
+      {showDialog && (
+        <MyDialog 
+          isOpen={showDialog} 
+          onClose={handleClose}
+        />
+      )}
+    </>
+  );
+}
+```
+
+### Timing Considerations for Dynamic Dialogs
+
+When adding dialogs dynamically:
+1. Add dialog to DOM (via conditional rendering)
+2. Wait 50ms for DOM to settle
+3. Call `window.PM7.init()` to initialize new dialog
+4. Call `window.openDialog(id)` to show dialog
+
+WHY: PM7 needs the dialog to be fully in the DOM before initialization
+
+```jsx
+// ❌ WRONG - Too fast, dialog not ready
+if (isOpen) {
+  window.PM7.init();
+  window.openDialog('my-dialog'); // May fail!
+}
+
+// ✅ CORRECT - Wait for DOM
+if (isOpen) {
+  setTimeout(() => {
+    window.PM7.init();
+    window.openDialog('my-dialog');
+  }, 50);
+}
+```
+
 ### Vue
 ```vue
 <template>
@@ -766,13 +913,42 @@ export function UserFormDialog({ isOpen, onClose, onSave }) {
 #### 2. Dialog doesn't open/close
 **Problem**: `window.PM7.openDialog()` or `closeDialog()` not working.
 
-**Solutions**:
-- Ensure PM7 is loaded: `import '@pm7/core'`
-- Check if dialog ID matches: `data-pm7-dialog="my-id"` and `openDialog('my-id')`
-- Verify PM7 is initialized: `window.PM7.init()` after dynamic dialog creation
-- Use correct namespace: `window.PM7.openDialog()` not `window.openDialog()`
+IF dialog not opening THEN check:
+1. `window.PM7?.autoInitDialogs()` called after React render
+2. Dialog ID exact match: `data-pm7-dialog="foo"` → `openDialog('foo')`
+3. Use `window.openDialog()` (v2.3.0+) OR `window.PM7.openDialog()`
 
-#### 3. Dialog content not updating (React)
+IF React/Vue app THEN ALWAYS:
+```javascript
+useEffect(() => {
+  window.PM7?.autoInitDialogs();
+}, []);
+```
+
+#### 3. Dialog closes but won't reopen (X button / ESC key)
+**Problem**: Dialog closes via X/ESC but won't open again in React/Vue.
+
+CAUSE: PM7 closes dialog but framework state not updated.
+
+SOLUTION: MutationObserver for state sync:
+```jsx
+useEffect(() => {
+  const observer = new MutationObserver(() => {
+    if (dialogRef.current?.getAttribute('data-state') === 'closed' && isOpen) {
+      onClose(); // Sync React state
+    }
+  });
+  
+  observer.observe(dialogRef.current, { 
+    attributes: true, 
+    attributeFilter: ['data-state'] 
+  });
+  
+  return () => observer.disconnect();
+}, [isOpen, onClose]);
+```
+
+#### 4. Dialog content not updating (React)
 **Problem**: Dialog shows stale data when reopened.
 
 **Solution**: Reset state when dialog opens:

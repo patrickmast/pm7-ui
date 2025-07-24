@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### 14:45 - Framework Integration documentatie toegevoegd
+- **Wat**: Complete Framework Integration guide toegevoegd voor React/Vue/Angular gebruik van PM7
+- **Hoe**: 
+  - `README-Framework-Integration.md` aangemaakt met alle integration patterns
+  - Link toegevoegd aan README Links pagina (positie 3)
+  - Bevat MutationObserver pattern, timing issues, event handler solutions
+  - React hook en Vue composable voorbeelden
+- **Bestanden**: 
+  - `README-Framework-Integration.md` - nieuwe guide
+  - `docs-src/readme-links.html` - link toegevoegd
+  - `docs-src/scripts/components.js` - navigatie links verwijderd (alleen via README Links)
+- **Reden**: Na de dialog fixes van eerder vandaag was duidelijke documentatie nodig over HOE je PM7 integreert met moderne frameworks. AI agents hebben nu een directe GitHub raw link naar alle patterns.
+
+### 13:30 - Fixed PM7 dialog integration voor React/Vue frameworks
+- **Wat**: Dialogs werkten niet correct in React - geen auto-hide, X/ESC button synchronisatie problemen
+- **Hoe**: 
+  - Auto-initialization toegevoegd voor dialogs op DOMContentLoaded
+  - CSS aangepast om dialogs standaard te verbergen met `[data-pm7-dialog] { display: none; }`
+  - `window.openDialog` en `window.closeDialog` global functions toegevoegd
+  - `autoInitDialogs()` export toegevoegd voor manual initialization na React render
+- **Bestanden**: 
+  - `src/scripts/dialog.js` - auto-init, global functions, transformDialog class fix
+  - `src/styles/components/dialog.css` - display rules voor verschillende states
+  - `src/scripts/index.js` - autoInitDialogs export
+  - `src/components/dialog/README.md` - framework integration documentatie
+- **Reden**: PM7 dialogs zijn DOM-first ontworpen en hadden speciale handling nodig voor frameworks die na DOMContentLoaded renderen. De X/ESC buttons werkten niet omdat PM7 en React state uit sync raakten.
+
 ### 05:26 - Fixed demo pages 404 errors in production build
 - **Wat**: Component demo pagina's in subdirectories (zoals `/components/demos/button/variants.html`) gaven 404 errors
 - **Hoe**: Recursieve functie toegevoegd aan `vite.config.js` om HTML bestanden in subdirectories van `docs-src/components/demos/` te vinden en toe te voegen aan de build

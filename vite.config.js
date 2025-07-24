@@ -69,6 +69,7 @@ export default defineConfig({
         gettingStarted: resolve(__dirname, 'docs-src/getting-started.html'),
         faq: resolve(__dirname, 'docs-src/faq.html'),
         aiGuide: resolve(__dirname, 'docs-src/ai-guide.html'),
+        styleGuide: resolve(__dirname, 'docs-src/style-guide.html'),
         upgrade: resolve(__dirname, 'docs-src/upgrade.html'),
         readmeLinks: resolve(__dirname, 'docs-src/readme-links.html'),
         testAllComponents: resolve(__dirname, 'docs-src/test-all-components.html'),

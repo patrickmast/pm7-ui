@@ -207,10 +207,79 @@
         </div>
       </div>
       
+      <!-- Style Guide for AI Agents -->
+      <div class="pm7-accordion-item" data-pm7-accordion-value="style-guide" data-state="open">
+        <button class="pm7-accordion-trigger">
+          <span>3. Visual Style Guide (AI-Only)</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <p style="margin: 0 0 1.5rem 0; color: var(--pm7-muted-foreground);">Complete visual reference showing PM7-UI design system for AI replication - colors, typography, spacing, and all components</p>
+            <div style="margin: 0 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
+              <input type="checkbox" id="copy-as-style-guide" style="cursor: pointer;">
+              <label for="copy-as-style-guide" style="cursor: pointer; user-select: none;">
+                Copy URL as: "Use this PM7-UI style guide as visual reference: [URL]"
+              </label>
+            </div>
+            <div class="component-link">
+              <code id="style-guide">https://pm7-ui.dev/style-guide</code>
+              <div style="display: flex; gap: 0.5rem;">
+                <a href="https://pm7-ui.dev/style-guide" target="_blank" class="open-button" style="padding: 0.375rem;" aria-label="Open in new tab">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+                <button class="copy-button" onclick="copyUrl('style-guide', this)" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">
+                  Copy URL
+                </button>
+              </div>
+            </div>
+            <div style="margin-top: 1rem; padding: 1rem; background: var(--pm7-info-light); border-radius: var(--pm7-radius); color: var(--pm7-info-dark);">
+              <strong>🤖 AI Agents Only:</strong> This page shows all PM7-UI components in their visual states without requiring the npm package. Perfect for AI agents that need to replicate the PM7-UI style.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Framework Integration -->
+      <div class="pm7-accordion-item" data-pm7-accordion-value="framework" data-state="open">
+        <button class="pm7-accordion-trigger">
+          <span>3. Framework Integration (React/Vue/Angular)</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <p style="margin: 0 0 1.5rem 0; color: var(--pm7-muted-foreground);">Integration patterns and solutions for using PM7 in React, Vue, Angular apps</p>
+            <div style="margin: 0 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
+              <input type="checkbox" id="copy-as-framework" style="cursor: pointer;">
+              <label for="copy-as-framework" style="cursor: pointer; user-select: none;">
+                Copy URL as: "PM7 dialog not working in React? Check framework integration: [URL]"
+              </label>
+            </div>
+            <div class="component-link">
+              <code id="framework-guide">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md</code>
+              <div style="display: flex; gap: 0.5rem;">
+                <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md" target="_blank" class="open-button" style="padding: 0.375rem;" aria-label="Open in new tab">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+                <button class="copy-button" onclick="copyUrl('framework-guide', this)" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">
+                  Copy URL
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <!-- Quick Tips -->
       <div class="pm7-accordion-item" data-pm7-accordion-value="tips" data-state="open">
         <button class="pm7-accordion-trigger">
-          <span>3. Quick Tips for AI Agents</span>
+          <span>4. Quick Tips for AI Agents</span>
         </button>
         <div class="pm7-accordion-content">
           <div class="pm7-accordion-content-inner">
@@ -249,6 +318,8 @@
         textToCopy = `We're using pm7-ui for all our UI. Here's the documentation: ${url}`;
       } else if (elementId === 'upgrade-guide' && document.getElementById('copy-as-upgrade').checked) {
         textToCopy = `Upgrade this project from pm7-ui v1 to v2: ${url}`;
+      } else if (elementId === 'style-guide' && document.getElementById('copy-as-style-guide').checked) {
+        textToCopy = `Use this PM7-UI style guide as visual reference: ${url}`;
       }
       
       navigator.clipboard.writeText(textToCopy).then(() => {

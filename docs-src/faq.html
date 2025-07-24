@@ -647,6 +647,103 @@ dialog.addEventListener('pm7-dialog-open', () => {
                         </div>
                     </div>
                 </div>
+
+                <!-- Dialog Integration FAQ -->
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Why doesn't my PM7 dialog open in React?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>IF dialog not opening in React/Vue THEN check:</p>
+                            <ol>
+                                <li><strong>Initialization timing</strong> - React renders AFTER DOMContentLoaded</li>
+                                <li><strong>Dialog ID mismatch</strong> - Exact match required</li>
+                                <li><strong>PM7 not loaded</strong> - Check window.PM7 exists</li>
+                            </ol>
+                            <p><strong>SOLUTION:</strong></p>
+                            <pre><code class="language-javascript">// Initialize after React render
+useEffect(() => {
+  window.PM7?.autoInitDialogs();
+}, []);
+
+// Open dialog
+window.openDialog('my-dialog-id'); // v2.3.0+</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Dialog closes with X/ESC but won't reopen (React/Vue)</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>CAUSE:</strong> PM7 state and React state are out of sync</p>
+                            <p><strong>SOLUTION:</strong> Use MutationObserver to sync states:</p>
+                            <pre><code class="language-javascript">useEffect(() => {
+  const observer = new MutationObserver(() => {
+    if (dialogRef.current?.getAttribute('data-state') === 'closed' && isOpen) {
+      setIsOpen(false); // Sync React state
+    }
+  });
+  
+  observer.observe(dialogRef.current, { 
+    attributes: true, 
+    attributeFilter: ['data-state'] 
+  });
+  
+  return () => observer.disconnect();
+}, [isOpen]);</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>onClick handlers don't work in dialog footers (React)</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>CAUSE:</strong> PM7 transforms dialog DOM, breaking React event bindings</p>
+                            <p><strong>SOLUTION:</strong> Use global functions:</p>
+                            <pre><code class="language-javascript">// Setup global function
+useEffect(() => {
+  window.handleSave = () => {
+    // Your logic
+    onSave();
+  };
+  return () => delete window.handleSave;
+}, [onSave]);
+
+// In render
+&lt;div data-pm7-footer dangerouslySetInnerHTML={{
+  __html: `&lt;button onclick="window.handleSave()"&gt;Save&lt;/button&gt;`
+}} /&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Dialog content briefly visible on page load</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>SOLUTION:</strong> Since v2.3.0, dialogs auto-initialize and hide. Ensure:</p>
+                            <ul>
+                                <li>PM7 CSS is loaded BEFORE content renders</li>
+                                <li>Using latest version (@pm7/core@2.3.0+)</li>
+                                <li>Not overriding PM7 dialog CSS</li>
+                            </ul>
+                            <p>IF still visible THEN check CSS load order:</p>
+                            <pre><code class="language-html">&lt;!-- Load PM7 CSS first --&gt;
+&lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
+&lt;!-- Then your app --&gt;
+&lt;div id="root"&gt;&lt;/div&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

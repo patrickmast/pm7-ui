@@ -64,6 +64,15 @@ export function loadHeader() {
               </span>
               AI Guide
             </a>
+            <a href="/style-guide.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="2" width="18" height="20" rx="2"/>
+                  <path d="M8 6h8M8 10h8M8 14h5"/>
+                </svg>
+              </span>
+              Style Guide
+            </a>
             <a href="/upgrade.html" class="pm7-menu-item">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

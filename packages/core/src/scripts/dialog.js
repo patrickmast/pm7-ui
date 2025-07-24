@@ -428,6 +428,11 @@ function transformDialog(dialogElement) {
 
   // Clear dialog
   dialogElement.innerHTML = '';
+  
+  // Add pm7-dialog class if missing
+  if (!dialogElement.classList.contains('pm7-dialog')) {
+    dialogElement.classList.add('pm7-dialog');
+  }
 
   // Create overlay
   const overlay = document.createElement('div');
@@ -605,6 +610,31 @@ export function closeDialog(dialogId) {
     document.removeEventListener('keydown', escHandlers.get(dialogId));
     escHandlers.delete(dialogId);
   }
+}
+
+// Auto-initialize dialogs
+function autoInitDialogs() {
+  const dialogs = document.querySelectorAll('[data-pm7-dialog]:not([data-state])');
+  dialogs.forEach(dialog => {
+    // Transform dialog structure if needed
+    transformDialog(dialog);
+    // Set initial closed state
+    dialog.setAttribute('data-state', 'closed');
+  });
+}
+
+// Initialize on DOM ready for traditional apps
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', autoInitDialogs);
+}
+
+// Also expose for manual initialization (e.g., after React render)
+export { autoInitDialogs };
+
+// Make openDialog and closeDialog available globally for convenience
+if (typeof window !== 'undefined') {
+  window.openDialog = openDialog;
+  window.closeDialog = closeDialog;
 }
 
 // Don't automatically pollute global scope
