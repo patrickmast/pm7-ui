@@ -254,7 +254,7 @@
             <div style="margin: 0 0 1rem 0; padding: 1rem; background: var(--pm7-muted); border-radius: var(--pm7-radius); display: flex; align-items: center; gap: 0.75rem;">
               <input type="checkbox" id="copy-as-framework" style="cursor: pointer;">
               <label for="copy-as-framework" style="cursor: pointer; user-select: none;">
-                Copy URL as: "PM7 dialog not working in React? Check framework integration: [URL]"
+                Copy URL as: "A pm7-ui component not working in your framework? Check framework integration: [URL]"
               </label>
             </div>
             <div class="component-link">
@@ -320,6 +320,8 @@
         textToCopy = `Upgrade this project from pm7-ui v1 to v2: ${url}`;
       } else if (elementId === 'style-guide' && document.getElementById('copy-as-style-guide').checked) {
         textToCopy = `Use this PM7-UI style guide as visual reference: ${url}`;
+      } else if (elementId === 'framework-guide' && document.getElementById('copy-as-framework').checked) {
+        textToCopy = `A pm7-ui component not working in your framework? Check framework integration: ${url}`;
       }
       
       navigator.clipboard.writeText(textToCopy).then(() => {
