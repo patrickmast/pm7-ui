@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### 05:26 - Fixed demo pages 404 errors in production build
+- **Wat**: Component demo pagina's in subdirectories (zoals `/components/demos/button/variants.html`) gaven 404 errors
+- **Hoe**: Recursieve functie toegevoegd aan `vite.config.js` om HTML bestanden in subdirectories van `docs-src/components/demos/` te vinden en toe te voegen aan de build
+- **Bestanden**: `vite.config.js`
+- **Reden**: De oorspronkelijke build configuratie zocht alleen naar demo bestanden direct in `docs-src/demos/`, maar miste bestanden in subdirectories zoals `docs-src/components/demos/button/`
+
 ## [2.2.1] - 2025-01-15
 
 ### 🎉 New Features

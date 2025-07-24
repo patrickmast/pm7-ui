@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import { readdirSync } from 'fs';
+import { readdirSync, statSync } from 'fs';
 import { spaFallback } from './docs-src/scripts/vite-plugin-spa-fallback.js';
 
 // Get all HTML files from docs-src/components
@@ -20,6 +20,32 @@ const demoFiles = readdirSync('./docs-src/demos')
     acc[`demos/${name}`] = resolve(__dirname, `docs-src/demos/${file}`);
     return acc;
   }, {});
+
+// Recursively get all HTML files from docs-src/components/demos
+function getComponentDemoFiles(dir, basePath = '') {
+  const files = {};
+  const items = readdirSync(dir);
+  
+  items.forEach(item => {
+    const fullPath = `${dir}/${item}`;
+    const stat = statSync(fullPath);
+    
+    if (stat.isDirectory()) {
+      // Recursively process subdirectories
+      const subFiles = getComponentDemoFiles(fullPath, basePath ? `${basePath}/${item}` : item);
+      Object.assign(files, subFiles);
+    } else if (item.endsWith('.html')) {
+      // Add HTML files with their relative path
+      const name = item.replace('.html', '');
+      const key = basePath ? `components/demos/${basePath}/${name}` : `components/demos/${name}`;
+      files[key] = resolve(__dirname, fullPath);
+    }
+  });
+  
+  return files;
+}
+
+const componentDemoFiles = getComponentDemoFiles('./docs-src/components/demos');
 
 export default defineConfig({
   plugins: [spaFallback()],
@@ -48,6 +74,7 @@ export default defineConfig({
         testAllComponents: resolve(__dirname, 'docs-src/test-all-components.html'),
         ...componentFiles,
         ...demoFiles,
+        ...componentDemoFiles,
       },
     },
   },
