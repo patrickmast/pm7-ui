@@ -23,24 +23,37 @@ Frameworks render AFTER this event.
 IF React/Vue/Angular THEN initialize after render:
 
 ```javascript
-// React
+// React - NEW: Use initFramework() for better timing
 useEffect(() => {
-  window.PM7?.init(); // All components
-  // OR specific:
-  window.PM7?.autoInitDialogs();
+  window.PM7?.initFramework(); // Handles timing + healing automatically
+  // OR with custom options:
+  window.PM7?.init(document, { delay: 50, heal: true });
 }, []);
 
 // Vue
 mounted() {
   this.$nextTick(() => {
-    window.PM7?.init();
+    window.PM7?.initFramework();
   });
 }
 
 // Angular
 ngAfterViewInit() {
-  window.PM7?.init();
+  window.PM7?.initFramework();
 }
+```
+
+### PM7.init() Options (v2.7.0+)
+
+```javascript
+PM7.init(container, {
+  delay: 0,      // Milliseconds to wait before init (default: 0)
+  force: false,  // Force re-init even if already initialized (default: false)
+  heal: true     // Run self-healing after init (default: true)
+});
+
+// Convenience method for frameworks
+PM7.initFramework(); // Same as init() with { delay: 50, heal: true }
 ```
 
 ## State Synchronization

@@ -213,10 +213,79 @@
     </section>
     
     <section style="margin-top: 60px;">
+      <h2>Framework Integration</h2>
+      <p>PM7-UI now includes self-healing components that automatically recover from framework re-renders!</p>
+      
+      <div class="tip-box">
+        <h4>✨ New in v2.7.0: PM7.initFramework()</h4>
+        <p>Use <code>PM7.initFramework()</code> for seamless integration with React, Vue, and Angular. This method includes automatic timing delays and enables self-healing for all components.</p>
+      </div>
+      
+      <h3>React Integration</h3>
+      <pre><code class="language-javascript">import { useEffect } from 'react';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+function App() {
+  useEffect(() => {
+    // Use initFramework() for better timing + automatic healing
+    PM7.initFramework();
+  }, []);
+  
+  return (
+    // Your components here - they'll self-heal automatically!
+  );
+}</code></pre>
+      
+      <h3>Vue Integration</h3>
+      <pre><code class="language-javascript">import { onMounted } from 'vue';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+export default {
+  setup() {
+    onMounted(() => {
+      PM7.initFramework();
+    });
+  }
+}</code></pre>
+      
+      <h3>Angular Integration</h3>
+      <pre><code class="language-typescript">import { Component, AfterViewInit } from '@angular/core';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+@Component({
+  // ...
+})
+export class AppComponent implements AfterViewInit {
+  ngAfterViewInit() {
+    PM7.initFramework();
+  }
+}</code></pre>
+      
+      <h3>Self-Healing Components</h3>
+      <p>The following components automatically recover from framework re-renders:</p>
+      <ul>
+        <li><strong>Menu</strong> - Preserves open/close state</li>
+        <li><strong>Accordion</strong> - Preserves expanded sections</li>
+        <li><strong>Tab Selector</strong> - Preserves active tab</li>
+        <li><strong>Tooltip</strong> - Preserves open state</li>
+        <li><strong>Sidebar</strong> - Preserves open state and collapsibles</li>
+        <li><strong>Dialog</strong> - Preserves content during transforms</li>
+      </ul>
+      
+      <p>No more workarounds needed! Components just work, even when your framework re-renders them.</p>
+    </section>
+    
+    <section style="margin-top: 60px;">
       <h2>Next Steps</h2>
       <div class="pm7-button-group">
         <a href="/components.html" class="pm7-button pm7-button--primary">
           Browse Components
+        </a>
+        <a href="/framework-integration.html" class="pm7-button pm7-button--outline">
+          Framework Integration Guide
         </a>
         <a href="/ai-guide.html" class="pm7-button pm7-button--outline">
           Advanced AI Guide

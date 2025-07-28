@@ -407,15 +407,14 @@ function transformDialog(dialogElement) {
   const preventEscapeClose = dialogElement.hasAttribute('data-pm7-no-escape');
   const preventOverlayClose = dialogElement.hasAttribute('data-pm7-no-overlay-close');
 
-  // Get content sections
+  // Get content sections - CRITICAL: Read ALL content before clearing!
   const headerEl = dialogElement.querySelector('[data-pm7-header]');
   const bodyEl = dialogElement.querySelector('[data-pm7-body]');
   const footerEl = dialogElement.querySelector('[data-pm7-footer]');
 
-  // Store section data
+  // Store section data IMMEDIATELY before anything can modify the DOM
   const sections = {
     header: headerEl ? {
-      element: headerEl,
       content: headerEl.innerHTML,
       title: headerEl.getAttribute('data-pm7-dialog-title'),
       subtitle: headerEl.getAttribute('data-pm7-dialog-subtitle'),
@@ -426,7 +425,7 @@ function transformDialog(dialogElement) {
     footer: footerEl ? footerEl.innerHTML : null
   };
 
-  // Clear dialog
+  // NOW clear dialog - AFTER we've safely stored all content
   dialogElement.innerHTML = '';
   
   // Add pm7-dialog class if missing
@@ -542,12 +541,50 @@ export function openDialog(dialogId) {
     return;
   }
   
+  // Check if dialog needs transformation
+  const needsTransform = !dialogElement.querySelector('.pm7-dialog-overlay');
+  
+  // Self-healing: detect if framework re-rendered the original structure
+  const hasOriginalMarkers = 
+    dialogElement.querySelector('[data-pm7-header]') ||
+    dialogElement.querySelector('[data-pm7-body]') ||
+    dialogElement.querySelector('[data-pm7-footer]');
+  
+  if (hasOriginalMarkers && needsTransform) {
+    // Dialog structure was restored by framework re-render
+    const currentState = dialogElement.getAttribute('data-state');
+    
+    // Only re-initialize if not currently open or closing
+    if (currentState !== 'open' && currentState !== 'closing') {
+      // Transform the dialog
+      transformDialog(dialogElement);
+      // Continue with normal open flow after transformation
+    } else if (currentState === 'open') {
+      // Dialog is already open, don't re-open
+      return;
+    } else if (currentState === 'closing') {
+      // Dialog is closing, don't interfere
+      return;
+    }
+  } else if (needsTransform) {
+    // No markers but needs transform (shouldn't happen in normal flow)
+    transformDialog(dialogElement);
+  }
+  
+  // Check if already open (prevent double-open)
+  if (dialogElement.getAttribute('data-state') === 'open') {
+    return;
+  }
+  
+  // Check if closing (prevent open during close animation)
+  if (dialogElement.getAttribute('data-state') === 'closing') {
+    return;
+  }
+  
   // Close all open menus before opening dialog
   closeAllOpenMenus();
   
-  // Transform dialog if needed
-  transformDialog(dialogElement);
-  
+  // Set dialog to open state
   dialogElement.setAttribute('data-state', 'open');
   document.body.classList.add('pm7-dialog-open');
   

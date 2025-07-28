@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/packages/core/dist/pm7.css">
+</head>
+<body>
+  <h1>PM7 Load Test</h1>
+  
+  <div data-pm7-menu class="pm7-menu">
+    <button class="pm7-menu-trigger pm7-button">Test Menu</button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">Item 1</button>
+    </div>
+  </div>
+  
+  <script src="/packages/core/dist/pm7.js"></script>
+  
+  <script>
+    console.log('PM7 loaded:', typeof PM7);
+    console.log('window.PM7:', window.PM7);
+    
+    setTimeout(() => {
+      console.log('After timeout - PM7:', typeof PM7);
+      console.log('After timeout - window.PM7:', window.PM7);
+      
+      if (window.PM7) {
+        console.log('PM7 object keys:', Object.keys(window.PM7));
+        console.log('PM7.PM7:', window.PM7.PM7);
+        console.log('PM7.default:', window.PM7.default);
+        
+        // Try to use the actual PM7 object
+        const actualPM7 = window.PM7.PM7 || window.PM7.default || window.PM7;
+        console.log('Actual PM7 keys:', actualPM7 ? Object.keys(actualPM7) : 'not found');
+      }
+    }, 100);
+  </script>
+</body>
+</html>

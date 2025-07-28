@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter & Sort Menu Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Filter & Sort Menu</h1>
+      <p class="demo-description">Complex menu with checkboxes and radio options for data filtering</p>
+    </div>
+    
+    <div class="demo-content">
+      <div class="pm7-menu" data-pm7-menu style="margin-right: 1rem;">
+        <button class="pm7-menu-trigger pm7-button pm7-button--secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filter
+        </button>
+        <div class="pm7-menu-content" style="min-width: 200px;">
+          <div class="pm7-menu-label">Status</div>
+          <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Active</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox">Inactive</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Pending</button>
+          <div class="pm7-menu-separator"></div>
+          <div class="pm7-menu-label">Category</div>
+          <button class="pm7-menu-item pm7-menu-item--checkbox">Development</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Design</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox">Marketing</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14"/>
+            <line x1="4" y1="10" x2="4" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12" y2="3"/>
+            <line x1="20" y1="21" x2="20" y2="16"/>
+            <line x1="20" y1="12" x2="20" y2="3"/>
+            <line x1="1" y1="14" x2="7" y2="14"/>
+            <line x1="9" y1="8" x2="15" y2="8"/>
+            <line x1="17" y1="16" x2="23" y2="16"/>
+          </svg>
+          Sort By
+          <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
+            <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort" data-checked="true">Name (A-Z)</button>
+          <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Name (Z-A)</button>
+          <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Date Created</button>
+          <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Date Modified</button>
+          <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Size</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Filter Menu with Checkboxes -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger pm7-button pm7-button--secondary">
+    <svg width="16" height="16">...</svg>
+    Filter
+  </button>
+  <div class="pm7-menu-content">
+    <div class="pm7-menu-label">Status</div>
+    <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Active</button>
+    <button class="pm7-menu-item pm7-menu-item--checkbox">Inactive</button>
+    <div class="pm7-menu-separator"></div>
+    <div class="pm7-menu-label">Category</div>
+    <button class="pm7-menu-item pm7-menu-item--checkbox">Development</button>
+    <button class="pm7-menu-item pm7-menu-item--checkbox">Design</button>
+  </div>
+</div>
+
+<!-- Sort Menu with Radio Options -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+    Sort By
+    <svg class="pm7-menu-icon" width="12" height="12">...</svg>
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort" data-checked="true">Name (A-Z)</button>
+    <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Name (Z-A)</button>
+    <button class="pm7-menu-item pm7-menu-item--radio" data-name="sort">Date Created</button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

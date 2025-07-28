@@ -75,853 +75,382 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>
-                Basic Menu
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Menu Component Structure</div>
-                    <div class="pm7-info-tooltip-description">A dropdown menu consists of:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Container:</strong> Wraps the trigger and content</div>
-                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-menu" data-pm7-menu&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Trigger:</strong> Button that opens the menu</div>
-                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-trigger"&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Content:</strong> Dropdown container</div>
-                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-menu-content"&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Items:</strong> Individual menu options</div>
-                    <code class="pm7-info-tooltip-code" style="margin-bottom: 0;">&lt;button class="pm7-menu-item"&gt;</code>
-                    
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-button--secondary pm7-menu-trigger pm7-gradient-border pm7-gradient-border-2">
-                    Options
-                    <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
-                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                    </svg>
-                  </button>
-                  <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-2">
-                    <button class="pm7-menu-item">Profile</button>
-                    <button class="pm7-menu-item">Settings</button>
-                    <button class="pm7-menu-item">Billing</button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">Sign out</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>
-                Menu Positions
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Positioning Options</div>
-                    <div class="pm7-info-tooltip-description">Menus can be positioned in 8 different ways:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Bottom positions:</strong></div>
-                    <code class="pm7-info-tooltip-code">data-position="bottom-start" (default)
-data-position="bottom-end"</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Top positions:</strong></div>
-                    <code class="pm7-info-tooltip-code">data-position="top-start"
-data-position="top-end"</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Side positions:</strong></div>
-                    <code class="pm7-info-tooltip-code" style="margin-bottom: 0;">data-position="left-start/end"
-data-position="right-start/end"</code>
-                    
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <div class="pm7-menu" data-pm7-menu data-position="bottom-start">
-                  <button class="pm7-button pm7-button--outline pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
-                    Bottom Start
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">Item 1</button>
-                    <button class="pm7-menu-item">Item 2</button>
-                    <button class="pm7-menu-item">Item 3</button>
-                  </div>
-                </div>
-
-                <div class="pm7-menu" data-pm7-menu data-position="bottom-end">
-                  <button class="pm7-button pm7-button--outline pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
-                    Bottom End
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">Item 1</button>
-                    <button class="pm7-menu-item">Item 2</button>
-                    <button class="pm7-menu-item">Item 3</button>
-                  </div>
-                </div>
-
-                <div class="pm7-menu" data-pm7-menu data-position="top-start">
-                  <button class="pm7-button pm7-button--outline pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
-                    Top Start
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">Item 1</button>
-                    <button class="pm7-menu-item">Item 2</button>
-                    <button class="pm7-menu-item">Item 3</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>
-                Menu with Icons
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Icon Usage in Menus</div>
-                    <div class="pm7-info-tooltip-description">Icons enhance menu usability:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Trigger icon:</strong> Add icon to trigger button</div>
-                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-trigger"&gt;
-  &lt;svg&gt;...&lt;/svg&gt;
-  User Menu
-&lt;/button&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Item icons:</strong> Add icons to menu items</div>
-                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-menu-item"&gt;
-  &lt;svg&gt;...&lt;/svg&gt;
-  Settings
-&lt;/button&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-footer">Icons should be 16x16px for consistency</div>
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-button--primary pm7-menu-trigger" style="border: 1px solid var(--pm7-primary-foreground);">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/>
-                    </svg>
-                    User Menu
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/>
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Basic Menu</span>
+                    <span class="pm7-demo-accordion-description">Simple dropdown menu with common options</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/basic.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
                       </svg>
-                      My Profile
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1-.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 0-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-                      </svg>
-                      Settings
-                    </button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                      </svg>
-                      Log out
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>
-                Disabled Items
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Disabled State</div>
-                    <div class="pm7-info-tooltip-description">Menu items can be disabled:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Visual feedback:</strong> Reduced opacity</div>
-                    <code class="pm7-info-tooltip-code">class="pm7-menu-item pm7-menu-item--disabled"</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Interaction:</strong> Not clickable or focusable</div>
-                    <div class="pm7-info-tooltip-item"><strong>Use case:</strong> Show unavailable actions with context (e.g., "No permission")</div>
-                    
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-menu-trigger" style="border: 1px solid var(--pm7-border);">
-                    Actions
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">Edit</button>
-                    <button class="pm7-menu-item">Duplicate</button>
-                    <button class="pm7-menu-item pm7-menu-item--disabled">Delete (No permission)</button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">Archive</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>
-                Icon Button Menu
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Icon-only Trigger Pattern</div>
-                    <div class="pm7-info-tooltip-description">Common pattern for compact menus:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Three dots menu:</strong> Common for "more options"</div>
-                    <code class="pm7-info-tooltip-code">&lt;button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="More options"&gt;
-  &lt;svg&gt;...&lt;/svg&gt;
-&lt;/button&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Important:</strong> Always include aria-label for accessibility</div>
-                    <div class="pm7-info-tooltip-item"><strong>Use cases:</strong> Table row actions, card menus, toolbars</div>
-                    
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" style="border: 1px solid var(--pm7-border); border-radius: 8px;" aria-label="More options">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="1"></circle>
-                      <circle cx="12" cy="5" r="1"></circle>
-                      <circle cx="12" cy="19" r="1"></circle>
-                    </svg>
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">View details</button>
-                    <button class="pm7-menu-item">Share</button>
-                    <button class="pm7-menu-item">Copy link</button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Navigation Menu Example</h3>
-              <div class="pm7-docs-preview">
-                <nav style="display: flex; gap: 1rem; align-items: center;">
-                  <button class="pm7-button pm7-button--ghost">Home</button>
-                  
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-button--ghost pm7-menu-trigger">
-                      Products
-                      <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content">
-                      <button class="pm7-menu-item">All Products</button>
-                      <button class="pm7-menu-item">Categories</button>
-                      <button class="pm7-menu-item">Featured</button>
-                      <button class="pm7-menu-item">New Arrivals</button>
-                    </div>
-                  </div>
-                  
-                  <button class="pm7-button pm7-button--ghost">About</button>
-                  <button class="pm7-button pm7-button--ghost">Contact</button>
-                </nav>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Hamburger Menu</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon" style="border: 1px solid var(--pm7-border); width: 40px; height: 40px;" aria-label="Menu">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="3" y1="6" x2="21" y2="6"></line>
-                      <line x1="3" y1="12" x2="21" y2="12"></line>
-                      <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                  </button>
-                  <div class="pm7-menu-content" style="min-width: 250px;">
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                        <polyline points="9 22 9 12 15 12 15 22"/>
-                      </svg>
-                      Dashboard
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
-                      </svg>
-                      Projects
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                      </svg>
-                      Team
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                      </svg>
-                      Calendar
-                    </button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                      </svg>
-                      Settings
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                        <line x1="12" y1="17" x2="12.01" y2="17"/>
-                      </svg>
-                      Help & Support
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Account Menu</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-menu-trigger pm7-button pm7-button--outline" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px;">
-                    <div class="pm7-demo-gradient-purple" style="width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-                      JD
-                    </div>
-                    <span>John Doe</span>
-                    <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
-                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                    </svg>
-                  </button>
-                  <div class="pm7-menu-content" style="min-width: 240px;">
-                    <div style="padding: 12px 16px; border-bottom: 1px solid var(--pm7-border);">
-                      <p style="margin: 0; font-weight: 600;">John Doe</p>
-                      <p style="margin: 0; font-size: 0.875rem; color: var(--pm7-text-secondary);">john.doe@example.com</p>
-                    </div>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                      </svg>
-                      My Profile
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                      </svg>
-                      Account Settings
-                    </button>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="8 12 12 16 16 12"/>
-                        <line x1="12" y1="8" x2="12" y2="16"/>
-                      </svg>
-                      Downloads
-                    </button>
-                    <div class="pm7-menu-separator"></div>
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <polyline points="16 17 21 12 16 7"/>
-                        <line x1="21" y1="12" x2="9" y2="12"/>
-                      </svg>
-                      Sign out
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Filter & Sort Menu</h3>
-              <div class="pm7-docs-preview" style="gap: 12px;">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-menu-trigger pm7-button pm7-button--secondary" style="border: 1px solid var(--pm7-border);">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-                    </svg>
-                    Filter
-                  </button>
-                  <div class="pm7-menu-content">
-                    <div style="padding: 8px 16px; font-size: 0.75rem; text-transform: uppercase; color: var(--pm7-text-secondary);">
-                      Status
-                    </div>
-                    <button class="pm7-menu-item">
-                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
-                      Active
-                    </button>
-                    <button class="pm7-menu-item">
-                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
-                      Pending
-                    </button>
-                    <button class="pm7-menu-item">
-                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444;"></span>
-                      Inactive
-                    </button>
-                    <div class="pm7-menu-separator"></div>
-                    <div style="padding: 8px 16px; font-size: 0.75rem; text-transform: uppercase; color: var(--pm7-text-secondary);">
-                      Type
-                    </div>
-                    <button class="pm7-menu-item">Customer</button>
-                    <button class="pm7-menu-item">Business</button>
-                    <button class="pm7-menu-item">Enterprise</button>
-                  </div>
-                </div>
-
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-menu-trigger pm7-button pm7-button--secondary" style="border: 1px solid var(--pm7-border);">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M3 6h18M7 12h10M11 18h2"/>
-                    </svg>
-                    Sort by
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">
-                      Name (A-Z)
-                      <svg style="margin-left: auto;" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                    </button>
-                    <button class="pm7-menu-item">Name (Z-A)</button>
-                    <button class="pm7-menu-item">Date (Newest)</button>
-                    <button class="pm7-menu-item">Date (Oldest)</button>
-                    <button class="pm7-menu-item">Size (Largest)</button>
-                    <button class="pm7-menu-item">Size (Smallest)</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>
-                Menu with Submenu
-                <div class="pm7-tooltip pm7-info-tooltip" data-pm7-tooltip>
-                  <span class="pm7-tooltip-trigger">ℹ️</span>
-                  <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right">
-                    <div class="pm7-info-tooltip-title">Submenu Pattern</div>
-                    <div class="pm7-info-tooltip-description">Create nested menus for hierarchical navigation:</div>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Structure:</strong> Wrapper + hover handlers</div>
-                    <code class="pm7-info-tooltip-code">&lt;div class="pm7-submenu-wrapper"&gt;
-  &lt;button class="pm7-menu-item pm7-menu-item--has-submenu"&gt;
-    Theme
-  &lt;/button&gt;
-  &lt;div class="pm7-submenu"&gt;
-    &lt;button class="pm7-menu-item"&gt;Light&lt;/button&gt;
-    &lt;button class="pm7-menu-item"&gt;Dark&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code>
-                    
-                    <div class="pm7-info-tooltip-item"><strong>Arrow indicator:</strong> Shows submenu availability</div>
-                    <div class="pm7-info-tooltip-item"><strong>Radio buttons:</strong> Use <code style="display: inline; background: rgba(0,0,0,0.05); padding: 2px 4px; border-radius: 3px; font-size: 11px;">pm7-menu-item--radio</code> for single selection</div>
-                    
-                    <div class="pm7-info-tooltip-footer">Classes: .pm7-submenu-wrapper, .pm7-submenu, --has-submenu</div>
-                    <div class="pm7-tooltip-arrow"></div>
-                  </div>
-                </div>
-              </h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-menu-trigger pm7-button pm7-button--primary" style="border: 2px solid var(--pm7-primary-foreground); border-radius: 8px;">
-                    Options
-                  </button>
-                  <div class="pm7-menu-content">
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                        <polyline points="9 22 9 12 15 12 15 22"/>
-                      </svg>
-                      Home
-                    </button>
-                    
-                    <div class="pm7-menu-separator"></div>
-                    
-                    <div class="pm7-menu-submenu-wrapper" style="position: relative;">
-                      <button class="pm7-menu-item pm7-menu-item--has-submenu" 
-                              onmouseenter="this.nextElementSibling.style.display='block'" 
-                              onmouseleave="setTimeout(() => { if (!this.nextElementSibling.matches(':hover')) this.nextElementSibling.style.display='none'; }, 100)">
-                        <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🌐</span>
-                        Language
-                        <svg style="margin-left: auto;" width="12" height="12" viewBox="0 0 12 12">
-                          <path d="M4 4.5L7.5 8L4 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                        </svg>
-                      </button>
-                      <div class="pm7-menu-content pm7-submenu" 
-                           style="position: absolute; top: -8px; left: 100%; margin-left: 4px; display: none; width: 200px;"
-                           onmouseenter="this.style.display='block'"
-                           onmouseleave="this.style.display='none'">
-                        <button class="pm7-menu-item">
-                          <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇬🇧</span>
-                          English
-                        </button>
-                        <button class="pm7-menu-item">
-                          <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇳🇱</span>
-                          Nederlands
-                        </button>
-                        <button class="pm7-menu-item">
-                          <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇩🇪</span>
-                          Deutsch
-                        </button>
-                        <button class="pm7-menu-item">
-                          <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇫🇷</span>
-                          Français
-                        </button>
-                        <button class="pm7-menu-item">
-                          <span class="pm7-menu-item-icon" style="width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px;">🇪🇸</span>
-                          Español
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                      </svg>
-                      Settings
-                    </button>
-                    
-                    <div class="pm7-menu-separator"></div>
-                    
-                    <button class="pm7-menu-item">
-                      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                      </svg>
-                      Sign out
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Context Menu (Right-click)</h3>
-              <div class="pm7-docs-preview" style="min-height: 300px; position: relative;">
-                <div style="width: 100%; height: 250px; background: var(--pm7-muted); border: 2px dashed var(--pm7-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--pm7-text-secondary); user-select: none;" 
-                     oncontextmenu="event.preventDefault(); const menu = this.nextElementSibling; menu.style.display = 'block'; menu.style.left = event.offsetX + 'px'; menu.style.top = event.offsetY + 'px';"
-                     onclick="this.nextElementSibling.style.display = 'none';">
-                  Right-click anywhere in this area
-                </div>
-                <div class="pm7-menu-content" style="display: none; position: absolute; z-index: 100;">
-                  <button class="pm7-menu-item">
-                    <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                    Copy
-                  </button>
-                  <button class="pm7-menu-item">
-                    <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7 10 12 15 17 10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Save as...
-                  </button>
-                  <div class="pm7-menu-separator"></div>
-                  <button class="pm7-menu-item">
-                    <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                    Edit
-                  </button>
-                  <button class="pm7-menu-item">
-                    <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="11" cy="11" r="8"/>
-                      <path d="m21 21-4.35-4.35"/>
-                    </svg>
-                    Search
-                  </button>
-                  <div class="pm7-menu-separator"></div>
-                  <button class="pm7-menu-item pm7-menu-item--destructive" style="color: var(--pm7-destructive);">
-                    <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M3 6h18"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Application Toolbar Menu</h3>
-              
-              <div style="margin-bottom: 1rem;">
-                <a href="/demos/menu-toolbar.html" target="_blank" class="pm7-button pm7-button--primary">
-                  Open Toolbar Demo in New Tab
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.5rem;">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
-                </a>
-              </div>
-              
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu-bar">
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm" style="font-size: 0.875rem;">
-                      File
-                    </button>
-                    <div class="pm7-menu-content">
-                      <button class="pm7-menu-item">
-                        New
-                        <span style="margin-left: auto; color: var(--pm7-text-secondary); font-size: 0.75rem;">⌘N</span>
-                      </button>
-                      <button class="pm7-menu-item">
-                        Open...
-                        <span style="margin-left: auto; color: var(--pm7-text-secondary); font-size: 0.75rem;">⌘O</span>
-                      </button>
-                      <button class="pm7-menu-item">Recent Files</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">
-                        Save
-                        <span style="margin-left: auto; color: var(--pm7-text-secondary); font-size: 0.75rem;">⌘S</span>
-                      </button>
-                      <button class="pm7-menu-item">Save As...</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">Exit</button>
-                    </div>
-                  </div>
-
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm" style="font-size: 0.875rem;">
-                      Edit
-                    </button>
-                    <div class="pm7-menu-content">
-                      <button class="pm7-menu-item">
-                        Undo
-                        <span style="margin-left: auto; color: var(--pm7-text-secondary); font-size: 0.75rem;">⌘Z</span>
-                      </button>
-                      <button class="pm7-menu-item">
-                        Redo
-                        <span style="margin-left: auto; color: var(--pm7-text-secondary); font-size: 0.75rem;">⌘⇧Z</span>
-                      </button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">Cut</button>
-                      <button class="pm7-menu-item">Copy</button>
-                      <button class="pm7-menu-item">Paste</button>
-                    </div>
-                  </div>
-
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm" style="font-size: 0.875rem;">
-                      View
-                    </button>
-                    <div class="pm7-menu-content">
-                      <button class="pm7-menu-item">Zoom In</button>
-                      <button class="pm7-menu-item">Zoom Out</button>
-                      <button class="pm7-menu-item">Actual Size</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">Full Screen</button>
-                    </div>
-                  </div>
-
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm" style="font-size: 0.875rem;">
-                      Help
-                    </button>
-                    <div class="pm7-menu-content">
-                      <button class="pm7-menu-item">Documentation</button>
-                      <button class="pm7-menu-item">Keyboard Shortcuts</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">About</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Gradient Border Menus</h3>
-              
-              <h4>Menu with Gradient Borders</h4>
-              <div class="pm7-docs-preview">
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                  <!-- Default Gradient -->
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-menu-trigger">
-                      Default Gradient
-                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content pm7-gradient-border">
-                      <a href="#" class="pm7-menu-item">
-                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M12 6v6l4 2"></path>
-                        </svg>
-                        Recent
-                      </a>
-                      <a href="#" class="pm7-menu-item">
-                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                        </svg>
-                        Favorites
-                      </a>
-                      <div class="pm7-menu-separator"></div>
-                      <a href="#" class="pm7-menu-item">Settings</a>
-                    </div>
-                  </div>
-
-                  <!-- Blue Gradient -->
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-button--outline pm7-menu-trigger">
-                      Blue Gradient
-                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-blue">
-                      <button class="pm7-menu-item">New File</button>
-                      <button class="pm7-menu-item">Open File</button>
-                      <button class="pm7-menu-item">Save File</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">Export</button>
-                    </div>
-                  </div>
-
-                  <!-- Green Gradient -->
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-button--ghost pm7-menu-trigger">
-                      Green Gradient
-                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-green">
-                      <button class="pm7-menu-item">
-                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Completed
-                      </button>
-                      <button class="pm7-menu-item">In Progress</button>
-                      <button class="pm7-menu-item">Pending</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <h4>Different Border Thicknesses</h4>
-              <div class="pm7-docs-preview">
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                  <!-- 2px Border -->
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-menu-trigger">
-                      2px Border
-                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-2">
-                      <a href="#" class="pm7-menu-item">Profile</a>
-                      <a href="#" class="pm7-menu-item">Settings</a>
-                      <div class="pm7-menu-separator"></div>
-                      <a href="#" class="pm7-menu-item">Logout</a>
-                    </div>
-                  </div>
-
-                  <!-- 4px Border -->
-                  <div class="pm7-menu" data-pm7-menu>
-                    <button class="pm7-button pm7-menu-trigger">
-                      4px Border
-                      <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                      </svg>
-                    </button>
-                    <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-red pm7-gradient-border-4">
-                      <button class="pm7-menu-item" style="color: var(--pm7-destructive);">
-                        <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <polyline points="3 6 5 6 21 6"></polyline>
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        </svg>
-                        Delete
-                      </button>
-                      <button class="pm7-menu-item" style="color: var(--pm7-destructive);">Remove All</button>
-                      <div class="pm7-menu-separator"></div>
-                      <button class="pm7-menu-item">Cancel</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <h4>Complex Menu with Gradient</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-menu" data-pm7-menu>
-                  <button class="pm7-button pm7-button--primary pm7-menu-trigger">
-                    Options
-                    <svg class="pm7-menu-chevron" width="12" height="12" viewBox="0 0 12 12">
-                      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                    </svg>
-                  </button>
-                  <div class="pm7-menu-content pm7-gradient-border pm7-gradient-border-primary pm7-gradient-border-2">
-                    <h3 class="pm7-menu-header">Account</h3>
-                    <a href="#" class="pm7-menu-item">
-                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                      Profile
-                      <span class="pm7-menu-shortcut">⌘P</span>
                     </a>
-                    <a href="#" class="pm7-menu-item">
-                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"></path>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/basic.html" 
+                        class="pm7-demo-iframe"
+                        title="Basic Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Menu Positions</span>
+                    <span class="pm7-demo-accordion-description">Menus can be positioned in 8 different ways</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/positions.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
                       </svg>
-                      Settings
-                      <span class="pm7-menu-shortcut">⌘,</span>
                     </a>
-                    <div class="pm7-menu-separator"></div>
-                    <h3 class="pm7-menu-header">Team</h3>
-                    <a href="#" class="pm7-menu-item">Invite Members</a>
-                    <a href="#" class="pm7-menu-item">Team Settings</a>
-                    <div class="pm7-menu-separator"></div>
-                    <a href="#" class="pm7-menu-item">
-                      <svg class="pm7-menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/positions.html" 
+                        class="pm7-demo-iframe"
+                        title="Menu Positions Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Menu with Icons</span>
+                    <span class="pm7-demo-accordion-description">Icons enhance menu usability and visual hierarchy</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/icons.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
                       </svg>
-                      Logout
                     </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/icons.html" 
+                        class="pm7-demo-iframe"
+                        title="Menu with Icons Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Disabled Menu Items</span>
+                    <span class="pm7-demo-accordion-description">Show unavailable actions with contextual information</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/disabled.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/disabled.html" 
+                        class="pm7-demo-iframe"
+                        title="Disabled Menu Items Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Icon Button Menu</span>
+                    <span class="pm7-demo-accordion-description">Common pattern for compact menus in cards and tables</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/icon-button.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/icon-button.html" 
+                        class="pm7-demo-iframe"
+                        title="Icon Button Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Navigation Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Navigation Menu</span>
+                    <span class="pm7-demo-accordion-description">Common website navigation pattern with dropdown menus</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/navigation.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/navigation.html" 
+                        class="pm7-demo-iframe"
+                        title="Navigation Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Hamburger Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Hamburger Menu</span>
+                    <span class="pm7-demo-accordion-description">Mobile navigation pattern with comprehensive menu items</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/hamburger.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/hamburger.html" 
+                        class="pm7-demo-iframe"
+                        title="Hamburger Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Account Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Account Menu</span>
+                    <span class="pm7-demo-accordion-description">User account dropdown with profile information and actions</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/account.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/account.html" 
+                        class="pm7-demo-iframe"
+                        title="Account Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Filter & Sort Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Filter & Sort Menu</span>
+                    <span class="pm7-demo-accordion-description">Complex menu with checkboxes and radio options for data filtering</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/filter-sort.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/filter-sort.html" 
+                        class="pm7-demo-iframe"
+                        title="Filter & Sort Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Context Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Context Menu</span>
+                    <span class="pm7-demo-accordion-description">Right-click context menu pattern</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/context.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/context.html" 
+                        class="pm7-demo-iframe"
+                        title="Context Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Application Toolbar Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Application Toolbar</span>
+                    <span class="pm7-demo-accordion-description">Complex toolbar with multiple action menus</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/application-toolbar.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/application-toolbar.html" 
+                        class="pm7-demo-iframe"
+                        title="Application Toolbar Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Gradient Border Menus -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Gradient Border Menus</span>
+                    <span class="pm7-demo-accordion-description">Eye-catching menus with animated gradient borders</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/menu/gradient-border.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/menu/gradient-border.html" 
+                        class="pm7-demo-iframe"
+                        title="Gradient Border Menu Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1290,6 +819,40 @@ menuElement.addEventListener('pm7-menu-select', (e) => {
     // Initialize tab routing
     document.addEventListener('DOMContentLoaded', () => {
       initTabRouter('menu');
+      
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          // Clone the link
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          // Create a container for the link that prevents hover bubbling
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          // Add hover tracking to prevent title color change
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          // Insert the container after the trigger
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          
+          // Remove the original link from content
+          link.remove();
+        }
+      });
     });
   </script>
 

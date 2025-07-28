@@ -2,7 +2,212 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.7.0] - 2025-01-27
+
+### 🚀 Enhanced Framework Integration
+
+PM7.init() now provides better support for React, Vue, and other frameworks with new timing options.
+
+#### New Features:
+- **PM7.init() options** - Configure initialization timing and behavior
+- **PM7.initFramework()** - Convenience method for framework integration
+- **Improved timing control** - Handle React/Vue render cycles properly
+
+#### API Enhancements:
+```javascript
+// New options for PM7.init()
+PM7.init(container, {
+  delay: 50,     // Delay initialization (ms)
+  force: false,  // Force re-initialization
+  heal: true     // Run self-healing after init
+});
+
+// New convenience method for frameworks
+PM7.initFramework(); // Same as init() with { delay: 50, heal: true }
+```
+
+#### React Integration Improvements:
+```javascript
+// OLD way (still works)
+useEffect(() => {
+  PM7.init();
+}, []);
+
+// NEW way (better timing)
+useEffect(() => {
+  PM7.initFramework();
+}, []);
+```
+
+### 🔧 Technical Details
+- Initialization can now be delayed to handle framework render timing
+- Force option allows complete re-initialization when needed
+- Self-healing runs automatically after initialization by default
+- Framework-specific method provides sensible defaults
+
+This release makes PM7-UI even more framework-friendly while maintaining backward compatibility.
+
+## [2.6.0] - 2025-01-27
+
+### 🚀 Self-Healing for ALL Interactive Components
+
+Building on v2.5.0's self-healing foundation, PM7-UI now provides self-healing capabilities for **ALL** interactive components:
+
+#### New Components with Self-Healing:
+- **Tooltip** - Preserves open state and position during re-renders
+- **Sidebar** - Maintains open/closed state and collapsible section states
+
+#### Complete Self-Healing Component List:
+- ✅ Menu (v2.5.0)
+- ✅ Accordion (v2.5.0)  
+- ✅ Tab Selector (v2.5.0)
+- ✅ Tooltip (v2.6.0)
+- ✅ Sidebar (v2.6.0)
+- ✅ Dialog (v2.4.0)
+
+### 🔧 Technical Improvements
+
+#### Enhanced Self-Healing Features:
+- **Tooltip state preservation** - Open tooltips remain open after re-render
+- **Sidebar state preservation** - Open/closed state and collapsible sections maintained
+- **Event listener cleanup** - All components now properly clean up event listeners
+- **WeakMap tracking** - Consistent memory-efficient instance tracking across all components
+
+#### Updated API:
+```javascript
+// New healing functions
+PM7.healTooltips();   // Heal only tooltips
+PM7.healSidebars();   // Heal only sidebars
+
+// PM7.heal() now heals ALL components
+PM7.heal(); // Heals menus, accordions, tabs, tooltips, and sidebars
+```
+
+### 🎯 Framework Integration Excellence
+
+PM7-UI now provides seamless integration with ALL modern frameworks. Every interactive component automatically recovers from:
+- React re-renders and state updates
+- Vue component updates and transitions
+- Angular change detection cycles
+- Svelte reactive updates
+- Any framework that manipulates the DOM
+
+No more workarounds, no more manual re-initialization, no more lost state. PM7-UI components just work, making it truly "The First UI Library Built for AI Coding Agents."
+
+## [2.5.0] - 2025-01-27
+
+### 🚀 Major Feature: Self-Healing Components
+
+PM7-UI components now automatically detect and recover from framework re-renders. This revolutionary feature eliminates the need for manual re-initialization workarounds in React, Vue, and other frameworks.
+
+#### Components with Self-Healing:
+- **Menu** - Preserves open/close state during re-renders
+- **Accordion** - Maintains expanded sections state  
+- **Tab Selector** - Keeps active tab selection
+
+#### How it works:
+1. Components detect when they've been re-rendered by a framework
+2. State is automatically preserved and restored
+3. Event listeners are cleaned up and re-attached
+4. No manual intervention needed - it just works!
+
+#### New API:
+```javascript
+// Manual healing for edge cases
+PM7.heal(); // Heals all components
+PM7.healMenus(); // Heal only menus
+PM7.healAccordions(); // Heal only accordions
+PM7.healTabSelectors(); // Heal only tab selectors
+
+// Automatic healing runs every second
+// Can be disabled with: clearInterval(window.__PM7_SELF_HEALING_INTERVAL__)
+```
+
+### 🔧 Technical Improvements
+
+#### Self-Healing Architecture:
+- **WeakMap instance tracking** - Better memory management, prevents leaks
+- **State preservation** - Component state saved before re-initialization
+- **Event cleanup** - All listeners properly removed to prevent duplicates
+- **Double-init protection** - Components can't be initialized twice
+- **Framework detection** - Automatically detects re-renders
+
+#### Implementation Details:
+- Added `preserveState()` and `restoreState()` methods to components
+- Instance tracking with WeakMap instead of DOM properties
+- Cleanup methods to remove all event listeners
+- Initialization markers to detect framework re-renders
+- Global healing functions available on PM7 object
+
+### 📚 Documentation
+- Updated all component READMEs with self-healing information
+- Added framework integration best practices
+- Documented new PM7.heal() API
+
+### 🎯 Why This Matters
+Before: AI agents had to add complex workarounds for React re-renders
+```javascript
+// OLD WAY - Complex workaround needed
+useEffect(() => {
+  setTimeout(() => {
+    document.querySelectorAll('[data-pm7-menu]').forEach(el => {
+      if (!el._pm7MenuInstance) new PM7.Menu(el);
+    });
+  }, 100);
+}, []);
+```
+
+After: Components just work automatically
+```javascript
+// NEW WAY - Just works!
+useEffect(() => {
+  PM7.init(); // Components self-heal automatically
+}, []);
+```
+
+This makes PM7-UI truly "The First UI Library Built for AI Coding Agents" - it handles the complex edge cases automatically so AI agents don't have to.
+
+## [2.4.2] - 2025-01-27
+
+### Critical Fix: Dialog content preservation during transform
+- **Wat**: Dialog content verdween na transformatie (lege dialogs)
+- **Hoe**: 
+  - Sections worden nu volledig gelezen VOORDAT dialog wordt geleegd
+  - Dubbele transformDialog aanroepen voorkomen door betere state checking
+  - Self-healing en normale transform flow geconsolideerd
+- **Bestanden**: 
+  - `src/scripts/dialog.js` - transformDialog volgorde fix + dubbele transform preventie
+- **Reden**: In versie 2.4.1 werd de dialog geleegd tussen het lezen van header/body/footer sections, waardoor body en footer content verloren ging. Ook kon transformDialog twee keer worden aangeroepen wat tot lege content leidde.
+
+## [2.4.1] - 2025-01-27
+
+### Bugfix: Self-healing dialogs open flow
+- **Wat**: Dialog werd niet geopend na self-healing re-initialisatie
+- **Hoe**: Na re-transform moet de normale open flow doorgaan in plaats van te stoppen
+- **Bestanden**: `src/scripts/dialog.js` - comment toegevoegd om door te gaan met open flow
+- **Reden**: De self-healing code stopte na re-initialisatie waardoor de dialog nooit open ging
+
+## [2.4.0] - 2025-01-27
+
+### Self-healing dialogs voor framework re-renders
+- **Wat**: Dialogs detecteren en herstellen nu automatisch van framework re-renders zonder manual intervention
+- **Hoe**: 
+  - `openDialog()` detecteert of een dialog "stale" is door te checken op originele content markers
+  - Als framework de originele HTML heeft teruggezet, wordt de dialog automatisch opnieuw geïnitialiseerd
+  - State wordt behouden: open dialogs blijven open, closing animations worden niet verstoord
+- **Bestanden**: 
+  - `src/scripts/dialog.js` - self-healing logic toegevoegd aan openDialog
+  - `src/components/dialog/README.md` - documentatie bijgewerkt met self-healing uitleg
+- **Reden**: AI agents hadden workarounds nodig (setTimeout, manual re-init) voor React re-renders. Met self-healing werkt alles automatisch zonder speciale patterns.
+
+### 14:52 - Framework Integration copy text verbeterd
+- **Wat**: Copy text aangepast van "PM7 dialog not working in React?" naar algemener "A pm7-ui component not working in your framework?"
+- **Hoe**: 
+  - Label text in readme-links.html aangepast
+  - copyUrl functie uitgebreid met framework-guide case
+- **Bestanden**: 
+  - `docs-src/readme-links.html` - copy text en JavaScript functie
+- **Reden**: De tekst was te specifiek op dialogs en React gericht, terwijl de guide voor alle componenten en frameworks bedoeld is
 
 ### 14:45 - Framework Integration documentatie toegevoegd
 - **Wat**: Complete Framework Integration guide toegevoegd voor React/Vue/Angular gebruik van PM7

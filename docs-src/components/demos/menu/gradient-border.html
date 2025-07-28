@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Border Menu Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Gradient Border Styles */
+    .gradient-border-wrapper {
+      position: relative;
+      padding: 1px;
+      border-radius: calc(var(--pm7-radius) + 1px);
+      background: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff00, #00ffff, #0080ff, #ff0080);
+      background-size: 300% 300%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .gradient-menu-trigger {
+      background: var(--pm7-background);
+      border: none;
+    }
+    
+    .gradient-menu-trigger:hover {
+      box-shadow: none !important;
+    }
+    
+    /* Purple Gradient */
+    .gradient-purple {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* Blue Gradient */
+    .gradient-blue {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    /* Green Gradient */
+    .gradient-green {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Gradient Border Menus</h1>
+      <p class="demo-description">Eye-catching menus with animated gradient borders</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Animated Rainbow Gradient -->
+      <div class="pm7-menu" data-pm7-menu>
+        <div class="gradient-border-wrapper">
+          <button class="pm7-menu-trigger pm7-button gradient-menu-trigger">
+            Rainbow Menu
+            <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
+              <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Option 1</button>
+          <button class="pm7-menu-item">Option 2</button>
+          <button class="pm7-menu-item">Option 3</button>
+        </div>
+      </div>
+      
+      <!-- Purple Gradient -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button gradient-purple" style="color: white; border: none;">
+          Purple Menu
+          <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
+            <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">
+            <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Featured
+          </button>
+          <button class="pm7-menu-item">
+            <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            Favorites
+          </button>
+          <button class="pm7-menu-item">
+            <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Contact
+          </button>
+        </div>
+      </div>
+      
+      <!-- Blue Gradient -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button gradient-blue" style="color: white; border: none;">
+          Blue Menu
+          <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
+            <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <div class="pm7-menu-label">Actions</div>
+          <button class="pm7-menu-item">Create New</button>
+          <button class="pm7-menu-item">Duplicate</button>
+          <button class="pm7-menu-item">Archive</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item pm7-menu-item--destructive">Delete</button>
+        </div>
+      </div>
+      
+      <!-- Green Gradient -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-menu-trigger pm7-button gradient-green" style="color: white; border: none;">
+          Green Menu
+          <svg class="pm7-menu-icon" width="12" height="12" viewBox="0 0 12 12">
+            <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Option A</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox">Option B</button>
+          <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Option C</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item">Apply Changes</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Animated Rainbow Gradient Border -->
+<div class="pm7-menu" data-pm7-menu>
+  <div class="gradient-border-wrapper">
+    <button class="pm7-menu-trigger pm7-button gradient-menu-trigger">
+      Rainbow Menu
+      <svg class="pm7-menu-icon" width="12" height="12">...</svg>
+    </button>
+  </div>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Option 1</button>
+    <button class="pm7-menu-item">Option 2</button>
+  </div>
+</div>
+
+<!-- Solid Gradient Background -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger pm7-button gradient-purple" style="color: white; border: none;">
+    Purple Menu
+    <svg class="pm7-menu-icon" width="12" height="12">...</svg>
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Option 1</button>
+    <button class="pm7-menu-item">Option 2</button>
+  </div>
+</div>
+
+<style>
+/* Animated Gradient Border */
+.gradient-border-wrapper {
+  position: relative;
+  padding: 1px;
+  border-radius: calc(var(--pm7-radius) + 1px);
+  background: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff00, #00ffff, #0080ff, #ff0080);
+  background-size: 300% 300%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-menu-trigger {
+  background: var(--pm7-background);
+  border: none;
+}
+
+/* Solid Gradients */
+.gradient-purple {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+</style>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

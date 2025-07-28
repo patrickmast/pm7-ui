@@ -26,6 +26,7 @@ import '@pm7/core/dist/pm7.css';
 ## Features
 
 - **Framework agnostic** - One package works with all frameworks
+- **Self-healing components** - Automatic recovery from framework re-renders (v2.5.0+)
 - **AI-optimized** - Simple CSS classes that AI agents understand
 - **TypeScript ready** - Full type definitions with DOM augmentation
 - **Lightweight** - ~15KB gzipped (CSS + JS)
@@ -46,6 +47,33 @@ import '@pm7/core/dist/pm7.css';
   </div>
 </div>
 ```
+
+## Framework Integration (v2.7.0+)
+
+For React, Vue, and Angular applications, use the new `initFramework()` method:
+
+```javascript
+// React
+useEffect(() => {
+  PM7.initFramework(); // Handles timing + self-healing
+}, []);
+
+// Vue
+mounted() {
+  this.$nextTick(() => {
+    PM7.initFramework();
+  });
+}
+
+// Angular
+ngAfterViewInit() {
+  PM7.initFramework();
+}
+```
+
+### Self-Healing Components
+
+All interactive components automatically recover from framework re-renders. No more workarounds needed!
 
 ## TypeScript Support
 

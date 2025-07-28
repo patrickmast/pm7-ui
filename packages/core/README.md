@@ -30,6 +30,7 @@ Or use via CDN:
 - **🤖 AI-First**: Built specifically for AI coding agents with self-contained components
 - **🎯 Framework Agnostic**: Works with React, Vue, Angular, or vanilla HTML
 - **🚀 Zero Dependencies**: Pure CSS + vanilla JS, no framework required
+- **✨ Self-Healing Components**: Automatically recover from framework re-renders (v2.5.0+)
 - **🎨 Dark Mode**: Built-in dark mode with flicker-free theme switching
 - **♿ Accessible**: WCAG compliant with full keyboard navigation
 - **📱 Responsive**: Mobile-first design that works everywhere
@@ -202,6 +203,43 @@ pm7Confirm('Are you sure?', (confirmed) => {
   if (confirmed) console.log('Confirmed!');
 });
 ```
+
+## Framework Integration (v2.7.0+)
+
+PM7 components now have self-healing capabilities for seamless framework integration:
+
+```javascript
+// React - Use initFramework() for automatic healing
+import { useEffect } from 'react';
+
+useEffect(() => {
+  PM7.initFramework(); // Includes 50ms delay + self-healing
+}, []);
+
+// Vue
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  PM7.initFramework();
+});
+
+// Manual healing if needed
+PM7.heal();              // Heal all components
+PM7.healMenus();         // Heal specific types
+PM7.healAccordions();
+```
+
+### Self-Healing Components (v2.5.0+)
+
+All interactive components automatically recover from framework re-renders:
+- **Menu** - Preserves open/close state
+- **Accordion** - Preserves expanded sections  
+- **Tab Selector** - Preserves active tab
+- **Tooltip** - Preserves open state
+- **Sidebar** - Preserves open state and collapsibles
+- **Dialog** - Preserves content during transforms
+
+No more workarounds needed for React, Vue, or Angular!
 
 ## Dark Mode
 

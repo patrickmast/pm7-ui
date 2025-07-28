@@ -181,7 +181,15 @@ import '@pm7/core/dist/pm7.css';
       
       <h3>React</h3>
       <pre><code class="language-jsx">// Just use className instead of class
+import { useEffect } from 'react';
+import '@pm7/core';
+
 function MyComponent() {
+  useEffect(() => {
+    // Enable self-healing for framework re-renders
+    PM7.initFramework();
+  }, []);
+  
   return (
     &lt;button className="pm7-button pm7-button--primary" onClick={handleClick}&gt;
       React Button
@@ -195,7 +203,20 @@ function MyComponent() {
   &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
     Vue Button
   &lt;/button&gt;
-&lt;/template&gt;</code></pre>
+&lt;/template&gt;
+
+&lt;script&gt;
+import { onMounted } from 'vue';
+import '@pm7/core';
+
+export default {
+  setup() {
+    onMounted(() => {
+      PM7.initFramework();
+    });
+  }
+}
+&lt;/script&gt;</code></pre>
       
       <h3>Angular</h3>
       <pre><code class="language-html">&lt;!-- Use class with Angular event binding --&gt;
@@ -215,14 +236,22 @@ import '@pm7/core';
 // Or manually initialize after adding dynamic content
 PM7.init();</code></pre>
       
-      <h3>Components with Auto-initialization</h3>
+      <h3>Components with Auto-initialization & Self-Healing</h3>
       <ul>
-        <li><strong>Menu</strong> - <code class="inline">[data-pm7-menu]</code></li>
-        <li><strong>Accordion</strong> - <code class="inline">[data-pm7-accordion]</code></li>
-        <li><strong>Tab Selector</strong> - <code class="inline">[data-pm7-tab-selector]</code></li>
-        <li><strong>Tooltip</strong> - <code class="inline">[data-pm7-tooltip]</code></li>
+        <li><strong>Menu</strong> - <code class="inline">[data-pm7-menu]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Accordion</strong> - <code class="inline">[data-pm7-accordion]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Tab Selector</strong> - <code class="inline">[data-pm7-tab-selector]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Tooltip</strong> - <code class="inline">[data-pm7-tooltip]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Sidebar</strong> - <code class="inline">[data-pm7-sidebar]</code> - ✨ Self-heals on re-render</li>
         <li><strong>Theme Switch</strong> - <code class="inline">[data-pm7-theme-switch]</code></li>
       </ul>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">✨ Self-Healing Components (v2.5.0+)</h4>
+        <div class="pm7-callout-body">
+          <p>Components marked with ✨ automatically recover from framework re-renders. AI agents no longer need to write workarounds for React, Vue, or Angular state management!</p>
+        </div>
+      </div>
       
       <div class="pm7-callout pm7-callout--info">
         <h4 class="pm7-callout-header">📝 Note about Dialogs</h4>

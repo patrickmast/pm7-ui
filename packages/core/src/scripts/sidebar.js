@@ -4,7 +4,24 @@
  */
 
 class PM7Sidebar {
+  static instances = new WeakMap();
+  
   constructor(element) {
+    // Self-healing: Check if element was re-rendered by framework
+    const wasInitialized = element.hasAttribute('data-pm7-initialized');
+    const hasInstance = PM7Sidebar.instances.has(element);
+    
+    // If initialized but no instance, element was re-rendered
+    if (wasInitialized && !hasInstance) {
+      console.log('[PM7Sidebar] Self-healing: Re-initializing sidebar after framework re-render');
+      element.removeAttribute('data-pm7-initialized');
+    }
+    
+    // Check if this element already has a sidebar instance
+    if (PM7Sidebar.instances.has(element)) {
+      return PM7Sidebar.instances.get(element);
+    }
+    
     this.element = element;
     this.isOpen = false;
     this.overlay = null;
@@ -13,8 +30,78 @@ class PM7Sidebar {
     this.pushElement = null;
     this.position = 'left';
     this.mode = 'overlay'; // overlay, push, or static
+    this.eventListeners = new Map();
+    
+    // Preserve state if this is a re-render
+    const preservedState = this.preserveState();
+    
+    // Store this instance
+    PM7Sidebar.instances.set(element, this);
+    
+    // Store instance reference on element for self-healing
+    element._pm7SidebarInstance = this;
     
     this.init();
+    
+    // Restore state if this was a re-render
+    if (preservedState && preservedState.wasOpen) {
+      this.restoreState(preservedState);
+    }
+    
+    // Mark as initialized
+    element.setAttribute('data-pm7-initialized', 'true');
+  }
+  
+  preserveState() {
+    // Check current state
+    const wasOpen = this.element.classList.contains('pm7-sidebar--open') || 
+                    this.element.dataset.state === 'open';
+    
+    // Check collapsible states
+    const collapsibles = this.element.querySelectorAll('.pm7-sidebar-collapsible');
+    const collapsibleStates = [];
+    collapsibles.forEach((collapsible, index) => {
+      collapsibleStates.push({
+        index,
+        isOpen: collapsible.dataset.state === 'open'
+      });
+    });
+    
+    return {
+      wasOpen,
+      collapsibleStates,
+      position: this.element.classList.contains('pm7-sidebar--right') ? 'right' : 'left'
+    };
+  }
+  
+  restoreState(state) {
+    // Restore open state
+    if (state.wasOpen && this.mode !== 'static') {
+      setTimeout(() => {
+        this.open();
+      }, 50);
+    }
+    
+    // Restore collapsible states
+    const collapsibles = this.element.querySelectorAll('.pm7-sidebar-collapsible');
+    state.collapsibleStates.forEach(({ index, isOpen }) => {
+      const collapsible = collapsibles[index];
+      if (collapsible) {
+        collapsible.dataset.state = isOpen ? 'open' : 'closed';
+        const trigger = collapsible.querySelector('.pm7-sidebar-collapsible-trigger');
+        const content = collapsible.querySelector('.pm7-sidebar-collapsible-content');
+        if (trigger) trigger.setAttribute('aria-expanded', isOpen);
+        if (content) content.setAttribute('aria-hidden', !isOpen);
+      }
+    });
+  }
+  
+  cleanup() {
+    // Remove all tracked event listeners
+    this.eventListeners.forEach(({ element, type, handler }) => {
+      element.removeEventListener(type, handler);
+    });
+    this.eventListeners.clear();
   }
 
   init() {
@@ -87,11 +174,14 @@ class PM7Sidebar {
     }
     
     // Add click listeners to triggers
-    this.triggers.forEach(trigger => {
-      trigger.addEventListener('click', (e) => {
+    this.triggers.forEach((trigger, index) => {
+      const clickHandler = (e) => {
         e.preventDefault();
         this.toggle();
-      });
+      };
+      
+      trigger.addEventListener('click', clickHandler);
+      this.eventListeners.set(`trigger-click-${index}`, { element: trigger, type: 'click', handler: clickHandler });
       
       // Set ARIA attributes
       trigger.setAttribute('aria-controls', sidebarId || '');
@@ -102,7 +192,9 @@ class PM7Sidebar {
   setupCloseButton() {
     this.closeButton = this.element.querySelector('.pm7-sidebar-close');
     if (this.closeButton) {
-      this.closeButton.addEventListener('click', () => this.close());
+      const closeHandler = () => this.close();
+      this.closeButton.addEventListener('click', closeHandler);
+      this.eventListeners.set('close-click', { element: this.closeButton, type: 'click', handler: closeHandler });
       this.closeButton.setAttribute('aria-label', 'Close sidebar');
     }
   }
@@ -175,11 +267,14 @@ class PM7Sidebar {
   }
 
   handleEscapeKey() {
-    document.addEventListener('keydown', (e) => {
+    const escapeHandler = (e) => {
       if (e.key === 'Escape' && this.isOpen && this.mode !== 'static') {
         this.close();
       }
-    });
+    };
+    
+    document.addEventListener('keydown', escapeHandler);
+    this.eventListeners.set('escape-key', { element: document, type: 'keydown', handler: escapeHandler });
   }
 
   open() {
@@ -310,14 +405,8 @@ class PM7Sidebar {
   }
 
   destroy() {
-    // Remove event listeners
-    this.triggers.forEach(trigger => {
-      trigger.removeEventListener('click', this.toggle);
-    });
-    
-    if (this.closeButton) {
-      this.closeButton.removeEventListener('click', this.close);
-    }
+    // Remove all event listeners
+    this.cleanup();
     
     if (this.overlay) {
       this.overlay.remove();
@@ -328,8 +417,27 @@ class PM7Sidebar {
     // Reset element
     this.element.classList.remove('pm7-sidebar--open');
     this.element.removeAttribute('data-pm7-initialized');
+    
+    // Remove from instances
+    PM7Sidebar.instances.delete(this.element);
+    delete this.element._pm7SidebarInstance;
     delete this.element.PM7Sidebar;
   }
+}
+
+// Self-healing function
+function healSidebars() {
+  // Find all sidebars that were initialized but lost their instance
+  const lostSidebars = document.querySelectorAll('[data-pm7-sidebar][data-pm7-initialized]:not([data-pm7-sidebar-healing])');
+  
+  lostSidebars.forEach(sidebar => {
+    if (!sidebar._pm7SidebarInstance || !PM7Sidebar.instances.has(sidebar)) {
+      sidebar.setAttribute('data-pm7-sidebar-healing', 'true');
+      console.log('[PM7Sidebar] Healing sidebar:', sidebar);
+      new PM7Sidebar(sidebar);
+      sidebar.removeAttribute('data-pm7-sidebar-healing');
+    }
+  });
 }
 
 // Auto-initialization
@@ -337,8 +445,7 @@ export function initSidebars() {
   const sidebars = document.querySelectorAll('[data-pm7-sidebar]:not([data-pm7-initialized])');
   
   sidebars.forEach(sidebar => {
-    sidebar.setAttribute('data-pm7-initialized', 'true');
-    sidebar.PM7Sidebar = new PM7Sidebar(sidebar);
+    new PM7Sidebar(sidebar);
   });
   
   // Also initialize any standalone triggers
@@ -347,13 +454,15 @@ export function initSidebars() {
     const targetId = trigger.dataset.pm7SidebarTrigger;
     if (targetId) {
       const sidebar = document.getElementById(targetId);
-      if (sidebar && !sidebar.PM7Sidebar) {
-        sidebar.setAttribute('data-pm7-initialized', 'true');
-        sidebar.PM7Sidebar = new PM7Sidebar(sidebar);
+      if (sidebar && !sidebar._pm7SidebarInstance && !sidebar.hasAttribute('data-pm7-initialized')) {
+        new PM7Sidebar(sidebar);
       }
     }
   });
 }
+
+// Make healing function available
+PM7Sidebar.heal = healSidebars;
 
 // Initialize on DOM ready
 if (document.readyState === 'loading') {

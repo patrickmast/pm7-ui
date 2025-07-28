@@ -64,6 +64,15 @@ export function loadHeader() {
               </span>
               AI Guide
             </a>
+            <a href="/framework-integration.html" class="pm7-menu-item">
+              <span class="pm7-menu-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2v10M16.24 7.76l-4.24 4.24M21 12h-10M16.24 16.24l-4.24-4.24M12 22v-10M7.76 16.24l4.24-4.24M2 12h10M7.76 7.76l4.24 4.24"/>
+                </svg>
+              </span>
+              Framework Integration
+            </a>
             <a href="/style-guide.html" class="pm7-menu-item">
               <span class="pm7-menu-item-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -223,6 +232,7 @@ export function loadHeader() {
         </li>
         <li><a href="/getting-started.html" class="${window.location.pathname === '/getting-started.html' ? 'active' : ''}">Getting Started</a></li>
         <li><a href="/components.html" class="${window.location.pathname.startsWith('/components') ? 'active' : ''}">Components</a></li>
+        <li><a href="/framework-integration.html" class="${window.location.pathname === '/framework-integration.html' ? 'active' : ''}">Framework</a></li>
         <li><a href="https://www.npmjs.com/package/@pm7/core" target="_blank" rel="noopener noreferrer">NPM</a></li>
         <li><a href="https://github.com/patrickmast/pm7-ui" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       </ul>

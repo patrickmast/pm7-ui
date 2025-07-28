@@ -4,7 +4,24 @@
  */
 
 export class PM7Tooltip {
+  static instances = new WeakMap();
+  
   constructor(element) {
+    // Self-healing: Check if element was re-rendered by framework
+    const wasInitialized = element.hasAttribute('data-pm7-tooltip-initialized');
+    const hasInstance = PM7Tooltip.instances.has(element);
+    
+    // If initialized but no instance, element was re-rendered
+    if (wasInitialized && !hasInstance) {
+      console.log('[PM7Tooltip] Self-healing: Re-initializing tooltip after framework re-render');
+      element.removeAttribute('data-pm7-tooltip-initialized');
+    }
+    
+    // Check if this element already has a tooltip instance
+    if (PM7Tooltip.instances.has(element)) {
+      return PM7Tooltip.instances.get(element);
+    }
+    
     this.element = element;
     
     // AI-Agent FIRST: Automatically add pm7-tooltip class if missing
@@ -27,6 +44,16 @@ export class PM7Tooltip {
     this.isOpen = false;
     this.openTimeout = null;
     this.closeTimeout = null;
+    this.eventListeners = new Map();
+    
+    // Preserve state if this is a re-render
+    const preservedState = this.preserveState();
+    
+    // Store this instance
+    PM7Tooltip.instances.set(element, this);
+    
+    // Store instance reference on element for self-healing
+    element._pm7TooltipInstance = this;
     
     // Bind methods
     this.handleTriggerMouseEnter = this.handleTriggerMouseEnter.bind(this);
@@ -39,25 +66,76 @@ export class PM7Tooltip {
     this.updatePosition = this.updatePosition.bind(this);
     
     this.init();
+    
+    // Restore state if this was a re-render
+    if (preservedState && preservedState.wasOpen) {
+      this.restoreState(preservedState);
+    }
+    
+    // Mark as initialized
+    element.setAttribute('data-pm7-tooltip-initialized', 'true');
+  }
+  
+  preserveState() {
+    // Check if tooltip is currently open
+    const content = this.element.querySelector('.pm7-tooltip-content');
+    const wasOpen = content?.getAttribute('data-state') === 'open';
+    
+    return {
+      wasOpen,
+      side: content?.dataset.side,
+      align: content?.dataset.align
+    };
+  }
+  
+  restoreState(state) {
+    if (state.wasOpen) {
+      // Restore open state after a brief delay
+      setTimeout(() => {
+        this.show();
+      }, 50);
+    }
+  }
+  
+  cleanup() {
+    // Remove all event listeners
+    this.eventListeners.forEach(({ element, type, handler }) => {
+      element.removeEventListener(type, handler);
+    });
+    this.eventListeners.clear();
+    
+    // Clear timeouts
+    this.clearTimeouts();
   }
   
   init() {
     if (!this.trigger || !this.content) return;
+    
+    // Remove any existing event listeners to prevent duplicates
+    this.cleanup();
     
     // Set initial ARIA attributes
     this.trigger.setAttribute('aria-describedby', this.content.id || this.generateId());
     this.content.setAttribute('role', 'tooltip');
     this.content.setAttribute('data-state', 'closed');
     
-    // Add event listeners
+    // Add event listeners and track them
     this.trigger.addEventListener('mouseenter', this.handleTriggerMouseEnter);
+    this.eventListeners.set('mouseenter', { element: this.trigger, type: 'mouseenter', handler: this.handleTriggerMouseEnter });
+    
     this.trigger.addEventListener('mouseleave', this.handleTriggerMouseLeave);
+    this.eventListeners.set('mouseleave', { element: this.trigger, type: 'mouseleave', handler: this.handleTriggerMouseLeave });
+    
     this.trigger.addEventListener('focus', this.handleTriggerFocus);
+    this.eventListeners.set('focus', { element: this.trigger, type: 'focus', handler: this.handleTriggerFocus });
+    
     this.trigger.addEventListener('blur', this.handleTriggerBlur);
+    this.eventListeners.set('blur', { element: this.trigger, type: 'blur', handler: this.handleTriggerBlur });
     
     // Touch support
     if ('ontouchstart' in window) {
       this.trigger.addEventListener('click', this.handleTriggerClick);
+      this.eventListeners.set('click', { element: this.trigger, type: 'click', handler: this.handleTriggerClick });
     }
   }
   
@@ -277,14 +355,11 @@ export class PM7Tooltip {
   }
   
   destroy() {
-    this.clearTimeouts();
+    this.cleanup();
+    PM7Tooltip.instances.delete(this.element);
+    delete this.element._pm7TooltipInstance;
     
-    // Remove event listeners
-    this.trigger?.removeEventListener('mouseenter', this.handleTriggerMouseEnter);
-    this.trigger?.removeEventListener('mouseleave', this.handleTriggerMouseLeave);
-    this.trigger?.removeEventListener('focus', this.handleTriggerFocus);
-    this.trigger?.removeEventListener('blur', this.handleTriggerBlur);
-    this.trigger?.removeEventListener('click', this.handleTriggerClick);
+    // Remove global event listeners
     document.removeEventListener('click', this.handleDocumentClick);
     document.removeEventListener('keydown', this.handleKeyDown);
     window.removeEventListener('scroll', this.updatePosition, true);
@@ -295,14 +370,31 @@ export class PM7Tooltip {
   }
 }
 
+// Self-healing function
+function healTooltips() {
+  // Find all tooltips that were initialized but lost their instance
+  const lostTooltips = document.querySelectorAll('[data-pm7-tooltip][data-pm7-tooltip-initialized]:not([data-pm7-tooltip-healing])');
+  
+  lostTooltips.forEach(tooltip => {
+    if (!tooltip._pm7TooltipInstance || !PM7Tooltip.instances.has(tooltip)) {
+      tooltip.setAttribute('data-pm7-tooltip-healing', 'true');
+      console.log('[PM7Tooltip] Healing tooltip:', tooltip);
+      new PM7Tooltip(tooltip);
+      tooltip.removeAttribute('data-pm7-tooltip-healing');
+    }
+  });
+}
+
 // Auto-initialize tooltips
 export function initTooltips(container = document) {
-  const tooltips = container.querySelectorAll('.pm7-tooltip');
+  const tooltips = container.querySelectorAll('[data-pm7-tooltip]:not([data-pm7-tooltip-initialized])');
   tooltips.forEach(tooltip => {
-    // Initialize tooltip if not already initialized
     new PM7Tooltip(tooltip);
   });
 }
+
+// Make healing function available
+PM7Tooltip.heal = healTooltips;
 
 // Initialize on DOM ready
 if (typeof document !== 'undefined') {

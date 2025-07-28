@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Positions Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+      justify-items: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Menu Positions</h1>
+      <p class="demo-description">Menus can be positioned in 8 different ways</p>
+    </div>
+    
+    <div class="demo-content">
+      <div class="pm7-menu" data-pm7-menu data-position="bottom-start">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Bottom Start
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="bottom-end">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Bottom End
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="top-start">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Top Start
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="top-end">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Top End
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="left-start">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Left Start
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="left-end">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Left End
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="right-start">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Right Start
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu data-position="right-end">
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          Right End
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Item 1</button>
+          <button class="pm7-menu-item">Item 2</button>
+          <button class="pm7-menu-item">Item 3</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Bottom positions -->
+<div class="pm7-menu" data-pm7-menu data-position="bottom-start">
+  <button class="pm7-menu-trigger">Bottom Start</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+
+<div class="pm7-menu" data-pm7-menu data-position="bottom-end">
+  <button class="pm7-menu-trigger">Bottom End</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+
+<!-- Top positions -->
+<div class="pm7-menu" data-pm7-menu data-position="top-start">
+  <button class="pm7-menu-trigger">Top Start</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+
+<div class="pm7-menu" data-pm7-menu data-position="top-end">
+  <button class="pm7-menu-trigger">Top End</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+
+<!-- Side positions -->
+<div class="pm7-menu" data-pm7-menu data-position="left-start">
+  <button class="pm7-menu-trigger">Left Start</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+
+<div class="pm7-menu" data-pm7-menu data-position="right-end">
+  <button class="pm7-menu-trigger">Right End</button>
+  <div class="pm7-menu-content">...</div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

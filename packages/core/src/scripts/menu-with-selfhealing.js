@@ -203,11 +203,9 @@ export class PM7Menu {
   
   open() {
     // Close all other open menus
-    // Since we're using WeakMap, we need to track open menus differently
-    document.querySelectorAll('.pm7-menu-content--open').forEach(content => {
-      const menu = content.closest('[data-pm7-menu]');
-      if (menu && menu._pm7MenuInstance && menu._pm7MenuInstance !== this) {
-        menu._pm7MenuInstance.close();
+    PM7Menu.instances.forEach((instance, element) => {
+      if (instance !== this && instance.isOpen) {
+        instance.close();
       }
     });
     
@@ -221,12 +219,6 @@ export class PM7Menu {
     
     // Check viewport position and adjust if needed
     this.adjustPosition();
-    
-    // Focus first item
-    requestAnimationFrame(() => {
-      this.currentIndex = 0;
-      this.focusItem(0);
-    });
     
     // Dispatch custom event
     this.element.dispatchEvent(new CustomEvent('pm7:menu:open', { 
@@ -529,7 +521,22 @@ export class PM7Menu {
   }
 }
 
-// Auto-initialize menus
+// Self-healing initialization function
+function healMenus() {
+  // Find all menus that were initialized but lost their instance
+  const lostMenus = document.querySelectorAll('[data-pm7-menu][data-pm7-menu-initialized]:not([data-pm7-menu-healing])');
+  
+  lostMenus.forEach(menu => {
+    if (!menu._pm7MenuInstance || !PM7Menu.instances.has(menu)) {
+      menu.setAttribute('data-pm7-menu-healing', 'true');
+      console.log('[PM7Menu] Healing menu:', menu);
+      new PM7Menu(menu);
+      menu.removeAttribute('data-pm7-menu-healing');
+    }
+  });
+}
+
+// Auto-initialize menus with self-healing
 if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
   window.__PM7_MENU_INIT__ = true;
   
@@ -543,7 +550,13 @@ if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
         console.error('[PM7Menu] Error initializing menu:', error);
       }
     });
+    
+    // Also run self-healing
+    healMenus();
   };
+  
+  // Export healing function for manual use
+  window.healPM7Menus = healMenus;
   
   // Initialize immediately if DOM is ready
   if (document.readyState === 'loading') {
@@ -551,4 +564,10 @@ if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
   } else {
     setTimeout(initMenus, 0);
   }
+  
+  // Set up periodic self-healing check (for frameworks that don't notify)
+  setInterval(healMenus, 1000);
 }
+
+// Make healing function available on PM7Menu class
+PM7Menu.heal = healMenus;

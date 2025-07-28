@@ -697,7 +697,7 @@ a.pm7-menu-item:hover {
   .pm7-footer {
     background-color: var(--pm7-background);
   }
-  
+
   .pm7-footer-content {
     flex-direction: column;
     gap: var(--pm7-spacing-2);
@@ -905,53 +905,53 @@ a.pm7-menu-item:hover {
   .pm7-docs-nav {
     background-color: var(--pm7-background);
   }
-  
+
   .pm7-docs-nav-inner {
     display: flex !important;
     justify-content: space-between;
     align-items: center;
     width: 100%;
   }
-  
+
   /* Hide desktop navigation on mobile */
   .pm7-docs-nav-menu {
     display: none !important;
   }
-  
+
   /* Hide buttons on mobile */
   .pm7-hide-mobile {
     display: none !important;
   }
-  
+
   /* Show mobile message on homepage */
   .pm7-mobile-only-text {
     display: block;
   }
-  
+
   /* Hide all desktop-only content on other pages */
   .pm7-desktop-only {
     display: none !important;
   }
-  
+
   /* Mobile adjustments for homepage */
   .pm7-docs-hero {
     padding: var(--pm7-spacing-8) var(--pm7-spacing-4);
   }
-  
+
   .pm7-docs-hero h1 {
     line-height: 1;
   }
-  
+
   .pm7-docs-features,
   .pm7-docs-packages {
     padding: var(--pm7-spacing-8) var(--pm7-spacing-4);
   }
-  
+
   .pm7-docs-grid {
     grid-template-columns: 1fr;
     gap: var(--pm7-spacing-4);
   }
-  
+
   /* Show footer on homepage */
   #footer-placeholder {
     display: block !important;
@@ -1320,7 +1320,7 @@ button.pm7-menu-trigger--gradient-hover:active,
   .pm7-demo-card-header {
     flex-direction: column;
   }
-  
+
   .pm7-demo-card-actions {
     width: 100%;
     justify-content: flex-end;
@@ -1346,8 +1346,8 @@ button.pm7-menu-trigger--gradient-hover:active,
   font-weight: normal;
 }
 
-/* Title becomes primary color on hover */
-.pm7-demo-accordion .pm7-accordion-trigger:hover .pm7-demo-accordion-title {
+/* Title becomes primary color on hover - but not when hovering external link */
+.pm7-demo-accordion .pm7-accordion-item:not([data-link-hover]) .pm7-accordion-trigger:hover .pm7-demo-accordion-title {
   color: var(--pm7-primary);
 }
 
@@ -1381,6 +1381,51 @@ button.pm7-menu-trigger--gradient-hover:active,
 }
 
 .pm7-demo-open-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Special styling for demo accordions */
+.pm7-demo-accordion .pm7-accordion-item {
+  position: relative;
+}
+
+.pm7-demo-accordion .pm7-accordion-trigger {
+  padding-right: 5rem; /* Make room for external link AND accordion arrow */
+}
+
+/* Container for external link to isolate hover */
+.pm7-demo-link-container {
+  position: absolute;
+  right: 3rem;
+  top: 1rem;
+  height: 4rem; /* Fixed height matching accordion trigger */
+  display: flex;
+  align-items: center;
+  z-index: 20;
+  pointer-events: none; /* Container doesn't capture events */
+}
+
+/* External link positioned in header */
+.pm7-demo-link-container .pm7-demo-open-link-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--pm7-muted-foreground);
+  opacity: 0.5; /* Make it more subtle when not hovered */
+  pointer-events: auto; /* Link is clickable */
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.pm7-demo-open-link-header:hover {
+  cursor: pointer;
+  color: var(--pm7-foreground);
+  opacity: 1; /* Full opacity on hover */
+}
+
+.pm7-demo-open-link-header svg {
   width: 16px;
   height: 16px;
 }

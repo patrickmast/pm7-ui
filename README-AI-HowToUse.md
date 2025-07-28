@@ -188,6 +188,64 @@ menu.open(); // Use the instance directly
 PM7.init();
 ```
 
+## Framework Integration (v2.7.0+)
+
+### React/Vue/Angular Self-Healing Components
+
+All interactive PM7 components now feature **self-healing** - they automatically detect and recover from framework re-renders:
+
+```javascript
+// React - Use initFramework() for better timing + automatic healing
+useEffect(() => {
+  PM7.initFramework(); // Waits 50ms + enables healing
+}, []);
+
+// Vue
+mounted() {
+  this.$nextTick(() => {
+    PM7.initFramework();
+  });
+}
+
+// Angular
+ngAfterViewInit() {
+  PM7.initFramework();
+}
+```
+
+### Self-Healing Features (v2.5.0+)
+
+**Components with self-healing:**
+- Menu - Preserves open/close state
+- Accordion - Preserves expanded sections
+- Tab Selector - Preserves active tab
+- Tooltip - Preserves open state
+- Sidebar - Preserves open state and collapsible sections
+- Dialog - Preserves content during transforms
+
+**How it works:**
+1. Components detect framework re-renders automatically
+2. State is preserved during re-initialization
+3. Event listeners are cleaned up and re-attached
+4. No manual workarounds needed!
+
+### Manual Healing
+
+```javascript
+// Heal all components
+PM7.heal();
+
+// Heal specific component types
+PM7.healMenus();
+PM7.healAccordions();
+PM7.healTabSelectors();
+PM7.healTooltips();
+PM7.healSidebars();
+
+// Automatic healing runs every second by default
+// To disable: clearInterval(window.__PM7_SELF_HEALING_INTERVAL__)
+```
+
 ## Common Patterns
 
 ### Login Form

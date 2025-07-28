@@ -228,8 +228,37 @@ export default function TabsPage() {
 
 IF tab-selector in DOM at page load THEN auto-initialized
 IF tab-selector added dynamically THEN MUST call `window.PM7.init()`
+IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
+IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
 IF manual init THEN `new PM7.TabSelector(element)`
 IF Next.js THEN dynamic import with optional chaining
+
+### Self-Healing (v2.5.0+)
+
+Tab Selector components automatically detect and recover from framework re-renders:
+
+```javascript
+// React - Components self-heal automatically
+useEffect(() => {
+  PM7.initFramework(); // Includes automatic healing
+}, []);
+
+// Manual healing if needed
+PM7.healTabSelectors(); // Heal only tab selectors
+PM7.heal();             // Heal all components
+```
+
+#### How Self-Healing Works:
+1. Component detects it was re-rendered by framework
+2. Active tab selection is preserved
+3. Event listeners are cleaned up and re-attached
+4. No manual re-initialization needed
+
+#### When Self-Healing Activates:
+- React re-renders component tree
+- Vue updates virtual DOM
+- Angular change detection cycles
+- Any framework that replaces DOM elements
 
 ### Methods
 

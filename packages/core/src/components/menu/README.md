@@ -55,6 +55,60 @@ declare global {
 }
 ```
 
+### React/Vue/Angular Implementation
+
+```jsx
+// React - MUST initialize in useEffect
+import { useEffect } from 'react'
+
+export default function MenuComponent() {
+  useEffect(() => {
+    import('@pm7/core').then(() => {
+      if (window.PM7?.initMenus) {
+        window.PM7.initMenus();
+      }
+    });
+  }, []);
+
+  return (
+    <div data-pm7-menu>
+      <button className="pm7-menu-trigger pm7-button pm7-button--outline">
+        Options
+      </button>
+      <div className="pm7-menu-content">
+        <button className="pm7-menu-item">Edit</button>
+        <button className="pm7-menu-item">Delete</button>
+      </div>
+    </div>
+  );
+}
+```
+
+```vue
+// Vue - MUST initialize in onMounted
+<template>
+  <div data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+      Options
+    </button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">Edit</button>
+      <button class="pm7-menu-item">Delete</button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  if (window.PM7?.initMenus) {
+    window.PM7.initMenus();
+  }
+});
+</script>
+```
+
 ## Required Structure
 
 ```html
@@ -337,43 +391,46 @@ function openSettings() {
 }
 ```
 
-### Pattern: Next.js Implementation
-```jsx
-'use client'
-
-import { useEffect } from 'react'
-
-export default function MenuPage() {
-  useEffect(() => {
-    import('@pm7/core').then(() => {
-      if (window.PM7?.initMenus) {
-        window.PM7.initMenus();
-      }
-    });
-  }, []);
-
-  return (
-    <div data-pm7-menu>
-      <button className="pm7-menu-trigger pm7-button pm7-button--outline">
-        Options
-      </button>
-      <div className="pm7-menu-content">
-        <button className="pm7-menu-item">Edit</button>
-        <button className="pm7-menu-item">Delete</button>
-      </div>
-    </div>
-  );
-}
-```
+### Pattern: SPA Framework Usage
+SEE: React/Vue/Angular Implementation section above
 
 ## JavaScript API
 
 ### Initialization
 
-IF menu in DOM at page load THEN auto-initialized
-IF menu added dynamically THEN MUST call `window.PM7.init()`
+IF menu exists at DOMContentLoaded THEN auto-initialized
+IF menu added after DOMContentLoaded THEN MUST call `window.PM7.init()` or `window.PM7.initMenus()`
+IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
+IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
+IF Angular component THEN MUST call `window.PM7.initFramework()` in ngAfterViewInit (v2.7.0+)
 IF manual init THEN `new PM7.Menu(element)`
-IF Next.js THEN dynamic import with `window.PM7.init()`
+
+### Self-Healing (v2.5.0+)
+
+Menu components automatically detect and recover from framework re-renders:
+
+```javascript
+// React - Components self-heal automatically
+useEffect(() => {
+  PM7.initFramework(); // Includes automatic healing
+}, []);
+
+// Manual healing if needed
+PM7.healMenus();     // Heal only menus
+PM7.heal();          // Heal all components
+```
+
+#### How Self-Healing Works:
+1. Component detects it was re-rendered by framework
+2. Open/close state is preserved
+3. Event listeners are cleaned up and re-attached
+4. No manual re-initialization needed
+
+#### When Self-Healing Activates:
+- React re-renders component tree
+- Vue updates virtual DOM
+- Angular change detection cycles
+- Any framework that replaces DOM elements
 
 ### Methods
 
@@ -506,6 +563,41 @@ function updateMenu() {
 }
 ```
 
+### Anti-Pattern: React Without Initialization
+```jsx
+// NEVER - menu not interactive
+export function Menu() {
+  return (
+    <div data-pm7-menu>
+      <button className="pm7-menu-trigger">Menu</button>
+      <div className="pm7-menu-content">
+        <button className="pm7-menu-item">Option</button>
+      </div>
+    </div>
+  );
+}
+
+// ALWAYS - initialize in useEffect
+export function Menu() {
+  useEffect(() => {
+    import('@pm7/core').then(() => {
+      if (window.PM7?.initMenus) {
+        window.PM7.initMenus();
+      }
+    });
+  }, []);
+  
+  return (
+    <div data-pm7-menu>
+      <button className="pm7-menu-trigger">Menu</button>
+      <div className="pm7-menu-content">
+        <button className="pm7-menu-item">Option</button>
+      </div>
+    </div>
+  );
+}
+```
+
 
 ## Rules
 
@@ -515,11 +607,15 @@ function updateMenu() {
 - ALWAYS: Add `aria-label` to icon-only triggers
 - ALWAYS: Check PM7 exists before calling methods
 - ALWAYS: Call `window.PM7.init()` after adding NEW menu containers
+- ALWAYS: Call `PM7.initMenus()` in React useEffect
+- ALWAYS: Call `PM7.initMenus()` in Vue onMounted
+- ALWAYS: Call `PM7.initMenus()` in Angular ngAfterViewInit
 - NEVER: Use div elements for interactive items
 - NEVER: Apply manual positioning styles
 - NEVER: Nest menus inside other menus
 - NEVER: Initialize same menu multiple times
 - NEVER: Call PM7.init() after updating existing menu content
+- NEVER: Assume auto-init works in SPA frameworks
 
 ## CSS Variables
 

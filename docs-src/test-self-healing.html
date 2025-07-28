@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM7 Self-Healing Test</title>
+  <link rel="stylesheet" href="/packages/core/dist/pm7.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .test-section {
+      margin: 40px 0;
+      padding: 20px;
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+    }
+    
+    .log {
+      background: var(--pm7-muted);
+      padding: 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+      margin-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    #react-simulation {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>PM7 Self-Healing Test</h1>
+  
+  <div class="test-section">
+    <h2>Basic Menu Test</h2>
+    <div data-pm7-menu class="pm7-menu">
+      <button class="pm7-menu-trigger pm7-button">Test Menu</button>
+      <div class="pm7-menu-content">
+        <button class="pm7-menu-item">Item 1</button>
+        <button class="pm7-menu-item">Item 2</button>
+        <button class="pm7-menu-item">Item 3</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>React Simulation Test</h2>
+    <button id="simulate-rerender" class="pm7-button pm7-button--primary">
+      Simulate React Re-render
+    </button>
+    <button id="check-healing" class="pm7-button">
+      Check Self-Healing
+    </button>
+    
+    <div id="react-simulation">
+      <div data-pm7-menu class="pm7-menu">
+        <button class="pm7-menu-trigger pm7-button">React Menu</button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">React Item 1</button>
+          <button class="pm7-menu-item">React Item 2</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="log" id="healing-log"></div>
+  </div>
+  
+  <!-- Load built PM7 -->
+  <script type="module">
+    import PM7 from '/packages/core/dist/pm7.esm.js';
+    
+    // Make PM7 globally available
+    window.PM7 = PM7;
+    
+    const log = document.getElementById('healing-log');
+    
+    function addLog(message) {
+      const time = new Date().toLocaleTimeString();
+      log.innerHTML += `${time}: ${message}\n`;
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    // Override console.log to capture healing messages
+    const originalLog = console.log;
+    console.log = function(...args) {
+      originalLog(...args);
+      if (args[0] && args[0].includes('[PM7')) {
+        addLog(args[0]);
+      }
+    };
+    
+    // Initialize
+    addLog('PM7 loaded: ' + (!!window.PM7));
+    if (window.PM7) {
+      addLog('PM7 functions: ' + Object.keys(window.PM7).join(', '));
+      addLog('heal exists: ' + (typeof window.PM7.heal === 'function'));
+      addLog('healMenus exists: ' + (typeof window.PM7.healMenus === 'function'));
+    }
+    
+    // Simulate React re-render
+    document.getElementById('simulate-rerender').addEventListener('click', () => {
+      const container = document.getElementById('react-simulation');
+      const html = container.innerHTML;
+      
+      addLog('--- Simulating React re-render ---');
+      addLog('Clearing container...');
+      container.innerHTML = '';
+      
+      setTimeout(() => {
+        addLog('Re-adding HTML...');
+        container.innerHTML = html;
+        
+        // In a real React app, you would call PM7.init() in useEffect
+        setTimeout(() => {
+          addLog('Calling PM7.init()...');
+          if (window.PM7?.init) {
+            window.PM7.init();
+          }
+        }, 100);
+      }, 100);
+    });
+    
+    // Check healing
+    document.getElementById('check-healing').addEventListener('click', () => {
+      addLog('--- Checking self-healing ---');
+      
+      const menus = document.querySelectorAll('[data-pm7-menu]');
+      menus.forEach((menu, i) => {
+        const hasInit = menu.hasAttribute('data-pm7-menu-initialized');
+        const hasInstance = !!menu._pm7MenuInstance;
+        addLog(`Menu ${i}: initialized=${hasInit}, hasInstance=${hasInstance}`);
+      });
+      
+      if (window.PM7?.heal) {
+        addLog('Calling PM7.heal()...');
+        window.PM7.heal();
+      } else if (window.PM7?.healMenus) {
+        addLog('Calling PM7.healMenus()...');
+        window.PM7.healMenus();
+      }
+    });
+    
+    addLog('Waiting for auto-healing interval to start...');
+  </script>
+</body>
+</html>

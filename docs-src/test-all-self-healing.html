@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM7 Self-Healing Components Test</title>
+  <link rel="stylesheet" href="/packages/core/dist/pm7.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .component-section {
+      padding: 20px;
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+    }
+    
+    .component-section h3 {
+      margin-top: 0;
+    }
+    
+    .controls {
+      position: sticky;
+      top: 20px;
+      background: var(--pm7-background);
+      padding: 20px;
+      border: 2px solid var(--pm7-primary);
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+    
+    .log {
+      background: var(--pm7-muted);
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    
+    .status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .status--initialized {
+      background: #10b981;
+      color: white;
+    }
+    
+    .status--not-initialized {
+      background: #ef4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>PM7 Self-Healing Components Test</h1>
+  
+  <div class="controls">
+    <h2>Test Controls</h2>
+    <button id="simulate-react" class="pm7-button pm7-button--primary">
+      Simulate React Re-render
+    </button>
+    <button id="check-healing" class="pm7-button">
+      Check Self-Healing Status
+    </button>
+    <button id="manual-heal" class="pm7-button">
+      Manual PM7.heal()
+    </button>
+    <button id="clear-log" class="pm7-button pm7-button--ghost">
+      Clear Log
+    </button>
+    
+    <div class="log" id="test-log"></div>
+  </div>
+  
+  <div id="test-container">
+    <div class="component-grid">
+      <!-- Menu Component -->
+      <div class="component-section">
+        <h3>Menu Component <span class="status" id="menu-status"></span></h3>
+        <div data-pm7-menu class="pm7-menu">
+          <button class="pm7-menu-trigger pm7-button">Test Menu</button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Item 1</button>
+            <button class="pm7-menu-item">Item 2</button>
+            <button class="pm7-menu-item">Item 3</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Accordion Component -->
+      <div class="component-section">
+        <h3>Accordion Component <span class="status" id="accordion-status"></span></h3>
+        <div data-pm7-accordion>
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              Section 1
+            </button>
+            <div class="pm7-accordion-content">
+              <p>Content for section 1</p>
+            </div>
+          </div>
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              Section 2
+            </button>
+            <div class="pm7-accordion-content">
+              <p>Content for section 2</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab Selector Component -->
+      <div class="component-section">
+        <h3>Tab Selector Component <span class="status" id="tab-status"></span></h3>
+        <div data-pm7-tab-selector>
+          <div class="pm7-tab-list">
+            <button class="pm7-tab-trigger">Tab 1</button>
+            <button class="pm7-tab-trigger">Tab 2</button>
+            <button class="pm7-tab-trigger">Tab 3</button>
+          </div>
+          <div class="pm7-tab-content">
+            Tab 1 content
+          </div>
+          <div class="pm7-tab-content">
+            Tab 2 content
+          </div>
+          <div class="pm7-tab-content">
+            Tab 3 content
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Load PM7 -->
+  <script type="module">
+    import PM7 from '/packages/core/dist/pm7.esm.js';
+    
+    // Make PM7 globally available
+    window.PM7 = PM7;
+    
+    const log = document.getElementById('test-log');
+    
+    function addLog(message) {
+      const time = new Date().toLocaleTimeString();
+      log.innerHTML += `${time}: ${message}\n`;
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    // Override console.log to capture healing messages
+    const originalLog = console.log;
+    console.log = function(...args) {
+      originalLog(...args);
+      if (args[0] && typeof args[0] === 'string' && args[0].includes('[PM7')) {
+        addLog(args[0]);
+      }
+    };
+    
+    // Check component status
+    function checkComponentStatus() {
+      const components = [
+        { name: 'menu', selector: '[data-pm7-menu]', attr: 'data-pm7-menu-initialized', instance: '_pm7MenuInstance' },
+        { name: 'accordion', selector: '[data-pm7-accordion]', attr: 'data-pm7-accordion-initialized', instance: '_pm7AccordionInstance' },
+        { name: 'tab', selector: '[data-pm7-tab-selector]', attr: 'data-pm7-tab-initialized', instance: '_pm7TabSelectorInstance' }
+      ];
+      
+      components.forEach(comp => {
+        const element = document.querySelector(comp.selector);
+        const status = document.getElementById(`${comp.name}-status`);
+        const hasInit = element?.hasAttribute(comp.attr);
+        const hasInstance = !!element?.[comp.instance];
+        
+        if (hasInit && hasInstance) {
+          status.textContent = 'Initialized';
+          status.className = 'status status--initialized';
+        } else {
+          status.textContent = 'Not Initialized';
+          status.className = 'status status--not-initialized';
+        }
+      });
+    }
+    
+    // Initial setup
+    addLog('PM7 loaded: ' + (!!window.PM7));
+    if (window.PM7) {
+      addLog('PM7 functions: ' + Object.keys(window.PM7).filter(k => typeof window.PM7[k] === 'function').join(', '));
+      addLog('heal exists: ' + (typeof window.PM7.heal === 'function'));
+    }
+    
+    // Initialize components
+    setTimeout(() => {
+      if (window.PM7?.init) {
+        window.PM7.init();
+        addLog('Called PM7.init()');
+        checkComponentStatus();
+      }
+    }, 100);
+    
+    // Simulate React re-render
+    document.getElementById('simulate-react').addEventListener('click', () => {
+      const container = document.getElementById('test-container');
+      const html = container.innerHTML;
+      
+      addLog('--- Simulating React re-render ---');
+      container.innerHTML = '';
+      
+      setTimeout(() => {
+        container.innerHTML = html;
+        addLog('DOM replaced');
+        
+        // In React, you would call PM7.init() in useEffect
+        setTimeout(() => {
+          if (window.PM7?.init) {
+            window.PM7.init();
+            addLog('Called PM7.init() after re-render');
+            checkComponentStatus();
+          }
+        }, 100);
+      }, 100);
+    });
+    
+    // Check healing status
+    document.getElementById('check-healing').addEventListener('click', () => {
+      addLog('--- Checking component status ---');
+      
+      const components = [
+        { name: 'Menu', selector: '[data-pm7-menu]', attr: 'data-pm7-menu-initialized', instance: '_pm7MenuInstance' },
+        { name: 'Accordion', selector: '[data-pm7-accordion]', attr: 'data-pm7-accordion-initialized', instance: '_pm7AccordionInstance' },
+        { name: 'Tab Selector', selector: '[data-pm7-tab-selector]', attr: 'data-pm7-tab-initialized', instance: '_pm7TabSelectorInstance' }
+      ];
+      
+      components.forEach(comp => {
+        const element = document.querySelector(comp.selector);
+        const hasInit = element?.hasAttribute(comp.attr);
+        const hasInstance = !!element?.[comp.instance];
+        addLog(`${comp.name}: initialized=${hasInit}, hasInstance=${hasInstance}`);
+      });
+      
+      checkComponentStatus();
+    });
+    
+    // Manual heal
+    document.getElementById('manual-heal').addEventListener('click', () => {
+      addLog('--- Manual PM7.heal() ---');
+      if (window.PM7?.heal) {
+        window.PM7.heal();
+        addLog('Called PM7.heal()');
+        
+        setTimeout(() => {
+          checkComponentStatus();
+        }, 100);
+      } else {
+        addLog('PM7.heal() not available');
+      }
+    });
+    
+    // Clear log
+    document.getElementById('clear-log').addEventListener('click', () => {
+      log.innerHTML = '';
+      addLog('Log cleared');
+    });
+    
+    // Check auto-healing interval
+    let healingCheckCount = 0;
+    const checkInterval = setInterval(() => {
+      healingCheckCount++;
+      if (healingCheckCount > 5) {
+        clearInterval(checkInterval);
+        return;
+      }
+      
+      const menu = document.querySelector('[data-pm7-menu]');
+      if (menu?.hasAttribute('data-pm7-menu-initialized') && !menu._pm7MenuInstance) {
+        addLog('AUTO-HEAL: Detected lost menu instance, waiting for heal...');
+      }
+    }, 2000);
+  </script>
+</body>
+</html>

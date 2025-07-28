@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Framework Integration - pm7-ui | Self-Healing Components for React, Vue & Angular</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  <link rel="stylesheet" href="/styles/docs.css">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    .healing-demo {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .feature-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .feature-card h3 {
+      margin-top: 0;
+      color: var(--pm7-primary);
+    }
+    
+    .self-healing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--pm7-primary-bg, rgba(59, 130, 246, 0.1));
+      color: var(--pm7-primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .code-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .code-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .code-block {
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    
+    .code-block h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .before { border-color: var(--pm7-destructive); }
+    .after { border-color: var(--pm7-success); }
+    .before h4 { color: var(--pm7-destructive); }
+    .after h4 { color: var(--pm7-success); }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>Framework Integration</h1>
+    <p class="pm7-docs-lead">
+      PM7-UI components now feature self-healing capabilities that automatically recover from framework re-renders.<br>
+      No more workarounds for React, Vue, or Angular!
+    </p>
+    
+    <section style="margin-top: 60px;">
+      <h2>What is Self-Healing?</h2>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">✨ The Problem We Solved</h4>
+        <div class="pm7-callout-body">
+          <p>Modern frameworks like React, Vue, and Angular frequently re-render DOM elements. This traditionally breaks vanilla JavaScript components, requiring complex workarounds. PM7-UI's self-healing components automatically detect and recover from these re-renders!</p>
+        </div>
+      </div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>🔄 Automatic Recovery</h3>
+          <p>Components detect when they've been re-rendered and reinitialize automatically</p>
+        </div>
+        <div class="feature-card">
+          <h3>💾 State Preservation</h3>
+          <p>Open/closed states, active tabs, and user selections are preserved</p>
+        </div>
+        <div class="feature-card">
+          <h3>🧹 Memory Safe</h3>
+          <p>Uses WeakMap for instance tracking and proper cleanup</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Zero Configuration</h3>
+          <p>Just call PM7.initFramework() once and components heal themselves</p>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Quick Start</h2>
+      
+      <div class="code-comparison">
+        <div class="code-block before">
+          <h4>❌ Before (Complex Workarounds)</h4>
+          <pre><code>// React - Old way with refs and cleanup
+function Menu() {
+  const menuRef = useRef(null);
+  const instanceRef = useRef(null);
+  
+  useEffect(() => {
+    if (menuRef.current) {
+      // Manual cleanup
+      if (instanceRef.current) {
+        instanceRef.current.destroy();
+      }
+      // Re-initialize
+      instanceRef.current = new PM7Menu(menuRef.current);
+    }
+    
+    return () => {
+      if (instanceRef.current) {
+        instanceRef.current.destroy();
+      }
+    };
+  }, []);
+  
+  // Complex state management...
+}</code></pre>
+        </div>
+        
+        <div class="code-block after">
+          <h4>✅ After (Self-Healing)</h4>
+          <pre><code>// React - New way with self-healing
+function App() {
+  useEffect(() => {
+    // That's it! Components heal themselves
+    PM7.initFramework();
+  }, []);
+  
+  return (
+    &lt;div className="pm7-menu" data-pm7-menu&gt;
+      {/* Menu just works, even on re-render! */}
+    &lt;/div&gt;
+  );
+}</code></pre>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Self-Healing Components</h2>
+      
+      <p>The following components include self-healing capabilities:</p>
+      
+      <div class="pm7-docs-grid">
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Menu <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Dropdown menus preserve their open/closed state during re-renders</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Accordion <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Expanded sections remain open when the component re-renders</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Tab Selector <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Active tab selection is maintained through framework updates</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Tooltip <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Tooltip visibility state persists across re-renders</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Sidebar <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Open state and collapsible sections are preserved</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-header">
+            <h3>Dialog <span class="self-healing-badge">✨ Self-Healing</span></h3>
+          </div>
+          <div class="pm7-card-body">
+            <p>Dialog content preserved during DOM transformations</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Framework Examples</h2>
+      
+      <h3>React Integration</h3>
+      <pre><code class="language-jsx">import { useEffect } from 'react';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+function App() {
+  useEffect(() => {
+    // Initialize with framework timing (50ms delay + healing)
+    PM7.initFramework();
+  }, []);
+  
+  return (
+    &lt;div&gt;
+      {/* All PM7 components now self-heal! */}
+      &lt;div className="pm7-menu" data-pm7-menu&gt;
+        &lt;button className="pm7-menu-trigger"&gt;Menu&lt;/button&gt;
+        &lt;div className="pm7-menu-content"&gt;
+          &lt;button className="pm7-menu-item"&gt;Option 1&lt;/button&gt;
+          &lt;button className="pm7-menu-item"&gt;Option 2&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      &lt;div className="pm7-accordion" data-pm7-accordion&gt;
+        {/* Accordion items... */}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      
+      <h3>Vue Integration</h3>
+      <pre><code class="language-javascript">import { onMounted } from 'vue';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+export default {
+  setup() {
+    onMounted(() => {
+      PM7.initFramework();
+    });
+    
+    return {
+      // Your component logic
+    };
+  }
+}</code></pre>
+      
+      <h3>Angular Integration</h3>
+      <pre><code class="language-typescript">import { Component, AfterViewInit } from '@angular/core';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    &lt;div class="pm7-menu" data-pm7-menu&gt;
+      &lt;button class="pm7-menu-trigger"&gt;Menu&lt;/button&gt;
+      &lt;div class="pm7-menu-content"&gt;
+        &lt;button class="pm7-menu-item"&gt;Option 1&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class AppComponent implements AfterViewInit {
+  ngAfterViewInit() {
+    PM7.initFramework();
+  }
+}</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Manual Healing API</h2>
+      
+      <p>While automatic healing handles most cases, you can also manually trigger healing:</p>
+      
+      <pre><code class="language-javascript">// Heal all components
+PM7.heal();
+
+// Heal specific component types
+PM7.healMenus();
+PM7.healAccordions();
+PM7.healTabSelectors();
+PM7.healTooltips();
+PM7.healSidebars();
+
+// Disable automatic healing (if needed)
+clearInterval(window.__PM7_SELF_HEALING_INTERVAL__);</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>How It Works</h2>
+      
+      <div class="healing-demo">
+        <h3>Technical Implementation</h3>
+        <ol>
+          <li><strong>WeakMap Instance Tracking</strong> - Each component instance is tracked without preventing garbage collection</li>
+          <li><strong>Initialization Detection</strong> - Components check if they were previously initialized but lost their instance</li>
+          <li><strong>State Preservation</strong> - Before re-initializing, components save their current state</li>
+          <li><strong>Event Cleanup</strong> - Old event listeners are removed to prevent duplicates</li>
+          <li><strong>Automatic Healing</strong> - A background process checks for orphaned components every second</li>
+        </ol>
+      </div>
+      
+      <pre><code class="language-javascript">// Example: How Menu component self-heals
+class PM7Menu {
+  static instances = new WeakMap();
+  
+  constructor(element) {
+    // Check if element was re-rendered
+    const wasInitialized = element.hasAttribute('data-pm7-menu-initialized');
+    const hasInstance = PM7Menu.instances.has(element);
+    
+    if (wasInitialized && !hasInstance) {
+      // Self-heal: Re-initialize after framework re-render
+      console.log('[PM7Menu] Self-healing: Re-initializing after re-render');
+      element.removeAttribute('data-pm7-menu-initialized');
+    }
+    
+    // Continue with initialization...
+    PM7Menu.instances.set(element, this);
+  }
+}</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Migration Guide</h2>
+      
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">📝 Upgrading from older versions</h4>
+        <div class="pm7-callout-body">
+          <p>Self-healing is available in PM7-UI v2.5.0 and later. Simply update your package and add <code>PM7.initFramework()</code> to enable it.</p>
+        </div>
+      </div>
+      
+      <h3>Before (Manual State Management)</h3>
+      <pre><code>// Complex workarounds for React re-renders
+const [menuOpen, setMenuOpen] = useState(false);
+const menuRef = useRef(null);
+
+useEffect(() => {
+  // Manual state synchronization
+  if (menuRef.current) {
+    const menu = new PM7Menu(menuRef.current);
+    if (menuOpen) menu.open();
+    else menu.close();
+  }
+}, [menuOpen]);</code></pre>
+      
+      <h3>After (Self-Healing)</h3>
+      <pre><code>// Just initialize once
+useEffect(() => {
+  PM7.initFramework();
+}, []);
+
+// Components handle their own state!</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Best Practices</h2>
+      
+      <ul>
+        <li>✅ Call <code>PM7.initFramework()</code> once in your app's main component</li>
+        <li>✅ Use data attributes (<code>data-pm7-*</code>) for all components</li>
+        <li>✅ Let components manage their own state</li>
+        <li>❌ Don't manually destroy and recreate components</li>
+        <li>❌ Don't try to sync component state with framework state</li>
+        <li>❌ Don't disable healing unless you have a specific reason</li>
+      </ul>
+    </section>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script type="module" src="/scripts/docs.js"></script>
+</body>
+</html>

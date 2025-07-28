@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disabled Menu Items Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Disabled Menu Items</h1>
+      <p class="demo-description">Show unavailable actions with contextual information</p>
+    </div>
+    
+    <div class="demo-content">
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-button pm7-menu-trigger">
+          Actions
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Edit</button>
+          <button class="pm7-menu-item">Duplicate</button>
+          <button class="pm7-menu-item pm7-menu-item--disabled">Delete (No permission)</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item">Archive</button>
+          <button class="pm7-menu-item pm7-menu-item--disabled">Export (Premium feature)</button>
+        </div>
+      </div>
+
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-button pm7-button--outline pm7-menu-trigger">
+          File Operations
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">New File</button>
+          <button class="pm7-menu-item">Open File</button>
+          <button class="pm7-menu-item">Save</button>
+          <button class="pm7-menu-item pm7-menu-item--disabled">Save As (Read-only)</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item pm7-menu-item--disabled">Print (No printer)</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">Actions</button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Edit</button>
+    <button class="pm7-menu-item">Duplicate</button>
+    <button class="pm7-menu-item pm7-menu-item--disabled">Delete (No permission)</button>
+    <div class="pm7-menu-separator"></div>
+    <button class="pm7-menu-item">Archive</button>
+    <button class="pm7-menu-item pm7-menu-item--disabled">Export (Premium feature)</button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

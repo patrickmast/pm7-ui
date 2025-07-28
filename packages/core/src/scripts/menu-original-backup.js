@@ -1,32 +1,17 @@
 /**
- * PM7Menu - Vanilla JavaScript menu component with self-healing
+ * PM7Menu - Vanilla JavaScript menu component
  * Handles dropdown menus with keyboard navigation and accessibility
- * Now with self-healing for framework re-renders (React, Vue, etc.)
  */
 export class PM7Menu {
-  static instances = new WeakMap(); // Use WeakMap for better memory management
+  static instances = new Map(); // Changed to Map to store by element
   
   constructor(element) {
-    // Self-healing: Check if element was re-rendered by framework
-    const wasInitialized = element.hasAttribute('data-pm7-menu-initialized');
-    const hasInstance = PM7Menu.instances.has(element);
-    
-    // If initialized but no instance, element was re-rendered
-    if (wasInitialized && !hasInstance) {
-      console.log('[PM7Menu] Self-healing: Re-initializing menu after framework re-render');
-      // Remove the initialized attribute to allow re-initialization
-      element.removeAttribute('data-pm7-menu-initialized');
-    }
-    
     // Check if this element already has a menu instance
     if (PM7Menu.instances.has(element)) {
       return PM7Menu.instances.get(element);
     }
     
     this.element = element;
-    
-    // Preserve state if this is a re-render
-    const preservedState = this.preserveState();
     
     // AI-Agent FIRST: Automatically add pm7-menu class if missing
     if (!this.element.classList.contains('pm7-menu')) {
@@ -38,112 +23,61 @@ export class PM7Menu {
     this.items = element.querySelectorAll('.pm7-menu-item');
     this.isOpen = false;
     this.currentIndex = -1;
-    this.hoverTimeouts = new Map();
+    this.hoverTimeouts = new Map(); // Store hover timeouts for cleanup
     
     if (!this.trigger || !this.content) {
       return;
     }
     
-    // Store this instance
+    // Store this instance by element
     PM7Menu.instances.set(element, this);
     
-    // Store instance reference on element for self-healing
-    element._pm7MenuInstance = this;
+    // Store reference on element for easy access
     
     this.init();
-    
-    // Restore state if this was a re-render
-    if (preservedState) {
-      this.restoreState(preservedState);
-    }
-    
-    // Mark as initialized
-    element.setAttribute('data-pm7-menu-initialized', 'true');
-  }
-  
-  preserveState() {
-    // Try to preserve state from previous instance
-    const oldContent = this.element.querySelector('.pm7-menu-content');
-    if (!oldContent) return null;
-    
-    return {
-      wasOpen: oldContent.classList.contains('pm7-menu-content--open') || 
-               oldContent.getAttribute('data-state') === 'open',
-      triggerExpanded: this.element.querySelector('.pm7-menu-trigger')?.getAttribute('aria-expanded') === 'true'
-    };
-  }
-  
-  restoreState(state) {
-    if (state.wasOpen) {
-      // Use setTimeout to ensure DOM is ready
-      setTimeout(() => {
-        this.open();
-      }, 0);
-    }
   }
   
   init() {
-    // Remove any existing event listeners to prevent duplicates
-    this.cleanup();
-    
     // Check if this menu is part of a menu bar
     this.isInMenuBar = this.element.closest('.pm7-menu-bar') !== null;
     
-    // Create bound event handlers for proper cleanup
-    this.boundHandlers = {
-      triggerClick: (e) => {
-        e.stopPropagation();
-        
-        // In menu bars, always open (don't toggle) if another menu is open
-        if (this.isInMenuBar && this.isAnyMenuBarMenuOpen() && !this.isOpen) {
-          this.open();
-        } else {
-          this.toggle();
-        }
-      },
-      triggerMouseEnter: () => {
+    // Click handlers
+    this.trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      // In menu bars, always open (don't toggle) if another menu is open
+      if (this.isInMenuBar && this.isAnyMenuBarMenuOpen() && !this.isOpen) {
+        this.open();
+      } else {
+        this.toggle();
+      }
+    });
+    
+    // Hover handlers for menu bar menus
+    if (this.isInMenuBar) {
+      this.trigger.addEventListener('mouseenter', () => {
         // Check if any other menu in the bar is open
         if (this.isAnyMenuBarMenuOpen()) {
           this.open();
         }
-      },
-      outsideClick: (e) => {
-        // Check if the click is outside the menu element and not on a submenu
-        if (!this.element.contains(e.target) && this.isOpen) {
-          // Check if the click is on a submenu that is part of this menu
-          const clickedSubmenu = e.target.closest('.pm7-submenu');
-          if (!clickedSubmenu || !this.element.contains(clickedSubmenu)) {
-            this.close();
-          }
-        }
-      },
-      escape: (e) => {
-        if (e.key === 'Escape' && this.isOpen) {
-          e.stopPropagation();
-          this.close();
-          this.trigger.focus();
-        }
-      },
-      reposition: () => {
-        if (this.isOpen) {
-          this.adjustPosition();
-        }
-      }
-    };
-    
-    // Click handlers
-    this.trigger.addEventListener('click', this.boundHandlers.triggerClick);
-    
-    // Hover handlers for menu bar menus
-    if (this.isInMenuBar) {
-      this.trigger.addEventListener('mouseenter', this.boundHandlers.triggerMouseEnter);
+      });
     }
     
     // Initialize submenu hover handling
     this.initSubmenuHoverHandling();
     
     // Close on outside click
-    document.addEventListener('click', this.boundHandlers.outsideClick);
+    this.outsideClickHandler = (e) => {
+      // Check if the click is outside the menu element and not on a submenu
+      if (!this.element.contains(e.target) && this.isOpen) {
+        // Check if the click is on a submenu that is part of this menu
+        const clickedSubmenu = e.target.closest('.pm7-submenu');
+        if (!clickedSubmenu || !this.element.contains(clickedSubmenu)) {
+          this.close();
+        }
+      }
+    };
+    document.addEventListener('click', this.outsideClickHandler);
     
     // Keyboard navigation
     this.trigger.addEventListener('keydown', (e) => this.handleTriggerKeyDown(e));
@@ -173,28 +107,23 @@ export class PM7Menu {
       item.setAttribute('tabindex', '-1');
     });
     
+    // Close on escape - bind to instance for proper cleanup
+    this.escapeHandler = (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        e.stopPropagation(); // Don't trigger other escape handlers
+        this.close();
+        this.trigger.focus();
+      }
+    };
+    
     // Reposition on window resize/scroll
-    window.addEventListener('resize', this.boundHandlers.reposition);
-    window.addEventListener('scroll', this.boundHandlers.reposition, true);
-  }
-  
-  cleanup() {
-    // Remove all event listeners if they exist
-    if (this.boundHandlers) {
-      this.trigger?.removeEventListener('click', this.boundHandlers.triggerClick);
-      this.trigger?.removeEventListener('mouseenter', this.boundHandlers.triggerMouseEnter);
-      document.removeEventListener('click', this.boundHandlers.outsideClick);
-      document.removeEventListener('keydown', this.boundHandlers.escape);
-      window.removeEventListener('resize', this.boundHandlers.reposition);
-      window.removeEventListener('scroll', this.boundHandlers.reposition, true);
-    }
-  }
-  
-  destroy() {
-    this.cleanup();
-    this.close();
-    PM7Menu.instances.delete(this.element);
-    delete this.element._pm7MenuInstance;
+    this.repositionHandler = () => {
+      if (this.isOpen) {
+        this.adjustPosition();
+      }
+    };
+    window.addEventListener('resize', this.repositionHandler);
+    window.addEventListener('scroll', this.repositionHandler, true);
   }
   
   toggle() {
@@ -203,21 +132,18 @@ export class PM7Menu {
   
   open() {
     // Close all other open menus
-    // Since we're using WeakMap, we need to track open menus differently
-    document.querySelectorAll('.pm7-menu-content--open').forEach(content => {
-      const menu = content.closest('[data-pm7-menu]');
-      if (menu && menu._pm7MenuInstance && menu._pm7MenuInstance !== this) {
-        menu._pm7MenuInstance.close();
+    PM7Menu.instances.forEach((instance, element) => {
+      if (instance !== this && instance.isOpen) {
+        instance.close();
       }
     });
     
     this.isOpen = true;
     this.content.classList.add('pm7-menu-content--open');
-    this.content.setAttribute('data-state', 'open'); // Add data-state for better state tracking
     this.trigger.setAttribute('aria-expanded', 'true');
     
     // Add escape handler when menu opens
-    document.addEventListener('keydown', this.boundHandlers.escape);
+    document.addEventListener('keydown', this.escapeHandler);
     
     // Check viewport position and adjust if needed
     this.adjustPosition();
@@ -227,25 +153,16 @@ export class PM7Menu {
       this.currentIndex = 0;
       this.focusItem(0);
     });
-    
-    // Dispatch custom event
-    this.element.dispatchEvent(new CustomEvent('pm7:menu:open', { 
-      detail: { menu: this },
-      bubbles: true 
-    }));
   }
   
   close() {
-    if (!this.isOpen) return;
-    
     this.isOpen = false;
     this.content.classList.remove('pm7-menu-content--open');
-    this.content.setAttribute('data-state', 'closed');
     this.trigger.setAttribute('aria-expanded', 'false');
     this.currentIndex = -1;
     
     // Remove escape handler when menu closes
-    document.removeEventListener('keydown', this.boundHandlers.escape);
+    document.removeEventListener('keydown', this.escapeHandler);
     
     // Clear all hover timeouts
     this.hoverTimeouts.forEach(timeout => clearTimeout(timeout));
@@ -260,14 +177,10 @@ export class PM7Menu {
     // Remove focus from items
     this.items.forEach(item => {
       item.setAttribute('tabindex', '-1');
+      // Remove clicking class from all items
       item.classList.remove('pm7-menu-item--clicking');
     });
     
-    // Dispatch custom event
-    this.element.dispatchEvent(new CustomEvent('pm7:menu:close', { 
-      detail: { menu: this },
-      bubbles: true 
-    }));
   }
   
   handleTriggerKeyDown(e) {
@@ -529,26 +442,30 @@ export class PM7Menu {
   }
 }
 
-// Auto-initialize menus
+// Auto-initialize menus with data attribute
+// Use more efficient initialization
 if (typeof document !== 'undefined' && !window.__PM7_MENU_INIT__) {
+  // Prevent multiple initializations
   window.__PM7_MENU_INIT__ = true;
   
   const initMenus = () => {
-    // Regular initialization
     const menus = document.querySelectorAll('[data-pm7-menu]:not([data-pm7-menu-initialized])');
-    menus.forEach((menu) => {
+    menus.forEach((menu, index) => {
       try {
-        new PM7Menu(menu);
+        const instance = new PM7Menu(menu);
+        // Attach instance to DOM element for easy access
+        // Initialize menu (removed DOM attachment)
+        menu.setAttribute('data-pm7-menu-initialized', 'true');
       } catch (error) {
-        console.error('[PM7Menu] Error initializing menu:', error);
+        // Silent catch - no logging
       }
     });
   };
   
-  // Initialize immediately if DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initMenus, { once: true });
   } else {
+    // Use setTimeout to avoid blocking
     setTimeout(initMenus, 0);
   }
 }

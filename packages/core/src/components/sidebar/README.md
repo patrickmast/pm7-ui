@@ -263,7 +263,37 @@ export default function Layout({ children }) {
 IF static sidebar THEN no JavaScript needed
 IF interactive sidebar in DOM at page load THEN auto-initialized
 IF interactive sidebar added dynamically THEN MUST call `window.PM7.init()`
+IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
+IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
 IF manual control THEN `new PM7.Sidebar(element)`
+
+### Self-Healing (v2.6.0+)
+
+Sidebar components automatically detect and recover from framework re-renders:
+
+```javascript
+// React - Components self-heal automatically
+useEffect(() => {
+  PM7.initFramework(); // Includes automatic healing
+}, []);
+
+// Manual healing if needed
+PM7.healSidebars(); // Heal only sidebars
+PM7.heal();         // Heal all components
+```
+
+#### How Self-Healing Works:
+1. Component detects it was re-rendered by framework
+2. Open/closed state is preserved
+3. Collapsible section states are maintained
+4. Event listeners are cleaned up and re-attached
+5. No manual re-initialization needed
+
+#### When Self-Healing Activates:
+- React re-renders component tree
+- Vue updates virtual DOM
+- Angular change detection cycles
+- Any framework that replaces DOM elements
 
 ### Methods
 
