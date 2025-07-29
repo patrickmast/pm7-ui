@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltip - pm7-ui</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/tooltip-DIGiQnyE.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="pm7-docs-layout">
+        <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+        <main class="pm7-docs-content">
+            <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M179 269.6c-18.4 2.8-44.7 13-56.2 21.8-2.6 2-4.9 3.6-5.2 3.6-1.5 0-12.4 9.8-20.8 18.6-17.1 18.1-30.2 43.4-36 69.4l-2.3 10.5v272c0 258.8.1 272.4 1.8 280.5 12.9 60.7 58.4 104.8 118.4 115 11 1.9 17 2 139.8 2 107.2 0 128.4.2 128.8 1.4.9 2.3 301.8 403.6 302.7 403.6s300.8-399.9 302.4-403.1c.9-1.8 4.9-1.9 128.7-1.9 122.2 0 128.2-.1 139.2-2 31-5.3 55.7-18 77.8-40 21.6-21.6 34.1-44.8 40.5-75.5 1.8-8.7 1.9-18.6 1.9-279.5 0-257.8-.1-270.9-1.8-279.5-6.1-29.9-19.3-54.9-40-75.8-19.7-19.8-43.9-33-73.2-40l-9-2.1-564-.2c-485.8-.2-565.3 0-573.5 1.2m1128.1 95.8c17.6 3.8 31.7 17.4 36.4 35.1 1.3 5.2 1.5 35.6 1.5 265 0 283.3.3 265.6-5.7 276.8-3.3 6-11.7 14.7-17.6 18.1-2.4 1.4-7 3.5-10.2 4.6-5.8 2-8 2-562 2H193.4l-6.3-2.1c-13.2-4.5-25.1-15.7-30.3-28.6l-2.3-5.8-.3-261c-.2-189.9 0-262.6.8-266.9 1.8-9.2 5.7-16.4 13-23.7 7.3-7.4 14.4-11.4 23.4-13.4 9.4-2.1 1106.1-2.1 1115.7-.1"/><path d="M415.5 700.4c-16.9 3.3-26 9.6-31.9 22-5 10.4-5.9 17.3-5.3 41.9.3 15.7.9 22.7 2.2 27.2 5.1 18.1 11.9 24.5 31.2 29.6 11 3 42.1 3.8 54.2 1.5 10.1-1.9 19.3-6.1 24.4-11.1 4.5-4.5 10.3-16.1 11.7-23.5 1.3-6.8 1.3-40.4 0-49.5s-4.4-18.3-7.6-22.6c-4.7-6.4-14.6-11.4-28.4-14.6-9.3-2.1-41.5-2.7-50.5-.9m206 0c-17.3 3.4-25.2 8.9-31.5 22-5.3 10.9-6.4 19.6-5.7 43.1.6 20.1 2.5 30 7.6 38.9 7.6 13.6 25.4 19.6 58 19.6 16 0 23.2-.9 32.8-4.2 10.3-3.5 15.1-7.9 20.6-18.8 4.7-9.2 4.8-9.9 5.8-22 1.8-23.5-.6-47-6-58.6-4.5-9.7-13.3-15.2-30.6-19-9.9-2.2-41.8-2.8-51-1m205.5.1c-10.9 2-21.5 7.7-26.2 14-7.7 10.2-10.7 23-10.8 45.3 0 25.7 5.2 44.6 14.4 52.5 4 3.4 11.6 6.7 20.4 8.9 7.6 1.9 11.5 2.2 30.2 2.3 23.4 0 28.1-.7 38.6-5.6 9.4-4.4 15.2-11.9 20-25.9 1.6-4.8 1.9-8.5 1.8-28.5 0-24.5-1-32-5.5-42.4-4.1-9.5-14.9-16.3-31.4-19.7-10.3-2.2-42.1-2.7-51.5-.9m211.5-.9c-20.5 3.3-31 10.5-37.5 25.9l-3.4 8-.4 22.1c-.3 16.8 0 24 1.1 30 5.7 29.7 20.1 38.4 64.2 38.4 31.7.1 45.5-6 53.9-23.8 4.7-10.1 5.6-15.9 5.6-36.4 0-43.8-6.9-55.6-36.6-62.3-6.8-1.6-40.5-2.9-46.9-1.9"/></svg>Tooltip</h1>
+
+            <!-- Tab Navigation -->
+            <div class="pm7-tab-selector" data-pm7-tab-selector>
+                <div class="pm7-tab-list">
+                    <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+                    <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+                    <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+                    <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+                </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+                    <div class="pm7-docs-section">
+                        <h2>Introduction</h2>
+                        <p>
+                            The Tooltip component provides contextual information when users interact with an element. 
+                            It supports multiple positioning options, themes, and can be triggered by hover, focus, or touch.
+                        </p>
+                    </div>
+
+                    <div class="pm7-docs-section">
+                        <h2>When to Use</h2>
+                        <ul>
+                            <li>To provide additional context or explanation for interface elements</li>
+                            <li>To show full text when content is truncated</li>
+                            <li>To display keyboard shortcuts or hints</li>
+                            <li>To explain icon-only buttons or controls</li>
+                        </ul>
+                    </div>
+
+                    <div class="pm7-docs-section">
+                        <h2>Key Features</h2>
+                        <ul>
+                            <li><strong>Flexible Positioning:</strong> Four positions available - top (default), bottom, left, or right</li>
+                            <li><strong>Customizable Delays:</strong> Configure open and close delays independently</li>
+                            <li><strong>Multiple Themes:</strong> Dark and light themes available</li>
+                            <li><strong>Accessible:</strong> Full keyboard navigation and screen reader support</li>
+                            <li><strong>Touch Support:</strong> Works on mobile devices with tap interactions</li>
+                            <li><strong>Auto-positioning:</strong> Automatically adjusts position to stay within viewport</li>
+                        </ul>
+                    </div>
+
+                    <div class="pm7-docs-section">
+                        <h2>Anatomy</h2>
+                        <div class="pm7-card">
+                            <pre><code>&lt;div class="pm7-tooltip"&gt;
+  &lt;div class="pm7-tooltip-trigger"&gt;
+    &lt;!-- Trigger element --&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    &lt;!-- Tooltip content --&gt;
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo Tab -->
+                <div class="pm7-tab-content" id="demo-panel">
+                    <section class="pm7-docs-section">
+                        <a href="/components/demos/tooltip/" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer" style="margin-left: 0; margin-bottom: 10px;">Open Tooltip demos in new tab →</a>
+                        
+                        <!-- Accordion demos -->
+                        <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion="single" data-pm7-default-value="item-1">
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-1">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Basic Tooltip
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/basic.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/basic.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-2">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Positioning
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/positioning.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/positioning.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-3">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Sizes
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/sizes.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/sizes.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-4">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Themes
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/themes.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/themes.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-5">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Multiline Content
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/multiline.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/multiline.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-6">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Delays
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/delays.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/delays.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pm7-accordion-item" data-pm7-accordion-value="item-7">
+                                <h3 class="pm7-accordion-header">
+                                    <button class="pm7-accordion-trigger">
+                                        Icon Tooltips
+                                        <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </button>
+                                </h3>
+                                <div class="pm7-accordion-content">
+                                    <div class="pm7-accordion-content-inner">
+                                        <a href="/components/demos/tooltip/icon-tooltips.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                                        <iframe src="/components/demos/tooltip/icon-tooltips.html" class="pm7-demo-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Usage Tab -->
+                <div class="pm7-tab-content" id="usage-panel">
+                    <section class="pm7-docs-section">
+                        <h3>Installation</h3>
+                        <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+                        <h3>CSS Classes</h3>
+                        <table class="pm7-docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>.pm7-tooltip</code></td>
+                                    <td>Base tooltip container</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-trigger</code></td>
+                                    <td>Element that triggers the tooltip</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-content</code></td>
+                                    <td>Tooltip content container</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-arrow</code></td>
+                                    <td>Arrow pointing to trigger</td>
+                                </tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-content--sm</code></td>
+                                    <td>Small tooltip size (max-width: 200px)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-content--lg</code></td>
+                                    <td>Large tooltip size (max-width: 400px)</td>
+                                </tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Theme Variants</strong></td></tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-content--light</code></td>
+                                    <td>Light theme variant</td>
+                                </tr>
+                                <tr class="pm7-table-section-header"><td colspan="2"><strong>Content Modifiers</strong></td></tr>
+                                <tr>
+                                    <td><code>.pm7-tooltip-content--multiline</code></td>
+                                    <td>Multiline content support</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Data Attributes</h3>
+                        <table class="pm7-docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>data-side</code></td>
+                                    <td>string</td>
+                                    <td>top</td>
+                                    <td>Position of tooltip: top (default), bottom, left, right</td>
+                                </tr>
+                                <tr>
+                                    <td><code>data-align</code></td>
+                                    <td>string</td>
+                                    <td>center</td>
+                                    <td>Alignment: start, center, end (only works for top/bottom positions)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>data-delay</code></td>
+                                    <td>number</td>
+                                    <td>0</td>
+                                    <td>Delay before showing/hiding (ms)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>data-open-delay</code></td>
+                                    <td>number</td>
+                                    <td>0</td>
+                                    <td>Specific open delay (ms)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>data-close-delay</code></td>
+                                    <td>number</td>
+                                    <td>0</td>
+                                    <td>Delay before hiding (ms)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Basic Usage</h3>
+                        <pre><code class="language-html">&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-button pm7-tooltip-trigger"&gt;
+    Hover for tooltip
+  &lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Tooltip content
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Positioning</h3>
+                        <p style="margin-bottom: 1rem;"><strong>Note:</strong> PM7 Tooltip supports 4 positions: top (default), bottom, left, and right. The <code>data-align</code> attribute only works for top and bottom positions.</p>
+                        <pre><code class="language-html">&lt;!-- Top position (default) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Top&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Tooltip appears above
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Right position --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Right&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="right"&gt;
+    Tooltip appears to the right
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Bottom position --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Bottom&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="bottom"&gt;
+    Tooltip appears below
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Left position --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Left&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="left"&gt;
+    Tooltip appears to the left
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Top with alignment (only works for top/bottom) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Top Start&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top" data-align="start"&gt;
+    Aligned to start
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Sizes</h3>
+                        <pre><code class="language-html">&lt;!-- Small size --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Small&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top"&gt;
+    Compact tooltip
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Default size --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Default&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Regular tooltip content
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Large size --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Large&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--lg" data-side="top"&gt;
+    Larger tooltip with more content space
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Themes</h3>
+                        <pre><code class="language-html">&lt;!-- Dark theme (default) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Dark&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Dark tooltip
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Light theme --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Light&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--light" data-side="top"&gt;
+    Light themed tooltip
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>With Delays</h3>
+                        <p style="margin-bottom: 1rem;">Use delays to prevent tooltips from appearing during casual mouse movements. Recommended values depend on the use case.</p>
+                        <pre><code class="language-html">&lt;!-- Short delay (200ms) - Good for navigation --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="200"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Quick Info&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Opens after 200ms
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Medium delay (600ms) - Good for form fields --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="600"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Detailed Help&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Opens after 600ms
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom open and close delays --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="300" data-close-delay="150"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Custom Timing&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content" data-side="top"&gt;
+    Opens after 300ms, closes after 150ms
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Multiline Content</h3>
+                        <pre><code class="language-html">&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Info&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="top" style="max-width: 250px;"&gt;
+    This tooltip contains multiple lines of text.&lt;br&gt;&lt;br&gt;
+    It can include formatted content and maintains readability.
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Wide Tooltips</h3>
+                        <p style="margin-bottom: 1rem;">For cases where you need more space for detailed content, use the large size modifier or custom max-width.</p>
+                        <pre><code class="language-html">&lt;!-- Large tooltip with extended width (400px) --&gt;
+&lt;div class="pm7-tooltip"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Wide Content&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top"&gt;
+    This large tooltip can contain detailed information, 
+    code examples, or longer explanations without becoming too cramped.
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom width tooltip (600px) --&gt;
+&lt;div class="pm7-tooltip" data-open-delay="300"&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;Extra Wide&lt;/button&gt;
+  &lt;div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" 
+       data-side="bottom" style="max-width: 600px;"&gt;
+    &lt;strong&gt;Custom Width Example&lt;/strong&gt;&lt;br&gt;&lt;br&gt;
+    This tooltip has a custom max-width of 600px for displaying 
+    extensive content like API documentation or complex code examples:&lt;br&gt;&lt;br&gt;
+    &lt;code style="display: block; padding: 12px; background: var(--pm7-muted); border-radius: 4px; font-size: 12px;"&gt;
+      // Example: Button with all modifiers&lt;br&gt;
+      &amp;lt;button class="pm7-button pm7-button--primary&lt;br&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pm7-button--lg pm7-button--full"&amp;gt;&lt;br&gt;
+      &amp;nbsp;&amp;nbsp;Click Me&lt;br&gt;
+      &amp;lt;/button&amp;gt;
+    &lt;/code&gt;
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <h3>Recommended Delay Values</h3>
+                        <table class="pm7-docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Use Case</th>
+                                    <th>Open Delay</th>
+                                    <th>Close Delay</th>
+                                    <th>Rationale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Navigation items</td>
+                                    <td>200ms</td>
+                                    <td>0ms</td>
+                                    <td>Quick response for menus</td>
+                                </tr>
+                                <tr>
+                                    <td>Form field help</td>
+                                    <td>600ms</td>
+                                    <td>100ms</td>
+                                    <td>Avoid accidental triggers</td>
+                                </tr>
+                                <tr>
+                                    <td>Icon buttons</td>
+                                    <td>300ms</td>
+                                    <td>0ms</td>
+                                    <td>Balance between speed and prevention</td>
+                                </tr>
+                                <tr>
+                                    <td>Detailed info</td>
+                                    <td>800ms</td>
+                                    <td>200ms</td>
+                                    <td>Only show when user really hovers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>JavaScript API</h3>
+                        <pre><code class="language-javascript">import { PM7Tooltip } from '@pm7/core';
+
+    import '/packages/core/src/scripts/index.js';
+// Initialize a tooltip
+const element = document.querySelector('.pm7-tooltip');
+const tooltip = new PM7Tooltip(element);
+
+// Show tooltip programmatically
+tooltip.show();
+
+// Hide tooltip
+tooltip.hide();
+
+// Update position
+tooltip.updatePosition();
+
+// Destroy tooltip instance
+tooltip.destroy();
+
+// Listen for tooltip events
+element.addEventListener('pm7:tooltip:show', (event) => {
+  console.log('Tooltip shown', event.detail.tooltip);
+});
+
+element.addEventListener('pm7:tooltip:hide', (event) => {
+  console.log('Tooltip hidden', event.detail.tooltip);
+});</code></pre>
+
+                        <h3>Advanced Examples</h3>
+                        <pre><code class="language-html">&lt;!-- Tooltip with custom styling --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="Custom styled tooltip" data-pm7-tooltip-theme="dark"&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Dark Theme&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- Tooltip with HTML content --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="&lt;strong&gt;Bold&lt;/strong&gt; text in tooltip" data-pm7-tooltip-html="true"&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;HTML Content&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- Disabled button with tooltip --&gt;
+&lt;span class="pm7-tooltip" data-pm7-tooltip="This button is currently disabled"&gt;
+  &lt;button class="pm7-button pm7-button--primary" disabled&gt;Disabled&lt;/button&gt;
+&lt;/span&gt;</code></pre>
+
+                        <h3>Accessibility</h3>
+                        <ul>
+                            <li>Tooltips are announced to screen readers using ARIA live regions</li>
+                            <li>Keyboard accessible - shows on focus, hides on blur</li>
+                            <li>Escape key closes the tooltip</li>
+                            <li>Uses <code>aria-describedby</code> to associate tooltip with trigger</li>
+                            <li>Touch devices show tooltip on tap</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Documentation Tab -->
+                <div class="pm7-tab-content" id="documentation-panel">
+                    <section class="pm7-docs-section" style="padding-top: 20px;">
+                        <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+                        
+                        <div class="pm7-card" style="background-color: var(--pm7-muted);">
+                            <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                                    <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tooltip/README.md</code>
+                                    <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tooltip/README.md" 
+                                       target="_blank" 
+                                       rel="noopener noreferrer"
+                                       style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                                       aria-label="Open in new tab">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="pm7-callout pm7-callout--info pm7-callout--center">
+                            <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+                            <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Tooltip implementation guidance.</p>
+                            <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+      function copyDocLink() {
+        const link = document.getElementById('doc-link').textContent;
+        navigator.clipboard.writeText(link).then(() => {
+          const button = event.target;
+          const originalText = button.textContent;
+          button.textContent = '✓ Copied!';
+          button.style.backgroundColor = '#22c55e';
+          
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.style.backgroundColor = '';
+          }, 2000);
+        });
+      }
+      
+      // Move demo links to accordion headers
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+          demoAccordions.forEach(item => {
+            const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+            const trigger = item.querySelector('.pm7-accordion-trigger');
+            
+            if (link && trigger) {
+              const headerLink = link.cloneNode(true);
+              headerLink.classList.remove('pm7-demo-open-link');
+              headerLink.classList.add('pm7-demo-open-link-header');
+              
+              const linkContainer = document.createElement('div');
+              linkContainer.className = 'pm7-demo-link-container';
+              linkContainer.appendChild(headerLink);
+              
+              headerLink.addEventListener('mouseenter', () => {
+                item.setAttribute('data-link-hover', 'true');
+              });
+              
+              headerLink.addEventListener('mouseleave', () => {
+                item.removeAttribute('data-link-hover');
+              });
+              
+              trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+              link.remove();
+            }
+          });
+        }, 100);
+      });
+    </script>
+
+
+
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

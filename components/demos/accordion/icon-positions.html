@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Position Variants Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .position-label {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    .comparison-grid {
+      background: var(--pm7-surface);
+      padding: 2rem;
+      border-radius: var(--pm7-radius);
+      display: grid;
+      gap: 2rem;
+    }
+    
+    .comparison-item p {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon Position Variants</h1>
+      <p class="demo-description">Three different icon positions to suit your design needs</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Default - Icon End -->
+      <div>
+        <h3 class="position-label">Default - Icon End (Helemaal Rechts)</h3>
+        <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Standaard positie</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Dit is de <strong>standaard positie</strong>. De icon staat helemaal rechts uitgelijnd met <code>justify-content: space-between</code>.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Lange titel om de rechtse uitlijning te demonstreren</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Ongeacht de lengte van de titel, blijft de icon altijd helemaal rechts staan. Dit geeft een strakke, uitgelijde look.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>FAQ</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Ideaal voor professionele interfaces waar consistente uitlijning belangrijk is.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Icon Start -->
+      <div>
+        <h3 class="position-label">Icon Start (Links)</h3>
+        <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Icon aan het begin</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Met <code>pm7-accordion--icon-start</code> staat de icon links van de titel. Dit wordt bereikt met <code>flex-direction: row-reverse</code>.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Populair in bepaalde design systemen</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Deze layout wordt vaak gebruikt in navigatie menus of wanneer de icon als visuele indicator voor de hele sectie dient.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Documentatie</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Perfect voor file explorers of boom structuren waar de expand/collapse actie aan het begin verwacht wordt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Icon Inline -->
+      <div>
+        <h3 class="position-label">Icon Inline (Direct na titel)</h3>
+        <div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Korte titel</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Met <code>pm7-accordion--icon-inline</code> staat de icon direct 10px naast de titel. Dit gebruikt <code>justify-content: flex-start</code> met <code>margin-left: 10px</code> op de icon.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Dit is een veel langere titel om het inline gedrag te tonen</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>De icon "plakt" aan de tekst, wat een compactere weergave geeft. Er is geen lege ruimte tussen titel en icon.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Help</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Ideaal voor minimalistische designs of wanneer de accordion items korte labels hebben.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Comparison -->
+      <div>
+        <h3 class="position-label">Vergelijking - Alle drie naast elkaar</h3>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <p>Default (Icon End):</p>
+            <div class="pm7-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Product Informatie</span>
+                  <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p>Icon staat helemaal rechts</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="comparison-item">
+            <p>Icon Start:</p>
+            <div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Product Informatie</span>
+                  <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p>Icon staat links van de titel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="comparison-item">
+            <p>Icon Inline:</p>
+            <div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Product Informatie</span>
+                  <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p>Icon staat direct na de titel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Default (Icon End) -->
+<div class="pm7-accordion" data-pm7-accordion>
+  <!-- Icon appears at the far right -->
+</div>
+
+<!-- Icon Start -->
+<div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion>
+  <!-- Icon appears before the title -->
+</div>
+
+<!-- Icon Inline -->
+<div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion>
+  <!-- Icon appears directly after the title text -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

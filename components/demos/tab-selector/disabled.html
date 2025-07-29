@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disabled Tabs - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .info-box {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-section">
+    <h3>Disabled Tabs Example</h3>
+    <div class="info-box">
+      <p>Disabled tabs cannot be selected via click or keyboard navigation. They're useful for features that are temporarily unavailable or require certain conditions to be met.</p>
+    </div>
+    
+    <div class="pm7-tab-selector" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="disabled-tab-1">Active Tab</button>
+        <button class="pm7-tab-trigger" aria-controls="disabled-tab-2" disabled>Disabled Tab</button>
+        <button class="pm7-tab-trigger" aria-controls="disabled-tab-3">Another Tab</button>
+        <button class="pm7-tab-trigger" aria-controls="disabled-tab-4" disabled>Also Disabled</button>
+      </div>
+      <div class="pm7-tab-content" id="disabled-tab-1">
+        <p>This is the active tab. You can navigate between active tabs normally.</p>
+      </div>
+      <div class="pm7-tab-content" id="disabled-tab-2">
+        <p>This content should not be reachable since the tab is disabled.</p>
+      </div>
+      <div class="pm7-tab-content" id="disabled-tab-3">
+        <p>Another active tab that you can access.</p>
+      </div>
+      <div class="pm7-tab-content" id="disabled-tab-4">
+        <p>This content is also inaccessible due to the disabled tab.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Mixed States with Icons</h3>
+    <div class="pm7-tab-selector pm7-tab-selector--pills" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="mixed-tab-1">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Current
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="mixed-tab-2" disabled>
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Locked
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="mixed-tab-3">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          </svg>
+          Available
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="mixed-tab-4" disabled>
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          Premium Only
+        </button>
+      </div>
+      <div class="pm7-tab-content" id="mixed-tab-1">
+        <p>Current features are available to all users.</p>
+      </div>
+      <div class="pm7-tab-content" id="mixed-tab-2">
+        <p>This feature is locked and requires authentication.</p>
+      </div>
+      <div class="pm7-tab-content" id="mixed-tab-3">
+        <p>This feature is available and ready to use.</p>
+      </div>
+      <div class="pm7-tab-content" id="mixed-tab-4">
+        <p>This is a premium feature that requires an upgrade.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

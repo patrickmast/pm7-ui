@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - pm7-ui</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+    <script>
+      // Prevent dark mode flicker - must run before page renders
+      (function() {
+        const savedTheme = localStorage.getItem('pm7-theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <style>
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--pm7-primary);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        pre {
+            position: relative;
+        }
+
+        pre:hover .copy-button {
+            opacity: 1;
+        }
+
+        .copy-button:hover {
+            background: var(--pm7-primary-hover);
+        }
+
+        .copy-button.copied {
+            background: var(--pm7-success);
+        }
+
+        /* FAQ specific styling */
+
+        .pm7-accordion {
+            margin-top: 3rem;
+        }
+
+        /* Subtiele hover effect voor FAQ */
+
+        .pm7-accordion-item:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .pm7-accordion-content p {
+            margin: 0 0 1rem;
+            line-height: 1.6;
+            color: var(--pm7-muted-foreground);
+        }
+
+        .pm7-accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pm7-accordion-content code {
+            background: var(--pm7-muted);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: var(--pm7-primary);
+        }
+
+        .pm7-accordion-content pre {
+            background: var(--pm7-muted);
+            border: 1px solid var(--pm7-border);
+            border-radius: var(--pm7-radius);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .pm7-accordion-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .pm7-accordion-content ul {
+            margin: 0.5rem 0 1rem 1.5rem;
+            color: var(--pm7-muted-foreground);
+        }
+
+        .pm7-accordion-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/faq-D1z3yRrV.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    
+    <div class="pm7-docs-layout pm7-desktop-only">
+        <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+        <main class="pm7-docs-content">
+            <h1>Frequently Asked Questions</h1>
+            <p class="pm7-docs-lead">
+                Find answers to common questions about pm7-ui. Can't find what you're looking for? 
+                Feel free to open an issue on our GitHub repository.
+            </p>
+
+            <div class="pm7-accordion pm7-accordion--sm" data-pm7-accordion>
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I install pm7-ui?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui is a single package that works with all frameworks. Install it using npm or yarn:</p>
+                            <pre><code class="language-bash"># Using npm
+npm install @pm7/core
+
+# Using yarn
+yarn add @pm7/core</code><button class="copy-button">Copy</button></pre>
+                            <p>Then import the CSS in your project:</p>
+                            <pre><code class="language-javascript">// In your main JavaScript/TypeScript file
+import '@pm7/core/dist/pm7.css';</code><button class="copy-button">Copy</button></pre>
+                            <p>That's it! You can now use pm7-ui components in React, Vue, Angular, or any other framework.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Which components require JavaScript?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Most pm7-ui components work with CSS only. However, these components require JavaScript for interactivity:</p>
+                            <ul>
+                                <li><strong>Menu</strong> - For dropdown functionality</li>
+                                <li><strong>Dialog</strong> - For open/close behavior</li>
+                                <li><strong>Toast</strong> - For notifications and auto-dismiss</li>
+                                <li><strong>Tab Selector</strong> - For tab switching</li>
+                                <li><strong>Accordion</strong> - For collapsible panels</li>
+                                <li><strong>Tooltip</strong> - For hover tooltips</li>
+                            </ul>
+                            <p>When using these components, make sure to import the JavaScript:</p>
+                            <pre><code class="language-javascript">import { PM7Menu, PM7Dialog, PM7Toast, PM7Accordion, PM7Tooltip } from '@pm7/core';</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I customize pm7-ui components?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui components can be customized in several ways:</p>
+                            <p><strong>1. CSS Custom Properties (Design Tokens)</strong></p>
+                            <pre><code class="language-css">:root {
+  --pm7-color-primary: #your-color;
+  --pm7-border-radius: 8px;
+  --pm7-spacing-md: 1.5rem;
+}</code><button class="copy-button">Copy</button></pre>
+                            <p><strong>2. Component Variants</strong></p>
+                            <pre><code class="language-html">&lt;button class="pm7-button pm7-button--secondary pm7-button--lg"&gt;
+  Large Secondary Button
+&lt;/button&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p><strong>3. Custom CSS Classes</strong></p>
+                            <pre><code class="language-css">.pm7-button.custom-button {
+  background: linear-gradient(45deg, #1C86EF, #0066CC);
+  box-shadow: 0 4px 12px rgba(28, 134, 239, 0.3);
+}</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Does pm7-ui support dark mode?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! pm7-ui has comprehensive dark mode support with automatic theme detection. All components automatically adapt to dark mode. Features include:</p>
+                            <ul>
+                                <li><strong>Automatic detection</strong> - Respects system theme preferences</li>
+                                <li><strong>Theme Switch component</strong> - Built-in toggle for users</li>
+                                <li><strong>LocalStorage persistence</strong> - Remembers user preference</li>
+                                <li><strong>No flicker</strong> - Smooth transitions between themes</li>
+                            </ul>
+                            <p>Add a Theme Switch to let users toggle between modes:</p>
+                            <pre><code class="language-html">&lt;!-- Basic theme switch --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+  &lt;span&gt;Theme&lt;/span&gt;
+&lt;/div&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>Or manually control dark mode:</p>
+                            <pre><code class="language-html">&lt;!-- Dark mode for entire page --&gt;
+&lt;html class="dark"&gt;
+  &lt;!-- Your content --&gt;
+&lt;/html&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I prevent dark mode flicker on page load?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>When implementing dark mode, you might see a brief flash of light mode before dark mode is applied. To prevent this, add a small script to your <code>&lt;head&gt;</code> BEFORE any stylesheets:</p>
+                            <pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  
+  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
+  &lt;script&gt;
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  &lt;/script&gt;
+  
+  &lt;!-- Your stylesheets come AFTER the script --&gt;
+  &lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
+&lt;/head&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>This script runs synchronously before the page renders, eliminating any flicker.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I customize the dark mode colors?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! pm7-ui's dark mode colors can be customized using CSS variables. Override them in your stylesheet:</p>
+                            <pre><code class="language-css">.dark {
+  /* Background colors */
+  --pm7-background: #0a0a0a;
+  --pm7-surface: #1a1a1a;
+  --pm7-muted: #262626;
+  
+  /* Text colors */
+  --pm7-foreground: #fafafa;
+  --pm7-muted-foreground: #a3a3a3;
+  
+  /* Primary colors */
+  --pm7-primary: #3b9eff;
+  --pm7-primary-foreground: #ffffff;
+  
+  /* Borders */
+  --pm7-border: #404040;
+}</code><button class="copy-button">Copy</button></pre>
+                            <p>All components will automatically use your custom dark mode colors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What are common dark mode implementation mistakes?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Based on our experience implementing dark mode in pm7-ui, here are common mistakes to avoid:</p>
+                            <ul>
+                                <li><strong>Hardcoded colors</strong> - Using <code>background: white</code> or <code>color: #000</code> instead of CSS variables</li>
+                                <li><strong>Missing link styles</strong> - Forgetting to style links, resulting in purple visited links in dark mode</li>
+                                <li><strong>Inline styles</strong> - Using <code>style="background-color: #F8F9FA"</code> which doesn't adapt to dark mode</li>
+                                <li><strong>Component state bugs</strong> - Not preserving CSS classes when JavaScript initializes components</li>
+                                <li><strong>Incomplete coverage</strong> - Only adding dark mode to some pages, not the entire site</li>
+                                <li><strong>Missing flicker prevention</strong> - Not adding the prevention script, causing a flash of light mode</li>
+                            </ul>
+                            <p><strong>Solution:</strong> Always use CSS variables, test every page, and follow the implementation guide in our Getting Started documentation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Why is pm7-ui just one package?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui uses a CSS-first approach with a single <strong>@pm7/core</strong> package that contains:</p>
+                            <ul>
+                                <li>All CSS styles and design tokens</li>
+                                <li>Vanilla JavaScript for interactive components</li>
+                                <li>Framework-agnostic implementation</li>
+                            </ul>
+                            <p>This design has several benefits:</p>
+                            <ul>
+                                <li><strong>Simplicity</strong> - One package to install and maintain</li>
+                                <li><strong>Smaller bundles</strong> - No framework-specific wrapper overhead</li>
+                                <li><strong>Future-proof</strong> - Works with any framework, even ones that don't exist yet</li>
+                                <li><strong>AI-friendly</strong> - Simple CSS classes that AI coding assistants understand</li>
+                            </ul>
+                            <p>You use the same CSS classes whether you're in React, Vue, Angular, or vanilla HTML!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Do I need Tailwind CSS or shadcn/ui to use pm7-ui?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>No, absolutely not!</strong> pm7-ui is a completely standalone component library that doesn't require any external CSS frameworks or dependencies.</p>
+                            <p>pm7-ui includes:</p>
+                            <ul>
+                                <li><strong>Its own design system</strong> - Complete set of design tokens, colors, spacing, typography</li>
+                                <li><strong>Zero dependencies</strong> - Just pure CSS and vanilla JavaScript</li>
+                                <li><strong>Built-in styling</strong> - All components come fully styled out of the box</li>
+                                <li><strong>No conflicts</strong> - Works alongside any existing CSS framework if needed</li>
+                            </ul>
+                            <p>This is all you need:</p>
+                            <pre><code class="language-bash"># Install pm7-ui
+npm install @pm7/core</code><button class="copy-button">Copy</button></pre>
+                            <pre><code class="language-javascript">// Import the CSS
+import '@pm7/core/dist/pm7.css';</code><button class="copy-button">Copy</button></pre>
+                            <p>That's it! You can now use all pm7-ui components without any additional setup or dependencies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I report bugs or request features?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>We welcome bug reports and feature requests! You can:</p>
+                            <ul>
+                                <li><strong>GitHub Issues</strong> - Open an issue on our GitHub repository</li>
+                                <li><strong>Pull Requests</strong> - Submit PRs for bug fixes or new features</li>
+                                <li><strong>Discussions</strong> - Join discussions about future development</li>
+                            </ul>
+                            <p>Please include:</p>
+                            <ul>
+                                <li>Clear description of the issue or feature</li>
+                                <li>Steps to reproduce (for bugs)</li>
+                                <li>Expected vs actual behavior</li>
+                                <li>Browser and OS information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I use pm7-ui with Vue or other frameworks?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Absolutely! pm7-ui is designed to work with ANY framework. Here are examples:</p>
+                            <pre><code class="language-html">&lt;!-- Vue 3 --&gt;
+&lt;template&gt;
+  &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
+    Vue Button
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;!-- Angular --&gt;
+&lt;button class="pm7-button pm7-button--primary" (click)="handleClick()"&gt;
+  Angular Button
+&lt;/button&gt;
+
+&lt;!-- Svelte --&gt;
+&lt;button class="pm7-button pm7-button--primary" on:click={handleClick}&gt;
+  Svelte Button
+&lt;/button&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>Just import the CSS once in your app, and you're ready to use pm7-ui components everywhere!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What is the bundle size of pm7-ui?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>The entire pm7-ui library is approximately 70KB minified CSS and 10KB minified JS:</p>
+                            <ul>
+                                <li><strong>CSS</strong> - ~70KB minified (~12KB gzipped)</li>
+                                <li><strong>JavaScript</strong> - ~10KB minified (~3KB gzipped)</li>
+                                <li><strong>Total</strong> - ~80KB minified (~15KB gzipped)</li>
+                            </ul>
+                            <p>You can reduce this by importing only the components you need.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Does pm7-ui support TypeScript?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! pm7-ui includes TypeScript declarations:</p>
+                            <ul>
+                                <li><strong>Full type support</strong> for all components and utilities</li>
+                                <li><strong>IntelliSense</strong> works out of the box in VS Code and other IDEs</li>
+                                <li><strong>Type-safe</strong> component props and methods</li>
+                            </ul>
+                            <p>TypeScript support is built-in, no additional packages needed!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What browsers does pm7-ui support?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui supports all modern browsers:</p>
+                            <ul>
+                                <li><strong>Chrome, Firefox, Safari, Edge</strong> - Latest versions</li>
+                                <li><strong>iOS Safari</strong> - Version 12+</li>
+                                <li><strong>Chrome/Firefox on Android</strong> - Latest versions</li>
+                            </ul>
+                            <p><strong>Note:</strong> Internet Explorer is not supported.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I use pm7-ui with server-side rendering (SSR)?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui works great with SSR frameworks like Next.js, Nuxt, and SvelteKit:</p>
+                            <ul>
+                                <li><strong>Import the CSS</strong> in your app's entry point</li>
+                                <li><strong>Interactive components</strong> will auto-initialize on the client side</li>
+                                <li><strong>No hydration issues</strong> since we use vanilla JavaScript</li>
+                            </ul>
+                            <pre><code class="language-javascript">// Next.js example (_app.js)
+import '@pm7/core/dist/pm7.css';
+
+// Nuxt example (nuxt.config.js)
+css: ['@pm7/core/dist/pm7.css']</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I use pm7-ui from a CDN?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! You can use unpkg or jsDelivr:</p>
+                            <pre><code class="language-html">&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css"&gt;
+
+&lt;!-- JavaScript (optional, only for interactive components) --&gt;
+&lt;script src="https://unpkg.com/@pm7/core/dist/pm7.js"&gt;&lt;/script&gt;</code><button class="copy-button">Copy</button></pre>
+                            <p>Or use jsDelivr for better performance:</p>
+                            <pre><code class="language-html">&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pm7/core/dist/pm7.css"&gt;
+
+&lt;!-- JavaScript --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@pm7/core/dist/pm7.js"&gt;&lt;/script&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I import only specific components?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Currently, pm7-ui loads all CSS at once for simplicity:</p>
+                            <ul>
+                                <li><strong>The CSS is highly optimized</strong> and only ~70KB minified</li>
+                                <li><strong>Tree-shaking</strong> removes unused JavaScript automatically</li>
+                                <li><strong>Future version</strong> - We're considering component-level imports</li>
+                            </ul>
+                            <p>For now, the small size and performance benefits of a single CSS file outweigh the complexity of per-component imports.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Are there any known conflicts with other libraries?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui is designed to avoid conflicts:</p>
+                            <ul>
+                                <li><strong>Prefixed classes</strong> - All classes use the <code>pm7-</code> prefix</li>
+                                <li><strong>Works alongside</strong> Bootstrap, Tailwind, and other CSS frameworks</li>
+                                <li><strong>No global styles</strong> that affect non-pm7 elements</li>
+                            </ul>
+                            <p>You can safely use pm7-ui in projects with existing CSS frameworks!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>What is the license for pm7-ui?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui is open source under the MIT license:</p>
+                            <ul>
+                                <li><strong>Free</strong> for personal and commercial use</li>
+                                <li><strong>No attribution required</strong> (but appreciated!)</li>
+                                <li><strong>Can modify</strong> and distribute as needed</li>
+                                <li><strong>No warranty</strong> - Use at your own risk</li>
+                            </ul>
+                            <p>Check the LICENSE file in our repository for full details.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I update to a new version?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>To update pm7-ui to the latest version:</p>
+                            <ol>
+                                <li><strong>Check the changelog</strong> for any breaking changes</li>
+                                <li><strong>Update your package.json</strong>: <code>npm update @pm7/core</code></li>
+                                <li><strong>Test your app</strong> thoroughly</li>
+                            </ol>
+                            <p>Most updates are backwards compatible, but always check the release notes!</p>
+                            <pre><code class="language-bash"># Update to latest version
+npm update @pm7/core
+
+# Or specify a version
+npm install @pm7/core@latest</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How do I handle events from interactive components?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>pm7-ui components emit standard DOM events and custom events:</p>
+                            <pre><code class="language-javascript">// Menu component
+const menu = document.querySelector('.pm7-menu');
+menu.addEventListener('pm7-menu-select', (e) => {
+  console.log('Selected:', e.detail.item);
+});
+
+// Dialog component
+const dialog = document.querySelector('.pm7-dialog');
+dialog.addEventListener('pm7-dialog-open', () => {
+  console.log('Dialog opened');
+});</code><button class="copy-button">Copy</button></pre>
+                            <p>Each component's documentation lists all available events.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Where can I find detailed documentation for each component?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Each component has comprehensive documentation:</p>
+                            <ul>
+                                <li>Visit our documentation site at <a href="/components" class="pm7-link">components</a></li>
+                                <li>Each component page includes live demos, usage examples, and API reference</li>
+                                <li>AI-friendly documentation links are available on each component page</li>
+                                <li>You can also access raw markdown docs from our GitHub repository</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>How accessible are pm7-ui components?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Accessibility is a core priority for pm7-ui:</p>
+                            <ul>
+                                <li>All components follow WCAG 2.1 AA guidelines</li>
+                                <li>Full keyboard navigation support</li>
+                                <li>Proper ARIA labels and roles</li>
+                                <li>Screen reader tested</li>
+                                <li>Focus management for interactive components</li>
+                                <li>High contrast mode support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Can I use pm7-ui with form validation libraries?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! pm7-ui form components work with any validation library:</p>
+                            <pre><code class="language-html">&lt;!-- Example with native HTML5 validation --&gt;
+&lt;input type="email" class="pm7-input" required&gt;
+
+&lt;!-- Works with libraries like Yup, Zod, VeeValidate, React Hook Form, etc. --&gt;
+&lt;!-- Just apply error classes when validation fails: --&gt;
+&lt;input class="pm7-input pm7-input--error"&gt;
+&lt;p class="pm7-helper-text pm7-helper-text--error"&gt;Email is required&lt;/p&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Is there a playground or sandbox to try pm7-ui?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>Yes! You can try pm7-ui in several ways:</p>
+                            <ul>
+                                <li>CodePen starter template: <a href="https://codepen.io/pen?template=pm7ui" class="pm7-link" target="_blank">Open template</a></li>
+                                <li>StackBlitz template: <a href="https://stackblitz.com/edit/pm7ui-starter" class="pm7-link" target="_blank">Open template</a></li>
+                                <li>Local development: Clone our starter template from GitHub</li>
+                                <li>Each component documentation page has live, editable examples</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dialog Integration FAQ -->
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Why doesn't my PM7 dialog open in React?</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p>IF dialog not opening in React/Vue THEN check:</p>
+                            <ol>
+                                <li><strong>Initialization timing</strong> - React renders AFTER DOMContentLoaded</li>
+                                <li><strong>Dialog ID mismatch</strong> - Exact match required</li>
+                                <li><strong>PM7 not loaded</strong> - Check window.PM7 exists</li>
+                            </ol>
+                            <p><strong>SOLUTION:</strong></p>
+                            <pre><code class="language-javascript">// Initialize after React render
+useEffect(() => {
+  window.PM7?.autoInitDialogs();
+}, []);
+
+// Open dialog
+window.openDialog('my-dialog-id'); // v2.3.0+</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Dialog closes with X/ESC but won't reopen (React/Vue)</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>CAUSE:</strong> PM7 state and React state are out of sync</p>
+                            <p><strong>SOLUTION:</strong> Use MutationObserver to sync states:</p>
+                            <pre><code class="language-javascript">useEffect(() => {
+  const observer = new MutationObserver(() => {
+    if (dialogRef.current?.getAttribute('data-state') === 'closed' && isOpen) {
+      setIsOpen(false); // Sync React state
+    }
+  });
+  
+  observer.observe(dialogRef.current, { 
+    attributes: true, 
+    attributeFilter: ['data-state'] 
+  });
+  
+  return () => observer.disconnect();
+}, [isOpen]);</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>onClick handlers don't work in dialog footers (React)</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>CAUSE:</strong> PM7 transforms dialog DOM, breaking React event bindings</p>
+                            <p><strong>SOLUTION:</strong> Use global functions:</p>
+                            <pre><code class="language-javascript">// Setup global function
+useEffect(() => {
+  window.handleSave = () => {
+    // Your logic
+    onSave();
+  };
+  return () => delete window.handleSave;
+}, [onSave]);
+
+// In render
+&lt;div data-pm7-footer dangerouslySetInnerHTML={{
+  __html: `&lt;button onclick="window.handleSave()"&gt;Save&lt;/button&gt;`
+}} /&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                    <button class="pm7-accordion-trigger">
+                        <span>Dialog content briefly visible on page load</span>
+                    </button>
+                    <div class="pm7-accordion-content">
+                        <div class="pm7-accordion-content-inner">
+                            <p><strong>SOLUTION:</strong> Since v2.3.0, dialogs auto-initialize and hide. Ensure:</p>
+                            <ul>
+                                <li>PM7 CSS is loaded BEFORE content renders</li>
+                                <li>Using latest version (@pm7/core@2.3.0+)</li>
+                                <li>Not overriding PM7 dialog CSS</li>
+                            </ul>
+                            <p>IF still visible THEN check CSS load order:</p>
+                            <pre><code class="language-html">&lt;!-- Load PM7 CSS first --&gt;
+&lt;link rel="stylesheet" href="@pm7/core/dist/pm7.css"&gt;
+&lt;!-- Then your app --&gt;
+&lt;div id="root"&gt;&lt;/div&gt;</code><button class="copy-button">Copy</button></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder" class="pm7-desktop-only"></div>
+
+</body>
+</html>

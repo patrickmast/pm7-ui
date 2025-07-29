@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Theme Switch - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    
+    .demo-container {
+      text-align: center;
+    }
+    
+    h2 {
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .theme-variations {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Basic Theme Switch</h2>
+    
+    <div class="pm7-theme-switch" data-pm7-theme-switch>
+      <span>Theme</span>
+    </div>
+    
+    <div class="theme-variations">
+      <div>
+        <p style="margin-bottom: 1rem; color: var(--pm7-muted-foreground);">Without Label</p>
+        <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+      </div>
+      
+      <div>
+        <p style="margin-bottom: 1rem; color: var(--pm7-muted-foreground);">Label Before Switch</p>
+        <div class="pm7-theme-switch pm7-theme-switch--label-start" data-pm7-theme-switch>
+          <span>Dark Mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

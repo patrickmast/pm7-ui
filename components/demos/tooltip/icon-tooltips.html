@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Tooltips - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .icon-demo {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    
+    .icon-button {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: var(--pm7-foreground);
+      transition: color 0.2s ease;
+    }
+    
+    .icon-button:hover {
+      color: var(--pm7-primary);
+    }
+    
+    .icon-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .toolbar-section {
+      margin-top: 3rem;
+    }
+    
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      justify-content: center;
+    }
+    
+    .toolbar-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--pm7-border);
+      margin: 0 0.5rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/components/demos/tooltip/icon-tooltips-BeURwJ_g.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Icon Tooltips</h2>
+    
+    <div class="icon-demo">
+      <div class="pm7-tooltip">
+        <div class="pm7-tooltip-trigger icon-text">
+          <span>Help</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M8 12V8M8 4V4.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div class="pm7-tooltip-content" data-side="top">
+          Click here to learn more
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <div class="pm7-tooltip">
+        <button class="pm7-tooltip-trigger icon-button" aria-label="Settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M16.1667 10C16.1667 10.5 16.125 10.9583 16.0417 11.4167L17.875 12.75C18.0417 12.875 18.0833 13.125 17.9583 13.3333L16.2083 16.1667C16.125 16.3333 15.875 16.4167 15.6667 16.3333L13.5 15.5C13.0833 15.8333 12.625 16.125 12.125 16.3333L11.7917 18.6667C11.75 18.875 11.5833 19 11.375 19H7.875C7.66667 19 7.5 18.875 7.45833 18.6667L7.125 16.3333C6.625 16.125 6.16667 15.8333 5.75 15.5L3.58333 16.3333C3.375 16.4167 3.125 16.3333 3.04167 16.1667L1.29167 13.3333C1.16667 13.125 1.20833 12.875 1.375 12.75L3.20833 11.4167C3.125 10.9583 3.08333 10.5 3.08333 10C3.08333 9.5 3.125 9.04167 3.20833 8.58333L1.375 7.25C1.20833 7.125 1.16667 6.875 1.29167 6.66667L3.04167 3.83333C3.125 3.66667 3.375 3.58333 3.58333 3.66667L5.75 4.5C6.16667 4.16667 6.625 3.875 7.125 3.66667L7.45833 1.33333C7.5 1.125 7.66667 1 7.875 1H11.375C11.5833 1 11.75 1.125 11.7917 1.33333L12.125 3.66667C12.625 3.875 13.0833 4.16667 13.5 4.5L15.6667 3.66667C15.875 3.58333 16.125 3.66667 16.2083 3.83333L17.9583 6.66667C18.0833 6.875 18.0417 7.125 17.875 7.25L16.0417 8.58333C16.125 9.04167 16.1667 9.5 16.1667 10Z" stroke="currentColor" strokeWidth="1.5"/>
+          </svg>
+        </button>
+        <div class="pm7-tooltip-content" data-side="top">
+          Settings
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <div class="pm7-tooltip">
+        <button class="pm7-tooltip-trigger icon-button" aria-label="Delete">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 5H17M16 5L15.133 17.142C15.068 18.193 14.208 19 13.154 19H6.846C5.792 19 4.932 18.193 4.867 17.142L4 5M7 5V3C7 2.448 7.448 2 8 2H12C12.552 2 13 2.448 13 3V5M8 9V15M12 9V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+          Delete
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <div class="pm7-tooltip">
+        <button class="pm7-tooltip-trigger icon-button" aria-label="Download">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2V13M10 13L6 9M10 13L14 9M3 15V17C3 17.552 3.448 18 4 18H16C16.552 18 17 17.552 17 17V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <div class="pm7-tooltip-content" data-side="bottom">
+          Download file
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="toolbar-section">
+      <h3>Toolbar Example</h3>
+      <div class="toolbar">
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Bold">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 4H11C12.657 4 14 5.343 14 7C14 8.657 12.657 10 11 10H5V4Z" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M5 10H12C13.657 10 15 11.343 15 13C15 14.657 13.657 16 12 16H5V10Z" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Bold (Ctrl+B)
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Italic">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M12 4L8 16M8 4H14M6 16H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Italic (Ctrl+I)
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Underline">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 3V10C6 12.209 7.791 14 10 14C12.209 14 14 12.209 14 10V3M4 17H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Underline (Ctrl+U)
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="toolbar-divider"></div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Align Left">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 5H16M4 8H12M4 11H16M4 14H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Align Left
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Align Center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 5H14M4 8H16M6 11H14M4 14H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Align Center
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-tooltip-trigger icon-button" aria-label="Align Right">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 5H16M8 8H16M4 11H16M8 14H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+            Align Right
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switch - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/theme-switch-BGYw1MlX.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>Theme Switch</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>The Theme Switch component provides an elegant toggle for switching between light and dark themes. It automatically detects system preferences and persists user choices across sessions.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To provide theme switching functionality in your application</li>
+              <li>When supporting both light and dark modes</li>
+              <li>To respect user system preferences</li>
+              <li>For improved accessibility and user experience</li>
+            </ul>
+            
+            <h3>Features</h3>
+            <ul>
+              <li>Automatic system preference detection</li>
+              <li>LocalStorage persistence</li>
+              <li>Smooth animations</li>
+              <li>Multiple size variants</li>
+              <li>Accessible keyboard navigation</li>
+              <li>Works with any framework</li>
+              <li>Flicker prevention solution included</li>
+            </ul>
+            
+            <div style="background: var(--pm7-warning-bg, #FFF3CD); color: var(--pm7-warning-text, #856404); padding: 1rem; border-radius: var(--pm7-radius); margin-top: 1rem; border: 1px solid var(--pm7-warning-border, #FFEEBA);">
+              <strong>⚠️ Common Issue: Dark Mode Flicker</strong><br>
+              Without proper setup, pages may briefly flash light mode before switching to dark mode on refresh. 
+              See the <strong>"Preventing Dark Mode Flicker"</strong> section in the Usage tab for the solution.
+            </div>
+            
+            <h3>Anatomy</h3>
+            <ul>
+              <li><strong>Switch Button</strong>: The clickable toggle control</li>
+              <li><strong>Thumb</strong>: Moving indicator showing current state</li>
+              <li><strong>Icons</strong>: Sun (light) and moon (dark) icons</li>
+              <li><strong>Label</strong>: Optional text label</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different theme switch demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Usage -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-demo">
+                  <span>Basic Usage</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="basic-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/basic.html" title="Basic Theme Switch Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Size Variants -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Size Variants</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/sizes.html" title="Theme Switch Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Fixed Position -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="fixed-demo">
+                  <span>Fixed/Floating Variants</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="fixed-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/fixed-position.html" title="Fixed Position Theme Switch Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/fixed-position.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Header Integration -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="header-demo">
+                  <span>Header Integration</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="header-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/header-integration.html" title="Header Integration Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/header-integration.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+
+              
+              <!-- States & Interactions -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="states-demo">
+                  <span>States & Interactions</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="states-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/states.html" title="Theme Switch States Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/states.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+
+            <script>
+              // Move demo links to accordion headers
+              const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+              demoAccordions.forEach(item => {
+                const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+                const trigger = item.querySelector('.pm7-accordion-trigger');
+                
+                if (link && trigger) {
+                  const headerLink = link.cloneNode(true);
+                  headerLink.classList.remove('pm7-demo-open-link');
+                  headerLink.classList.add('pm7-demo-open-link-header');
+                  
+                  const linkContainer = document.createElement('div');
+                  linkContainer.className = 'pm7-demo-link-container';
+                  linkContainer.appendChild(headerLink);
+                  
+                  headerLink.addEventListener('mouseenter', () => {
+                    item.setAttribute('data-link-hover', 'true');
+                  });
+                  
+                  headerLink.addEventListener('mouseleave', () => {
+                    item.removeAttribute('data-link-hover');
+                  });
+                  
+                  trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+                  link.remove();
+                }
+              });
+            </script>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/theme-switch/" target="_blank">View all theme switch demos →</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch</code></td>
+                  <td>Base class for theme switch container</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-button</code></td>
+                  <td>The toggle button (auto-created)</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-thumb</code></td>
+                  <td>The moving thumb indicator (auto-created)</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch-icon</code></td>
+                  <td>Icon container (auto-created)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--sm</code></td>
+                  <td>Small size variant</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--lg</code></td>
+                  <td>Large size variant</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>State Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--disabled</code></td>
+                  <td>Disabled state</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--no-hover</code></td>
+                  <td>Removes hover effects</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Layout Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--label-start</code></td>
+                  <td>Places label before the switch</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Position Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--fixed</code></td>
+                  <td>Fixed position (bottom right) with label</td>
+                </tr>
+                <tr>
+                  <td><code>pm7-theme-switch--fixed-icon</code></td>
+                  <td>Fixed position circular button (icon only)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <table class="pm7-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-theme-switch</code></td>
+                  <td>boolean</td>
+                  <td>-</td>
+                  <td>Marks element for auto-initialization</td>
+                </tr>
+                <tr>
+                  <td><code>data-theme</code></td>
+                  <td>string</td>
+                  <td>'light'</td>
+                  <td>Current theme state (auto-managed)</td>
+                </tr>
+                <tr>
+                  <td><code>data-default-theme</code></td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>Override default theme ('light' or 'dark'). Maps to <code>defaultTheme</code> option.</td>
+                </tr>
+                <tr>
+                  <td><code>data-storage-key</code></td>
+                  <td>string</td>
+                  <td>'pm7-theme'</td>
+                  <td>LocalStorage key for persistence. Maps to <code>storageKey</code> option.</td>
+                </tr>
+                <tr>
+                  <td><code>data-apply-to-root</code></td>
+                  <td>boolean</td>
+                  <td>true</td>
+                  <td>Apply 'dark' class to document root. Maps to <code>applyToRoot</code> option.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Basic theme switch --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+  &lt;span&gt;Theme&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Without label --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;&lt;/div&gt;
+
+&lt;!-- Small size (use CSS class, not data attribute) --&gt;
+&lt;div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch&gt;
+  &lt;span&gt;Dark mode&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Auto-initialization</h3>
+            <p>Theme Switch components with the <code>data-pm7-theme-switch</code> attribute are automatically initialized when the DOM loads. This means you don't need to write any JavaScript for basic usage.</p>
+            <pre><code class="language-html">&lt;!-- This will auto-initialize on page load --&gt;
+&lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;&lt;/div&gt;
+
+&lt;!-- Prevent auto-initialization if you want manual control --&gt;
+&lt;div class="pm7-theme-switch my-custom-switch"&gt;&lt;/div&gt;
+&lt;script&gt;
+  // Manually initialize later
+  const element = document.querySelector('.my-custom-switch');
+  new PM7ThemeSwitch(element, { /* options */ });
+&lt;/script&gt;</code></pre>
+
+            <h3>React Example</h3>
+            <pre><code class="language-jsx">function App() {
+  return (
+    &lt;div className="pm7-theme-switch" data-pm7-theme-switch&gt;
+      &lt;span&gt;Theme&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+            <h3>Vue Example</h3>
+            <pre><code class="language-html">&lt;template&gt;
+  &lt;div class="pm7-theme-switch" data-pm7-theme-switch&gt;
+    &lt;span&gt;Theme&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <pre><code class="language-javascript">import { PM7ThemeSwitch } from '@pm7/core';
+
+// Manual initialization with all options
+const element = document.querySelector('.my-theme-switch');
+const themeSwitch = new PM7ThemeSwitch(element, {
+  defaultTheme: 'dark',     // 'light', 'dark', or null for auto-detect
+  storageKey: 'pm7-theme',  // LocalStorage key for persistence
+  applyToRoot: true,        // Apply 'dark' class to document root
+  onChange: (theme) => {    // Called on user interaction only
+    console.log('Theme changed to:', theme);
+  }
+});
+
+// Methods
+themeSwitch.setTheme('dark');  // Set theme programmatically
+themeSwitch.getTheme();         // Get current theme
+themeSwitch.toggle();           // Toggle theme
+
+// Static method for auto-initialization
+PM7ThemeSwitch.autoInit();     // Initialize all [data-pm7-theme-switch] elements</code></pre>
+
+            <h3>Custom Storage Key</h3>
+            <pre><code class="language-html">&lt;!-- Use a custom localStorage key --&gt;
+&lt;div class="pm7-theme-switch" 
+     data-pm7-theme-switch
+     data-storage-key="my-app-theme"&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Without Root Class Application</h3>
+            <pre><code class="language-html">&lt;!-- Don't apply 'dark' class to document root --&gt;
+&lt;div class="pm7-theme-switch" 
+     data-pm7-theme-switch
+     data-apply-to-root="false"&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Preventing Dark Mode Flicker</h3>
+            <p>When implementing dark mode, users may experience a "flicker" where the page briefly shows in light mode before switching to dark mode on refresh. To prevent this, add the following script in your HTML <code>&lt;head&gt;</code> before any stylesheets:</p>
+            <pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Your App&lt;/title&gt;
+  
+  &lt;!-- Dark mode flicker prevention - MUST come before stylesheets --&gt;
+  &lt;script&gt;
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  &lt;/script&gt;
+  
+  &lt;!-- Your stylesheets come AFTER the script --&gt;
+  &lt;link rel="stylesheet" href="@pm7/core/styles/index.css"&gt;
+  &lt;link rel="stylesheet" href="your-styles.css"&gt;
+&lt;/head&gt;</code></pre>
+            <p><strong>Why this works:</strong> The script runs synchronously before the browser starts rendering, applying the dark class immediately if needed. This eliminates the visual flicker that occurs when dark mode is applied after the page loads.</p>
+
+            <h3>Important Notes</h3>
+            <ul>
+              <li>The <code>onChange</code> callback is only triggered by user interaction, not during initial theme setup</li>
+              <li>Size variants must be applied using CSS classes (e.g., <code>pm7-theme-switch--sm</code>), not data attributes</li>
+              <li>Components are automatically initialized on page load if they have the <code>data-pm7-theme-switch</code> attribute</li>
+              <li>The component automatically detects and respects system theme preferences</li>
+              <li>Theme preference is persisted in localStorage and survives page reloads</li>
+              <li><strong>Prevent flicker:</strong> Add the flicker prevention script (see above) to your HTML <code>&lt;head&gt;</code> to avoid light mode flash on page refresh</li>
+            </ul>
+
+            <h3>Accessibility</h3>
+            <p>The Theme Switch component is fully accessible:</p>
+            <ul>
+              <li>Keyboard navigable with Tab key</li>
+              <li>Toggleable with Space or Enter keys</li>
+              <li>ARIA attributes for screen readers</li>
+              <li>Proper role and state announcements</li>
+              <li>Respects prefers-reduced-motion</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link to share the Theme Switch documentation with AI assistants:</p>
+            
+            <!-- Documentation Link Card -->
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="padding-right: 48px; display: block; word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/theme-switch/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--pm7-primary);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" onclick="copyThemeSwitchReadme()" style="min-width: 100px;">Copy</button>
+              </div>
+            </div>
+            
+            <!-- AI Documentation Info -->
+            <div class="pm7-callout pm7-callout--info pm7-callout--center" style="margin-top: 32px;">
+              <h3 style="margin-top: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>
+                The documentation link above provides AI assistants with complete context about the Theme Switch component,
+                including all props, methods, examples, and best practices.
+              </p>
+              <p style="margin-top: 16px;">
+                <strong>Tip:</strong> When asking AI assistants to help implement the Theme Switch, include this documentation
+                link for accurate, up-to-date information about the component API.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- PM7 Core JavaScript -->
+
+  <script>
+    function copyThemeSwitchReadme() {
+      const url = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const button = event.target.closest('button');
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('pm7-button--success');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('pm7-button--success');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollable Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Content styles */
+    
+    .terms-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .terms-section h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .terms-section p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .code-block {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: var(--pm7-font-mono);
+      font-size: 0.875rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Scrollable Dialogs</h1>
+      <p class="demo-description">Dialogs with scrollable content for long forms or documents</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('terms-dialog')">
+        Terms of Service
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('api-docs-dialog')">
+        API Documentation
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('long-form-dialog')">
+        Long Form
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Terms of Service Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="terms-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Terms of Service"
+         data-pm7-dialog-subtitle="Last updated: January 2025"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body data-pm7-scrollable>
+      <div class="terms-section">
+        <h3>1. Acceptance of Terms</h3>
+        <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+        <p>These terms may be updated from time to time without notice. It is your responsibility to review these terms regularly.</p>
+      </div>
+      
+      <div class="terms-section">
+        <h3>2. Use License</h3>
+        <p>Permission is granted to temporarily download one copy of the materials for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.</p>
+        <p>Under this license you may not:</p>
+        <ul>
+          <li>modify or copy the materials</li>
+          <li>use the materials for any commercial purpose or for any public display</li>
+          <li>attempt to reverse engineer any software contained on our service</li>
+          <li>remove any copyright or other proprietary notations from the materials</li>
+        </ul>
+      </div>
+      
+      <div class="terms-section">
+        <h3>3. Disclaimer</h3>
+        <p>The materials on our service are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+      </div>
+      
+      <div class="terms-section">
+        <h3>4. Limitations</h3>
+        <p>In no event shall our company or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our service, even if we or our authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.</p>
+      </div>
+      
+      <div class="terms-section">
+        <h3>5. Privacy Policy</h3>
+        <p>Your privacy is important to us. Our Privacy Policy explains how we collect, use, and protect your information when you use our service. By using our service, you agree to the collection and use of information in accordance with our Privacy Policy.</p>
+      </div>
+      
+      <div class="terms-section">
+        <h3>6. Contact Information</h3>
+        <p>If you have any questions about these Terms of Service, please contact us at:</p>
+        <p>Email: legal@example.com<br>
+        Phone: +1 (555) 123-4567<br>
+        Address: 123 Main Street, Suite 100, City, State 12345</p>
+      </div>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="flex-end">
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('terms-dialog')">
+        Decline
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="acceptTerms()">
+        Accept Terms
+      </button>
+    </div>
+  </div>
+
+  <!-- API Documentation Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="api-docs-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="API Documentation"
+         data-pm7-dialog-subtitle="Dialog Component API Reference"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body data-pm7-scrollable>
+      <div class="terms-section">
+        <h3>Opening Dialogs</h3>
+        <p>Use the global PM7 object to programmatically control dialogs:</p>
+        <div class="code-block">
+// Open a dialog
+window.PM7.openDialog('dialog-id');
+
+// Close a dialog
+window.PM7.closeDialog('dialog-id');
+
+// Toggle a dialog
+window.PM7.toggleDialog('dialog-id');
+        </div>
+      </div>
+      
+      <div class="terms-section">
+        <h3>Dialog Attributes</h3>
+        <p>Configure dialogs using data attributes:</p>
+        <div class="code-block">
+data-pm7-dialog="unique-id"       // Required: Dialog identifier
+data-pm7-dialog-size="md"         // Size: sm, md, lg, xl, full
+data-pm7-show-close               // Show close button
+data-pm7-close-on-escape          // Close on Escape key
+data-pm7-close-on-backdrop        // Close on backdrop click
+        </div>
+      </div>
+      
+      <div class="terms-section">
+        <h3>Dialog Structure</h3>
+        <p>Dialogs support three main sections:</p>
+        <div class="code-block">
+&lt;div class="pm7-dialog" data-pm7-dialog="my-dialog"&gt;
+  &lt;div data-pm7-header
+       data-pm7-dialog-title="Title"
+       data-pm7-dialog-subtitle="Subtitle"
+       data-pm7-header-separator&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-body data-pm7-scrollable&gt;
+    &lt;!-- Content --&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-footer data-pm7-footer-justify="flex-end"&gt;
+    &lt;!-- Actions --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+        </div>
+      </div>
+      
+      <div class="terms-section">
+        <h3>Events</h3>
+        <p>Listen for dialog events:</p>
+        <div class="code-block">
+// Dialog opened
+document.addEventListener('pm7:dialog:open', (e) => {
+  console.log('Dialog opened:', e.detail.id);
+});
+
+// Dialog closed
+document.addEventListener('pm7:dialog:close', (e) => {
+  console.log('Dialog closed:', e.detail.id);
+});
+        </div>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('api-docs-dialog')">
+        Close Documentation
+      </button>
+    </div>
+  </div>
+
+  <!-- Long Form Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="long-form-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Application Form"
+         data-pm7-dialog-subtitle="Please fill out all required fields"
+         data-pm7-header-separator>
+    </div>
+    <form onsubmit="handleLongFormSubmit(event)">
+      <div data-pm7-body data-pm7-scrollable>
+        <!-- Personal Information -->
+        <div class="terms-section">
+          <h3>Personal Information</h3>
+          <div style="display: grid; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">First Name *</label>
+                <input type="text" class="pm7-input" required>
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">Last Name *</label>
+                <input type="text" class="pm7-input" required>
+              </div>
+            </div>
+            <div>
+              <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">Email *</label>
+              <input type="email" class="pm7-input" required>
+            </div>
+            <div>
+              <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">Phone</label>
+              <input type="tel" class="pm7-input">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Address -->
+        <div class="terms-section">
+          <h3>Address</h3>
+          <div style="display: grid; gap: 1rem;">
+            <div>
+              <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">Street Address</label>
+              <input type="text" class="pm7-input">
+            </div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">City</label>
+                <input type="text" class="pm7-input">
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">State</label>
+                <input type="text" class="pm7-input">
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">ZIP</label>
+                <input type="text" class="pm7-input">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Additional Information -->
+        <div class="terms-section">
+          <h3>Additional Information</h3>
+          <div style="display: grid; gap: 1rem;">
+            <div>
+              <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">How did you hear about us?</label>
+              <select class="pm7-input">
+                <option>Select an option</option>
+                <option>Search Engine</option>
+                <option>Social Media</option>
+                <option>Friend/Family</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; margin-bottom: 0.25rem; font-size: 0.875rem;">Comments</label>
+              <textarea class="pm7-input" rows="4"></textarea>
+            </div>
+            <div>
+              <label>
+                <input type="checkbox" required> I agree to the terms and conditions *
+              </label>
+            </div>
+            <div>
+              <label>
+                <input type="checkbox"> Subscribe to newsletter
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-pm7-footer data-pm7-footer-justify="space-between">
+        <button type="button" class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('long-form-dialog')">
+          Cancel
+        </button>
+        <button type="submit" class="pm7-button pm7-button--primary">
+          Submit Application
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function acceptTerms() {
+      window.PM7?.closeDialog?.('terms-dialog');
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Terms accepted!', { variant: 'success' });
+        } else {
+          alert('Terms accepted!');
+        }
+      }, 300);
+    }
+    
+    function handleLongFormSubmit(event) {
+      event.preventDefault();
+      window.PM7?.closeDialog?.('long-form-dialog');
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Application submitted!', { variant: 'success' });
+        } else {
+          alert('Application submitted!');
+        }
+      }, 300);
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Scrollable Dialog -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="scrollable-dialog"
+     data-pm7-dialog-size="md">
+  <div data-pm7-header
+       data-pm7-dialog-title="Long Content"
+       data-pm7-header-separator>
+  </div>
+  <div data-pm7-body data-pm7-scrollable>
+    <!-- Long content here -->
+    <p>Lorem ipsum...</p>
+    <p>More content...</p>
+    <!-- Content will scroll within the dialog -->
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button pm7-button--primary">
+      Close
+    </button>
+  </div>
+</div>
+
+<!-- Note: data-pm7-scrollable makes the body scrollable -->`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

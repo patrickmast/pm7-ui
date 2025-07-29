@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialog - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/dialog-DQzke6IN.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M175.1 214c-53.4 10.7-94.4 47.4-111 99.3-6.6 20.8-6.2-12.8-5.9 439.7.3 390.8.4 410.9 2.1 418 7.5 31.3 20.8 55.3 41.8 75.5 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.8-55.7-48.7-100.9-102.7-116.6-20.5-5.9 23.7-5.5-589.5-5.4-546 .1-562.8.1-571.9 1.9m1136.4 109.3c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/><path d="M1017.5 414.4c-14.7 4.7-27 16.9-31.5 31.5-1.9 6.1-2 9.5-2 93 0 76.2.2 87.4 1.6 92.2 4.3 14.7 16.1 26.8 31.1 31.8 6.1 2.1 7.8 2.1 94.2 2.1 84.5 0 88.1-.1 94.2-2 12.7-3.9 22.6-12.5 28.7-24.9l3.7-7.5.3-90 .3-90.1-2.2-6c-5.2-14.5-15.4-24.6-29.8-29.5-5.9-2-8-2-95.3-1.9-69.2 0-90.2.3-93.3 1.3"/></svg>Dialog</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Dialogs are modal overlays that require user interaction. They're used for critical information, confirmation, or complex tasks that require focus.</p>
+
+            <h3>When to use</h3>
+            <ul>
+              <li>To confirm destructive actions (delete, remove, etc.)</li>
+              <li>To collect information through forms</li>
+              <li>To display important information that requires acknowledgment</li>
+              <li>For focused tasks that shouldn't be interrupted</li>
+              <li>When you need to prevent interaction with the rest of the page</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Modal behavior</strong> - Blocks interaction with the rest of the page</li>
+              <li><strong>Multiple sizes</strong> - Small, medium, large, and full-screen options</li>
+              <li><strong>Focus management</strong> - Traps focus within the dialog</li>
+              <li><strong>Keyboard support</strong> - ESC to close, Tab to navigate</li>
+              <li><strong>Customizable content</strong> - Header, body, and footer sections</li>
+              <li><strong>Accessible</strong> - Full ARIA support and screen reader friendly</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A dialog consists of the following structure:</p>
+
+            <h4>Main Structure</h4>
+            <ul>
+              <li><strong>Container</strong> (<code>.pm7-dialog</code>) - Main wrapper with behavior attributes</li>
+              <li><strong>Overlay</strong> (<code>.pm7-dialog-overlay</code>) - Semi-transparent backdrop</li>
+              <li><strong>Content</strong> (<code>.pm7-dialog-content</code>) - The dialog box container</li>
+            </ul>
+
+            <h4>Content Markers (Input)</h4>
+            <p>These attributes are used on the root <code>data-pm7-dialog</code> element or its direct children to define content and behavior:</p>
+            <ul>
+              <li><code>data-pm7-dialog="id"</code> - Unique identifier for the dialog</li>
+              <li><code>data-pm7-dialog-size</code> - Dialog size: sm, md, lg, xl, full</li>
+              <li><code>data-pm7-dialog-icon</code> - Icon type: info, warning, error, success</li>
+              <li><code>data-pm7-show-close</code> - Shows the X close button in header</li>
+              <li><code>data-pm7-header-separator</code> - Add line separator under header</li>
+              <li><code>data-pm7-no-escape</code> - Prevents closing dialog with ESC key</li>
+              <li><code>data-pm7-no-overlay-close</code> - Prevents closing dialog when clicking backdrop</li>
+              <li><code>data-pm7-header</code> - Marks the header section. Content within this element becomes the header.</li>
+              <li><code>data-pm7-dialog-title</code> - Text for the main dialog title (used with <code>data-pm7-header</code>)</li>
+              <li><code>data-pm7-dialog-subtitle</code> - Text for the dialog subtitle/description (used with <code>data-pm7-header</code>)</li>
+              <li><code>data-pm7-body</code> - Marks the main content area</li>
+              <li><code>data-pm7-footer</code> - Marks the footer section for actions</li>
+            </ul>
+
+            <h4>Generated Elements (Output)</h4>
+            <p>Based on the content markers, the following HTML elements and classes are generated:</p>
+            <ul>
+              <li><strong>Header Container</strong> (<code>.pm7-dialog-header</code>)</li>
+              <li><strong>Header Text Container</strong> (<code>.pm7-dialog-header-text</code>) - Wraps title and description</li>
+              <li><strong>Icon</strong> (<code>.pm7-dialog-icon</code>) - SVG icon based on <code>data-pm7-dialog-icon</code></li>
+              <li><strong>Title</strong> (<code>.pm7-dialog-title</code>) - H2 element for <code>data-pm7-dialog-title</code></li>
+              <li><strong>Description</strong> (<code>.pm7-dialog-description</code>) - P element for <code>data-pm7-dialog-subtitle</code></li>
+              <li><strong>Close Button</strong> (<code>.pm7-dialog-close</code>) - Button with X icon when <code>data-pm7-show-close</code> is set</li>
+              <li><strong>Header Separator</strong> (<code>.pm7-dialog-header-separator</code>) - Line when <code>data-pm7-header-separator</code> is set</li>
+              <li><strong>Body Container</strong> (<code>.pm7-dialog-body</code>)</li>
+              <li><strong>Footer Container</strong> (<code>.pm7-dialog-footer</code>)</li>
+            </ul>
+
+            <h4>Size Variants</h4>
+            <ul>
+              <li><code>.pm7-dialog-content--sm</code> - Small (400px max-width)</li>
+              <li><code>.pm7-dialog-content--md</code> - Medium (600px max-width, default)</li>
+              <li><code>.pm7-dialog-content--lg</code> - Large (800px max-width)</li>
+              <li><code>.pm7-dialog-content--xl</code> - Extra large (1000px max-width)</li>
+              <li><code>.pm7-dialog-content--full</code> - Full screen</li>
+            </ul>
+
+            <h4>Style Variants</h4>
+            <ul>
+              <li><code>.pm7-dialog--alert</code> - Error/warning style</li>
+              <li><code>.pm7-dialog--success</code> - Success style</li>
+              <li><code>.pm7-dialog--loading</code> - Loading state with spinner</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different dialog demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Dialog -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-dialog-demo">
+                  <span>Basic Dialog</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="basic-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/basic.html" title="Basic Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Dialog Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Dialog Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/sizes.html" title="Dialog Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Alert Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="alert-dialog-demo">
+                  <span>Alert & Confirmation Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="alert-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/alert-dialog.html" title="Alert Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/alert-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Form Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="form-dialog-demo">
+                  <span>Form Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="form-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/form-dialog.html" title="Form Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/form-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Scrollable Content -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="scrollable-dialog-demo">
+                  <span>Scrollable Content</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="scrollable-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/scrollable-dialog.html" title="Scrollable Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/scrollable-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Confirmation Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="confirmation-dialog-demo">
+                  <span>Confirmation Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="confirmation-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/confirmation-dialog.html" title="Confirmation Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/confirmation-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Multi-Step Wizard -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="multi-step-dialog-demo">
+                  <span>Multi-Step Wizard</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="multi-step-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/multi-step-dialog.html" title="Multi-Step Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/multi-step-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Icon Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="icon-dialog-demo">
+                  <span>Icon Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="icon-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/icon-dialog.html" title="Icon Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/icon-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Description Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="description-dialog-demo">
+                  <span>Description Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="description-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/description-dialog.html" title="Description Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/description-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Loading States -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="loading-dialog-demo">
+                  <span>Loading States</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="loading-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/loading-dialog.html" title="Loading Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/loading-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cookie Consent -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="cookie-dialog-demo">
+                  <span>Cookie Consent</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="cookie-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/cookie-dialog.html" title="Cookie Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/cookie-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Structure Variations -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="structure-dialog-demo">
+                  <span>Structure Variations</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="structure-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/structure-dialog.html" title="Structure Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/structure-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Gradient Borders -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="gradient-dialog-demo">
+                  <span>Gradient Border Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="gradient-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/gradient-dialog.html" title="Gradient Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/gradient-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/dialog/" target="_blank">View all dialog demos →</a>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Base Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog</code></td>
+                  <td>Root dialog container (hidden by default, controlled by `data-state` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-open</code></td>
+                  <td>Applied to <code>&lt;body&gt;</code> when any dialog is open to prevent scrolling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-overlay</code></td>
+                  <td>Semi-transparent backdrop that covers the page when dialog is open</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content</code></td>
+                  <td>Container for the dialog box itself (header, body, footer)</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--sm</code></td>
+                  <td>Small dialog (max-width: 400px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--md</code></td>
+                  <td>Medium dialog (max-width: 600px, default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--lg</code></td>
+                  <td>Large dialog (max-width: 800px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--xl</code></td>
+                  <td>Extra large dialog (max-width: 1000px)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-content--full</code></td>
+                  <td>Full screen dialog</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Dialog Variants</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog--alert</code></td>
+                  <td>Alert variant (red header)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--success</code></td>
+                  <td>Success variant (green header)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--loading</code></td>
+                  <td>Loading variant with spinner</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog--shake</code></td>
+                  <td>Shake animation effect</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-dialog-header</code></td>
+                  <td>Dialog header section (generated by `data-pm7-header` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-text</code></td>
+                  <td>Container for dialog title and description within the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-actions</code></td>
+                  <td>Container for icon and close button within the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-header-separator</code></td>
+                  <td>Horizontal line separator below the header</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-title</code></td>
+                  <td>Main title of the dialog (generated by `data-pm7-dialog-title` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-description</code></td>
+                  <td>Subtitle or description of the dialog (generated by `data-pm7-dialog-subtitle` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-icon</code></td>
+                  <td>Container for the dialog icon (generated by `data-pm7-dialog-icon` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-close</code></td>
+                  <td>Close button (generated by `data-pm7-show-close` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-body</code></td>
+                  <td>Main content area of the dialog (generated by `data-pm7-body` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-footer</code></td>
+                  <td>Footer section for actions (generated by `data-pm7-footer` attribute)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-dialog-spinner</code></td>
+                  <td>Loading spinner element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <p>PM7 Dialog supports two approaches: Traditional HTML structure and the new Content Marker system that automatically generates dialog structure.</p>
+            
+            <h4>Root Dialog Attributes</h4>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-dialog="id"</code></td>
+                  <td>String</td>
+                  <td>Required</td>
+                  <td>Unique identifier for the dialog</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-dialog-size</code></td>
+                  <td>String</td>
+                  <td>"md"</td>
+                  <td>Dialog size: sm (400px), md (600px), lg (800px), xl (1000px), full</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-show-close</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Shows the X close button in header</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-no-escape</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Prevents closing dialog with ESC key</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-no-overlay-close</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Prevents closing dialog when clicking backdrop</td>
+                </tr>
+                <tr>
+                  <td><code>data-state</code></td>
+                  <td>String</td>
+                  <td>"closed"</td>
+                  <td>Dialog state: "open", "closing", or "closed" (managed automatically)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>Content Marker Attributes (for sections)</h4>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Description</th>
+                  <th>Generated Structure</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-header</code></td>
+                  <td>Marks element as header section</td>
+                  <td>Generates <code>.pm7-dialog-header</code> with title, subtitle, icon, and close button</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-dialog-title</code></td>
+                  <td>Title text for the dialog header</td>
+                  <td>Creates <code>.pm7-dialog-title</code> element</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-dialog-subtitle</code></td>
+                  <td>Subtitle/description text for the dialog header</td>
+                  <td>Creates <code>.pm7-dialog-description</code> element</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-dialog-icon</code></td>
+                  <td>Icon type: info, warning, error, success</td>
+                  <td>Creates <code>.pm7-dialog-icon</code> with SVG</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-header-separator</code></td>
+                  <td>Add horizontal line separator under header</td>
+                  <td>Creates <code>.pm7-dialog-header-separator</code> element</td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-body</code></td>
+                  <td>Marks element as body section</td>
+                  <td>Wraps content in <code>.pm7-dialog-body</code></td>
+                </tr>
+                <tr>
+                  <td><code>data-pm7-footer</code></td>
+                  <td>Marks element as footer section</td>
+                  <td>Wraps content in <code>.pm7-dialog-footer</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Content Marker System (Recommended) --&gt;
+&lt;div class="pm7-dialog" 
+     data-pm7-dialog="my-dialog" 
+     data-pm7-dialog-size="md" 
+     data-pm7-show-close&gt;
+  &lt;div data-pm7-header
+       data-pm7-dialog-title="Dialog Title"
+       data-pm7-dialog-subtitle="Optional subtitle text"
+       data-pm7-header-separator&gt;
+  &lt;/div&gt;
+  
+  &lt;div data-pm7-body&gt;
+    &lt;p&gt;Your dialog content goes here.&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div data-pm7-footer&gt;
+    &lt;button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('my-dialog')"&gt;
+      Cancel
+    &lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;
+      Confirm
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Dialog with Icon --&gt;
+&lt;div class="pm7-dialog" 
+     data-pm7-dialog="info-dialog" 
+     data-pm7-dialog-size="sm"&gt;
+  &lt;div data-pm7-header
+       data-pm7-dialog-title="Information"
+       data-pm7-dialog-icon="info"
+       data-pm7-header-separator&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-body&gt;
+    &lt;p&gt;This is an informational message.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-footer&gt;
+    &lt;button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('info-dialog')"&gt;
+      Got it
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Traditional HTML Structure --&gt;
+&lt;div class="pm7-dialog" data-pm7-dialog="traditional-dialog"&gt;
+  &lt;div class="pm7-dialog-overlay"&gt;&lt;/div&gt;
+  &lt;div class="pm7-dialog-content pm7-dialog-content--md"&gt;
+    &lt;div class="pm7-dialog-header"&gt;
+      &lt;h2 class="pm7-dialog-title"&gt;Dialog Title&lt;/h2&gt;
+      &lt;button class="pm7-dialog-close" aria-label="Close"&gt;
+        &lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+          &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+          &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="pm7-dialog-body"&gt;
+      &lt;p&gt;Dialog content goes here.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="pm7-dialog-footer"&gt;
+      &lt;button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('traditional-dialog')"&gt;
+        Cancel
+      &lt;/button&gt;
+      &lt;button class="pm7-button pm7-button--primary"&gt;
+        Confirm
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Trigger Button --&gt;
+&lt;button class="pm7-button" onclick="window.PM7?.openDialog?.('my-dialog')"&gt;
+  Open Dialog
+&lt;/button&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>The following functions are globally available for convenience, but can also be imported from <code>@pm7/core</code>:</p>
+            <ul>
+              <li><code>openDialog(id)</code>: Opens a dialog by its `data-pm7-dialog` ID.</li>
+              <li><code>closeDialog(id)</code>: Closes a dialog by its `data-pm7-dialog` ID.</li>
+              <li><code>pm7Alert(message, options)</code>: Shows a simple alert dialog.</li>
+              <li><code>pm7Confirm(message, callback, options)</code>: Shows a confirmation dialog.</li>
+            </ul>
+            <pre><code class="language-javascript">import { PM7Dialog, createDialog, pm7Alert, pm7Confirm } from '@pm7/core';
+
+    import '/packages/core/src/scripts/index.js';
+// Initialize a dialog (for traditional structure)
+const dialogElement = document.querySelector('[data-pm7-dialog="my-dialog"]');
+const dialog = new PM7Dialog(dialogElement);
+
+// Open/close programmatically
+dialog.open();
+dialog.close();
+
+// Add shake animation
+dialog.shake();
+
+// Set loading state
+dialog.setLoading(true);
+
+// Listen for events
+dialogElement.addEventListener('pm7-dialog-open', () => {
+  console.log('Dialog opened');
+});
+
+dialogElement.addEventListener('pm7-dialog-close', () => {
+  console.log('Dialog closed');
+});
+
+// Global functions (auto-loaded)
+openDialog('my-dialog');
+closeDialog('my-dialog');
+
+// Programmatic dialog creation
+const dialog = createDialog({
+  id: 'dynamic-dialog',
+  title: 'Dynamic Dialog',
+  subtitle: 'Created programmatically',
+  body: '&lt;p&gt;This dialog was created with JavaScript.&lt;/p&gt;',
+  footer: `
+    &lt;button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('dynamic-dialog')"&gt;
+      Close
+    &lt;/button&gt;
+  `,
+  size: 'md',
+  showClose: true,
+  icon: 'info'
+});
+
+// Utility functions
+pm7Alert('This is an alert message');
+pm7Confirm('Are you sure?', (confirmed) => {
+  if (confirmed) {
+    console.log('User confirmed');
+  }
+});</code></pre>
+
+            <h3>CSS Customization</h3>
+            <p>Dialogs support dark mode and can be customized with CSS variables:</p>
+            <pre><code class="language-css">:root {
+  --pm7-dialog-bg: white;
+  --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.5);
+}
+
+[data-theme="dark"] {
+  --pm7-dialog-bg: #1a1a1a;
+  --pm7-dialog-overlay-bg: rgb(0 0 0 / 0.8);
+}</code></pre>
+
+            <h3>Form Dialog Example</h3>
+            <pre><code class="language-html">&lt;!-- Dialog with form content --&gt;
+&lt;div class="pm7-dialog" 
+     data-pm7-dialog="form-dialog"
+     data-pm7-show-close&gt;
+  &lt;div data-pm7-header
+       data-pm7-dialog-title="Edit Profile"
+       data-pm7-dialog-subtitle="Update your profile information"
+       data-pm7-header-separator&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-body&gt;
+    &lt;form&gt;
+      &lt;div class="pm7-form-group"&gt;
+        &lt;label for="name" class="pm7-label"&gt;Name&lt;/label&gt;
+        &lt;input type="text" id="name" class="pm7-input" placeholder="Enter your name"&gt;
+      &lt;/div&gt;
+      &lt;div class="pm7-form-group"&gt;
+        &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+        &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div data-pm7-footer&gt;
+    &lt;button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('form-dialog')"&gt;
+      Cancel
+    &lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;
+      Save Changes
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li><strong>Focus trap</strong>: Focus stays within dialog while open</li>
+              <li><strong>Escape key</strong>: Closes the dialog (unless <code>data-pm7-no-escape</code> is set)</li>
+              <li><strong>Click outside</strong>: Closes dialog by clicking overlay (unless <code>data-pm7-no-overlay-close</code> is set)</li>
+              <li><strong>Focus restoration</strong>: Focus returns to trigger element on close</li>
+              <li><strong>ARIA attributes</strong>: Proper roles and labels for screen readers</li>
+              <li><strong>Heading hierarchy</strong>: Semantic heading structure</li>
+              <li><strong>Keyboard navigation</strong>: Tab through interactive elements</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/dialog/README.md"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Dialog implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Dialog Examples (hidden by default) -->
+
+  <!-- Basic Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="basic-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Basic Dialog"
+         data-pm7-dialog-subtitle="This is a basic dialog with a title, description, and footer."
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This is the main content of the dialog. You can put any HTML content here.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('basic-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Small Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="small-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Small Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Small dialogs are perfect for quick confirmations, simple messages, or compact forms. The narrow width (400px) keeps content focused and easy to read.</p>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Confirmations, alerts, simple inputs</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('small-dialog')">
+        Got it
+      </button>
+    </div>
+  </div>
+
+  <!-- Medium Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="medium-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Medium Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Medium dialogs provide a comfortable reading width for most content. This is the default and recommended size for general purpose dialogs.</p>
+      <div style="margin-top: 16px; padding: 16px; background: var(--pm7-muted); border-radius: 6px;">
+        <h4 style="margin: 0 0 8px 0;">Example Form</h4>
+        <div style="display: flex; gap: 12px;">
+          <input type="text" class="pm7-input" placeholder="First name" style="flex: 1;">
+          <input type="text" class="pm7-input" placeholder="Last name" style="flex: 1;">
+        </div>
+      </div>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Forms, detailed messages, standard modals</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('medium-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Large Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="large-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Large Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Large dialogs offer generous space for complex content like multi-column layouts, data tables, or detailed forms.</p>
+      <div style="margin-top: 16px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--pm7-border);">
+              <th style="padding: 12px; text-align: left;">Feature</th>
+              <th style="padding: 12px; text-align: left;">Status</th>
+              <th style="padding: 12px; text-align: left;">Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--pm7-border);">
+              <td style="padding: 12px;">User Authentication</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-success);">✓ Complete</span></td>
+              <td style="padding: 12px;">100%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--pm7-border);">
+              <td style="padding: 12px;">Dashboard Design</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-warning);">In Progress</span></td>
+              <td style="padding: 12px;">75%</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px;">API Integration</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-muted-foreground);">Pending</span></td>
+              <td style="padding: 12px;">0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Tables, multi-column forms, detailed content</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('large-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Screen Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="full-dialog"
+       data-pm7-dialog-size="full"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Full Screen Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This is a full screen dialog. It takes up the entire viewport and is useful for immersive experiences or complex workflows.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('full-dialog')">
+        Exit Full Screen
+      </button>
+    </div>
+  </div>
+
+  <!-- Alert Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="alert-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Warning"
+         data-pm7-dialog-icon="warning"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This action cannot be undone. Are you sure you want to delete this item?</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('alert-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.closeDialog?.('alert-dialog')">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Alert Dialog (No Icon) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="alert-dialog-no-icon"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Warning"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This action cannot be undone. Are you sure you want to delete this item?</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('alert-dialog-no-icon')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.closeDialog?.('alert-dialog-no-icon')">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="form-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Edit Profile"
+         data-pm7-dialog-subtitle="Update your personal information and preferences"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <form onsubmit="event.preventDefault(); closeDialog('form-dialog');">
+        <div class="pm7-form-group">
+          <label class="pm7-label" for="name">Name</label>
+          <input type="text" id="name" class="pm7-input" placeholder="Enter your name" value="John Doe">
+        </div>
+        <div class="pm7-form-group" style="margin-top: 16px;">
+          <label class="pm7-label" for="email">Email</label>
+          <input type="email" id="email" class="pm7-input" placeholder="Enter your email" value="john@example.com">
+        </div>
+        <div class="pm7-form-group" style="margin-top: 16px;">
+          <label class="pm7-label" for="bio">Bio</label>
+          <textarea id="bio" class="pm7-input" rows="3" placeholder="Tell us about yourself">Software developer passionate about creating great user experiences.</textarea>
+        </div>
+      </form>
+    </div>
+    <div data-pm7-footer>
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('form-dialog')">
+        Cancel
+      </button>
+      <button type="submit" class="pm7-button pm7-button--primary">
+        Save Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- Scrollable Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="scrollable-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Terms of Service"
+         data-pm7-dialog-subtitle="Please read and accept our terms and conditions"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <div style="max-height: 400px; overflow-y: auto;">
+        <h3>1. Terms</h3>
+        <p>By accessing this website, you are agreeing to be bound by these website Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
+
+        <h3>2. Use License</h3>
+        <p>Permission is granted to temporarily download one copy of the materials (information or software) on our website for personal, non-commercial transitory viewing only.</p>
+
+        <h3>3. Disclaimer</h3>
+        <p>The materials on our website are provided "as is". We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties.</p>
+
+        <h3>4. Limitations</h3>
+        <p>In no event shall our company or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our website.</p>
+
+        <h3>5. Revisions and Errata</h3>
+        <p>The materials appearing on our website could include technical, typographical, or photographic errors. We do not warrant that any of the materials on its website are accurate, complete, or current.</p>
+
+        <h3>6. Links</h3>
+        <p>We have not reviewed all of the sites linked to our website and are not responsible for the contents of any such linked site.</p>
+
+        <h3>7. Site Terms of Use Modifications</h3>
+        <p>We may revise these terms of use for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these Terms and Conditions of Use.</p>
+
+        <h3>8. Governing Law</h3>
+        <p>Any claim relating to our website shall be governed by the laws of the Netherlands without regard to its conflict of law provisions.</p>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('scrollable-dialog')">
+        Decline
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('scrollable-dialog')">
+        Accept
+      </button>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="delete-confirm"
+       data-pm7-dialog-size="sm"
+       data-pm7-no-escape
+       data-pm7-no-overlay-close>
+    <div data-pm7-body>
+      <div style="text-align: center; padding: 32px;">
+        <div style="color: var(--pm7-destructive); margin-bottom: 16px; display: flex; justify-content: center;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            <line x1="10" y1="11" x2="10" y2="17"/>
+            <line x1="14" y1="11" x2="14" y2="17"/>
+          </svg>
+        </div>
+        <h2 style="margin-bottom: 8px;">Delete Account?</h2>
+        <p style="color: var(--pm7-muted-foreground);">This action cannot be undone. All your data will be permanently deleted.</p>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline pm7-button--full" onclick="window.PM7?.closeDialog?.('delete-confirm')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--destructive pm7-button--full" onclick="window.PM7?.closeDialog?.('delete-confirm')">
+        Delete Account
+      </button>
+    </div>
+  </div>
+
+  <!-- Multi-Step Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="wizard-dialog"
+       data-pm7-dialog-size="lg">
+    <div data-pm7-header
+         data-pm7-dialog-title="Setup Wizard - Step 1 of 3"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <h3>Welcome to the Setup Wizard</h3>
+      <p>This wizard will guide you through the initial setup process. Let's start with some basic information.</p>
+      <div class="pm7-form-group" style="margin-top: 24px;">
+        <label class="pm7-label" for="company">Company Name</label>
+        <input type="text" id="company" class="pm7-input" placeholder="Enter your company name">
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('wizard-dialog')">
+        Cancel
+      </button>
+      <div style="margin-left: auto; display: flex; gap: 8px;">
+        <button class="pm7-button pm7-button--outline" disabled>
+          Previous
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="alert('Next step would go here'); closeDialog('wizard-dialog');">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialog with Icon -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="icon-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-dialog-icon="success"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('icon-dialog')">
+        Done
+      </button>
+    </div>
+  </div>
+
+  <!-- Dialog with Icon (No Close Button) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="icon-dialog-no-close"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-dialog-icon="success"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('icon-dialog-no-close')">
+        Done
+      </button>
+    </div>
+  </div>
+
+  <!-- Dialog with Close Button Only (No Icon) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="icon-dialog-close-only"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Success!"
+         data-pm7-dialog-subtitle="Your changes have been saved successfully."
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('icon-dialog-close-only')">
+        Done
+      </button>
+    </div>
+  </div>
+
+  <!-- Dialog with Description -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="description-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Update Available"
+         data-pm7-dialog-subtitle="A new version of the application is ready to install."
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <h3>What's New</h3>
+      <ul>
+        <li>Improved performance and stability</li>
+        <li>New dark mode support</li>
+        <li>Enhanced security features</li>
+        <li>Bug fixes and improvements</li>
+      </ul>
+      <p style="color: var(--pm7-muted-foreground); font-size: 14px;">
+        The update will be installed automatically when you restart the application.
+      </p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('description-dialog')">
+        Remind Me Later
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('description-dialog')">
+        Restart Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Dialog (Body Only) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="loading-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body style="text-align: center; padding: 40px;">
+      <div class="pm7-dialog-spinner" style="margin: 0 auto 16px;"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <!-- Cookie Bar (Footer Only) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="cookie-dialog"
+       data-pm7-dialog-size="md"
+       style="--dialog-position: bottom;">
+    <div data-pm7-footer style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+      <span style="flex: 1;">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</span>
+      <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="window.PM7?.closeDialog?.('cookie-dialog')">
+        Learn More
+      </button>
+      <button class="pm7-button pm7-button--primary pm7-button--sm" onclick="window.PM7?.closeDialog?.('cookie-dialog')">
+        Accept
+      </button>
+    </div>
+  </div>
+
+  <!-- Custom Header with Avatar -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="avatar-dialog"
+       data-pm7-show-close>
+    <div data-pm7-header style="padding: 20px 24px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="pm7-demo-gradient-purple" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+          JD
+        </div>
+        <div>
+          <h3 style="margin: 0; font-size: 16px; font-weight: 600;">John Doe</h3>
+          <p style="margin: 0; font-size: 14px; color: var(--pm7-muted-foreground);">Active now</p>
+        </div>
+      </div>
+    </div>
+    <div data-pm7-body style="background: var(--pm7-muted); min-height: 200px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="align-self: flex-start; background: var(--pm7-surface); padding: 12px 16px; border-radius: 18px; max-width: 70%;">
+          <p style="margin: 0;">Hey! How can I help you today?</p>
+        </div>
+        <div style="align-self: flex-end; background: var(--pm7-primary); color: white; padding: 12px 16px; border-radius: 18px; max-width: 70%;">
+          <p style="margin: 0;">Hi! I have a question about my order.</p>
+        </div>
+      </div>
+    </div>
+    <div data-pm7-footer style="padding: 16px;">
+      <div style="display: flex; gap: 8px;">
+        <input type="text" class="pm7-input" placeholder="Type a message..." style="flex: 1;">
+        <button class="pm7-button pm7-button--primary">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mixed Header (Generated + Custom) -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="mixed-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header 
+         data-pm7-dialog-title="Notification Settings"
+         data-pm7-header-separator>
+      <!-- Title wordt automatisch gegenereerd, dan komt onze custom content -->
+      <div style="margin-top: 16px; padding: 12px; background: var(--pm7-muted); border-radius: 6px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" checked>
+          <span>Enable all notifications</span>
+        </label>
+      </div>
+    </div>
+    <div data-pm7-body>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <h4 style="margin: 0 0 8px 0;">Email Notifications</h4>
+          <label style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" checked>
+            <span>Weekly digest</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+            <input type="checkbox">
+            <span>Marketing emails</span>
+          </label>
+        </div>
+        <div>
+          <h4 style="margin: 0 0 8px 0;">Push Notifications</h4>
+          <label style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" checked>
+            <span>Direct messages</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+            <input type="checkbox" checked>
+            <span>Mentions</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('mixed-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('mixed-dialog')">
+        Save Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- Only Header Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-header-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Only Header Example"
+         data-pm7-dialog-subtitle="This dialog only has a header section"
+         data-pm7-header-separator>
+    </div>
+  </div>
+
+  <!-- Only Body Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-body-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body>
+      <p style="text-align: center; padding: 20px;">This dialog only contains a body section with content. No header or footer is present.</p>
+    </div>
+  </div>
+
+  <!-- Only Footer Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-footer-dialog"
+       data-pm7-dialog-size="md">
+    <div data-pm7-footer style="display: flex; align-items: center; gap: 16px;">
+      <span style="flex: 1;">This dialog only has a footer section.</span>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('only-footer-dialog')">
+        Dismiss
+      </button>
+    </div>
+  </div>
+
+  <!-- Header + Footer Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="header-footer-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Header and Footer"
+         data-pm7-dialog-subtitle="No body content in this dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('header-footer-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Body + Footer Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="body-footer-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body>
+      <p>This dialog has body content and a footer, but no header section.</p>
+      <p style="color: var(--pm7-muted-foreground); font-size: 14px;">Useful for simple confirmations or messages.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('body-footer-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('body-footer-dialog')">
+        OK
+      </button>
+    </div>
+  </div>
+
+  <!-- Header + Body Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="header-body-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Information"
+         data-pm7-dialog-icon="info"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This dialog has a header and body section, but no footer with actions.</p>
+      <p style="color: var(--pm7-muted-foreground); font-size: 14px; margin-top: 12px;">The user can close it using the X button or by clicking outside.</p>
+    </div>
+  </div>
+
+  <!-- Gradient Border Dialogs -->
+  <!-- Default Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border">
+      <div data-pm7-header
+           data-pm7-dialog-title="Gradient Border Dialog"
+           data-pm7-dialog-subtitle="Beautiful gradient border effect"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog features a stunning gradient border that transitions from purple to yellow to orange. The gradient effect is achieved using the <code>pm7-gradient-border</code> class on the dialog content.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('gradient-dialog')">
+          Cancel
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-dialog')">
+          Looks Great!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blue Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-blue-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-blue">
+      <div data-pm7-header
+           data-pm7-dialog-title="Blue Gradient Dialog"
+           data-pm7-dialog-icon="info"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog uses the <code>pm7-gradient-border-blue</code> variant for a cool blue gradient effect.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('gradient-blue-dialog')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Green Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-green-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-green">
+      <div data-pm7-header
+           data-pm7-dialog-title="Success!"
+           data-pm7-dialog-icon="success"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>Operation completed successfully with a fresh green gradient border.</p>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-green-dialog')">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thick Gradient Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="gradient-thick-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div class="pm7-dialog-content pm7-gradient-border pm7-gradient-border-4">
+      <div data-pm7-header
+           data-pm7-dialog-title="Thick Gradient Border"
+           data-pm7-dialog-subtitle="4px gradient border for extra emphasis"
+           data-pm7-header-separator>
+      </div>
+      <div data-pm7-body>
+        <p>This dialog demonstrates a thicker gradient border using the <code>pm7-gradient-border-4</code> class. The 4px border creates a more prominent visual effect.</p>
+        <p style="margin-top: 1rem;">You can combine different gradient colors with different thicknesses:</p>
+        <ul style="margin-top: 0.5rem;">
+          <li><code>pm7-gradient-border</code> - 1px (default)</li>
+          <li><code>pm7-gradient-border-2</code> - 2px</li>
+          <li><code>pm7-gradient-border-4</code> - 4px</li>
+        </ul>
+      </div>
+      <div data-pm7-footer>
+        <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('gradient-thick-dialog')">
+          Close
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-thick-dialog')">
+          Got it!
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <style>
+    /* Dialog specific styles */
+    .pm7-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pm7-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--pm7-foreground);
+    }
+  </style>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+
+
+
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

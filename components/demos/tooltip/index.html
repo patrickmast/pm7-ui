@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltip Demos - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--pm7-foreground);
+      transition: all 0.2s ease;
+    }
+    
+    .demo-card:hover {
+      border-color: var(--pm7-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h1>PM7 Tooltip Component Demos</h1>
+    
+    <div class="demo-grid">
+      <a href="basic.html" class="demo-card">
+        <h3>Basic Tooltip</h3>
+        <p>Simple tooltip with default settings</p>
+      </a>
+      
+      <a href="positioning.html" class="demo-card">
+        <h3>Positioning</h3>
+        <p>Top, right, bottom, left positions and alignment options</p>
+      </a>
+      
+      <a href="sizes.html" class="demo-card">
+        <h3>Sizes</h3>
+        <p>Small, default, large, and custom width tooltips</p>
+      </a>
+      
+      <a href="themes.html" class="demo-card">
+        <h3>Themes</h3>
+        <p>Dark and light theme variants</p>
+      </a>
+      
+      <a href="multiline.html" class="demo-card">
+        <h3>Multiline Content</h3>
+        <p>Tooltips with multiple lines and complex content</p>
+      </a>
+      
+      <a href="delays.html" class="demo-card">
+        <h3>Delays</h3>
+        <p>Custom open and close delay timings</p>
+      </a>
+      
+      <a href="icon-tooltips.html" class="demo-card">
+        <h3>Icon Tooltips</h3>
+        <p>Tooltips on icon buttons and toolbar items</p>
+      </a>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

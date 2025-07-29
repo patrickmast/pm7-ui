@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input with Icons Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .pm7-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .pm7-input-icon {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 100%;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .pm7-input-icon--left {
+      left: 0;
+    }
+    
+    .pm7-input-icon--right {
+      right: 0;
+    }
+    
+    .pm7-input--icon-left {
+      padding-left: 2.5rem;
+    }
+    
+    .pm7-input--icon-right {
+      padding-right: 2.5rem;
+    }
+    
+    .pm7-input--icon-both {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Input with Icons</h1>
+      <p class="demo-description">Input fields enhanced with icon indicators</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Icon on Left</h3>
+      <div class="pm7-form-group">
+        <label for="search-input" class="pm7-label">Search</label>
+        <div class="pm7-input-group">
+          <div class="pm7-input-icon pm7-input-icon--left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </div>
+          <input type="search" id="search-input" class="pm7-input pm7-input--icon-left" placeholder="Search...">
+        </div>
+      </div>
+      
+      <div class="pm7-form-group">
+        <label for="email-input" class="pm7-label">Email</label>
+        <div class="pm7-input-group">
+          <div class="pm7-input-icon pm7-input-icon--left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-10 5L2 7"></path>
+            </svg>
+          </div>
+          <input type="email" id="email-input" class="pm7-input pm7-input--icon-left" placeholder="Enter email...">
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Icon on Right</h3>
+      <div class="pm7-form-group">
+        <label for="password-input" class="pm7-label">Password</label>
+        <div class="pm7-input-group">
+          <input type="password" id="password-input" class="pm7-input pm7-input--icon-right" placeholder="Enter password...">
+          <div class="pm7-input-icon pm7-input-icon--right">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pm7-form-group">
+        <label for="username-input" class="pm7-label">Username</label>
+        <div class="pm7-input-group">
+          <input type="text" id="username-input" class="pm7-input pm7-input--icon-right pm7-input--success" value="john.doe" placeholder="Choose username...">
+          <div class="pm7-input-icon pm7-input-icon--right" style="color: var(--pm7-success);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Icons on Both Sides</h3>
+      <div class="pm7-form-group">
+        <label for="amount-input" class="pm7-label">Amount</label>
+        <div class="pm7-input-group">
+          <div class="pm7-input-icon pm7-input-icon--left">
+            <span style="font-weight: 500;">$</span>
+          </div>
+          <input type="number" id="amount-input" class="pm7-input pm7-input--icon-both" placeholder="0.00" step="0.01">
+          <div class="pm7-input-icon pm7-input-icon--right">
+            <span style="font-size: 0.875rem;">USD</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pm7-form-group">
+        <label for="phone-input" class="pm7-label">Phone Number</label>
+        <div class="pm7-input-group">
+          <div class="pm7-input-icon pm7-input-icon--left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <input type="tel" id="phone-input" class="pm7-input pm7-input--icon-both" placeholder="(555) 000-0000">
+          <div class="pm7-input-icon pm7-input-icon--right">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/input.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Icon on Left -->
+<div class="pm7-input-group">
+  <div class="pm7-input-icon pm7-input-icon--left">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+  </div>
+  <input type="search" class="pm7-input pm7-input--icon-left" placeholder="Search...">
+</div>
+
+<!-- Icon on Right -->
+<div class="pm7-input-group">
+  <input type="password" class="pm7-input pm7-input--icon-right" placeholder="Enter password...">
+  <div class="pm7-input-icon pm7-input-icon--right">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  </div>
+</div>
+
+<!-- Icons on Both Sides -->
+<div class="pm7-input-group">
+  <div class="pm7-input-icon pm7-input-icon--left">
+    <span>$</span>
+  </div>
+  <input type="number" class="pm7-input pm7-input--icon-both" placeholder="0.00" step="0.01">
+  <div class="pm7-input-icon pm7-input-icon--right">
+    <span>USD</span>
+  </div>
+</div>
+
+<!-- Success State with Icon -->
+<div class="pm7-input-group">
+  <input type="text" class="pm7-input pm7-input--icon-right pm7-input--success" value="john.doe">
+  <div class="pm7-input-icon pm7-input-icon--right" style="color: var(--pm7-success);">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Border Cards Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin-bottom: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Gradient Border Cards</h1>
+      <p class="demo-description">Beautiful gradient borders for enhanced visual appeal</p>
+    </div>
+    
+    <!-- Default Gradient Colors -->
+    <div class="demo-section">
+      <h2 class="section-title">Default Gradient Colors</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div class="pm7-card pm7-gradient-border">
+          <div class="pm7-card-header">
+            <h3 class="pm7-card-title">Default Gradient</h3>
+            <p class="pm7-card-description">Purple to yellow to orange</p>
+          </div>
+          <div class="pm7-card-content">
+            <p>Beautiful gradient border using <code>pm7-gradient-border</code></p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-gradient-border pm7-gradient-border-blue">
+          <div class="pm7-card-header">
+            <h3 class="pm7-card-title">Blue Gradient</h3>
+            <p class="pm7-card-description">Cool blue tones</p>
+          </div>
+          <div class="pm7-card-content">
+            <p>Using <code>pm7-gradient-border-blue</code></p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-gradient-border pm7-gradient-border-green">
+          <div class="pm7-card-header">
+            <h3 class="pm7-card-title">Green Gradient</h3>
+            <p class="pm7-card-description">Fresh green shades</p>
+          </div>
+          <div class="pm7-card-content">
+            <p>Using <code>pm7-gradient-border-green</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Border Thickness -->
+    <div class="demo-section">
+      <h2 class="section-title">Border Thickness Variations</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="pm7-card pm7-gradient-border">
+          <div class="pm7-card-content">
+            <h4>1px Border</h4>
+            <p>Default thickness</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-gradient-border pm7-gradient-border-2">
+          <div class="pm7-card-content">
+            <h4>2px Border</h4>
+            <p>Using <code>pm7-gradient-border-2</code></p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-gradient-border pm7-gradient-border-4">
+          <div class="pm7-card-content">
+            <h4>4px Border</h4>
+            <p>Using <code>pm7-gradient-border-4</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Interactive with Gradient -->
+    <div class="demo-section">
+      <h2 class="section-title">Interactive Card with Gradient</h2>
+      <div class="pm7-card pm7-card--hoverable pm7-gradient-border pm7-gradient-border-primary" style="max-width: 400px;">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">Hover Me!</h3>
+          <p class="pm7-card-description">Interactive card with primary gradient</p>
+        </div>
+        <div class="pm7-card-content">
+          <p>This card combines the hoverable effect with a gradient border. The card lifts on hover while maintaining the beautiful gradient border.</p>
+        </div>
+        <div class="pm7-card-footer">
+          <button class="pm7-button pm7-button--ghost">Cancel</button>
+          <button class="pm7-button pm7-button--primary">Action</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Card Variants with Gradient -->
+    <div class="demo-section">
+      <h2 class="section-title">Card Variants with Gradient</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div class="pm7-card pm7-card--ghost pm7-gradient-border pm7-gradient-border-red">
+          <div class="pm7-card-content">
+            <h4>Ghost Card</h4>
+            <p>Ghost variant with red gradient border</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-card--outlined pm7-gradient-border">
+          <div class="pm7-card-content">
+            <h4>Outlined Card</h4>
+            <p>Outlined variant with gradient</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card pm7-card--elevated pm7-gradient-border pm7-gradient-border-blue pm7-gradient-border-2">
+          <div class="pm7-card-content">
+            <h4>Elevated Card</h4>
+            <p>Elevated with 2px blue gradient</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/card.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Default gradient -->
+<div class="pm7-card pm7-gradient-border">
+  <div class="pm7-card-content">
+    <h3>Default Gradient</h3>
+    <p>Purple to yellow to orange</p>
+  </div>
+</div>
+
+<!-- Blue gradient -->
+<div class="pm7-card pm7-gradient-border pm7-gradient-border-blue">
+  <div class="pm7-card-content">
+    <h3>Blue Gradient</h3>
+  </div>
+</div>
+
+<!-- Green gradient -->
+<div class="pm7-card pm7-gradient-border pm7-gradient-border-green">
+  <div class="pm7-card-content">
+    <h3>Green Gradient</h3>
+  </div>
+</div>
+
+<!-- Different thicknesses -->
+<div class="pm7-card pm7-gradient-border pm7-gradient-border-2">
+  <div class="pm7-card-content">2px gradient border</div>
+</div>
+
+<div class="pm7-card pm7-gradient-border pm7-gradient-border-4">
+  <div class="pm7-card-content">4px gradient border</div>
+</div>
+
+<!-- Combined with variants -->
+<div class="pm7-card pm7-card--hoverable pm7-gradient-border pm7-gradient-border-primary">
+  <div class="pm7-card-content">
+    <h3>Interactive with Gradient</h3>
+    <p>Hoverable card with primary gradient</p>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

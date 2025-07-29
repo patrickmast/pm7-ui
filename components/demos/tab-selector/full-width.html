@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Width Tabs - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="container">
+    <div class="demo-section">
+      <h3>Full Width Tabs</h3>
+      <div class="pm7-tab-selector pm7-tab-selector--solid pm7-tab-selector--full-width" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="full-tab-1">Tab A</button>
+          <button class="pm7-tab-trigger" aria-controls="full-tab-2">Tab B</button>
+          <button class="pm7-tab-trigger" aria-controls="full-tab-3">Tab C</button>
+        </div>
+        <div class="pm7-tab-content" id="full-tab-1">
+          <p>Full width tabs stretch to fill their container.</p>
+          <p>Each tab gets an equal share of the available space.</p>
+        </div>
+        <div class="pm7-tab-content" id="full-tab-2">
+          <p>This layout works well for mobile interfaces.</p>
+          <p>It ensures tabs are always easy to tap.</p>
+        </div>
+        <div class="pm7-tab-content" id="full-tab-3">
+          <p>Combine with solid or pills variant for best effect.</p>
+          <p>The full width modifier works with all variants.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Full Width Pills</h3>
+      <div class="pm7-tab-selector pm7-tab-selector--pills pm7-tab-selector--full-width" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="pills-full-tab-1">Option 1</button>
+          <button class="pm7-tab-trigger" aria-controls="pills-full-tab-2">Option 2</button>
+          <button class="pm7-tab-trigger" aria-controls="pills-full-tab-3">Option 3</button>
+          <button class="pm7-tab-trigger" aria-controls="pills-full-tab-4">Option 4</button>
+        </div>
+        <div class="pm7-tab-content" id="pills-full-tab-1">
+          <p>Pills variant with full width layout.</p>
+        </div>
+        <div class="pm7-tab-content" id="pills-full-tab-2">
+          <p>Great for settings or configuration screens.</p>
+        </div>
+        <div class="pm7-tab-content" id="pills-full-tab-3">
+          <p>Works with any number of tabs.</p>
+        </div>
+        <div class="pm7-tab-content" id="pills-full-tab-4">
+          <p>Tabs automatically adjust to available space.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

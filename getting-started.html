@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started - pm7-ui</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--pm7-primary);
+      color: white;
+      font-weight: bold;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+    
+    .step-container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    
+    .copy-box {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+    
+    .copy-box:hover {
+      border-color: var(--pm7-primary);
+      background: var(--pm7-background);
+    }
+    
+    .copy-box.copied {
+      border-color: var(--pm7-success);
+    }
+    
+    .prompt-example {
+      background: var(--pm7-surface);
+      border-left: 3px solid var(--pm7-primary);
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-style: italic;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .tip-box {
+      background: var(--pm7-info-bg, var(--pm7-primary-bg));
+      border: 1px solid var(--pm7-info-border, var(--pm7-primary));
+      border-radius: var(--pm7-radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .tip-box h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-info-foreground, var(--pm7-primary));
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>Get Your AI Agent Started with PM7-UI</h1>
+    <p class="pm7-docs-lead">The quickest way to build beautiful UIs with your AI coding assistant.</p>
+    
+    <section style="margin-top: 60px;">
+      <div class="step-container">
+        <span class="step-number">1</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Give Your AI Agent the Documentation</h2>
+          <p>Copy and paste this message to your AI assistant (ChatGPT, Claude, Copilot, etc.):</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'We\'re using pm7-ui for our UI. Here\'s the documentation: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI-HowToUse.md')">
+            We're using pm7-ui for our UI. Here's the documentation: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI-HowToUse.md
+          </div>
+          
+          <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">
+            This single link contains everything your AI needs to know about PM7-UI components, patterns, and best practices.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-container">
+        <span class="step-number">2</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Install PM7-UI in Your Project</h2>
+          <p>Have your AI run this command in your project:</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'npm install @pm7/core')">
+            npm install @pm7/core
+          </div>
+          
+          <p>Then import the CSS (your AI will know where to put this):</p>
+          
+          <div class="copy-box" onclick="copyToClipboard(this, 'import \'@pm7/core/dist/pm7.css\';')">
+            import '@pm7/core/dist/pm7.css';
+          </div>
+        </div>
+      </div>
+
+      <div class="step-container">
+        <span class="step-number">3</span>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">Start Building with Natural Language</h2>
+          <p>Now you can ask your AI to build UI components using simple prompts:</p>
+          
+          <div class="prompt-example">
+            "Add a primary button that saves the form"
+          </div>
+          
+          <div class="prompt-example">
+            "Create a card with a header 'User Profile' and show the user data inside"
+          </div>
+          
+          <div class="prompt-example">
+            "Add a dropdown menu with options: Edit, Delete, Share"
+          </div>
+          
+          <div class="prompt-example">
+            "Show a success toast notification when the save is complete"
+          </div>
+          
+          <p>Your AI knows all PM7-UI components and will generate the correct code for your framework!</p>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Working with Specific Components</h2>
+      <p>Need your AI to work with a specific component? Give it the direct documentation:</p>
+      
+      <div class="tip-box">
+        <h4>💡 Pro Tip</h4>
+        <p>Visit our <a href="/readme-links.html">README Links</a> page to get copy-paste ready documentation URLs for all components. Your AI will appreciate the direct links!</p>
+      </div>
+      
+      <p>Example for the Menu component:</p>
+      <div class="copy-box" onclick="copyToClipboard(this, 'Implement a dropdown menu using: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/menu/README.md')">
+        Implement a dropdown menu using: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/menu/README.md
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Tips for Success</h2>
+      
+      <h3>✅ Do:</h3>
+      <ul>
+        <li>Give your AI the main documentation link at the start of your session</li>
+        <li>Use natural language to describe what you want to build</li>
+        <li>Reference specific component docs when needed</li>
+        <li>Let your AI handle the implementation details</li>
+      </ul>
+      
+      <h3>❌ Don't:</h3>
+      <ul>
+        <li>Try to memorize CSS classes (that's your AI's job)</li>
+        <li>Write component code manually</li>
+        <li>Worry about framework-specific syntax</li>
+      </ul>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Troubleshooting</h2>
+      
+      <div class="pm7-card">
+        <div class="pm7-card-header">
+          <h3 style="margin: 0;">My AI doesn't know about PM7-UI</h3>
+        </div>
+        <div class="pm7-card-body">
+          <p>Make sure you've given it the documentation URL. Some AI assistants might need a reminder:</p>
+          <div class="copy-box" onclick="copyToClipboard(this, 'Please read this PM7-UI documentation first: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI-HowToUse.md')">
+            Please read this PM7-UI documentation first: https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI-HowToUse.md
+          </div>
+        </div>
+      </div>
+      
+      <div class="pm7-card" style="margin-top: 1rem;">
+        <div class="pm7-card-header">
+          <h3 style="margin: 0;">My AI is using React component syntax</h3>
+        </div>
+        <div class="pm7-card-body">
+          <p>Remind your AI that PM7-UI uses CSS classes, not React components:</p>
+          <div class="copy-box" onclick="copyToClipboard(this, 'Remember: PM7-UI uses CSS classes like pm7-button, not React components. It works with ALL frameworks.')">
+            Remember: PM7-UI uses CSS classes like pm7-button, not React components. It works with ALL frameworks.
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Framework Integration</h2>
+      <p>PM7-UI now includes self-healing components that automatically recover from framework re-renders!</p>
+      
+      <div class="tip-box">
+        <h4>✨ New in v2.7.0: PM7.initFramework()</h4>
+        <p>Use <code>PM7.initFramework()</code> for seamless integration with React, Vue, and Angular. This method includes automatic timing delays and enables self-healing for all components.</p>
+      </div>
+      
+      <h3>React Integration</h3>
+      <pre><code class="language-javascript">import { useEffect } from 'react';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+function App() {
+  useEffect(() => {
+    // Use initFramework() for better timing + automatic healing
+    PM7.initFramework();
+  }, []);
+  
+  return (
+    // Your components here - they'll self-heal automatically!
+  );
+}</code></pre>
+      
+      <h3>Vue Integration</h3>
+      <pre><code class="language-javascript">import { onMounted } from 'vue';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+export default {
+  setup() {
+    onMounted(() => {
+      PM7.initFramework();
+    });
+  }
+}</code></pre>
+      
+      <h3>Angular Integration</h3>
+      <pre><code class="language-typescript">import { Component, AfterViewInit } from '@angular/core';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core';
+
+@Component({
+  // ...
+})
+export class AppComponent implements AfterViewInit {
+  ngAfterViewInit() {
+    PM7.initFramework();
+  }
+}</code></pre>
+      
+      <h3>Self-Healing Components</h3>
+      <p>The following components automatically recover from framework re-renders:</p>
+      <ul>
+        <li><strong>Menu</strong> - Preserves open/close state</li>
+        <li><strong>Accordion</strong> - Preserves expanded sections</li>
+        <li><strong>Tab Selector</strong> - Preserves active tab</li>
+        <li><strong>Tooltip</strong> - Preserves open state</li>
+        <li><strong>Sidebar</strong> - Preserves open state and collapsibles</li>
+        <li><strong>Dialog</strong> - Preserves content during transforms</li>
+      </ul>
+      
+      <p>No more workarounds needed! Components just work, even when your framework re-renders them.</p>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Next Steps</h2>
+      <div class="pm7-button-group">
+        <a href="/components.html" class="pm7-button pm7-button--primary">
+          Browse Components
+        </a>
+        <a href="/framework-integration.html" class="pm7-button pm7-button--outline">
+          Framework Integration Guide
+        </a>
+        <a href="/ai-guide.html" class="pm7-button pm7-button--outline">
+          Advanced AI Guide
+        </a>
+        <a href="/readme-links.html" class="pm7-button pm7-button--outline">
+          Get Component Links
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function copyToClipboard(element, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        element.classList.add('copied');
+        const originalHTML = element.innerHTML;
+        element.innerHTML = '✓ Copied to clipboard!';
+        
+        setTimeout(() => {
+          element.classList.remove('copied');
+          element.innerHTML = originalHTML;
+        }, 2000);
+      });
+    }
+  </script>
+
+
+  <div id="footer-placeholder" class="pm7-desktop-only"></div>
+</body>
+</html>

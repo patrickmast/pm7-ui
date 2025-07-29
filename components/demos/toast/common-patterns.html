@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common Toast Patterns - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .pattern-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+    }
+    
+    .pattern-section h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .pattern-section p {
+      margin-bottom: 1rem;
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/components/demos/toast/common-patterns-Cqm_4eOX.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Common Toast Patterns</h2>
+    
+    <div class="pattern-section">
+      <h3>Form Submission</h3>
+      <p>Provide feedback after form actions</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--primary" onclick="simulateSave()">
+          Save Changes
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="simulateValidationError()">
+          Trigger Validation
+        </button>
+      </div>
+    </div>
+    
+    <div class="pattern-section">
+      <h3>Destructive Actions</h3>
+      <p>Confirm dangerous operations with undo option</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--destructive" onclick="simulateDelete()">
+          Delete Item
+        </button>
+        <button class="pm7-button pm7-button--destructive pm7-button--outline" onclick="simulateArchive()">
+          Archive
+        </button>
+      </div>
+    </div>
+    
+    <div class="pattern-section">
+      <h3>Async Operations</h3>
+      <p>Show progress for long-running tasks</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--outline" onclick="simulateUpload()">
+          Upload File
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="simulateExport()">
+          Export Data
+        </button>
+      </div>
+    </div>
+    
+    <div class="pattern-section">
+      <h3>System Notifications</h3>
+      <p>Inform users about system events</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--outline" onclick="showUpdateNotification()">
+          New Update
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showConnectionStatus()">
+          Connection Lost
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

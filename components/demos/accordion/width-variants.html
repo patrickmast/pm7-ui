@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Width Variants Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .variant-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin-bottom: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    .pm7-demo-bg-muted {
+      background-color: var(--pm7-muted);
+      padding: 2rem;
+      border-radius: var(--pm7-radius);
+    }
+    
+    .pm7-demo-bg-surface {
+      background-color: var(--pm7-surface);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Width Variants</h1>
+      <p class="demo-description">Different width options for accordion layouts</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Full Width Example -->
+      <div>
+        <h3 class="variant-title">Full Width (100% of parent)</h3>
+        <div class="pm7-demo-bg-muted">
+          <div class="pm7-demo-bg-surface" style="max-width: 800px; margin: 0 auto; padding: 2rem; border-radius: 8px;">
+            <p style="margin-bottom: 1rem;">Parent container with max-width: 800px</p>
+            <div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Full Width Accordion (100% of parent)</span>
+                  <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p>Deze accordion gebruikt de <code>pm7-accordion--width-max</code> class en neemt de volledige breedte van het moederelement in beslag. Perfect voor formulieren of content die de volledige beschikbare ruimte moet gebruiken.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Responsive gedrag</span>
+                  <svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <p>De accordion past zich automatisch aan de breedte van het parent element aan, ongeacht de viewport grootte.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Max Width 800px Example -->
+      <div>
+        <h3 class="variant-title">Max Width 800px</h3>
+        <div class="pm7-demo-bg-muted">
+          <div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion style="margin: 0 auto;">
+            <div class="pm7-accordion-item">
+              <button class="pm7-accordion-trigger">
+                <span>Max Width 800px Accordion</span>
+                <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                  <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </button>
+              <div class="pm7-accordion-content">
+                <div class="pm7-accordion-content-inner">
+                  <p>Deze accordion gebruikt <code>pm7-accordion--width-800</code> en heeft een maximale breedte van 800px. Op kleinere schermen past de accordion zich automatisch aan.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="pm7-accordion-item">
+              <button class="pm7-accordion-trigger">
+                <span>Consistent breedte</span>
+                <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                  <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </button>
+              <div class="pm7-accordion-content">
+                <div class="pm7-accordion-content-inner">
+                  <p>De breedte blijft consistent of de accordion open of dicht is. Perfect voor een voorspelbare layout.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Max Width 1000px Example -->
+      <div>
+        <h3 class="variant-title">Max Width 1000px</h3>
+        <div class="pm7-demo-bg-muted">
+          <div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion style="margin: 0 auto;">
+            <div class="pm7-accordion-item">
+              <button class="pm7-accordion-trigger">
+                <span>Max Width 1000px Accordion</span>
+                <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                  <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </button>
+              <div class="pm7-accordion-content">
+                <div class="pm7-accordion-content-inner">
+                  <p>Deze accordion gebruikt <code>pm7-accordion--width-1000</code> en heeft een maximale breedte van 1000px. Ideaal voor bredere content layouts.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="pm7-accordion-item">
+              <button class="pm7-accordion-trigger">
+                <span>Responsive op mobiel</span>
+                <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                  <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </button>
+              <div class="pm7-accordion-content">
+                <div class="pm7-accordion-content-inner">
+                  <p>Op schermen smaller dan 1000px neemt de accordion automatisch 100% van de beschikbare breedte in.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Full Width (100% of parent) -->
+<div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion>
+  <!-- Accordion takes 100% width of parent container -->
+</div>
+
+<!-- Fixed max-width 800px -->
+<div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion>
+  <!-- Accordion with max-width of 800px -->
+</div>
+
+<!-- Fixed max-width 1000px -->
+<div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion>
+  <!-- Accordion with max-width of 1000px -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

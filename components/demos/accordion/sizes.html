@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accordion Sizes Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .size-label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Size Variants</h1>
+      <p class="demo-description">Different accordion sizes for various use cases</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Extra small size -->
+      <div>
+        <p class="size-label">Extra Small (xs)</p>
+        <div class="pm7-accordion pm7-accordion--xs" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Extra Small Size Accordion</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Ultra-compact design with minimal padding and smallest font size. Perfect for very tight spaces or mobile interfaces.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Another XS Item</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Minimal visual footprint for maximum content density.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Small size -->
+      <div>
+        <p class="size-label">Small (sm)</p>
+        <div class="pm7-accordion pm7-accordion--sm" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Small Size Accordion</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Compact design with smaller padding, font size, and icon. Perfect for sidebars or dense information layouts.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Another Small Item</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Less visual weight for secondary content.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Medium size (default) -->
+      <div>
+        <p class="size-label">Medium (default)</p>
+        <div class="pm7-accordion pm7-accordion--md" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Medium Size Accordion (Default)</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Standard size with balanced padding and typography. This is the default size used when no size modifier is specified.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Another Medium Item</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Ideal for most use cases and content types.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Large size -->
+      <div>
+        <p class="size-label">Large (lg)</p>
+        <div class="pm7-accordion pm7-accordion--lg" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Large Size Accordion</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Spacious design with larger padding, font size, and icon. Great for important content or when you need more visual emphasis.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Another Large Item</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>More prominent presentation for primary content areas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Extra Small -->
+<div class="pm7-accordion pm7-accordion--xs" data-pm7-accordion>
+  <!-- Accordion items -->
+</div>
+
+<!-- Small -->
+<div class="pm7-accordion pm7-accordion--sm" data-pm7-accordion>
+  <!-- Accordion items -->
+</div>
+
+<!-- Medium (Default) -->
+<div class="pm7-accordion pm7-accordion--md" data-pm7-accordion>
+  <!-- Accordion items -->
+</div>
+
+<!-- Large -->
+<div class="pm7-accordion pm7-accordion--lg" data-pm7-accordion>
+  <!-- Accordion items -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

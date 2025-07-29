@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/card-BbMqZjTv.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 200 150" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><rect x="10" y="10" width="180" height="130" rx="25" fill="#fff" stroke="currentColor" stroke-width="20"/></svg>Card</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Cards are versatile containers for grouping related content and actions. They create visual separation and hierarchy in layouts.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To group related information together</li>
+              <li>To create visual separation between content sections</li>
+              <li>To display product listings or portfolio items</li>
+              <li>To show user profiles or team member information</li>
+              <li>To create dashboard widgets or stats displays</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Flexible structure</strong> - Header, content, and footer sections</li>
+              <li><strong>Visual hierarchy</strong> - Built-in spacing and typography</li>
+              <li><strong>Interactive states</strong> - Clickable cards with hover effects</li>
+              <li><strong>Image support</strong> - Display media at the top of cards</li>
+              <li><strong>Responsive</strong> - Works in grid layouts and adapts to screen sizes</li>
+              <li><strong>Accessible</strong> - Semantic HTML structure</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A card consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The outer wrapper with border and shadow</li>
+              <li><strong>Header</strong> - Optional top section for titles</li>
+              <li><strong>Content</strong> - Main body area for text and elements</li>
+              <li><strong>Footer</strong> - Optional bottom section for actions</li>
+              <li><strong>Image</strong> - Optional media display area</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <h3>Interactive Demos</h3>
+            <p>Explore PM7 Card component features with these interactive examples:</p>
+            
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion style="margin-top: 2rem;">
+              <!-- Basic Card -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Basic Card</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/basic.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/basic.html" 
+                      style="width: 100%; height: 350px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card with Header and Footer -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Card with Header and Footer</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/header-footer.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/header-footer.html" 
+                      style="width: 100%; height: 400px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Clickable Card -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Clickable Card</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/clickable.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/clickable.html" 
+                      style="width: 100%; height: 450px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card with Image -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Card with Image</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/with-image.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/with-image.html" 
+                      style="width: 100%; height: 600px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Grid Layout -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Card Grid Layout</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/grid-layout.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/grid-layout.html" 
+                      style="width: 100%; height: 700px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Nested Cards -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Nested Cards</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/nested-cards.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/nested-cards.html" 
+                      style="width: 100%; height: 550px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Card Example -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Profile Card Example</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/profile-card.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/profile-card.html" 
+                      style="width: 100%; height: 600px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card with Dropdown Menu -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Card with Dropdown Menu</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/with-dropdown.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/with-dropdown.html" 
+                      style="width: 100%; height: 600px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gradient Border Cards -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Gradient Border Cards</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/card/gradient-border.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/card/gradient-border.html" 
+                      style="width: 100%; height: 800px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-card</code></td>
+                  <td>Base card container</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Variants</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card--outlined</code></td>
+                  <td>Card with a more prominent border</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--ghost</code></td>
+                  <td>Card with no border or shadow</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--elevated</code></td>
+                  <td>Card with larger shadow, no border</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--hoverable</code></td>
+                  <td>Card with hover lift effect</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--with-dropdown</code></td>
+                  <td>Card with overflow visible for dropdown menus</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Padding Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card--sm</code></td>
+                  <td>Small padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--md</code></td>
+                  <td>Medium padding (default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--lg</code></td>
+                  <td>Large padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--no-padding</code></td>
+                  <td>No padding</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Status Modifiers</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card--success</code></td>
+                  <td>Success state (green)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--warning</code></td>
+                  <td>Warning state (orange)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--error</code></td>
+                  <td>Error state (red)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card--info</code></td>
+                  <td>Info state (blue)</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Structure Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card-header</code></td>
+                  <td>Card header section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-title</code></td>
+                  <td>Card title</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-description</code></td>
+                  <td>Card description/subtitle</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-subtitle</code></td>
+                  <td>Alias for pm7-card-description</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-content</code></td>
+                  <td>Main card content area</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-body</code></td>
+                  <td>Alias for pm7-card-content</td>
+                </tr>
+                
+                <tr>
+                  <td><code>.pm7-card-footer</code></td>
+                  <td>Card footer section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-image</code></td>
+                  <td>Full-width card image</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-image--top</code></td>
+                  <td>Image with rounded top corners, suitable for full-bleed images within a card that has `pm7-card--no-padding`</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Footer Alignment</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card-footer--start</code></td>
+                  <td>Left align footer content</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-footer--center</code></td>
+                  <td>Center align footer content</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-footer--between</code></td>
+                  <td>Space between footer items</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Grid Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-card-grid</code></td>
+                  <td>Responsive grid container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--2</code></td>
+                  <td>2 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--3</code></td>
+                  <td>3 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--4</code></td>
+                  <td>4 column responsive grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-2</code></td>
+                  <td>Fixed 2 column grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-3</code></td>
+                  <td>Fixed 3 column grid</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-card-grid--fixed-4</code></td>
+                  <td>Fixed 4 column grid</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <p>Cards do not use any special data attributes. They are purely CSS-based components.</p>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;div class="pm7-card"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;h3&gt;Card Title&lt;/h3&gt;
+    &lt;p&gt;Card content goes here.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Card Variants</h3>
+            <pre><code class="language-html">&lt;!-- Outlined card (thicker border) --&gt;
+&lt;div class="pm7-card pm7-card--outlined"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Outlined card with prominent border&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Ghost card --&gt;
+&lt;div class="pm7-card pm7-card--ghost"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Ghost card with no border or shadow&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Elevated card --&gt;
+&lt;div class="pm7-card pm7-card--elevated"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Elevated card with larger shadow, no border&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Hoverable card --&gt;
+&lt;a href="#" class="pm7-card pm7-card--hoverable"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;h3&gt;Clickable Card&lt;/h3&gt;
+    &lt;p&gt;This entire card is clickable with hover effect.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/a&gt;
+
+&lt;!-- Card with dropdown (prevents menu clipping) --&gt;
+&lt;div class="pm7-card pm7-card--with-dropdown"&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;div style="display: flex; justify-content: space-between; align-items: center;"&gt;
+      &lt;span&gt;Card with dropdown menu&lt;/span&gt;
+      &lt;div data-pm7-menu&gt;
+        &lt;button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm"&gt;
+          ⋮
+        &lt;/button&gt;
+        &lt;div class="pm7-menu-content"&gt;
+          &lt;button class="pm7-menu-item"&gt;Edit&lt;/button&gt;
+          &lt;button class="pm7-menu-item"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Status Cards</h3>
+            <pre><code class="language-html">&lt;!-- Success card --&gt;
+&lt;div class="pm7-card pm7-card--success"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Success!&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Operation completed successfully.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Warning card --&gt;
+&lt;div class="pm7-card pm7-card--warning"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Warning&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p&gt;Please review before proceeding.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Card Grid System</h3>
+            <pre><code class="language-html">&lt;!-- Responsive grid (auto-fill) --&gt;
+&lt;div class="pm7-card-grid"&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 1&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 2&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Card 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed 3 column grid --&gt;
+&lt;div class="pm7-card-grid pm7-card-grid--fixed-3"&gt;
+  &lt;div class="pm7-card"&gt;
+    &lt;div class="pm7-card-content"&gt;Always 3 columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- More cards... --&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>CSS Customization</h3>
+            <p>PM7 cards can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Border radius */
+  --pm7-card-radius: 0.5rem;
+  
+  /* Padding variants */
+  --pm7-card-padding: 1.5rem;
+  --pm7-card-padding-sm: 1rem;
+  --pm7-card-padding-lg: 2rem;
+  
+  /* Visual properties */
+  --pm7-card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --pm7-card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --pm7-card-border-width: 1px;
+  
+  /* Footer */
+  --pm7-card-footer-bg: transparent;
+}</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>Cards don't require JavaScript initialization. For interactive features, use standard event handlers.</p>
+
+            <h3>Grid System Details</h3>
+            <p>The card grid system provides flexible layout options:</p>
+            <ul>
+              <li><strong>Default grid</strong>: Auto-fills with minimum 300px columns</li>
+              <li><strong>Numbered grids (--2, --3, --4)</strong>: Responsive with breakpoints</li>
+              <li><strong>Fixed grids (--fixed-2, etc.)</strong>: Non-responsive, always maintain column count</li>
+              <li><strong>Gap</strong>: Uses <code>--pm7-spacing-6</code> (1.5rem) between cards</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+              <li><strong>Consistent sizing</strong>: Use grid layouts for equal-height cards</li>
+              <li><strong>Clear hierarchy</strong>: Use title, description, and content sections appropriately</li>
+              <li><strong>Interactive cards</strong>: Use <code>pm7-card--hoverable</code> for clickable cards</li>
+              <li><strong>Status communication</strong>: Use status variants for important state information</li>
+              <li><strong>Padding choices</strong>: Select appropriate padding based on content density</li>
+              <li><strong>Images</strong>: Use <code>pm7-card--no-padding</code> with <code>pm7-card-image--top</code> for edge-to-edge images</li>
+            </ul>
+
+            <h3>Advanced Example - Product Card</h3>
+            <pre><code class="language-html">&lt;!-- Product card with image and actions --&gt;
+&lt;div class="pm7-card pm7-card--hoverable"&gt;
+  &lt;img src="/product.jpg" alt="Product" class="pm7-card-image"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h3 class="pm7-card-title"&gt;Premium Headphones&lt;/h3&gt;
+    &lt;p class="pm7-card-description"&gt;Wireless noise-cancelling headphones&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-content"&gt;
+    &lt;p class="pm7-text-lg pm7-font-semibold"&gt;$299.99&lt;/p&gt;
+    &lt;p class="pm7-text-sm pm7-text-muted"&gt;Free shipping&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-footer pm7-card-footer--between"&gt;
+    &lt;button class="pm7-button pm7-button--outline"&gt;View Details&lt;/button&gt;
+    &lt;button class="pm7-button pm7-button--primary"&gt;Add to Cart&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Use semantic HTML elements within cards</li>
+              <li>Maintain proper heading hierarchy</li>
+              <li>For clickable cards, use a single link wrapper</li>
+              <li>Ensure sufficient color contrast for all text</li>
+              <li>Add <code>alt</code> text to images</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/card/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/card/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Card implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    /* Card specific styles */
+    .pm7-docs-preview {
+      padding: 2rem;
+    }
+  </style>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+
+
+  
+  <!-- Move demo links to accordion headers -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          // Clone the link
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          // Create container for the link
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          // Add hover listeners to manage the data attribute
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          // Insert after the trigger button
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          
+          // Remove the original link from content
+          link.remove();
+        }
+      });
+    });
+  </script>
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Overlay Sidebar Demo - PM7 UI</title>
+  
+  <!-- PM7 Core CSS -->
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--pm7-font-sans);
+      background: var(--pm7-background);
+      color: var(--pm7-foreground);
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .mobile-app-container {
+      width: 100%;
+      max-width: 414px; /* iPhone Plus width */
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--pm7-background);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-header {
+      height: 56px;
+      border-bottom: 1px solid var(--pm7-border);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      background: var(--pm7-surface);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .mobile-header h1 {
+      margin: 0 0 0 1rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    
+    .mobile-content {
+      padding: 1.5rem;
+      height: calc(100% - 56px);
+      overflow-y: auto;
+    }
+    
+    .mobile-sidebar {
+      position: absolute;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--pm7-sidebar-bg, var(--pm7-surface));
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    .mobile-sidebar.open {
+      left: 0;
+    }
+    
+    .sidebar-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+    
+    .sidebar-backdrop.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Demo content styles */
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .demo-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.125rem;
+    }
+    
+    .demo-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    /* Mobile-first design */
+    
+    @media (min-width: 768px) {
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--pm7-muted);
+      }
+    }
+  </style>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="mobile-app-container">
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+      <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="toggleSidebar()">
+        <svg class="pm7-icon" viewBox="0 0 24 24" width="20" height="20">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h1>Mobile App</h1>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="mobile-content">
+      <div class="demo-card">
+        <h3>Welcome to Mobile Demo</h3>
+        <p>Tap the menu button above to see the overlay sidebar in action. This demo simulates a mobile application with a sliding sidebar navigation.</p>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Responsive Design</h3>
+        <p>The sidebar overlays the content on mobile devices, providing a familiar navigation pattern for users.</p>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Touch Friendly</h3>
+        <p>Large touch targets and smooth animations make the sidebar easy to use on mobile devices.</p>
+      </div>
+    </main>
+    
+    <!-- Mobile Sidebar -->
+    <aside class="pm7-sidebar mobile-sidebar" id="mobile-sidebar">
+      <div class="pm7-sidebar-header">
+        <h2 style="margin: 0; font-size: 1.25rem;">Navigation</h2>
+        <button class="pm7-sidebar-close" onclick="closeSidebar()">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="pm7-sidebar-content">
+        <nav class="pm7-sidebar-nav">
+          <a href="#" class="pm7-sidebar-item pm7-sidebar-item--active">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Home</span>
+          </a>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Profile</span>
+          </a>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Tasks</span>
+          </a>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+              <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+              <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Calendar</span>
+          </a>
+          
+          <div class="pm7-sidebar-divider"></div>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Settings</span>
+          </a>
+          
+          <a href="#" class="pm7-sidebar-item">
+            <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="pm7-sidebar-item-text">Help</span>
+          </a>
+        </nav>
+      </div>
+      
+      <div class="pm7-sidebar-footer">
+        <a href="#" class="pm7-sidebar-item">
+          <svg class="pm7-sidebar-item-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5-5-5m5 5H9" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span class="pm7-sidebar-item-text">Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Backdrop -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/dist/pm7.js"></script>
+  
+  <script>
+    const sidebar = document.getElementById('mobile-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    
+    function toggleSidebar() {
+      const isOpen = sidebar.classList.contains('open');
+      if (isOpen) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    }
+    
+    function openSidebar() {
+      sidebar.classList.add('open');
+      backdrop.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+    
+    // Add click handlers to sidebar items
+    document.querySelectorAll('.pm7-sidebar-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all items
+        document.querySelectorAll('.pm7-sidebar-item').forEach(el => {
+          el.classList.remove('pm7-sidebar-item--active');
+        });
+        
+        // Add active class to clicked item
+        this.classList.add('pm7-sidebar-item--active');
+        
+        // Close sidebar on mobile after selection
+        setTimeout(() => closeSidebar(), 300);
+      });
+    });
+    
+    // Add dark mode toggle based on system preference
+    const darkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (darkModeEnabled) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</body>
+</html>

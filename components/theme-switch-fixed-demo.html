@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Theme Switch Demo - PM7 UI</title>
+  <link rel="stylesheet" href="/packages/core/dist/pm7.css">
+  <link rel="stylesheet" href="/docs-src/styles/docs.css">
+  
+  <!-- Flicker prevention -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('pm7-theme');
+      if (saved) {
+        document.documentElement.classList.toggle('dark', saved === 'dark');
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      padding: 2rem;
+      min-height: 150vh; /* To test scrolling */
+    }
+    
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .demo-section {
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>Fixed Theme Switch Demo</h1>
+    
+    <div class="demo-section">
+      <h2>About This Demo</h2>
+      <p>This page demonstrates the fixed/floating theme switch variant. Look at the bottom-right corner of your screen to see the floating theme toggle button.</p>
+      <p>The button:</p>
+      <ul>
+        <li>Stays fixed in the bottom-right corner</li>
+        <li>Remains visible when scrolling</li>
+        <li>Shows a sun icon in light mode, moon icon in dark mode</li>
+        <li>Scales up on hover for better feedback</li>
+        <li>Has a subtle entrance animation</li>
+      </ul>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Implementation</h2>
+      <pre><code class="language-html">&lt;!-- Add this anywhere in your HTML --&gt;
+&lt;div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
+      
+      <p>For a smaller version:</p>
+      <pre><code class="language-html">&lt;div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch&gt;&lt;/div&gt;</code></pre>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Keep Scrolling...</h2>
+      <p>Scroll down to see that the theme switch button stays in place.</p>
+      <p style="height: 300px;">↓</p>
+      <p>Notice how the button remains in the bottom-right corner!</p>
+    </div>
+    
+    <div class="pm7-callout pm7-callout--tip">
+      <div class="pm7-callout-body">
+        <strong>💡 Tip:</strong> The fixed theme switch is perfect for applications where users might want to toggle the theme from anywhere on the page, without having to scroll back to a header or settings panel.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed Icon Theme Switch -->
+  <div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+</body>
+</html>

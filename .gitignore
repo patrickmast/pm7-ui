@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+docs/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Package managers
+.npm/
+.yarn/
+.pnpm-store/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Test files
+tests/
+test-results/
+playwright-report/
+
+# Backup files
+*.backup
+*-backup-*
+
+# OS files
+Thumbs.db
+
+# Changesets
+.changeset/
+.vercel
+
+# Claude
+.claude/
+
+# Husky
+.husky/

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Selector - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/tab-selector-DJ2n9ihO.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M186.5 212.7c-26.5 3.4-49.9 12.7-70.2 27.7-28.6 21.3-47.4 50.6-55.5 86.7l-2.3 10.4V749c0 392.3.1 411.9 1.8 420.3 6.2 30.6 20.2 56.4 41.8 77.2 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.7-55-48.2-100.3-100.9-116-22.4-6.6 26.2-6.1-589.9-6-307.4.1-560.2.4-561.9.6m1125 110.6c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-6.7-3.5-10.7-7-14.6-12.7-6.9-9.9-6.4 12.3-6.4-288.1V603l390.3-.2 390.3-.3 7.7-3.8c9.4-4.7 17-11.9 21.5-20.4 6.4-12.1 6.2-7.8 6.2-139.1V320l161.8.2 161.7.3z"/></svg>Tab Selector</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector pm7-docs-main-tabs" data-pm7-tab-selector="main" data-pm7-tab-selector-initialized="pending">
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Tab interface for switching between different views or content sections.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To organize content into distinct, navigable sections</li>
+              <li>For settings pages with multiple categories</li>
+              <li>To display different views of the same data (e.g., table view, card view)</li>
+              <li>In product detail pages for description, specifications, reviews, etc.</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple variants</strong> - Underline (default), solid, and pills</li>
+              <li><strong>Three sizes</strong> - Small, medium (default), and large</li>
+              <li><strong>Full width option</strong> - Tabs can span the full width of their container</li>
+              <li><strong>Icon support</strong> - Add icons to tab labels</li>
+              <li><strong>Badge support</strong> - Display counts or indicators on tabs</li>
+              <li><strong>Keyboard navigation</strong> - Full arrow key support, Home/End, and Enter/Space</li>
+              <li><strong>Accessible</strong> - ARIA attributes and focus management</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A tab selector consists of:</p>
+            <ul>
+              <li><strong>Tab List</strong> (<code>.pm7-tab-list</code>) - Container for tab buttons</li>
+              <li><strong>Tab Trigger</strong> (<code>.pm7-tab-trigger</code>) - Individual clickable tab button</li>
+              <li><strong>Tab Content</strong> (<code>.pm7-tab-content</code>) - The panel displaying content for the selected tab</li>
+              <li><strong>Icon</strong> (<code>.pm7-tab-trigger-icon</code>) - Optional visual indicator within a tab</li>
+              <li><strong>Badge</strong> (<code>.pm7-tab-trigger-badge</code>) - Optional counter or indicator within a tab</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different tab selector demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Tabs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-tabs-demo">
+                  <span>Basic Tabs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="basic-tabs-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/basic.html" title="Basic Tabs Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Tab Variants -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="variants-demo">
+                  <span>Tab Variants</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="variants-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/variants.html" title="Tab Variants Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/variants.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Tab Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Tab Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/sizes.html" title="Tab Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Full Width Tabs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="full-width-demo">
+                  <span>Full Width Tabs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="full-width-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/full-width.html" title="Full Width Tabs Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/full-width.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Tabs with Icons and Badges -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="with-icons-demo">
+                  <span>Tabs with Icons and Badges</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="with-icons-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/with-icons.html" title="Tabs with Icons and Badges Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/with-icons.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Disabled Tabs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="disabled-demo">
+                  <span>Disabled Tabs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="disabled-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/disabled.html" title="Disabled Tabs Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/disabled.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              
+              <!-- Gradient Border Tabs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="gradient-demo">
+                  <span>Gradient Border Tabs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="gradient-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/tab-selector/gradient-border.html" title="Gradient Border Tabs Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/tab-selector/gradient-border.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+
+            <script>
+              // Move demo links to accordion headers
+              const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+              demoAccordions.forEach(item => {
+                const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+                const trigger = item.querySelector('.pm7-accordion-trigger');
+                
+                if (link && trigger) {
+                  const headerLink = link.cloneNode(true);
+                  headerLink.classList.remove('pm7-demo-open-link');
+                  headerLink.classList.add('pm7-demo-open-link-header');
+                  
+                  const linkContainer = document.createElement('div');
+                  linkContainer.className = 'pm7-demo-link-container';
+                  linkContainer.appendChild(headerLink);
+                  
+                  headerLink.addEventListener('mouseenter', () => {
+                    item.setAttribute('data-link-hover', 'true');
+                  });
+                  
+                  headerLink.addEventListener('mouseleave', () => {
+                    item.removeAttribute('data-link-hover');
+                  });
+                  
+                  trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+                  link.remove();
+                }
+              });
+            </script>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/tab-selector/" target="_blank">View all tab selector demos →</a>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <pre><code class="language-html">&lt;div class="pm7-tab-selector" data-pm7-tab-selector&gt;
+  &lt;div class="pm7-tab-list"&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="tab-1" data-state="active"&gt;Tab 1&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="tab-2"&gt;Tab 2&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="tab-3"&gt;Tab 3&lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="tab-1" data-state="active"&gt;
+    &lt;p&gt;Content for Tab 1&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-tab-content" id="tab-2"&gt;
+    &lt;p&gt;Content for Tab 2&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-tab-content" id="tab-3"&gt;
+    &lt;p&gt;Content for Tab 3&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Data Attributes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-tab-selector</code></td>
+                  <td>Auto-initialize tab selector</td>
+                </tr>
+                <tr>
+                  <td><code>data-state="active"</code></td>
+                  <td>Marks active tab and content</td>
+                </tr>
+                <tr>
+                  <td><code>aria-controls</code></td>
+                  <td>Links tab trigger to content panel</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Container Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-selector</code></td>
+                  <td>Container element</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-list</code></td>
+                  <td>Tab button container</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Tab Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-trigger</code></td>
+                  <td>Individual tab button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-trigger--active</code></td>
+                  <td>Active tab state (alternative to data-state)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-trigger-icon</code></td>
+                  <td>Icon within tab</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-trigger-badge</code></td>
+                  <td>Badge/counter within tab</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Content Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-content</code></td>
+                  <td>Tab panel content</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-content--active</code></td>
+                  <td>Active panel state (alternative to data-state)</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Variant Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-selector--solid</code></td>
+                  <td>Solid background variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-selector--pills</code></td>
+                  <td>Pill-shaped variant</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Size Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-selector--sm</code></td>
+                  <td>Small size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-tab-selector--lg</code></td>
+                  <td>Large size</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Layout Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-tab-selector--full-width</code></td>
+                  <td>Full width tabs</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><strong>Note</strong>: The default tab style uses an underline indicator. No additional class is needed for this variant.</p>
+
+            <h3>State Management</h3>
+            <p>Tabs use <code>data-state="active"</code> attributes for state management, with fallback support for <code>--active</code> modifier classes:</p>
+            <pre><code class="language-html">&lt;!-- Preferred: Using data-state --&gt;
+&lt;button class="pm7-tab-trigger" data-state="active"&gt;Active Tab&lt;/button&gt;
+&lt;div class="pm7-tab-content" data-state="active"&gt;Active Content&lt;/div&gt;
+
+&lt;!-- Alternative: Using modifier classes --&gt;
+&lt;button class="pm7-tab-trigger pm7-tab-trigger--active"&gt;Active Tab&lt;/button&gt;
+&lt;div class="pm7-tab-content pm7-tab-content--active"&gt;Active Content&lt;/div&gt;</code></pre>
+
+            <h3>Theme Support</h3>
+            <p>PM7 Tab Selector includes built-in support for:</p>
+            <ul>
+              <li><strong>Dark Mode</strong> - Automatically adapts when the <code>.dark</code> class is present on a parent element</li>
+              <li><strong>RTL Support</strong> - Fully supports right-to-left layouts with <code>dir="rtl"</code></li>
+            </ul>
+            <p>The component uses standard PM7 design tokens for consistent theming across your application.</p>
+
+            <h3>JavaScript API</h3>
+            <p>Tab selectors are automatically initialized when the DOM loads:</p>
+            <pre><code class="language-javascript">import { PM7TabSelector } from '@pm7/core';
+
+    import '/packages/core/src/scripts/index.js';
+// Create instance for auto-initialized tabs
+const tabElement = document.querySelector('[data-pm7-tab-selector]');
+const tabs = new PM7TabSelector(tabElement);
+
+// Use the instance
+tabs.selectTabById('settings-panel');
+tabs.selectTabByIndex(2);
+
+// Get active tab information
+const activeTab = tabs.getActiveTab();
+const activeIndex = tabs.getActiveIndex();
+
+// Manual initialization
+const customTabs = document.querySelector('.custom-tabs');
+const customTabInstance = new PM7TabSelector(customTabs);
+
+// TypeScript support
+const element = document.querySelector('[data-pm7-tab-selector]') as HTMLElement;
+const tabSelector = new PM7TabSelector(element);
+tabSelector.selectTabById('profile-panel');</code></pre>
+
+            <h3>Dynamic Tabs Example</h3>
+            <pre><code class="language-html">&lt;!-- Tab selector with dynamic content --&gt;
+&lt;div class="pm7-tab-selector pm7-tab-selector--underline" data-pm7-tab-selector&gt;
+  &lt;div class="pm7-tab-list"&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="settings-panel"&gt;Settings&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="profile-panel"&gt;Profile&lt;/button&gt;
+    &lt;button class="pm7-tab-trigger" aria-controls="security-panel"&gt;Security&lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="settings-panel"&gt;
+    &lt;h3&gt;Settings&lt;/h3&gt;
+    &lt;div class="pm7-form-group"&gt;
+      &lt;label class="pm7-label"&gt;Language&lt;/label&gt;
+      &lt;select class="pm7-input"&gt;
+        &lt;option&gt;English&lt;/option&gt;
+        &lt;option&gt;Dutch&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="profile-panel"&gt;
+    &lt;h3&gt;Profile&lt;/h3&gt;
+    &lt;p&gt;Update your profile information here.&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="pm7-tab-content" id="security-panel"&gt;
+    &lt;h3&gt;Security&lt;/h3&gt;
+    &lt;p&gt;Manage your password and security settings.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Uses ARIA <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles</li>
+              <li>Proper <code>aria-controls</code> and <code>aria-selected</code> attributes</li>
+              <li>Keyboard navigation follows ARIA authoring practices</li>
+              <li>Focus management for screen readers</li>
+            </ul>
+
+            <h3>Keyboard Navigation</h3>
+            <ul>
+              <li><kbd>Tab</kbd> - Move focus into tab list</li>
+              <li><kbd>Arrow Left/Up</kbd> - Move to previous tab</li>
+              <li><kbd>Arrow Right/Down</kbd> - Move to next tab</li>
+              <li><kbd>Home</kbd> - Jump to first tab</li>
+              <li><kbd>End</kbd> - Jump to last tab</li>
+              <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Activate focused tab</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+              <li><strong>Clear labels</strong> - Use descriptive, concise tab labels</li>
+              <li><strong>Logical order</strong> - Arrange tabs in a logical sequence</li>
+              <li><strong>Limited number</strong> - Avoid more than 5-7 tabs in one group</li>
+              <li><strong>Consistent content</strong> - Each tab should contain related content</li>
+              <li><strong>Visual feedback</strong> - Always show which tab is active</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tab-selector/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/tab-selector/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Tab Selector implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+
+  </script>
+
+
+
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

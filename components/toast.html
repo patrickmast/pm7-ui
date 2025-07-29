@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/toast-CSzIf9xM.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M186.5 212.7c-26.5 3.4-49.9 12.7-70.2 27.7-28.6 21.3-47.4 50.6-55.5 86.7l-2.3 10.4V749c0 392.3.1 411.9 1.8 420.3 6.2 30.6 20.2 56.4 41.8 77.2 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.7-55-48.2-100.3-100.9-116-22.4-6.6 26.2-6.1-589.9-6-307.4.1-560.2.4-561.9.6m1125 110.6c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/><path d="M404.5 415.1c-14 4.9-24.7 15.6-29.6 29.7-1.8 5.3-1.9 10.5-1.9 136.2 0 128.2 0 130.8 2 136.5 3.8 11.2 10.7 19.5 21.3 25.9 12 7.2-23.2 6.6 409.2 6.6s397.2.6 409.2-6.6c10.4-6.3 17.1-14.3 21.5-26l2.3-5.9v-260l-2.4-6.5c-5.6-15.2-15.4-25.1-29.9-29.9l-6.1-2.1H805.3l-394.8.1z"/></svg>Toast</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Toasts provide brief notifications to the user. They appear temporarily and shouldn't interrupt the user experience.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To confirm an action (saved, deleted, updated)</li>
+              <li>To show non-critical errors or warnings</li>
+              <li>To notify about background processes</li>
+              <li>For system updates or status changes</li>
+              <li>To provide feedback after user actions</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple variants</strong> - Default, success, warning, error, and info</li>
+              <li><strong>Auto-dismiss</strong> - Configurable duration or persistent</li>
+              <li><strong>Action buttons</strong> - Optional actions like undo or retry</li>
+              <li><strong>Progress indicator</strong> - Shows time remaining</li>
+              <li><strong>Queueing</strong> - Multiple toasts stack nicely</li>
+              <li><strong>Programmatic control</strong> - Show, close, and manage via JavaScript</li>
+              <li><strong>Accessible</strong> - Screen reader announcements</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A toast consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The toast wrapper</li>
+              <li><strong>Title</strong> - Primary message</li>
+              <li><strong>Description</strong> - Additional details (optional)</li>
+              <li><strong>Close button</strong> - Manual dismiss option</li>
+              <li><strong>Action</strong> - Optional button for actions</li>
+              <li><strong>Progress bar</strong> - Visual countdown for auto-dismiss</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <a href="/components/demos/toast/" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer" style="margin-left: 0; margin-bottom: 10px;">Open Toast demos in new tab →</a>
+            
+            <!-- Accordion demos -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion="single" data-pm7-default-value="item-1">
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-1">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Toast Variants
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/variants.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/variants.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-2">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Toast Features
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/features.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/features.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-3">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Common Patterns
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/common-patterns.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/common-patterns.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-4">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Gradient Border Toasts
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/gradient-border.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/gradient-border.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.pm7-toast-viewport</code></td>
+                  <td>Container for all toasts</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast</code></td>
+                  <td>Individual toast container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--default</code></td>
+                  <td>Default toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--success</code></td>
+                  <td>Success toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--warning</code></td>
+                  <td>Warning toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--destructive</code></td>
+                  <td>Error/destructive toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast--info</code></td>
+                  <td>Info toast variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-header</code></td>
+                  <td>Toast header container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-title</code></td>
+                  <td>Toast title</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-description</code></td>
+                  <td>Toast description</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-close</code></td>
+                  <td>Close button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-action</code></td>
+                  <td>Action button container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-toast-progress</code></td>
+                  <td>Progress bar for auto-dismiss</td>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-state</code></td>
+                  <td>Toast visibility state: 'open' or 'closed'</td>
+                </tr>
+                <tr>
+                  <td><code>data-toast-id</code></td>
+                  <td>Unique identifier for each toast instance</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-javascript">import { showToast } from '@pm7/core';
+
+    import '/packages/core/src/scripts/index.js';
+// Show a simple toast
+showToast({
+  title: 'Success!',
+  description: 'Your changes have been saved.'
+});</code></pre>
+
+            <h3>JavaScript API</h3>
+            <h4>showToast(options)</h4>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>Toast title</td>
+                </tr>
+                <tr>
+                  <td><code>description</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>Toast description</td>
+                </tr>
+                <tr>
+                  <td><code>variant</code></td>
+                  <td>string</td>
+                  <td>'default'</td>
+                  <td>Toast variant: 'default', 'success', 'warning', 'destructive', 'info'</td>
+                </tr>
+                <tr>
+                  <td><code>duration</code></td>
+                  <td>number</td>
+                  <td>5000</td>
+                  <td>Auto-dismiss duration in ms. Use 0 for persistent</td>
+                </tr>
+                <tr>
+                  <td><code>action</code></td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>HTML string for action buttons</td>
+                </tr>
+                <tr>
+                  <td><code>onClose</code></td>
+                  <td>function</td>
+                  <td>null</td>
+                  <td>Callback when toast is closed</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Toast Variants</h3>
+            <pre><code class="language-javascript">// Default toast
+showToast({
+  title: 'Notification',
+  description: 'This is a default toast message.'
+});
+
+// Success toast
+showToast({
+  title: 'Success!',
+  description: 'Operation completed successfully.',
+  variant: 'success'
+});
+
+// Warning toast
+showToast({
+  title: 'Warning',
+  description: 'Please review your input.',
+  variant: 'warning'
+});
+
+// Error/Destructive toast
+showToast({
+  title: 'Error',
+  description: 'Something went wrong.',
+  variant: 'destructive'
+});
+
+// Info toast
+showToast({
+  title: 'Information',
+  description: 'New updates are available.',
+  variant: 'info'
+});</code></pre>
+
+            <h3>Advanced Options</h3>
+            <pre><code class="language-javascript">// Custom duration
+showToast({
+  title: 'Quick message',
+  duration: 3000  // 3 seconds
+});
+
+// Persistent toast
+showToast({
+  title: 'Action required',
+  description: 'Please complete your profile.',
+  duration: 0  // Won't auto-dismiss
+});
+
+// Toast with action
+showToast({
+  title: 'File deleted',
+  description: 'document.pdf has been deleted.',
+  action: '&lt;button class="pm7-button pm7-button--sm pm7-button--primary"&gt;Undo&lt;/button&gt;'
+});
+
+// Toast with callback
+showToast({
+  title: 'Saved',
+  description: 'Your preferences have been saved.',
+  onClose: () => {
+    console.log('Toast closed');
+  }
+});</code></pre>
+
+            <h3>Manual Control</h3>
+            <pre><code class="language-javascript">import { showToast, closeToast, closeAllToasts } from '@pm7/core';
+
+// Show toast and get ID
+const toastId = showToast({
+  title: 'Processing...',
+  duration: 0  // Don't auto-dismiss
+});
+
+// Close specific toast
+setTimeout(() => {
+  closeToast(toastId);
+}, 5000);
+
+// Close all toasts
+closeAllToasts();</code></pre>
+
+            <h3>Advanced Usage</h3>
+            <pre><code class="language-javascript">// Show toast with action button
+PM7Toast.show({
+  title: 'Changes saved',
+  description: 'Your document has been saved successfully.',
+  variant: 'success',
+  action: {
+    label: 'View',
+    onClick: () => {
+      console.log('View clicked');
+    }
+  }
+});
+
+// Show toast with custom duration
+PM7Toast.show({
+  title: 'Processing...',
+  description: 'This may take a few moments.',
+  variant: 'info',
+  duration: 10000 // 10 seconds
+});
+
+// Close all toasts
+PM7Toast.closeAll();</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Toasts appear in a fixed position (top-right corner)</li>
+              <li>Close button includes <code>aria-label="Close"</code> for screen readers</li>
+              <li>Focus remains on the trigger element</li>
+              <li>Toast actions are keyboard accessible</li>
+              <li>Each toast has a unique ID for programmatic control</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+              <li><strong>Keep it brief</strong> - Toast messages should be concise</li>
+              <li><strong>Non-blocking</strong> - Don't use toasts for critical information</li>
+              <li><strong>Appropriate variant</strong> - Use the correct variant for the message type</li>
+              <li><strong>Timing</strong> - Default 5 seconds is good for most messages</li>
+              <li><strong>Actionable</strong> - Include an action button when appropriate</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/toast/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/toast/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Toast implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+    
+    // Move demo links to accordion headers
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+        demoAccordions.forEach(item => {
+          const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+          const trigger = item.querySelector('.pm7-accordion-trigger');
+          
+          if (link && trigger) {
+            const headerLink = link.cloneNode(true);
+            headerLink.classList.remove('pm7-demo-open-link');
+            headerLink.classList.add('pm7-demo-open-link-header');
+            
+            const linkContainer = document.createElement('div');
+            linkContainer.className = 'pm7-demo-link-container';
+            linkContainer.appendChild(headerLink);
+            
+            headerLink.addEventListener('mouseenter', () => {
+              item.setAttribute('data-link-hover', 'true');
+            });
+            
+            headerLink.addEventListener('mouseleave', () => {
+              item.removeAttribute('data-link-hover');
+            });
+            
+            trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+            link.remove();
+          }
+        });
+      }, 100);
+    });
+  </script>
+
+  <!-- PM7 Core JavaScript -->
+
+
+
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

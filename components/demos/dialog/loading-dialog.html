@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Loading styles */
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--pm7-muted);
+      border-top-color: var(--pm7-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--pm7-muted);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--pm7-primary);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .loading-dots {
+      display: inline-flex;
+      gap: 0.25rem;
+    }
+    
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--pm7-primary);
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes pulse {
+      0%, 60%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      30% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .loading-status {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+      margin-top: 0.5rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Loading Dialogs</h1>
+      <p class="demo-description">Different loading states and progress indicators</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--primary" onclick="showSpinnerDialog()">
+        Spinner Loading
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="showProgressDialog()">
+        Progress Bar
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="showDotsDialog()">
+        Loading Dots
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="showStatusDialog()">
+        With Status
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Spinner Loading Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="spinner-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body style="text-align: center; padding: 3rem 2rem;">
+      <div class="loading-spinner"></div>
+      <h3 style="margin: 0 0 0.5rem 0;">Loading...</h3>
+      <p style="color: var(--pm7-muted-foreground); margin: 0;">Please wait while we process your request</p>
+    </div>
+  </div>
+
+  <!-- Progress Bar Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="progress-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-header
+         data-pm7-dialog-title="Uploading Files"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p style="margin-top: 0;">Uploading 3 files to your workspace...</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--pm7-muted-foreground);">
+        <span id="progress-percent">0</span>% complete • <span id="progress-files">0</span> of 3 files
+      </p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline pm7-button--full" onclick="cancelProgress()">
+        Cancel Upload
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Dots Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="dots-dialog"
+       data-pm7-dialog-size="sm">
+    <div data-pm7-body style="text-align: center; padding: 3rem 2rem;">
+      <h3 style="margin: 0 0 1.5rem 0;">Processing</h3>
+      <div class="loading-dots">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+      <p style="color: var(--pm7-muted-foreground); margin: 1.5rem 0 0 0;">This may take a few moments</p>
+    </div>
+  </div>
+
+  <!-- Status Loading Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="status-dialog"
+       data-pm7-dialog-size="md">
+    <div data-pm7-header
+         data-pm7-dialog-title="Setting up your workspace"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="loading-spinner" style="width: 32px; height: 32px; margin: 0;"></div>
+        <div style="flex: 1;">
+          <p style="margin: 0; font-weight: 500;" id="status-message">Creating project structure...</p>
+          <p class="loading-status" id="status-detail">Setting up directories</p>
+        </div>
+      </div>
+      
+      <div style="background: var(--pm7-muted); border-radius: 6px; padding: 1rem; font-family: var(--pm7-font-mono); font-size: 0.75rem; max-height: 200px; overflow-y: auto;" id="status-log">
+        <div>[09:42:15] Starting workspace setup...</div>
+        <div>[09:42:15] Creating project directory</div>
+        <div>[09:42:16] Initializing git repository</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    let progressInterval;
+    let statusInterval;
+    let currentProgress = 0;
+    
+    function showSpinnerDialog() {
+      window.PM7?.openDialog?.('spinner-dialog');
+      // Auto close after 3 seconds
+      setTimeout(() => {
+        window.PM7?.closeDialog?.('spinner-dialog');
+        if (window.showToast) {
+          window.showToast('Loading complete!', { variant: 'success' });
+        }
+      }, 3000);
+    }
+    
+    function showProgressDialog() {
+      currentProgress = 0;
+      window.PM7?.openDialog?.('progress-dialog');
+      
+      // Simulate progress
+      progressInterval = setInterval(() => {
+        currentProgress += Math.random() * 15;
+        if (currentProgress >= 100) {
+          currentProgress = 100;
+          clearInterval(progressInterval);
+          setTimeout(() => {
+            window.PM7?.closeDialog?.('progress-dialog');
+            if (window.showToast) {
+              window.showToast('Upload complete!', { variant: 'success' });
+            }
+          }, 500);
+        }
+        
+        const filesComplete = Math.floor((currentProgress / 100) * 3);
+        document.getElementById('progress-fill').style.width = currentProgress + '%';
+        document.getElementById('progress-percent').textContent = Math.floor(currentProgress);
+        document.getElementById('progress-files').textContent = filesComplete;
+      }, 300);
+    }
+    
+    function cancelProgress() {
+      clearInterval(progressInterval);
+      window.PM7?.closeDialog?.('progress-dialog');
+      if (window.showToast) {
+        window.showToast('Upload cancelled', { variant: 'default' });
+      }
+    }
+    
+    function showDotsDialog() {
+      window.PM7?.openDialog?.('dots-dialog');
+      // Auto close after 2.5 seconds
+      setTimeout(() => {
+        window.PM7?.closeDialog?.('dots-dialog');
+        if (window.showToast) {
+          window.showToast('Processing complete!', { variant: 'success' });
+        }
+      }, 2500);
+    }
+    
+    function showStatusDialog() {
+      window.PM7?.openDialog?.('status-dialog');
+      
+      const statuses = [
+        { message: 'Installing dependencies...', detail: 'Running npm install' },
+        { message: 'Building project...', detail: 'Compiling TypeScript files' },
+        { message: 'Running tests...', detail: 'Executing test suite' },
+        { message: 'Finalizing setup...', detail: 'Creating configuration files' }
+      ];
+      
+      let statusIndex = 0;
+      const logElement = document.getElementById('status-log');
+      
+      statusInterval = setInterval(() => {
+        if (statusIndex < statuses.length) {
+          const status = statuses[statusIndex];
+          document.getElementById('status-message').textContent = status.message;
+          document.getElementById('status-detail').textContent = status.detail;
+          
+          const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+          const logEntry = document.createElement('div');
+          logEntry.textContent = `[${time}] ${status.message}`;
+          logElement.appendChild(logEntry);
+          logElement.scrollTop = logElement.scrollHeight;
+          
+          statusIndex++;
+        } else {
+          clearInterval(statusInterval);
+          setTimeout(() => {
+            window.PM7?.closeDialog?.('status-dialog');
+            if (window.showToast) {
+              window.showToast('Workspace ready!', { variant: 'success' });
+            }
+          }, 1000);
+        }
+      }, 1500);
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Spinner Loading -->
+<div class="pm7-dialog" data-pm7-dialog="loading">
+  <div data-pm7-body style="text-align: center; padding: 3rem;">
+    <div class="spinner"></div>
+    <h3>Loading...</h3>
+    <p>Please wait</p>
+  </div>
+</div>
+
+<!-- Progress Bar -->
+<div class="pm7-dialog" data-pm7-dialog="progress">
+  <div data-pm7-header
+       data-pm7-dialog-title="Uploading">
+  </div>
+  <div data-pm7-body>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 60%"></div>
+    </div>
+    <p>60% complete</p>
+  </div>
+</div>
+
+<!-- CSS -->
+<style>
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--pm7-muted);
+  border-top-color: var(--pm7-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--pm7-muted);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--pm7-primary);
+  transition: width 0.3s ease;
+}
+</style>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

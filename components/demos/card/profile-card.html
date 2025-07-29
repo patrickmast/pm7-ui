@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Card Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Profile Card</h1>
+      <p class="demo-description">User profile card example</p>
+    </div>
+    
+    <div class="pm7-card">
+      <div class="pm7-card-content" style="text-align: center;">
+        <div style="width: 80px; height: 80px; background: var(--pm7-primary); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+          PM
+        </div>
+        <h3>Patrick Mast</h3>
+        <p style="color: var(--pm7-muted-foreground);">UI/UX Designer</p>
+        <p style="margin: 1rem 0;">Creating beautiful and functional user interfaces with pm7-ui components.</p>
+        <div style="display: flex; gap: 0.5rem; justify-content: center;">
+          <button class="pm7-button pm7-button--primary pm7-button--sm">Follow</button>
+          <button class="pm7-button pm7-button--outline pm7-button--sm">Message</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Alternative horizontal layout -->
+    <div style="margin-top: 2rem;">
+      <p style="text-align: center; color: var(--pm7-muted-foreground); margin-bottom: 1rem;">Alternative: Horizontal layout</p>
+      <div class="pm7-card">
+        <div class="pm7-card-content" style="display: flex; gap: 1.5rem; align-items: center;">
+          <div style="width: 60px; height: 60px; background: var(--pm7-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; flex-shrink: 0;">
+            JD
+          </div>
+          <div style="flex: 1;">
+            <h4 style="margin: 0;">Jane Doe</h4>
+            <p style="color: var(--pm7-muted-foreground); margin: 0.25rem 0;">Software Engineer</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem;">Building scalable web applications</p>
+          </div>
+          <button class="pm7-button pm7-button--ghost pm7-button--sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/card.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Centered profile card -->
+<div class="pm7-card">
+  <div class="pm7-card-content" style="text-align: center;">
+    <div style="width: 80px; height: 80px; background: var(--pm7-primary); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+      PM
+    </div>
+    <h3>Patrick Mast</h3>
+    <p style="color: var(--pm7-muted-foreground);">UI/UX Designer</p>
+    <p>Bio text here...</p>
+    <div style="display: flex; gap: 0.5rem; justify-content: center;">
+      <button class="pm7-button pm7-button--primary pm7-button--sm">Follow</button>
+      <button class="pm7-button pm7-button--outline pm7-button--sm">Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- Horizontal profile card -->
+<div class="pm7-card">
+  <div class="pm7-card-content" style="display: flex; gap: 1.5rem; align-items: center;">
+    <div style="width: 60px; height: 60px; background: var(--pm7-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+      JD
+    </div>
+    <div style="flex: 1;">
+      <h4 style="margin: 0;">Jane Doe</h4>
+      <p style="color: var(--pm7-muted-foreground); margin: 0.25rem 0;">Software Engineer</p>
+    </div>
+    <button class="pm7-button pm7-button--ghost pm7-button--sm">⋮</button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

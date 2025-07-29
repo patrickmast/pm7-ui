@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Guide - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Dark mode flicker prevention -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .color-item {
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .color-preview {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    .color-info {
+      padding: 1rem;
+      background: var(--pm7-muted);
+    }
+    
+    .color-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .color-var {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .spacing-example {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .spacing-box {
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .typography-example {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: var(--pm7-muted);
+      border-radius: 8px;
+    }
+    
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .shadow-item {
+      background: var(--pm7-surface);
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .icon-item {
+      background: var(--pm7-muted);
+      border-radius: 8px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    
+    .icon-item:hover {
+      background: var(--pm7-secondary);
+      transform: translateY(-2px);
+    }
+    
+    .icon-item svg {
+      margin: 0 auto 0.5rem;
+      display: block;
+    }
+    
+    .icon-name {
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+      word-break: break-word;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/styleGuide-DLVvY49l.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <main class="pm7-docs-content" style="max-width: 1200px; margin: 0 auto;">
+      <h1>PM7 UI Style Guide</h1>
+      
+      <p>A comprehensive guide to the design system, tokens, and visual language of PM7 UI.</p>
+
+      <!-- Colors Section -->
+      <section class="pm7-docs-section">
+        <h2>Colors</h2>
+        <p>PM7 UI uses a semantic color system that automatically adapts to light and dark modes.</p>
+        
+        <h3>Primary Colors</h3>
+        <div class="color-grid">
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-background); color: var(--pm7-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Background</div>
+              <div class="color-var">--pm7-background</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-foreground); color: var(--pm7-background);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Foreground</div>
+              <div class="color-var">--pm7-foreground</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-primary); color: var(--pm7-primary-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Primary</div>
+              <div class="color-var">--pm7-primary</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-secondary); color: var(--pm7-secondary-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Secondary</div>
+              <div class="color-var">--pm7-secondary</div>
+            </div>
+          </div>
+        </div>
+        
+        <h3>Semantic Colors</h3>
+        <div class="color-grid">
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-muted); color: var(--pm7-muted-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Muted</div>
+              <div class="color-var">--pm7-muted</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-surface); color: var(--pm7-foreground); border: 1px solid var(--pm7-border);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Surface</div>
+              <div class="color-var">--pm7-surface</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-accent); color: var(--pm7-accent-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Accent</div>
+              <div class="color-var">--pm7-accent</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-destructive); color: var(--pm7-destructive-foreground);">Aa</div>
+            <div class="color-info">
+              <div class="color-name">Destructive</div>
+              <div class="color-var">--pm7-destructive</div>
+            </div>
+          </div>
+        </div>
+        
+        <h3>Border & Ring</h3>
+        <div class="color-grid">
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-background); border: 2px solid var(--pm7-border);">Border</div>
+            <div class="color-info">
+              <div class="color-name">Border</div>
+              <div class="color-var">--pm7-border</div>
+            </div>
+          </div>
+          
+          <div class="color-item">
+            <div class="color-preview" style="background: var(--pm7-background); box-shadow: 0 0 0 2px var(--pm7-ring);">Ring</div>
+            <div class="color-info">
+              <div class="color-name">Ring</div>
+              <div class="color-var">--pm7-ring</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typography Section -->
+      <section class="pm7-docs-section">
+        <h2>Typography</h2>
+        <p>PM7 UI uses system fonts for optimal performance and native feel.</p>
+        
+        <div class="typography-example">
+          <h1>Heading 1 - The quick brown fox</h1>
+          <h2>Heading 2 - The quick brown fox</h2>
+          <h3>Heading 3 - The quick brown fox</h3>
+          <h4>Heading 4 - The quick brown fox</h4>
+          <h5>Heading 5 - The quick brown fox</h5>
+          <h6>Heading 6 - The quick brown fox</h6>
+          
+          <p style="margin-top: 2rem;">Body text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          
+          <p><small>Small text - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small></p>
+          
+          <p><code>Code text - const example = "PM7 UI";</code></p>
+        </div>
+        
+        <h3>Font Stack</h3>
+        <pre><code class="language-css">--pm7-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+                   Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
+                   'Helvetica Neue', sans-serif;</code></pre>
+      </section>
+
+      <!-- Spacing Section -->
+      <section class="pm7-docs-section">
+        <h2>Spacing</h2>
+        <p>PM7 UI uses a consistent 4px spacing scale.</p>
+        
+        <div class="spacing-example">
+          <div class="spacing-box" style="width: 4px; height: 40px;">1</div>
+          <div class="spacing-box" style="width: 8px; height: 40px;">2</div>
+          <div class="spacing-box" style="width: 12px; height: 40px;">3</div>
+          <div class="spacing-box" style="width: 16px; height: 40px;">4</div>
+          <div class="spacing-box" style="width: 20px; height: 40px;">5</div>
+          <div class="spacing-box" style="width: 24px; height: 40px;">6</div>
+          <div class="spacing-box" style="width: 32px; height: 40px;">8</div>
+          <div class="spacing-box" style="width: 40px; height: 40px;">10</div>
+          <div class="spacing-box" style="width: 48px; height: 40px;">12</div>
+          <div class="spacing-box" style="width: 64px; height: 40px;">16</div>
+        </div>
+        
+        <table class="pm7-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Size</th>
+              <th>Pixels</th>
+              <th>Common Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>0.25rem</code></td>
+              <td>1</td>
+              <td>4px</td>
+              <td>Tight spacing, small gaps</td>
+            </tr>
+            <tr>
+              <td><code>0.5rem</code></td>
+              <td>2</td>
+              <td>8px</td>
+              <td>Icon spacing, small padding</td>
+            </tr>
+            <tr>
+              <td><code>1rem</code></td>
+              <td>4</td>
+              <td>16px</td>
+              <td>Default padding, margins</td>
+            </tr>
+            <tr>
+              <td><code>1.5rem</code></td>
+              <td>6</td>
+              <td>24px</td>
+              <td>Section spacing</td>
+            </tr>
+            <tr>
+              <td><code>2rem</code></td>
+              <td>8</td>
+              <td>32px</td>
+              <td>Large padding, section gaps</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Border Radius Section -->
+      <section class="pm7-docs-section">
+        <h2>Border Radius</h2>
+        <p>Consistent border radius values for a cohesive design.</p>
+        
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
+          <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: var(--pm7-muted); border-radius: var(--pm7-radius-sm);"></div>
+            <p style="margin-top: 0.5rem;"><code>--pm7-radius-sm</code></p>
+            <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">4px</p>
+          </div>
+          
+          <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: var(--pm7-muted); border-radius: var(--pm7-radius);"></div>
+            <p style="margin-top: 0.5rem;"><code>--pm7-radius</code></p>
+            <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">8px</p>
+          </div>
+          
+          <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: var(--pm7-muted); border-radius: var(--pm7-radius-lg);"></div>
+            <p style="margin-top: 0.5rem;"><code>--pm7-radius-lg</code></p>
+            <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">12px</p>
+          </div>
+          
+          <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: var(--pm7-muted); border-radius: 50%;"></div>
+            <p style="margin-top: 0.5rem;">Full</p>
+            <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">50%</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shadows Section -->
+      <section class="pm7-docs-section">
+        <h2>Shadows</h2>
+        <p>Elevation system for depth and hierarchy.</p>
+        
+        <div class="shadow-grid">
+          <div class="shadow-item" style="box-shadow: var(--pm7-shadow-sm);">
+            <h4>Small</h4>
+            <code>--pm7-shadow-sm</code>
+          </div>
+          
+          <div class="shadow-item" style="box-shadow: var(--pm7-shadow);">
+            <h4>Default</h4>
+            <code>--pm7-shadow</code>
+          </div>
+          
+          <div class="shadow-item" style="box-shadow: var(--pm7-shadow-lg);">
+            <h4>Large</h4>
+            <code>--pm7-shadow-lg</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- Icons Section -->
+      <section class="pm7-docs-section">
+        <h2>Icons</h2>
+        <p>PM7 UI includes a curated set of commonly used icons. All icons are 24x24 SVGs optimized for web use.</p>
+        
+        <div class="icon-grid" id="icon-grid">
+          <!-- Icons will be loaded here -->
+        </div>
+        
+        <h3>Using Icons</h3>
+        <pre><code class="language-html">&lt;!-- Import specific icon --&gt;
+&lt;script&gt;
+  import { ChevronDown } from '@pm7/core/icons';
+&lt;/script&gt;
+
+&lt;!-- Or use directly in HTML --&gt;
+&lt;img src="@pm7/core/icons/chevron-down.svg" width="24" height="24" alt="Chevron Down"&gt;</code></pre>
+      </section>
+
+      <!-- Animation Section -->
+      <section class="pm7-docs-section">
+        <h2>Animation</h2>
+        <p>PM7 UI uses subtle animations for a polished user experience.</p>
+        
+        <h3>Timing Functions</h3>
+        <table class="pm7-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Value</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--pm7-ease-in</code></td>
+              <td>cubic-bezier(0.4, 0, 1, 1)</td>
+              <td>Enter animations</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-ease-out</code></td>
+              <td>cubic-bezier(0, 0, 0.2, 1)</td>
+              <td>Exit animations</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-ease-in-out</code></td>
+              <td>cubic-bezier(0.4, 0, 0.2, 1)</td>
+              <td>Default transitions</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <h3>Durations</h3>
+        <table class="pm7-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Value</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--pm7-duration-fast</code></td>
+              <td>150ms</td>
+              <td>Micro-interactions</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-duration-normal</code></td>
+              <td>200ms</td>
+              <td>Default transitions</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-duration-slow</code></td>
+              <td>300ms</td>
+              <td>Complex animations</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Z-Index Section -->
+      <section class="pm7-docs-section">
+        <h2>Z-Index Scale</h2>
+        <p>Consistent z-index values to prevent stacking conflicts.</p>
+        
+        <table class="pm7-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Value</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--pm7-z-dropdown</code></td>
+              <td>50</td>
+              <td>Dropdowns, tooltips, popovers</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-z-sticky</code></td>
+              <td>60</td>
+              <td>Sticky headers, fixed elements</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-z-modal</code></td>
+              <td>100</td>
+              <td>Modals, dialogs, overlays</td>
+            </tr>
+            <tr>
+              <td><code>--pm7-z-toast</code></td>
+              <td>150</td>
+              <td>Toast notifications (highest)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Breakpoints Section -->
+      <section class="pm7-docs-section">
+        <h2>Responsive Breakpoints</h2>
+        <p>PM7 UI is mobile-first with these breakpoint values.</p>
+        
+        <table class="pm7-table">
+          <thead>
+            <tr>
+              <th>Breakpoint</th>
+              <th>Min Width</th>
+              <th>CSS Variable</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mobile</td>
+              <td>0px</td>
+              <td>Default</td>
+              <td>Base styles</td>
+            </tr>
+            <tr>
+              <td>Tablet</td>
+              <td>768px</td>
+              <td><code>--pm7-screen-md</code></td>
+              <td>Tablet portrait</td>
+            </tr>
+            <tr>
+              <td>Desktop</td>
+              <td>1024px</td>
+              <td><code>--pm7-screen-lg</code></td>
+              <td>Small desktop</td>
+            </tr>
+            <tr>
+              <td>Wide</td>
+              <td>1280px</td>
+              <td><code>--pm7-screen-xl</code></td>
+              <td>Large desktop</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <h3>Using Breakpoints</h3>
+        <pre><code class="language-css">/* Mobile first approach */
+.pm7-component {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .pm7-component {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pm7-component {
+    padding: 3rem;
+  }
+}</code></pre>
+      </section>
+    </main>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+  
+  <!-- Load header -->
+  
+  <!-- Load icons dynamically -->
+  
+  <!-- Prism for code highlighting -->
+  <link href="/styles/prism.css" rel="stylesheet">
+  <script src="/scripts/prism.js"></script>
+  
+</body>
+</html>

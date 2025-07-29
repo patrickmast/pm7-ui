@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pm7-ui - The First UI Library Built for AI Coding Agents</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-CUqaTDT3.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <header class="pm7-docs-hero">
+    <div class="pm7-docs-container">
+      <h1>The First UI Library<br>Built for AI Coding Agents</h1>
+      <h2>Made for AI Coding Agents. Ready for Any Framework.</h2>
+      <p class="pm7-docs-lead pm7-docs-lead--hero">
+        pm7-ui is the first UI component library designed specifically for AI Coding Agents.<br>
+        It's lightweight, framework-agnostic, and built with pure CSS and vanilla JavaScript.<br>
+        Works everywhere—React, Vue, Angular, Svelte, or just plain HTML.
+      </p>
+      <p class="tagline">
+        Effortless styling. Universal compatibility. Self-healing components.<br>
+        Truly React ready. Ready to power your AI-driven workflows.
+      </p>
+      <div class="pm7-docs-hero-actions pm7-hide-mobile">
+        <a href="/getting-started.html" class="pm7-button pm7-button--primary pm7-button--lg">
+          Get Started
+        </a>
+        <a href="/components.html" class="pm7-button pm7-button--outline pm7-button--on-dark pm7-button--lg">
+          Components
+        </a>
+        <a href="/ai-guide.html" class="pm7-button pm7-button--outline pm7-button--on-dark pm7-button--lg">
+          AI Guide
+        </a>
+      </div>
+      <div class="ai-badge">
+        Built specifically for AI Coding Agents
+      </div>
+      <div class="pm7-mobile-only-text">
+        <div class="pm7-card" style="border-color: orange;">
+          <div class="pm7-card-content" style="padding: var(--pm7-spacing-2);">
+            <h2 style="text-align: center; margin: 0;">This site is best used on a desktop</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="pm7-docs-features">
+    <div class="pm7-docs-container">
+      <h2>Why pm7-ui?</h2>
+      <div class="pm7-docs-grid">
+        <div class="pm7-docs-feature">
+          <h3>Designed for AI Agents</h3>
+          <p>Simple CSS classes that AI understands instantly. No complex APIs or abstractions - just pm7-button, pm7-card, done.</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Universal Compatibility</h3>
+          <p>Use it anywhere—whether you're working in React, Vue, Angular, Svelte, or just plain HTML.</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Copy & Paste Ready</h3>
+          <p>AI agents can copy examples directly. No imports, no setup, no configuration. Just HTML and CSS classes.</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Built-in Dark Mode</h3>
+          <p>Comprehensive dark mode with automatic detection, Theme Switch component, and zero flicker. All components adapt seamlessly.</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Self-Healing Components</h3>
+          <p>Components automatically recover from framework re-renders. No more workarounds for React, Vue, or Angular!</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Lightweight by Design</h3>
+          <p>Pure CSS with optional vanilla JS. No framework overhead, no dependencies, just clean code.</p>
+        </div>
+        <div class="pm7-docs-feature">
+          <h3>Fully Accessible</h3>
+          <p>WCAG 2.1 AA compliant with keyboard navigation, screen reader support, and focus management built-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pm7-docs-packages">
+    <div class="pm7-docs-container">
+      <h2>Built for AI. Ready for Anything.</h2>
+      <div class="pm7-docs-package" style="max-width: 500px; margin: 0 auto; text-align: center;">
+        <h3>@pm7/core</h3>
+        <p class="pm7-demo-text-muted" style="font-size: 1.125rem; line-height: 1.4; margin: 0.75rem 0;">
+          The first UI component library designed<br>
+          specifically for <span class="pm7-demo-text-primary" style="font-weight: 600;">AI Coding Agents</span>
+        </p>
+        <p class="pm7-demo-text-muted" style="font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+          <span class="pm7-demo-text-foreground" style="font-weight: 600;">Effortless styling</span> •
+          <span class="pm7-demo-text-foreground" style="font-weight: 600;">Universal compatibility</span><br>
+          <span class="pm7-demo-text-foreground" style="font-weight: 600;">Ready to power your AI-driven workflows</span>
+        </p>
+        <pre><code>npm install @pm7/core</code></pre>
+        <div style="margin-top: 30px;">
+          <h4>Works with every framework:</h4>
+          <div class="pm7-docs-grid" style="grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+            <div>
+              <strong>React</strong>
+              <code style="display: block; margin-top: 5px; font-size: 0.875rem;">className="pm7-button"</code>
+            </div>
+            <div>
+              <strong>Vue</strong>
+              <code style="display: block; margin-top: 5px; font-size: 0.875rem;">class="pm7-button"</code>
+            </div>
+            <div>
+              <strong>Angular</strong>
+              <code style="display: block; margin-top: 5px; font-size: 0.875rem;">class="pm7-button"</code>
+            </div>
+            <div>
+              <strong>Svelte</strong>
+              <code style="display: block; margin-top: 5px; font-size: 0.875rem;">class="pm7-button"</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

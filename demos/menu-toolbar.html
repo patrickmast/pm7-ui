@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TipTap Editor with PM7 Toolbar - PM7 UI</title>
+
+  <!-- PM7 Core CSS -->
+
+  <!-- TipTap Editor Dependencies -->
+
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--pm7-font-sans);
+      background: linear-gradient(135deg, #fafbfc 0%, #f0f2f5 100%);
+      color: var(--pm7-foreground);
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+      background-size: 20px 20px;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 80%);
+      pointer-events: none;
+    }
+
+    html {
+      overflow: hidden;
+    }
+
+    /* CRITICAL Z-INDEX FIX: Ensure dialogs appear above menus */
+
+    .pm7-dialog-overlay {
+      z-index: 10000 !important;
+    }
+
+    .pm7-dialog-content {
+      z-index: 10001 !important;
+    }
+
+    /* Ensure menu content has lower z-index */
+
+    .pm7-menu-content {
+      z-index: 50 !important;
+    }
+
+    .app-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-toolbar {
+      background: var(--pm7-surface);
+      border-bottom: 1px solid var(--pm7-border);
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .app-content {
+      flex: 1;
+      padding: 1rem 2rem 0 2rem;
+      padding-bottom: calc(20px + 2.5rem); /* 20px spacing + footer height */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0; /* Important for Firefox */
+    }
+
+    /* Editor container */
+
+    #editor {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* TipTap Editor Styles */
+
+    .tiptap {
+      background: white;
+      border: none;
+      border-radius: 0;
+      padding: 1.5rem;
+      height: 100%;
+      font-family: var(--pm7-font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      outline: none;
+      overflow-y: scroll;
+      box-sizing: border-box;
+    }
+
+    .editor-wrapper:has(.tiptap:focus) {
+      border-color: var(--pm7-primary);
+    }
+
+    .tiptap h1, .tiptap h2, .tiptap h3 {
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tiptap h1 { font-size: 2rem; }
+
+    .tiptap h2 { font-size: 1.5rem; }
+
+    .tiptap h3 { font-size: 1.25rem; }
+
+    .tiptap p {
+      margin-bottom: 1rem;
+    }
+
+    .tiptap ul, .tiptap ol {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+    }
+
+    .tiptap code {
+      background: var(--pm7-muted);
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      font-family: var(--pm7-font-mono);
+      font-size: 0.875em;
+    }
+
+    .tiptap pre {
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: var(--pm7-radius);
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .tiptap pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .tiptap blockquote {
+      border-left: 3px solid var(--pm7-border);
+      padding-left: 1rem;
+      margin-left: 0;
+      font-style: italic;
+      color: var(--pm7-muted-foreground);
+    }
+
+    .tiptap a {
+      color: var(--pm7-primary);
+      text-decoration: underline;
+    }
+
+    .tiptap a:hover {
+      text-decoration: none;
+    }
+
+    /* Image styles */
+
+    .tiptap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--pm7-radius);
+      margin: 1rem 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .tiptap img.ProseMirror-selectednode {
+      outline: 2px solid var(--pm7-primary);
+    }
+
+    /* Image resize wrapper */
+
+    .image-resize-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 1rem 0;
+      max-width: 100%;
+    }
+
+    .image-resize-wrapper.ProseMirror-selectednode {
+      outline: 2px solid var(--pm7-primary);
+    }
+
+    .image-resize-wrapper img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+    }
+
+    /* Resize handles */
+
+    .resize-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--pm7-primary);
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: nwse-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .image-resize-wrapper.ProseMirror-selectednode .resize-handle {
+      opacity: 1;
+    }
+
+    .resize-handle.nw {
+      top: -6px;
+      left: -6px;
+      cursor: nw-resize;
+    }
+
+    .resize-handle.ne {
+      top: -6px;
+      right: -6px;
+      cursor: ne-resize;
+    }
+
+    .resize-handle.sw {
+      bottom: -6px;
+      left: -6px;
+      cursor: sw-resize;
+    }
+
+    .resize-handle.se {
+      bottom: -6px;
+      right: -6px;
+      cursor: se-resize;
+    }
+
+    /* YouTube video styles */
+
+    .tiptap iframe[src*="youtube.com"],
+    .tiptap iframe[src*="youtu.be"] {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: var(--pm7-radius);
+      margin: 1rem 0;
+      display: block;
+    }
+
+    .tiptap div[data-youtube-video] {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin: 1rem 0;
+    }
+
+    .tiptap div[data-youtube-video] iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: var(--pm7-radius);
+    }
+
+    /* Formatting toolbar */
+
+    .format-toolbar {
+      display: flex;
+      gap: 0.15rem;
+      padding: 0.10rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Page title */
+
+    .app-content h2 {
+      flex-shrink: 0;
+      margin-top: 0;
+      margin-bottom: 0.35rem;
+    }
+
+    .format-group {
+      display: flex;
+      gap: 0.25rem;
+      padding: 0 0.5rem;
+      border-right: 1px solid var(--pm7-border);
+    }
+
+    .format-group:last-child {
+      border-right: none;
+    }
+
+    .format-button {
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--pm7-radius);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--pm7-foreground);
+      transition: all 0.2s;
+    }
+
+    .format-button:hover {
+      background: var(--pm7-muted);
+    }
+
+    .format-button.is-active {
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
+    }
+
+    .status-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--pm7-muted);
+      border-top: 1px solid var(--pm7-border);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .status-left {
+      flex: 1;
+      text-align: left;
+    }
+
+    .status-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    .status-right {
+      flex: 1;
+      text-align: right;
+    }
+
+    .text-stats {
+      font-weight: 500;
+      background: white;
+      border: 1px solid #E0E0E0;
+      border-radius: 45px;
+      padding: 0.25rem 0.75rem;
+      display: inline-block;
+    }
+
+    .tooltip-stats-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .tooltip-stats-detail div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      white-space: nowrap;
+    }
+
+    /* Resizable editor container */
+
+    .editor-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .editor-wrapper {
+      position: relative;
+      background: white;
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      width: 800px; /* Default starting width */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Resize handle */
+
+    .resize-handle {
+      position: absolute;
+      top: 0;
+      width: 12px;
+      cursor: ew-resize;
+      background: transparent;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      user-select: none;
+    }
+
+    .resize-handle.visible {
+      opacity: 1;
+    }
+
+    .resize-handle.resizing {
+      /* No visual change during resize */
+    }
+
+    /* Visual indicator */
+
+    .resize-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 40px;
+      background: #E0E0E0;
+      border-radius: 2px;
+      transition: background 0.2s ease;
+    }
+
+    .resize-handle:hover::before {
+      background: #999999;
+    }
+
+    /* Keep handle appearance consistent during resize */
+
+    /* Prevent menu item text wrapping */
+
+    .pm7-menu-item {
+      white-space: nowrap;
+    }
+
+    /* Make menu bar triggers same height as menu items */
+
+    .pm7-menu-bar .pm7-menu-trigger {
+      padding: var(--pm7-menu-padding-y) var(--pm7-menu-padding-x) !important;
+    }
+
+    /* Custom menu padding - 6px vertical instead of 8px */
+
+    .pm7-menu-bar .pm7-menu-trigger,
+    .pm7-menu-item {
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+    }
+
+    /* Dialog backdrop styles */
+
+    .pm7-dialog-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      z-index: var(--pm7-z-modal, 100);
+    }
+
+    .pm7-dialog-backdrop[data-state="open"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Ensure dialog close button matches PM7 style */
+
+    #about-dialog .pm7-dialog-close {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Adjust TipTap styles for wrapper */
+
+    .editor-wrapper .tiptap {
+      border: none;
+      border-radius: 0;
+    }
+
+    /* Custom checkbox styling */
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--pm7-primary);
+    }
+
+    /* Connected columns card styles */
+
+    .connected-columns-card {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background: var(--pm7-surface);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+    }
+
+    .connected-columns-card .pm7-card-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+
+    .connected-columns-card .pm7-card-content {
+      padding: 1rem;
+    }
+
+    .connected-columns-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .column-list {
+      margin-top: 1rem;
+    }
+
+    .column-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+    }
+
+    .column-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--pm7-primary);
+    }
+
+    .column-item label {
+      flex: 1;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/demos/menu-toolbar-CeNWpYFJ.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Application Toolbar -->
+    <div class="app-toolbar">
+      <div class="pm7-menu-bar pm7-menu-bar--borderless pm7-menu-bar--flat-hover">
+        <!-- File Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            File
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" onclick="newFile()">
+              New
+              <span class="pm7-menu-shortcut">⌘N</span>
+            </button>
+            <button class="pm7-menu-item" onclick="openFile()">
+              Open...
+              <span class="pm7-menu-shortcut">⌘O</span>
+            </button>
+            <button class="pm7-menu-item" onclick="showRecentFiles()">Recent Files</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="saveFile()">
+              Save
+              <span class="pm7-menu-shortcut">⌘S</span>
+            </button>
+            <button class="pm7-menu-item" onclick="saveAsFile()">Save As...</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="exitApp()">Exit</button>
+          </div>
+        </div>
+
+        <!-- Edit Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Edit
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" id="undo-btn">
+              Undo
+              <span class="pm7-menu-shortcut">⌘Z</span>
+            </button>
+            <button class="pm7-menu-item" id="redo-btn">
+              Redo
+              <span class="pm7-menu-shortcut">⌘⇧Z</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="cut-btn">
+              Cut
+              <span class="pm7-menu-shortcut">⌘X</span>
+            </button>
+            <button class="pm7-menu-item" id="copy-btn">
+              Copy
+              <span class="pm7-menu-shortcut">⌘C</span>
+            </button>
+            <button class="pm7-menu-item" id="paste-btn">
+              Paste
+              <span class="pm7-menu-shortcut">⌘V</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="select-all-btn">
+              Select All
+              <span class="pm7-menu-shortcut">⌘A</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Format Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Format
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item" id="bold-menu">
+              Bold
+              <span class="pm7-menu-shortcut">⌘B</span>
+            </button>
+            <button class="pm7-menu-item" id="italic-menu">
+              Italic
+              <span class="pm7-menu-shortcut">⌘I</span>
+            </button>
+            <button class="pm7-menu-item" id="underline-menu">
+              Underline
+              <span class="pm7-menu-shortcut">⌘U</span>
+            </button>
+            <button class="pm7-menu-item" id="strike-menu">
+              Strikethrough
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="h1-menu">Heading 1</button>
+            <button class="pm7-menu-item" id="h2-menu">Heading 2</button>
+            <button class="pm7-menu-item" id="h3-menu">Heading 3</button>
+            <button class="pm7-menu-item" id="paragraph-menu">Paragraph</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="bullet-list-menu">Bullet List</button>
+            <button class="pm7-menu-item" id="ordered-list-menu">Numbered List</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="code-menu">Code</button>
+            <button class="pm7-menu-item" id="code-block-menu">Code Block</button>
+            <button class="pm7-menu-item" id="blockquote-menu">Blockquote</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" id="image-menu">Insert Image...</button>
+            <button class="pm7-menu-item" id="video-menu">Insert YouTube Video...</button>
+          </div>
+        </div>
+
+        <!-- View Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            View
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item pm7-menu-item--checkbox" id="show-document-name" data-checked="true">
+              Show document name
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--checkbox" id="show-toolbar" data-checked="true">
+              Show Formatting Toolbar
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <div class="pm7-menu-label">Theme</div>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="light" data-checked="true">
+              Light
+            </button>
+            <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-value="dark">
+              Dark
+            </button>
+          </div>
+        </div>
+
+        <!-- Tools Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Tools
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Options...</button>
+            <button class="pm7-menu-item">Extensions</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Developer Tools</button>
+          </div>
+        </div>
+
+        <!-- Help Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Help
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">Documentation</button>
+            <button class="pm7-menu-item">Keyboard Shortcuts</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item" onclick="showAbout()">About</button>
+          </div>
+        </div>
+
+        <!-- Spacer to push Sign in to the right -->
+        <div style="flex: 1;"></div>
+
+        <!-- Sign in / User Menu -->
+        <div class="pm7-menu" data-pm7-menu id="user-menu">
+          <div class="pm7-tooltip" data-pm7-tooltip id="user-menu-tooltip-wrapper">
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm pm7-tooltip-trigger" id="user-menu-trigger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span id="user-menu-label">Sign in</span>
+            </button>
+            <div class="pm7-tooltip-content" data-side="bottom" id="sign-in-tooltip" style="display: none;">
+              Sign in to save documents to the cloud
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-menu-content" id="user-menu-content">
+            <button class="pm7-menu-item" onclick="(function(){ 
+              // Close the menu immediately
+              const menu = document.querySelector('#user-menu');
+              if (menu && menu.PM7Menu) {
+                menu.PM7Menu.close();
+              } else {
+                // Fallback: manually close the menu
+                const menuContent = document.querySelector('#user-menu-content');
+                if (menuContent) {
+                  menuContent.classList.remove('pm7-menu-content--open');
+                  menuContent.removeAttribute('data-state');
+                }
+                const trigger = document.querySelector('#user-menu-trigger');
+                if (trigger) {
+                  trigger.setAttribute('aria-expanded', 'false');
+                }
+              }
+              // Then open sign in dialog
+              window.signIn();
+            })()">Sign in</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      <h2 style="text-align: center;">TipTap Editor with PM7 Toolbar</h2>
+
+      <!-- Formatting Toolbar (outside card) -->
+      <div class="format-toolbar" id="format-toolbar">
+        <div class="format-group">
+          <button class="format-button" id="bold-btn" title="Bold (Cmd+B)">
+            <strong>B</strong>
+          </button>
+          <button class="format-button" id="italic-btn" title="Italic (Cmd+I)">
+            <em>I</em>
+          </button>
+          <button class="format-button" id="underline-btn" title="Underline (Cmd+U)">
+            <u>U</u>
+          </button>
+          <button class="format-button" id="strike-btn" title="Strikethrough">
+            <s>S</s>
+          </button>
+        </div>
+
+        <div class="format-group">
+          <button class="format-button" id="h1-btn" title="Heading 1">H1</button>
+          <button class="format-button" id="h2-btn" title="Heading 2">H2</button>
+          <button class="format-button" id="h3-btn" title="Heading 3">H3</button>
+          <button class="format-button" id="p-btn" title="Paragraph">P</button>
+        </div>
+
+        <div class="format-group">
+          <button class="format-button" id="ul-btn" title="Bullet List">• List</button>
+          <button class="format-button" id="ol-btn" title="Numbered List">1. List</button>
+        </div>
+
+        <div class="format-group">
+          <button class="format-button" id="code-btn" title="Code">&lt;/&gt;</button>
+          <button class="format-button" id="codeblock-btn" title="Code Block">[&lt;/&gt;]</button>
+          <button class="format-button" id="quote-btn" title="Blockquote">"</button>
+        </div>
+
+        <div class="format-group">
+          <button class="format-button" id="link-btn" title="Add Link">🔗</button>
+          <button class="format-button" id="image-btn" title="Add Image">🖼️</button>
+          <button class="format-button" id="video-btn" title="Add YouTube Video">📹</button>
+          <button class="format-button" id="hr-btn" title="Horizontal Rule">—</button>
+        </div>
+      </div>
+
+      <!-- Resizable Editor Container -->
+      <div class="editor-container" id="editor-container">
+        <div class="editor-wrapper">
+          <!-- TipTap Editor -->
+          <div id="editor"></div>
+        </div>
+
+        <!-- Resize Handle (moved outside wrapper) -->
+        <div class="resize-handle" id="resize-handle"></div>
+      </div>
+    </main>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">Ready</div>
+      <div class="status-center">
+        <div class="pm7-tooltip" data-pm7-tooltip data-delay="500" style="display: inline-block;">
+          <span class="text-stats pm7-tooltip-trigger">0 | 0 | 0</span>
+          <div class="pm7-tooltip-content" data-side="top">
+            <div class="tooltip-stats-detail">
+              <div>Letters: <strong>0</strong></div>
+              <div>Words: <strong>0</strong></div>
+              <div>Sentences: <strong>0</strong></div>
+            </div>
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+      <div class="status-right">Line 1, Column 1</div>
+    </div>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+
+
+  <!-- About Dialog -->
+  <div class="pm7-dialog-backdrop" id="about-dialog">
+    <div class="pm7-dialog" data-pm7-dialog>
+    <div class="pm7-dialog-content">
+      <div class="pm7-dialog-header">
+        <h2 class="pm7-dialog-title">About TipTap Editor with PM7 UI</h2>
+        <button class="pm7-dialog-close" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="pm7-dialog-body">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 80px; height: 80px; background: var(--pm7-primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Version 2.0.0</h3>
+          <p style="color: var(--pm7-muted-foreground);">A powerful rich text editor integration</p>
+        </div>
+
+        <div class="pm7-card" style="background: var(--pm7-muted); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h4 style="margin-bottom: 1rem;">What's Included</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="width: 8px; height: 8px; background: var(--pm7-primary); border-radius: 50%;"></div>
+                <strong>TipTap Editor</strong>
+              </div>
+              <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-left: 1rem;">
+                Advanced rich text editing with full keyboard support
+              </p>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="width: 8px; height: 8px; background: var(--pm7-primary); border-radius: 50%;"></div>
+                <strong>PM7 UI Components</strong>
+              </div>
+              <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-left: 1rem;">
+                Beautiful, accessible UI components
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="margin-bottom: 1rem;">Key Features</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Resizable editor with smooth drag handle</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Traditional desktop-style menu bar</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Rich text formatting toolbar</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Dark mode support</span>
+            </li>
+          </ul>
+        </div>
+
+        <div style="padding: 1rem; background: var(--pm7-card); border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); text-align: center;">
+          <p style="margin-bottom: 0.5rem; color: var(--pm7-muted-foreground); font-size: 0.875rem;">Built with</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; align-items: center;">
+            <a href="https://tiptap.dev" target="_blank" style="color: var(--pm7-primary); text-decoration: none; font-weight: 500;">TipTap</a>
+            <span style="color: var(--pm7-muted-foreground);">•</span>
+            <a href="https://pm7-ui.com" target="_blank" style="color: var(--pm7-primary); text-decoration: none; font-weight: 500;">PM7 UI</a>
+          </div>
+        </div>
+      </div>
+      <div class="pm7-dialog-footer">
+        <button class="pm7-button pm7-button--primary" onclick="if(window.aboutDialog) aboutDialog.close()">
+          Got it!
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Login Dialog -->
+  <div data-pm7-dialog="login-dialog" data-pm7-dialog-size="sm" data-pm7-show-close="true">
+    <h2 data-pm7-header>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      Sign In
+    </h2>
+    <div data-pm7-body>
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="pm7-form-group" style="margin-bottom: 1rem;">
+          <label for="username" class="pm7-label">Username or Email</label>
+          <input type="text" id="username" name="username" class="pm7-input" placeholder="Enter your username" required>
+        </div>
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="password" class="pm7-label">Password</label>
+          <input type="password" id="password" name="password" class="pm7-input" placeholder="Enter your password" required>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <label class="pm7-checkbox">
+            <input type="checkbox" id="remember" name="remember">
+            <span class="pm7-checkbox-indicator"></span>
+            <span class="pm7-checkbox-label">Remember me</span>
+          </label>
+          <a href="#" style="font-size: 0.875rem; color: var(--pm7-primary); text-decoration: none;">Forgot password?</a>
+        </div>
+      </form>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('login-dialog')">Cancel</button>
+      <button type="submit" form="login-form" class="pm7-button pm7-button--primary">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Account Settings Dialog -->
+  <div data-pm7-dialog="account-settings-dialog" data-pm7-dialog-size="md" data-pm7-show-close="true">
+    <h2 data-pm7-header>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      Account Settings
+    </h2>
+    <div data-pm7-body>
+      <form id="account-settings-form" onsubmit="handleAccountSettings(event)">
+        <div style="display: flex; align-items: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--pm7-border);">
+          <div id="settings-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: var(--pm7-primary); display: flex; align-items: center; justify-content: center; margin-right: 1.5rem; flex-shrink: 0;">
+            <span style="color: var(--pm7-primary-foreground); font-size: 2rem; font-weight: 600;" id="avatar-initials">JD</span>
+          </div>
+          <div style="flex: 1;">
+            <h3 style="margin: 0 0 0.25rem 0; font-size: 1.25rem;" id="settings-name">John Doe</h3>
+            <p style="margin: 0; color: var(--pm7-muted-foreground);" id="settings-email">john@example.com</p>
+            <button type="button" class="pm7-button pm7-button--ghost pm7-button--sm" style="margin-top: 0.5rem;" onclick="changePhoto()">Change Photo</button>
+          </div>
+        </div>
+
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="settings-username" class="pm7-label">Display Name</label>
+          <input type="text" id="settings-username" name="username" class="pm7-input" value="John Doe" required>
+        </div>
+
+        <div class="pm7-form-group" style="margin-bottom: 1.5rem;">
+          <label for="settings-user-email" class="pm7-label">Email Address</label>
+          <input type="email" id="settings-user-email" name="email" class="pm7-input" value="john@example.com" required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label class="pm7-label" style="display: block; margin-bottom: 0.5rem;">Preferences</label>
+          <div style="space-y: 0.5rem;">
+            <label class="pm7-checkbox" style="margin-bottom: 0.75rem;">
+              <input type="checkbox" id="email-notifications" name="emailNotifications" checked>
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Email notifications</span>
+            </label>
+            <label class="pm7-checkbox" style="margin-bottom: 0.75rem;">
+              <input type="checkbox" id="auto-save" name="autoSave" checked>
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Auto-save documents</span>
+            </label>
+            <label class="pm7-checkbox">
+              <input type="checkbox" id="show-tips" name="showTips">
+              <span class="pm7-checkbox-indicator"></span>
+              <span class="pm7-checkbox-label">Show helpful tips</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--pm7-border);">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--pm7-destructive);">Danger Zone</label>
+          <button type="button" class="pm7-button pm7-button--destructive pm7-button--outline" onclick="deleteAccount()">Delete Account</button>
+        </div>
+      </form>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('account-settings-dialog')">Cancel</button>
+      <button type="submit" form="account-settings-form" class="pm7-button pm7-button--primary">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Sign Out Confirmation Dialog -->
+  <div data-pm7-dialog="signout-dialog" data-pm7-dialog-size="sm" data-pm7-dialog-icon="warning">
+    <h2 data-pm7-header>Sign Out</h2>
+    <div data-pm7-body>
+      <p style="margin-bottom: 0;">Are you sure you want to sign out? Any unsaved changes will be lost.</p>
+    </div>
+    <div data-pm7-footer style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+      <button type="button" class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('signout-dialog')">Cancel</button>
+      <button type="button" class="pm7-button pm7-button--primary" onclick="confirmSignOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Connected Columns Card -->
+  <div class="pm7-card connected-columns-card">
+    <div class="pm7-card-header">
+      <h3>Connected columns</h3>
+    </div>
+    <div class="pm7-card-content">
+      <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground); margin-bottom: 1rem;">
+        Select which columns to include in your export.
+      </p>
+      
+      <div class="column-list">
+        <div class="column-item">
+          <input type="checkbox" id="col-id" checked>
+          <label for="col-id">ID</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-name" checked>
+          <label for="col-name">Name</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-email" checked>
+          <label for="col-email">Email</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-status" checked>
+          <label for="col-status">Status</label>
+        </div>
+        <div class="column-item">
+          <input type="checkbox" id="col-created" checked>
+          <label for="col-created">Created Date</label>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--pm7-border);">
+        <button class="pm7-button pm7-button--primary pm7-button--sm" style="width: 100%;" onclick="exportCSV()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Exporteer CSV
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Export CSV function
+    function exportCSV() {
+      // Get selected columns
+      const selectedColumns = [];
+      const columnIds = ['id', 'name', 'email', 'status', 'created'];
+      const columnNames = ['ID', 'Name', 'Email', 'Status', 'Created Date'];
+      
+      columnIds.forEach((id, index) => {
+        const checkbox = document.getElementById(`col-${id}`);
+        if (checkbox && checkbox.checked) {
+          selectedColumns.push({
+            id: id,
+            name: columnNames[index]
+          });
+        }
+      });
+      
+      if (selectedColumns.length === 0) {
+        alert('Please select at least one column to export.');
+        return;
+      }
+      
+      // Sample data for demonstration
+      const data = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', created: '2024-01-15' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Active', created: '2024-01-16' },
+        { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Inactive', created: '2024-01-17' },
+        { id: 4, name: 'Alice Williams', email: 'alice@example.com', status: 'Active', created: '2024-01-18' },
+        { id: 5, name: 'Charlie Brown', email: 'charlie@example.com', status: 'Pending', created: '2024-01-19' }
+      ];
+      
+      // Build CSV content
+      let csvContent = selectedColumns.map(col => col.name).join(',') + '\n';
+      
+      data.forEach(row => {
+        const rowData = selectedColumns.map(col => {
+          const value = row[col.id] || '';
+          // Escape values containing commas or quotes
+          if (value.toString().includes(',') || value.toString().includes('"')) {
+            return '"' + value.toString().replace(/"/g, '""') + '"';
+          }
+          return value;
+        });
+        csvContent += rowData.join(',') + '\n';
+      });
+      
+      // Create and download the file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'export_' + new Date().toISOString().split('T')[0] + '.csv');
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Update status
+      if (window.updateStatus) {
+        window.updateStatus(`Exported ${data.length} rows to CSV`);
+      }
+    }
+  </script>
+</body>
+</html>

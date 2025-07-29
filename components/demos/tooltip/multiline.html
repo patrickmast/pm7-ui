@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiline Tooltips - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .multiline-demo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+      justify-items: center;
+      align-items: center;
+    }
+    
+    .complex-section {
+      margin-top: 3rem;
+    }
+    
+    .complex-demo {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/components/demos/tooltip/multiline-BeURwJ_g.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Multiline Tooltip Content</h2>
+    
+    <div class="multiline-demo">
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+          Simple Multiline
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="top">
+          This is a multiline tooltip that contains<br>
+          multiple lines of text to demonstrate<br>
+          how text wrapping works in tooltips.
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+          Code Example
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top">
+          <strong>Usage:</strong><br>
+          <code style="display: block; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            class="pm7-tooltip-content<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pm7-tooltip-content--multiline"
+          </code>
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+          List Content
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--multiline pm7-tooltip-content--light" data-side="top" style="max-width: 250px;">
+          <strong>Features:</strong><br>
+          • Flexible positioning<br>
+          • Multiple themes<br>
+          • Custom delays<br>
+          • Touch support
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+          Complex Information
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="top" style="max-width: 250px;">
+          This tooltip contains multiple lines of text to explain complex functionality.
+          <br><br>
+          It can include formatted content and maintains readability.
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="complex-section">
+      <h3>Complex Content Examples</h3>
+      <div class="complex-demo">
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+            API Documentation
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline pm7-tooltip-content--light" data-side="bottom" style="max-width: 500px;">
+            <strong>showTooltip(options)</strong><br><br>
+            <code style="display: block; padding: 12px; background: var(--pm7-muted); border-radius: 4px; font-size: 12px;">
+              {<br>
+              &nbsp;&nbsp;content: 'Tooltip text',<br>
+              &nbsp;&nbsp;position: 'top' | 'right' | 'bottom' | 'left',<br>
+              &nbsp;&nbsp;delay: { open: 200, close: 0 },<br>
+              &nbsp;&nbsp;theme: 'dark' | 'light'<br>
+              }
+            </code>
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+            Formatted Text
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="top" style="max-width: 300px;">
+            <strong>Pro Tip:</strong><br><br>
+            Use the <code>pm7-tooltip-content--multiline</code> class for content that spans multiple lines.<br><br>
+            <em>Note: Always include the arrow element for proper positioning.</em>
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

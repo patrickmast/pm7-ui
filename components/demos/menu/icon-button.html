@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Button Menu Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius-md);
+      padding: 1rem;
+      position: relative;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon Button Menu</h1>
+      <p class="demo-description">Common pattern for compact menus in cards and tables</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Three dots menu -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="More options">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <circle cx="10" cy="4" r="2"/>
+            <circle cx="10" cy="10" r="2"/>
+            <circle cx="10" cy="16" r="2"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Edit</button>
+          <button class="pm7-menu-item">Duplicate</button>
+          <button class="pm7-menu-item pm7-menu-item--destructive">Delete</button>
+        </div>
+      </div>
+
+      <!-- Hamburger menu -->
+      <div class="pm7-menu" data-pm7-menu>
+        <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="Navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Home</button>
+          <button class="pm7-menu-item">Products</button>
+          <button class="pm7-menu-item">About</button>
+          <button class="pm7-menu-item">Contact</button>
+        </div>
+      </div>
+
+      <!-- Card with menu -->
+      <div class="demo-card">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+          <div>
+            <h3 style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">Card Title</h3>
+            <p style="margin: 0; color: var(--pm7-muted-foreground); font-size: 0.875rem;">Card description here</p>
+          </div>
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm pm7-menu-trigger" aria-label="Card options">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <circle cx="8" cy="3" r="1.5"/>
+                <circle cx="8" cy="8" r="1.5"/>
+                <circle cx="8" cy="13" r="1.5"/>
+              </svg>
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item">View Details</button>
+              <button class="pm7-menu-item">Share</button>
+              <div class="pm7-menu-separator"></div>
+              <button class="pm7-menu-item pm7-menu-item--destructive">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Three dots menu -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="More options">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+      <circle cx="10" cy="4" r="2"/>
+      <circle cx="10" cy="10" r="2"/>
+      <circle cx="10" cy="16" r="2"/>
+    </svg>
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Edit</button>
+    <button class="pm7-menu-item">Duplicate</button>
+    <button class="pm7-menu-item pm7-menu-item--destructive">Delete</button>
+  </div>
+</div>
+
+<!-- Hamburger menu -->
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-menu-trigger" aria-label="Navigation menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
+    </svg>
+  </button>
+  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">Home</button>
+    <button class="pm7-menu-item">Products</button>
+    <button class="pm7-menu-item">About</button>
+    <button class="pm7-menu-item">Contact</button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

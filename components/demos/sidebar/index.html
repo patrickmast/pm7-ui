@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Demos - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      text-align: center;
+    }
+    
+    .description {
+      text-align: center;
+      color: var(--pm7-muted-foreground);
+      margin-bottom: 3rem;
+      font-size: 1.125rem;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .demo-card:hover {
+      border-color: var(--pm7-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .demo-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--pm7-primary);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="container">
+    <a href="/components/sidebar.html#demo" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Back to Sidebar Documentation
+    </a>
+    
+    <h1>Sidebar Component Demos</h1>
+    <p class="description">Explore different ways to implement and use the PM7 sidebar component</p>
+    
+    <div class="demo-grid">
+      <a href="live-app.html" class="demo-card">
+        <h3>Live Application Demo</h3>
+        <p>Complete application layout with sidebar navigation showing real-world usage and integration patterns</p>
+      </a>
+      
+      <a href="mobile-overlay.html" class="demo-card">
+        <h3>Mobile Overlay Sidebar</h3>
+        <p>Responsive sidebar that overlays content on mobile devices with smooth animations</p>
+      </a>
+      
+      <a href="mini-sidebar.html" class="demo-card">
+        <h3>Mini Sidebar (Icon Only)</h3>
+        <p>Compact sidebar showing only icons to save space while maintaining full functionality</p>
+      </a>
+      
+      <a href="collapsible.html" class="demo-card">
+        <h3>Collapsible Sidebar</h3>
+        <p>Toggle between full sidebar with labels and mini icon-only mode with smooth transitions</p>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

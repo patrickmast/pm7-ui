@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badge - pm7-ui</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-container" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><rect x="6" y="9" width="12" height="6" rx="3"/><circle cx="12" cy="12" r="1"/></svg>Badge Component</h1>
+    <p class="pm7-docs-lead">Coming Soon</p>
+    
+    <div class="pm7-card" style="margin-top: 40px;">
+      <div class="pm7-card-content">
+        <h2>Under Development</h2>
+        <p>The Badge component is currently under development and will be available in a future release of pm7-ui.</p>
+        <p>This component will provide:</p>
+        <ul>
+          <li>Multiple color variants</li>
+          <li>Pill and square shapes</li>
+          <li>Icon support</li>
+          <li>Notification badges</li>
+          <li>Removable badges</li>
+        </ul>
+        <div style="margin-top: 24px;">
+          <a href="/components/" class="pm7-button pm7-button--secondary">
+            ← Back to Components
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+</body>
+</html>

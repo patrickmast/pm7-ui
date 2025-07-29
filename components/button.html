@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/button-UWXJmnMH.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M308.5 311.6c-1.6.2-7.3.9-12.5 1.5-63.4 7.2-128 41.7-170.7 91.3-34.9 40.6-55.9 86-64.6 140.1l-2.2 14V749c0 211.5-.4 196.8 6.7 227.9 16.7 73.9 64.1 137.4 131 176 30.7 17.6 70.1 30.2 107.3 34.3 9.7 1 95.9 1.3 448 1.3 413.1 0 436.7-.1 448.5-1.8 34.1-4.9 60-12.6 87.5-26.2 29.1-14.4 50.9-29.9 73.6-52.5 45.8-45.5 73.6-105.8 78.9-171.2.8-9.1 1-70.6.8-195.8-.4-180.9-.4-182.6-2.5-195.5-5.4-32.8-13.2-57.3-26.7-84.3-26.2-52.3-67.6-94-119-120.1-27.2-13.9-51.3-21.6-86.3-27.8-9.2-1.6-37.1-1.8-452.3-1.9-243.4-.1-443.8 0-445.5.2m882.8 108.9c36.7 5.5 66.7 20.6 93.3 47 20.9 20.8 35.9 46.8 42.9 74.5 5.1 20 4.8 8.5 5.2 200 .4 181.9.3 190.1-3.3 208-5.6 27.8-21.4 57.6-41.8 78.8-26.6 27.7-57.3 43.7-94.8 49.7-8.7 1.3-58 1.5-443.3 1.5-385.5 0-434.6-.2-443.3-1.5-26.2-4.2-49.4-13.5-70.8-28.6-11.9-8.3-32.3-29-40.3-40.7-15.6-23.1-25-48.5-28-76.4-1.5-13.3-1.5-353.1-.1-366.6 4.7-42.7 26.1-82.7 58.5-109.1 19.4-15.9 39.9-26.5 62.9-32.7 20.9-5.5-8-5.2 459.9-5.3 383.2-.1 433.9.1 443 1.4"/><path d="M410.9 627.3c-11 3.8-23.3 14.7-27.6 24.6-4.3 10-4.3 9.6-4.3 98.1 0 90.2 0 89.1 5 99 5.5 10.9 16.7 20.6 27.7 24 6.5 2 8.7 2 338.7 2h332.1l6.8-2.4c14.7-5.2 26.3-17.9 30.3-33.1 1.1-4 1.4-22.2 1.4-89.5 0-90.2 0-89.1-5-99-5.5-10.9-16.7-20.6-27.7-24-6.5-2-8.7-2-338.7-2l-332.1.1z"/></svg>Button</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+                    <p>Buttons trigger actions. They communicate what will happen when users interact with them.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To trigger an action or event</li>
+              <li>To submit or reset a form</li>
+              <li>To navigate to another page or section</li>
+              <li>To open a dialog or menu</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple variants</strong> - Primary, secondary, outline, ghost, destructive, and link</li>
+              <li><strong>Three sizes</strong> - Small, medium (default), and large</li>
+              <li><strong>Icon support</strong> - Add icons before or after text, or use icon-only buttons</li>
+              <li><strong>Full width option</strong> - Buttons can span the full width of their container</li>
+              <li><strong>Button groups</strong> - Group related actions together</li>
+              <li><strong>Accessible</strong> - Full keyboard navigation and screen reader support</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A button consists of:</p>
+            <ul>
+              <li><strong>Container</strong> - The clickable area</li>
+              <li><strong>Label</strong> - Text that describes the action</li>
+              <li><strong>Icon</strong> - Optional visual indicator</li>
+              <li><strong>State</strong> - Visual feedback (hover, active, disabled)</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button Variants</span>
+                    <span class="pm7-demo-accordion-description">Different button styles for various use cases</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/variants.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/variants.html" 
+                        class="pm7-demo-iframe"
+                        title="Button Variants Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Button Sizes Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button Sizes</span>
+                    <span class="pm7-demo-accordion-description">Three sizes to fit different contexts</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/sizes.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/sizes.html" 
+                        class="pm7-demo-iframe"
+                        title="Button Sizes Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Button States Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button States</span>
+                    <span class="pm7-demo-accordion-description">Different button states for user feedback</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/states.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/states.html" 
+                        class="pm7-demo-iframe"
+                        title="Button States Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons with Icons Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Buttons with Icons</span>
+                    <span class="pm7-demo-accordion-description">Icons can be placed before or after text, or used alone</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/icons.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/icons.html" 
+                        class="pm7-demo-iframe"
+                        title="Buttons with Icons Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Full Width Button Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Full Width Button</span>
+                    <span class="pm7-demo-accordion-description">Buttons can span the full width of their container</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/full-width.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/full-width.html" 
+                        class="pm7-demo-iframe"
+                        title="Full Width Button Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider Button Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Slider Button</span>
+                    <span class="pm7-demo-accordion-description">Swipe-to-confirm interaction for critical actions</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/slider.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/slider.html" 
+                        class="pm7-demo-iframe"
+                        title="Slider Button Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Button Group Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Button Group</span>
+                    <span class="pm7-demo-accordion-description">Group related actions together</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/button-group.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/button-group.html" 
+                        class="pm7-demo-iframe"
+                        title="Button Group Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons on Dark Background Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Buttons on Dark Background</span>
+                    <span class="pm7-demo-accordion-description">Special button styles for dark backgrounds</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/dark-background.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/dark-background.html" 
+                        class="pm7-demo-iframe"
+                        title="Buttons on Dark Background Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions Example Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Form Actions Example</span>
+                    <span class="pm7-demo-accordion-description">Common form button pattern</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/form-actions.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/form-actions.html" 
+                        class="pm7-demo-iframe"
+                        title="Form Actions Example Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation Example Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Navigation Example</span>
+                    <span class="pm7-demo-accordion-description">Navigation controls with icons</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/navigation.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/navigation.html" 
+                        class="pm7-demo-iframe"
+                        title="Navigation Example Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gradient Border Buttons Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span class="pm7-demo-accordion-info">
+                    <span class="pm7-demo-accordion-title">Gradient Border Buttons</span>
+                    <span class="pm7-demo-accordion-description">Buttons with colorful gradient borders</span>
+                  </span>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/button/gradient-borders.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link"
+                       title="Open in new tab">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <div class="pm7-demo-iframe-container">
+                      <iframe 
+                        src="/components/demos/button/gradient-borders.html" 
+                        class="pm7-demo-iframe"
+                        title="Gradient Border Buttons Demo"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button</code></td>
+                  <td>Base button class (required)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--primary</code></td>
+                  <td>Primary button variant (includes 6stars effect)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--default</code></td>
+                  <td>Alias for pm7-button--primary (includes 6stars effect)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--secondary</code></td>
+                  <td>Secondary button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--outline</code></td>
+                  <td>Outline button variant</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--ghost</code></td>
+                  <td>Ghost button variant (transparent background)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--destructive</code></td>
+                  <td>Destructive button variant (for dangerous actions)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--link</code></td>
+                  <td>Link button variant (styled as text link)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--slider</code></td>
+                  <td>Slider button variant (swipe-to-confirm)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--sm</code></td>
+                  <td>Small size (36px height)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--md</code></td>
+                  <td>Medium size (40px height, default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--lg</code></td>
+                  <td>Large size (48px height)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Layout Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--full</code></td>
+                  <td>Full width button (100% width)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--icon</code></td>
+                  <td>Icon-only button (square shape, no padding)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--on-dark</code></td>
+                  <td>For outline/ghost buttons on dark backgrounds (light mode only)</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Structure Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button-group</code></td>
+                  <td>Container for grouped buttons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--slider-text</code></td>
+                  <td>Text element inside slider button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button--slider-handle</code></td>
+                  <td>Draggable handle element for slider button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-button__6stars</code></td>
+                  <td>Container for 6stars hover effect (auto-added via JS)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <p>Buttons do not use any special data attributes. They rely on standard HTML attributes and CSS classes for functionality.</p>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;button class="pm7-button pm7-button--primary"&gt;
+  Click me
+&lt;/button&gt;</code></pre>
+
+            <h3>Variants</h3>
+            <pre><code class="language-html">&lt;!-- Primary: Main actions --&gt;
+&lt;button class="pm7-button pm7-button--primary"&gt;Primary&lt;/button&gt;
+
+&lt;!-- Secondary: Alternative actions --&gt;
+&lt;button class="pm7-button pm7-button--secondary"&gt;Secondary&lt;/button&gt;
+
+&lt;!-- Outline: Less prominent actions --&gt;
+&lt;button class="pm7-button pm7-button--outline"&gt;Outline&lt;/button&gt;
+
+&lt;!-- Ghost: Minimal styling --&gt;
+&lt;button class="pm7-button pm7-button--ghost"&gt;Ghost&lt;/button&gt;
+
+&lt;!-- Destructive: Dangerous actions --&gt;
+&lt;button class="pm7-button pm7-button--destructive"&gt;Delete&lt;/button&gt;
+
+&lt;!-- Link: Navigation styled as button --&gt;
+&lt;button class="pm7-button pm7-button--link"&gt;Link&lt;/button&gt;
+
+&lt;!-- Slider: Swipe-to-confirm button --&gt;
+&lt;button class="pm7-button pm7-button--slider"&gt;
+  &lt;span class="pm7-button--slider-text"&gt;Slide to confirm&lt;/span&gt;
+  &lt;span class="pm7-button--slider-handle"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+            <h3>Sizes</h3>
+            <pre><code class="language-html">&lt;!-- Small (36px height) --&gt;
+&lt;button class="pm7-button pm7-button--primary pm7-button--sm"&gt;Small&lt;/button&gt;
+
+&lt;!-- Medium (40px height, default - no size class needed) --&gt;
+&lt;button class="pm7-button pm7-button--primary"&gt;Medium&lt;/button&gt;
+
+&lt;!-- Large (48px height) --&gt;
+&lt;button class="pm7-button pm7-button--primary pm7-button--lg"&gt;Large&lt;/button&gt;</code></pre>
+
+            <h3>PM7 Special Features</h3>
+            <ul>
+              <li><strong>6Stars Hover Effect</strong>: Primary buttons feature a unique "6stars" hover animation that creates a subtle sparkle effect</li>
+              <li><strong>Interactive Feedback</strong>: Buttons transform 1px down on click for tactile feedback</li>
+            </ul>
+
+            <h3>CSS Customization</h3>
+            <p>PM7 buttons can be customized using CSS custom properties:</p>
+            <pre><code class="language-css">:root {
+  /* Border radius */
+  --pm7-button-radius: 0.375rem;
+  
+  /* Typography */
+  --pm7-button-font-size: 0.875rem;
+  --pm7-button-font-weight: 500;
+  --pm7-button-line-height: 1.25rem;
+  
+  /* Spacing */
+  --pm7-button-padding-y: 0.5rem;
+  --pm7-button-padding-x: 1rem;
+  
+  /* Shadows */
+  --pm7-button-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --pm7-button-shadow-active: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pm7-button-focus-shadow: 0 0 0 3px rgb(28 134 239 / 0.2);
+}</code></pre>
+
+            <h3>JavaScript API</h3>
+            <pre><code class="language-javascript">import { PM7Button, initButtons } from '@pm7/core';
+
+    import '/packages/core/src/scripts/index.js';
+// Auto-initialization (happens automatically on DOMContentLoaded)
+// Adds 6stars effect to all primary/default buttons
+
+// Manual initialization for dynamically added buttons
+const button = document.querySelector('.pm7-button--primary');
+const pm7Button = new PM7Button(button);
+
+// Or initialize all buttons manually
+initButtons();
+
+// Standard event handling
+document.querySelector('.pm7-button').addEventListener('click', (e) => {
+  console.log('Button clicked');
+});</code></pre>
+            
+            <p><strong>Note:</strong> The PM7Button class automatically adds the "6stars" hover effect to primary and default button variants. This effect creates floating star animations on hover, reinforcing the PM7 brand identity.</p>
+
+            <h3>Button Groups</h3>
+            <pre><code class="language-html">&lt;!-- Horizontal button group --&gt;
+&lt;div class="pm7-button-group"&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;First&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;Second&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--outline"&gt;Third&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Form actions with spacing --&gt;
+&lt;div style="display: flex; gap: 1rem; justify-content: flex-end;"&gt;
+  &lt;button class="pm7-button pm7-button--ghost"&gt;Cancel&lt;/button&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Save Changes&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Advanced Examples</h3>
+            <pre><code class="language-html">&lt;!-- Icon button with aria-label for accessibility --&gt;
+&lt;button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Settings"&gt;
+  &lt;svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;circle cx="12" cy="12" r="3"&gt;&lt;/circle&gt;
+    &lt;path d="M12 1v6m0 6v6m11-11h-6m-6 0H1"&gt;&lt;/path&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- Loading state button --&gt;
+&lt;button class="pm7-button pm7-button--primary" disabled&gt;
+  &lt;svg class="pm7-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;path d="M21 12a9 9 0 11-6.219-8.56"/&gt;
+  &lt;/svg&gt;
+  Processing...
+&lt;/button&gt;
+
+&lt;!-- Button as link --&gt;
+&lt;a href="/dashboard" class="pm7-button pm7-button--primary"&gt;
+  Go to Dashboard
+&lt;/a&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>All buttons are keyboard accessible</li>
+              <li>Use descriptive text for screen readers</li>
+              <li>For icon-only buttons, add <code>aria-label</code></li>
+              <li>Disabled buttons are properly announced</li>
+              <li>Focus states are clearly visible with customizable shadow</li>
+            </ul>
+
+            <h3>Terminology Guide</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Term</th>
+                  <th>Definition</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ghost Button</strong></td>
+                  <td>A button with minimal styling - transparent background, no border</td>
+                  <td><code>pm7-button--ghost</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Destructive Button</strong></td>
+                  <td>A button for dangerous actions like delete, remove, or cancel subscriptions</td>
+                  <td><code>pm7-button--destructive</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Button Variant</strong></td>
+                  <td>Different visual styles of buttons (primary, secondary, outline, etc.)</td>
+                  <td><code>pm7-button--primary</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Button Modifier</strong></td>
+                  <td>Classes that change button properties like size or width</td>
+                  <td><code>pm7-button--sm</code>, <code>pm7-button--full</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Icon Button</strong></td>
+                  <td>A button containing only an icon, no text (requires aria-label)</td>
+                  <td><code>pm7-button--icon</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Button Group</strong></td>
+                  <td>Multiple related buttons grouped together visually</td>
+                  <td><code>pm7-button-group</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Loading State</strong></td>
+                  <td>Button showing a spinner animation while processing</td>
+                  <td>Button with <code>pm7-spinner</code> and <code>disabled</code></td>
+                </tr>
+                <tr>
+                  <td><strong>6Stars Effect</strong></td>
+                  <td>PM7's signature hover animation on primary buttons</td>
+                  <td>Auto-applied to <code>pm7-button--primary</code></td>
+                </tr>
+                <tr>
+                  <td><strong>CTA (Call to Action)</strong></td>
+                  <td>Primary button that encourages user action</td>
+                  <td>Usually <code>pm7-button--primary</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Form Actions</strong></td>
+                  <td>Button pattern for forms (Cancel + Submit)</td>
+                  <td>Secondary + Primary button combo</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/button/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/button/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Button implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    /* Button specific styles */
+    .pm7-button svg {
+      margin: 0 4px;
+    }
+    .pm7-docs-preview {
+      display: flex;
+      align-items: center;
+    }
+    /* Spinner animation */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .pm7-spinner {
+      animation: spin 1s linear infinite;
+    }
+    
+  </style>
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Info Dialogs -->
+  <div style="display: none;">
+  <div class="pm7-dialog" data-pm7-dialog="button-variants-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Button Variant Types"></span>
+      <span data-pm7-dialog-subtitle="Each variant serves a specific purpose"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Primary</h4>
+        <p>Main actions (save, submit)</p>
+        <pre><code>class="pm7-button pm7-button--primary"</code></pre>
+      </div>
+      
+      <div class="pm7-info-dialog-item">
+        <h4>Secondary</h4>
+        <p>Alternative actions</p>
+        <pre><code>class="pm7-button pm7-button--secondary"</code></pre>
+      </div>
+      
+      <div class="pm7-info-dialog-item">
+        <h4>Outline</h4>
+        <p>Secondary actions with border</p>
+        <pre><code>class="pm7-button pm7-button--outline"</code></pre>
+      </div>
+      
+      <div class="pm7-info-dialog-item">
+        <h4>Ghost</h4>
+        <p>Minimal style for tertiary actions</p>
+        <pre><code>class="pm7-button pm7-button--ghost"</code></pre>
+      </div>
+      
+      <div class="pm7-info-dialog-item">
+        <h4>Destructive</h4>
+        <p>Dangerous actions (delete, remove)</p>
+        <pre><code>class="pm7-button pm7-button--destructive"</code></pre>
+      </div>
+      
+      <div class="pm7-info-dialog-item">
+        <h4>Link</h4>
+        <p>Styled as a link</p>
+        <pre><code>class="pm7-button pm7-button--link"</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" data-pm7-dialog="button-sizes-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Size Modifiers"></span>
+      <span data-pm7-dialog-subtitle="Control button size with modifier classes"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Small</h4>
+        <p>Compact size for dense UIs</p>
+        <pre><code>class="pm7-button pm7-button--primary pm7-button--sm"</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Medium (default)</h4>
+        <p>Standard size</p>
+        <pre><code>class="pm7-button pm7-button--primary"</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Large</h4>
+        <p>Prominent actions</p>
+        <pre><code>class="pm7-button pm7-button--primary pm7-button--lg"</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Size modifiers: --sm, --lg</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" data-pm7-dialog="button-states-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Button State Management"></span>
+      <span data-pm7-dialog-subtitle="Buttons have different states for user feedback"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Normal</h4>
+        <p>Default interactive state</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--primary"&gt;
+  Normal
+&lt;/button&gt;</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Disabled</h4>
+        <p>Non-interactive state</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--primary" disabled&gt;
+  Disabled
+&lt;/button&gt;</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Loading</h4>
+        <p>Shows spinner with disabled state</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--primary" disabled&gt;
+  &lt;svg class="pm7-spinner"&gt;...&lt;/svg&gt;
+  Loading...
+&lt;/button&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" data-pm7-dialog="button-icons-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Button Icons"></span>
+      <span data-pm7-dialog-subtitle="Add icons to enhance button meaning"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Icon Left</h4>
+        <p>Icon before text</p>
+        <pre><code>&lt;button class="pm7-button"&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+  Text
+&lt;/button&gt;</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Icon Right</h4>
+        <p>Icon after text</p>
+        <pre><code>&lt;button class="pm7-button"&gt;
+  Text
+  &lt;svg&gt;...&lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <h4>Icon Only</h4>
+        <p>Icon without text</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--icon" aria-label="Action"&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm7-dialog" data-pm7-dialog="button-full-width-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Full Width Modifier"></span>
+      <span data-pm7-dialog-subtitle="Makes button span 100% of its container width"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Use case</h4>
+        <p>Forms, mobile layouts, CTAs</p>
+        <pre><code>class="pm7-button pm7-button--primary pm7-button--full"</code></pre>
+      </div>
+
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Width modifier: --full</p>
+      </div>
+    </div>
+  </div>
+  <div class="pm7-dialog" data-pm7-dialog="button-on-dark-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Buttons on Dark Backgrounds"></span>
+      <span data-pm7-dialog-subtitle="Ensure proper contrast in light mode"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Usage</h4>
+        <p>Use the <code>--on-dark</code> modifier for outline and ghost buttons on dark backgrounds in light mode</p>
+        <pre><code>&lt;button class="pm7-button pm7-button--outline pm7-button--on-dark"&gt;
+  Outline on Dark
+&lt;/button&gt;
+
+&lt;button class="pm7-button pm7-button--ghost pm7-button--on-dark"&gt;
+  Ghost on Dark
+&lt;/button&gt;</code></pre>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>When to use</h4>
+        <p>• Hero sections with dark backgrounds</p>
+        <p>• Dark cards or panels in light mode</p>
+        <p>• Marketing pages with dark sections</p>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Note: This modifier is only needed in light mode. Dark mode automatically handles contrast.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pm7-dialog" data-pm7-dialog="button-slider-info" data-pm7-dialog-size="md" data-pm7-show-close>
+    <div data-pm7-header>
+      <span data-pm7-dialog-title="Slider Button Variant"></span>
+      <span data-pm7-dialog-subtitle="Swipe-to-confirm interaction for critical actions"></span>
+    </div>
+    <div data-pm7-body>
+      <div class="pm7-info-dialog-item">
+        <h4>Purpose</h4>
+        <p>Prevents accidental clicks on critical actions by requiring a deliberate swipe gesture.</p>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>Features</h4>
+        <ul>
+          <li>Touch and mouse support</li>
+          <li>Visual feedback during drag</li>
+          <li>Success state animation</li>
+          <li>Programmatic reset capability</li>
+          <li>Automatic click event on completion</li>
+        </ul>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <h4>Example</h4>
+        <pre><code>&lt;button class="pm7-button pm7-button--slider"&gt;
+  &lt;span class="pm7-button--slider-text"&gt;Slide to confirm&lt;/span&gt;
+  &lt;span class="pm7-button--slider-handle"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+      <div class="pm7-info-dialog-item">
+        <p style="font-style: italic; margin-top: 16px;">Variant: --slider | Sizes: --sm, --lg</p>
+      </div>
+    </div>
+  </div>
+  
+  </div><!-- End of dialogs wrapper -->
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <!-- Load header and sidebar -->
+  
+  <!-- Prism for code highlighting -->
+  <link href="/styles/prism.css" rel="stylesheet">
+  <script src="/scripts/prism.js"></script>
+
+  <!-- Tab router initialization -->
+
+</body>
+</html>

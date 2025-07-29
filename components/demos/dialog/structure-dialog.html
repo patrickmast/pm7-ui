@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialog Structure Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .demo-card h3 {
+      font-size: 0.875rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-card p {
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+      margin: 0 0 1rem 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Dialog Structure Variations</h1>
+      <p class="demo-description">Different combinations of header, body, and footer sections</p>
+    </div>
+    
+    <div class="demo-grid">
+      <div class="demo-card">
+        <h3>Header Only</h3>
+        <p>Just a title, no content</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('only-header-dialog')">
+          Open
+        </button>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Body Only</h3>
+        <p>Pure content, no chrome</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('only-body-dialog')">
+          Open
+        </button>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Footer Only</h3>
+        <p>Just actions, minimal UI</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('only-footer-dialog')">
+          Open
+        </button>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Header + Footer</h3>
+        <p>Title and actions only</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('header-footer-dialog')">
+          Open
+        </button>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Body + Footer</h3>
+        <p>Content with actions</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('body-footer-dialog')">
+          Open
+        </button>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Header + Body</h3>
+        <p>Title and content</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('header-body-dialog')">
+          Open
+        </button>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Header Only Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-header-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Header Only Dialog"
+         data-pm7-dialog-subtitle="This dialog only has a header section">
+    </div>
+  </div>
+
+  <!-- Body Only Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-body-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-body>
+      <p>This is a minimal dialog with only body content. No header or footer sections. Perfect for simple messages or notifications.</p>
+    </div>
+  </div>
+
+  <!-- Footer Only Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="only-footer-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('only-footer-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('only-footer-dialog')">
+        Confirm
+      </button>
+    </div>
+  </div>
+
+  <!-- Header + Footer Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="header-footer-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Quick Action"
+         data-pm7-dialog-subtitle="Confirm your choice"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="flex-end">
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('header-footer-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('header-footer-dialog')">
+        Proceed
+      </button>
+    </div>
+  </div>
+
+  <!-- Body + Footer Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="body-footer-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-body>
+      <p style="margin: 0;">Are you sure you want to continue with this action? This cannot be undone.</p>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="space-between">
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('body-footer-dialog')">
+        Learn More
+      </button>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('body-footer-dialog')">
+          Cancel
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('body-footer-dialog')">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header + Body Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="header-body-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Information"
+         data-pm7-dialog-subtitle="Important details below"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This dialog demonstrates a header and body combination without footer actions. The close button in the header provides the only way to dismiss the dialog.</p>
+      <p style="margin-bottom: 0;">This pattern is useful for informational dialogs that don't require user actions.</p>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Header Only -->
+<div class="pm7-dialog" data-pm7-dialog="header-only">
+  <div data-pm7-header
+       data-pm7-dialog-title="Title">
+  </div>
+</div>
+
+<!-- Body Only -->
+<div class="pm7-dialog" data-pm7-dialog="body-only">
+  <div data-pm7-body>
+    <p>Content</p>
+  </div>
+</div>
+
+<!-- Footer Only -->
+<div class="pm7-dialog" data-pm7-dialog="footer-only">
+  <div data-pm7-footer>
+    <button class="pm7-button">Action</button>
+  </div>
+</div>
+
+<!-- Header + Footer -->
+<div class="pm7-dialog" data-pm7-dialog="header-footer">
+  <div data-pm7-header
+       data-pm7-dialog-title="Title">
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button">Action</button>
+  </div>
+</div>
+
+<!-- Body + Footer -->
+<div class="pm7-dialog" data-pm7-dialog="body-footer">
+  <div data-pm7-body>
+    <p>Content</p>
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button">Action</button>
+  </div>
+</div>
+
+<!-- Header + Body -->
+<div class="pm7-dialog" data-pm7-dialog="header-body">
+  <div data-pm7-header
+       data-pm7-dialog-title="Title">
+  </div>
+  <div data-pm7-body>
+    <p>Content</p>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

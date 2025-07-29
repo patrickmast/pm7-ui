@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Guide - pm7-ui | The First UI Library Built for AI Coding Agents</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    .ai-example {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .copy-paste-section {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .copy-paste-section h3 {
+      margin-top: 0;
+    }
+    
+    code.inline {
+      background: var(--pm7-muted);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
+      color: var(--pm7-primary);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>AI Agent Guide</h1>
+    <p class="pm7-docs-lead">
+      pm7-ui is the first UI library built specifically for AI Coding Agents.<br>
+      Learn how to leverage its AI-first design for rapid development.
+    </p>
+    
+    <section style="margin-top: 60px;">
+      <h2>The First UI Library Built for AI</h2>
+      
+      <div class="pm7-docs-grid">
+        <div class="pm7-card">
+          <div class="pm7-card-body">
+            <h3>Simple CSS Classes</h3>
+            <p>No complex APIs or component imports. Just use <code class="inline">class="pm7-button"</code> and it works.</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-body">
+            <h3>Copy-Paste Ready</h3>
+            <p>All examples are plain HTML that you can copy directly into any project.</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card">
+          <div class="pm7-card-body">
+            <h3>Framework Agnostic</h3>
+            <p>Works the same in React, Vue, Angular, or vanilla HTML. No context switching.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Quick Start for AI Agents</h2>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">🤖 AI Tip</h4>
+        <div class="pm7-callout-body">
+          <p>Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."</p>
+        </div>
+      </div>
+      
+      <h3>1. Basic Setup</h3>
+      <pre><code class="language-javascript">// Just import the CSS once
+import '@pm7/core/dist/pm7.css';
+
+// Or in HTML
+&lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css"&gt;</code></pre>
+      
+      <h3>2. Use Components</h3>
+      <p>Now you can use any PM7 component with simple CSS classes:</p>
+      
+      <pre><code class="language-html">&lt;!-- Buttons --&gt;
+&lt;button class="pm7-button pm7-button--primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="pm7-button pm7-button--secondary"&gt;Secondary Button&lt;/button&gt;
+
+&lt;!-- Cards --&gt;
+&lt;div class="pm7-card"&gt;
+  &lt;div class="pm7-card-header"&gt;Card Title&lt;/div&gt;
+  &lt;div class="pm7-card-body"&gt;Card content&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Inputs --&gt;
+&lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Common AI Prompts</h2>
+      
+      <div class="copy-paste-section">
+        <h3>Building a Form</h3>
+        <p><strong>Prompt:</strong> "Create a login form using pm7-ui classes"</p>
+        <pre><code class="language-html">&lt;form class="pm7-card" style="max-width: 400px; margin: 0 auto;"&gt;
+  &lt;div class="pm7-card-header"&gt;
+    &lt;h2&gt;Login&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-card-body"&gt;
+    &lt;div style="margin-bottom: 1rem;"&gt;
+      &lt;label for="email"&gt;Email&lt;/label&gt;
+      &lt;input type="email" id="email" class="pm7-input" placeholder="you@example.com"&gt;
+    &lt;/div&gt;
+    &lt;div style="margin-bottom: 1.5rem;"&gt;
+      &lt;label for="password"&gt;Password&lt;/label&gt;
+      &lt;input type="password" id="password" class="pm7-input"&gt;
+    &lt;/div&gt;
+    &lt;button type="submit" class="pm7-button pm7-button--primary pm7-button--full"&gt;
+      Sign In
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+      
+      <div class="copy-paste-section">
+        <h3>Creating a Navigation Menu</h3>
+        <p><strong>Prompt:</strong> "Create a dropdown menu with pm7-ui"</p>
+        <pre><code class="language-html">&lt;div class="pm7-menu" data-pm7-menu&gt;
+  &lt;button class="pm7-menu-trigger"&gt;
+    Options
+  &lt;/button&gt;
+  &lt;div class="pm7-menu-content"&gt;
+    &lt;button class="pm7-menu-item"&gt;Profile&lt;/button&gt;
+    &lt;button class="pm7-menu-item"&gt;Settings&lt;/button&gt;
+    &lt;div class="pm7-menu-separator"&gt;&lt;/div&gt;
+    &lt;button class="pm7-menu-item pm7-menu-item--destructive"&gt;Logout&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      
+      <div class="copy-paste-section">
+        <h3>Building a Product Card</h3>
+        <p><strong>Prompt:</strong> "Create a product card with image, title, price, and buy button"</p>
+        <pre><code class="language-html">&lt;div class="pm7-card" style="max-width: 300px;"&gt;
+  &lt;img src="product.jpg" alt="Product" style="width: 100%; height: 200px; object-fit: cover;"&gt;
+  &lt;div class="pm7-card-body"&gt;
+    &lt;h3&gt;Product Name&lt;/h3&gt;
+    &lt;p style="color: var(--pm7-muted-foreground);"&gt;Brief product description&lt;/p&gt;
+    &lt;div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;"&gt;
+      &lt;span style="font-size: 1.5rem; font-weight: bold;"&gt;$99.99&lt;/span&gt;
+      &lt;button class="pm7-button pm7-button--primary"&gt;Add to Cart&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Framework-Specific Examples</h2>
+      
+      <h3>React</h3>
+      <pre><code class="language-jsx">// Just use className instead of class
+import { useEffect } from 'react';
+import '@pm7/core';
+
+function MyComponent() {
+  useEffect(() => {
+    // Enable self-healing for framework re-renders
+    PM7.initFramework();
+  }, []);
+  
+  return (
+    &lt;button className="pm7-button pm7-button--primary" onClick={handleClick}&gt;
+      React Button
+    &lt;/button&gt;
+  );
+}</code></pre>
+      
+      <h3>Vue</h3>
+      <pre><code class="language-html">&lt;!-- Use class as normal --&gt;
+&lt;template&gt;
+  &lt;button class="pm7-button pm7-button--primary" @click="handleClick"&gt;
+    Vue Button
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { onMounted } from 'vue';
+import '@pm7/core';
+
+export default {
+  setup() {
+    onMounted(() => {
+      PM7.initFramework();
+    });
+  }
+}
+&lt;/script&gt;</code></pre>
+      
+      <h3>Angular</h3>
+      <pre><code class="language-html">&lt;!-- Use class with Angular event binding --&gt;
+&lt;button class="pm7-button pm7-button--primary" (click)="handleClick()"&gt;
+  Angular Button
+&lt;/button&gt;</code></pre>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Interactive Components</h2>
+      
+      <p>Some components need JavaScript for interactivity. They auto-initialize when you include the PM7 script:</p>
+      
+      <pre><code class="language-javascript">// Import once in your app
+import '@pm7/core';
+
+// Or manually initialize after adding dynamic content
+PM7.init();</code></pre>
+      
+      <h3>Components with Auto-initialization & Self-Healing</h3>
+      <ul>
+        <li><strong>Menu</strong> - <code class="inline">[data-pm7-menu]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Accordion</strong> - <code class="inline">[data-pm7-accordion]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Tab Selector</strong> - <code class="inline">[data-pm7-tab-selector]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Tooltip</strong> - <code class="inline">[data-pm7-tooltip]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Sidebar</strong> - <code class="inline">[data-pm7-sidebar]</code> - ✨ Self-heals on re-render</li>
+        <li><strong>Theme Switch</strong> - <code class="inline">[data-pm7-theme-switch]</code></li>
+      </ul>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">✨ Self-Healing Components (v2.5.0+)</h4>
+        <div class="pm7-callout-body">
+          <p>Components marked with ✨ automatically recover from framework re-renders. AI agents no longer need to write workarounds for React, Vue, or Angular state management!</p>
+        </div>
+      </div>
+      
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">📝 Note about Dialogs</h4>
+        <div class="pm7-callout-body">
+          <p>Dialogs use <code class="inline">data-pm7-dialog</code> for identification but are NOT auto-initialized. Use <code>openDialog('dialog-id')</code> to open them.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Documentation Links for AI</h2>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">🤖 AI Agent Reference</h4>
+        <div class="pm7-callout-body">
+          <p>For a complete reference of ALL PM7-UI attributes and patterns, see <a href="/AI-AGENT.md" style="color: var(--pm7-primary); text-decoration: underline;">AI-AGENT.md</a> - the definitive guide for AI agents using PM7-UI.</p>
+        </div>
+      </div>
+      
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">📚 Component Documentation</h4>
+        <div class="pm7-callout-body">
+          <p>Need all pm7-ui documentation links in one place? Visit our <a href="/readme-links.html" style="color: var(--pm7-primary); text-decoration: underline;">README Links page</a> for easy access to all component documentation.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Tips for AI Agents</h2>
+      
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">💡 Pro Tip</h4>
+        <div class="pm7-callout-body">
+          <p>Always specify "pm7-ui" in your prompts to get consistent results.</p>
+        </div>
+      </div>
+      
+      <h3>DO:</h3>
+      <ul>
+        <li>✅ Use simple CSS classes: <code class="inline">pm7-button</code>, <code class="inline">pm7-card</code></li>
+        <li>✅ Combine modifiers: <code class="inline">pm7-button pm7-button--primary pm7-button--lg</code></li>
+        <li>✅ ALWAYS use <code class="inline">data-pm7-*</code> attributes for ALL components</li>
+        <li>✅ Import CSS once at the top of your app</li>
+        <li>✅ Check <a href="/AI-AGENT.md">AI-AGENT.md</a> for complete attribute reference</li>
+      </ul>
+      
+      <h3>DON'T:</h3>
+      <ul>
+        <li>❌ Import React components from @pm7/react (package removed)</li>
+        <li>❌ Use complex component APIs</li>
+        <li>❌ Worry about framework-specific syntax</li>
+        <li>❌ Use <code class="inline">pm7-*</code> attributes without <code class="inline">data-</code> prefix</li>
+      </ul>
+    </section>
+    
+    <section style="margin-top: 60px;">
+      <h2>Complete Example</h2>
+      
+      <p>Here's a complete example you can copy and paste:</p>
+      
+      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;pm7-ui Example&lt;/title&gt;
+  &lt;link rel="stylesheet" href="https://unpkg.com/@pm7/core/dist/pm7.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div style="max-width: 1200px; margin: 0 auto; padding: 2rem;"&gt;
+    &lt;!-- Header --&gt;
+    &lt;header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;"&gt;
+      &lt;h1&gt;My App&lt;/h1&gt;
+      &lt;div class="pm7-menu" data-pm7-menu&gt;
+        &lt;button class="pm7-menu-trigger"&gt;Menu&lt;/button&gt;
+        &lt;div class="pm7-menu-content"&gt;
+          &lt;button class="pm7-menu-item"&gt;Home&lt;/button&gt;
+          &lt;button class="pm7-menu-item"&gt;About&lt;/button&gt;
+          &lt;button class="pm7-menu-item"&gt;Contact&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+    
+    &lt;!-- Content --&gt;
+    &lt;div class="pm7-card"&gt;
+      &lt;div class="pm7-card-header"&gt;
+        &lt;h2&gt;Welcome&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class="pm7-card-body"&gt;
+        &lt;p&gt;This is a complete pm7-ui example.&lt;/p&gt;
+        &lt;button class="pm7-button pm7-button--primary"&gt;Get Started&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;script src="https://unpkg.com/@pm7/core"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

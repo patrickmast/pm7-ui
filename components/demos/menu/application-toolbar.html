@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Toolbar Menu Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    .app-toolbar {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius-md);
+      padding: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      min-width: 600px;
+    }
+    
+    .toolbar-section {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0 0.5rem;
+    }
+    
+    .toolbar-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--pm7-border);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Application Toolbar</h1>
+      <p class="demo-description">Complex toolbar with multiple action menus</p>
+    </div>
+    
+    <div class="demo-content">
+      <div class="app-toolbar">
+        <!-- File Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            File
+            <svg class="pm7-menu-icon" width="10" height="10" viewBox="0 0 12 12">
+              <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">
+              New
+              <span class="pm7-menu-shortcut">⌘N</span>
+            </button>
+            <button class="pm7-menu-item">
+              Open
+              <span class="pm7-menu-shortcut">⌘O</span>
+            </button>
+            <button class="pm7-menu-item">
+              Save
+              <span class="pm7-menu-shortcut">⌘S</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Export...</button>
+            <button class="pm7-menu-item">Import...</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Exit</button>
+          </div>
+        </div>
+        
+        <!-- Edit Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            Edit
+            <svg class="pm7-menu-icon" width="10" height="10" viewBox="0 0 12 12">
+              <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item">
+              Undo
+              <span class="pm7-menu-shortcut">⌘Z</span>
+            </button>
+            <button class="pm7-menu-item">
+              Redo
+              <span class="pm7-menu-shortcut">⌘⇧Z</span>
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">
+              Cut
+              <span class="pm7-menu-shortcut">⌘X</span>
+            </button>
+            <button class="pm7-menu-item">
+              Copy
+              <span class="pm7-menu-shortcut">⌘C</span>
+            </button>
+            <button class="pm7-menu-item">
+              Paste
+              <span class="pm7-menu-shortcut">⌘V</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- View Menu -->
+        <div class="pm7-menu" data-pm7-menu>
+          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+            View
+            <svg class="pm7-menu-icon" width="10" height="10" viewBox="0 0 12 12">
+              <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+          <div class="pm7-menu-content">
+            <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Sidebar</button>
+            <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Toolbar</button>
+            <button class="pm7-menu-item pm7-menu-item--checkbox">Status Bar</button>
+            <div class="pm7-menu-separator"></div>
+            <button class="pm7-menu-item">Zoom In</button>
+            <button class="pm7-menu-item">Zoom Out</button>
+            <button class="pm7-menu-item">Reset Zoom</button>
+          </div>
+        </div>
+        
+        <div class="toolbar-divider"></div>
+        
+        <!-- Action Buttons -->
+        <div class="toolbar-section">
+          <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" aria-label="Undo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7v6h6"></path>
+              <path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"></path>
+            </svg>
+          </button>
+          <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" aria-label="Redo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 7v6h-6"></path>
+              <path d="M3 17a9 9 0 019-9 9 9 0 016 2.3l3 2.7"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="toolbar-divider"></div>
+        
+        <!-- Format Options -->
+        <div class="toolbar-section">
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" aria-label="Text formatting">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                <line x1="9" y1="20" x2="15" y2="20"></line>
+                <line x1="12" y1="4" x2="12" y2="20"></line>
+              </svg>
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item pm7-menu-item--checkbox">Bold</button>
+              <button class="pm7-menu-item pm7-menu-item--checkbox">Italic</button>
+              <button class="pm7-menu-item pm7-menu-item--checkbox">Underline</button>
+              <div class="pm7-menu-separator"></div>
+              <div class="pm7-menu-label">Font Size</div>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="size">Small</button>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="size" data-checked="true">Medium</button>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="size">Large</button>
+            </div>
+          </div>
+          
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" aria-label="Text alignment">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="17" y1="10" x2="3" y2="10"></line>
+                <line x1="21" y1="6" x2="3" y2="6"></line>
+                <line x1="21" y1="14" x2="3" y2="14"></line>
+                <line x1="17" y1="18" x2="3" y2="18"></line>
+              </svg>
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="align" data-checked="true">Left</button>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="align">Center</button>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="align">Right</button>
+              <button class="pm7-menu-item pm7-menu-item--radio" data-name="align">Justify</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/menu.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Application Toolbar with Multiple Menus -->
+<div class="app-toolbar">
+  <!-- File Menu -->
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+      File
+      <svg class="pm7-menu-icon" width="10" height="10">...</svg>
+    </button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">
+        New
+        <span class="pm7-menu-shortcut">⌘N</span>
+      </button>
+      <button class="pm7-menu-item">
+        Open
+        <span class="pm7-menu-shortcut">⌘O</span>
+      </button>
+      <button class="pm7-menu-item">
+        Save
+        <span class="pm7-menu-shortcut">⌘S</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Edit Menu -->
+  <div class="pm7-menu" data-pm7-menu>
+    <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--sm">
+      Edit
+      <svg class="pm7-menu-icon" width="10" height="10">...</svg>
+    </button>
+    <div class="pm7-menu-content">
+      <button class="pm7-menu-item">
+        Undo
+        <span class="pm7-menu-shortcut">⌘Z</span>
+      </button>
+      <button class="pm7-menu-item">
+        Redo
+        <span class="pm7-menu-shortcut">⌘⇧Z</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Divider -->
+  <div class="toolbar-divider"></div>
+  
+  <!-- Icon Actions -->
+  <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm">
+    <svg width="16" height="16">...</svg>
+  </button>
+</div>
+
+<style>
+.app-toolbar {
+  background: var(--pm7-card);
+  border: 1px solid var(--pm7-border);
+  border-radius: var(--pm7-radius-md);
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--pm7-border);
+}
+</style>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

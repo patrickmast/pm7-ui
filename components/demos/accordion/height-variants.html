@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Height Variants Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .height-label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Height Variants</h1>
+      <p class="demo-description">Control the maximum height of accordion content with scrollable overflow</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Small height -->
+      <div>
+        <p class="height-label">Small Height (200px max)</p>
+        <div class="pm7-accordion pm7-accordion--height-sm" data-pm7-accordion data-height="sm" style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Small Height (200px max)</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has a maximum height of 200px. When content exceeds this height, it becomes scrollable with a custom scrollbar.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Medium height -->
+      <div>
+        <p class="height-label">Medium Height (400px max)</p>
+        <div class="pm7-accordion pm7-accordion--height-md" data-pm7-accordion data-height="md" style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Medium Height (400px max)</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has a maximum height of 400px. Perfect for medium-sized content that needs scrolling.</p>
+                <ul>
+                  <li>Feature 1: Lorem ipsum dolor sit amet</li>
+                  <li>Feature 2: Consectetur adipiscing elit</li>
+                  <li>Feature 3: Sed do eiusmod tempor incididunt</li>
+                  <li>Feature 4: Ut labore et dolore magna aliqua</li>
+                  <li>Feature 5: Ut enim ad minim veniam</li>
+                  <li>Feature 6: Quis nostrud exercitation ullamco</li>
+                  <li>Feature 7: Laboris nisi ut aliquip ex ea</li>
+                  <li>Feature 8: Commodo consequat duis aute irure</li>
+                  <li>Feature 9: Dolor in reprehenderit in voluptate</li>
+                  <li>Feature 10: Velit esse cillum dolore eu fugiat</li>
+                </ul>
+                <p>Additional content to demonstrate scrolling behavior in medium height accordions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Large height -->
+      <div>
+        <p class="height-label">Large Height (600px max)</p>
+        <div class="pm7-accordion pm7-accordion--height-lg" data-pm7-accordion data-height="lg" style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Large Height (600px max)</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has a maximum height of 600px. Perfect for large content sections that still need a reasonable limit.</p>
+                <h4>Complete Feature List</h4>
+                <ul>
+                  <li><strong>Core Features:</strong> Modern design system, fully customizable components, comprehensive theming</li>
+                  <li><strong>Developer Experience:</strong> TypeScript support, tree-shaking ready, zero dependencies</li>
+                  <li><strong>Performance:</strong> Optimized bundle size, lazy loading support, efficient rendering</li>
+                  <li><strong>Accessibility:</strong> WCAG 2.1 compliant, keyboard navigation, screen reader support</li>
+                  <li><strong>Customization:</strong> CSS variables, theme inheritance, component composition</li>
+                  <li><strong>Documentation:</strong> Comprehensive guides, live examples, API reference</li>
+                  <li><strong>Testing:</strong> Unit tests, integration tests, visual regression tests</li>
+                  <li><strong>Browser Support:</strong> Chrome, Firefox, Safari, Edge (latest 2 versions)</li>
+                </ul>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisl eget consectetur sagittis, nisi nisl aliquam est, eget consectetur nisl nisl sit amet nisl.</p>
+                <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Fixed height with custom value -->
+      <div>
+        <p class="height-label">Fixed Height (250px)</p>
+        <div class="pm7-accordion pm7-accordion--height-fixed" data-pm7-accordion data-height="fixed" data-fixed-height="250" style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Fixed Height (250px)</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has a fixed height of 250px. You can set any custom height using the <code>data-fixed-height</code> attribute.</p>
+                <pre><code>// Example configuration
+const accordion = new PM7Accordion(element, {
+  height: 'fixed',
+  fixedHeight: 250
+});</code></pre>
+                <p>This is useful when you need precise control over the accordion's expanded height, regardless of content size.</p>
+                <p>The content will scroll if it exceeds the fixed height, maintaining a consistent layout.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Small height (200px) -->
+<div class="pm7-accordion pm7-accordion--height-sm" data-pm7-accordion data-height="sm">
+  <!-- Content with 200px max height -->
+</div>
+
+<!-- Medium height (400px) -->
+<div class="pm7-accordion pm7-accordion--height-md" data-pm7-accordion data-height="md">
+  <!-- Content with 400px max height -->
+</div>
+
+<!-- Large height (600px) -->
+<div class="pm7-accordion pm7-accordion--height-lg" data-pm7-accordion data-height="lg">
+  <!-- Content with 600px max height -->
+</div>
+
+<!-- Fixed custom height -->
+<div class="pm7-accordion pm7-accordion--height-fixed" data-pm7-accordion data-height="fixed" data-fixed-height="250">
+  <!-- Content with custom 250px height -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

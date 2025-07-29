@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components - pm7-ui</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    /* Override tooltip font size for smaller text */
+    .pm7-tooltip-content {
+      font-size: 12px;
+    }
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    @media (max-width: 1024px) {
+      .component-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .component-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .section-divider {
+      grid-column: 1 / -1;
+      height: 1px;
+      background: var(--pm7-border);
+      margin: 32px 0;
+      position: relative;
+    }
+    .section-divider::before {
+      content: "Coming Soon";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--pm7-background);
+      padding: 0 16px;
+      color: var(--pm7-muted-foreground);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .component-card {
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius-md);
+      padding: 12px 24px 24px 16px;
+      color: inherit;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      height: 112px;
+    }
+    .component-card:hover {
+      border-color: var(--pm7-primary);
+      box-shadow: var(--pm7-shadow-md);
+    }
+    .component-header {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .component-card h3 {
+      margin: 0 0 8px 0;
+      color: var(--pm7-primary);
+    }
+    .component-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+      font-size: var(--pm7-text-sm);
+    }
+    .component-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      top: 9px;
+      right: 9px;
+    }
+    .copy-button {
+      background: transparent;
+      color: var(--pm7-muted-foreground);
+      border: 1px solid var(--pm7-border);
+      padding: 6px;
+      border-radius: var(--pm7-radius);
+      cursor: pointer;
+      transition: all 0.1s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .copy-button:hover {
+      background: var(--pm7-muted);
+      border-color: var(--pm7-border);
+      color: var(--pm7-foreground);
+    }
+    .copy-button.copied {
+      background: var(--pm7-success);
+    }
+    .open-button {
+      background: transparent;
+      color: var(--pm7-muted-foreground);
+      border: 1px solid var(--pm7-border);
+      padding: 6px;
+      border-radius: var(--pm7-radius);
+      cursor: pointer;
+      transition: all 0.1s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .open-button:hover {
+      background: var(--pm7-muted);
+      border-color: var(--pm7-border);
+      color: var(--pm7-foreground);
+    }
+    .copy-mode-container {
+      background: var(--pm7-muted);
+      border-radius: var(--pm7-radius);
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .copy-mode-container input[type="checkbox"] {
+      cursor: pointer;
+    }
+    .copy-mode-container label {
+      cursor: pointer;
+      user-select: none;
+      font-size: 14px;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-container pm7-desktop-only" style="padding-top: 40px; padding-bottom: 80px;">
+    <h1>Components</h1>
+    <p class="pm7-docs-lead">
+      Explore all pm7-ui components. Each component includes examples, code snippets, and API documentation.
+    </p>
+    
+    <div class="copy-mode-container">
+      <input type="checkbox" id="copy-as-prompt" style="cursor: pointer;">
+      <label for="copy-as-prompt" style="cursor: pointer; user-select: none;">
+        Copy URL as: "Implement the '[Component Name]' pm7-ui component using: [URL]..."
+      </label>
+    </div>
+    
+    <div class="component-grid">
+      <!-- Accordion -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('accordion'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('accordion', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/accordion#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M6 9l6 6 6-6"/>
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+            </svg>
+            Accordion
+          </h3>
+          <p>Collapsible content panels</p>
+        </a>
+      </div>
+      
+      <!-- Button -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('button'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('button', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/button#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M308.5 311.6c-1.6.2-7.3.9-12.5 1.5-63.4 7.2-128 41.7-170.7 91.3-34.9 40.6-55.9 86-64.6 140.1l-2.2 14V749c0 211.5-.4 196.8 6.7 227.9 16.7 73.9 64.1 137.4 131 176 30.7 17.6 70.1 30.2 107.3 34.3 9.7 1 95.9 1.3 448 1.3 413.1 0 436.7-.1 448.5-1.8 34.1-4.9 60-12.6 87.5-26.2 29.1-14.4 50.9-29.9 73.6-52.5 45.8-45.5 73.6-105.8 78.9-171.2.8-9.1 1-70.6.8-195.8-.4-180.9-.4-182.6-2.5-195.5-5.4-32.8-13.2-57.3-26.7-84.3-26.2-52.3-67.6-94-119-120.1-27.2-13.9-51.3-21.6-86.3-27.8-9.2-1.6-37.1-1.8-452.3-1.9-243.4-.1-443.8 0-445.5.2m882.8 108.9c36.7 5.5 66.7 20.6 93.3 47 20.9 20.8 35.9 46.8 42.9 74.5 5.1 20 4.8 8.5 5.2 200 .4 181.9.3 190.1-3.3 208-5.6 27.8-21.4 57.6-41.8 78.8-26.6 27.7-57.3 43.7-94.8 49.7-8.7 1.3-58 1.5-443.3 1.5-385.5 0-434.6-.2-443.3-1.5-26.2-4.2-49.4-13.5-70.8-28.6-11.9-8.3-32.3-29-40.3-40.7-15.6-23.1-25-48.5-28-76.4-1.5-13.3-1.5-353.1-.1-366.6 4.7-42.7 26.1-82.7 58.5-109.1 19.4-15.9 39.9-26.5 62.9-32.7 20.9-5.5-8-5.2 459.9-5.3 383.2-.1 433.9.1 443 1.4"/>
+              <path d="M410.9 627.3c-11 3.8-23.3 14.7-27.6 24.6-4.3 10-4.3 9.6-4.3 98.1 0 90.2 0 89.1 5 99 5.5 10.9 16.7 20.6 27.7 24 6.5 2 8.7 2 338.7 2h332.1l6.8-2.4c14.7-5.2 26.3-17.9 30.3-33.1 1.1-4 1.4-22.2 1.4-89.5 0-90.2 0-89.1-5-99-5.5-10.9-16.7-20.6-27.7-24-6.5-2-8.7-2-338.7-2l-332.1.1z"/>
+            </svg>
+            Button
+          </h3>
+          <p>Trigger actions with various styles and states</p>
+        </a>
+      </div>
+      
+      <!-- Callout -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('callout'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('callout', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/callout#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 375 375" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <defs>
+                <clipPath id="callout-idx-a">
+                  <path d="M14.5 66.395h346.29v242.21H14.5Zm0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-b">
+                  <path d="M360.488 102.39v170.22a36 36 0 0 1-10.547 25.452 36 36 0 0 1-25.453 10.543H50.496A35.997 35.997 0 0 1 14.5 272.61V102.391c0-19.88 16.117-35.996 35.996-35.996h273.992a36 36 0 0 1 25.453 10.543 36 36 0 0 1 10.547 25.453m0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-c">
+                  <path d="M14.512 66.395H360.25v242.25H14.512Zm0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-d">
+                  <path d="M360.238 102.363v170.09c0 9.54-3.789 18.688-10.535 25.434a35.98 35.98 0 0 1-25.437 10.539H50.48a35.97 35.97 0 0 1-25.433-10.54 35.97 35.97 0 0 1-10.535-25.433v-170.09c0-19.867 16.105-35.968 35.968-35.968h273.786a35.97 35.97 0 0 1 35.973 35.969m0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-e">
+                  <path d="M37.5 93.29h63.46v188.65H37.5Zm0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-f">
+                  <path d="M51.75 93.29h34.96c7.872 0 14.25 6.382 14.25 14.25v159.92c0 7.868-6.378 14.25-14.25 14.25H51.75c-7.871 0-14.25-6.382-14.25-14.25V107.54c0-7.868 6.379-14.25 14.25-14.25m0 0"/>
+                </clipPath>
+                <clipPath id="callout-idx-g">
+                  <path d="M75.633 93.29h32.637v188.42H75.633Zm0 0"/>
+                </clipPath>
+              </defs>
+              <g clip-path="url(#callout-idx-a)">
+                <g clip-path="url(#callout-idx-b)">
+                  <path style="stroke:none;fill-rule:nonzero;fill:#fff;fill-opacity:1" d="M14.5 66.395h346.29v242.21H14.5Zm0 0"/>
+                </g>
+              </g>
+              <g clip-path="url(#callout-idx-c)">
+                <g clip-path="url(#callout-idx-d)">
+                  <path style="fill:none;stroke-width:72;stroke-linecap:butt;stroke-linejoin:miter;stroke:currentColor;stroke-opacity:1;stroke-miterlimit:4" d="M461.298 47.994v226.948a48 48 0 0 1-14.057 33.936 48 48 0 0 1-33.94 14.062H47.992a48 48 0 0 1-33.935-14.062A48 48 0 0 1 0 274.942V47.994C.001 21.486 21.491.002 47.993.002H413.3a47.99 47.99 0 0 1 47.998 47.992Zm0 0" transform="translate(14.511 66.393)scale(.74947)"/>
+                </g>
+              </g>
+              <g clip-path="url(#callout-idx-e)">
+                <g clip-path="url(#callout-idx-f)">
+                  <path style="stroke:none;fill-rule:nonzero;fill:var(--pm7-primary);fill-opacity:1" d="M37.5 93.29h63.46v188.4H37.5Zm0 0"/>
+                </g>
+              </g>
+              <g clip-path="url(#callout-idx-g)">
+                <path style="stroke:none;fill-rule:nonzero;fill:var(--pm7-primary);fill-opacity:1" d="M75.633 93.29h32.637v188.429H75.633Zm0 0"/>
+              </g>
+            </svg>
+            Callout
+          </h3>
+          <p>Highlight important information with distinctive visual styles</p>
+        </a>
+      </div>
+      
+      <!-- Card -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('card'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('card', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/card#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 200 150" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="10" y="10" width="180" height="130" rx="25" fill="#fff" stroke="currentColor" stroke-width="20"/>
+            </svg>
+            Card
+          </h3>
+          <p>Container for grouping related content</p>
+        </a>
+      </div>
+      
+      <!-- Dialog -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('dialog'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('dialog', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/dialog#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M175.1 214c-53.4 10.7-94.4 47.4-111 99.3-6.6 20.8-6.2-12.8-5.9 439.7.3 390.8.4 410.9 2.1 418 7.5 31.3 20.8 55.3 41.8 75.5 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.8-55.7-48.7-100.9-102.7-116.6-20.5-5.9 23.7-5.5-589.5-5.4-546 .1-562.8.1-571.9 1.9m1136.4 109.3c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/>
+              <path d="M1017.5 414.4c-14.7 4.7-27 16.9-31.5 31.5-1.9 6.1-2 9.5-2 93 0 76.2.2 87.4 1.6 92.2 4.3 14.7 16.1 26.8 31.1 31.8 6.1 2.1 7.8 2.1 94.2 2.1 84.5 0 88.1-.1 94.2-2 12.7-3.9 22.6-12.5 28.7-24.9l3.7-7.5.3-90 .3-90.1-2.2-6c-5.2-14.5-15.4-24.6-29.8-29.5-5.9-2-8-2-95.3-1.9-69.2 0-90.2.3-93.3 1.3"/>
+            </svg>
+            Dialog / Modal
+          </h3>
+          <p>Modal dialogs for important interactions</p>
+        </a>
+      </div>
+      
+      <!-- Icons -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('icons', true); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('icons', this, true)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/icons#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M15 8h.01M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/>
+              <path d="m3 16 5-5c.928-.893 2.072-.893 3 0l5 5"/>
+              <path d="m14 14 1-1c.928-.893 2.072-.893 3 0l3 3"/>
+            </svg>
+            Icons
+          </h3>
+          <p>Standard PM7 icons including hamburger menu</p>
+        </a>
+      </div>
+      
+      <!-- Input -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('input'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('input', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/input#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M175.1 214c-53.4 10.7-94.4 47.4-111 99.3-6.6 20.8-6.2-12.8-5.9 439.7.3 390.8.4 410.9 2.1 418 7.5 31.3 20.8 55.3 41.8 75.5 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.8-55.7-48.7-100.9-102.7-116.6-20.5-5.9 23.7-5.5-589.5-5.4-546 .1-562.8.1-571.9 1.9m1136.4 109.3c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/>
+              <path d="M1033.5 414.4c-16.9 5.4-29.9 19.6-33.4 36.4-1.6 7.5-1.6 590.9 0 598.4 3.4 16.5 15.8 30.4 31.8 35.8 5.9 1.9 8.2 2 81.3 2 81.4 0 78.7.1 89.8-5.5 6.6-3.3 15.6-12.3 19.2-19.1 6.2-11.6 5.8 11.6 5.8-312.4s.4-300.8-5.8-312.4c-3.4-6.4-12.2-15.4-18.4-18.8-10.7-5.9-8.8-5.8-91-5.7-58 0-76.2.3-79.3 1.3"/>
+            </svg>
+            Input / Form Fields
+          </h3>
+          <p>Text inputs, selects, checkboxes, and more</p>
+        </a>
+      </div>
+      
+      <!-- Menu -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('menu'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('menu', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/menu#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            Menu / Dropdown
+          </h3>
+          <p>Contextual overlays for displaying lists of links and actions</p>
+        </a>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('sidebar'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('sidebar', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/sidebar#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 1563 1563" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M175 161q-16.5 4-28 9.5t-21 12-18.5 15-15.5 17T79 235t-12 33-5.5 513c0 328 .833 496.17 2.5 504.5s4.833 18 9.5 29 9.167 19.67 13.5 26 9.5 12.67 15.5 19 12.667 12.17 20 17.5 14.333 9.67 21 13q10 4.995 23 9c8.667 2.67 16.667 4.5 24 5.5q11 1.5 591 1.5 580.005 0 591-1.5c7.33-1 15.33-2.83 24-5.5s18.33-7 29-13 19.67-12.33 27-19 13-12.5 17-17.5 8.33-11.67 13-20 8.33-16.33 11-24q4.005-11.505 6-22.5c1.33-7.33 2-174.5 2-501.5s-.67-494.333-2-502-3.5-15.667-6.5-24-6.83-16.5-11.5-24.5-10.5-16-17.5-24q-10.5-12-19.5-19c-6-4.667-12.67-9-20-13s-14.17-7.167-20.5-9.5-13.67-4.333-22-6q-12.495-2.5-601.5-2.5-589 0-605.5 4"/>
+              <path d="M196.5 271.5q-6 2.5-10.5 6.5t-8.5 12.5-4 491c0 321.67.833 484.5 2.5 488.5s4 7.67 7 11 6.833 6.17 11.5 8.5 200.333 3.5 587 3.5c386.67 0 581.83-.83 585.5-2.5s7-3.83 10-6.5 5.83-6.83 8.5-12.5 4-169.17 4-490.5c0-321.333-.83-484.167-2.5-488.5s-3.83-8-6.5-11q-4.005-4.5-12-8.5c-5.33-2.667-201-4-587-4q-579 0-585 2.5" fill="#fff"/>
+              <path d="M288.5 361.5q-8 4.5-11 9t-4 8.5-1 402.5q0 398.505 1.5 403.5c1 3.33 3.333 7 7 11s8.167 6.83 13.5 8.5 70.167 2.5 194.5 2.5 188.167-.33 191.5-1 7.167-2.5 11.5-5.5 7.667-7.17 10-12.5q3.5-7.995 3.5-406.5 0-398.5-1-402.5t-5-9.5-10.5-9-199.5-3.5-201 4.5"/>
+            </svg>
+            Sidebar
+          </h3>
+          <p>Versatile navigation sidebar with overlay, push, and static modes</p>
+        </a>
+      </div>
+      
+      <!-- Tab Selector -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('tab-selector'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('tab-selector', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/tab-selector#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M186.5 212.7c-26.5 3.4-49.9 12.7-70.2 27.7-28.6 21.3-47.4 50.6-55.5 86.7l-2.3 10.4V749c0 392.3.1 411.9 1.8 420.3 6.2 30.6 20.2 56.4 41.8 77.2 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.7-55-48.2-100.3-100.9-116-22.4-6.6 26.2-6.1-589.9-6-307.4.1-560.2.4-561.9.6m1125 110.6c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-6.7-3.5-10.7-7-14.6-12.7-6.9-9.9-6.4 12.3-6.4-288.1V603l390.3-.2 390.3-.3 7.7-3.8c9.4-4.7 17-11.9 21.5-20.4 6.4-12.1 6.2-7.8 6.2-139.1V320l161.8.2 161.7.3z"/>
+            </svg>
+            Tab Selector
+          </h3>
+          <p>Navigate between content sections with style options</p>
+        </a>
+      </div>
+      
+      <!-- Theme Switch -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('theme-switch'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('theme-switch', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/theme-switch#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            Theme Switch
+          </h3>
+          <p>Toggle between light and dark themes</p>
+        </a>
+      </div>
+      
+      <!-- Toast -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('toast'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('toast', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/toast#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M186.5 212.7c-26.5 3.4-49.9 12.7-70.2 27.7-28.6 21.3-47.4 50.6-55.5 86.7l-2.3 10.4V749c0 392.3.1 411.9 1.8 420.3 6.2 30.6 20.2 56.4 41.8 77.2 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.7-55-48.2-100.3-100.9-116-22.4-6.6 26.2-6.1-589.9-6-307.4.1-560.2.4-561.9.6m1125 110.6c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/>
+              <path d="M404.5 415.1c-14 4.9-24.7 15.6-29.6 29.7-1.8 5.3-1.9 10.5-1.9 136.2 0 128.2 0 130.8 2 136.5 3.8 11.2 10.7 19.5 21.3 25.9 12 7.2-23.2 6.6 409.2 6.6s397.2.6 409.2-6.6c10.4-6.3 17.1-14.3 21.5-26l2.3-5.9v-260l-2.4-6.5c-5.6-15.2-15.4-25.1-29.9-29.9l-6.1-2.1H805.3l-394.8.1z"/>
+            </svg>
+            Toast
+          </h3>
+          <p>Brief notifications and feedback messages</p>
+        </a>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="component-card">
+        <div class="component-actions">
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <a href="#" onclick="openComponentUrl('tooltip'); return false;" class="open-button pm7-tooltip-trigger" aria-label="Open README in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="pm7-tooltip-content" data-side="top">
+              Open README in new tab
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+          <div class="pm7-tooltip" data-pm7-tooltip data-delay="500">
+            <button class="copy-button pm7-tooltip-trigger" aria-label="Copy README URL" onclick="copyComponentUrl('tooltip', this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+            <div class="pm7-tooltip-content" data-side="top">
+              Copy README URL
+              <div class="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <a href="/components/tooltip#demo" class="component-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <path d="M179 269.6c-18.4 2.8-44.7 13-56.2 21.8-2.6 2-4.9 3.6-5.2 3.6-1.5 0-12.4 9.8-20.8 18.6-17.1 18.1-30.2 43.4-36 69.4l-2.3 10.5v272c0 258.8.1 272.4 1.8 280.5 12.9 60.7 58.4 104.8 118.4 115 11 1.9 17 2 139.8 2 107.2 0 128.4.2 128.8 1.4.9 2.3 301.8 403.6 302.7 403.6s300.8-399.9 302.4-403.1c.9-1.8 4.9-1.9 128.7-1.9 122.2 0 128.2-.1 139.2-2 31-5.3 55.7-18 77.8-40 21.6-21.6 34.1-44.8 40.5-75.5 1.8-8.7 1.9-18.6 1.9-279.5 0-257.8-.1-270.9-1.8-279.5-6.1-29.9-19.3-54.9-40-75.8-19.7-19.8-43.9-33-73.2-40l-9-2.1-564-.2c-485.8-.2-565.3 0-573.5 1.2m1128.1 95.8c17.6 3.8 31.7 17.4 36.4 35.1 1.3 5.2 1.5 35.6 1.5 265 0 283.3.3 265.6-5.7 276.8-3.3 6-11.7 14.7-17.6 18.1-2.4 1.4-7 3.5-10.2 4.6-5.8 2-8 2-562 2H193.4l-6.3-2.1c-13.2-4.5-25.1-15.7-30.3-28.6l-2.3-5.8-.3-261c-.2-189.9 0-262.6.8-266.9 1.8-9.2 5.7-16.4 13-23.7 7.3-7.4 14.4-11.4 23.4-13.4 9.4-2.1 1106.1-2.1 1115.7-.1"/>
+              <path d="M415.5 700.4c-16.9 3.3-26 9.6-31.9 22-5 10.4-5.9 17.3-5.3 41.9.3 15.7.9 22.7 2.2 27.2 5.1 18.1 11.9 24.5 31.2 29.6 11 3 42.1 3.8 54.2 1.5 10.1-1.9 19.3-6.1 24.4-11.1 4.5-4.5 10.3-16.1 11.7-23.5 1.3-6.8 1.3-40.4 0-49.5s-4.4-18.3-7.6-22.6c-4.7-6.4-14.6-11.4-28.4-14.6-9.3-2.1-41.5-2.7-50.5-.9m206 0c-17.3 3.4-25.2 8.9-31.5 22-5.3 10.9-6.4 19.6-5.7 43.1.6 20.1 2.5 30 7.6 38.9 7.6 13.6 25.4 19.6 58 19.6 16 0 23.2-.9 32.8-4.2 10.3-3.5 15.1-7.9 20.6-18.8 4.7-9.2 4.8-9.9 5.8-22 1.8-23.5-.6-47-6-58.6-4.5-9.7-13.3-15.2-30.6-19-9.9-2.2-41.8-2.8-51-1m205.5.1c-10.9 2-21.5 7.7-26.2 14-7.7 10.2-10.7 23-10.8 45.3 0 25.7 5.2 44.6 14.4 52.5 4 3.4 11.6 6.7 20.4 8.9 7.6 1.9 11.5 2.2 30.2 2.3 23.4 0 28.1-.7 38.6-5.6 9.4-4.4 15.2-11.9 20-25.9 1.6-4.8 1.9-8.5 1.8-28.5 0-24.5-1-32-5.5-42.4-4.1-9.5-14.9-16.3-31.4-19.7-10.3-2.2-42.1-2.7-51.5-.9m211.5-.9c-20.5 3.3-31 10.5-37.5 25.9l-3.4 8-.4 22.1c-.3 16.8 0 24 1.1 30 5.7 29.7 20.1 38.4 64.2 38.4 31.7.1 45.5-6 53.9-23.8 4.7-10.1 5.6-15.9 5.6-36.4 0-43.8-6.9-55.6-36.6-62.3-6.8-1.6-40.5-2.9-46.9-1.9"/>
+            </svg>
+            Tooltip
+          </h3>
+          <p>Helpful text on hover, focus, or tap</p>
+        </a>
+      </div>
+      
+      <!-- Divider -->
+      <div class="section-divider"></div>
+      
+      <!-- Badge -->
+      <div class="component-card">
+        <a href="/components/badge#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="6" y="9" width="12" height="6" rx="3"/>
+              <circle cx="12" cy="12" r="1"/>
+            </svg>
+            Badge
+          </h3>
+          <p>Small count and labeling component</p>
+        </a>
+      </div>
+      
+      <!-- Checkbox -->
+      <div class="component-card">
+        <a href="/components/checkbox#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="5" y="5" width="14" height="14" rx="2"/>
+              <path d="M9 11l2 2 4-4"/>
+            </svg>
+            Checkbox
+          </h3>
+          <p>Select multiple options from a list</p>
+        </a>
+      </div>
+      
+      <!-- Progress -->
+      <div class="component-card">
+        <a href="/components/progress#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="3" y="10" width="18" height="4" rx="2"/>
+              <rect x="3" y="10" width="12" height="4" rx="2" fill="currentColor" opacity="0.3"/>
+            </svg>
+            Progress
+          </h3>
+          <p>Show completion status of tasks</p>
+        </a>
+      </div>
+      
+      <!-- Table -->
+      <div class="component-card">
+        <a href="/components/table#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+            Table
+          </h3>
+          <p>Display data in rows and columns</p>
+        </a>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="component-card">
+        <a href="/components/tabs#demo" class="component-header">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 2px;">
+              <rect x="3" y="7" width="18" height="14" rx="2"/>
+              <path d="M3 7v-2a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v2"/>
+            </svg>
+            Tabs
+          </h3>
+          <p>Organize content into tabbed sections</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PM7 Core JavaScript -->
+
+
+  <script>
+    function copyComponentUrl(component, button, isIcons = false) {
+      const baseUrl = 'https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/';
+      const path = isIcons ? 'icons' : `components/${component}`;
+      const url = `${baseUrl}${path}/README.md`;
+      
+      // Check if copy-as-prompt checkbox is checked
+      const copyAsPrompt = document.getElementById('copy-as-prompt').checked;
+      let textToCopy = url;
+      
+      if (copyAsPrompt) {
+        const componentName = component.charAt(0).toUpperCase() + component.slice(1).replace(/-/g, ' ');
+        let componentTip = '';
+        
+        // Component-specific tips
+        switch(component) {
+          case 'accordion':
+            componentTip = 'Interactive component - needs data-pm7-accordion attribute.';
+            break;
+          case 'button':
+            componentTip = 'Use pm7-button with variants like pm7-button--primary, pm7-button--secondary.';
+            break;
+          case 'card':
+            componentTip = 'Static component - use pm7-card, pm7-card-header, pm7-card-body.';
+            break;
+          case 'dialog':
+            componentTip = 'Interactive component - needs data-pm7-dialog attribute and trigger button.';
+            break;
+          case 'icons':
+            componentTip = 'SVG icons - use inline SVG or img tags. Available in multiple sizes (16px, 20px, 24px).';
+            break;
+          case 'input':
+            componentTip = 'Use pm7-input class. Supports sizes (pm7-input--sm, pm7-input--lg) and states.';
+            break;
+          case 'menu':
+            componentTip = 'Interactive dropdown - needs data-pm7-menu. Use pm7-menu-trigger and pm7-menu-item.';
+            break;
+          case 'tab-selector':
+            componentTip = 'Interactive tabs - needs data-pm7-tab-selector. Use pm7-tab-trigger and pm7-tab-content.';
+            break;
+          case 'theme-switch':
+            componentTip = 'Interactive toggle - needs data-pm7-theme-switch. Automatically saves theme preference.';
+            break;
+          case 'toast':
+            componentTip = 'Notification system - needs data-pm7-toast-container. Call PM7Toast.show() to display.';
+            break;
+          case 'tooltip':
+            componentTip = 'Interactive hints - needs data-pm7-tooltip data-delay="500" with data-tooltip-content attribute.';
+            break;
+          default:
+            componentTip = 'Use simple CSS classes and data attributes as needed.';
+        }
+        
+        textToCopy = `Implement the '${componentName}' pm7-ui component using: ${url}\nNote: pm7-ui v2 is CSS-only. ${componentTip}`;
+      }
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalHtml = button.innerHTML;
+        button.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        `;
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+    
+    function openComponentUrl(component, isIcons = false) {
+      const baseUrl = 'https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/';
+      const path = isIcons ? 'icons' : `components/${component}`;
+      const url = `${baseUrl}${path}/README.md`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  </script>
+
+  <div id="footer-placeholder" class="pm7-desktop-only"></div>
+</body>
+</html>

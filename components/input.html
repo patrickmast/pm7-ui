@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/input-B6UDuN0E.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 1500 1500" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M175.1 214c-53.4 10.7-94.4 47.4-111 99.3-6.6 20.8-6.2-12.8-5.9 439.7.3 390.8.4 410.9 2.1 418 7.5 31.3 20.8 55.3 41.8 75.5 22.1 21.2 47.8 34 78.4 39 7.9 1.3 79.3 1.5 569 1.5s561.1-.2 569-1.5c31.6-5.2 57.8-18.6 80.1-40.9 21.3-21.5 34.5-46.4 40-76.1 1.8-9.7 1.9-23.3 1.9-418 0-333.5-.2-409.5-1.3-416.4-8.8-55.7-48.7-100.9-102.7-116.6-20.5-5.9 23.7-5.5-589.5-5.4-546 .1-562.8.1-571.9 1.9m1136.4 109.3c9.7 4.5 16.4 12.1 19.8 22.1 1.6 4.6 1.7 34.4 1.7 403.5 0 440.7.5 404.4-6.6 414.8-4 5.8-13.2 12.6-19.4 14.3-2.5.7-185.3.9-559.6.8l-555.9-.3-4.5-2.4c-10-5.4-17-13.6-19.5-23.2-2.2-8.1-2.2-800-.1-807.1 3.6-11.7 14.4-21.9 26.3-24.7 2.2-.5 238.4-.8 557.8-.8l554 .2z"/><path d="M1033.5 414.4c-16.9 5.4-29.9 19.6-33.4 36.4-1.6 7.5-1.6 590.9 0 598.4 3.4 16.5 15.8 30.4 31.8 35.8 5.9 1.9 8.2 2 81.3 2 81.4 0 78.7.1 89.8-5.5 6.6-3.3 15.6-12.3 19.2-19.1 6.2-11.6 5.8 11.6 5.8-312.4s.4-300.8-5.8-312.4c-3.4-6.4-12.2-15.4-18.4-18.8-10.7-5.9-8.8-5.8-91-5.7-58 0-76.2.3-79.3 1.3"/></svg>Input</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Input fields allow users to enter text information. They come in various types and can be enhanced with labels, hints, and validation states.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To collect user information in forms</li>
+              <li>For search functionality</li>
+              <li>To enter settings or preferences</li>
+              <li>For authentication (username, password)</li>
+              <li>To capture numeric values, dates, or other specific data types</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Multiple types</strong> - Text, email, password, number, date, and more</li>
+              <li><strong>Three sizes</strong> - Small, medium (default), and large</li>
+              <li><strong>Validation states</strong> - Error and success states with messages</li>
+              <li><strong>Icon support</strong> - Add icons to left or right of input</li>
+              <li><strong>Textarea</strong> - Multi-line text input with auto-resize option</li>
+              <li><strong>Select dropdown</strong> - Choose from predefined options</li>
+              <li><strong>Checkbox & Radio</strong> - For boolean and single-choice inputs</li>
+              <li><strong>Accessible</strong> - Full keyboard navigation and screen reader support</li>
+            </ul>
+
+            <h3>Anatomy</h3>
+            <p>A complete input field consists of:</p>
+            <ul>
+              <li><strong>Label</strong> - Describes the input purpose</li>
+              <li><strong>Input field</strong> - Where users enter data</li>
+              <li><strong>Helper text</strong> - Additional guidance or requirements</li>
+              <li><strong>Error/Success message</strong> - Validation feedback</li>
+              <li><strong>Icons</strong> - Visual indicators or actions</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different input demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Input -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-demo">
+                  <span>Basic Input</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="basic-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/basic.html" title="Basic Input Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Input Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/sizes.html" title="Input Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input States -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="states-demo">
+                  <span>Input States</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="states-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/states.html" title="Input States Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/states.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input Types -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="types-demo">
+                  <span>Input Types</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="types-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/types.html" title="Input Types Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/types.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input with Icons -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="icons-demo">
+                  <span>Input with Icons</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="icons-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/with-icons.html" title="Input with Icons Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/with-icons.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Textarea -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="textarea-demo">
+                  <span>Textarea</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="textarea-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/textarea.html" title="Textarea Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/textarea.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Select Dropdown -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="select-demo">
+                  <span>Select Dropdown</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="select-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/select.html" title="Select Dropdown Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/select.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Checkbox & Radio -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="checkbox-radio-demo">
+                  <span>Checkbox & Radio</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="checkbox-radio-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/checkbox-radio.html" title="Checkbox & Radio Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/checkbox-radio.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Complete Form Example -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="complete-form-demo">
+                  <span>Complete Form Example</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="complete-form-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/complete-form.html" title="Complete Form Example Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/complete-form.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Gradient Border -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="gradient-demo">
+                  <span>Gradient Border</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="gradient-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/gradient-border.html" title="Gradient Border Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/gradient-border.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/input/" target="_blank">View all input demos →</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Input Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-input</code></td>
+                  <td>Base input class (also used for textarea)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--sm</code></td>
+                  <td>Small input size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--lg</code></td>
+                  <td>Large input size</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--error</code></td>
+                  <td>Error state styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--success</code></td>
+                  <td>Success state styling</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--with-icon-left</code></td>
+                  <td>Input with left icon padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--with-icon-right</code></td>
+                  <td>Input with right icon padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input--no-resize</code></td>
+                  <td>Prevents textarea resizing (textarea only)</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Select Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-select</code></td>
+                  <td>Select dropdown styling</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Checkbox Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-checkbox</code></td>
+                  <td>Checkbox container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-checkbox-indicator</code></td>
+                  <td>Custom checkbox indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-checkbox-label</code></td>
+                  <td>Checkbox label text</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Radio Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-radio</code></td>
+                  <td>Radio button container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-radio-indicator</code></td>
+                  <td>Custom radio indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-radio-label</code></td>
+                  <td>Radio label text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-radio-group</code></td>
+                  <td>Container for radio button groups</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Switch Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-switch</code></td>
+                  <td>Switch/toggle container</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-track</code></td>
+                  <td>Switch track background</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-thumb</code></td>
+                  <td>Switch thumb indicator</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-switch-label</code></td>
+                  <td>Switch label text</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Form Structure Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-form-group</code></td>
+                  <td>Container for a form field (label, input, helper text)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-label</code></td>
+                  <td>Form label</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-label--required</code></td>
+                  <td>Adds required asterisk after label</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-helper-text</code></td>
+                  <td>Helper/hint text below inputs</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-helper-text--error</code></td>
+                  <td>Error message styling (red text)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-helper-text--success</code></td>
+                  <td>Success message styling (green text)</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Input Group Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-input-group</code></td>
+                  <td>Container for input with addons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-addon</code></td>
+                  <td>Prefix/suffix addon styling</td>
+                </tr>
+                <tr class="pm7-table-section-header"><td colspan="2"><strong>Icon Classes</strong></td></tr>
+                <tr>
+                  <td><code>.pm7-input-icon-wrapper</code></td>
+                  <td>Container for input with icons</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon</code></td>
+                  <td>Icon styling (absolute positioned)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon--left</code></td>
+                  <td>Left icon positioning</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-input-icon--right</code></td>
+                  <td>Right icon positioning</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <p>Input components do not use any special data attributes. They rely on standard HTML attributes and CSS classes for functionality.</p>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Basic input --&gt;
+&lt;input type="text" class="pm7-input" placeholder="Enter text..."&gt;
+
+&lt;!-- Input with label --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" class="pm7-input" placeholder="Enter your email"&gt;
+&lt;/div&gt;
+
+&lt;!-- Required field --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="name" class="pm7-label pm7-label--required"&gt;Full Name&lt;/label&gt;
+  &lt;input type="text" id="name" class="pm7-input" required&gt;
+&lt;/div&gt;
+
+&lt;!-- Input with helper text --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="password" class="pm7-input"&gt;
+  &lt;p class="pm7-helper-text"&gt;Must be at least 8 characters&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Checkbox and Radio</h3>
+            <pre><code class="language-html">&lt;!-- Checkbox --&gt;
+&lt;label class="pm7-checkbox"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="pm7-checkbox-indicator"&gt;&lt;/span&gt;
+  &lt;span class="pm7-checkbox-label"&gt;I agree to the terms&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio buttons --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;p class="pm7-label"&gt;Choose a plan:&lt;/p&gt;
+  &lt;label class="pm7-radio"&gt;
+    &lt;input type="radio" name="plan" value="basic" checked&gt;
+    &lt;span class="pm7-radio-indicator"&gt;&lt;/span&gt;
+    &lt;span class="pm7-radio-label"&gt;Basic Plan&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;label class="pm7-radio"&gt;
+    &lt;input type="radio" name="plan" value="pro"&gt;
+    &lt;span class="pm7-radio-indicator"&gt;&lt;/span&gt;
+    &lt;span class="pm7-radio-label"&gt;Pro Plan&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Switch/Toggle</h3>
+            <pre><code class="language-html">&lt;!-- Basic switch --&gt;
+&lt;label class="pm7-switch"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="pm7-switch-track"&gt;
+    &lt;span class="pm7-switch-thumb"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="pm7-switch-label"&gt;Enable notifications&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+
+            <h3>Input with Icons</h3>
+            <pre><code class="language-html">&lt;!-- Icon on left --&gt;
+&lt;div class="pm7-input-icon-wrapper"&gt;
+  &lt;svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16"&gt;
+    &lt;!-- Search icon --&gt;
+  &lt;/svg&gt;
+  &lt;input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search..."&gt;
+&lt;/div&gt;
+
+&lt;!-- Icon on right --&gt;
+&lt;div class="pm7-input-icon-wrapper"&gt;
+  &lt;input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password"&gt;
+  &lt;svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16"&gt;
+    &lt;!-- Lock icon --&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Input Groups with Addons</h3>
+            <pre><code class="language-html">&lt;!-- Prefix addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;span class="pm7-input-addon"&gt;https://&lt;/span&gt;
+  &lt;input type="text" class="pm7-input" placeholder="yoursite.com"&gt;
+&lt;/div&gt;
+
+&lt;!-- Suffix addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;input type="number" class="pm7-input" placeholder="0.00"&gt;
+  &lt;span class="pm7-input-addon"&gt;USD&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Button addon --&gt;
+&lt;div class="pm7-input-group"&gt;
+  &lt;input type="text" class="pm7-input" placeholder="Enter coupon code"&gt;
+  &lt;button class="pm7-button pm7-button--primary"&gt;Apply&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Validation States</h3>
+            <pre><code class="language-html">&lt;!-- Error state --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="username" class="pm7-label"&gt;Username&lt;/label&gt;
+  &lt;input type="text" id="username" class="pm7-input pm7-input--error"&gt;
+  &lt;p class="pm7-helper-text pm7-helper-text--error"&gt;Username already taken&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Success state --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email-verify" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com"&gt;
+  &lt;p class="pm7-helper-text pm7-helper-text--success"&gt;Email verified!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <p>Input components are standard HTML elements and don't require JavaScript initialization. They work with standard DOM APIs and events.</p>
+
+            <h3>Form Validation Example</h3>
+            <pre><code class="language-html">&lt;!-- Form with validation --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="email" class="pm7-label"&gt;Email&lt;/label&gt;
+  &lt;input 
+    type="email" 
+    id="email" 
+    class="pm7-input pm7-input--error" 
+    placeholder="Enter your email"
+    required
+    aria-describedby="email-error"
+  &gt;
+  &lt;span id="email-error" class="pm7-helper-text pm7-helper-text--error"&gt;
+    Please enter a valid email address
+  &lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Password input with toggle --&gt;
+&lt;div class="pm7-form-group"&gt;
+  &lt;label for="password" class="pm7-label"&gt;Password&lt;/label&gt;
+  &lt;div class="pm7-input-group"&gt;
+    &lt;input 
+      type="password" 
+      id="password" 
+      class="pm7-input" 
+      placeholder="Enter password"
+    &gt;
+    &lt;button type="button" class="pm7-input-addon" onclick="togglePassword()"&gt;
+      Show
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Always associate labels with inputs using <code>for</code> attribute</li>
+              <li>Use semantic HTML5 input types</li>
+              <li>Mark required fields with <code>required</code> attribute</li>
+              <li>Provide clear error messages</li>
+              <li>Ensure proper keyboard navigation</li>
+              <li>Use <code>aria-describedby</code> for helper and error text</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/input/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/input/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Input implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+
+
+</body>
+</html>

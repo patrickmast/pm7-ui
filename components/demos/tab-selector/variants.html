@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Selector Variants - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/dialog-DICfvtvK.js"></script>
+  <script type="module" crossorigin src="/assets/toast-wOCbaTB3.js"></script>
+  <script type="module" crossorigin src="/assets/tab-selector-DNXWfa90.js"></script>
+  <script type="module" crossorigin src="/assets/tooltip-D3cTCXV0.js"></script>
+  <script type="module" crossorigin src="/assets/accordion-DIc5WzAF.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/index-C48Tp19N.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-section">
+    <h3>Default (Underline) Variant</h3>
+    <div class="pm7-tab-selector" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="default-tab-1">Overview</button>
+        <button class="pm7-tab-trigger" aria-controls="default-tab-2">Features</button>
+        <button class="pm7-tab-trigger" aria-controls="default-tab-3">Pricing</button>
+      </div>
+      <div class="pm7-tab-content" id="default-tab-1">
+        <p>Default underline variant - clean and minimal.</p>
+      </div>
+      <div class="pm7-tab-content" id="default-tab-2">
+        <p>Perfect for content-heavy interfaces.</p>
+      </div>
+      <div class="pm7-tab-content" id="default-tab-3">
+        <p>The underline indicator provides clear visual feedback.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Solid Variant</h3>
+    <div class="pm7-tab-selector pm7-tab-selector--solid" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="solid-tab-1">Overview</button>
+        <button class="pm7-tab-trigger" aria-controls="solid-tab-2">Analytics</button>
+        <button class="pm7-tab-trigger" aria-controls="solid-tab-3">Reports</button>
+      </div>
+      <div class="pm7-tab-content" id="solid-tab-1">
+        <p>Solid variant with background color on active tab.</p>
+      </div>
+      <div class="pm7-tab-content" id="solid-tab-2">
+        <p>Great for dashboards and admin interfaces.</p>
+      </div>
+      <div class="pm7-tab-content" id="solid-tab-3">
+        <p>Provides stronger visual separation between tabs.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Pills Variant</h3>
+    <div class="pm7-tab-selector pm7-tab-selector--pills" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="pills-tab-1">Description</button>
+        <button class="pm7-tab-trigger" aria-controls="pills-tab-2">Specifications</button>
+        <button class="pm7-tab-trigger" aria-controls="pills-tab-3">Reviews</button>
+      </div>
+      <div class="pm7-tab-content" id="pills-tab-1">
+        <p>Pills variant with rounded corners.</p>
+      </div>
+      <div class="pm7-tab-content" id="pills-tab-2">
+        <p>Modern and friendly appearance.</p>
+      </div>
+      <div class="pm7-tab-content" id="pills-tab-3">
+        <p>Perfect for e-commerce and consumer-facing apps.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

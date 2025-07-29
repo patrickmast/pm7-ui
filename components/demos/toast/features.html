@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Features - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .feature-section {
+      margin-bottom: 3rem;
+    }
+    
+    .feature-section h3 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .description {
+      margin-bottom: 1rem;
+      color: var(--pm7-muted-foreground);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/components/demos/toast/features-BabZn4by.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Toast Features</h2>
+    
+    <div class="feature-section">
+      <h3>Duration Control</h3>
+      <p class="description">Control how long toasts remain visible</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Quick Message', duration: 2000})">
+          2 Second Toast
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Standard Duration', description: 'This uses the default 5 second duration'})">
+          Default (5s)
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Persistent Toast', description: 'This won\'t auto-dismiss', duration: 0})">
+          Persistent Toast
+        </button>
+      </div>
+    </div>
+    
+    <div class="feature-section">
+      <h3>Actions</h3>
+      <p class="description">Add interactive buttons to toasts</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--outline" onclick="showToastWithAction()">
+          Toast with Action
+        </button>
+        <button class="pm7-button pm7-button--outline" onclick="showToastWithUndo()">
+          Toast with Undo
+        </button>
+      </div>
+    </div>
+    
+    <div class="feature-section">
+      <h3>Management</h3>
+      <p class="description">Control multiple toasts</p>
+      <div class="button-group">
+        <button class="pm7-button pm7-button--outline" onclick="showMultipleToasts()">
+          Show Multiple
+        </button>
+        <button class="pm7-button pm7-button--destructive pm7-button--outline" onclick="closeAllToasts()">
+          Close All Toasts
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+</body>
+</html>

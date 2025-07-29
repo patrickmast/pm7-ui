@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upgrade to v2 - pm7-ui</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <style>
+    /* Ensure proper text colors in dark mode */
+    pre {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      color: var(--pm7-foreground);
+    }
+    code {
+      color: var(--pm7-foreground);
+    }
+    h2, h3 {
+      color: var(--pm7-foreground);
+    }
+    /* Hide copy buttons on this page */
+    .pm7-code-copy-button {
+      display: none !important;
+    }
+    .upgrade-hero {
+      background: linear-gradient(135deg, var(--pm7-primary) 0%, #0066CC 100%);
+      color: white;
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    .upgrade-hero h1 {
+      margin: 0;
+      font-size: 3rem;
+    }
+    .upgrade-hero p {
+      margin: 1rem 0 0 0;
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+    .url-card {
+      background: var(--pm7-card);
+      border: 2px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .url-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-primary);
+    }
+    .url-card p {
+      margin: 0 0 1.5rem 0;
+      color: var(--pm7-muted-foreground);
+    }
+    .url-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 0.75rem;
+      font-family: monospace;
+      word-break: break-all;
+    }
+    .url-display code {
+      flex: 1;
+      background: none;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .copy-button,
+    .open-button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--pm7-radius);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .copy-button {
+      background: var(--pm7-primary);
+      color: white;
+    }
+    .copy-button:hover {
+      background: var(--pm7-primary-hover);
+    }
+    .copy-button.copied {
+      background: var(--pm7-success);
+    }
+    .open-button {
+      background: transparent;
+      color: var(--pm7-primary);
+      border: none;
+      padding: 0.5rem;
+    }
+    .open-button:hover {
+      background: rgba(28, 134, 239, 0.1);
+      color: var(--pm7-primary);
+      border-radius: var(--pm7-radius);
+    }
+    .recommended-badge {
+      display: inline-block;
+      background: var(--pm7-success);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .quick-links {
+      background: var(--pm7-info-bg, #f0f9ff);
+      border: 1px solid var(--pm7-info-border, #bae6fd);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .dark .quick-links {
+      background: rgba(96, 165, 250, 0.1);
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+    .quick-links h3 {
+      margin: 0 0 1rem 0;
+      color: var(--pm7-info-foreground, #0369a1);
+    }
+    .dark .quick-links h3 {
+      color: #60a5fa;
+    }
+    .quick-links li {
+      color: var(--pm7-foreground);
+    }
+    .quick-links ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    .quick-links li {
+      margin-bottom: 0.5rem;
+    }
+    .quick-links a {
+      color: var(--pm7-primary);
+      text-decoration: none;
+    }
+    .quick-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/menu-CszY2JC7.js"></script>
+  <script type="module" crossorigin src="/assets/theme-switch-DMBz-S8n.js"></script>
+  <script type="module" crossorigin src="/assets/components-DOfii7hR.js"></script>
+  <script type="module" crossorigin src="/assets/docs-HUfB1OR2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="upgrade-hero">
+    <div class="pm7-docs-container">
+      <h1>Upgrade to pm7-ui v2</h1>
+      <p>Quick access to upgrade guides for AI agents and developers</p>
+    </div>
+  </div>
+
+  <div class="pm7-docs-container pm7-desktop-only" style="padding-bottom: 80px;">
+    
+    <div class="quick-links">
+      <h3>⚡ Quick Summary</h3>
+      <ul>
+        <li><strong>Breaking Change:</strong> @pm7/react package has been removed</li>
+        <li><strong>New Approach:</strong> Use CSS classes directly (pm7-button, pm7-card, etc.)</li>
+        <li><strong>Benefits:</strong> Works with all frameworks, smaller bundles, AI-friendly</li>
+      </ul>
+    </div>
+    
+    <h2>Upgrade Guide</h2>
+    
+    <div class="url-card">
+      <h3>📋 v1 to v2 Migration Guide</h3>
+      <p>Comprehensive migration guide for upgrading from v1 to v2. Perfect for AI agents and developers.</p>
+      
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="url-display" style="flex: 1;">
+          <code id="ai-url">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-HowToUpgrade.md</code>
+          <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-HowToUpgrade.md" target="_blank" class="open-button" style="margin: 0;" aria-label="Open in new tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+        <button class="copy-button" onclick="copyUrl('ai-url', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy
+        </button>
+      </div>
+    </div>
+    
+    <section style="margin-top: 3rem;">
+      <h2>Example Conversion</h2>
+      
+      <p>Here's a quick example of what changes in v2:</p>
+      
+      <h3>❌ Old (v1)</h3>
+      <pre><code class="language-jsx">import { Button } from '@pm7/react';
+
+<Button variant="primary" size="lg">
+  Click me
+</Button></code></pre>
+      
+      <h3>✅ New (v2)</h3>
+      <pre><code class="language-jsx">import '@pm7/core/dist/pm7.css';
+
+<button className="pm7-button pm7-button--primary pm7-button--lg">
+  Click me
+</button></code></pre>
+    </section>
+    
+    <section style="margin-top: 3rem;">
+      <h2>New Features in v2</h2>
+      
+      <ul>
+        <li>Framework-agnostic CSS components</li>
+        <li>Interactive JavaScript components (Menu, Dialog, Tab Selector, etc.)</li>
+        <li>Built-in dark mode support</li>
+        <li>Auto-initialization with data attributes</li>
+        <li>TypeScript support (v2.2.0+)</li>
+      </ul>
+    </section>
+    
+    <section style="margin-top: 3rem;">
+      <h2>Need Help?</h2>
+      
+      <p>If you have questions about upgrading:</p>
+      <ul>
+        <li>Check the <a href="/faq.html">FAQ</a></li>
+        <li>Read the <a href="/ai-guide.html">AI Guide</a> for AI-assisted development</li>
+        <li>Open an issue on <a href="https://github.com/patrickmast/pm7-ui/issues" target="_blank">GitHub</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    function copyUrl(elementId, button) {
+      const urlElement = document.getElementById(elementId);
+      const url = urlElement.textContent;
+      
+      navigator.clipboard.writeText(url).then(() => {
+        // Change button text
+        const originalText = button.innerHTML;
+        button.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Copied!
+        `;
+        button.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+  </script>
+
+</body>
+</html>

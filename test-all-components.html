@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test All PM7 Components with data-pm7-* Attributes</title>
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    h2 {
+      margin-bottom: 1rem;
+    }
+    .test-container {
+      padding: 1rem;
+      background: var(--pm7-muted);
+      border-radius: var(--pm7-radius);
+      margin-bottom: 1rem;
+    }
+    /* Debug: highlight menu structure */
+    [data-pm7-menu] {
+      border: 2px dashed red;
+      padding: 5px;
+      background: rgba(255,0,0,0.1);
+    }
+    /* Fix: ensure menu has correct positioning */
+    .pm7-menu {
+      position: relative !important;
+      display: inline-block !important;
+    }
+    .pm7-menu-content {
+      border: 2px dashed blue;
+      background: rgba(0,0,255,0.1);
+    }
+    /* Debug info */
+    .debug-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 12px;
+      font-family: monospace;
+      z-index: 9999;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/testAllComponents-BtI9Sh7u.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <h1>PM7-UI Component Test - AI-Agent FIRST</h1>
+  <p>Testing all components with <code>data-pm7-*</code> attributes</p>
+
+  <!-- Test 1: Accordion -->
+  <section>
+    <h2>1. Accordion - data-pm7-accordion</h2>
+    <div class="test-container">
+      <div data-pm7-accordion data-allow-multiple="true">
+        <div class="pm7-accordion-item">
+          <button class="pm7-accordion-trigger">
+            <span>Accordion Item 1</span>
+          </button>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>This accordion uses data-pm7-accordion attribute for auto-initialization.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pm7-accordion-item">
+          <button class="pm7-accordion-trigger">
+            <span>Accordion Item 2</span>
+          </button>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>Multiple items can be open with data-allow-multiple="true".</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 2: Menu -->
+  <section>
+    <h2>2. Menu - data-pm7-menu</h2>
+    <div class="test-container">
+      <p style="margin-bottom: 1rem;">De menu moet direct onder de knop verschijnen:</p>
+      <div class="pm7-menu" data-pm7-menu style="margin-left: 2rem;">
+        <button class="pm7-menu-trigger pm7-button pm7-button--outline">
+          Test Menu
+        </button>
+        <div class="pm7-menu-content">
+          <button class="pm7-menu-item">Option 1</button>
+          <button class="pm7-menu-item">Option 2</button>
+          <div class="pm7-menu-separator"></div>
+          <button class="pm7-menu-item pm7-menu-item--destructive">Delete</button>
+        </div>
+      </div>
+      
+      <div style="margin-top: 2rem;">
+        <p>Test met verschillende posities:</p>
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button">
+              Links uitgelijnd
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item">Item 1</button>
+              <button class="pm7-menu-item">Item 2</button>
+              <button class="pm7-menu-item">Item 3</button>
+            </div>
+          </div>
+          
+          <div class="pm7-menu" data-pm7-menu>
+            <button class="pm7-menu-trigger pm7-button">
+              Standaard Menu
+            </button>
+            <div class="pm7-menu-content">
+              <button class="pm7-menu-item">Optie A</button>
+              <button class="pm7-menu-item">Optie B</button>
+              <button class="pm7-menu-item">Optie C</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 3: Dialog -->
+  <section>
+    <h2>3. Dialog - data-pm7-dialog</h2>
+    <div class="test-container">
+      <button class="pm7-button pm7-button--primary" onclick="openDialog('test-dialog')">
+        Open Test Dialog
+      </button>
+      
+      <div data-pm7-dialog="test-dialog" data-pm7-dialog-size="md" data-pm7-show-close>
+        <div data-pm7-header data-pm7-dialog-title="Test Dialog" data-pm7-dialog-subtitle="Using new data-pm7-* attributes"></div>
+        <div data-pm7-body>
+          <p>This dialog uses all the new data-pm7-* attributes:</p>
+          <ul>
+            <li>data-pm7-dialog="test-dialog"</li>
+            <li>data-pm7-dialog-size="md"</li>
+            <li>data-pm7-show-close</li>
+            <li>data-pm7-header</li>
+            <li>data-pm7-body</li>
+            <li>data-pm7-footer</li>
+          </ul>
+        </div>
+        <div data-pm7-footer>
+          <button class="pm7-button pm7-button--outline" onclick="closeDialog('test-dialog')">
+            Close
+          </button>
+          <button class="pm7-button pm7-button--primary">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 4: Tab Selector -->
+  <section>
+    <h2>4. Tab Selector - data-pm7-tab-selector</h2>
+    <div class="test-container">
+      <div data-pm7-tab-selector data-default-tab="0">
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="tab1">Tab 1</button>
+          <button class="pm7-tab-trigger" aria-controls="tab2">Tab 2</button>
+          <button class="pm7-tab-trigger" aria-controls="tab3">Tab 3</button>
+        </div>
+        <div class="pm7-tab-content" id="tab1">
+          <p>Tab 1 content - Auto-initialized with data-pm7-tab-selector</p>
+        </div>
+        <div class="pm7-tab-content" id="tab2">
+          <p>Tab 2 content</p>
+        </div>
+        <div class="pm7-tab-content" id="tab3">
+          <p>Tab 3 content</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 5: Theme Switch -->
+  <section>
+    <h2>5. Theme Switch - data-pm7-theme-switch</h2>
+    <div class="test-container">
+      <button data-pm7-theme-switch data-default-theme="system" data-storage-key="pm7-theme-test">
+        Toggle Theme
+      </button>
+      <p style="margin-top: 1rem;">Click to toggle between light/dark themes. Uses data-pm7-theme-switch attribute.</p>
+    </div>
+  </section>
+
+  <!-- Test 6: Tooltip -->
+  <section>
+    <h2>6. Tooltip - data-pm7-tooltip</h2>
+    <div class="test-container">
+      <button class="pm7-button" data-pm7-tooltip="This is a tooltip using data-pm7-tooltip attribute" data-side="top">
+        Hover for top tooltip
+      </button>
+      <button class="pm7-button" data-pm7-tooltip="Right side tooltip" data-side="right" style="margin-left: 1rem;">
+        Right tooltip
+      </button>
+      <button class="pm7-button" data-pm7-tooltip="Bottom tooltip with delay" data-side="bottom" data-delay="1000" style="margin-left: 1rem;">
+        Bottom tooltip (1s delay)
+      </button>
+    </div>
+  </section>
+
+  <!-- Test 7: Toast (Programmatic) -->
+  <section>
+    <h2>7. Toast - Programmatic Creation</h2>
+    <div class="test-container">
+      <button class="pm7-button pm7-button--primary" onclick="showTestToast()">
+        Show Toast
+      </button>
+      <p style="margin-top: 1rem;">Toast components are created programmatically and use data-toast-id and data-state attributes.</p>
+    </div>
+  </section>
+
+  <!-- Status Summary -->
+  <section>
+    <h2>AI-Agent FIRST Status</h2>
+    <div class="test-container">
+      <h3>✅ Consistent Attribute Pattern</h3>
+      <p>ALL components now use <code>data-pm7-*</code> attributes:</p>
+      <ul>
+        <li>✅ data-pm7-accordion</li>
+        <li>✅ data-pm7-menu</li>
+        <li>✅ data-pm7-dialog (with data-pm7-header, data-pm7-body, data-pm7-footer)</li>
+        <li>✅ data-pm7-tab-selector</li>
+        <li>✅ data-pm7-theme-switch</li>
+        <li>✅ data-pm7-tooltip</li>
+      </ul>
+      <h3>🤖 AI Agent Benefits</h3>
+      <ul>
+        <li>ONE consistent pattern - no confusion</li>
+        <li>Simple to remember - always data-pm7-*</li>
+        <li>No legacy patterns to worry about</li>
+        <li>TypeScript support with full IntelliSense</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="debug-info" id="debug-info">
+    <div>Menu Debug Info</div>
+    <div id="debug-content"></div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icons - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/icons-DLR5MHp7.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M15 8h.01M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/><path d="m3 16 5-5c.928-.893 2.072-.893 3 0l5 5"/><path d="m14 14 1-1c.928-.893 2.072-.893 3 0l3 3"/></svg>Icons</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>pm7-ui currently provides a single, versatile hamburger menu icon, designed for consistent navigation across applications. More icons are planned for future releases.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>For consistent menu triggers across PM7 applications</li>
+              <li>When you need a recognizable hamburger menu icon</li>
+              <li>To maintain brand consistency in navigation</li>
+              <li>For responsive mobile menu toggles</li>
+            </ul>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Framework agnostic</strong> - Works with any JavaScript framework or vanilla JS</li>
+              <li><strong>Multiple formats</strong> - DOM element, HTML string, or data URI</li>
+              <li><strong>Customizable</strong> - Size and color options</li>
+              <li><strong>Optimized</strong> - Minimal SVG with clean code</li>
+              <li><strong>Accessible</strong> - Proper ARIA attributes included</li>
+              <li><strong>Consistent</strong> - Matches PM7 design language</li>
+            </ul>
+
+            <h3>Icon Specifications</h3>
+            <p>The hamburger menu icon features:</p>
+            <ul>
+              <li><strong>Default dimensions:</strong> 18×15 pixels</li>
+              <li><strong>Bar height:</strong> 2.5 pixels</li>
+              <li><strong>Bar spacing:</strong> 3.75 pixels between bars</li>
+              <li><strong>Corner radius:</strong> 1.25 pixels (rounded bars)</li>
+              <li><strong>Color:</strong> Inherits from currentColor by default</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different icon demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Icon Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Icon Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/icons/sizes.html" title="Icon Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/icons/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Icon Colors -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="colors-demo">
+                  <span>Icon Colors</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="colors-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/icons/colors.html" title="Icon Colors Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/icons/colors.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- HTML String -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="html-string-demo">
+                  <span>HTML String Generation</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="html-string-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/icons/html-string.html" title="HTML String Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/icons/html-string.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- CSS Background -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="css-background-demo">
+                  <span>CSS Background Image</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="css-background-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/icons/css-background.html" title="CSS Background Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/icons/css-background.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Component Integration -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="integration-demo">
+                  <span>Component Integration</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="integration-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/icons/integration.html" title="Integration Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/icons/integration.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/icons/" target="_blank">View all icon demos →</a>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+
+            <h3>CSS Classes</h3>
+            <p>The icon components don't have specific CSS classes. They are pure SVG elements that inherit styling from their parent elements or can be styled directly with inline styles or custom classes.</p>
+
+            <h3>Data Attributes</h3>
+            <p>Icons do not use any special data attributes. They are generated as SVG elements with standard attributes.</p>
+
+            <h3>Import Methods</h3>
+            <pre><code class="language-javascript">// ES6 import
+import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
+
+// CommonJS
+const { createHamburgerIconElement } = require('@pm7/core');
+
+// Via CDN
+&lt;script src="https://unpkg.com/@pm7/core"&gt;&lt;/script&gt;</code></pre>
+
+            <h3>Usage Examples</h3>
+            
+            <h4>Create DOM Element</h4>
+            <pre><code class="language-javascript">import { createHamburgerIconElement } from '@pm7/core';
+
+// Default icon
+const icon = createHamburgerIconElement();
+document.getElementById('menu-trigger').appendChild(icon);
+
+// Custom size and color
+const customIcon = createHamburgerIconElement({
+  width: 24,
+  height: 20,
+  color: '#1C86EF',
+  className: 'menu-icon'
+});</code></pre>
+
+            <h4>Get HTML String</h4>
+            <pre><code class="language-javascript">import { createHamburgerIcon } from '@pm7/core';
+
+// Get icon as HTML string
+const iconHTML = createHamburgerIcon({
+  className: 'my-hamburger-icon'
+});
+
+// Use in template
+const button = `
+  &lt;button class="pm7-button"&gt;
+    ${iconHTML}
+    &lt;span&gt;Menu&lt;/span&gt;
+  &lt;/button&gt;
+`;</code></pre>
+
+            <h4>Use as CSS Background</h4>
+            <pre><code class="language-javascript">import { getHamburgerIconDataURI } from '@pm7/core';
+
+// Get data URI
+const dataURI = getHamburgerIconDataURI('%231C86EF');
+
+// Apply to element
+button.style.backgroundImage = `url(${dataURI})`;
+
+// Or use in CSS
+const style = `
+  .menu-button::before {
+    background-image: url(${dataURI});
+  }
+`;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <table class="pm7-docs-table">
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>width</code></td>
+                  <td>number</td>
+                  <td>18</td>
+                  <td>Width of the icon in pixels</td>
+                </tr>
+                <tr>
+                  <td><code>height</code></td>
+                  <td>number</td>
+                  <td>15</td>
+                  <td>Height of the icon in pixels</td>
+                </tr>
+                <tr>
+                  <td><code>color</code></td>
+                  <td>string</td>
+                  <td>'currentColor'</td>
+                  <td>Color of the icon (any valid CSS color)</td>
+                </tr>
+                <tr>
+                  <td><code>className</code></td>
+                  <td>string</td>
+                  <td>''</td>
+                  <td>CSS class name to apply to the SVG</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Icon Button Example</h3>
+            <pre><code class="language-html">&lt;!-- Icon button with text --&gt;
+&lt;button class="pm7-button pm7-button--ghost"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Menu&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Icon-only button --&gt;
+&lt;button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu"&gt;
+  &lt;svg class="pm7-icon pm7-icon-hamburger" width="16" height="13" viewBox="0 0 16 13" fill="none"&gt;
+    &lt;path d="M0 1H16M0 6.5H16M0 12H16" stroke="currentColor" stroke-width="1.5"/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Icons are decorative by default (aria-hidden="true")</li>
+              <li>When used as buttons, provide proper <code>aria-label</code> attributes</li>
+              <li>Consider adding visible text labels for better accessibility</li>
+              <li>Use sufficient color contrast for icon visibility</li>
+              <li>Ensure clickable areas meet minimum size requirements (44×44px)</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/icons/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/icons/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Icons implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    function copyDocLink() {
+      const link = document.getElementById('doc-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        button.style.backgroundColor = '#22c55e';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+
+  <!-- PM7 Core JavaScript -->
+
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accordion - pm7-ui Components</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  <script>
+    // Prevent dark mode flicker - must run before page renders
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/components/accordion--_mkFrY8.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/components-DOfii7hR.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-router-BMS3NmQ6.js">
+  <link rel="modulepreload" crossorigin href="/assets/docs-HUfB1OR2.js">
+  <link rel="modulepreload" crossorigin href="/assets/version-standalone-C8tIoQQ0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+  <link rel="stylesheet" crossorigin href="/assets/docs-A1peGb-F.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="pm7-docs-layout">
+    <aside class="pm7-docs-sidebar" id="sidebar-placeholder"></aside>
+
+    <main class="pm7-docs-content">
+      <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px; margin-bottom: 2px;"><path d="M6 9l6 6 6-6"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Accordion</h1>
+
+      <!-- Tab Navigation -->
+      <div class="pm7-tab-selector" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="overview-panel">Overview</button>
+          <button class="pm7-tab-trigger" aria-controls="demo-panel">Demo</button>
+          <button class="pm7-tab-trigger" aria-controls="usage-panel">Usage</button>
+          <button class="pm7-tab-trigger" aria-controls="documentation-panel">Documentation</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="pm7-tab-content" id="overview-panel">
+          <section class="pm7-docs-section">
+            <p>Accordions are vertically stacked expandable items. They reduce clutter by showing only essential information initially and revealing details on demand.</p>
+            
+            <h3>When to use</h3>
+            <ul>
+              <li>To organize and present large amounts of content in a compact way</li>
+              <li>For FAQs (Frequently Asked Questions)</li>
+              <li>To create collapsible sections in forms or settings</li>
+              <li>When you need to reduce cognitive load by hiding secondary information</li>
+            </ul>
+            
+            <h3>Anatomy</h3>
+            <ul>
+              <li><strong>Container</strong>: Wraps all accordion items</li>
+              <li><strong>Item</strong>: Individual collapsible section</li>
+              <li><strong>Trigger</strong>: Clickable header that toggles content</li>
+              <li><strong>Content</strong>: Hidden/shown area containing detailed information</li>
+              <li><strong>Icon</strong>: Visual indicator showing open/closed state</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Demo Tab -->
+        <div class="pm7-tab-content" id="demo-panel">
+          <section class="pm7-docs-section">
+            <div class="pm7-docs-example">
+              <h3>Accordion Demos</h3>
+              
+              <div class="pm7-accordion pm7-accordion--separated pm7-demo-accordion" data-pm7-accordion>
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Basic Accordion</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/basic.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Basic Accordion Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/basic.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Fixed Width Accordions</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/fixed-width.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Fixed Width Accordion Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/fixed-width.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Multiple Open Items</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/multiple-open.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Multiple Open Items Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/multiple-open.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">No Separator</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/no-separator.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="No Separator Accordion Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/no-separator.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Flush Variant</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/flush.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Flush Accordion Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/flush.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Size Variants</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/sizes.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Size Variants Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/sizes.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Icon Position Variants</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/icon-positions.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Icon Position Variants Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/icon-positions.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Width Variants</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/width-variants.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Width Variants Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/width-variants.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Text Alignment</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/text-alignment.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Text Alignment Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/text-alignment.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Height Variants</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/height-variants.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Height Variants Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/height-variants.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="pm7-accordion-item">
+                  <button class="pm7-accordion-trigger">
+                    <span class="pm7-demo-accordion-title">Gradient Border Accordion</span>
+                    <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                      <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </button>
+                  <div class="pm7-accordion-content">
+                    <div class="pm7-accordion-content-inner">
+                      <iframe 
+                        src="/components/demos/accordion/gradient-border.html" 
+                        class="pm7-demo-iframe"
+                        loading="lazy"
+                        title="Gradient Border Accordion Demo"
+                      ></iframe>
+                      <a href="/components/demos/accordion/gradient-border.html" target="_blank" class="pm7-demo-open-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Usage Tab -->
+        <div class="pm7-tab-content" id="usage-panel">
+          <section class="pm7-docs-section">
+            <h3>Installation</h3>
+            <pre><code class="language-bash">npm install @pm7/core</code></pre>
+            
+            <h3>Important Implementation Notes</h3>
+            <div class="pm7-callout pm7-callout--warning">
+              <h4 class="pm7-callout-header">⚠️ Common Issues & Solutions</h4>
+              <div class="pm7-callout-body">
+                <ul>
+                  <li><strong>Content structure</strong>: Always wrap content in <code>pm7-accordion-content-inner</code></li>
+                  <li><strong>JavaScript loading</strong>: Include <code>&lt;script type="module" src="@pm7/core/dist/pm7.js"&gt;&lt;/script&gt;</code></li>
+                  <li><strong>Full width</strong>: Use <code>pm7-accordion--width-max</code> to remove width constraints</li>
+                  <li><strong>Icons with text</strong>: Wrap in flex container for proper alignment (see demo)</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>CSS Classes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Base Classes</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion</code></td>
+                  <td>Container for accordion items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-item</code></td>
+                  <td>Individual accordion section</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-trigger</code></td>
+                  <td>Clickable header button</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-content</code></td>
+                  <td>Collapsible content area</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-content-inner</code></td>
+                  <td>Inner wrapper for content padding</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion-icon</code></td>
+                  <td>Chevron icon for open/close state</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--flush</code></td>
+                  <td>Removes borders and background</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Size Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--xs</code></td>
+                  <td>Extra small size with minimal padding and 14px icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--sm</code></td>
+                  <td>Small size with reduced padding, font size, and 16px icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--md</code></td>
+                  <td>Medium size (default) with balanced proportions</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--lg</code></td>
+                  <td>Large size with increased padding, font size, and icon</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--compact</code></td>
+                  <td>Legacy: Same as .pm7-accordion--sm (deprecated)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--separated</code></td>
+                  <td>Adds spacing between items</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--icon-start</code></td>
+                  <td>Positions the expand/collapse icon at the start</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--icon-inline</code></td>
+                  <td>Icon appears directly after text (10px gap) instead of right-aligned</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-left</code></td>
+                  <td>Left-aligns the header text (default)</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-center</code></td>
+                  <td>Center-aligns the header text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--text-right</code></td>
+                  <td>Right-aligns the header text</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--no-separator</code></td>
+                  <td>Removes the separator line between header and content</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Width Modifiers</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-max</code></td>
+                  <td>Forces accordion to take 100% width of parent element</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-800</code></td>
+                  <td>Sets maximum width to 800px with responsive behavior</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--width-1000</code></td>
+                  <td>Sets maximum width to 1000px with responsive behavior</td>
+                </tr>
+                <tr class="pm7-table-section-header">
+                  <td colspan="2"><strong>Height Variants</strong></td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-sm</code></td>
+                  <td>Small height limit (200px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-md</code></td>
+                  <td>Medium height limit (400px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-lg</code></td>
+                  <td>Large height limit (600px max) with scrollbar</td>
+                </tr>
+                <tr>
+                  <td><code>.pm7-accordion--height-fixed</code></td>
+                  <td>Fixed height with custom value via CSS variable</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Data Attributes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-pm7-accordion</code></td>
+                  <td>Boolean</td>
+                  <td>-</td>
+                  <td>Enables automatic initialization</td>
+                </tr>
+                <tr>
+                  <td><code>data-allow-multiple</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Allow multiple items open simultaneously</td>
+                </tr>
+                <tr>
+                  <td><code>data-default-open</code></td>
+                  <td>Number|"all"</td>
+                  <td>null</td>
+                  <td>Index of item(s) to open by default</td>
+                </tr>
+                <tr>
+                  <td><code>data-state</code></td>
+                  <td>"open"|"closed"</td>
+                  <td>"closed"</td>
+                  <td>Current state of accordion item</td>
+                </tr>
+                <tr>
+                  <td><code>data-icon-position</code></td>
+                  <td>"start"|"end"</td>
+                  <td>"end"</td>
+                  <td>Position of the expand/collapse icon</td>
+                </tr>
+                <tr>
+                  <td><code>data-text-align</code></td>
+                  <td>"left"|"center"|"right"</td>
+                  <td>"left"</td>
+                  <td>Text alignment in the header</td>
+                </tr>
+                <tr>
+                  <td><code>data-height</code></td>
+                  <td>"sm"|"md"|"lg"|"fixed"</td>
+                  <td>null</td>
+                  <td>Height limit for accordion content</td>
+                </tr>
+                <tr>
+                  <td><code>data-fixed-height</code></td>
+                  <td>Number</td>
+                  <td>300</td>
+                  <td>Custom height in pixels when using "fixed" height</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Basic Usage</h3>
+            <pre><code class="language-html">&lt;!-- Default accordion --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Accordion Header&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        &lt;p&gt;Your content here&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with icon at start --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-icon-position="start"&gt;
+  &lt;!-- Accordion items --&gt;
+&lt;/div&gt;
+
+&lt;!-- Or using CSS class directly --&gt;
+&lt;div class="pm7-accordion pm7-accordion--icon-start" data-pm7-accordion&gt;
+  &lt;!-- Accordion items --&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with inline icon (direct after text) --&gt;
+&lt;div class="pm7-accordion pm7-accordion--icon-inline" data-pm7-accordion&gt;
+  &lt;!-- Icon appears 10px after text instead of right-aligned --&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with height limit --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-height="sm"&gt;
+  &lt;!-- Accordion items with small height limit (200px) --&gt;
+&lt;/div&gt;
+
+&lt;!-- Accordion with fixed custom height --&gt;
+&lt;div class="pm7-accordion" data-pm7-accordion data-height="fixed" data-fixed-height="350"&gt;
+  &lt;!-- Accordion items with fixed height of 350px --&gt;
+&lt;/div&gt;
+
+&lt;!-- Full width accordion --&gt;
+&lt;div class="pm7-accordion pm7-accordion--width-max" data-pm7-accordion&gt;
+  &lt;!-- Accordion takes 100% width of parent container --&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed max-width accordions --&gt;
+&lt;div class="pm7-accordion pm7-accordion--width-800" data-pm7-accordion&gt;
+  &lt;!-- Accordion with max-width of 800px --&gt;
+&lt;/div&gt;
+
+&lt;div class="pm7-accordion pm7-accordion--width-1000" data-pm7-accordion&gt;
+  &lt;!-- Accordion with max-width of 1000px --&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>JavaScript API</h3>
+            <pre><code class="language-javascript">import { PM7Accordion } from '@pm7/core';
+
+// Manual initialization
+const accordionElement = document.querySelector('.pm7-accordion');
+const accordion = new PM7Accordion(accordionElement, {
+  allowMultiple: true,
+  defaultOpen: 0, // Open first item by default
+  iconPosition: 'start', // Position icon at the start
+  textAlign: 'center', // Center align header text
+  height: 'md', // Set height limit ('sm', 'md', 'lg', 'fixed', or null)
+  fixedHeight: 350 // Custom height when using 'fixed' option
+});
+
+// Methods
+accordion.open(0);      // Open specific item
+accordion.close(0);     // Close specific item
+accordion.openAll();    // Open all items
+accordion.closeAll();   // Close all items
+accordion.toggle(0);    // Toggle specific item</code></pre>
+
+            <h3>Advanced Example</h3>
+            <pre><code class="language-html">&lt;!-- Accordion with custom configuration --&gt;
+&lt;div class="pm7-accordion pm7-accordion--lg pm7-accordion--separated" data-pm7-accordion data-allow-multiple="true"&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Section 1&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        Content for section 1
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pm7-accordion-item"&gt;
+    &lt;button class="pm7-accordion-trigger"&gt;
+      &lt;span&gt;Section 2&lt;/span&gt;
+      &lt;svg class="pm7-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M19 9l-7 7-7-7"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class="pm7-accordion-content"&gt;
+      &lt;div class="pm7-accordion-content-inner"&gt;
+        Content for section 2
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Accessibility</h3>
+            <ul>
+              <li>Keyboard navigation with Tab, Enter, and Space keys</li>
+              <li>Proper ARIA attributes (aria-expanded)</li>
+              <li>Focus management and visible focus indicators</li>
+              <li>Screen reader announcements for state changes</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Documentation Tab -->
+        <div class="pm7-tab-content" id="documentation-panel">
+          <section class="pm7-docs-section" style="padding-top: 20px;">
+            <p style="margin-bottom: 4px;">Copy this link that can be used as documentation for working with this component:</p>
+            
+            <div class="pm7-card" style="background-color: var(--pm7-muted);">
+              <div class="pm7-card-content" style="display: flex; align-items: center; gap: 24px; padding: 0;">
+                <div class="pm7-card" style="flex: 1; position: relative; background: var(--pm7-surface); padding: 0.5rem 1rem;">
+                  <code id="doc-link" style="font-family: monospace; font-size: 0.875rem; display: block; padding-right: 2rem; background: var(--pm7-surface); word-break: break-all;">https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md</code>
+                  <a href="https://raw.githubusercontent.com/patrickmast/pm7-ui/main/packages/core/src/components/accordion/README.md" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     style="position: absolute; top: 0.25rem; right: 0.25rem; padding: 0.25rem; display: inline-flex; align-items: center; justify-content: center; color: var(--pm7-muted-foreground);"
+                     aria-label="Open in new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+                <button class="pm7-button pm7-button--primary" style="padding: 8px 26px;" onclick="copyDocLink()">
+                  Copy
+                </button>
+              </div>
+            </div>
+            
+            <div class="pm7-callout pm7-callout--info pm7-callout--center">
+              <h3 style="margin-bottom: 16px;">🤖 AI-Optimized Documentation</h3>
+              <p>This link contains complete Markdown documentation that is perfectly readable by AI assistants, developers, and other automated systems. Directly accessible on GitHub - including all essential PM7 Accordion implementation guidance.</p>
+              <p class="pm7-docs-note">Perfect for ChatGPT, Claude, and other AI code assistants</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

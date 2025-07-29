@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon CSS Background Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-XBk62bpz.svg">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1.125rem;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Icon button with CSS background */
+    
+    .icon-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      color: var(--pm7-foreground);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .icon-button:hover {
+      background: var(--pm7-muted);
+    }
+    
+    .icon-button::before {
+      content: '';
+      width: 18px;
+      height: 15px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+    
+    /* Button variants */
+    
+    .icon-left::before {
+      order: 0;
+    }
+    
+    .icon-right {
+      flex-direction: row-reverse;
+    }
+    
+    .icon-only {
+      padding: 0.75rem;
+    }
+    
+    .icon-only span {
+      display: none;
+    }
+    
+    /* Size variants */
+    
+    .icon-small::before {
+      width: 12px;
+      height: 10px;
+    }
+    
+    .icon-large::before {
+      width: 24px;
+      height: 20px;
+    }
+    
+    .code-preview {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: var(--pm7-font-mono);
+      font-size: 0.75rem;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/components/demos/icons/css-background-VCcQr6qh.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/menu-CszY2JC7.js">
+  <link rel="modulepreload" crossorigin href="/assets/dialog-DICfvtvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/toast-wOCbaTB3.js">
+  <link rel="modulepreload" crossorigin href="/assets/tab-selector-DNXWfa90.js">
+  <link rel="modulepreload" crossorigin href="/assets/tooltip-D3cTCXV0.js">
+  <link rel="modulepreload" crossorigin href="/assets/accordion-DIc5WzAF.js">
+  <link rel="modulepreload" crossorigin href="/assets/theme-switch-DMBz-S8n.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-C48Tp19N.js">
+  <link rel="modulepreload" crossorigin href="/assets/hamburger-eUuf_pux.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-64NVFfA3.css">
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon as CSS Background</h1>
+      <p class="demo-description">Use hamburger icon as CSS background image via Data URI</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Button Examples</h3>
+      <div class="examples-grid">
+        <button class="icon-button icon-left" id="button-default">
+          <span>Menu</span>
+        </button>
+        
+        <button class="icon-button icon-right" id="button-right">
+          <span>Options</span>
+        </button>
+        
+        <button class="icon-button icon-only" id="button-icon-only" aria-label="Menu">
+          <span>Menu</span>
+        </button>
+        
+        <button class="icon-button icon-small" id="button-small">
+          <span>Small Icon</span>
+        </button>
+        
+        <button class="icon-button icon-large" id="button-large">
+          <span>Large Icon</span>
+        </button>
+        
+        <button class="icon-button" id="button-colored">
+          <span>Colored Icon</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Generated Data URI</h3>
+      <div class="code-preview" id="data-uri-output"></div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Dynamic Color Change</h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="changeIconColor('currentColor')">
+          Default Color
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="changeIconColor('%231C86EF')">
+          Blue
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="changeIconColor('%2316A34A')">
+          Green
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="changeIconColor('%23DC2626')">
+          Red
+        </button>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/icons.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  
+  
+  <style>
+    .icon-button::before {
+      background-image: var(--icon-url);
+    }
+  </style>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `import { getHamburgerIconDataURI } from '@pm7/core';
+
+// Get data URI for CSS
+const dataURI = getHamburgerIconDataURI('currentColor');
+
+// Apply to element via JavaScript
+button.style.backgroundImage = \`url(\${dataURI})\`;
+
+// Or create dynamic CSS
+const style = \`
+  .menu-button::before {
+    content: '';
+    width: 18px;
+    height: 15px;
+    background-image: url(\${dataURI});
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+\`;
+
+// With custom color (URL-encoded)
+const blueIcon = getHamburgerIconDataURI('%231C86EF');
+const greenIcon = getHamburgerIconDataURI('%2316A34A');
+
+// CSS variable approach
+element.style.setProperty('--icon-url', \`url(\${dataURI})\`);`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
