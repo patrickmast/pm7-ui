@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltip Positioning - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .position-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      align-items: center;
+      justify-items: center;
+      min-height: 300px;
+      margin-bottom: 3rem;
+    }
+    
+    .alignment-section {
+      margin-top: 3rem;
+    }
+    
+    .alignment-demo {
+      display: flex;
+      justify-content: space-around;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Tooltip Positioning</h2>
+    
+    <div class="position-grid">
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Top
+        </button>
+        <div class="pm7-tooltip-content" data-side="top">
+          Top tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Right
+        </button>
+        <div class="pm7-tooltip-content" data-side="right">
+          Right tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Bottom
+        </button>
+        <div class="pm7-tooltip-content" data-side="bottom">
+          Bottom tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Left
+        </button>
+        <div class="pm7-tooltip-content" data-side="left">
+          Left tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="alignment-section">
+      <h3>Alignment Options (for top/bottom positions)</h3>
+      <div class="alignment-demo">
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+            Top Start
+          </button>
+          <div class="pm7-tooltip-content" data-side="top" data-align="start">
+            Aligned to start
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+            Top Center
+          </button>
+          <div class="pm7-tooltip-content" data-side="top" data-align="center">
+            Centered (default)
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+            Top End
+          </button>
+          <div class="pm7-tooltip-content" data-side="top" data-align="end">
+            Aligned to end
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  <script type="module">
+    import { initTooltips } from '/packages/core/src/scripts/tooltip.js';
+    
+    // Initialize tooltips
+    setTimeout(() => {
+      initTooltips();
+    }, 100);
+  </script>
+</body>
+</html>

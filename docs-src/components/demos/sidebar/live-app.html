@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Application Demo - PM7 Sidebar</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .demo-app-container {
+      height: 100%;
+      display: flex;
+      position: relative;
+    }
+    
+    .demo-app-main {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--pm7-background);
+    }
+    
+    .demo-app-header {
+      height: 56px;
+      border-bottom: 1px solid var(--pm7-border);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      background: var(--pm7-surface);
+    }
+    
+    .demo-app-content {
+      padding: 2rem;
+    }
+    
+    .demo-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-app-container">
+    <!-- Demo Sidebar (Static Version) -->
+    <aside class="pm7-sidebar" style="height: 100%; flex-shrink: 0;">
+      <div class="pm7-sidebar-content">
+        <div class="pm7-sidebar-header">
+          <h3 style="margin: 0; font-size: 1.125rem;">MyApp</h3>
+        </div>
+        
+        <nav class="pm7-sidebar-nav">
+          <section class="pm7-sidebar-section">
+            <div class="pm7-sidebar-section-title">Main</div>
+            <a href="#" class="pm7-sidebar-link pm7-sidebar-link--active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Dashboard
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Users
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+              Analytics
+            </a>
+          </section>
+          
+          <section class="pm7-sidebar-section">
+            <div class="pm7-sidebar-section-title">Projects</div>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              All Projects
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+              Billing
+            </a>
+          </section>
+          
+          <section class="pm7-sidebar-section">
+            <div class="pm7-sidebar-section-title">Account</div>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 1v6m0 6v6m11-11h-6m-6 0H1"></path>
+              </svg>
+              Settings
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Logout
+            </a>
+          </section>
+        </nav>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <div class="demo-app-main">
+      <header class="demo-app-header">
+        <h2 style="margin: 0; font-size: 1.25rem; font-weight: 600;">Dashboard</h2>
+      </header>
+      
+      <div class="demo-app-content">
+        <div class="pm7-card" style="margin-bottom: 1.5rem;">
+          <div class="pm7-card-content">
+            <h3 style="margin-top: 0;">Welcome back!</h3>
+            <p>This is a demo of how the sidebar component works within an application layout. The sidebar on the left provides navigation throughout the app.</p>
+            <p>Try these features:</p>
+            <ul>
+              <li>Click on different navigation items to see the active state</li>
+              <li>Notice how sections organize related links</li>
+              <li>The sidebar maintains its height and position as you scroll</li>
+              <li>Icons help users quickly identify different sections</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h3>Statistics</h3>
+        <div class="demo-stats-grid">
+          <div class="pm7-card">
+            <div class="pm7-card-content">
+              <h4 style="margin-top: 0;">Total Users</h4>
+              <p style="font-size: 2rem; margin: 0;">1,234</p>
+            </div>
+          </div>
+          
+          <div class="pm7-card">
+            <div class="pm7-card-content">
+              <h4 style="margin-top: 0;">Active Projects</h4>
+              <p style="font-size: 2rem; margin: 0;">23</p>
+            </div>
+          </div>
+          
+          <div class="pm7-card">
+            <div class="pm7-card-content">
+              <h4 style="margin-top: 0;">Revenue</h4>
+              <p style="font-size: 2rem; margin: 0;">$45,678</p>
+            </div>
+          </div>
+          
+          <div class="pm7-card">
+            <div class="pm7-card-content">
+              <h4 style="margin-top: 0;">Growth</h4>
+              <p style="font-size: 2rem; margin: 0;">+12.5%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    // Add click handlers for navigation
+    document.querySelectorAll('.pm7-sidebar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active from all links
+        document.querySelectorAll('.pm7-sidebar-link').forEach(l => {
+          l.classList.remove('pm7-sidebar-link--active');
+        });
+        
+        // Add active to clicked link
+        e.currentTarget.classList.add('pm7-sidebar-link--active');
+        
+        // Update header with link text
+        const linkText = e.currentTarget.textContent.trim();
+        document.querySelector('.demo-app-header h2').textContent = linkText;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox & Radio Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .pm7-checkbox-group,
+    .pm7-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pm7-checkbox-wrapper,
+    .pm7-radio-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .pm7-checkbox,
+    .pm7-radio {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+    }
+    
+    .pm7-checkbox-label,
+    .pm7-radio-label {
+      font-size: 0.875rem;
+      color: var(--pm7-foreground);
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .pm7-helper-text {
+      margin-top: 0.5rem;
+      margin-left: 1.75rem;
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Checkbox & Radio</h1>
+      <p class="demo-description">Selection controls for forms</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Checkboxes</h3>
+      <div class="pm7-form-group">
+        <div class="pm7-checkbox-group">
+          <div class="pm7-checkbox-wrapper">
+            <input type="checkbox" id="check1" class="pm7-checkbox" checked>
+            <label for="check1" class="pm7-checkbox-label">Accept terms and conditions</label>
+          </div>
+          
+          <div class="pm7-checkbox-wrapper">
+            <input type="checkbox" id="check2" class="pm7-checkbox">
+            <label for="check2" class="pm7-checkbox-label">Subscribe to newsletter</label>
+          </div>
+          
+          <div class="pm7-checkbox-wrapper">
+            <input type="checkbox" id="check3" class="pm7-checkbox">
+            <label for="check3" class="pm7-checkbox-label">Enable notifications</label>
+          </div>
+          <p class="pm7-helper-text">You can change your preferences anytime</p>
+          
+          <div class="pm7-checkbox-wrapper">
+            <input type="checkbox" id="check4" class="pm7-checkbox" disabled>
+            <label for="check4" class="pm7-checkbox-label">Disabled option</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Radio Buttons</h3>
+      <div class="pm7-form-group">
+        <div class="pm7-radio-group">
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="radio1" name="plan" class="pm7-radio" value="free" checked>
+            <label for="radio1" class="pm7-radio-label">Free Plan</label>
+          </div>
+          <p class="pm7-helper-text">Basic features for personal use</p>
+          
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="radio2" name="plan" class="pm7-radio" value="pro">
+            <label for="radio2" class="pm7-radio-label">Pro Plan - $9/month</label>
+          </div>
+          <p class="pm7-helper-text">Advanced features for professionals</p>
+          
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="radio3" name="plan" class="pm7-radio" value="enterprise">
+            <label for="radio3" class="pm7-radio-label">Enterprise Plan</label>
+          </div>
+          <p class="pm7-helper-text">Custom pricing for large teams</p>
+          
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="radio4" name="plan" class="pm7-radio" value="legacy" disabled>
+            <label for="radio4" class="pm7-radio-label">Legacy Plan (Disabled)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Mixed Example</h3>
+      <div class="pm7-form-group">
+        <p style="font-size: 0.875rem; font-weight: 500; margin-bottom: 0.75rem; color: var(--pm7-foreground);">Notification Preferences</p>
+        <div class="pm7-radio-group">
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="notify1" name="notify" class="pm7-radio" value="all" checked>
+            <label for="notify1" class="pm7-radio-label">All notifications</label>
+          </div>
+          
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="notify2" name="notify" class="pm7-radio" value="important">
+            <label for="notify2" class="pm7-radio-label">Important only</label>
+          </div>
+          
+          <div class="pm7-radio-wrapper">
+            <input type="radio" id="notify3" name="notify" class="pm7-radio" value="none">
+            <label for="notify3" class="pm7-radio-label">None</label>
+          </div>
+        </div>
+        
+        <div class="pm7-checkbox-group" style="margin-top: 1rem;">
+          <div class="pm7-checkbox-wrapper">
+            <input type="checkbox" id="email-notify" class="pm7-checkbox" checked>
+            <label for="email-notify" class="pm7-checkbox-label">Also send email notifications</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/input.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Checkboxes -->
+<div class="pm7-checkbox-group">
+  <div class="pm7-checkbox-wrapper">
+    <input type="checkbox" id="check1" class="pm7-checkbox" checked>
+    <label for="check1" class="pm7-checkbox-label">Accept terms and conditions</label>
+  </div>
+  
+  <div class="pm7-checkbox-wrapper">
+    <input type="checkbox" id="check2" class="pm7-checkbox">
+    <label for="check2" class="pm7-checkbox-label">Subscribe to newsletter</label>
+  </div>
+  
+  <div class="pm7-checkbox-wrapper">
+    <input type="checkbox" id="check3" class="pm7-checkbox" disabled>
+    <label for="check3" class="pm7-checkbox-label">Disabled option</label>
+  </div>
+</div>
+
+<!-- Radio Buttons -->
+<div class="pm7-radio-group">
+  <div class="pm7-radio-wrapper">
+    <input type="radio" id="radio1" name="plan" class="pm7-radio" value="free" checked>
+    <label for="radio1" class="pm7-radio-label">Free Plan</label>
+  </div>
+  
+  <div class="pm7-radio-wrapper">
+    <input type="radio" id="radio2" name="plan" class="pm7-radio" value="pro">
+    <label for="radio2" class="pm7-radio-label">Pro Plan - $9/month</label>
+  </div>
+  
+  <div class="pm7-radio-wrapper">
+    <input type="radio" id="radio3" name="plan" class="pm7-radio" value="enterprise">
+    <label for="radio3" class="pm7-radio-label">Enterprise Plan</label>
+  </div>
+</div>
+
+<!-- With Helper Text -->
+<div class="pm7-radio-wrapper">
+  <input type="radio" id="option1" name="option" class="pm7-radio">
+  <label for="option1" class="pm7-radio-label">Option with description</label>
+</div>
+<p class="pm7-helper-text">This is helper text for the option</p>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

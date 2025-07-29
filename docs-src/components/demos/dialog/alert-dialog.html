@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alert Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Alert Dialogs</h1>
+      <p class="demo-description">Confirmation and alert dialogs for important user actions</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.openDialog?.('delete-dialog')">
+        Delete Item
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('unsaved-dialog')">
+        Unsaved Changes
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('success-dialog')">
+        Success Alert
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Confirmation Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="delete-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Delete Item?"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="space-between">
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('delete-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--destructive" onclick="handleDelete()">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Unsaved Changes Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="unsaved-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Unsaved Changes"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>You have unsaved changes. Do you want to save before leaving?</p>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="flex-end">
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('unsaved-dialog')">
+        Don't Save
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('unsaved-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="handleSave()">
+        Save Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="success-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="✅ Success!"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Your changes have been saved successfully.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('success-dialog')">
+        Continue
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function handleDelete() {
+      window.PM7?.closeDialog?.('delete-dialog');
+      // Show success message
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Item deleted successfully', { variant: 'success' });
+        } else {
+          alert('Item deleted successfully');
+        }
+      }, 300);
+    }
+    
+    function handleSave() {
+      window.PM7?.closeDialog?.('unsaved-dialog');
+      // Show success message
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Changes saved successfully', { variant: 'success' });
+        } else {
+          alert('Changes saved successfully');
+        }
+      }, 300);
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Delete Confirmation -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="delete-dialog"
+     data-pm7-dialog-size="sm">
+  <div data-pm7-header
+       data-pm7-dialog-title="Delete Item?">
+  </div>
+  <div data-pm7-body>
+    <p>Are you sure you want to delete this item?</p>
+  </div>
+  <div data-pm7-footer data-pm7-footer-justify="space-between">
+    <button class="pm7-button pm7-button--outline" 
+            onclick="window.PM7?.closeDialog?.('delete-dialog')">
+      Cancel
+    </button>
+    <button class="pm7-button pm7-button--destructive" 
+            onclick="confirmDelete()">
+      Delete
+    </button>
+  </div>
+</div>
+
+<!-- Unsaved Changes -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="unsaved-dialog"
+     data-pm7-dialog-size="sm">
+  <div data-pm7-header
+       data-pm7-dialog-title="Unsaved Changes">
+  </div>
+  <div data-pm7-body>
+    <p>You have unsaved changes. Save before leaving?</p>
+  </div>
+  <div data-pm7-footer data-pm7-footer-justify="flex-end">
+    <button class="pm7-button pm7-button--ghost">
+      Don't Save
+    </button>
+    <button class="pm7-button pm7-button--outline">
+      Cancel
+    </button>
+    <button class="pm7-button pm7-button--primary">
+      Save Changes
+    </button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

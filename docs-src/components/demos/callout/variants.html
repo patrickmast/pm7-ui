@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callout Variants Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Callout Variants</h1>
+      <p class="demo-description">Six semantic variants for different message types</p>
+    </div>
+    
+    <div class="demo-content">
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">
+          <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+          </svg>
+          Information
+        </h4>
+        <div class="pm7-callout-body">
+          This is an informational callout. Use it for general information or notices.
+        </div>
+      </div>
+
+      <div class="pm7-callout pm7-callout--success">
+        <h4 class="pm7-callout-header">
+          <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          Success
+        </h4>
+        <div class="pm7-callout-body">
+          Great! Your operation completed successfully.
+        </div>
+      </div>
+
+      <div class="pm7-callout pm7-callout--warning">
+        <h4 class="pm7-callout-header">
+          <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+          </svg>
+          Warning
+        </h4>
+        <div class="pm7-callout-body">
+          Please review this information before proceeding. This action may have consequences.
+        </div>
+      </div>
+
+      <div class="pm7-callout pm7-callout--error">
+        <h4 class="pm7-callout-header">
+          <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+          </svg>
+          Error
+        </h4>
+        <div class="pm7-callout-body">
+          Something went wrong. Please check your input and try again.
+        </div>
+      </div>
+
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">💡 Pro Tip</h4>
+        <div class="pm7-callout-body">
+          Use callouts to draw attention to important information that might otherwise be overlooked.
+        </div>
+      </div>
+
+      <div class="pm7-callout pm7-callout--neutral">
+        <h4 class="pm7-callout-header">Note</h4>
+        <div class="pm7-callout-body">
+          This is a neutral callout for general notes without specific semantic meaning.
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/callout.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Info variant -->
+<div class="pm7-callout pm7-callout--info">
+  <h4 class="pm7-callout-header">
+    <svg class="pm7-callout-icon">...</svg>
+    Information
+  </h4>
+  <div class="pm7-callout-body">
+    Info message content
+  </div>
+</div>
+
+<!-- Success variant -->
+<div class="pm7-callout pm7-callout--success">
+  <h4 class="pm7-callout-header">
+    <svg class="pm7-callout-icon">...</svg>
+    Success
+  </h4>
+  <div class="pm7-callout-body">
+    Success message content
+  </div>
+</div>
+
+<!-- Warning variant -->
+<div class="pm7-callout pm7-callout--warning">
+  <h4 class="pm7-callout-header">
+    <svg class="pm7-callout-icon">...</svg>
+    Warning
+  </h4>
+  <div class="pm7-callout-body">
+    Warning message content
+  </div>
+</div>
+
+<!-- Error variant -->
+<div class="pm7-callout pm7-callout--error">
+  <h4 class="pm7-callout-header">
+    <svg class="pm7-callout-icon">...</svg>
+    Error
+  </h4>
+  <div class="pm7-callout-body">
+    Error message content
+  </div>
+</div>
+
+<!-- Tip variant -->
+<div class="pm7-callout pm7-callout--tip">
+  <h4 class="pm7-callout-header">💡 Pro Tip</h4>
+  <div class="pm7-callout-body">
+    Tip content here
+  </div>
+</div>
+
+<!-- Neutral variant -->
+<div class="pm7-callout pm7-callout--neutral">
+  <h4 class="pm7-callout-header">Note</h4>
+  <div class="pm7-callout-body">
+    Neutral content here
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

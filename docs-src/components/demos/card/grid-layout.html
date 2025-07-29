@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Grid Layout Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin-bottom: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Card Grid Layout</h1>
+      <p class="demo-description">Responsive and fixed grid systems</p>
+    </div>
+    
+    <!-- Auto-fill grid -->
+    <div class="demo-section">
+      <h2 class="section-title">Auto-fill Grid (Default)</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Performance</h4>
+            <p>Optimized for speed and efficiency across all devices.</p>
+          </div>
+        </div>
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Accessibility</h4>
+            <p>Built with WCAG guidelines and best practices in mind.</p>
+          </div>
+        </div>
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Responsive</h4>
+            <p>Adapts beautifully to any screen size or device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PM7 Card Grid Classes -->
+    <div class="demo-section">
+      <h2 class="section-title">PM7 Card Grid (Responsive)</h2>
+      <div class="pm7-card-grid pm7-card-grid--3">
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Card 1</h4>
+            <p>Using <code>pm7-card-grid--3</code></p>
+          </div>
+        </div>
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Card 2</h4>
+            <p>Responsive 3-column grid</p>
+          </div>
+        </div>
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Card 3</h4>
+            <p>Collapses on mobile</p>
+          </div>
+        </div>
+        <div class="pm7-card">
+          <div class="pm7-card-content">
+            <h4>Card 4</h4>
+            <p>Maintains equal heights</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fixed Grid -->
+    <div class="demo-section">
+      <h2 class="section-title">Fixed Grid (Non-responsive)</h2>
+      <div class="pm7-card-grid pm7-card-grid--fixed-2">
+        <div class="pm7-card pm7-card--outlined">
+          <div class="pm7-card-content">
+            <h4>Fixed Column 1</h4>
+            <p>Using <code>pm7-card-grid--fixed-2</code></p>
+          </div>
+        </div>
+        <div class="pm7-card pm7-card--outlined">
+          <div class="pm7-card-content">
+            <h4>Fixed Column 2</h4>
+            <p>Always 2 columns, even on mobile</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/card.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Auto-fill grid -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+  <div class="pm7-card">
+    <div class="pm7-card-content">Card 1</div>
+  </div>
+  <div class="pm7-card">
+    <div class="pm7-card-content">Card 2</div>
+  </div>
+  <div class="pm7-card">
+    <div class="pm7-card-content">Card 3</div>
+  </div>
+</div>
+
+<!-- PM7 responsive grid (3 columns) -->
+<div class="pm7-card-grid pm7-card-grid--3">
+  <div class="pm7-card">
+    <div class="pm7-card-content">Card 1</div>
+  </div>
+  <!-- More cards... -->
+</div>
+
+<!-- Fixed 2-column grid -->
+<div class="pm7-card-grid pm7-card-grid--fixed-2">
+  <div class="pm7-card">
+    <div class="pm7-card-content">Always 2 columns</div>
+  </div>
+  <!-- More cards... -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

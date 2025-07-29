@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Tab Selector - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+  </style>
+</head>
+<body>
+  <div class="pm7-tab-selector" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="basic-tab-1">Tab 1</button>
+      <button class="pm7-tab-trigger" aria-controls="basic-tab-2">Tab 2</button>
+      <button class="pm7-tab-trigger" aria-controls="basic-tab-3">Tab 3</button>
+    </div>
+    
+    <div class="pm7-tab-content" id="basic-tab-1">
+      <p>Content for Tab 1. This is the default active tab.</p>
+    </div>
+    <div class="pm7-tab-content" id="basic-tab-2">
+      <p>Content for Tab 2. You can place any HTML content here.</p>
+    </div>
+    <div class="pm7-tab-content" id="basic-tab-3">
+      <p>Content for Tab 3. Tabs help organize complex information.</p>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

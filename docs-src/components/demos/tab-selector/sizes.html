@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Selector Sizes - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-section">
+    <h3>Small Size</h3>
+    <div class="pm7-tab-selector pm7-tab-selector--sm" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="small-tab-1">Small 1</button>
+        <button class="pm7-tab-trigger" aria-controls="small-tab-2">Small 2</button>
+        <button class="pm7-tab-trigger" aria-controls="small-tab-3">Small 3</button>
+      </div>
+      <div class="pm7-tab-content" id="small-tab-1">
+        <p>Small size tabs are perfect for compact interfaces.</p>
+      </div>
+      <div class="pm7-tab-content" id="small-tab-2">
+        <p>They use less vertical space while maintaining readability.</p>
+      </div>
+      <div class="pm7-tab-content" id="small-tab-3">
+        <p>Ideal for mobile devices or dense UIs.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Medium Size (Default)</h3>
+    <div class="pm7-tab-selector" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="medium-tab-1">Medium 1</button>
+        <button class="pm7-tab-trigger" aria-controls="medium-tab-2">Medium 2</button>
+        <button class="pm7-tab-trigger" aria-controls="medium-tab-3">Medium 3</button>
+      </div>
+      <div class="pm7-tab-content" id="medium-tab-1">
+        <p>Medium size is the default and works well for most use cases.</p>
+      </div>
+      <div class="pm7-tab-content" id="medium-tab-2">
+        <p>It provides a good balance between size and readability.</p>
+      </div>
+      <div class="pm7-tab-content" id="medium-tab-3">
+        <p>Suitable for desktop and tablet interfaces.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Large Size</h3>
+    <div class="pm7-tab-selector pm7-tab-selector--lg" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="large-tab-1">Large 1</button>
+        <button class="pm7-tab-trigger" aria-controls="large-tab-2">Large 2</button>
+        <button class="pm7-tab-trigger" aria-controls="large-tab-3">Large 3</button>
+      </div>
+      <div class="pm7-tab-content" id="large-tab-1">
+        <p>Large size tabs make a bold statement.</p>
+      </div>
+      <div class="pm7-tab-content" id="large-tab-2">
+        <p>They work well as primary navigation elements.</p>
+      </div>
+      <div class="pm7-tab-content" id="large-tab-3">
+        <p>Perfect for touch interfaces or when tabs are the main UI element.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

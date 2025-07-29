@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+    
+    .demo-header {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Wizard styles */
+    .wizard-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .wizard-progress::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50px;
+      right: 50px;
+      height: 2px;
+      background: var(--pm7-border);
+      z-index: 0;
+    }
+    
+    .wizard-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .wizard-step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--pm7-muted);
+      border: 2px solid var(--pm7-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s;
+    }
+    
+    .wizard-step.active .wizard-step-number {
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
+      border-color: var(--pm7-primary);
+    }
+    
+    .wizard-step.completed .wizard-step-number {
+      background: var(--pm7-success);
+      color: white;
+      border-color: var(--pm7-success);
+    }
+    
+    .wizard-step-label {
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .wizard-content {
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .form-group {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .step-hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Multi-Step Dialogs</h1>
+      <p class="demo-description">Wizard-style dialogs for complex workflows</p>
+    </div>
+    
+    <button class="pm7-button pm7-button--primary" onclick="openWizard()">
+      Start Setup Wizard
+    </button>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Multi-Step Wizard Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="wizard-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Project Setup Wizard"
+         data-pm7-dialog-subtitle="Let's set up your new project"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <!-- Progress Indicator -->
+      <div class="wizard-progress">
+        <div class="wizard-step active" data-step="1">
+          <div class="wizard-step-number">1</div>
+          <div class="wizard-step-label">Project Info</div>
+        </div>
+        <div class="wizard-step" data-step="2">
+          <div class="wizard-step-number">2</div>
+          <div class="wizard-step-label">Configuration</div>
+        </div>
+        <div class="wizard-step" data-step="3">
+          <div class="wizard-step-number">3</div>
+          <div class="wizard-step-label">Review</div>
+        </div>
+      </div>
+      
+      <!-- Step Content -->
+      <div class="wizard-content">
+        <!-- Step 1: Project Info -->
+        <div class="wizard-step-content" data-step-content="1">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" class="pm7-input" id="project-name" placeholder="My Awesome Project">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="pm7-input" id="project-desc" rows="3" placeholder="Brief description of your project"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Project Type</label>
+            <select class="pm7-input" id="project-type">
+              <option>Web Application</option>
+              <option>Mobile App</option>
+              <option>Desktop Application</option>
+              <option>Library/Package</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Step 2: Configuration -->
+        <div class="wizard-step-content step-hidden" data-step-content="2">
+          <div class="form-group">
+            <label>Framework</label>
+            <select class="pm7-input" id="project-framework">
+              <option>React</option>
+              <option>Vue</option>
+              <option>Angular</option>
+              <option>Vanilla JS</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Features</label>
+            <div style="display: grid; gap: 0.5rem;">
+              <label><input type="checkbox" id="feat-auth" checked> Authentication</label>
+              <label><input type="checkbox" id="feat-db" checked> Database</label>
+              <label><input type="checkbox" id="feat-api"> API Integration</label>
+              <label><input type="checkbox" id="feat-test"> Testing Setup</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3: Review -->
+        <div class="wizard-step-content step-hidden" data-step-content="3">
+          <h3 style="margin-top: 0;">Review Your Setup</h3>
+          <div style="background: var(--pm7-muted); padding: 1rem; border-radius: 6px; text-align: left;">
+            <p style="margin: 0 0 0.5rem 0;"><strong>Project:</strong> <span id="review-name"></span></p>
+            <p style="margin: 0 0 0.5rem 0;"><strong>Type:</strong> <span id="review-type"></span></p>
+            <p style="margin: 0 0 0.5rem 0;"><strong>Framework:</strong> <span id="review-framework"></span></p>
+            <p style="margin: 0;"><strong>Features:</strong> <span id="review-features"></span></p>
+          </div>
+          <p style="margin-top: 1rem; color: var(--pm7-muted-foreground); font-size: 0.875rem;">
+            Click "Create Project" to finish setup.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="space-between">
+      <button class="pm7-button pm7-button--outline" onclick="previousStep()" id="prev-btn" style="visibility: hidden;">
+        Previous
+      </button>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('wizard-dialog')">
+          Cancel
+        </button>
+        <button class="pm7-button pm7-button--primary" onclick="nextStep()" id="next-btn">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+    
+    function openWizard() {
+      currentStep = 1;
+      updateWizardUI();
+      window.PM7?.openDialog?.('wizard-dialog');
+    }
+    
+    function updateWizardUI() {
+      // Update step indicators
+      document.querySelectorAll('.wizard-step').forEach(step => {
+        const stepNum = parseInt(step.dataset.step);
+        step.classList.remove('active', 'completed');
+        if (stepNum === currentStep) {
+          step.classList.add('active');
+        } else if (stepNum < currentStep) {
+          step.classList.add('completed');
+        }
+      });
+      
+      // Update step content
+      document.querySelectorAll('.wizard-step-content').forEach(content => {
+        const stepNum = parseInt(content.dataset.stepContent);
+        if (stepNum === currentStep) {
+          content.classList.remove('step-hidden');
+        } else {
+          content.classList.add('step-hidden');
+        }
+      });
+      
+      // Update buttons
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      
+      prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      
+      if (currentStep === totalSteps) {
+        nextBtn.textContent = 'Create Project';
+        nextBtn.classList.add('pm7-button--success');
+        updateReview();
+      } else {
+        nextBtn.textContent = 'Next';
+        nextBtn.classList.remove('pm7-button--success');
+      }
+    }
+    
+    function updateReview() {
+      // Get values
+      const name = document.getElementById('project-name').value || 'Untitled Project';
+      const type = document.getElementById('project-type').value;
+      const framework = document.getElementById('project-framework').value;
+      
+      const features = [];
+      if (document.getElementById('feat-auth').checked) features.push('Authentication');
+      if (document.getElementById('feat-db').checked) features.push('Database');
+      if (document.getElementById('feat-api').checked) features.push('API Integration');
+      if (document.getElementById('feat-test').checked) features.push('Testing Setup');
+      
+      // Update review
+      document.getElementById('review-name').textContent = name;
+      document.getElementById('review-type').textContent = type;
+      document.getElementById('review-framework').textContent = framework;
+      document.getElementById('review-features').textContent = features.join(', ') || 'None';
+    }
+    
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateWizardUI();
+      } else {
+        // Complete wizard
+        window.PM7?.closeDialog?.('wizard-dialog');
+        setTimeout(() => {
+          if (window.showToast) {
+            window.showToast('Project created successfully!', { variant: 'success' });
+          } else {
+            alert('Project created successfully!');
+          }
+        }, 300);
+      }
+    }
+    
+    function previousStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateWizardUI();
+      }
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Multi-Step Dialog Structure -->
+<div class="pm7-dialog" data-pm7-dialog="wizard">
+  <div data-pm7-header
+       data-pm7-dialog-title="Setup Wizard">
+  </div>
+  <div data-pm7-body>
+    <!-- Progress Indicator -->
+    <div class="wizard-progress">
+      <div class="wizard-step active">
+        <div class="step-number">1</div>
+        <div class="step-label">Info</div>
+      </div>
+      <!-- More steps... -->
+    </div>
+    
+    <!-- Step Content -->
+    <div class="wizard-content">
+      <div class="step-1">
+        <!-- Step 1 content -->
+      </div>
+      <div class="step-2 hidden">
+        <!-- Step 2 content -->
+      </div>
+    </div>
+  </div>
+  <div data-pm7-footer>
+    <button onclick="previousStep()">Previous</button>
+    <button onclick="nextStep()">Next</button>
+  </div>
+</div>
+
+<script>
+// Track current step
+let currentStep = 1;
+
+function nextStep() {
+  // Hide current, show next
+  // Update progress indicator
+  // Update button states
+}
+
+function previousStep() {
+  // Similar logic for going back
+}
+</script>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

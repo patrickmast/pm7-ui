@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input States Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .pm7-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-helper-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .pm7-error-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pm7-destructive);
+    }
+    
+    .pm7-success-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pm7-success);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Input States</h1>
+      <p class="demo-description">Different input states for various situations</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Normal State</h3>
+      <div class="pm7-form-group">
+        <label for="normal-input" class="pm7-label">Normal Input</label>
+        <input type="text" id="normal-input" class="pm7-input" placeholder="Enter text...">
+        <p class="pm7-helper-text">This is a normal input field.</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Disabled State</h3>
+      <div class="pm7-form-group">
+        <label for="disabled-input" class="pm7-label">Disabled Input</label>
+        <input type="text" id="disabled-input" class="pm7-input" placeholder="Cannot type here..." disabled>
+        <p class="pm7-helper-text">This input is disabled and cannot be edited.</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Error State</h3>
+      <div class="pm7-form-group">
+        <label for="error-input" class="pm7-label">Input with Error</label>
+        <input type="email" id="error-input" class="pm7-input pm7-input--error" value="invalid-email" placeholder="Enter email...">
+        <p class="pm7-error-text">Please enter a valid email address.</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Success State</h3>
+      <div class="pm7-form-group">
+        <label for="success-input" class="pm7-label">Input with Success</label>
+        <input type="text" id="success-input" class="pm7-input pm7-input--success" value="john.doe" placeholder="Enter username...">
+        <p class="pm7-success-text">Username is available!</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Read-only State</h3>
+      <div class="pm7-form-group">
+        <label for="readonly-input" class="pm7-label">Read-only Input</label>
+        <input type="text" id="readonly-input" class="pm7-input" value="This value cannot be changed" readonly>
+        <p class="pm7-helper-text">This input is read-only.</p>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/input.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Normal Input -->
+<div class="pm7-form-group">
+  <label for="input1" class="pm7-label">Normal Input</label>
+  <input type="text" id="input1" class="pm7-input" placeholder="Enter text...">
+  <p class="pm7-helper-text">This is a normal input field.</p>
+</div>
+
+<!-- Disabled Input -->
+<div class="pm7-form-group">
+  <label for="input2" class="pm7-label">Disabled Input</label>
+  <input type="text" id="input2" class="pm7-input" placeholder="Cannot type here..." disabled>
+  <p class="pm7-helper-text">This input is disabled.</p>
+</div>
+
+<!-- Error State -->
+<div class="pm7-form-group">
+  <label for="input3" class="pm7-label">Input with Error</label>
+  <input type="email" id="input3" class="pm7-input pm7-input--error" placeholder="Enter email...">
+  <p class="pm7-error-text">Please enter a valid email address.</p>
+</div>
+
+<!-- Success State -->
+<div class="pm7-form-group">
+  <label for="input4" class="pm7-label">Input with Success</label>
+  <input type="text" id="input4" class="pm7-input pm7-input--success" placeholder="Enter username...">
+  <p class="pm7-success-text">Username is available!</p>
+</div>
+
+<!-- Read-only Input -->
+<div class="pm7-form-group">
+  <label for="input5" class="pm7-label">Read-only Input</label>
+  <input type="text" id="input5" class="pm7-input" value="Read-only value" readonly>
+  <p class="pm7-helper-text">This input is read-only.</p>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

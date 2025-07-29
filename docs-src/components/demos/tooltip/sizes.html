@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltip Sizes - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .size-demo {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 3rem;
+      min-height: 100px;
+    }
+    
+    .custom-width-section {
+      margin-top: 3rem;
+    }
+    
+    .custom-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Tooltip Sizes</h2>
+    
+    <div class="size-demo">
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+          Small
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--sm" data-side="top">
+          Small tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+          Default
+        </button>
+        <div class="pm7-tooltip-content" data-side="top">
+          Default size tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+          Large
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--lg" data-side="top">
+          Large tooltip with more content
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="custom-width-section">
+      <h3>Custom Width Examples</h3>
+      <div class="custom-demo">
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+            Wide Content (Large)
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--multiline" data-side="top">
+            This is a large tooltip with extended width (400px max) that can contain more detailed information, 
+            code examples, or longer explanations without becoming too cramped.
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+            Extra Wide (Custom)
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--lg pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="top" style="max-width: 600px;">
+            <strong>Custom Width Example</strong><br><br>
+            This tooltip demonstrates a custom max-width of 600px for cases where you need to display 
+            even more content, such as detailed API documentation or complex code examples:<br><br>
+            <code style="display: block; padding: 12px; background: var(--pm7-muted); border-radius: 4px; font-size: 12px;">
+              // Example: Button with all modifiers<br>
+              &lt;button class="pm7-button pm7-button--primary<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pm7-button--lg pm7-button--full"&gt;<br>
+              &nbsp;&nbsp;Click Me<br>
+              &lt;/button&gt;
+            </code>
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  <script type="module">
+    import { initTooltips } from '/packages/core/src/scripts/tooltip.js';
+    
+    // Initialize tooltips
+    setTimeout(() => {
+      initTooltips();
+    }, 100);
+  </script>
+</body>
+</html>

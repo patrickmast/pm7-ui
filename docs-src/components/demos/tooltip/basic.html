@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Tooltip - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .demo-container {
+      text-align: center;
+    }
+    
+    h2 {
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Basic Tooltip Example</h2>
+    
+    <div class="pm7-tooltip">
+      <button class="pm7-button pm7-tooltip-trigger">
+        Hover me
+      </button>
+      <div class="pm7-tooltip-content" data-side="top">
+        This is a helpful tooltip
+        <div class="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  <script type="module">
+    import { initTooltips } from '/packages/core/src/scripts/tooltip.js';
+    
+    // Initialize tooltips
+    setTimeout(() => {
+      initTooltips();
+    }, 100);
+  </script>
+</body>
+</html>

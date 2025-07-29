@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM7 Tooltip Simple Syntax Test</title>
+  <link rel="stylesheet" href="../dist/pm7.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 4rem;
+      background: var(--pm7-background);
+      color: var(--pm7-foreground);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    button {
+      padding: 0.5rem 1rem;
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .test-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Tooltip Syntax Test</h1>
+  
+  <div class="test-container">
+    <button data-pm7-tooltip="Default top tooltip">
+      Hover me (Top)
+    </button>
+    
+    <button data-pm7-tooltip="Bottom positioned tooltip" data-side="bottom">
+      Hover me (Bottom)
+    </button>
+    
+    <button data-pm7-tooltip="Right side tooltip" data-side="right">
+      Hover me (Right)
+    </button>
+    
+    <button data-pm7-tooltip="Left side tooltip" data-side="left">
+      Hover me (Left)
+    </button>
+    
+    <button data-pm7-tooltip="Delayed tooltip" data-open-delay="600" data-close-delay="100">
+      Hover me (Delayed)
+    </button>
+  </div>
+  
+  <div class="test-container">
+    <a href="#" data-pm7-tooltip="This is a link tooltip">Link with tooltip</a>
+    
+    <span data-pm7-tooltip="Span element tooltip" style="padding: 0.5rem; background: var(--pm7-muted); border-radius: 4px;">
+      Span with tooltip
+    </span>
+    
+    <div data-pm7-tooltip="Div element tooltip" style="padding: 1rem; border: 1px solid var(--pm7-border); border-radius: 4px;">
+      Div with tooltip
+    </div>
+  </div>
+  
+  <div style="margin-top: 2rem;">
+    <button onclick="addDynamicTooltip()">Add Dynamic Tooltip</button>
+    <div id="dynamic-container" class="test-container" style="margin-top: 1rem;"></div>
+  </div>
+  
+  <script type="module">
+    import '@pm7/core';
+    
+    let counter = 0;
+    window.addDynamicTooltip = function() {
+      counter++;
+      const container = document.getElementById('dynamic-container');
+      const button = document.createElement('button');
+      button.setAttribute('data-pm7-tooltip', `Dynamic tooltip ${counter}`);
+      button.textContent = `Dynamic ${counter}`;
+      container.appendChild(button);
+      
+      // Re-initialize PM7 components
+      window.PM7.init();
+    };
+    
+    // Log when PM7 is loaded
+    console.log('PM7 loaded, checking tooltips after initialization...');
+    
+    setTimeout(() => {
+      const tooltips = document.querySelectorAll('[data-pm7-tooltip]');
+      console.log(`Found ${tooltips.length} tooltip elements`);
+      
+      // Check if simple tooltips were transformed
+      const buttons = document.querySelectorAll('button[data-pm7-tooltip]');
+      let transformed = 0;
+      buttons.forEach(btn => {
+        if (btn.parentElement && btn.parentElement.hasAttribute('data-pm7-tooltip') && btn.classList.contains('pm7-tooltip-trigger')) {
+          transformed++;
+        }
+      });
+      console.log(`${transformed} simple tooltips were successfully transformed to structured format`);
+    }, 500);
+  </script>
+</body>
+</html>

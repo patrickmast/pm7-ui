@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Demos - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .subtitle {
+      color: var(--pm7-muted-foreground);
+      font-size: 1.125rem;
+      margin: 0;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+    }
+    
+    .demo-card:hover {
+      border-color: var(--pm7-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-card h3 {
+      font-size: 1.125rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-card p {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+      margin: 0 0 1rem 0;
+      line-height: 1.5;
+    }
+    
+    .demo-card a {
+      display: inline-block;
+      color: var(--pm7-primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+    
+    .demo-card a:hover {
+      text-decoration: underline;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--pm7-muted-foreground);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+    }
+    
+    .back-link:hover {
+      color: var(--pm7-foreground);
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/components/icons.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Back to Icons Documentation
+    </a>
+    
+    <div class="header">
+      <h1 class="title">Hamburger Icon Demos</h1>
+      <p class="subtitle">Explore different ways to use the PM7 hamburger menu icon</p>
+    </div>
+    
+    <div class="demo-grid">
+      <div class="demo-card">
+        <h3>Icon Sizes</h3>
+        <p>See the hamburger icon in various sizes from extra small to custom dimensions</p>
+        <a href="sizes.html">View Demo →</a>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Icon Colors</h3>
+        <p>Apply different colors to the icon including theme colors and custom values</p>
+        <a href="colors.html">View Demo →</a>
+      </div>
+      
+      <div class="demo-card">
+        <h3>HTML String</h3>
+        <p>Generate icon markup as a string for template insertion and dynamic rendering</p>
+        <a href="html-string.html">View Demo →</a>
+      </div>
+      
+      <div class="demo-card">
+        <h3>CSS Background</h3>
+        <p>Use the icon as a CSS background image via Data URI for pseudo-elements</p>
+        <a href="css-background.html">View Demo →</a>
+      </div>
+      
+      <div class="demo-card">
+        <h3>Component Integration</h3>
+        <p>See how to integrate the icon with PM7 buttons, menus, and other components</p>
+        <a href="integration.html">View Demo →</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

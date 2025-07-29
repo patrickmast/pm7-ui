@@ -1,20 +1,39 @@
-<!-- AI-ONLY DOCUMENTATION -->
 ---
+# MANDATORY METADATA
 type: ai-agent-documentation
+version: 1.0
+component: TabSelector
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO storytelling or explanations
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+
+# COMPONENT METADATA
+category: navigation
+dependencies:
+  - component: none
+  - external: none
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
+
+# IMPLEMENTATION METADATA
+initialization:
+  auto: true
+  manual: true
+  import-required: true
+css-prefix: pm7-tab-selector
+data-attribute: data-pm7-tab-selector
+javascript-class: PM7.TabSelector
 ---
 
 # Component: TabSelector
 
-Component for tabbed content switching.
+DEFINITION: TabSelector = HTML div element with data-pm7-tab-selector attribute containing tab triggers and content panels
+PURPOSE: Switch between content panels with tabs
+IMPORT: window.PM7 via @pm7/core
 
 ## Installation
 
@@ -22,427 +41,616 @@ Component for tabbed content switching.
 npm install @pm7/core
 ```
 
-### CSS Import
-
-```javascript
-// ES modules
-import '@pm7/core/dist/pm7.css';
-
-// HTML
-<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+THEN:
+```html
+<script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+<link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
 ```
 
-### JavaScript Setup
-
+OR:
 ```javascript
-// ES modules - adds PM7 to window
-import '@pm7/core';
-
-// Dynamic import (Next.js)
-import('@pm7/core').then(() => {
-  window.PM7.init();
-});
-
-// TypeScript declarations
-declare global {
-  interface Window {
-    PM7: {
-      init: () => void;
-      initTabSelectors?: () => void;
-      TabSelector?: new (element: Element) => any;
-    }
-  }
-}
+import '@pm7/core'
+import '@pm7/core/dist/pm7.min.css'
 ```
 
 ## Required Structure
 
+MINIMAL:
 ```html
 <div class="pm7-tab-selector" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="panel-1">Tab 1</button>
+    <button class="pm7-tab-trigger" aria-controls="panel-1" data-state="active">Tab 1</button>
     <button class="pm7-tab-trigger" aria-controls="panel-2">Tab 2</button>
   </div>
-  <div class="pm7-tab-content" id="panel-1">Content 1</div>
+  <div class="pm7-tab-content" id="panel-1" data-state="active">Content 1</div>
   <div class="pm7-tab-content" id="panel-2">Content 2</div>
 </div>
 ```
 
-## Attributes
+COMPLETE:
+```html
+<div 
+  class="pm7-tab-selector pm7-tab-selector--[solid|pills] pm7-tab-selector--[sm|lg] pm7-tab-selector--full-width" 
+  data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button 
+      class="pm7-tab-trigger" 
+      aria-controls="panel-id" 
+      data-state="active"
+      disabled>
+      <svg class="pm7-tab-trigger-icon" width="16" height="16">...</svg>
+      Tab Text
+      <span class="pm7-tab-trigger-badge">3</span>
+    </button>
+  </div>
+  <div class="pm7-tab-content" id="panel-id" data-state="active">
+    Content with any HTML
+  </div>
+</div>
+```
 
-| Attribute | Values | Effect |
-|-----------|---------|---------|
-| `data-pm7-tab-selector` | presence | Auto-initializes component |
-| `data-state` | `active` | Marks active tab/panel |
-| `aria-controls` | panel ID | Links trigger to panel (REQUIRED) |
-| `disabled` | presence | Disables tab |
+## Initialization
 
-## CSS Classes
+IF auto-init:
+  CONDITION: window.PM7 loaded AND DOMContentLoaded fired
+  TRIGGER: DOMContentLoaded
+  ACTION: Finds all [data-pm7-tab-selector]
+  RESULT: Automatically initialized
 
-| Class | Required | Usage |
-|-------|----------|-------|
-| `.pm7-tab-selector` | YES | Base container |
-| `.pm7-tab-list` | YES | Tab button container |
-| `.pm7-tab-trigger` | YES | Individual tab button |
-| `.pm7-tab-content` | YES | Tab panel content |
-| `.pm7-tab-selector--solid` | NO | Solid background variant |
-| `.pm7-tab-selector--pills` | NO | Pill-shaped variant |
-| `.pm7-tab-selector--sm` | NO | Small size |
-| `.pm7-tab-selector--lg` | NO | Large size |
-| `.pm7-tab-selector--full-width` | NO | Full width tabs |
-| `.pm7-tab-trigger-icon` | NO | Icon within tab |
-| `.pm7-tab-trigger-badge` | NO | Badge within tab |
+IF manual-init:
+  ```javascript
+  const element = document.querySelector('[data-pm7-tab-selector]')
+  const instance = new PM7.TabSelector(element)
+  ```
+
+IF dynamic-content:
+  ```javascript
+  // After adding new tab selector to DOM
+  window.PM7.init()
+  // OR specifically for tab selectors
+  window.PM7.initTabSelectors()
+  ```
+
+IF framework-usage:
+  ```javascript
+  // React/Vue/Angular - in lifecycle hook
+  useEffect(() => {
+    window.PM7.initFramework()
+  }, [])
+  ```
+
+NEVER:
+  - Initialize same element twice
+  - Use jQuery selectors
+  - Add onClick handlers to triggers
+  - Manually control display styles
+
+## Rules
+
+### Rule: Container Structure
+IF creating tab selector
+THEN use exact structure: div[data-pm7-tab-selector] > div.pm7-tab-list > button.pm7-tab-trigger
+ELSE tab selector will not initialize
+
+EXAMPLE:
+```html
+<!-- IF creating tab selector -->
+<div class="pm7-tab-selector" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="panel-1">Tab</button>
+  </div>
+  <div class="pm7-tab-content" id="panel-1">Content</div>
+</div>
+```
+
+### Rule: Trigger-Panel Linking
+IF tab trigger
+THEN MUST have aria-controls="panel-id" matching panel id="panel-id"
+ELSE panel switching will fail
+
+EXAMPLE:
+```html
+<!-- IF tab trigger -->
+<button class="pm7-tab-trigger" aria-controls="my-panel">Tab</button>
+<div class="pm7-tab-content" id="my-panel">Content</div>
+
+<!-- ELSE NEVER -->
+<button class="pm7-tab-trigger">Tab</button>
+<div class="pm7-tab-content">Content</div>
+```
+
+### Rule: Active State
+IF default active tab needed
+THEN add data-state="active" to BOTH trigger AND panel
+ELSE first tab activated by default
+
+EXAMPLE:
+```html
+<!-- IF second tab should be active -->
+<button class="pm7-tab-trigger" aria-controls="panel-1">Tab 1</button>
+<button class="pm7-tab-trigger" aria-controls="panel-2" data-state="active">Tab 2</button>
+<div class="pm7-tab-content" id="panel-1">Content 1</div>
+<div class="pm7-tab-content" id="panel-2" data-state="active">Content 2</div>
+```
+
+### Rule: Icon Usage
+IF icon in tab
+THEN add class="pm7-tab-trigger-icon" to svg
+ELSE icon styling incorrect
+
+EXAMPLE:
+```html
+<!-- IF icon in tab -->
+<button class="pm7-tab-trigger" aria-controls="panel-1">
+  <svg class="pm7-tab-trigger-icon" width="16" height="16">...</svg>
+  Tab Text
+</button>
+```
+
+### Rule: Badge Usage
+IF badge in tab
+THEN use span.pm7-tab-trigger-badge after text
+ELSE badge styling incorrect
+
+EXAMPLE:
+```html
+<!-- IF badge needed -->
+<button class="pm7-tab-trigger" aria-controls="panel-1">
+  Tab Text
+  <span class="pm7-tab-trigger-badge">3</span>
+</button>
+```
 
 ## Patterns
 
 ### Pattern: Basic Tabs
+WHEN: Need simple tab switching
+USE:
 ```html
 <div class="pm7-tab-selector" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="tab-1" data-state="active">Tab 1</button>
-    <button class="pm7-tab-trigger" aria-controls="tab-2">Tab 2</button>
+    <button class="pm7-tab-trigger" aria-controls="tab-1" data-state="active">General</button>
+    <button class="pm7-tab-trigger" aria-controls="tab-2">Advanced</button>
+    <button class="pm7-tab-trigger" aria-controls="tab-3">Security</button>
   </div>
-  <div class="pm7-tab-content" id="tab-1" data-state="active">Content 1</div>
-  <div class="pm7-tab-content" id="tab-2">Content 2</div>
+  <div class="pm7-tab-content" id="tab-1" data-state="active">
+    <p>General settings content</p>
+  </div>
+  <div class="pm7-tab-content" id="tab-2">
+    <p>Advanced settings content</p>
+  </div>
+  <div class="pm7-tab-content" id="tab-3">
+    <p>Security settings content</p>
+  </div>
 </div>
 ```
 
+RESULT: Tab interface with three switchable panels
+
 ### Pattern: Solid Variant
+WHEN: Need stronger visual separation
+USE:
 ```html
 <div class="pm7-tab-selector pm7-tab-selector--solid" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="solid-1">Tab 1</button>
-    <button class="pm7-tab-trigger" aria-controls="solid-2">Tab 2</button>
+    <button class="pm7-tab-trigger" aria-controls="solid-1" data-state="active">Dashboard</button>
+    <button class="pm7-tab-trigger" aria-controls="solid-2">Analytics</button>
+    <button class="pm7-tab-trigger" aria-controls="solid-3">Reports</button>
   </div>
-  <div class="pm7-tab-content" id="solid-1">Content 1</div>
-  <div class="pm7-tab-content" id="solid-2">Content 2</div>
+  <div class="pm7-tab-content" id="solid-1" data-state="active">
+    <p>Dashboard content</p>
+  </div>
+  <div class="pm7-tab-content" id="solid-2">
+    <p>Analytics content</p>
+  </div>
+  <div class="pm7-tab-content" id="solid-3">
+    <p>Reports content</p>
+  </div>
 </div>
 ```
 
-### Pattern: With Icons
+RESULT: Tabs with solid background styling
+
+### Pattern: Pills Variant
+WHEN: Need rounded pill-style tabs
+USE:
+```html
+<div class="pm7-tab-selector pm7-tab-selector--pills" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="pills-1" data-state="active">Active</button>
+    <button class="pm7-tab-trigger" aria-controls="pills-2">Pending</button>
+    <button class="pm7-tab-trigger" aria-controls="pills-3">Completed</button>
+  </div>
+  <div class="pm7-tab-content" id="pills-1" data-state="active">
+    <p>Active items</p>
+  </div>
+  <div class="pm7-tab-content" id="pills-2">
+    <p>Pending items</p>
+  </div>
+  <div class="pm7-tab-content" id="pills-3">
+    <p>Completed items</p>
+  </div>
+</div>
+```
+
+RESULT: Pill-shaped tab buttons
+
+### Pattern: Tabs with Icons
+WHEN: Need visual icons in tabs
+USE:
 ```html
 <div class="pm7-tab-selector" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="icon-1">
-      <svg class="pm7-tab-trigger-icon" width="16" height="16">...</svg>
-      Dashboard
+    <button class="pm7-tab-trigger" aria-controls="icon-1" data-state="active">
+      <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      Home
+    </button>
+    <button class="pm7-tab-trigger" aria-controls="icon-2">
+      <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M12 1v6m0 6v6m11-12h-6m-6 0H1"></path>
+      </svg>
+      Settings
     </button>
   </div>
-  <div class="pm7-tab-content" id="icon-1">Content</div>
+  <div class="pm7-tab-content" id="icon-1" data-state="active">
+    <p>Home content</p>
+  </div>
+  <div class="pm7-tab-content" id="icon-2">
+    <p>Settings content</p>
+  </div>
 </div>
 ```
 
-### Pattern: With Badge
+RESULT: Tabs with left-aligned icons
+
+### Pattern: Tabs with Badges
+WHEN: Need to show counts/notifications
+USE:
 ```html
 <div class="pm7-tab-selector" data-pm7-tab-selector>
   <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="badge-1">
+    <button class="pm7-tab-trigger" aria-controls="badge-1" data-state="active">
       Messages
       <span class="pm7-tab-trigger-badge">3</span>
     </button>
+    <button class="pm7-tab-trigger" aria-controls="badge-2">
+      Notifications
+      <span class="pm7-tab-trigger-badge">12</span>
+    </button>
+    <button class="pm7-tab-trigger" aria-controls="badge-3">
+      Updates
+    </button>
   </div>
-  <div class="pm7-tab-content" id="badge-1">Content</div>
+  <div class="pm7-tab-content" id="badge-1" data-state="active">
+    <p>3 new messages</p>
+  </div>
+  <div class="pm7-tab-content" id="badge-2">
+    <p>12 notifications</p>
+  </div>
+  <div class="pm7-tab-content" id="badge-3">
+    <p>No new updates</p>
+  </div>
 </div>
 ```
 
-### Pattern: Disabled Tab
+RESULT: Tabs with numeric badges
+
+### Anti-Pattern: Missing aria-controls
+NEVER:
 ```html
-<div class="pm7-tab-selector" data-pm7-tab-selector>
-  <div class="pm7-tab-list">
-    <button class="pm7-tab-trigger" aria-controls="panel-1">Active</button>
-    <button class="pm7-tab-trigger" aria-controls="panel-2" disabled>Disabled</button>
-  </div>
-  <div class="pm7-tab-content" id="panel-1">Content</div>
-  <div class="pm7-tab-content" id="panel-2">Disabled content</div>
-</div>
+<button class="pm7-tab-trigger">Tab</button>
 ```
 
-### Pattern: JavaScript Control
-```javascript
-// Manual initialization
-const element = document.querySelector('.pm7-tab-selector');
-const tabs = new PM7.TabSelector(element);
+BECAUSE: Panel switching requires aria-controls
+INSTEAD: See Pattern: Basic Tabs
 
-// Methods
-tabs.selectTabByIndex(1);
-tabs.selectTabById('panel-2');
-const activeTab = tabs.getActiveTab();
-const activeIndex = tabs.getActiveIndex();
-
-// Events
-element.addEventListener('pm7-tab-change', (e) => {
-  // e.detail = { tab: HTMLElement, panel: HTMLElement, index: number }
-});
+### Anti-Pattern: Manual Display Control
+NEVER:
+```html
+<div class="pm7-tab-content" style="display: none;">Content</div>
 ```
 
-### Pattern: Dynamic Tab Selector Addition
-WHEN: Adding tab selector after page load
-```javascript
-// Add tab selector HTML
-document.getElementById('container').innerHTML = `
-  <div class="pm7-tab-selector" data-pm7-tab-selector>
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="dyn-1">Tab 1</button>
-      <button class="pm7-tab-trigger" aria-controls="dyn-2">Tab 2</button>
-    </div>
-    <div class="pm7-tab-content" id="dyn-1">Content 1</div>
-    <div class="pm7-tab-content" id="dyn-2">Content 2</div>
-  </div>
-`;
+BECAUSE: PM7 manages visibility automatically
+INSTEAD: Use data-state attribute
 
-// MUST initialize PM7 components
-window.PM7.init();
+### Anti-Pattern: onClick Handlers
+NEVER:
+```html
+<button class="pm7-tab-trigger" onClick="switchTab(1)">Tab</button>
 ```
 
-### Pattern: Next.js Implementation
-```jsx
-'use client'
+BECAUSE: PM7 handles all interactions
+INSTEAD: Use aria-controls linking
 
-import { useEffect } from 'react'
+## Attributes
 
-export default function TabsPage() {
-  useEffect(() => {
-    import('@pm7/core').then(() => {
-      if (window.PM7?.initTabSelectors) {
-        window.PM7.initTabSelectors();
-      }
-    });
-  }, []);
+| Attribute | Type | Values | Default | Required | Effect |
+|-----------|------|--------|---------|----------|--------|
+| data-pm7-tab-selector | boolean | presence | - | YES | Enables tab selector initialization |
+| data-state | string | active | - | NO | Marks active tab/panel |
+| aria-controls | string | panel ID | - | YES | Links trigger to panel |
+| id | string | unique ID | - | YES | Panel identifier |
+| disabled | boolean | presence | - | NO | Disables tab interaction |
 
-  return (
-    <div className="pm7-tab-selector" data-pm7-tab-selector>
-      <div className="pm7-tab-list">
-        <button className="pm7-tab-trigger" aria-controls="next-1">Tab 1</button>
-        <button className="pm7-tab-trigger" aria-controls="next-2">Tab 2</button>
-      </div>
-      <div className="pm7-tab-content" id="next-1">Content 1</div>
-      <div className="pm7-tab-content" id="next-2">Content 2</div>
-    </div>
-  );
-}
-```
+## CSS Classes
+
+| Class | Purpose | Combinable | Parent Required |
+|-------|---------|------------|------------------|
+| .pm7-tab-selector | Base container styles | YES | NO |
+| .pm7-tab-list | Tab button container | NO | .pm7-tab-selector |
+| .pm7-tab-trigger | Tab button styles | YES | .pm7-tab-list |
+| .pm7-tab-content | Panel container styles | NO | .pm7-tab-selector |
+| .pm7-tab-selector--solid | Solid background variant | YES | .pm7-tab-selector |
+| .pm7-tab-selector--pills | Pill-shaped variant | YES | .pm7-tab-selector |
+| .pm7-tab-selector--sm | Small size | YES | .pm7-tab-selector |
+| .pm7-tab-selector--lg | Large size | YES | .pm7-tab-selector |
+| .pm7-tab-selector--full-width | Full width tabs | YES | .pm7-tab-selector |
+| .pm7-tab-trigger-icon | Icon within tab | NO | .pm7-tab-trigger |
+| .pm7-tab-trigger-badge | Badge within tab | NO | .pm7-tab-trigger |
 
 ## JavaScript API
 
-### Initialization
-
-IF tab-selector in DOM at page load THEN auto-initialized
-IF tab-selector added dynamically THEN MUST call `window.PM7.init()`
-IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
-IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
-IF manual init THEN `new PM7.TabSelector(element)`
-IF Next.js THEN dynamic import with optional chaining
-
-### Self-Healing (v2.5.0+)
-
-Tab Selector components automatically detect and recover from framework re-renders:
-
-```javascript
-// React - Components self-heal automatically
-useEffect(() => {
-  PM7.initFramework(); // Includes automatic healing
-}, []);
-
-// Manual healing if needed
-PM7.healTabSelectors(); // Heal only tab selectors
-PM7.heal();             // Heal all components
-```
-
-#### How Self-Healing Works:
-1. Component detects it was re-rendered by framework
-2. Active tab selection is preserved
-3. Event listeners are cleaned up and re-attached
-4. No manual re-initialization needed
-
-#### When Self-Healing Activates:
-- React re-renders component tree
-- Vue updates virtual DOM
-- Angular change detection cycles
-- Any framework that replaces DOM elements
-
 ### Methods
 
-| Method | Parameters | Returns | Usage |
-|--------|------------|---------|--------|
-| `selectTabByIndex()` | index: number | void | `tabs.selectTabByIndex(1)` |
-| `selectTabById()` | id: string | void | `tabs.selectTabById('panel-2')` |
-| `getActiveTab()` | none | HTMLElement | `tabs.getActiveTab()` |
-| `getActiveIndex()` | none | number | `tabs.getActiveIndex()` |
+| Method | Parameters | Returns | Throws | Usage |
+|--------|------------|---------|--------|--------|
+| selectTabByIndex() | index: number | void | Error if invalid index | tabs.selectTabByIndex(1) |
+| selectTabById() | panelId: string | void | Error if invalid ID | tabs.selectTabById('panel-2') |
+| getActiveTab() | none | HTMLElement | never | const tab = tabs.getActiveTab() |
+| getActiveIndex() | none | number | never | const index = tabs.getActiveIndex() |
+| destroy() | none | void | never | tabs.destroy() |
+
+### Properties
+
+| Property | Type | Readonly | Default | Usage |
+|----------|------|----------|---------|--------|
+| element | HTMLElement | YES | - | tabs.element |
+| triggers | NodeList | YES | - | tabs.triggers |
+| panels | NodeList | YES | - | tabs.panels |
+| activeIndex | number | YES | 0 | tabs.activeIndex |
 
 ### Events
 
-| Event | When Fired | Detail |
-|-------|------------|---------|
-| `pm7-tab-change` | On tab change | `{ tab: HTMLElement, panel: HTMLElement, index: number }` |
+| Event | Bubbles | Cancelable | Detail | Usage |
+|-------|---------|------------|--------|--------|
+| pm7-tab-change | YES | NO | {tab: HTMLElement, panel: HTMLElement, index: number} | element.addEventListener('pm7-tab-change', handler) |
 
-## Anti-Patterns
+### Instance Access
 
-### Anti-Pattern: Wrong Classes
-```html
-<!-- NEVER -->
-<div class="pm7-tab-panel">Content</div>
-
-<!-- ALWAYS -->
-<div class="pm7-tab-content">Content</div>
-```
-
-### Anti-Pattern: Missing Required Attributes
-```html
-<!-- NEVER -->
-<button class="pm7-tab-trigger">Tab</button>
-
-<!-- ALWAYS -->
-<button class="pm7-tab-trigger" aria-controls="panel-id">Tab</button>
-```
-
-### Anti-Pattern: Role Attributes
-```html
-<!-- NEVER -->
-<div role="tablist" class="pm7-tab-list">
-  <button role="tab">Tab</button>
-</div>
-<div role="tabpanel">Content</div>
-
-<!-- ALWAYS -->
-<div class="pm7-tab-list">
-  <button class="pm7-tab-trigger" aria-controls="panel-1">Tab</button>
-</div>
-<div class="pm7-tab-content" id="panel-1">Content</div>
-```
-
-### Anti-Pattern: Manual Display Control
-```html
-<!-- NEVER -->
-<div class="pm7-tab-content" style="display: none;">Content</div>
-
-<!-- ALWAYS -->
-<div class="pm7-tab-content">Content</div>
-```
-
-### Anti-Pattern: onClick Handlers
-```html
-<!-- NEVER -->
-<button class="pm7-tab-trigger" onClick="handleTabChange('tab1')">Tab</button>
-
-<!-- ALWAYS -->
-<button class="pm7-tab-trigger" aria-controls="tab1">Tab</button>
-```
-
-### Anti-Pattern: Direct Method Calls
 ```javascript
-// NEVER
-window.PM7.initTabSelectors();
+// Get instance from element
+const element = document.querySelector('[data-pm7-tab-selector]')
+const tabs = element.PM7TabSelector
 
-// ALWAYS
-if (window.PM7?.initTabSelectors) {
-  window.PM7.initTabSelectors();
-}
+// Direct instantiation
+const tabs = new PM7.TabSelector(element)
 ```
 
-### Anti-Pattern: Multiple Initializations
-```javascript
-// NEVER - initialize in multiple components
-// Component A
-window.PM7.init();
-// Component B  
-window.PM7.init();
+## Framework Integration
 
-// ALWAYS - single global initialization
-// PM7Init.tsx
-import('@pm7/core').then(() => {
-  if (window.PM7) {
-    window.PM7.init();
-  }
-});
-```
-
-### Anti-Pattern: Dynamic Tab Selector Without Init
-```javascript
-// NEVER - tab selector won't work
-document.body.innerHTML += `
-  <div class="pm7-tab-selector" data-pm7-tab-selector>
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="fail-1">Tab 1</button>
-    </div>
-    <div class="pm7-tab-content" id="fail-1">Content</div>
-  </div>
-`;
-// Tab selector is not interactive
-
-// ALWAYS - initialize after adding
-document.body.innerHTML += `
-  <div class="pm7-tab-selector" data-pm7-tab-selector>
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="work-1">Tab 1</button>
-    </div>
-    <div class="pm7-tab-content" id="work-1">Content</div>
-  </div>
-`;
-window.PM7.init(); // REQUIRED
-// Tab selector now works
-```
-
-## Rules
-
-- ALWAYS: Include both `class="pm7-tab-selector"` AND `data-pm7-tab-selector`
-- ALWAYS: Use `aria-controls` on triggers pointing to panel `id`
-- ALWAYS: Check `window.PM7` exists before calling methods
-- ALWAYS: Use optional chaining for PM7 methods that might not exist
-- ALWAYS: Call window.PM7.init() after adding tab selectors dynamically
-- NEVER: Use role attributes (auto-applied)
-- NEVER: Use deprecated attributes (`data-tab`, `data-panel`, `data-tab-key`)
-- NEVER: Mix React components with vanilla classes
-- NEVER: Manually set `display: none` on tab content
-- NEVER: Add onClick handlers when using PM7 tabs
-- NEVER: Call PM7 methods without checking they exist
-- NEVER: Expect tab selector to work without PM7.init() for dynamic content
-
-## CSS Variables
-
-| Variable | Default Light | Default Dark | Usage |
-|----------|---------------|--------------|--------|
-| `--pm7-tab-trigger-padding` | `0.5rem 1rem` | `0.5rem 1rem` | Tab padding |
-| `--pm7-tab-trigger-color` | `var(--pm7-text-secondary)` | `var(--pm7-text-secondary)` | Tab text color |
-| `--pm7-tab-trigger-color-active` | `var(--pm7-primary)` | `var(--pm7-primary)` | Active tab color |
-| `--pm7-tab-indicator-size` | `2px` | `2px` | Indicator height |
-| `--pm7-tab-indicator-color` | `var(--pm7-primary)` | `var(--pm7-primary)` | Indicator color |
-
-## Keyboard Navigation
-
-- Tab: Enter tab list
-- ArrowLeft/ArrowUp: Previous tab
-- ArrowRight/ArrowDown: Next tab
-- Home: First tab
-- End: Last tab
-- Enter/Space: Activate tab
-
-## Framework Usage
-
-### React (Vanilla in React)
+### React
 ```jsx
-'use client'
+IF functional component:
+  useEffect(() => {
+    window.PM7?.initFramework()
+    return () => { /* auto cleanup */ }
+  }, [])
 
-<div className="pm7-tab-selector" data-pm7-tab-selector>
-  <div className="pm7-tab-list">
-    <button className="pm7-tab-trigger" aria-controls="react-1">Tab 1</button>
-  </div>
-  <div className="pm7-tab-content" id="react-1">Content</div>
-</div>
+IF class component:
+  componentDidMount() { window.PM7?.initFramework() }
+  componentWillUnmount() { /* auto cleanup */ }
 ```
 
 ### Vue
 ```vue
-<template>
-  <div class="pm7-tab-selector" data-pm7-tab-selector>
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="vue-1">Tab 1</button>
-    </div>
-    <div class="pm7-tab-content" id="vue-1">Content</div>
-  </div>
-</template>
+IF Vue 3:
+  onMounted(() => { window.PM7?.initFramework() })
+  onUnmounted(() => { /* auto cleanup */ })
+
+IF Vue 2:
+  mounted() { window.PM7?.initFramework() }
+  beforeDestroy() { /* auto cleanup */ }
 ```
+
+### Angular
+```typescript
+IF Angular:
+  ngAfterViewInit() { window.PM7?.initFramework() }
+  ngOnDestroy() { /* auto cleanup */ }
+```
+
+### Svelte
+```svelte
+IF Svelte:
+  onMount(() => { 
+    window.PM7?.initFramework()
+    return () => { /* auto cleanup */ }
+  })
+```
+
+## Complete Examples
+
+### Example: Settings Interface
+SCENARIO: Multi-section settings page
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
+</head>
+<body>
+  <div class="pm7-tab-selector pm7-tab-selector--solid" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="general" data-state="active">General</button>
+      <button class="pm7-tab-trigger" aria-controls="privacy">Privacy</button>
+      <button class="pm7-tab-trigger" aria-controls="notifications">
+        Notifications
+        <span class="pm7-tab-trigger-badge">2</span>
+      </button>
+      <button class="pm7-tab-trigger" aria-controls="advanced">Advanced</button>
+    </div>
+    <div class="pm7-tab-content" id="general" data-state="active">
+      <h3>General Settings</h3>
+      <p>Configure your basic preferences</p>
+    </div>
+    <div class="pm7-tab-content" id="privacy">
+      <h3>Privacy Settings</h3>
+      <p>Manage your privacy options</p>
+    </div>
+    <div class="pm7-tab-content" id="notifications">
+      <h3>Notification Settings</h3>
+      <p>2 new notification types available</p>
+    </div>
+    <div class="pm7-tab-content" id="advanced">
+      <h3>Advanced Settings</h3>
+      <p>Configure advanced options</p>
+    </div>
+  </div>
+  
+  <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+</body>
+</html>
+```
+
+RESULT: Settings interface with tabbed sections and notification badge
+
+### Example: React Tab Component
+SCENARIO: Reusable tab component for React
+```jsx
+import { useEffect } from 'react'
+import '@pm7/core/dist/pm7.min.css'
+
+export function TabPanel({ tabs, defaultActive = 0 }) {
+  useEffect(() => {
+    import('@pm7/core').then(() => {
+      window.PM7?.initFramework()
+    })
+  }, [])
+  
+  return (
+    <div className="pm7-tab-selector" data-pm7-tab-selector>
+      <div className="pm7-tab-list">
+        {tabs.map((tab, index) => (
+          <button 
+            key={tab.id}
+            className="pm7-tab-trigger" 
+            aria-controls={tab.id}
+            data-state={index === defaultActive ? 'active' : undefined}>
+            {tab.icon && (
+              <svg className="pm7-tab-trigger-icon" width="16" height="16">
+                {tab.icon}
+              </svg>
+            )}
+            {tab.label}
+            {tab.badge && (
+              <span className="pm7-tab-trigger-badge">{tab.badge}</span>
+            )}
+          </button>
+        ))}
+      </div>
+      {tabs.map((tab, index) => (
+        <div 
+          key={tab.id}
+          className="pm7-tab-content" 
+          id={tab.id}
+          data-state={index === defaultActive ? 'active' : undefined}>
+          {tab.content}
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+RESULT: Flexible React component supporting icons and badges
+
+### Example: Programmatic Tab Control
+SCENARIO: Control tabs via JavaScript
+```javascript
+// Add tab selector to page
+document.getElementById('app').innerHTML = `
+  <div class="pm7-tab-selector pm7-tab-selector--pills" data-pm7-tab-selector id="status-tabs">
+    <div class="pm7-tab-list">
+      <button class="pm7-tab-trigger" aria-controls="pending" data-state="active">
+        Pending
+        <span class="pm7-tab-trigger-badge">5</span>
+      </button>
+      <button class="pm7-tab-trigger" aria-controls="processing">
+        Processing
+        <span class="pm7-tab-trigger-badge">2</span>
+      </button>
+      <button class="pm7-tab-trigger" aria-controls="completed">
+        Completed
+      </button>
+    </div>
+    <div class="pm7-tab-content" id="pending" data-state="active">
+      <p>5 items pending</p>
+    </div>
+    <div class="pm7-tab-content" id="processing">
+      <p>2 items processing</p>
+    </div>
+    <div class="pm7-tab-content" id="completed">
+      <p>All completed items</p>
+    </div>
+  </div>
+`
+
+// Initialize and control
+window.PM7.init()
+const tabs = document.getElementById('status-tabs').PM7TabSelector
+
+// Listen for changes
+document.getElementById('status-tabs').addEventListener('pm7-tab-change', (e) => {
+  console.log('Switched to:', e.detail.panel.id)
+  
+  // Update badges based on active tab
+  if (e.detail.panel.id === 'pending') {
+    // Check for new pending items
+  }
+})
+
+// Programmatically switch tabs
+setTimeout(() => {
+  tabs.selectTabById('processing') // Switch to processing tab
+}, 3000)
+```
+
+RESULT: Status tabs with programmatic control and event handling
+
+## Validation Checklist
+
+STRUCTURE:
+- [ ] Has data-pm7-tab-selector attribute
+- [ ] Has pm7-tab-selector class
+- [ ] Contains pm7-tab-list with triggers
+- [ ] Each trigger has aria-controls
+- [ ] Each panel has matching id
+- [ ] Active tab/panel have data-state="active"
+
+STYLING:
+- [ ] Includes pm7.min.css
+- [ ] Uses only documented classes
+- [ ] No inline display styles
+- [ ] Respects dark mode
+
+BEHAVIOR:
+- [ ] Initializes without errors
+- [ ] Tab switching works
+- [ ] Keyboard navigation works
+- [ ] Events fire correctly
+- [ ] Framework re-renders handled
+
+ACCESSIBILITY:
+- [ ] ARIA attributes present
+- [ ] Keyboard navigable
+- [ ] Focus indicators visible
+- [ ] Screen reader compatible
 
 ## Related Components
 
 - Button: Tab triggers are specialized buttons
 - Card: Often used within tab panels
+- Accordion: Alternative for vertical content switching

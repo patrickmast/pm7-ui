@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Selector Demos - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      text-align: center;
+    }
+    
+    .description {
+      text-align: center;
+      color: var(--pm7-muted-foreground);
+      margin-bottom: 3rem;
+      font-size: 1.125rem;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .demo-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .demo-card:hover {
+      border-color: var(--pm7-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .demo-card p {
+      margin: 0;
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--pm7-primary);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/components/tab-selector.html#demo" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Back to Tab Selector Documentation
+    </a>
+    
+    <h1>Tab Selector Component Demos</h1>
+    <p class="description">Explore different ways to implement and use the PM7 tab selector component</p>
+    
+    <div class="demo-grid">
+      <a href="basic.html" class="demo-card">
+        <h3>Basic Tabs</h3>
+        <p>Simple tab implementation with default styling and behavior</p>
+      </a>
+      
+      <a href="variants.html" class="demo-card">
+        <h3>Tab Variants</h3>
+        <p>Explore different visual styles: underline, solid, and pills</p>
+      </a>
+      
+      <a href="sizes.html" class="demo-card">
+        <h3>Tab Sizes</h3>
+        <p>Small, medium, and large tab sizes for different use cases</p>
+      </a>
+      
+      <a href="full-width.html" class="demo-card">
+        <h3>Full Width Tabs</h3>
+        <p>Tabs that stretch to fill their container width</p>
+      </a>
+      
+      <a href="with-icons.html" class="demo-card">
+        <h3>Tabs with Icons and Badges</h3>
+        <p>Enhanced tabs with icons, badges, and icon-only variants</p>
+      </a>
+      
+      <a href="disabled.html" class="demo-card">
+        <h3>Disabled Tabs</h3>
+        <p>How to handle disabled states and conditional availability</p>
+      </a>
+      
+      <a href="gradient-border.html" class="demo-card">
+        <h3>Gradient Border Tabs</h3>
+        <p>Beautiful gradient borders with various colors and thicknesses</p>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

@@ -76,281 +76,245 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>Basic Input</h3>
-              <div class="pm7-docs-preview">
-                <input type="text" class="pm7-input" placeholder="Enter text...">
-              </div>
-            </div>
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different input demos. Click "Open in new tab" to see the full demo page.</p>
 
-            <div class="pm7-docs-example">
-              <h3>Input with Label</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="demo-email" class="pm7-label">Email</label>
-                  <input type="email" id="demo-email" class="pm7-input" placeholder="Enter your email">
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Input Sizes</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <input type="text" class="pm7-input pm7-input--sm" placeholder="Small input">
-                <input type="text" class="pm7-input" placeholder="Medium input">
-                <input type="text" class="pm7-input pm7-input--lg" placeholder="Large input">
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Input States</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <div class="pm7-form-group">
-                  <label class="pm7-label">Normal</label>
-                  <input type="text" class="pm7-input" placeholder="Normal input">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label class="pm7-label">Disabled</label>
-                  <input type="text" class="pm7-input" placeholder="Disabled input" disabled>
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label class="pm7-label">Error</label>
-                  <input type="text" class="pm7-input pm7-input--error" placeholder="Error input">
-                  <p class="pm7-helper-text pm7-helper-text--error">This field is required</p>
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label class="pm7-label">Success</label>
-                  <input type="text" class="pm7-input pm7-input--success" value="Valid input">
-                  <p class="pm7-helper-text pm7-helper-text--success">Looking good!</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Input Types</h3>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <input type="text" class="pm7-input" placeholder="Text">
-                <input type="email" class="pm7-input" placeholder="Email">
-                <input type="password" class="pm7-input" placeholder="Password">
-                <input type="number" class="pm7-input" placeholder="Number">
-                <input type="date" class="pm7-input">
-                <input type="search" class="pm7-input" placeholder="Search...">
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Input with Icons</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <div class="pm7-input-icon-wrapper">
-                  <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="m21 21-4.35-4.35"/>
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Input -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-demo">
+                  <span>Basic Input</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
-                  <input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search...">
-                </div>
-                
-                <div class="pm7-input-icon-wrapper">
-                  <input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password" id="password-demo">
-                  <button type="button" class="pm7-input-icon pm7-input-icon--right" 
-                          style="background: none; border: none; cursor: pointer; padding: 0; pointer-events: auto;"
-                          onclick="togglePasswordVisibility()">
+                </button>
+                <div class="pm7-accordion-content" id="basic-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/basic.html" title="Basic Input Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                      <circle cx="12" cy="12" r="3"/>
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
                     </svg>
-                  </button>
+                  </a>
                 </div>
               </div>
-            </div>
 
-            <div class="pm7-docs-example">
-              <h3>Textarea</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="demo-message" class="pm7-label">Message</label>
-                  <textarea id="demo-message" class="pm7-input" rows="4" placeholder="Type your message here..."></textarea>
-                  <p class="pm7-helper-text">Maximum 500 characters</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Select</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="demo-country" class="pm7-label">Country</label>
-                  <select id="demo-country" class="pm7-select">
-                    <option value="">Select country</option>
-                    <option value="us">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="ca">Canada</option>
-                    <option value="au">Australia</option>
-                    <option value="nl">Netherlands</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Checkbox and Radio</h3>
-              <div class="pm7-docs-preview" style="gap: 2rem;">
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                  <label class="pm7-checkbox">
-                    <input type="checkbox">
-                    <span class="pm7-checkbox-indicator"></span>
-                    <span class="pm7-checkbox-label">Remember me</span>
-                  </label>
-                  <label class="pm7-checkbox">
-                    <input type="checkbox" checked>
-                    <span class="pm7-checkbox-indicator"></span>
-                    <span class="pm7-checkbox-label">Send newsletter</span>
-                  </label>
-                </div>
-                
-                <div class="pm7-radio-group">
-                  <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="basic">
-                    <span class="pm7-radio-indicator"></span>
-                    <span class="pm7-radio-label">Basic Plan</span>
-                  </label>
-                  <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="pro" checked>
-                    <span class="pm7-radio-indicator"></span>
-                    <span class="pm7-radio-label">Pro Plan</span>
-                  </label>
-                  <label class="pm7-radio">
-                    <input type="radio" name="demo-plan" value="enterprise">
-                    <span class="pm7-radio-indicator"></span>
-                    <span class="pm7-radio-label">Enterprise Plan</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Complete Form Example</h3>
-              <div class="pm7-docs-preview">
-                <form class="pm7-form" style="max-width: 400px;">
-                  <div class="pm7-form-group">
-                    <label for="demo-name" class="pm7-label">
-                      Full Name <span style="color: var(--pm7-destructive);">*</span>
-                    </label>
-                    <input type="text" id="demo-name" class="pm7-input" required>
+              <!-- Input Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Input Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/sizes.html" title="Input Sizes Demo"></iframe>
                   </div>
-                  
-                  <div class="pm7-form-group">
-                    <label for="demo-form-email" class="pm7-label">
-                      Email <span style="color: var(--pm7-destructive);">*</span>
-                    </label>
-                    <input type="email" id="demo-form-email" class="pm7-input" required>
-                    <p class="pm7-helper-text">We'll never share your email</p>
-                  </div>
-                  
-                  <div class="pm7-form-group">
-                    <label for="demo-bio" class="pm7-label">Bio</label>
-                    <textarea id="demo-bio" class="pm7-input" rows="3" placeholder="Tell us about yourself..."></textarea>
-                  </div>
-                  
-                  <div class="pm7-form-group">
-                    <label class="pm7-checkbox">
-                      <input type="checkbox" required>
-                      <span class="pm7-checkbox-indicator"></span>
-                      <span class="pm7-checkbox-label">I agree to the terms and conditions</span>
-                    </label>
-                  </div>
-                  
-                  <button type="submit" class="pm7-button pm7-button--primary">
-                    Submit
-                  </button>
-                </form>
+                  <a href="/components/demos/input/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
               </div>
+
+              <!-- Input States -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="states-demo">
+                  <span>Input States</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="states-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/states.html" title="Input States Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/states.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input Types -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="types-demo">
+                  <span>Input Types</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="types-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/types.html" title="Input Types Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/types.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Input with Icons -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="icons-demo">
+                  <span>Input with Icons</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="icons-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/with-icons.html" title="Input with Icons Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/with-icons.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Textarea -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="textarea-demo">
+                  <span>Textarea</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="textarea-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/textarea.html" title="Textarea Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/textarea.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Select Dropdown -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="select-demo">
+                  <span>Select Dropdown</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="select-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/select.html" title="Select Dropdown Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/select.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Checkbox & Radio -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="checkbox-radio-demo">
+                  <span>Checkbox & Radio</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="checkbox-radio-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/checkbox-radio.html" title="Checkbox & Radio Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/checkbox-radio.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Complete Form Example -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="complete-form-demo">
+                  <span>Complete Form Example</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="complete-form-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/complete-form.html" title="Complete Form Example Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/complete-form.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Gradient Border -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="gradient-demo">
+                  <span>Gradient Border</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="gradient-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/input/gradient-border.html" title="Gradient Border Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/input/gradient-border.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
             </div>
 
-            <div class="pm7-docs-example">
-              <h3>Gradient Border Inputs</h3>
-              
-              <h4>Text Inputs with Gradient Borders</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="gradient-input-1" class="pm7-label">Default Gradient</label>
-                  <input type="text" id="gradient-input-1" class="pm7-input pm7-gradient-border" placeholder="Purple to yellow to orange gradient">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-input-2" class="pm7-label">Blue Gradient</label>
-                  <input type="text" id="gradient-input-2" class="pm7-input pm7-gradient-border pm7-gradient-border-blue" placeholder="Cool blue gradient">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-input-3" class="pm7-label">Green Gradient</label>
-                  <input type="text" id="gradient-input-3" class="pm7-input pm7-gradient-border pm7-gradient-border-green" placeholder="Fresh green gradient">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-input-4" class="pm7-label">Red Gradient</label>
-                  <input type="text" id="gradient-input-4" class="pm7-input pm7-gradient-border pm7-gradient-border-red" placeholder="Bold red gradient">
-                </div>
-              </div>
-              
-              <h4>Different Border Thicknesses</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="gradient-thick-1" class="pm7-label">1px Border (Default)</label>
-                  <input type="text" id="gradient-thick-1" class="pm7-input pm7-gradient-border" placeholder="Standard thickness">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-thick-2" class="pm7-label">2px Border</label>
-                  <input type="text" id="gradient-thick-2" class="pm7-input pm7-gradient-border pm7-gradient-border-2" placeholder="Medium thickness">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-thick-4" class="pm7-label">4px Border</label>
-                  <input type="text" id="gradient-thick-4" class="pm7-input pm7-gradient-border pm7-gradient-border-4" placeholder="Bold thickness">
-                </div>
-              </div>
-              
-              <h4>Input Sizes with Gradient</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="gradient-small" class="pm7-label">Small Input</label>
-                  <input type="text" id="gradient-small" class="pm7-input pm7-input--sm pm7-gradient-border" placeholder="Small gradient input">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-medium" class="pm7-label">Medium Input (Default)</label>
-                  <input type="text" id="gradient-medium" class="pm7-input pm7-gradient-border" placeholder="Medium gradient input">
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-large" class="pm7-label">Large Input</label>
-                  <input type="text" id="gradient-large" class="pm7-input pm7-input--lg pm7-gradient-border pm7-gradient-border-primary" placeholder="Large gradient input">
-                </div>
-              </div>
-              
-              <h4>Textarea with Gradient</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="gradient-textarea" class="pm7-label">Gradient Textarea</label>
-                  <textarea id="gradient-textarea" class="pm7-input pm7-gradient-border pm7-gradient-border-2" rows="4" placeholder="Beautiful gradient border on textarea..."></textarea>
-                </div>
-              </div>
-              
-              <h4>Input States with Gradient</h4>
-              <div class="pm7-docs-preview">
-                <div class="pm7-form-group">
-                  <label for="gradient-disabled" class="pm7-label">Disabled Gradient Input</label>
-                  <input type="text" id="gradient-disabled" class="pm7-input pm7-gradient-border" placeholder="Disabled state" disabled>
-                </div>
-                
-                <div class="pm7-form-group">
-                  <label for="gradient-readonly" class="pm7-label">Read-only Gradient Input</label>
-                  <input type="text" id="gradient-readonly" class="pm7-input pm7-gradient-border pm7-gradient-border-blue" value="Read-only value" readonly>
-                </div>
-              </div>
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/input/" target="_blank">View all input demos →</a>
             </div>
           </section>
         </div>
@@ -742,10 +706,7 @@
       });
     };
 
-    window.togglePasswordVisibility = function() {
-      const input = document.getElementById('password-demo');
-      input.type = input.type === 'password' ? 'text' : 'password';
-    };
+    // Removed togglePasswordVisibility - no longer needed with iframe demos
   </script>
 
   <script type="module">
@@ -754,6 +715,34 @@
     // Initialize tab routing
     document.addEventListener('DOMContentLoaded', () => {
       initTabRouter('input');
+      
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          link.remove();
+        }
+      });
     });
   </script>
 

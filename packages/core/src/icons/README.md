@@ -1,6 +1,20 @@
-# Icons
+<!-- AI-ONLY DOCUMENTATION -->
+---
+type: ai-agent-documentation
+audience: ai-coding-agents-only
+style: exact-patterns
+human-readable: false
+documentation-rules:
+  - NO storytelling or explanations
+  - ONLY exact code patterns
+  - Binary IF/THEN decisions
+  - Explicit anti-patterns with NEVER/ALWAYS
+  - Copy-paste ready code blocks
+---
 
-pm7-ui provides a set of standard icons that maintain consistency across applications. Currently featuring the distinctive PM7 hamburger menu icon with more icons planned.
+# Component: Icons
+
+PM7 standard icons. Currently: hamburger menu icon.
 
 ## Installation
 
@@ -8,231 +22,212 @@ pm7-ui provides a set of standard icons that maintain consistency across applica
 npm install @pm7/core
 ```
 
-## Usage
-
-### Import Methods
+### JS Import
 
 ```javascript
-// ES6 import
-import { 
-  createHamburgerIconElement, 
-  createHamburgerIcon, 
-  getHamburgerIconDataURI 
-} from '@pm7/core';
+// ES modules
+import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
 
 // CommonJS
 const { createHamburgerIconElement } = require('@pm7/core');
 
-// Via CDN
-<script src="https://unpkg.com/@pm7/core"></script>
+// Global (via CDN)
+const { createHamburgerIconElement } = window.PM7;
 ```
 
-## Hamburger Menu Icon
+## Icon Specifications
 
-The standard PM7 hamburger menu icon features distinctive rounded bars.
+| Icon | Dimensions | Details |
+|------|------------|---------|
+| Hamburger | 18×15px | 3 bars, 2.5px height, 3.75px spacing, 1.25px radius |
 
-### Specifications
+## Patterns
 
-- **Default dimensions:** 18×15 pixels
-- **Bar height:** 2.5 pixels
-- **Bar spacing:** 3.75 pixels between bars
-- **Corner radius:** 1.25 pixels (rounded bars)
-- **Color:** Inherits from currentColor by default
-
-### Create DOM Element
-
+### Pattern: Hamburger Icon Element
 ```javascript
-import { createHamburgerIconElement } from '@pm7/core';
-
-// Default icon (18x15)
+// Default (18x15)
 const icon = createHamburgerIconElement();
 document.getElementById('menu-trigger').appendChild(icon);
 
 // Custom size
-const smallIcon = createHamburgerIconElement({ 
-  width: 12, 
-  height: 10 
-});
+const icon = createHamburgerIconElement({ width: 24, height: 20 });
 
 // Custom color
-const coloredIcon = createHamburgerIconElement({ 
-  color: '#1C86EF' 
-});
+const icon = createHamburgerIconElement({ color: '#1C86EF' });
 
 // With CSS class
-const styledIcon = createHamburgerIconElement({ 
-  className: 'menu-icon' 
-});
+const icon = createHamburgerIconElement({ className: 'menu-icon' });
 ```
 
-### Get HTML String
-
+### Pattern: Hamburger Icon HTML String
 ```javascript
-import { createHamburgerIcon } from '@pm7/core';
+const iconHTML = createHamburgerIcon({ className: 'my-icon' });
+document.getElementById('container').innerHTML = iconHTML;
 
-// Get icon as HTML string
-const iconHTML = createHamburgerIcon({
-  className: 'my-hamburger-icon'
-});
-
-// Use in template
+// In template literal
 const button = `
   <button class="pm7-button">
-    ${iconHTML}
+    ${createHamburgerIcon()}
     <span>Menu</span>
   </button>
 `;
-
-// Insert into DOM
-document.getElementById('container').innerHTML = iconHTML;
 ```
 
-### Use as CSS Background
-
+### Pattern: Hamburger Icon Data URI
 ```javascript
-import { getHamburgerIconDataURI } from '@pm7/core';
+// For CSS background (color must be URL-encoded)
+const dataURI = getHamburgerIconDataURI('%231C86EF');
+element.style.backgroundImage = `url(${dataURI})`;
 
-// Get data URI for CSS
-const dataURI = getHamburgerIconDataURI('%231C86EF'); // Blue color
+// Default color
+const dataURI = getHamburgerIconDataURI('currentColor');
+```
 
-// Apply as background
-button.style.backgroundImage = `url(${dataURI})`;
+### Pattern: Icon Button
+```html
+<button type="button" class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu">
+  <svg width="18" height="15" viewBox="0 0 18 15" fill="currentColor">
+    <rect x="0" y="0" width="18" height="2.5" rx="1.25" />
+    <rect x="0" y="6.25" width="18" height="2.5" rx="1.25" />
+    <rect x="0" y="12.5" width="18" height="2.5" rx="1.25" />
+  </svg>
+</button>
+```
 
-// Or use in stylesheet
-const style = `
-  .menu-button::before {
-    content: '';
-    width: 18px;
-    height: 15px;
-    background-image: url(${dataURI});
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-`;
+### Pattern: Icon with Text Button
+```html
+<button type="button" class="pm7-button pm7-button--primary">
+  <svg class="pm7-button-icon" width="18" height="15" viewBox="0 0 18 15" fill="currentColor">
+    <rect x="0" y="0" width="18" height="2.5" rx="1.25" />
+    <rect x="0" y="6.25" width="18" height="2.5" rx="1.25" />
+    <rect x="0" y="12.5" width="18" height="2.5" rx="1.25" />
+  </svg>
+  <span>Menu</span>
+</button>
+```
+
+### Pattern: Dynamic Icon Creation
+```javascript
+// Create and append
+const button = document.querySelector('.menu-button');
+const icon = createHamburgerIconElement({ width: 16, height: 13 });
+button.appendChild(icon);
+
+// Replace existing
+const oldIcon = button.querySelector('svg');
+const newIcon = createHamburgerIconElement({ color: '#FF0000' });
+button.replaceChild(newIcon, oldIcon);
+```
+
+### Pattern: CSS Background Icon
+```css
+.menu-trigger::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 15px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="currentColor"><rect x="0" y="0" width="18" height="2.5" rx="1.25"/><rect x="0" y="6.25" width="18" height="2.5" rx="1.25"/><rect x="0" y="12.5" width="18" height="2.5" rx="1.25"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+```
+
+## Anti-Patterns
+
+### Anti-Pattern: Missing Aria Label
+```javascript
+// NEVER - icon-only button without label
+<button class="pm7-button pm7-button--icon">
+  ${createHamburgerIcon()}
+</button>
+
+// ALWAYS
+<button class="pm7-button pm7-button--icon" aria-label="Open menu">
+  ${createHamburgerIcon()}
+</button>
+```
+
+### Anti-Pattern: Wrong Color Format for Data URI
+```javascript
+// NEVER - unencoded color
+const dataURI = getHamburgerIconDataURI('#1C86EF');
+
+// ALWAYS - URL-encoded color
+const dataURI = getHamburgerIconDataURI('%231C86EF');
+```
+
+### Anti-Pattern: Hardcoded SVG Without ViewBox
+```html
+<!-- NEVER -->
+<svg width="18" height="15">
+  <rect x="0" y="0" width="18" height="2.5" />
+</svg>
+
+<!-- ALWAYS -->
+<svg width="18" height="15" viewBox="0 0 18 15">
+  <rect x="0" y="0" width="18" height="2.5" rx="1.25" />
+</svg>
+```
+
+### Anti-Pattern: Scaling Without Aspect Ratio
+```javascript
+// NEVER - arbitrary dimensions
+createHamburgerIconElement({ width: 30, height: 15 });
+
+// ALWAYS - maintain aspect ratio
+createHamburgerIconElement({ width: 24, height: 20 }); // 1.2:1 ratio
+createHamburgerIconElement({ width: 12, height: 10 }); // 1.2:1 ratio
 ```
 
 ## API Reference
 
-### Options
+### createHamburgerIconElement(options)
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `width` | number | 18 | Icon width in pixels |
-| `height` | number | 15 | Icon height in pixels |
-| `color` | string | 'currentColor' | Icon color (any valid CSS color) |
-| `className` | string | '' | CSS class name to apply to the SVG |
+| `width` | number | 18 | Icon width |
+| `height` | number | 15 | Icon height |
+| `color` | string | 'currentColor' | Icon color |
+| `className` | string | '' | CSS class |
 
-### Functions
+Returns: `SVGElement`
 
-#### createHamburgerIconElement(options)
-Creates and returns a DOM element (SVG) for the hamburger icon.
+### createHamburgerIcon(options)
 
-```javascript
-const icon = createHamburgerIconElement({
-  width: 24,
-  height: 20,
-  color: '#1C86EF',
-  className: 'custom-icon'
-});
-```
+Same options as `createHamburgerIconElement`.
+Returns: `string` (HTML)
 
-#### createHamburgerIcon(options)
-Returns the hamburger icon as an HTML string.
+### getHamburgerIconDataURI(color)
 
-```javascript
-const iconHTML = createHamburgerIcon({
-  width: 16,
-  height: 13,
-  className: 'menu-trigger-icon'
-});
-```
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `color` | string | 'currentColor' | URL-encoded color |
 
-#### getHamburgerIconDataURI(color)
-Returns a data URI for use in CSS or as an image source.
+Returns: `string` (data URI)
 
-```javascript
-// Note: Color must be URL-encoded
-const dataURI = getHamburgerIconDataURI('%23FF0000'); // Red
-const dataURI = getHamburgerIconDataURI('currentColor'); // Inherit color
-```
+## Rules
 
-## Integration Examples
+- ALWAYS: Include `aria-label` on icon-only buttons
+- ALWAYS: URL-encode colors for data URIs
+- ALWAYS: Include `viewBox` on SVG elements
+- ALWAYS: Maintain 1.2:1 aspect ratio for hamburger icon
+- NEVER: Use icons without accessible text/labels
+- NEVER: Hardcode dimensions without viewBox
+- NEVER: Apply transform/scale CSS to icons
 
-### With PM7 Button
+## Framework Usage
 
-```html
-<button class="pm7-button pm7-button--ghost">
-  <span id="menu-icon"></span>
-  <span>Menu</span>
-</button>
-
-<script>
-  const icon = createHamburgerIconElement({ width: 16, height: 13 });
-  document.getElementById('menu-icon').appendChild(icon);
-</script>
-```
-
-### In Navigation
-
-```javascript
-// Create navigation menu trigger
-const navTrigger = document.createElement('button');
-navTrigger.className = 'nav-menu-trigger';
-navTrigger.setAttribute('aria-label', 'Open navigation menu');
-
-const icon = createHamburgerIconElement();
-navTrigger.appendChild(icon);
-
-document.querySelector('.navbar').appendChild(navTrigger);
-```
-
-### Responsive Sizes
-
-```javascript
-// Use different icon sizes for different screens
-function getIconSize() {
-  const width = window.innerWidth;
-  if (width < 640) return { width: 16, height: 13 };
-  if (width < 1024) return { width: 18, height: 15 };
-  return { width: 24, height: 20 };
-}
-
-const icon = createHamburgerIconElement(getIconSize());
-```
-
-## React Usage
-
-When using @pm7/react:
-
+### React
 ```jsx
 import { HamburgerIcon } from '@pm7/react';
 
-function MenuButton() {
-  return (
-    <button className="pm7-button pm7-button--ghost">
-      <HamburgerIcon width={16} height={13} />
-      <span>Menu</span>
-    </button>
-  );
-}
-
-// With custom props
-function CustomMenuIcon() {
-  return (
-    <HamburgerIcon 
-      width={24} 
-      height={20} 
-      color="#1C86EF" 
-      className="large-menu-icon"
-    />
-  );
-}
+<button className="pm7-button pm7-button--ghost">
+  <HamburgerIcon width={16} height={13} />
+  <span>Menu</span>
+</button>
 ```
 
-## Vue Usage
-
-When using @pm7/vue:
-
+### Vue
 ```vue
 <template>
   <button class="pm7-button pm7-button--ghost">
@@ -243,29 +238,13 @@ When using @pm7/vue:
 
 <script>
 import { HamburgerIcon } from '@pm7/vue';
-
 export default {
   components: { HamburgerIcon }
 }
 </script>
 ```
 
-## Accessibility
-
-- The icon SVG includes proper viewBox for scaling
-- When used as a button, always include descriptive text or aria-label
-- The icon color inherits from currentColor for proper contrast
-- Maintains aspect ratio when scaled
-
-## Best Practices
-
-1. **Consistent sizing**: Use the default 18×15 size for most cases
-2. **Color inheritance**: Let the icon inherit color from its parent when possible
-3. **Accessible labels**: Always pair with descriptive text or ARIA labels
-4. **Responsive design**: Consider using smaller sizes on mobile devices
-5. **Performance**: Use data URIs for CSS backgrounds to reduce HTTP requests
-
 ## Related Components
 
-- [Button](../button/) - Often used with icon buttons
-- [Menu](../menu/) - Hamburger icon typically triggers menu components
+- Button: Icon buttons
+- Menu: Triggered by hamburger icon

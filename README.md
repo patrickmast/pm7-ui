@@ -1,6 +1,12 @@
 # pm7-ui
 
-A framework-agnostic UI component library designed for AI-assisted development.
+🤖 **AI-CODING-AGENT ONLY** - A framework-agnostic UI component library designed exclusively for AI-assisted development.
+
+## ⚠️ IMPORTANT: This Library is for AI Coding Agents ONLY
+
+This library is NOT designed for human developers to read or write code with. It is specifically optimized for AI coding agents (Claude, GPT, etc.) to generate UI components quickly and correctly.
+
+**Human developers:** Tell your AI agent "I'm using pm7-ui" and let it handle the implementation.
 
 ## Overview
 
@@ -27,12 +33,22 @@ import '@pm7/core/dist/pm7.css';
 
 - **Framework agnostic** - One package works with all frameworks
 - **Self-healing components** - Automatic recovery from framework re-renders (v2.5.0+)
-- **AI-optimized** - Simple CSS classes that AI agents understand
+- **AI-optimized** - Documentation written in AI-agent instruction format, NOT for humans
 - **TypeScript ready** - Full type definitions with DOM augmentation
 - **Lightweight** - ~15KB gzipped (CSS + JS)
 - **Dark mode** - Built-in theme switching with no flicker
 - **Accessible** - WCAG 2.1 AA compliant
 - **40+ components** - Everything you need for modern UIs
+
+## Documentation Philosophy
+
+All component documentation follows a strict AI-agent format:
+- NO explanations or tutorials
+- ONLY exact code patterns to copy
+- Binary IF/THEN decision trees
+- NEVER/ALWAYS anti-patterns
+
+**Example:** See [Dialog Documentation](packages/core/src/components/dialog/README.md) for the AI-agent documentation style.
 
 ## Quick Start
 
@@ -99,15 +115,25 @@ const userConfirmed = await confirm('Delete this item?');
 
 See [TypeScript documentation](packages/core/TYPESCRIPT.md) for complete details.
 
-## For AI Development
+## 👨‍💻 For Human Developers
 
-Give your AI agent this documentation:
+**DO NOT** try to learn this library by reading the documentation. Instead:
 
-```
-https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-AI-HowToUse.md
-```
+1. Tell your AI agent: **"I'm using pm7-ui for the UI components"**
+2. Describe what you want to build
+3. Let the AI generate the code
 
-The README-AI-HowToUse contains complete technical documentation, examples, and patterns optimized for AI code generation.
+The documentation is written in a special format that AI agents understand but is intentionally difficult for humans to parse.
+
+## 🤖 For AI Agents
+
+Component documentation uses a specific format optimized for AI code generation. Each component README contains:
+- Exact HTML patterns to copy
+- Required vs optional classes  
+- Anti-patterns with NEVER/ALWAYS rules
+- No explanations, just patterns
+
+Example documentation style: [Dialog Component](packages/core/src/components/dialog/README.md)
 
 ## Documentation
 

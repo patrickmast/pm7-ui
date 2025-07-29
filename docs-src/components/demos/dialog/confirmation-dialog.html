@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .action-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .action-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.125rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .action-card p {
+      margin: 0 0 1rem 0;
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    .warning-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--pm7-destructive-foreground);
+      color: var(--pm7-destructive);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Confirmation Dialogs</h1>
+      <p class="demo-description">Get user confirmation for destructive or important actions</p>
+    </div>
+    
+    <div class="demo-actions">
+      <div class="action-card">
+        <h3>Delete Account</h3>
+        <p>Permanently delete your account and all associated data</p>
+        <button class="pm7-button pm7-button--destructive pm7-button--sm" onclick="window.PM7?.openDialog?.('delete-account-dialog')">
+          Delete Account
+        </button>
+      </div>
+      
+      <div class="action-card">
+        <h3>Cancel Subscription</h3>
+        <p>Cancel your premium subscription</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('cancel-subscription-dialog')">
+          Cancel Subscription
+        </button>
+      </div>
+      
+      <div class="action-card">
+        <h3>Logout</h3>
+        <p>Sign out from all devices</p>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="window.PM7?.openDialog?.('logout-dialog')">
+          Logout All Devices
+        </button>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Account Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="delete-account-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-body style="text-align: center; padding: 2rem;">
+      <div class="warning-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path>
+        </svg>
+      </div>
+      <h2 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">Delete Account?</h2>
+      <p style="color: var(--pm7-muted-foreground); margin: 0 0 1.5rem 0;">
+        This will permanently delete your account and all associated data. This action cannot be undone.
+      </p>
+      <div style="display: flex; gap: 0.5rem; justify-content: center;">
+        <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('delete-account-dialog')">
+          Cancel
+        </button>
+        <button class="pm7-button pm7-button--destructive" onclick="confirmDeleteAccount()">
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Subscription Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="cancel-subscription-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Cancel Subscription?"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p><strong>Your subscription includes:</strong></p>
+      <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+        <li>Unlimited projects</li>
+        <li>Advanced analytics</li>
+        <li>Priority support</li>
+        <li>Team collaboration</li>
+      </ul>
+      <p style="color: var(--pm7-muted-foreground);">You'll lose access to these features at the end of your billing period.</p>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="space-between">
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('cancel-subscription-dialog')">
+        Keep Subscription
+      </button>
+      <button class="pm7-button pm7-button--destructive" onclick="confirmCancelSubscription()">
+        Cancel Subscription
+      </button>
+    </div>
+  </div>
+
+  <!-- Logout Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="logout-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Logout from All Devices?"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>You'll be signed out from:</p>
+      <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+        <li>MacBook Pro (Current)</li>
+        <li>iPhone 14</li>
+        <li>iPad Pro</li>
+        <li>Chrome on Windows</li>
+      </ul>
+      <p style="color: var(--pm7-muted-foreground);">You'll need to sign in again on each device.</p>
+    </div>
+    <div data-pm7-footer data-pm7-footer-justify="flex-end">
+      <button class="pm7-button pm7-button--ghost" onclick="window.PM7?.closeDialog?.('logout-dialog')">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="confirmLogout()">
+        Logout All Devices
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function confirmDeleteAccount() {
+      window.PM7?.closeDialog?.('delete-account-dialog');
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Account deletion initiated. You will receive a confirmation email.', { variant: 'default' });
+        } else {
+          alert('Account deletion initiated. You will receive a confirmation email.');
+        }
+      }, 300);
+    }
+    
+    function confirmCancelSubscription() {
+      window.PM7?.closeDialog?.('cancel-subscription-dialog');
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Subscription cancelled. Active until end of billing period.', { variant: 'default' });
+        } else {
+          alert('Subscription cancelled. Active until end of billing period.');
+        }
+      }, 300);
+    }
+    
+    function confirmLogout() {
+      window.PM7?.closeDialog?.('logout-dialog');
+      setTimeout(() => {
+        if (window.showToast) {
+          window.showToast('Logged out from all devices', { variant: 'success' });
+        } else {
+          alert('Logged out from all devices');
+        }
+      }, 300);
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Centered Confirmation Dialog -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="confirm-dialog"
+     data-pm7-dialog-size="sm">
+  <div data-pm7-body style="text-align: center; padding: 2rem;">
+    <div class="icon-wrapper">
+      <!-- Optional icon -->
+    </div>
+    <h2>Delete Item?</h2>
+    <p>This action cannot be undone.</p>
+    <div class="button-group">
+      <button class="pm7-button pm7-button--outline">
+        Cancel
+      </button>
+      <button class="pm7-button pm7-button--destructive">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Confirmation -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="detailed-confirm"
+     data-pm7-dialog-size="sm">
+  <div data-pm7-header
+       data-pm7-dialog-title="Cancel Subscription?">
+  </div>
+  <div data-pm7-body>
+    <p>You'll lose access to:</p>
+    <ul>
+      <li>Premium features</li>
+      <li>Priority support</li>
+    </ul>
+  </div>
+  <div data-pm7-footer>
+    <button class="pm7-button pm7-button--outline">
+      Keep Subscription
+    </button>
+    <button class="pm7-button pm7-button--destructive">
+      Cancel
+    </button>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

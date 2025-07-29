@@ -24,6 +24,8 @@ export class PM7Tooltip {
     
     this.element = element;
     
+    // Only support structured syntax - no simple syntax transformation
+    
     // AI-Agent FIRST: Automatically add pm7-tooltip class if missing
     if (!this.element.classList.contains('pm7-tooltip')) {
       this.element.classList.add('pm7-tooltip');
@@ -75,6 +77,7 @@ export class PM7Tooltip {
     // Mark as initialized
     element.setAttribute('data-pm7-tooltip-initialized', 'true');
   }
+  
   
   preserveState() {
     // Check if tooltip is currently open
@@ -387,9 +390,13 @@ function healTooltips() {
 
 // Auto-initialize tooltips
 export function initTooltips(container = document) {
+  // Find all elements with data-pm7-tooltip attribute
   const tooltips = container.querySelectorAll('[data-pm7-tooltip]:not([data-pm7-tooltip-initialized])');
   tooltips.forEach(tooltip => {
-    new PM7Tooltip(tooltip);
+    // Skip if this element is already part of a tooltip structure (e.g., the wrapper div)
+    if (!tooltip.classList.contains('pm7-tooltip-trigger') && !tooltip.classList.contains('pm7-tooltip-content')) {
+      new PM7Tooltip(tooltip);
+    }
   });
 }
 

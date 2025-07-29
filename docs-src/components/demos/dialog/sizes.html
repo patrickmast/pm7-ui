@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialog Sizes Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Dialog Sizes</h1>
+      <p class="demo-description">Different dialog sizes for various use cases</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('small-dialog')">
+        Small Dialog
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('medium-dialog')">
+        Medium Dialog
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('large-dialog')">
+        Large Dialog
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('full-dialog')">
+        Full Screen
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Small Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="small-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Small Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Small dialogs are perfect for quick confirmations, simple messages, or compact forms. The narrow width (400px) keeps content focused and easy to read.</p>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Confirmations, alerts, simple inputs</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('small-dialog')">
+        Got it
+      </button>
+    </div>
+  </div>
+
+  <!-- Medium Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="medium-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Medium Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Medium dialogs provide a comfortable reading width for most content. This is the default and recommended size for general purpose dialogs.</p>
+      <div style="margin-top: 16px; padding: 16px; background: var(--pm7-muted); border-radius: 6px;">
+        <h4 style="margin: 0 0 8px 0;">Example Form</h4>
+        <div style="display: flex; gap: 12px;">
+          <input type="text" class="pm7-input" placeholder="First name" style="flex: 1;">
+          <input type="text" class="pm7-input" placeholder="Last name" style="flex: 1;">
+        </div>
+      </div>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Forms, detailed messages, standard modals</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('medium-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Large Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="large-dialog"
+       data-pm7-dialog-size="lg"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Large Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Large dialogs offer generous space for complex content like multi-column layouts, data tables, or detailed forms.</p>
+      <div style="margin-top: 16px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--pm7-border);">
+              <th style="padding: 12px; text-align: left;">Feature</th>
+              <th style="padding: 12px; text-align: left;">Status</th>
+              <th style="padding: 12px; text-align: left;">Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--pm7-border);">
+              <td style="padding: 12px;">User Authentication</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-success);">✓ Complete</span></td>
+              <td style="padding: 12px;">100%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--pm7-border);">
+              <td style="padding: 12px;">Dashboard Design</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-warning);">In Progress</span></td>
+              <td style="padding: 12px;">75%</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px;">API Integration</td>
+              <td style="padding: 12px;"><span style="color: var(--pm7-muted-foreground);">Pending</span></td>
+              <td style="padding: 12px;">0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 12px; color: var(--pm7-muted-foreground); font-size: 14px;">💡 Use for: Tables, multi-column forms, detailed content</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('large-dialog')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Screen Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="full-dialog"
+       data-pm7-dialog-size="full"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="Full Screen Dialog"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>This is a full screen dialog. It takes up the entire viewport and is useful for immersive experiences or complex workflows.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('full-dialog')">
+        Exit Full Screen
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Small Dialog (400px) -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="small-dialog"
+     data-pm7-dialog-size="sm">
+  <!-- Content -->
+</div>
+
+<!-- Medium Dialog (600px - default) -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="medium-dialog"
+     data-pm7-dialog-size="md">
+  <!-- Content -->
+</div>
+
+<!-- Large Dialog (800px) -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="large-dialog"
+     data-pm7-dialog-size="lg">
+  <!-- Content -->
+</div>
+
+<!-- Extra Large Dialog (1000px) -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="xl-dialog"
+     data-pm7-dialog-size="xl">
+  <!-- Content -->
+</div>
+
+<!-- Full Screen Dialog -->
+<div class="pm7-dialog" 
+     data-pm7-dialog="full-dialog"
+     data-pm7-dialog-size="full">
+  <!-- Content -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

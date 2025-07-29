@@ -121,181 +121,314 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>Basic Dialog</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('basic-dialog')">
-                  Open Basic Dialog
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different dialog demos. Click "Open in new tab" to see the full demo page.</p>
+
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Dialog -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-dialog-demo">
+                  <span>Basic Dialog</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
                 </button>
+                <div class="pm7-accordion-content" id="basic-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/basic.html" title="Basic Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
               </div>
+
+              <!-- Dialog Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Dialog Sizes</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/sizes.html" title="Dialog Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Alert Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="alert-dialog-demo">
+                  <span>Alert & Confirmation Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="alert-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/alert-dialog.html" title="Alert Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/alert-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Form Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="form-dialog-demo">
+                  <span>Form Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="form-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/form-dialog.html" title="Form Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/form-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Scrollable Content -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="scrollable-dialog-demo">
+                  <span>Scrollable Content</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="scrollable-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/scrollable-dialog.html" title="Scrollable Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/scrollable-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Confirmation Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="confirmation-dialog-demo">
+                  <span>Confirmation Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="confirmation-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/confirmation-dialog.html" title="Confirmation Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/confirmation-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Multi-Step Wizard -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="multi-step-dialog-demo">
+                  <span>Multi-Step Wizard</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="multi-step-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/multi-step-dialog.html" title="Multi-Step Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/multi-step-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Icon Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="icon-dialog-demo">
+                  <span>Icon Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="icon-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/icon-dialog.html" title="Icon Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/icon-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Description Dialogs -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="description-dialog-demo">
+                  <span>Description Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="description-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/description-dialog.html" title="Description Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/description-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Loading States -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="loading-dialog-demo">
+                  <span>Loading States</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="loading-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/loading-dialog.html" title="Loading Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/loading-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cookie Consent -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="cookie-dialog-demo">
+                  <span>Cookie Consent</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="cookie-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/cookie-dialog.html" title="Cookie Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/cookie-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Structure Variations -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="structure-dialog-demo">
+                  <span>Structure Variations</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="structure-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/structure-dialog.html" title="Structure Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/structure-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Gradient Borders -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="gradient-dialog-demo">
+                  <span>Gradient Border Dialogs</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="gradient-dialog-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/dialog/gradient-dialog.html" title="Gradient Dialog Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/dialog/gradient-dialog.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
             </div>
 
-            <div class="pm7-docs-example">
-              <h3>Dialog Sizes</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('small-dialog')">
-                  Small Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('medium-dialog')">
-                  Medium Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('large-dialog')">
-                  Large Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('full-dialog')">
-                  Full Screen
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Alert Dialog</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.openDialog?.('alert-dialog')">
-                  Delete Item (with icon)
-                </button>
-                <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.openDialog?.('alert-dialog-no-icon')">
-                  Delete Item (no icon)
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Form Dialog</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('form-dialog')">
-                  Edit Profile
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Scrollable Content</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('scrollable-dialog')">
-                  Terms of Service
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Confirmation Dialog</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--destructive" onclick="window.PM7?.openDialog?.('delete-confirm')">
-                  Delete Account
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Multi-Step Dialog</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('wizard-dialog')">
-                  Start Setup Wizard
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Dialog with Icon</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem;">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('icon-dialog')">
-                  Icon + Close Button
-                </button>
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('icon-dialog-no-close')">
-                  Icon Only
-                </button>
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('icon-dialog-close-only')">
-                  Close Button Only
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Dialog with Description</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('description-dialog')">
-                  Open with Description
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Loading Dialog (Body Only)</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('loading-dialog')">
-                  Show Loading
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Cookie Bar (Footer Only)</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('cookie-dialog')">
-                  Show Cookie Bar
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Custom Header with Avatar</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('avatar-dialog')">
-                  Open Chat Dialog
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Mixed Header (Generated + Custom)</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('mixed-dialog')">
-                  Open Settings
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Dialog Section Combinations</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem; flex-wrap: wrap;">
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('only-header-dialog')">
-                  Only Header
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('only-body-dialog')">
-                  Only Body
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('only-footer-dialog')">
-                  Only Footer
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('header-footer-dialog')">
-                  Header + Footer
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('body-footer-dialog')">
-                  Body + Footer
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('header-body-dialog')">
-                  Header + Body
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Gradient Border Dialogs</h3>
-              <div class="pm7-docs-preview" style="gap: 1rem; flex-wrap: wrap;">
-                <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('gradient-dialog')">
-                  Default Gradient Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-blue-dialog')">
-                  Blue Gradient Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-green-dialog')">
-                  Green Gradient Dialog
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-thick-dialog')">
-                  Thick Gradient Border
-                </button>
-              </div>
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/dialog/" target="_blank">View all dialog demos →</a>
             </div>
 
           </section>
@@ -1524,6 +1657,34 @@ pm7Confirm('Are you sure?', (confirmed) => {
     // Dialog functions are available via PM7 namespace
     document.addEventListener('DOMContentLoaded', () => {
       console.log('[Dialog Page] PM7 loaded, dialog functions available via window.PM7');
+      
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          link.remove();
+        }
+      });
     });
   </script>
 

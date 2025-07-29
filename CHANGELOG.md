@@ -1,6 +1,30 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in daily changelog files.
+
+## Daily Changelogs
+
+### 2025
+
+#### July
+- [Tuesday, July 29, 2025](changelog/changelog-2025-07-29-Tuesday.md)
+- [Monday, July 28, 2025](changelog/changelog-2025-07-28-Monday.md)
+
+## [2.7.1] - 2025-07-29
+
+### 📚 Documentation & Demo System Updates
+
+Comprehensive update to component documentation and demo system for better developer experience.
+
+#### Changes:
+- **Updated demo system** - All component demos now use accordion/iframe structure
+- **Improved navigation** - External links moved to accordion headers for better UX
+- **Component documentation** - Updated AI-optimized documentation for multiple components
+- **Better isolation** - Each demo runs in its own iframe for framework compatibility
+
+#### Components Updated:
+- Accordion, Button, Callout, Card, Dialog, Icons, Input, Menu
+- Sidebar, Tab Selector, Theme Switch, Toast, Tooltip
 
 ## [2.7.0] - 2025-01-27
 

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Integration Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1.125rem;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .integration-examples {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .example-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    
+    /* Custom styles for demos */
+    .icon-with-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .mobile-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+    }
+    
+    .nav-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--pm7-muted);
+      border-radius: 8px;
+    }
+    
+    .dropdown-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--pm7-background);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon Integration</h1>
+      <p class="demo-description">Using hamburger icon with PM7 components</p>
+    </div>
+    
+    <!-- Button Integration -->
+    <div class="demo-section">
+      <h3>Button Components</h3>
+      <div class="example-row">
+        <button class="pm7-button pm7-button--primary icon-with-text">
+          <span id="button-primary-icon"></span>
+          <span>Primary Menu</span>
+        </button>
+        
+        <button class="pm7-button pm7-button--outline icon-with-text">
+          <span id="button-outline-icon"></span>
+          <span>Outline Menu</span>
+        </button>
+        
+        <button class="pm7-button pm7-button--ghost icon-with-text">
+          <span id="button-ghost-icon"></span>
+          <span>Ghost Menu</span>
+        </button>
+        
+        <button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu">
+          <span id="button-icon-only"></span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menu Component -->
+    <div class="demo-section">
+      <h3>Menu Component</h3>
+      <div class="pm7-menu" data-pm7-menu style="display: inline-block;">
+        <button class="pm7-menu-trigger" aria-haspopup="true" aria-expanded="false">
+          <span id="menu-icon"></span>
+          <span>Navigation</span>
+        </button>
+        <div class="pm7-menu-content">
+          <a href="#" class="pm7-menu-item">Home</a>
+          <a href="#" class="pm7-menu-item">Products</a>
+          <a href="#" class="pm7-menu-item">About</a>
+          <a href="#" class="pm7-menu-item">Contact</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div class="demo-section">
+      <h3>Mobile Navigation Pattern</h3>
+      <div class="mobile-menu">
+        <h4 style="margin: 0;">My App</h4>
+        <button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu">
+          <span id="mobile-menu-icon"></span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Header -->
+    <div class="demo-section">
+      <h3>Navigation Header</h3>
+      <div class="nav-header">
+        <button class="pm7-button pm7-button--ghost pm7-button--icon" aria-label="Menu">
+          <span id="nav-icon"></span>
+        </button>
+        <span style="font-weight: 600;">Dashboard</span>
+        <nav style="margin-left: auto; display: flex; gap: 1rem;">
+          <a href="#" class="pm7-button pm7-button--ghost pm7-button--sm">Home</a>
+          <a href="#" class="pm7-button pm7-button--ghost pm7-button--sm">Settings</a>
+          <a href="#" class="pm7-button pm7-button--ghost pm7-button--sm">Profile</a>
+        </nav>
+      </div>
+    </div>
+    
+    <!-- Dropdown Pattern -->
+    <div class="demo-section">
+      <h3>Dropdown Pattern</h3>
+      <div class="dropdown-trigger">
+        <span>Menu Options</span>
+        <span id="dropdown-icon" style="transform: rotate(90deg);"></span>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/icons.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script type="module">
+    import { createHamburgerIconElement } from '/packages/core/src/icons/hamburger.js';
+    
+    // Button icons
+    const buttonPrimaryIcon = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('button-primary-icon')?.appendChild(buttonPrimaryIcon);
+    
+    const buttonOutlineIcon = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('button-outline-icon')?.appendChild(buttonOutlineIcon);
+    
+    const buttonGhostIcon = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('button-ghost-icon')?.appendChild(buttonGhostIcon);
+    
+    const buttonIconOnly = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('button-icon-only')?.appendChild(buttonIconOnly);
+    
+    // Menu icon
+    const menuIcon = createHamburgerIconElement({ width: 16, height: 13 });
+    document.getElementById('menu-icon')?.appendChild(menuIcon);
+    
+    // Mobile menu icon
+    const mobileMenuIcon = createHamburgerIconElement({ width: 18, height: 15 });
+    document.getElementById('mobile-menu-icon')?.appendChild(mobileMenuIcon);
+    
+    // Navigation icon
+    const navIcon = createHamburgerIconElement({ width: 18, height: 15 });
+    document.getElementById('nav-icon')?.appendChild(navIcon);
+    
+    // Dropdown icon (rotated)
+    const dropdownIcon = createHamburgerIconElement({ width: 14, height: 12 });
+    document.getElementById('dropdown-icon')?.appendChild(dropdownIcon);
+  </script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `import { createHamburgerIconElement } from '@pm7/core';
+
+// Button with icon and text
+<button class="pm7-button pm7-button--primary">
+  <span id="icon-container"></span>
+  <span>Menu</span>
+</button>
+
+const icon = createHamburgerIconElement({ 
+  width: 16, 
+  height: 13 
+});
+document.getElementById('icon-container').appendChild(icon);
+
+// Icon-only button
+<button class="pm7-button pm7-button--ghost pm7-button--icon" 
+        aria-label="Menu">
+  <span id="icon-only"></span>
+</button>
+
+// Menu component trigger
+<div class="pm7-menu" data-pm7-menu>
+  <button class="pm7-menu-trigger">
+    <span id="menu-icon"></span>
+    <span>Navigation</span>
+  </button>
+  <div class="pm7-menu-content">
+    <!-- Menu items -->
+  </div>
+</div>
+
+// Mobile navigation pattern
+<header class="mobile-header">
+  <h1>App Name</h1>
+  <button class="pm7-button pm7-button--ghost pm7-button--icon">
+    <!-- Hamburger icon -->
+  </button>
+</header>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

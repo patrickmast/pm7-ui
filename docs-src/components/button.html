@@ -878,18 +878,6 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     });
   </script>
 
-  <script type="module">
-    import { initTabRouter } from '/scripts/tab-router.js';
-    
-    // Initialize tab routing
-    document.addEventListener('DOMContentLoaded', () => {
-      initTabRouter('button');
-    });
-  </script>
-
-  <script type="module" src="/scripts/docs.js"></script>
-  <script type="module" src="/scripts/version-standalone.js"></script>
-
   <div id="footer-placeholder"></div>
 
   <!-- Info Dialogs -->
@@ -1133,6 +1121,40 @@ document.querySelector('.pm7-button').addEventListener('click', (e) => {
     // Initialize tab routing
     document.addEventListener('DOMContentLoaded', () => {
       initTabRouter('button');
+      
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          // Clone the link
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          // Create a container for the link that prevents hover bubbling
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          // Add hover tracking to prevent title color change
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          // Insert the container after the trigger
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          
+          // Remove the original link from content
+          link.remove();
+        }
+      });
     });
   </script>
 

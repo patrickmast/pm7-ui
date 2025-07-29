@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textarea Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .pm7-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-helper-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .character-count {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Textarea</h1>
+      <p class="demo-description">Multi-line text input areas</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Basic Textarea</h3>
+      <div class="pm7-form-group">
+        <label for="basic-textarea" class="pm7-label">Comment</label>
+        <textarea id="basic-textarea" class="pm7-input" rows="4" placeholder="Enter your comment..."></textarea>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>With Character Count</h3>
+      <div class="pm7-form-group">
+        <label for="count-textarea" class="pm7-label">Description</label>
+        <textarea id="count-textarea" class="pm7-input" rows="4" maxlength="200" placeholder="Enter description (max 200 characters)..." oninput="updateCount(this)"></textarea>
+        <div class="character-count">
+          <span>Maximum 200 characters</span>
+          <span id="char-count">0 / 200</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Auto-resize Textarea</h3>
+      <div class="pm7-form-group">
+        <label for="auto-textarea" class="pm7-label">Message</label>
+        <textarea id="auto-textarea" class="pm7-input" rows="3" placeholder="Type to see auto-resize..." oninput="autoResize(this)" style="min-height: 80px; resize: none;"></textarea>
+        <p class="pm7-helper-text">This textarea automatically expands as you type.</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Different States</h3>
+      <div class="pm7-form-group">
+        <label for="error-textarea" class="pm7-label">Error State</label>
+        <textarea id="error-textarea" class="pm7-input pm7-input--error" rows="3" placeholder="This field has an error..."></textarea>
+        <p class="pm7-error-text">This field is required.</p>
+      </div>
+      
+      <div class="pm7-form-group">
+        <label for="disabled-textarea" class="pm7-label">Disabled State</label>
+        <textarea id="disabled-textarea" class="pm7-input" rows="3" placeholder="This textarea is disabled..." disabled></textarea>
+      </div>
+      
+      <div class="pm7-form-group">
+        <label for="readonly-textarea" class="pm7-label">Read-only State</label>
+        <textarea id="readonly-textarea" class="pm7-input" rows="3" readonly>This is read-only content. You can select and copy it, but cannot edit it.</textarea>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/input.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function updateCount(textarea) {
+      const count = textarea.value.length;
+      const max = textarea.getAttribute('maxlength');
+      document.getElementById('char-count').textContent = `${count} / ${max}`;
+    }
+    
+    function autoResize(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Basic Textarea -->
+<div class="pm7-form-group">
+  <label for="comment" class="pm7-label">Comment</label>
+  <textarea id="comment" class="pm7-input" rows="4" placeholder="Enter your comment..."></textarea>
+</div>
+
+<!-- Textarea with Character Count -->
+<div class="pm7-form-group">
+  <label for="description" class="pm7-label">Description</label>
+  <textarea id="description" class="pm7-input" rows="4" maxlength="200" placeholder="Enter description..."></textarea>
+  <div class="character-count">
+    <span>Maximum 200 characters</span>
+    <span id="char-count">0 / 200</span>
+  </div>
+</div>
+
+<!-- Auto-resize Textarea -->
+<textarea class="pm7-input" rows="3" style="min-height: 80px; resize: none;" 
+  oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+  placeholder="Type to see auto-resize..."></textarea>
+
+<!-- Error State -->
+<textarea class="pm7-input pm7-input--error" rows="3" placeholder="This field has an error..."></textarea>
+
+<!-- Disabled State -->
+<textarea class="pm7-input" rows="3" placeholder="Disabled textarea..." disabled></textarea>
+
+<!-- Read-only State -->
+<textarea class="pm7-input" rows="3" readonly>Read-only content</textarea>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

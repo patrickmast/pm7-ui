@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltip Themes - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .theme-demo {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      min-height: 100px;
+      align-items: center;
+    }
+    
+    .combination-section {
+      margin-top: 3rem;
+    }
+    
+    .combination-demo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      align-items: center;
+      justify-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Tooltip Themes</h2>
+    
+    <div class="theme-demo">
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Dark Theme
+        </button>
+        <div class="pm7-tooltip-content" data-side="top">
+          Dark tooltip (default)
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      <div class="pm7-tooltip">
+        <button class="pm7-button pm7-button--secondary pm7-tooltip-trigger">
+          Light Theme
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--light" data-side="top">
+          Light themed tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="combination-section">
+      <h3>Theme Combinations</h3>
+      <div class="combination-demo">
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+            Small Light
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--sm pm7-tooltip-content--light" data-side="top">
+            Small light tooltip
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--primary pm7-tooltip-trigger">
+            Large Dark
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--lg" data-side="top">
+            Large dark tooltip with extended content
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+            Multiline Light
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--light pm7-tooltip-content--multiline" data-side="right" style="max-width: 250px;">
+            This is a light themed tooltip<br>
+            with multiple lines of text<br>
+            positioned to the right.
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+        
+        <div class="pm7-tooltip">
+          <button class="pm7-button pm7-button--outline pm7-tooltip-trigger">
+            Multiline Dark
+          </button>
+          <div class="pm7-tooltip-content pm7-tooltip-content--multiline" data-side="left" style="max-width: 250px;">
+            This is a dark themed tooltip<br>
+            with multiple lines of text<br>
+            positioned to the left.
+            <div class="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  <script type="module">
+    import { initTooltips } from '/packages/core/src/scripts/tooltip.js';
+    
+    // Initialize tooltips
+    setTimeout(() => {
+      initTooltips();
+    }, 100);
+  </script>
+</body>
+</html>

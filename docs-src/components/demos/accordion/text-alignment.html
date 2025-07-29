@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Alignment Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .alignment-label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Text Alignment</h1>
+      <p class="demo-description">Control the alignment of text in accordion headers</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Left aligned (default) -->
+      <div>
+        <p class="alignment-label">Left Aligned (Default)</p>
+        <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Left Aligned Text</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This is the default alignment. Text is aligned to the left side of the accordion header.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Standard Behavior</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>No additional classes needed for left alignment as it's the default.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Center aligned text -->
+      <div>
+        <p class="alignment-label">Center Aligned</p>
+        <div class="pm7-accordion pm7-accordion--text-center" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Center Aligned Text</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has center-aligned text in the header using the <code>pm7-accordion--text-center</code> class.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Balanced Look</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Perfect for creating a symmetrical, balanced appearance in your accordion headers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right aligned text -->
+      <div>
+        <p class="alignment-label">Right Aligned</p>
+        <div class="pm7-accordion pm7-accordion--text-right" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Right Aligned Text</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion has right-aligned text in the header using the <code>pm7-accordion--text-right</code> class.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>RTL Support</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Useful for right-to-left languages or specific design requirements.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Combined: Icon start + Center text -->
+      <div>
+        <p class="alignment-label">Combined: Icon Start + Center Text</p>
+        <div class="pm7-accordion pm7-accordion--icon-start pm7-accordion--text-center" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Icon Start + Center Text</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This combines icon at start with center-aligned text. Classes can be combined for different effects.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item">
+            <button class="pm7-accordion-trigger">
+              <span>Mix and Match</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>You can combine different modifiers to achieve the exact layout you need.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Left aligned (default) -->
+<div class="pm7-accordion" data-pm7-accordion>
+  <!-- Default left alignment -->
+</div>
+
+<!-- Center aligned -->
+<div class="pm7-accordion pm7-accordion--text-center" data-pm7-accordion>
+  <!-- Center aligned text -->
+</div>
+
+<!-- Right aligned -->
+<div class="pm7-accordion pm7-accordion--text-right" data-pm7-accordion>
+  <!-- Right aligned text -->
+</div>
+
+<!-- Combined modifiers -->
+<div class="pm7-accordion pm7-accordion--icon-start pm7-accordion--text-center" data-pm7-accordion>
+  <!-- Icon at start with center text -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Border Accordion Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--pm7-muted);
+      padding: 3rem;
+      border-radius: var(--pm7-radius-lg);
+      border: 1px solid var(--pm7-border);
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .variant-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin-bottom: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Gradient Border Accordion</h1>
+      <p class="demo-description">Beautiful gradient borders for enhanced visual appeal</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Default Gradient Colors -->
+      <div>
+        <h3 class="variant-title">Default Gradient Colors</h3>
+        <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item pm7-gradient-border">
+            <button class="pm7-accordion-trigger">
+              <span>Gradient Border Example</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>This accordion item features a beautiful gradient border using the <code>pm7-gradient-border</code> class. The gradient transitions from purple to yellow to orange.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-blue">
+            <button class="pm7-accordion-trigger">
+              <span>Blue Gradient Border</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Using <code>pm7-gradient-border-blue</code> for a cool blue gradient effect.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-green">
+            <button class="pm7-accordion-trigger">
+              <span>Green Gradient Border</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Using <code>pm7-gradient-border-green</code> for a fresh green gradient.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Different Border Thicknesses -->
+      <div>
+        <h3 class="variant-title">Different Border Thicknesses</h3>
+        <div class="pm7-accordion" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-2">
+            <button class="pm7-accordion-trigger">
+              <span>2px Gradient Border</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>A thicker 2px gradient border using <code>pm7-gradient-border-2</code>.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-4">
+            <button class="pm7-accordion-trigger">
+              <span>4px Gradient Border</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>An even bolder 4px gradient border using <code>pm7-gradient-border-4</code>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Combined with other variants -->
+      <div>
+        <h3 class="variant-title">Combined with Other Variants</h3>
+        <div class="pm7-accordion pm7-accordion--lg" data-pm7-accordion style="max-width: 600px;">
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-blue pm7-gradient-border-2">
+            <button class="pm7-accordion-trigger">
+              <span>Large Size + Blue Gradient 2px</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Combining multiple modifiers: <code>pm7-accordion--lg</code> with <code>pm7-gradient-border-blue</code> and <code>pm7-gradient-border-2</code>.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-green pm7-gradient-border-4">
+            <button class="pm7-accordion-trigger">
+              <span>Large Size + Green Gradient 4px</span>
+              <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </button>
+            <div class="pm7-accordion-content">
+              <div class="pm7-accordion-content-inner">
+                <p>Creating eye-catching accordion items with bold gradient borders and larger size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/accordion.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Default gradient border -->
+<div class="pm7-accordion-item pm7-gradient-border">
+  <!-- Purple to yellow to orange gradient -->
+</div>
+
+<!-- Blue gradient -->
+<div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-blue">
+  <!-- Cool blue gradient -->
+</div>
+
+<!-- Green gradient -->
+<div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-green">
+  <!-- Fresh green gradient -->
+</div>
+
+<!-- Different thicknesses -->
+<div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-2">
+  <!-- 2px thick gradient border -->
+</div>
+
+<div class="pm7-accordion-item pm7-gradient-border pm7-gradient-border-4">
+  <!-- 4px thick gradient border -->
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complex Content Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Complex Content</h1>
+      <p class="demo-description">Callouts with rich content including lists, code, and links</p>
+    </div>
+    
+    <div class="demo-content">
+      <!-- Getting Started Guide -->
+      <div class="pm7-callout pm7-callout--tip">
+        <h4 class="pm7-callout-header">
+          🚀 Getting Started with PM7
+        </h4>
+        <div class="pm7-callout-body">
+          <p>Follow these steps to integrate PM7 components:</p>
+          <ul>
+            <li>Install the package: <code>npm install @pm7/core</code></li>
+            <li>Import the CSS: <code>import '@pm7/core/dist/pm7.css'</code></li>
+            <li>Start using components with simple CSS classes</li>
+          </ul>
+          <p>
+            For detailed instructions, check out our 
+            <a href="/getting-started.html">getting started guide</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Code Example -->
+      <div class="pm7-callout pm7-callout--info">
+        <h4 class="pm7-callout-header">
+          <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+          </svg>
+          Implementation Example
+        </h4>
+        <div class="pm7-callout-body">
+          <p>Here's how to create a complete callout with all elements:</p>
+          <pre style="background: var(--pm7-muted); padding: 1rem; border-radius: var(--pm7-radius); overflow-x: auto;"><code>&lt;div class="pm7-callout pm7-callout--info"&gt;
+  &lt;h4 class="pm7-callout-header"&gt;
+    &lt;svg class="pm7-callout-icon"&gt;...&lt;/svg&gt;
+    Header Text
+  &lt;/h4&gt;
+  &lt;div class="pm7-callout-body"&gt;
+    &lt;p&gt;Your content here&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- Feature List -->
+      <div class="pm7-callout pm7-callout--success">
+        <h4 class="pm7-callout-header">
+          ✨ PM7 Callout Features
+        </h4>
+        <div class="pm7-callout-body">
+          <p><strong>What makes PM7 callouts special:</strong></p>
+          <ul>
+            <li>✅ Framework agnostic - works with React, Vue, Angular, or vanilla JS</li>
+            <li>✅ Auto dark mode support - adapts to system preferences</li>
+            <li>✅ Semantic variants - info, success, warning, error, tip, neutral</li>
+            <li>✅ Flexible content - supports any HTML content</li>
+            <li>✅ Accessible by default - proper ARIA attributes and semantic HTML</li>
+            <li>✅ Zero JavaScript required - pure CSS implementation</li>
+          </ul>
+          <p style="margin-bottom: 0;">
+            <a href="#" class="pm7-button pm7-button--primary pm7-button--sm">Learn More</a>
+            <a href="#" class="pm7-button pm7-button--ghost pm7-button--sm">View Examples</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Warning with Multiple Paragraphs -->
+      <div class="pm7-callout pm7-callout--warning">
+        <h4 class="pm7-callout-header">
+          ⚠️ Important Migration Notice
+        </h4>
+        <div class="pm7-callout-body">
+          <p><strong>Breaking Changes in Version 3.0:</strong></p>
+          <p>We've made several improvements that require minor updates to your code:</p>
+          <ol>
+            <li>The <code>.pm7-alert</code> class has been renamed to <code>.pm7-callout</code></li>
+            <li>Icon classes are now <code>.pm7-callout-icon</code> instead of <code>.pm7-icon</code></li>
+            <li>The <code>--compact</code> modifier is now <code>--sm</code> for consistency</li>
+          </ol>
+          <p>
+            <strong>Migration steps:</strong><br>
+            Run the following find/replace commands in your codebase:
+          </p>
+          <pre style="background: var(--pm7-muted); padding: 0.5rem; border-radius: var(--pm7-radius);"><code>pm7-alert → pm7-callout
+pm7-alert-body → pm7-callout-body
+--compact → --sm</code></pre>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/callout.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Callout with list content -->
+<div class="pm7-callout pm7-callout--tip">
+  <h4 class="pm7-callout-header">🚀 Getting Started</h4>
+  <div class="pm7-callout-body">
+    <p>Follow these steps:</p>
+    <ul>
+      <li>Install: <code>npm install @pm7/core</code></li>
+      <li>Import CSS: <code>import '@pm7/core/dist/pm7.css'</code></li>
+      <li>Use components with CSS classes</li>
+    </ul>
+    <p>Check our <a href="#">documentation</a> for more.</p>
+  </div>
+</div>
+
+<!-- Callout with code block -->
+<div class="pm7-callout pm7-callout--info">
+  <h4 class="pm7-callout-header">Implementation Example</h4>
+  <div class="pm7-callout-body">
+    <p>Here's how to use it:</p>
+    <pre><code>&lt;div class="pm7-callout pm7-callout--info"&gt;
+  &lt;h4 class="pm7-callout-header"&gt;Title&lt;/h4&gt;
+  &lt;div class="pm7-callout-body"&gt;Content&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+</div>
+
+<!-- Callout with buttons -->
+<div class="pm7-callout pm7-callout--success">
+  <h4 class="pm7-callout-header">✨ Features</h4>
+  <div class="pm7-callout-body">
+    <ul>
+      <li>Framework agnostic</li>
+      <li>Auto dark mode</li>
+      <li>Zero JavaScript</li>
+    </ul>
+    <p>
+      <a href="#" class="pm7-button pm7-button--primary pm7-button--sm">Learn More</a>
+      <a href="#" class="pm7-button pm7-button--ghost pm7-button--sm">Examples</a>
+    </p>
+  </div>
+</div>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

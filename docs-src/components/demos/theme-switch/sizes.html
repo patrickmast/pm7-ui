@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switch Sizes - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+      text-align: center;
+    }
+    
+    .size-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .size-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .size-label {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .labeled-examples {
+      margin-top: 4rem;
+      border-top: 1px solid var(--pm7-border);
+      padding-top: 3rem;
+    }
+    
+    h3 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Theme Switch Sizes</h2>
+    
+    <div class="size-grid">
+      <div class="size-item">
+        <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
+        <span class="size-label">Small</span>
+      </div>
+      
+      <div class="size-item">
+        <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+        <span class="size-label">Medium (Default)</span>
+      </div>
+      
+      <div class="size-item">
+        <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
+        <span class="size-label">Large</span>
+      </div>
+    </div>
+    
+    <div class="labeled-examples">
+      <h3>Sizes with Labels</h3>
+      
+      <div class="size-grid">
+        <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch>
+          <span>Small</span>
+        </div>
+        
+        <div class="pm7-theme-switch" data-pm7-theme-switch>
+          <span>Medium</span>
+        </div>
+        
+        <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch>
+          <span>Large</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

@@ -108,149 +108,151 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>Callout Variants</h3>
-              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
-                
-                <div class="pm7-callout pm7-callout--info">
-                  <h4 class="pm7-callout-header">
-                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                    </svg>
-                    Information
-                  </h4>
-                  <div class="pm7-callout-body">
-                    This is an informational callout. Use it for general information or notices.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--success">
-                  <h4 class="pm7-callout-header">
-                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </svg>
-                    Success
-                  </h4>
-                  <div class="pm7-callout-body">
-                    Great! Your operation completed successfully.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--warning">
-                  <h4 class="pm7-callout-header">
-                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                    </svg>
-                    Warning
-                  </h4>
-                  <div class="pm7-callout-body">
-                    Please review this information before proceeding. This action may have consequences.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--error">
-                  <h4 class="pm7-callout-header">
-                    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
-                    </svg>
-                    Error
-                  </h4>
-                  <div class="pm7-callout-body">
-                    Something went wrong. Please check your input and try again.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--tip">
-                  <h4 class="pm7-callout-header">💡 Pro Tip</h4>
-                  <div class="pm7-callout-body">
-                    Use callouts to draw attention to important information that might otherwise be overlooked.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--neutral">
-                  <h4 class="pm7-callout-header">Note</h4>
-                  <div class="pm7-callout-body">
-                    This is a neutral callout for general notes without specific semantic meaning.
+            <h3>Interactive Demos</h3>
+            <p>Explore PM7 Callout component features with these interactive examples:</p>
+            
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion style="margin-top: 2rem;">
+              <!-- Callout Variants -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Callout Variants</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/callout/variants.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/callout/variants.html" 
+                      style="width: 100%; height: 600px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="pm7-docs-example">
-              <h3>Sizes</h3>
-              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
-                <div class="pm7-callout pm7-callout--info pm7-callout--sm">
-                  <div class="pm7-callout-body">Small callout with less padding</div>
-                </div>
-                
-                <div class="pm7-callout pm7-callout--info">
-                  <div class="pm7-callout-body">Medium callout (default size)</div>
-                </div>
-                
-                <div class="pm7-callout pm7-callout--info pm7-callout--lg">
-                  <div class="pm7-callout-body">Large callout with more padding and larger text</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Complex Content</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-callout pm7-callout--tip">
-                  <h4 class="pm7-callout-header">
-                    🚀 Getting Started with PM7
-                  </h4>
-                  <div class="pm7-callout-body">
-                    <p>Follow these steps to integrate PM7 components:</p>
-                    <ul>
-                      <li>Install the package: <code>npm install @pm7/core</code></li>
-                      <li>Import the CSS: <code>import '@pm7/core/dist/pm7.css'</code></li>
-                      <li>Start using components with simple CSS classes</li>
-                    </ul>
-                    <p>
-                      For detailed instructions, check out our 
-                      <a href="/getting-started.html">getting started guide</a>.
-                    </p>
+              <!-- Sizes -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Sizes</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/callout/sizes.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/callout/sizes.html" 
+                      style="width: 100%; height: 500px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="pm7-docs-example">
-              <h3>Modifiers</h3>
-              <div class="pm7-docs-preview" style="flex-direction: column; gap: 1rem;">
-                <div class="pm7-callout pm7-callout--info pm7-callout--no-border">
-                  <h4 class="pm7-callout-header">No Border</h4>
-                  <div class="pm7-callout-body">
-                    This callout has no left border for a softer appearance.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--success pm7-callout--center">
-                  <h4 class="pm7-callout-header">Centered Content</h4>
-                  <div class="pm7-callout-body">
-                    This callout has centered text alignment.
-                  </div>
-                </div>
-
-                <div class="pm7-callout pm7-callout--warning pm7-callout--pulse">
-                  <h4 class="pm7-callout-header">⚠️ Attention Required</h4>
-                  <div class="pm7-callout-body">
-                    This callout pulses to grab attention for critical messages.
+              <!-- Complex Content -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Complex Content</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/callout/complex-content.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/callout/complex-content.html" 
+                      style="width: 100%; height: 700px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="pm7-docs-example">
-              <h3>AI Agent Example</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-callout pm7-callout--tip">
-                  <h4 class="pm7-callout-header">🤖 AI Tip</h4>
-                  <div class="pm7-callout-body">
-                    Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."
+              <!-- Modifiers -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>Modifiers</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/callout/modifiers.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/callout/modifiers.html" 
+                      style="width: 100%; height: 800px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Agent Example -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger">
+                  <span>AI Agent Example</span>
+                  <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 12 12">
+                    <path d="M2.5 4L6 7.5L9.5 4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="demos/callout/ai-agent.html" 
+                       target="_blank" 
+                       class="pm7-demo-open-link pm7-button pm7-button--ghost pm7-button--sm"
+                       style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      Open in new tab
+                    </a>
+                    <iframe 
+                      src="demos/callout/ai-agent.html" 
+                      style="width: 100%; height: 500px; border: 1px solid var(--pm7-border); border-radius: var(--pm7-radius); background: var(--pm7-background);">
+                    </iframe>
                   </div>
                 </div>
               </div>
@@ -519,5 +521,44 @@
 
   <script type="module" src="/scripts/docs.js"></script>
   <script type="module" src="/scripts/version-standalone.js"></script>
+  
+  <!-- Move demo links to accordion headers -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Move demo links to accordion headers
+      const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+      demoAccordions.forEach(item => {
+        const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+        const trigger = item.querySelector('.pm7-accordion-trigger');
+        
+        if (link && trigger) {
+          // Clone the link
+          const headerLink = link.cloneNode(true);
+          headerLink.classList.remove('pm7-demo-open-link');
+          headerLink.classList.add('pm7-demo-open-link-header');
+          
+          // Create container for the link
+          const linkContainer = document.createElement('div');
+          linkContainer.className = 'pm7-demo-link-container';
+          linkContainer.appendChild(headerLink);
+          
+          // Add hover listeners to manage the data attribute
+          headerLink.addEventListener('mouseenter', () => {
+            item.setAttribute('data-link-hover', 'true');
+          });
+          
+          headerLink.addEventListener('mouseleave', () => {
+            item.removeAttribute('data-link-hover');
+          });
+          
+          // Insert after the trigger button
+          trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+          
+          // Remove the original link from content
+          link.remove();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

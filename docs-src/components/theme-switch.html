@@ -88,100 +88,165 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>Basic Usage (Uncontrolled)</h3>
-              <p>This toggle manages its own state and applies theme to the document automatically.</p>
-              <div class="pm7-docs-preview">
-                <div class="pm7-theme-switch" data-pm7-theme-switch>
-                  <span>Theme</span>
-                </div>
-              </div>
-            </div>
+            <p class="pm7-docs-note">Tip: Use the accordion below to explore different theme switch demos. Click "Open in new tab" to see the full demo page.</p>
 
-            <div class="pm7-docs-example">
-              <h3>Size Variants</h3>
-              <p>Available in small, medium (default), and large sizes.</p>
-              <div class="pm7-docs-preview" style="display: flex; align-items: center; gap: 2rem;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                  <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
-                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Small</span>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                  <div class="pm7-theme-switch" data-pm7-theme-switch></div>
-                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Medium</span>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                  <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
-                  <span style="font-size: 0.8rem; color: var(--pm7-muted-foreground);">Large</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Fixed/Floating Variants</h3>
-              <div class="pm7-docs-preview" style="min-height: 200px; position: relative; overflow: hidden;">
-                <p>Fixed theme switches stay in the viewport corner:</p>
-                
-                <!-- Demo container with relative positioning -->
-                <div style="position: relative; height: 150px; border: 1px dashed var(--pm7-border); border-radius: var(--pm7-radius);">
-                  <!-- Simulated fixed icon variant -->
-                  <div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch style="position: absolute;"></div>
-                </div>
-                
-                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--pm7-muted-foreground);">
-                  Note: In real usage, the fixed theme switch will be positioned relative to the viewport, not this container.
-                  Add <code>pm7-theme-switch--fixed-icon</code> class to create a floating theme toggle.
-                </p>
-                <p style="margin-top: 0.5rem;">
-                  <a href="/components/theme-switch-fixed-demo.html" class="pm7-button pm7-button--sm pm7-button--outline" target="_blank">
-                    View Full Demo →
+            <!-- Demo Accordion -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion>
+              
+              <!-- Basic Usage -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="basic-demo">
+                  <span>Basic Usage</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="basic-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/basic.html" title="Basic Theme Switch Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/basic.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
                   </a>
-                </p>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Header Integration Example</h3>
-              <p>How the theme toggle looks in a typical application header.</p>
-              <div class="pm7-docs-preview">
-                <div style="background: var(--pm7-surface); padding: 1rem 2rem; border-radius: var(--pm7-radius); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--pm7-border); gap: 2rem;">
-                  <h3 style="margin: 0; color: var(--pm7-foreground);">My Application</h3>
-                  <div class="pm7-theme-switch" data-pm7-theme-switch></div>
                 </div>
               </div>
-            </div>
 
-
-            <div class="pm7-docs-example">
-              <h3>Keyboard Navigation Test</h3>
-              <p>Try using Tab to focus and Enter/Space to toggle these switches:</p>
-              <div class="pm7-docs-preview" style="display: flex; gap: 1rem; align-items: center;">
-                <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch></div>
-                <div class="pm7-theme-switch" data-pm7-theme-switch></div>
-                <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch></div>
-              </div>
-              <p style="font-size: 0.9rem; color: var(--pm7-muted-foreground); font-style: italic;">
-                Use Tab to navigate between toggles, then press Enter or Space to activate them.
-              </p>
-            </div>
-
-
-            <div class="pm7-docs-example">
-              <h3>Disabled State</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-theme-switch pm7-theme-switch--disabled" data-pm7-theme-switch>
-                  <span>Disabled</span>
+              
+              <!-- Size Variants -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="sizes-demo">
+                  <span>Size Variants</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="sizes-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/sizes.html" title="Theme Switch Sizes Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/sizes.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
                 </div>
               </div>
-            </div>
 
-            <div class="pm7-docs-example">
-              <h3>No Hover Effect</h3>
-              <div class="pm7-docs-preview">
-                <div class="pm7-theme-switch pm7-theme-switch--no-hover" data-pm7-theme-switch>
-                  <span>No hover effect</span>
+              
+              <!-- Fixed Position -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="fixed-demo">
+                  <span>Fixed/Floating Variants</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="fixed-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/fixed-position.html" title="Fixed Position Theme Switch Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/fixed-position.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
                 </div>
               </div>
+
+              
+              <!-- Header Integration -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="header-demo">
+                  <span>Header Integration</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="header-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/header-integration.html" title="Header Integration Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/header-integration.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+
+              
+              <!-- States & Interactions -->
+              <div class="pm7-accordion-item">
+                <button class="pm7-accordion-trigger" aria-controls="states-demo">
+                  <span>States & Interactions</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="pm7-accordion-content" id="states-demo">
+                  <div class="pm7-demo-frame-container">
+                    <iframe src="/components/demos/theme-switch/states.html" title="Theme Switch States Demo"></iframe>
+                  </div>
+                  <a href="/components/demos/theme-switch/states.html" target="_blank" class="pm7-demo-open-link">
+                    Open in new tab
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+
+            <script>
+              // Move demo links to accordion headers
+              const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+              demoAccordions.forEach(item => {
+                const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+                const trigger = item.querySelector('.pm7-accordion-trigger');
+                
+                if (link && trigger) {
+                  const headerLink = link.cloneNode(true);
+                  headerLink.classList.remove('pm7-demo-open-link');
+                  headerLink.classList.add('pm7-demo-open-link-header');
+                  
+                  const linkContainer = document.createElement('div');
+                  linkContainer.className = 'pm7-demo-link-container';
+                  linkContainer.appendChild(headerLink);
+                  
+                  headerLink.addEventListener('mouseenter', () => {
+                    item.setAttribute('data-link-hover', 'true');
+                  });
+                  
+                  headerLink.addEventListener('mouseleave', () => {
+                    item.removeAttribute('data-link-hover');
+                  });
+                  
+                  trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+                  link.remove();
+                }
+              });
+            </script>
+
+            <div class="pm7-docs-note" style="margin-top: 2rem;">
+              <a href="/components/demos/theme-switch/" target="_blank">View all theme switch demos →</a>
             </div>
           </section>
         </div>

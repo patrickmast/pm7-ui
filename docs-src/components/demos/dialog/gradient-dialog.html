@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Gradient Border Dialogs</h1>
+      <p class="demo-description">Dialogs with animated gradient borders for emphasis</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('gradient-dialog')">
+        Default Gradient
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-blue-dialog')">
+        Blue Gradient
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-green-dialog')">
+        Green Gradient
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('gradient-thick-dialog')">
+        Thick Border
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Default Gradient Dialog -->
+  <div class="pm7-dialog pm7-gradient-border" 
+       data-pm7-dialog="gradient-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="✨ Special Offer"
+         data-pm7-dialog-subtitle="Limited time only"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>Get 50% off your first month when you upgrade to Pro today!</p>
+      <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground);">This offer expires in 24 hours</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('gradient-dialog')">
+        Maybe Later
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-dialog')">
+        Upgrade Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Blue Gradient Dialog -->
+  <div class="pm7-dialog pm7-gradient-border--blue" 
+       data-pm7-dialog="gradient-blue-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="💎 Premium Feature"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body style="text-align: center;">
+      <p>This feature is available for Premium subscribers only.</p>
+      <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground);">Unlock advanced analytics, unlimited exports, and priority support.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('gradient-blue-dialog')">
+        View Premium Plans
+      </button>
+    </div>
+  </div>
+
+  <!-- Green Gradient Dialog -->
+  <div class="pm7-dialog pm7-gradient-border--green" 
+       data-pm7-dialog="gradient-green-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-body style="text-align: center; padding: 2rem;">
+      <div style="width: 64px; height: 64px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: var(--pm7-success-foreground); border-radius: 50%;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--pm7-success)" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h2 style="margin: 0 0 0.5rem 0;">Success!</h2>
+      <p style="color: var(--pm7-muted-foreground); margin: 0 0 1.5rem 0;">Your changes have been saved successfully.</p>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-green-dialog')">
+        Continue
+      </button>
+    </div>
+  </div>
+
+  <!-- Thick Gradient Dialog -->
+  <div class="pm7-dialog pm7-gradient-border--thick" 
+       data-pm7-dialog="gradient-thick-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="🎯 Important Announcement"
+         data-pm7-dialog-subtitle="Please read carefully"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p>We're updating our terms of service to better protect your privacy and improve our services.</p>
+      <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+        <li>Enhanced data protection measures</li>
+        <li>Clearer privacy controls</li>
+        <li>Improved service guarantees</li>
+      </ul>
+      <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">These changes will take effect on March 1, 2025.</p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('gradient-thick-dialog')">
+        Read Full Terms
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('gradient-thick-dialog')">
+        I Understand
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Default Gradient -->
+<div class="pm7-dialog pm7-gradient-border" 
+     data-pm7-dialog="gradient">
+  <!-- Dialog content -->
+</div>
+
+<!-- Blue Gradient -->
+<div class="pm7-dialog pm7-gradient-border--blue" 
+     data-pm7-dialog="blue">
+  <!-- Dialog content -->
+</div>
+
+<!-- Green Gradient -->
+<div class="pm7-dialog pm7-gradient-border--green" 
+     data-pm7-dialog="green">
+  <!-- Dialog content -->
+</div>
+
+<!-- Thick Border (4px) -->
+<div class="pm7-dialog pm7-gradient-border--thick" 
+     data-pm7-dialog="thick">
+  <!-- Dialog content -->
+</div>
+
+<!-- Note: Gradient borders use CSS animations -->
+<!-- They work best for special emphasis dialogs -->`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

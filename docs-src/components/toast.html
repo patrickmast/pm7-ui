@@ -76,112 +76,76 @@
         <!-- Demo Tab -->
         <div class="pm7-tab-content" id="demo-panel">
           <section class="pm7-docs-section">
-            <div class="pm7-docs-example">
-              <h3>Toast Variants</h3>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Default Toast', description: 'This is a default toast message.'})">
-                  Default Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Success!', description: 'Operation completed successfully.', variant: 'success'})">
-                  Success Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Warning', description: 'Please review your input.', variant: 'warning'})">
-                  Warning Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Error', description: 'Something went wrong.', variant: 'destructive'})">
-                  Error Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Info', description: 'New updates available.', variant: 'info'})">
-                  Info Toast
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Toast Features</h3>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Quick Message', duration: 2000})">
-                  2 Second Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Persistent Toast', description: 'This won\'t auto-dismiss', duration: 0})">
-                  Persistent Toast
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'With Action', description: 'Click the button below.', action: '<button class=\'pm7-button pm7-button--sm pm7-button--primary\' onclick=\'alert(\'Action clicked!\')\'>Undo</button>'})">
-                  Toast with Action
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Common Patterns</h3>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--primary" onclick="simulateSave()">
-                  Save Changes
-                </button>
-                <button class="pm7-button pm7-button--destructive" onclick="simulateDelete()">
-                  Delete Item
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="simulateUpload()">
-                  Upload File
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showMultipleToasts()">
-                  Multiple Toasts
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Toast Management</h3>
-              <div class="pm7-docs-preview">
-                <button class="pm7-button pm7-button--destructive pm7-button--outline" onclick="closeAllToasts()">
-                  Close All Toasts
-                </button>
-              </div>
-            </div>
-
-            <div class="pm7-docs-example">
-              <h3>Gradient Border Toasts</h3>
-              
-              <h4>Basic Gradient Toasts</h4>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--primary" onclick="showGradientToast()">
-                  Default Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientToastBlue()">
-                  Blue Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientToastGreen()">
-                  Green Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientToastRed()">
-                  Red Gradient
-                </button>
+            <a href="/components/demos/toast/" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer" style="margin-left: 0; margin-bottom: 10px;">Open Toast demos in new tab →</a>
+            
+            <!-- Accordion demos -->
+            <div class="pm7-accordion pm7-demo-accordion" data-pm7-accordion="single" data-pm7-default-value="item-1">
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-1">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Toast Variants
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/variants.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/variants.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
               </div>
               
-              <h4>Border Thickness</h4>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--outline" onclick="showGradientToast2px()">
-                  2px Border
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientToast4px()">
-                  4px Border
-                </button>
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-2">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Toast Features
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/features.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/features.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
               </div>
               
-              <h4>Toast Types with Gradient</h4>
-              <div class="pm7-docs-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <button class="pm7-button pm7-button--outline" onclick="showGradientSuccess()">
-                  Success Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientError()">
-                  Error Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientWarning()">
-                  Warning Gradient
-                </button>
-                <button class="pm7-button pm7-button--outline" onclick="showGradientInfo()">
-                  Info Gradient
-                </button>
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-3">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Common Patterns
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/common-patterns.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/common-patterns.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pm7-accordion-item" data-pm7-accordion-value="item-4">
+                <h3 class="pm7-accordion-header">
+                  <button class="pm7-accordion-trigger">
+                    Gradient Border Toasts
+                    <svg class="pm7-accordion-chevron" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </button>
+                </h3>
+                <div class="pm7-accordion-content">
+                  <div class="pm7-accordion-content-inner">
+                    <a href="/components/demos/toast/gradient-border.html" class="pm7-demo-open-link" target="_blank" rel="noopener noreferrer">Open in new tab →</a>
+                    <iframe src="/components/demos/toast/gradient-border.html" class="pm7-demo-iframe"></iframe>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -518,139 +482,38 @@ PM7Toast.closeAll();</code></pre>
         }, 2000);
       });
     }
-
-    // Demo functions
-    function simulateSave() {
-      showToast({
-        title: 'Changes saved',
-        description: 'Your changes have been saved successfully.',
-        variant: 'success'
-      });
-    }
-
-    function simulateDelete() {
-      showToast({
-        title: 'Item deleted',
-        description: 'The item has been permanently deleted.',
-        variant: 'destructive',
-        action: '<button class="pm7-button pm7-button--sm pm7-button--primary" onclick="showToast({title: \'Restored\', variant: \'success\'})">Undo</button>'
-      });
-    }
-
-    function simulateUpload() {
-      const uploadToast = showToast({
-        title: 'Uploading file...',
-        description: 'Please wait',
-        duration: 0
-      });
-
+    
+    // Move demo links to accordion headers
+    document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        closeToast(uploadToast);
-        showToast({
-          title: 'Upload complete!',
-          description: 'document.pdf uploaded successfully',
-          variant: 'success',
-          action: '<button class="pm7-button pm7-button--sm pm7-button--primary">View</button>'
+        const demoAccordions = document.querySelectorAll('.pm7-demo-accordion .pm7-accordion-item');
+        demoAccordions.forEach(item => {
+          const link = item.querySelector('.pm7-accordion-content .pm7-demo-open-link');
+          const trigger = item.querySelector('.pm7-accordion-trigger');
+          
+          if (link && trigger) {
+            const headerLink = link.cloneNode(true);
+            headerLink.classList.remove('pm7-demo-open-link');
+            headerLink.classList.add('pm7-demo-open-link-header');
+            
+            const linkContainer = document.createElement('div');
+            linkContainer.className = 'pm7-demo-link-container';
+            linkContainer.appendChild(headerLink);
+            
+            headerLink.addEventListener('mouseenter', () => {
+              item.setAttribute('data-link-hover', 'true');
+            });
+            
+            headerLink.addEventListener('mouseleave', () => {
+              item.removeAttribute('data-link-hover');
+            });
+            
+            trigger.parentNode.insertBefore(linkContainer, trigger.nextSibling);
+            link.remove();
+          }
         });
-      }, 3000);
-    }
-
-    function showMultipleToasts() {
-      const messages = [
-        { title: 'First notification', variant: 'info' },
-        { title: 'Second notification', variant: 'warning' },
-        { title: 'Third notification', variant: 'success' }
-      ];
-
-      messages.forEach((msg, index) => {
-        setTimeout(() => showToast(msg), index * 500);
-      });
-    }
-
-    // Gradient Toast Functions
-    function showGradientToast() {
-      showToast({
-        title: 'Gradient Border Toast',
-        description: 'Beautiful purple to yellow to orange gradient',
-        className: 'pm7-gradient-border'
-      });
-    }
-
-    function showGradientToastBlue() {
-      showToast({
-        title: 'Blue Gradient Toast',
-        description: 'Cool blue gradient border',
-        className: 'pm7-gradient-border pm7-gradient-border-blue'
-      });
-    }
-
-    function showGradientToastGreen() {
-      showToast({
-        title: 'Green Gradient Toast',
-        description: 'Fresh green gradient border',
-        className: 'pm7-gradient-border pm7-gradient-border-green'
-      });
-    }
-
-    function showGradientToastRed() {
-      showToast({
-        title: 'Red Gradient Toast',
-        description: 'Bold red gradient border',
-        className: 'pm7-gradient-border pm7-gradient-border-red'
-      });
-    }
-
-    function showGradientToast2px() {
-      showToast({
-        title: '2px Gradient Border',
-        description: 'Medium thickness gradient border',
-        className: 'pm7-gradient-border pm7-gradient-border-2'
-      });
-    }
-
-    function showGradientToast4px() {
-      showToast({
-        title: '4px Gradient Border',
-        description: 'Bold thickness gradient border',
-        className: 'pm7-gradient-border pm7-gradient-border-4'
-      });
-    }
-
-    function showGradientSuccess() {
-      showToast({
-        title: 'Success!',
-        description: 'Operation completed successfully',
-        variant: 'success',
-        className: 'pm7-gradient-border pm7-gradient-border-green'
-      });
-    }
-
-    function showGradientError() {
-      showToast({
-        title: 'Error occurred',
-        description: 'Something went wrong',
-        variant: 'destructive',
-        className: 'pm7-gradient-border pm7-gradient-border-red'
-      });
-    }
-
-    function showGradientWarning() {
-      showToast({
-        title: 'Warning',
-        description: 'Please check your input',
-        variant: 'warning',
-        className: 'pm7-gradient-border pm7-gradient-border-2'
-      });
-    }
-
-    function showGradientInfo() {
-      showToast({
-        title: 'Information',
-        description: 'Here\'s something you should know',
-        variant: 'info',
-        className: 'pm7-gradient-border pm7-gradient-border-blue'
-      });
-    }
+      }, 100);
+    });
   </script>
 
   <!-- PM7 Core JavaScript -->

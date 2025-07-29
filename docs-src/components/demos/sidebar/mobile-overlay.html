@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Overlay Sidebar Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .mobile-demo-container {
+      width: 375px;
+      height: 600px;
+      margin: 0 auto;
+      border: 1px solid var(--pm7-border);
+      position: relative;
+      background: var(--pm7-background);
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-header {
+      height: 56px;
+      border-bottom: 1px solid var(--pm7-border);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      background: var(--pm7-surface);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .mobile-content {
+      padding: 1.5rem;
+      height: calc(100% - 56px);
+      overflow-y: auto;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Mobile Overlay Sidebar</h1>
+      <p class="demo-description">Responsive sidebar that overlays content on mobile devices</p>
+    </div>
+    
+    <div class="mobile-demo-container">
+      <!-- Mobile Header -->
+      <header class="mobile-header">
+        <button 
+          class="pm7-button pm7-button--ghost pm7-button--icon"
+          onclick="toggleMobileSidebar()"
+          aria-label="Toggle menu"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <h3 style="margin: 0 0 0 1rem; font-size: 1.125rem;">Mobile App</h3>
+      </header>
+      
+      <!-- Mobile Sidebar (Initially Hidden) -->
+      <aside 
+        class="pm7-sidebar pm7-sidebar--overlay" 
+        data-pm7-sidebar
+        id="mobile-sidebar"
+        style="z-index: 100;"
+      >
+        <div class="pm7-sidebar-content">
+          <div class="pm7-sidebar-header">
+            <h3 style="margin: 0; font-size: 1.125rem;">Menu</h3>
+            <button 
+              class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm"
+              onclick="closeMobileSidebar()"
+              aria-label="Close menu"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          
+          <nav class="pm7-sidebar-nav">
+            <a href="#" class="pm7-sidebar-link pm7-sidebar-link--active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              Home
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+              Search
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              Documents
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              Profile
+            </a>
+            <a href="#" class="pm7-sidebar-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 1v6m0 6v6m11-11h-6m-6 0H1"></path>
+              </svg>
+              Settings
+            </a>
+          </nav>
+        </div>
+      </aside>
+      
+      <!-- Overlay (Initially Hidden) -->
+      <div 
+        class="pm7-sidebar-overlay"
+        id="mobile-overlay"
+        onclick="closeMobileSidebar()"
+        style="display: none;"
+      ></div>
+      
+      <!-- Mobile Content -->
+      <div class="mobile-content">
+        <h2 style="margin-top: 0;">Welcome</h2>
+        <p>This demo shows how the sidebar works on mobile devices:</p>
+        <ul>
+          <li>Click the hamburger menu to open the sidebar</li>
+          <li>The sidebar overlays the content</li>
+          <li>A dark overlay appears behind the sidebar</li>
+          <li>Click the overlay or close button to dismiss</li>
+          <li>The sidebar slides in from the left with smooth animation</li>
+        </ul>
+        
+        <div class="pm7-card" style="margin-top: 1.5rem;">
+          <div class="pm7-card-content">
+            <h4 style="margin-top: 0;">Mobile-First Design</h4>
+            <p>The overlay mode is perfect for mobile devices where screen space is limited. The sidebar only appears when needed, maximizing content area.</p>
+          </div>
+        </div>
+        
+        <div class="pm7-card" style="margin-top: 1rem;">
+          <div class="pm7-card-content">
+            <h4 style="margin-top: 0;">Touch Friendly</h4>
+            <p>Large tap targets and smooth animations provide an excellent mobile experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/sidebar.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    let sidebarAPI;
+    
+    // Initialize after PM7 loads
+    window.addEventListener('load', () => {
+      const sidebarElement = document.getElementById('mobile-sidebar');
+      if (sidebarElement && window.PM7 && window.PM7.Sidebar) {
+        sidebarAPI = window.PM7.Sidebar.getInstance(sidebarElement);
+      }
+    });
+    
+    function toggleMobileSidebar() {
+      if (sidebarAPI) {
+        sidebarAPI.toggle();
+      }
+    }
+    
+    function closeMobileSidebar() {
+      if (sidebarAPI) {
+        sidebarAPI.close();
+      }
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Mobile Overlay Sidebar -->
+<aside class="pm7-sidebar pm7-sidebar--overlay" data-pm7-sidebar>
+  <div class="pm7-sidebar-content">
+    <div class="pm7-sidebar-header">
+      <h3>Menu</h3>
+      <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" onclick="closeSidebar()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="pm7-sidebar-nav">
+      <a href="#" class="pm7-sidebar-link pm7-sidebar-link--active">Home</a>
+      <a href="#" class="pm7-sidebar-link">Search</a>
+      <a href="#" class="pm7-sidebar-link">Documents</a>
+      <a href="#" class="pm7-sidebar-link">Profile</a>
+      <a href="#" class="pm7-sidebar-link">Settings</a>
+    </nav>
+  </div>
+</aside>
+
+<!-- Toggle Button -->
+<button class="pm7-button pm7-button--ghost pm7-button--icon" onclick="toggleSidebar()">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</button>
+
+<script>
+// Get sidebar instance
+const sidebar = PM7.Sidebar.getInstance(document.querySelector('[data-pm7-sidebar]'));
+
+// Toggle sidebar
+function toggleSidebar() {
+  sidebar.toggle();
+}
+
+// Close sidebar
+function closeSidebar() {
+  sidebar.close();
+}
+</script>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

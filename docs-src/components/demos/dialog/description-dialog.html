@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Description Dialog Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Custom styles */
+    .description-list {
+      display: grid;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .description-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    
+    .description-label {
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .description-value {
+      color: var(--pm7-muted-foreground);
+      font-size: 0.875rem;
+    }
+    
+    .info-card {
+      background: var(--pm7-muted);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-card-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin: 0;
+    }
+    
+    .info-card-description {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Description Dialogs</h1>
+      <p class="demo-description">Dialogs with detailed descriptions and metadata</p>
+    </div>
+    
+    <div class="demo-buttons">
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.openDialog?.('profile-dialog')">
+        View Profile
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('product-dialog')">
+        Product Details
+      </button>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.openDialog?.('feature-dialog')">
+        Feature Info
+      </button>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/dialog.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Profile Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="profile-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="User Profile"
+         data-pm7-dialog-subtitle="john.doe@example.com"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <div class="description-list">
+        <div class="description-item">
+          <span class="description-label">Full Name</span>
+          <span class="description-value">John Doe</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Department</span>
+          <span class="description-value">Engineering</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Role</span>
+          <span class="description-value">Senior Software Engineer</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Location</span>
+          <span class="description-value">San Francisco, CA</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Joined</span>
+          <span class="description-value">March 15, 2022</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Bio</span>
+          <span class="description-value">Passionate about building scalable web applications and mentoring junior developers. Experienced in React, Node.js, and cloud architecture.</span>
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <h4 class="info-card-title">Contact Information</h4>
+        </div>
+        <p class="info-card-description">
+          Phone: +1 (555) 123-4567<br>
+          Slack: @johndoe<br>
+          Office: Building A, Floor 3
+        </p>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('profile-dialog')">
+        Close
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('profile-dialog')">
+        Send Message
+      </button>
+    </div>
+  </div>
+
+  <!-- Product Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="product-dialog"
+       data-pm7-dialog-size="md"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="PM7 UI Component Library"
+         data-pm7-dialog-subtitle="Version 2.5.0"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p style="margin-top: 0;">A modern, framework-agnostic UI component library built with pure CSS and vanilla JavaScript.</p>
+      
+      <div class="description-list">
+        <div class="description-item">
+          <span class="description-label">License</span>
+          <span class="description-value">MIT License</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Downloads</span>
+          <span class="description-value">45,230 / month</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">File Size</span>
+          <span class="description-value">32.4 KB (minified + gzipped)</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Dependencies</span>
+          <span class="description-value">None - Zero dependencies</span>
+        </div>
+        <div class="description-item">
+          <span class="description-label">Browser Support</span>
+          <span class="description-value">Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</span>
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <h4 class="info-card-title">Key Features</h4>
+        </div>
+        <p class="info-card-description">
+          • Framework agnostic - works with React, Vue, Angular, or vanilla JS<br>
+          • Automatic dark mode support<br>
+          • Self-healing components that survive re-renders<br>
+          • Accessible by default (WCAG 2.1 AA compliant)<br>
+          • Tree-shakeable and optimized for production
+        </p>
+      </div>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--outline" onclick="window.PM7?.closeDialog?.('product-dialog')">
+        View on GitHub
+      </button>
+      <button class="pm7-button pm7-button--primary" onclick="window.PM7?.closeDialog?.('product-dialog')">
+        Get Started
+      </button>
+    </div>
+  </div>
+
+  <!-- Feature Dialog -->
+  <div class="pm7-dialog" 
+       data-pm7-dialog="feature-dialog"
+       data-pm7-dialog-size="sm"
+       data-pm7-show-close>
+    <div data-pm7-header
+         data-pm7-dialog-title="🚀 New Feature"
+         data-pm7-dialog-subtitle="Self-Healing Components"
+         data-pm7-header-separator>
+    </div>
+    <div data-pm7-body>
+      <p style="margin-top: 0;">Components now automatically recover from framework re-renders, ensuring they maintain their state and functionality.</p>
+      
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <h4 class="info-card-title">How it works</h4>
+        </div>
+        <p class="info-card-description">
+          1. Detects when components are re-rendered<br>
+          2. Preserves component state and event listeners<br>
+          3. Re-initializes only when necessary<br>
+          4. Zero configuration required
+        </p>
+      </div>
+      
+      <p style="font-size: 0.875rem; color: var(--pm7-muted-foreground);">
+        This feature is especially useful in React applications where components may be frequently re-rendered due to state changes.
+      </p>
+    </div>
+    <div data-pm7-footer>
+      <button class="pm7-button pm7-button--primary pm7-button--full" onclick="window.PM7?.closeDialog?.('feature-dialog')">
+        Got it!
+      </button>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `<!-- Description List Dialog -->
+<div class="pm7-dialog" data-pm7-dialog="details">
+  <div data-pm7-header
+       data-pm7-dialog-title="Title"
+       data-pm7-dialog-subtitle="Subtitle">
+  </div>
+  <div data-pm7-body>
+    <!-- Description List -->
+    <dl class="description-list">
+      <div class="description-item">
+        <dt>Label</dt>
+        <dd>Value</dd>
+      </div>
+      <!-- More items... -->
+    </dl>
+    
+    <!-- Info Card -->
+    <div class="info-card">
+      <h4>Section Title</h4>
+      <p>Additional information...</p>
+    </div>
+  </div>
+</div>
+
+<!-- CSS -->
+<style>
+.description-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.description-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+}
+
+.info-card {
+  background: var(--pm7-muted);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+</style>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

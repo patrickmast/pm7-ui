@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switch States - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+      text-align: center;
+    }
+    
+    .state-section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+    }
+    
+    .state-section h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .state-section p {
+      margin-bottom: 1.5rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .keyboard-hint {
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: var(--pm7-radius);
+      margin-top: 1rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Theme Switch States</h2>
+    
+    <div class="state-section">
+      <h3>Normal State</h3>
+      <p>Default interactive theme switch with hover effects.</p>
+      <div class="pm7-theme-switch" data-pm7-theme-switch>
+        <span>Normal</span>
+      </div>
+    </div>
+    
+    <div class="state-section">
+      <h3>Disabled State</h3>
+      <p>Non-interactive state, useful when theme switching is temporarily unavailable.</p>
+      <div class="pm7-theme-switch pm7-theme-switch--disabled" data-pm7-theme-switch>
+        <span>Disabled</span>
+      </div>
+    </div>
+    
+    <div class="state-section">
+      <h3>No Hover Effect</h3>
+      <p>Removes hover state changes, useful for touch-only interfaces.</p>
+      <div class="pm7-theme-switch pm7-theme-switch--no-hover" data-pm7-theme-switch>
+        <span>No hover</span>
+      </div>
+    </div>
+    
+    <div class="state-section">
+      <h3>Keyboard Navigation</h3>
+      <p>All theme switches support keyboard navigation.</p>
+      <div class="demo-row">
+        <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch>
+          <span>Small</span>
+        </div>
+        <div class="pm7-theme-switch" data-pm7-theme-switch>
+          <span>Medium</span>
+        </div>
+        <div class="pm7-theme-switch pm7-theme-switch--lg" data-pm7-theme-switch>
+          <span>Large</span>
+        </div>
+      </div>
+      <div class="keyboard-hint">
+        <strong>Try it:</strong> Use Tab to focus the switches, then Space or Enter to toggle them.
+      </div>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

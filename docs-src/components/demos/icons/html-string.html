@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon HTML String Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section h3 {
+      font-size: 1.125rem;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .code-preview {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: var(--pm7-font-mono);
+      font-size: 0.875rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    
+    .render-preview {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon as HTML String</h1>
+      <p class="demo-description">Generate icon markup as a string for template insertion</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Generated HTML</h3>
+      <div class="code-preview" id="html-output"></div>
+      
+      <h3>Rendered Result</h3>
+      <div class="render-preview" id="render-output"></div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Usage in Templates</h3>
+      <div class="code-preview">const template = `
+  &lt;button class="pm7-button pm7-button--ghost"&gt;
+    ${iconHTML}
+    &lt;span&gt;Menu&lt;/span&gt;
+  &lt;/button&gt;
+`;</div>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Dynamic Generation</h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="generateIcon('default')">
+          Default Icon
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="generateIcon('small')">
+          Small Icon
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="generateIcon('large')">
+          Large Icon
+        </button>
+        <button class="pm7-button pm7-button--outline pm7-button--sm" onclick="generateIcon('colored')">
+          Colored Icon
+        </button>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/icons.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script type="module">
+    import { createHamburgerIcon } from '/packages/core/src/icons/hamburger.js';
+    
+    // Function to escape HTML for display
+    function escapeHtml(html) {
+      const div = document.createElement('div');
+      div.textContent = html;
+      return div.innerHTML;
+    }
+    
+    // Function to generate and display icon
+    window.generateIcon = function(type) {
+      let iconHTML;
+      
+      switch(type) {
+        case 'small':
+          iconHTML = createHamburgerIcon({ 
+            width: 12, 
+            height: 10,
+            className: 'small-icon'
+          });
+          break;
+        case 'large':
+          iconHTML = createHamburgerIcon({ 
+            width: 24, 
+            height: 20,
+            className: 'large-icon'
+          });
+          break;
+        case 'colored':
+          iconHTML = createHamburgerIcon({ 
+            color: '#1C86EF',
+            className: 'colored-icon'
+          });
+          break;
+        default:
+          iconHTML = createHamburgerIcon({ 
+            className: 'demo-icon' 
+          });
+      }
+      
+      // Display HTML code
+      document.getElementById('html-output').textContent = iconHTML;
+      
+      // Render the icon
+      document.getElementById('render-output').innerHTML = `
+        <span>Rendered icon:</span>
+        ${iconHTML}
+        <span style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">
+          (${type} variant)
+        </span>
+      `;
+    }
+    
+    // Generate default icon on load
+    generateIcon('default');
+  </script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `import { createHamburgerIcon } from '@pm7/core';
+
+// Get icon as HTML string
+const iconHTML = createHamburgerIcon({
+  className: 'menu-icon'
+});
+
+// Use in template literal
+const button = \`
+  <button class="pm7-button">
+    \${iconHTML}
+    <span>Menu</span>
+  </button>
+\`;
+
+// Insert into DOM
+element.innerHTML = button;
+
+// Or use with different options
+const smallIcon = createHamburgerIcon({
+  width: 12,
+  height: 10,
+  className: 'small-icon'
+});
+
+const coloredIcon = createHamburgerIcon({
+  color: '#1C86EF',
+  className: 'primary-icon'
+});`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

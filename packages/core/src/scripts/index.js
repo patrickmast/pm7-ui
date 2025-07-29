@@ -171,8 +171,11 @@ const PM7 = {
     // Initialize tooltips
     const tooltips = container.querySelectorAll('[data-pm7-tooltip]:not([data-pm7-tooltip-initialized])');
     tooltips.forEach(tooltip => {
-      new PM7Tooltip(tooltip);
-      tooltip.setAttribute('data-pm7-tooltip-initialized', 'true');
+      // Skip if this element is already part of a tooltip structure
+      if (!tooltip.classList.contains('pm7-tooltip-trigger') && !tooltip.classList.contains('pm7-tooltip-content')) {
+        new PM7Tooltip(tooltip);
+        // Note: data-pm7-tooltip-initialized is set by the constructor
+      }
     });
     
     // Initialize accordions
@@ -248,6 +251,7 @@ const PM7 = {
   openDialog,
   closeDialog,
   autoInitDialogs,
+  initTooltips,
   
   // Self-healing functions
   healMenus,

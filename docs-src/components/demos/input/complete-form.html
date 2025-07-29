@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Form Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 700px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .pm7-form {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+    }
+    
+    .pm7-form-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    
+    .pm7-form-section:last-of-type {
+      margin-bottom: 2rem;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .pm7-form-section h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pm7-form-row--full {
+      grid-template-columns: 1fr;
+    }
+    
+    .pm7-form-group {
+      margin-bottom: 0;
+    }
+    
+    .pm7-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--pm7-foreground);
+    }
+    
+    .pm7-helper-text {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--pm7-muted-foreground);
+    }
+    
+    .pm7-checkbox-group,
+    .pm7-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pm7-checkbox-wrapper,
+    .pm7-radio-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .pm7-checkbox,
+    .pm7-radio {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+    }
+    
+    .pm7-checkbox-label,
+    .pm7-radio-label {
+      font-size: 0.875rem;
+      color: var(--pm7-foreground);
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .pm7-form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    @media (max-width: 640px) {
+      .pm7-form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .pm7-form-actions {
+        flex-direction: column-reverse;
+      }
+      
+      .pm7-form-actions .pm7-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Complete Form Example</h1>
+      <p class="demo-description">A comprehensive form showcasing all input types</p>
+    </div>
+    
+    <form class="pm7-form" onsubmit="handleSubmit(event)">
+      <!-- Personal Information -->
+      <div class="pm7-form-section">
+        <h3>Personal Information</h3>
+        
+        <div class="pm7-form-row">
+          <div class="pm7-form-group">
+            <label for="first-name" class="pm7-label">First Name <span style="color: var(--pm7-destructive);">*</span></label>
+            <input type="text" id="first-name" class="pm7-input" placeholder="John" required>
+          </div>
+          
+          <div class="pm7-form-group">
+            <label for="last-name" class="pm7-label">Last Name <span style="color: var(--pm7-destructive);">*</span></label>
+            <input type="text" id="last-name" class="pm7-input" placeholder="Doe" required>
+          </div>
+        </div>
+        
+        <div class="pm7-form-row pm7-form-row--full">
+          <div class="pm7-form-group">
+            <label for="email" class="pm7-label">Email Address <span style="color: var(--pm7-destructive);">*</span></label>
+            <input type="email" id="email" class="pm7-input" placeholder="john.doe@example.com" required>
+          </div>
+        </div>
+        
+        <div class="pm7-form-row">
+          <div class="pm7-form-group">
+            <label for="phone" class="pm7-label">Phone Number</label>
+            <input type="tel" id="phone" class="pm7-input" placeholder="+1 (555) 000-0000">
+          </div>
+          
+          <div class="pm7-form-group">
+            <label for="birthdate" class="pm7-label">Date of Birth</label>
+            <input type="date" id="birthdate" class="pm7-input">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Address Information -->
+      <div class="pm7-form-section">
+        <h3>Address Information</h3>
+        
+        <div class="pm7-form-row pm7-form-row--full">
+          <div class="pm7-form-group">
+            <label for="address" class="pm7-label">Street Address</label>
+            <input type="text" id="address" class="pm7-input" placeholder="123 Main Street">
+          </div>
+        </div>
+        
+        <div class="pm7-form-row">
+          <div class="pm7-form-group">
+            <label for="city" class="pm7-label">City</label>
+            <input type="text" id="city" class="pm7-input" placeholder="New York">
+          </div>
+          
+          <div class="pm7-form-group">
+            <label for="state" class="pm7-label">State</label>
+            <select id="state" class="pm7-select">
+              <option value="">Select a state...</option>
+              <option value="AL">Alabama</option>
+              <option value="CA">California</option>
+              <option value="FL">Florida</option>
+              <option value="NY">New York</option>
+              <option value="TX">Texas</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="pm7-form-row">
+          <div class="pm7-form-group">
+            <label for="zip" class="pm7-label">ZIP Code</label>
+            <input type="text" id="zip" class="pm7-input" placeholder="10001" pattern="[0-9]{5}">
+          </div>
+          
+          <div class="pm7-form-group">
+            <label for="country" class="pm7-label">Country</label>
+            <select id="country" class="pm7-select">
+              <option value="US" selected>United States</option>
+              <option value="CA">Canada</option>
+              <option value="UK">United Kingdom</option>
+              <option value="AU">Australia</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Additional Information -->
+      <div class="pm7-form-section">
+        <h3>Additional Information</h3>
+        
+        <div class="pm7-form-row pm7-form-row--full">
+          <div class="pm7-form-group">
+            <label for="bio" class="pm7-label">Bio</label>
+            <textarea id="bio" class="pm7-input" rows="4" placeholder="Tell us about yourself..."></textarea>
+            <p class="pm7-helper-text">Brief description for your profile (max 200 characters)</p>
+          </div>
+        </div>
+        
+        <div class="pm7-form-row pm7-form-row--full">
+          <div class="pm7-form-group">
+            <label class="pm7-label">Notification Preferences</label>
+            <div class="pm7-radio-group">
+              <div class="pm7-radio-wrapper">
+                <input type="radio" id="notify-all" name="notifications" class="pm7-radio" value="all" checked>
+                <label for="notify-all" class="pm7-radio-label">All notifications</label>
+              </div>
+              <div class="pm7-radio-wrapper">
+                <input type="radio" id="notify-important" name="notifications" class="pm7-radio" value="important">
+                <label for="notify-important" class="pm7-radio-label">Important only</label>
+              </div>
+              <div class="pm7-radio-wrapper">
+                <input type="radio" id="notify-none" name="notifications" class="pm7-radio" value="none">
+                <label for="notify-none" class="pm7-radio-label">No notifications</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pm7-form-row pm7-form-row--full">
+          <div class="pm7-form-group">
+            <div class="pm7-checkbox-group">
+              <div class="pm7-checkbox-wrapper">
+                <input type="checkbox" id="terms" class="pm7-checkbox" required>
+                <label for="terms" class="pm7-checkbox-label">I agree to the terms and conditions <span style="color: var(--pm7-destructive);">*</span></label>
+              </div>
+              <div class="pm7-checkbox-wrapper">
+                <input type="checkbox" id="newsletter" class="pm7-checkbox">
+                <label for="newsletter" class="pm7-checkbox-label">Subscribe to our newsletter</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Form Actions -->
+      <div class="pm7-form-actions">
+        <button type="button" class="pm7-button pm7-button--outline" onclick="resetForm()">Cancel</button>
+        <button type="submit" class="pm7-button pm7-button--primary">Submit Registration</button>
+      </div>
+    </form>
+    
+    <div class="demo-footer">
+      <a href="/components/input.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      // Show toast if available
+      if (window.showToast) {
+        window.showToast('Form submitted successfully!', { variant: 'success' });
+      } else {
+        alert('Form submitted successfully!');
+      }
+    }
+    
+    function resetForm() {
+      document.querySelector('.pm7-form').reset();
+    }
+    
+    function copyDemoCode() {
+      const code = `<!-- Complete form structure available in the demo source -->
+<!-- This example shows all PM7 form components working together -->
+
+<form class="pm7-form">
+  <!-- Form sections with proper structure -->
+  <div class="pm7-form-section">
+    <h3>Section Title</h3>
+    
+    <!-- Two-column row -->
+    <div class="pm7-form-row">
+      <div class="pm7-form-group">
+        <label class="pm7-label">Label</label>
+        <input type="text" class="pm7-input">
+      </div>
+      <!-- Second column... -->
+    </div>
+    
+    <!-- Full-width row -->
+    <div class="pm7-form-row pm7-form-row--full">
+      <!-- Full width input -->
+    </div>
+  </div>
+  
+  <!-- Form actions -->
+  <div class="pm7-form-actions">
+    <button type="button" class="pm7-button pm7-button--outline">Cancel</button>
+    <button type="submit" class="pm7-button pm7-button--primary">Submit</button>
+  </div>
+</form>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

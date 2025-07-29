@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Variants - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    
+    .note {
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: var(--pm7-radius);
+      margin-top: 2rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Toast Variants</h2>
+    
+    <div class="button-grid">
+      <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Default Toast', description: 'This is a default toast message.'})">
+        Default Toast
+      </button>
+      
+      <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Success!', description: 'Operation completed successfully.', variant: 'success'})">
+        Success Toast
+      </button>
+      
+      <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Warning', description: 'Please review your input.', variant: 'warning'})">
+        Warning Toast
+      </button>
+      
+      <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Error', description: 'Something went wrong.', variant: 'destructive'})">
+        Error Toast
+      </button>
+      
+      <button class="pm7-button pm7-button--outline" onclick="showToast({title: 'Info', description: 'New updates available.', variant: 'info'})">
+        Info Toast
+      </button>
+    </div>
+    
+    <div class="note">
+      <strong>Note:</strong> Each variant has its own color scheme and icon to help users quickly identify the message type. Toasts appear in the top-right corner of the viewport.
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  <script type="module">
+    import { showToast } from '/packages/core/src/scripts/toast.js';
+    window.showToast = showToast;
+  </script>
+</body>
+</html>

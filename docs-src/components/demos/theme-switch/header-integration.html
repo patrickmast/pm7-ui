@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Integration - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+    }
+    
+    /* Example header styles */
+    .app-header {
+      background: var(--pm7-surface);
+      border-bottom: 1px solid var(--pm7-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .app-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* Alternative header style */
+    .minimal-header {
+      background: transparent;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .minimal-header .logo {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+    
+    /* Navigation header */
+    .nav-header {
+      background: var(--pm7-card);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-header nav {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-header nav a {
+      padding: 1.25rem 0;
+      color: var(--pm7-muted-foreground);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .nav-header nav a:hover {
+      color: var(--pm7-foreground);
+    }
+    
+    .nav-header nav a.active {
+      color: var(--pm7-primary);
+      border-bottom-color: var(--pm7-primary);
+    }
+    
+    .content {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .example-section {
+      margin-bottom: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="example-section">
+    <!-- Standard App Header -->
+    <header class="app-header">
+      <h1>My Application</h1>
+      <div class="header-actions">
+        <button class="pm7-button pm7-button--ghost pm7-button--sm">Profile</button>
+        <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+      </div>
+    </header>
+    
+    <div class="content">
+      <h2>Standard Header</h2>
+      <p>A typical application header with the theme switch aligned to the right alongside other actions.</p>
+    </div>
+  </div>
+  
+  <div class="example-section">
+    <!-- Minimal Header -->
+    <header class="minimal-header">
+      <div class="logo">Brand</div>
+      <div class="pm7-theme-switch pm7-theme-switch--sm" data-pm7-theme-switch>
+        <span>Theme</span>
+      </div>
+    </header>
+    
+    <div class="content">
+      <h2>Minimal Header</h2>
+      <p>A clean, minimal header with just the brand and theme switch. Uses small size variant.</p>
+    </div>
+  </div>
+  
+  <div class="example-section">
+    <!-- Navigation Header -->
+    <header class="nav-header">
+      <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">About</a>
+      </nav>
+      <div class="pm7-theme-switch" data-pm7-theme-switch></div>
+    </header>
+    
+    <div class="content">
+      <h2>Navigation Header</h2>
+      <p>Header with navigation menu and theme switch. The switch is positioned after the navigation items.</p>
+    </div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>

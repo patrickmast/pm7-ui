@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Sizes Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .icon-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+    }
+    
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+    }
+    
+    .icon-label {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+      text-align: center;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Icon Sizes</h1>
+      <p class="demo-description">Hamburger menu icon in different sizes</p>
+    </div>
+    
+    <div class="icons-grid">
+      <!-- Extra Small -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-xs"></div>
+        </div>
+        <span class="icon-label">Extra Small<br>(10×8)</span>
+      </div>
+      
+      <!-- Small -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-small"></div>
+        </div>
+        <span class="icon-label">Small<br>(12×10)</span>
+      </div>
+      
+      <!-- Default -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-default"></div>
+        </div>
+        <span class="icon-label">Default<br>(18×15)</span>
+      </div>
+      
+      <!-- Large -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-large"></div>
+        </div>
+        <span class="icon-label">Large<br>(24×20)</span>
+      </div>
+      
+      <!-- Extra Large -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-xl"></div>
+        </div>
+        <span class="icon-label">Extra Large<br>(32×26)</span>
+      </div>
+      
+      <!-- Custom -->
+      <div class="icon-demo">
+        <div class="icon-wrapper">
+          <div id="icon-custom"></div>
+        </div>
+        <span class="icon-label">Custom<br>(40×33)</span>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/icons.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script type="module">
+    import { createHamburgerIconElement } from '/packages/core/src/icons/hamburger.js';
+    
+    // Extra Small icon
+    const xsIcon = createHamburgerIconElement({ width: 10, height: 8 });
+    document.getElementById('icon-xs')?.appendChild(xsIcon);
+    
+    // Small icon
+    const smallIcon = createHamburgerIconElement({ width: 12, height: 10 });
+    document.getElementById('icon-small')?.appendChild(smallIcon);
+    
+    // Default icon
+    const defaultIcon = createHamburgerIconElement();
+    document.getElementById('icon-default')?.appendChild(defaultIcon);
+    
+    // Large icon
+    const largeIcon = createHamburgerIconElement({ width: 24, height: 20 });
+    document.getElementById('icon-large')?.appendChild(largeIcon);
+    
+    // Extra Large icon
+    const xlIcon = createHamburgerIconElement({ width: 32, height: 26 });
+    document.getElementById('icon-xl')?.appendChild(xlIcon);
+    
+    // Custom size icon
+    const customIcon = createHamburgerIconElement({ width: 40, height: 33 });
+    document.getElementById('icon-custom')?.appendChild(customIcon);
+  </script>
+  
+  <script>
+    function copyDemoCode() {
+      const code = `import { createHamburgerIconElement } from '@pm7/core';
+
+// Extra Small (10×8)
+const xsIcon = createHamburgerIconElement({ 
+  width: 10, 
+  height: 8 
+});
+
+// Small (12×10)
+const smallIcon = createHamburgerIconElement({ 
+  width: 12, 
+  height: 10 
+});
+
+// Default (18×15)
+const defaultIcon = createHamburgerIconElement();
+
+// Large (24×20)
+const largeIcon = createHamburgerIconElement({ 
+  width: 24, 
+  height: 20 
+});
+
+// Extra Large (32×26)
+const xlIcon = createHamburgerIconElement({ 
+  width: 32, 
+  height: 26 
+});
+
+// Custom size (40×33)
+const customIcon = createHamburgerIconElement({ 
+  width: 40, 
+  height: 33 
+});`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

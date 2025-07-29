@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM7 Tooltip Test - Simple vs Structured Syntax</title>
+  <link rel="stylesheet" href="../dist/pm7.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--pm7-background);
+      color: var(--pm7-foreground);
+    }
+    
+    .section {
+      margin: 3rem 0;
+      padding: 2rem;
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      background: var(--pm7-card);
+    }
+    
+    h1 {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+    
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .demo-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 1rem 0;
+    }
+    
+    .test-button {
+      padding: 0.5rem 1rem;
+      background: var(--pm7-primary);
+      color: var(--pm7-primary-foreground);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .test-button:hover {
+      opacity: 0.9;
+    }
+    
+    code {
+      background: var(--pm7-muted);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    
+    pre {
+      background: var(--pm7-muted);
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>PM7 Tooltip Test Suite</h1>
+  
+  <div class="section">
+    <h2>Simple Syntax (New Feature)</h2>
+    <p>Using <code>data-pm7-tooltip="content"</code> directly on elements:</p>
+    
+    <div class="demo-container">
+      <button class="test-button" data-pm7-tooltip="This is a simple tooltip">
+        Simple Tooltip
+      </button>
+      
+      <button class="test-button" data-pm7-tooltip="Bottom positioned tooltip" data-side="bottom">
+        Bottom Tooltip
+      </button>
+      
+      <button class="test-button" data-pm7-tooltip="Right side tooltip" data-side="right">
+        Right Tooltip
+      </button>
+      
+      <button class="test-button" data-pm7-tooltip="Left aligned tooltip" data-side="top" data-align="start">
+        Left Aligned
+      </button>
+      
+      <a href="#" data-pm7-tooltip="This works on links too!">Hover over this link</a>
+      
+      <span data-pm7-tooltip="And on any element" style="padding: 0.5rem; background: var(--pm7-muted); border-radius: 4px;">
+        Any Element
+      </span>
+    </div>
+    
+    <pre><code>&lt;button data-pm7-tooltip="Simple tooltip content"&gt;
+  Button Text
+&lt;/button&gt;</code></pre>
+  </div>
+  
+  <div class="section">
+    <h2>Structured Syntax (Original)</h2>
+    <p>Using the full tooltip structure with trigger and content elements:</p>
+    
+    <div class="demo-container">
+      <div data-pm7-tooltip>
+        <button class="test-button pm7-tooltip-trigger">
+          Structured Tooltip
+        </button>
+        <div class="pm7-tooltip-content">
+          This is a structured tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <div data-pm7-tooltip>
+        <button class="test-button pm7-tooltip-trigger">
+          Bottom Structured
+        </button>
+        <div class="pm7-tooltip-content" data-side="bottom">
+          Bottom positioned structured tooltip
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <div data-pm7-tooltip>
+        <button class="test-button pm7-tooltip-trigger">
+          Multiline Content
+        </button>
+        <div class="pm7-tooltip-content pm7-tooltip-content--multiline">
+          This tooltip has<br>
+          multiple lines<br>
+          of content
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+    
+    <pre><code>&lt;div data-pm7-tooltip&gt;
+  &lt;button class="pm7-tooltip-trigger"&gt;
+    Trigger
+  &lt;/button&gt;
+  &lt;div class="pm7-tooltip-content"&gt;
+    Content
+    &lt;div class="pm7-tooltip-arrow"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  
+  <div class="section">
+    <h2>Advanced Options</h2>
+    <p>Both syntaxes support all tooltip features:</p>
+    
+    <div class="demo-container">
+      <button class="test-button" 
+              data-pm7-tooltip="Delayed tooltip" 
+              data-open-delay="600" 
+              data-close-delay="100">
+        With Delays (Simple)
+      </button>
+      
+      <div data-pm7-tooltip data-open-delay="600" data-close-delay="100">
+        <button class="test-button pm7-tooltip-trigger">
+          With Delays (Structured)
+        </button>
+        <div class="pm7-tooltip-content">
+          Opens after 600ms, closes after 100ms
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+      
+      <button class="test-button" 
+              data-pm7-tooltip="Small tooltip content" 
+              data-side="right"
+              style="margin-left: 2rem;">
+        Small Tooltip
+      </button>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Dynamic Tooltips</h2>
+    <p>Test adding tooltips dynamically:</p>
+    
+    <div class="demo-container">
+      <button class="test-button" onclick="addDynamicTooltip()">
+        Add Dynamic Tooltip
+      </button>
+      <div id="dynamic-container"></div>
+    </div>
+  </div>
+  
+  <script type="module">
+    import '@pm7/core';
+    
+    // Make the function available globally for the onclick handler
+    window.addDynamicTooltip = function() {
+      const container = document.getElementById('dynamic-container');
+      const id = Date.now();
+      container.innerHTML = `
+        <button class="test-button" data-pm7-tooltip="Dynamic tooltip ${id}">
+          Dynamic Button ${id}
+        </button>
+      `;
+      
+      // Re-initialize PM7 for the new content
+      if (window.PM7) {
+        window.PM7.init();
+      }
+    };
+    
+    // Log initialization
+    console.log('PM7 loaded, tooltips should be initialized automatically');
+    
+    // Check if tooltips are working after a delay
+    setTimeout(() => {
+      const tooltips = document.querySelectorAll('[data-pm7-tooltip]');
+      console.log(`Found ${tooltips.length} tooltip elements`);
+      
+      // Check for transformed simple tooltips
+      const simpleTooltips = document.querySelectorAll('.test-button[data-pm7-tooltip]');
+      const transformed = Array.from(simpleTooltips).filter(el => 
+        el.parentElement && el.parentElement.hasAttribute('data-pm7-tooltip')
+      );
+      console.log(`${transformed.length} simple tooltips were transformed to structured format`);
+    }, 1000);
+  </script>
+</body>
+</html>

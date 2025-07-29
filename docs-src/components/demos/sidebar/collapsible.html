@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collapsible Sidebar Demo - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+    }
+    
+    .demo-container {
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pm7-foreground);
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .demo-description {
+      color: var(--pm7-muted-foreground);
+      margin: 0;
+    }
+    
+    .demo-layout {
+      display: flex;
+      height: 600px;
+      border: 1px solid var(--pm7-border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--pm7-background);
+    }
+    
+    .demo-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    
+    .demo-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pm7-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    /* Collapsible sidebar specific styles */
+    .collapsible-sidebar {
+      transition: width 0.3s ease;
+    }
+    
+    .collapsible-sidebar.is-collapsed {
+      width: 60px !important;
+    }
+    
+    .collapsible-sidebar.is-collapsed .pm7-sidebar-link span,
+    .collapsible-sidebar.is-collapsed .pm7-sidebar-section-title,
+    .collapsible-sidebar.is-collapsed .sidebar-brand-text {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    
+    .collapsible-sidebar:not(.is-collapsed) .pm7-sidebar-link span,
+    .collapsible-sidebar:not(.is-collapsed) .pm7-sidebar-section-title,
+    .collapsible-sidebar:not(.is-collapsed) .sidebar-brand-text {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s 0.1s, visibility 0.2s 0.1s;
+    }
+    
+    .collapsible-sidebar.is-collapsed .pm7-sidebar-header {
+      padding: 1rem 0;
+      justify-content: center;
+    }
+    
+    .collapsible-sidebar.is-collapsed .collapse-toggle {
+      transform: rotate(180deg);
+    }
+    
+    .collapse-toggle {
+      transition: transform 0.3s ease;
+    }
+    
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .sidebar-brand-icon {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1 class="demo-title">Collapsible Sidebar (Full ↔ Mini)</h1>
+      <p class="demo-description">Toggle between full sidebar with labels and mini icon-only mode</p>
+    </div>
+    
+    <div class="demo-layout">
+      <!-- Collapsible Sidebar -->
+      <aside class="pm7-sidebar pm7-sidebar--static collapsible-sidebar" id="demo-collapsible-sidebar" style="position: relative;">
+        <div class="pm7-sidebar-content">
+          <div class="pm7-sidebar-header" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+            <div class="sidebar-brand">
+              <svg class="sidebar-brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              </svg>
+              <span class="sidebar-brand-text" style="font-weight: 600;">MyApp</span>
+            </div>
+            <button 
+              class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm collapse-toggle"
+              onclick="toggleSidebarCollapse()"
+              aria-label="Toggle sidebar"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="11 17 7 21 3 17"></polyline>
+                <polyline points="11 7 7 3 3 7"></polyline>
+              </svg>
+            </button>
+          </div>
+          
+          <nav class="pm7-sidebar-nav">
+            <section class="pm7-sidebar-section">
+              <div class="pm7-sidebar-section-title">Navigation</div>
+              <a href="#" class="pm7-sidebar-link pm7-sidebar-link--active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Dashboard</span>
+              </a>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Analytics</span>
+              </a>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Messages</span>
+              </a>
+            </section>
+            
+            <section class="pm7-sidebar-section">
+              <div class="pm7-sidebar-section-title">Projects</div>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>All Projects</span>
+              </a>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Completed</span>
+              </a>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>In Progress</span>
+              </a>
+            </section>
+            
+            <section class="pm7-sidebar-section">
+              <div class="pm7-sidebar-section-title">Settings</div>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+              </a>
+              <a href="#" class="pm7-sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 1v6m0 6v6m11-11h-6m-6 0H1"></path>
+                </svg>
+                <span>Preferences</span>
+              </a>
+            </section>
+          </nav>
+        </div>
+      </aside>
+      
+      <!-- Main Content -->
+      <div class="demo-content">
+        <h2 style="margin-top: 0;">Collapsible Sidebar Demo</h2>
+        <p>This sidebar can toggle between two modes:</p>
+        
+        <div class="pm7-card" style="margin-bottom: 1rem;">
+          <div class="pm7-card-content">
+            <h3 style="margin-top: 0;">Full Mode</h3>
+            <ul style="margin-bottom: 0;">
+              <li>Shows icons and labels</li>
+              <li>Section titles visible</li>
+              <li>Brand name displayed</li>
+              <li>Takes up standard width (~250px)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="pm7-card" style="margin-bottom: 1rem;">
+          <div class="pm7-card-content">
+            <h3 style="margin-top: 0;">Mini Mode</h3>
+            <ul style="margin-bottom: 0;">
+              <li>Shows only icons</li>
+              <li>Labels hidden but accessible</li>
+              <li>Compact width (~60px)</li>
+              <li>More space for content</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="pm7-callout pm7-callout--tip">
+          <p><strong>Try it!</strong> Click the toggle button in the sidebar header to switch between full and mini modes. The transition is smooth and maintains the active state.</p>
+        </div>
+        
+        <h3>Implementation Tips</h3>
+        <ul>
+          <li>Save the collapsed state in localStorage to remember user preference</li>
+          <li>Add tooltips in mini mode for better UX</li>
+          <li>Ensure all icons are clear and recognizable</li>
+          <li>Consider auto-collapse on smaller screens</li>
+          <li>Maintain keyboard navigation in both modes</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="demo-footer">
+      <a href="/components/sidebar.html#demo" class="pm7-button pm7-button--outline pm7-button--sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Docs
+      </a>
+      <div>
+        <button class="pm7-button pm7-button--ghost pm7-button--sm" onclick="copyDemoCode()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fixed theme toggle -->
+  <div class="theme-toggle">
+    <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch></div>
+  </div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+  
+  <script>
+    let isCollapsed = false;
+    
+    function toggleSidebarCollapse() {
+      const sidebar = document.getElementById('demo-collapsible-sidebar');
+      isCollapsed = !isCollapsed;
+      
+      if (isCollapsed) {
+        sidebar.classList.add('is-collapsed');
+      } else {
+        sidebar.classList.remove('is-collapsed');
+      }
+      
+      // Save state to localStorage
+      localStorage.setItem('sidebar-collapsed', isCollapsed);
+    }
+    
+    // Restore state on load
+    const savedState = localStorage.getItem('sidebar-collapsed');
+    if (savedState === 'true') {
+      document.getElementById('demo-collapsible-sidebar').classList.add('is-collapsed');
+      isCollapsed = true;
+    }
+    
+    // Add click handlers for navigation
+    document.querySelectorAll('.pm7-sidebar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active from all links
+        document.querySelectorAll('.pm7-sidebar-link').forEach(l => {
+          l.classList.remove('pm7-sidebar-link--active');
+        });
+        
+        // Add active to clicked link
+        e.currentTarget.classList.add('pm7-sidebar-link--active');
+      });
+    });
+    
+    function copyDemoCode() {
+      const code = `<!-- Collapsible Sidebar HTML -->
+<aside class="pm7-sidebar pm7-sidebar--static" id="collapsible-sidebar">
+  <div class="pm7-sidebar-content">
+    <div class="pm7-sidebar-header">
+      <div class="sidebar-brand">
+        <svg width="24" height="24">...</svg>
+        <span class="sidebar-brand-text">MyApp</span>
+      </div>
+      <button class="pm7-button pm7-button--ghost pm7-button--icon pm7-button--sm" onclick="toggleSidebar()">
+        <svg width="16" height="16">...</svg>
+      </button>
+    </div>
+    
+    <nav class="pm7-sidebar-nav">
+      <a href="#" class="pm7-sidebar-link">
+        <svg width="20" height="20">...</svg>
+        <span>Dashboard</span>
+      </a>
+      <!-- More links -->
+    </nav>
+  </div>
+</aside>
+
+<!-- CSS -->
+<style>
+.collapsible-sidebar {
+  transition: width 0.3s ease;
+}
+
+.collapsible-sidebar.is-collapsed {
+  width: 60px !important;
+}
+
+.collapsible-sidebar.is-collapsed .pm7-sidebar-link span,
+.collapsible-sidebar.is-collapsed .sidebar-brand-text {
+  opacity: 0;
+  visibility: hidden;
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+  const sidebar = document.getElementById('collapsible-sidebar');
+  sidebar.classList.toggle('is-collapsed');
+  
+  // Save state
+  const isCollapsed = sidebar.classList.contains('is-collapsed');
+  localStorage.setItem('sidebar-collapsed', isCollapsed);
+}
+
+// Restore state
+if (localStorage.getItem('sidebar-collapsed') === 'true') {
+  document.getElementById('collapsible-sidebar').classList.add('is-collapsed');
+}
+</script>`;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        // Show toast if available
+        if (window.showToast) {
+          window.showToast('Code copied to clipboard!', { variant: 'success' });
+        } else {
+          // Fallback
+          const button = event.target.closest('button');
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

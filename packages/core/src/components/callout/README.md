@@ -1,6 +1,20 @@
-# Callout
+<!-- AI-ONLY DOCUMENTATION -->
+---
+type: ai-agent-documentation
+audience: ai-coding-agents-only
+style: exact-patterns
+human-readable: false
+documentation-rules:
+  - NO storytelling or explanations
+  - ONLY exact code patterns
+  - Binary IF/THEN decisions
+  - Explicit anti-patterns with NEVER/ALWAYS
+  - Copy-paste ready code blocks
+---
 
-Callouts are used to highlight important information, tips, warnings, or errors with a distinctive visual style.
+# Component: Callout
+
+Highlighted information container with semantic variants.
 
 ## Installation
 
@@ -8,210 +22,313 @@ Callouts are used to highlight important information, tips, warnings, or errors 
 npm install @pm7/core
 ```
 
-## Usage
+### CSS Import
 
-### Basic Callout
+```javascript
+// ES modules
+import '@pm7/core/dist/pm7.css';
+
+// HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+```
+
+## Required Structure
 
 ```html
 <div class="pm7-callout">
   <div class="pm7-callout-body">
-    This is a basic callout with default styling.
+    Content
   </div>
 </div>
 ```
 
-### Callout with Header
+## CSS Classes
 
+| Class | Required | Usage |
+|-------|----------|-------|
+| `.pm7-callout` | YES | Container |
+| `.pm7-callout-body` | YES | Content wrapper |
+| `.pm7-callout-header` | NO | Header section |
+| `.pm7-callout-icon` | NO | Icon styling |
+| `.pm7-callout--info` | NO | Info variant (default) |
+| `.pm7-callout--success` | NO | Success variant |
+| `.pm7-callout--warning` | NO | Warning variant |
+| `.pm7-callout--error` | NO | Error variant |
+| `.pm7-callout--tip` | NO | Tip variant |
+| `.pm7-callout--neutral` | NO | Neutral variant |
+| `.pm7-callout--sm` | NO | Small size |
+| `.pm7-callout--lg` | NO | Large size |
+| `.pm7-callout--no-border` | NO | Remove left border |
+| `.pm7-callout--center` | NO | Center align text |
+| `.pm7-callout--pulse` | NO | Pulse animation |
+
+## Patterns
+
+### Pattern: Basic Callout
 ```html
-<div class="pm7-callout pm7-callout--info">
-  <h4 class="pm7-callout-header">
-    <svg class="pm7-callout-icon"><!-- info icon --></svg>
-    Information
-  </h4>
+<div class="pm7-callout">
   <div class="pm7-callout-body">
-    This is an informational message with an icon and header.
+    Default callout content
   </div>
 </div>
 ```
 
-### Variants
-
-PM7 callouts come in several semantic variants:
-
+### Pattern: Info Callout
 ```html
-<!-- Info (default) -->
 <div class="pm7-callout pm7-callout--info">
-  <div class="pm7-callout-body">Informational message</div>
+  <div class="pm7-callout-body">
+    Information message
+  </div>
 </div>
+```
 
-<!-- Success -->
+### Pattern: Success Callout
+```html
 <div class="pm7-callout pm7-callout--success">
-  <div class="pm7-callout-body">Success! Operation completed.</div>
+  <div class="pm7-callout-body">
+    Success! Operation completed.
+  </div>
 </div>
+```
 
-<!-- Warning -->
+### Pattern: Warning Callout
+```html
 <div class="pm7-callout pm7-callout--warning">
-  <div class="pm7-callout-body">Warning: Please review before proceeding.</div>
-</div>
-
-<!-- Error/Danger -->
-<div class="pm7-callout pm7-callout--error">
-  <div class="pm7-callout-body">Error: Something went wrong.</div>
-</div>
-
-<!-- Tip -->
-<div class="pm7-callout pm7-callout--tip">
-  <h4 class="pm7-callout-header">💡 Pro Tip</h4>
-  <div class="pm7-callout-body">Here's a helpful tip!</div>
-</div>
-
-<!-- Neutral -->
-<div class="pm7-callout pm7-callout--neutral">
-  <div class="pm7-callout-body">Neutral information</div>
+  <div class="pm7-callout-body">
+    Warning: Review before proceeding.
+  </div>
 </div>
 ```
 
-### Sizes
-
+### Pattern: Error Callout
 ```html
-<!-- Small -->
-<div class="pm7-callout pm7-callout--info pm7-callout--sm">
-  <div class="pm7-callout-body">Small callout</div>
+<div class="pm7-callout pm7-callout--error">
+  <div class="pm7-callout-body">
+    Error: Something went wrong.
+  </div>
 </div>
+```
 
-<!-- Medium (default) -->
+### Pattern: Tip Callout
+```html
+<div class="pm7-callout pm7-callout--tip">
+  <div class="pm7-callout-body">
+    Pro tip: Use keyboard shortcuts.
+  </div>
+</div>
+```
+
+### Pattern: Callout with Header
+```html
 <div class="pm7-callout pm7-callout--info">
-  <div class="pm7-callout-body">Medium callout</div>
+  <h4 class="pm7-callout-header">Information</h4>
+  <div class="pm7-callout-body">
+    Detailed information message
+  </div>
 </div>
+```
 
-<!-- Large -->
+### Pattern: Callout with Icon
+```html
+<div class="pm7-callout pm7-callout--warning">
+  <h4 class="pm7-callout-header">
+    <svg class="pm7-callout-icon" width="16" height="16">...</svg>
+    Warning
+  </h4>
+  <div class="pm7-callout-body">
+    Important warning message
+  </div>
+</div>
+```
+
+### Pattern: Small Callout
+```html
+<div class="pm7-callout pm7-callout--info pm7-callout--sm">
+  <div class="pm7-callout-body">
+    Small callout
+  </div>
+</div>
+```
+
+### Pattern: Large Callout
+```html
 <div class="pm7-callout pm7-callout--info pm7-callout--lg">
-  <div class="pm7-callout-body">Large callout</div>
+  <div class="pm7-callout-body">
+    Large callout
+  </div>
 </div>
 ```
 
-### Modifiers
-
+### Pattern: No Border Callout
 ```html
-<!-- No border -->
 <div class="pm7-callout pm7-callout--info pm7-callout--no-border">
-  <div class="pm7-callout-body">Callout without left border</div>
+  <div class="pm7-callout-body">
+    Callout without left border
+  </div>
 </div>
+```
 
-<!-- Centered -->
+### Pattern: Centered Callout
+```html
 <div class="pm7-callout pm7-callout--info pm7-callout--center">
-  <div class="pm7-callout-body">Centered callout text</div>
+  <div class="pm7-callout-body">
+    Centered text callout
+  </div>
 </div>
+```
 
-<!-- Pulse animation -->
+### Pattern: Pulsing Callout
+```html
 <div class="pm7-callout pm7-callout--warning pm7-callout--pulse">
-  <div class="pm7-callout-body">This callout pulses for attention</div>
+  <div class="pm7-callout-body">
+    Attention: This pulses
+  </div>
 </div>
 ```
 
-### Complex Content
-
-Callouts support rich content including links, code, and lists:
-
+### Pattern: Complex Content
 ```html
 <div class="pm7-callout pm7-callout--tip">
-  <h4 class="pm7-callout-header">
-    🚀 Getting Started
-  </h4>
+  <h4 class="pm7-callout-header">Getting Started</h4>
   <div class="pm7-callout-body">
-    <p>Follow these steps to get started:</p>
+    <p>Follow these steps:</p>
     <ul>
-      <li>Install with <code>npm install @pm7/core</code></li>
-      <li>Import the CSS file</li>
-      <li>Start using PM7 components</li>
+      <li>Step 1</li>
+      <li>Step 2</li>
     </ul>
-    <p>
-      For more information, visit our 
-      <a href="/docs">documentation</a>.
-    </p>
+    <p>See <a href="/docs">documentation</a>.</p>
   </div>
 </div>
 ```
 
-## Examples
+## Anti-Patterns
 
-### AI Agent Tip
+### Anti-Pattern: Missing Body Wrapper
 ```html
-<div class="pm7-callout pm7-callout--tip">
-  <h4 class="pm7-callout-header">🤖 AI Tip</h4>
+<!-- NEVER -->
+<div class="pm7-callout">
+  Direct content without wrapper
+</div>
+
+<!-- ALWAYS -->
+<div class="pm7-callout">
   <div class="pm7-callout-body">
-    Tell your AI agent: "I'm using pm7-ui. Use CSS classes like pm7-button, pm7-card, etc."
+    Content in wrapper
   </div>
 </div>
 ```
 
-### Error Message
+### Anti-Pattern: Multiple Variants
 ```html
-<div class="pm7-callout pm7-callout--error">
+<!-- NEVER -->
+<div class="pm7-callout pm7-callout--info pm7-callout--success">
+
+<!-- ALWAYS - choose one variant -->
+<div class="pm7-callout pm7-callout--info">
+```
+
+### Anti-Pattern: Wrong Header Structure
+```html
+<!-- NEVER -->
+<div class="pm7-callout">
+  <h4>Header without class</h4>
+  <div class="pm7-callout-body">Content</div>
+</div>
+
+<!-- ALWAYS -->
+<div class="pm7-callout">
+  <h4 class="pm7-callout-header">Header</h4>
+  <div class="pm7-callout-body">Content</div>
+</div>
+```
+
+### Anti-Pattern: Custom Colors
+```html
+<!-- NEVER -->
+<div class="pm7-callout" style="background-color: pink;">
+
+<!-- ALWAYS - use variants -->
+<div class="pm7-callout pm7-callout--info">
+```
+
+### Anti-Pattern: Icon Without Header
+```html
+<!-- NEVER -->
+<div class="pm7-callout">
+  <svg class="pm7-callout-icon">...</svg>
+  <div class="pm7-callout-body">Content</div>
+</div>
+
+<!-- ALWAYS -->
+<div class="pm7-callout">
   <h4 class="pm7-callout-header">
-    <svg class="pm7-callout-icon" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
-    </svg>
-    Error
+    <svg class="pm7-callout-icon">...</svg>
+    Title
   </h4>
-  <div class="pm7-callout-body">
-    Failed to save changes. Please check your connection and try again.
-  </div>
+  <div class="pm7-callout-body">Content</div>
 </div>
 ```
 
-### Important Note
-```html
-<div class="pm7-callout pm7-callout--warning pm7-callout--no-border">
-  <h4 class="pm7-callout-header">⚠️ Important</h4>
-  <div class="pm7-callout-body">
-    This action cannot be undone. Make sure you have a backup before proceeding.
-  </div>
-</div>
-```
+## Rules
 
-## When to Use
+- ALWAYS: Include `pm7-callout-body` wrapper
+- ALWAYS: Use semantic HTML for headers (h3, h4)
+- ALWAYS: Place icons inside header element
+- NEVER: Use multiple variant classes
+- NEVER: Apply custom background/border colors
+- NEVER: Mix size modifiers (sm + lg)
+- NEVER: Place content directly in callout container
 
-- **Info**: General information, documentation notes, or neutral messages
-- **Success**: Confirming successful operations or positive outcomes  
-- **Warning**: Cautionary messages that require user attention
-- **Error**: Error messages or critical issues
-- **Tip**: Helpful hints, best practices, or pro tips
-- **Neutral**: Generic callouts without semantic meaning
+## CSS Variables
+
+| Variable | Default Light | Default Dark | Usage |
+|----------|---------------|--------------|--------|
+| `--pm7-callout-padding` | `1rem` | `1rem` | Content padding |
+| `--pm7-callout-border-width` | `4px` | `4px` | Left border width |
+| `--pm7-callout-radius` | `var(--pm7-radius)` | `var(--pm7-radius)` | Border radius |
+
+## Variant Semantics
+
+- `info`: General information, neutral messages
+- `success`: Positive outcomes, confirmations
+- `warning`: Caution, attention required
+- `error`: Failures, critical issues
+- `tip`: Helpful hints, best practices
+- `neutral`: No semantic meaning
 
 ## Accessibility
 
-- Use semantic HTML headings for callout headers
-- Include descriptive text that doesn't rely solely on color
-- Icons should be decorative with text providing the meaning
-- Links within callouts have proper contrast and underlines
+- Semantic HTML headings required
+- Color not sole indicator of meaning
+- Icons are decorative only
+- Links maintain proper contrast
 
-## CSS Classes Reference
+## Framework Usage
 
-| Class | Description |
-|-------|-------------|
-| **Base Classes** | |
-| `pm7-callout` | Base callout class (required) |
-| `pm7-callout-header` | Header/title element |
-| `pm7-callout-body` | Body content container |
-| `pm7-callout-icon` | Icon element styling |
-| **Variants** | |
-| `pm7-callout--info` | Info variant (blue) |
-| `pm7-callout--success` | Success variant (green) |
-| `pm7-callout--warning` | Warning variant (yellow) |
-| `pm7-callout--error` | Error/danger variant (red) |
-| `pm7-callout--danger` | Alias for error variant |
-| `pm7-callout--tip` | Tip variant (primary color) |
-| `pm7-callout--neutral` | Neutral variant (gray) |
-| **Sizes** | |
-| `pm7-callout--sm` | Small size |
-| `pm7-callout--lg` | Large size |
-| **Modifiers** | |
-| `pm7-callout--no-border` | Remove left border |
-| `pm7-callout--center` | Center align text |
-| `pm7-callout--pulse` | Add pulse animation |
+### React
+```jsx
+<div className="pm7-callout pm7-callout--info">
+  <h4 className="pm7-callout-header">{title}</h4>
+  <div className="pm7-callout-body">
+    {content}
+  </div>
+</div>
+```
 
-## Dark Mode
+### Vue
+```vue
+<template>
+  <div class="pm7-callout pm7-callout--info">
+    <h4 class="pm7-callout-header">{{ title }}</h4>
+    <div class="pm7-callout-body">
+      {{ content }}
+    </div>
+  </div>
+</template>
+```
 
-All callout variants automatically adapt to dark mode with appropriate color adjustments while maintaining proper contrast ratios.
+## Related Components
+
+- Card: For general content containers
+- Toast: For temporary notifications
+- Dialog: For modal alerts

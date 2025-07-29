@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Position Theme Switch - PM7 UI</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/packages/core/src/styles/index.css">
+  
+  <!-- Prevent dark mode flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('pm7-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--pm7-background);
+      font-family: var(--pm7-font-sans);
+      color: var(--pm7-foreground);
+      min-height: 100vh;
+    }
+    
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    
+    .info-box {
+      background: var(--pm7-muted);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    .demo-box {
+      position: relative;
+      height: 300px;
+      border: 2px dashed var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    
+    .content-example {
+      padding: 2rem;
+      line-height: 1.8;
+    }
+    
+    .note {
+      font-size: 0.875rem;
+      color: var(--pm7-muted-foreground);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h2>Fixed Position Theme Switches</h2>
+    
+    <div class="info-box">
+      <p>Fixed position theme switches stay in viewport corners and are perfect for applications where theme switching should always be accessible.</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Fixed Icon (Bottom Right)</h3>
+      <div class="demo-box">
+        <div class="content-example">
+          <p>This demo shows a fixed icon-only theme switch in the bottom right corner.</p>
+          <p>It's circular, minimal, and doesn't interfere with content.</p>
+        </div>
+        <!-- Fixed icon variant - positioned relative to demo box for demonstration -->
+        <div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch style="position: absolute;"></div>
+      </div>
+      <p class="note">In real usage, this would be positioned fixed to the viewport.</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Fixed with Label (Bottom Right)</h3>
+      <div class="demo-box">
+        <div class="content-example">
+          <p>This variant includes a label and is positioned in the bottom right.</p>
+          <p>Great for applications where clarity is important.</p>
+        </div>
+        <!-- Fixed variant with label - positioned relative to demo box -->
+        <div class="pm7-theme-switch--fixed" data-pm7-theme-switch style="position: absolute;">
+          <span>Theme</span>
+        </div>
+      </div>
+      <p class="note">The label helps users understand the toggle's purpose.</p>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Different Sizes</h3>
+      <div class="demo-box">
+        <div class="content-example">
+          <p>Fixed position theme switches can use different sizes.</p>
+        </div>
+        <!-- Small fixed icon -->
+        <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--sm" data-pm7-theme-switch style="position: absolute; bottom: 1rem; right: 5rem;"></div>
+        <!-- Large fixed icon -->
+        <div class="pm7-theme-switch--fixed-icon pm7-theme-switch--lg" data-pm7-theme-switch style="position: absolute;"></div>
+      </div>
+      <p class="note">Use small size for minimal UI, large for better accessibility.</p>
+    </div>
+  </div>
+  
+  <!-- Actual fixed theme switch for this demo page -->
+  <div class="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+  
+  <!-- PM7 Core JavaScript -->
+  <script src="/packages/core/src/scripts/index.js" type="module"></script>
+</body>
+</html>
