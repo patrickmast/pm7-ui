@@ -1,20 +1,27 @@
-<!-- AI-ONLY DOCUMENTATION -->
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
 type: ai-agent-documentation
+version: 2.0
+component: Callout
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO storytelling or explanations
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+category: feedback
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
 ---
 
 # Component: Callout
 
-Highlighted information container with semantic variants.
+DEFINITION: The Callout component is a styled container used to display important, contextual information or messages to the user. It is a CSS-only component.
 
 ## Installation
 
@@ -23,6 +30,7 @@ npm install @pm7/core
 ```
 
 ### CSS Import
+REQUIRED: Import CSS from `@pm7/core/dist/pm7.css`
 
 ```javascript
 // ES modules
@@ -34,301 +42,258 @@ import '@pm7/core/dist/pm7.css';
 
 ## Required Structure
 
+The most basic Callout requires a `div` with the class `.pm7-callout` and a `div` with the class `.pm7-callout-body` inside it.
+
 ```html
+<!-- EXACT pattern - NO deviations allowed -->
 <div class="pm7-callout">
   <div class="pm7-callout-body">
-    Content
+    <p>Your message here.</p>
   </div>
 </div>
 ```
+
+### Structural Rules
+- **ALWAYS**: The main callout container MUST have the class `.pm7-callout`.
+- **ALWAYS**: All content within the callout MUST be wrapped in a `div` with the class `.pm7-callout-body`.
+- **NEVER**: Place content directly inside `.pm7-callout` without the `.pm7-callout-body` wrapper.
+
+## JavaScript API
+
+This is a CSS-only component. It does **NOT** have a JavaScript API.
+- **No initialization**: Styling is applied directly by CSS classes.
+- **No methods**: Control the callout by adding/removing CSS classes.
+- **No events**: Use standard DOM events on interactive elements within the callout.
 
 ## CSS Classes
 
-| Class | Required | Usage |
-|-------|----------|-------|
-| `.pm7-callout` | YES | Container |
-| `.pm7-callout-body` | YES | Content wrapper |
-| `.pm7-callout-header` | NO | Header section |
-| `.pm7-callout-icon` | NO | Icon styling |
-| `.pm7-callout--info` | NO | Info variant (default) |
-| `.pm7-callout--success` | NO | Success variant |
-| `.pm7-callout--warning` | NO | Warning variant |
-| `.pm7-callout--error` | NO | Error variant |
-| `.pm7-callout--tip` | NO | Tip variant |
-| `.pm7-callout--neutral` | NO | Neutral variant |
-| `.pm7-callout--sm` | NO | Small size |
-| `.pm7-callout--lg` | NO | Large size |
-| `.pm7-callout--no-border` | NO | Remove left border |
-| `.pm7-callout--center` | NO | Center align text |
-| `.pm7-callout--pulse` | NO | Pulse animation |
+| Class | Required | When | Effect |
+|---|---|---|---|
+| `.pm7-callout` | YES | ALWAYS | Applies base callout styling (background, padding, border-radius). |
+| `.pm7-callout-body` | YES | ALWAYS | Provides internal padding and ensures proper content flow. |
+| `.pm7-callout--info` | NO | For informational messages | Applies a blue theme. |
+| `.pm7-callout--success` | NO | For success messages | Applies a green theme. |
+| `.pm7-callout--warning` | NO | For warning messages | Applies an orange theme. |
+| `.pm7-callout--error` | NO | For error messages | Applies a red theme. |
+| `.pm7-callout--tip` | NO | For helpful tips | Applies a purple theme. |
+| `.pm7-callout-header` | NO | For a distinct header section | Styles a header area within the callout. |
+| `.pm7-callout-icon` | NO | For an icon within the header | Styles an icon to appear next to the header text. |
+| `.pm7-callout--sm` | NO | For a smaller callout | Reduces padding and font size. |
+| `.pm7-callout--lg` | NO | For a larger callout | Increases padding and font size. |
+| `.pm7-callout--no-border` | NO | To remove the left border | Removes the prominent left-side border. |
+| `.pm7-callout--center` | NO | To center align text | Centers the text content within the callout body. |
+| `.pm7-callout--pulse` | NO | For a subtle pulsing animation | Adds a gentle animation to draw attention. |
 
 ## Patterns
 
-### Pattern: Basic Callout
-```html
-<div class="pm7-callout">
-  <div class="pm7-callout-body">
-    Default callout content
-  </div>
-</div>
-```
-
-### Pattern: Info Callout
-```html
-<div class="pm7-callout pm7-callout--info">
-  <div class="pm7-callout-body">
-    Information message
-  </div>
-</div>
-```
-
-### Pattern: Success Callout
+### Pattern: Success Message Callout
 ```html
 <div class="pm7-callout pm7-callout--success">
   <div class="pm7-callout-body">
-    Success! Operation completed.
+    <p>Your changes have been saved successfully!</p>
   </div>
 </div>
 ```
 
-### Pattern: Warning Callout
-```html
-<div class="pm7-callout pm7-callout--warning">
-  <div class="pm7-callout-body">
-    Warning: Review before proceeding.
-  </div>
-</div>
-```
-
-### Pattern: Error Callout
-```html
-<div class="pm7-callout pm7-callout--error">
-  <div class="pm7-callout-body">
-    Error: Something went wrong.
-  </div>
-</div>
-```
-
-### Pattern: Tip Callout
-```html
-<div class="pm7-callout pm7-callout--tip">
-  <div class="pm7-callout-body">
-    Pro tip: Use keyboard shortcuts.
-  </div>
-</div>
-```
-
-### Pattern: Callout with Header
-```html
-<div class="pm7-callout pm7-callout--info">
-  <h4 class="pm7-callout-header">Information</h4>
-  <div class="pm7-callout-body">
-    Detailed information message
-  </div>
-</div>
-```
-
-### Pattern: Callout with Icon
+### Pattern: Warning Callout with Header and Icon
 ```html
 <div class="pm7-callout pm7-callout--warning">
   <h4 class="pm7-callout-header">
-    <svg class="pm7-callout-icon" width="16" height="16">...</svg>
+    <svg class="pm7-callout-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+    </svg>
     Warning
   </h4>
   <div class="pm7-callout-body">
-    Important warning message
+    <p>This action cannot be undone. Please review carefully.</p>
   </div>
 </div>
 ```
 
-### Pattern: Small Callout
+### Pattern: Informational Callout with Complex Content
 ```html
-<div class="pm7-callout pm7-callout--info pm7-callout--sm">
+<div class="pm7-callout pm7-callout--info">
   <div class="pm7-callout-body">
-    Small callout
-  </div>
-</div>
-```
-
-### Pattern: Large Callout
-```html
-<div class="pm7-callout pm7-callout--info pm7-callout--lg">
-  <div class="pm7-callout-body">
-    Large callout
-  </div>
-</div>
-```
-
-### Pattern: No Border Callout
-```html
-<div class="pm7-callout pm7-callout--info pm7-callout--no-border">
-  <div class="pm7-callout-body">
-    Callout without left border
-  </div>
-</div>
-```
-
-### Pattern: Centered Callout
-```html
-<div class="pm7-callout pm7-callout--info pm7-callout--center">
-  <div class="pm7-callout-body">
-    Centered text callout
-  </div>
-</div>
-```
-
-### Pattern: Pulsing Callout
-```html
-<div class="pm7-callout pm7-callout--warning pm7-callout--pulse">
-  <div class="pm7-callout-body">
-    Attention: This pulses
-  </div>
-</div>
-```
-
-### Pattern: Complex Content
-```html
-<div class="pm7-callout pm7-callout--tip">
-  <h4 class="pm7-callout-header">Getting Started</h4>
-  <div class="pm7-callout-body">
-    <p>Follow these steps:</p>
+    <p><strong>Note:</strong> Please ensure all required fields are filled out before submitting the form.</p>
     <ul>
-      <li>Step 1</li>
-      <li>Step 2</li>
+      <li>Email address</li>
+      <li>Password (min 8 characters)</li>
+      <li>Username</li>
     </ul>
-    <p>See <a href="/docs">documentation</a>.</p>
+    <p>For more details, visit our <a href="/help">help center</a>.</p>
   </div>
 </div>
 ```
 
 ## Anti-Patterns
 
-### Anti-Pattern: Missing Body Wrapper
+### NEVER: Apply multiple variant classes
 ```html
 <!-- NEVER -->
-<div class="pm7-callout">
-  Direct content without wrapper
-</div>
+<div class="pm7-callout pm7-callout--info pm7-callout--error">...</div>
 
-<!-- ALWAYS -->
+<!-- BECAUSE -->
+Variant classes (e.g., `--info`, `--success`, `--error`) are mutually exclusive. Applying more than one will result in conflicting styles and unpredictable appearance.
+
+<!-- INSTEAD -->
+<div class="pm7-callout pm7-callout--info">...</div> <!-- Choose only one -->
+```
+
+### NEVER: Use custom colors to indicate meaning
+```html
+<!-- NEVER -->
+<div class="pm7-callout" style="background-color: #ffcc00;">...</div>
+
+<!-- BECAUSE -->
+Custom inline styles bypass the theming system and can lead to inconsistent UI. Use the provided semantic variant classes for color-coding.
+
+<!-- INSTEAD -->
+<div class="pm7-callout pm7-callout--warning">...</div>
+```
+
+### NEVER: Place an icon directly in the callout body without a header
+```html
+<!-- NEVER -->
 <div class="pm7-callout">
   <div class="pm7-callout-body">
-    Content in wrapper
+    <svg class="pm7-callout-icon">...</svg> <!-- Icon here -->
+    <p>Message</p>
   </div>
 </div>
-```
 
-### Anti-Pattern: Multiple Variants
-```html
-<!-- NEVER -->
-<div class="pm7-callout pm7-callout--info pm7-callout--success">
+<!-- BECAUSE -->
+Icons are designed to be part of the header for proper alignment and semantic grouping. Placing them directly in the body can lead to layout issues.
 
-<!-- ALWAYS - choose one variant -->
-<div class="pm7-callout pm7-callout--info">
-```
-
-### Anti-Pattern: Wrong Header Structure
-```html
-<!-- NEVER -->
-<div class="pm7-callout">
-  <h4>Header without class</h4>
-  <div class="pm7-callout-body">Content</div>
-</div>
-
-<!-- ALWAYS -->
-<div class="pm7-callout">
-  <h4 class="pm7-callout-header">Header</h4>
-  <div class="pm7-callout-body">Content</div>
-</div>
-```
-
-### Anti-Pattern: Custom Colors
-```html
-<!-- NEVER -->
-<div class="pm7-callout" style="background-color: pink;">
-
-<!-- ALWAYS - use variants -->
-<div class="pm7-callout pm7-callout--info">
-```
-
-### Anti-Pattern: Icon Without Header
-```html
-<!-- NEVER -->
-<div class="pm7-callout">
-  <svg class="pm7-callout-icon">...</svg>
-  <div class="pm7-callout-body">Content</div>
-</div>
-
-<!-- ALWAYS -->
+<!-- INSTEAD -->
 <div class="pm7-callout">
   <h4 class="pm7-callout-header">
-    <svg class="pm7-callout-icon">...</svg>
-    Title
+    <svg class="pm7-callout-icon">...</svg> Title
   </h4>
-  <div class="pm7-callout-body">Content</div>
+  <div class="pm7-callout-body">...</div>
 </div>
 ```
 
 ## Rules
 
-- ALWAYS: Include `pm7-callout-body` wrapper
-- ALWAYS: Use semantic HTML for headers (h3, h4)
-- ALWAYS: Place icons inside header element
-- NEVER: Use multiple variant classes
-- NEVER: Apply custom background/border colors
-- NEVER: Mix size modifiers (sm + lg)
-- NEVER: Place content directly in callout container
+### ALWAYS
+- **ALWAYS**: Wrap all content within a callout in `.pm7-callout-body`.
+- **ALWAYS**: Choose only one semantic variant class (e.g., `--info`, `--success`) per callout.
+- **ALWAYS**: If including an icon, place it inside a `.pm7-callout-header` element.
+
+### NEVER
+- **NEVER**: Apply custom background or border colors directly to the callout; use variant classes instead.
+- **NEVER**: Mix size modifier classes (e.g., `--sm` and `--lg`) on the same callout.
+- **NEVER**: Use a callout for critical, blocking information that requires immediate user interaction (use a Dialog instead).
 
 ## CSS Variables
 
-| Variable | Default Light | Default Dark | Usage |
-|----------|---------------|--------------|--------|
-| `--pm7-callout-padding` | `1rem` | `1rem` | Content padding |
-| `--pm7-callout-border-width` | `4px` | `4px` | Left border width |
-| `--pm7-callout-radius` | `var(--pm7-radius)` | `var(--pm7-radius)` | Border radius |
+### Component-Specific Variables
 
-## Variant Semantics
+Callout does not define its own CSS variables. All styling is controlled through global PM7 design tokens.
 
-- `info`: General information, neutral messages
-- `success`: Positive outcomes, confirmations
-- `warning`: Caution, attention required
-- `error`: Failures, critical issues
-- `tip`: Helpful hints, best practices
-- `neutral`: No semantic meaning
+### Required Global Variables
+
+| Variable | Light Mode | Dark Mode | Usage in Callout |
+|----------|------------|-----------|------------------|
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Default text color |
+| `--pm7-muted` | `#f5f5f5` | `#2d2d2d` | Default background |
+| `--pm7-border` | `#e0e0e0` | `#444` | Default border color |
+| `--pm7-radius` | `0.375rem` | `0.375rem` | Border radius |
+| `--pm7-primary` | `#1C86EF` | `#3b9eff` | Link color, tip border |
+| `--pm7-primary-light` | `#e6f2ff` | `rgba(28, 134, 239, 0.1)` | Tip variant background |
+| `--pm7-primary-dark` | `#1565C0` | `var(--pm7-primary)` | Tip header color |
+| `--pm7-info` | `#3b82f6` | `#3b82f6` | Info variant border |
+| `--pm7-info-light` | `#dbeafe` | `rgba(59, 130, 246, 0.1)` | Info variant background |
+| `--pm7-info-dark` | `#1e40af` | `var(--pm7-info)` | Info header color |
+| `--pm7-success` | `#22c55e` | `#22c55e` | Success variant border |
+| `--pm7-success-light` | `#dcfce7` | `rgba(34, 197, 94, 0.1)` | Success variant background |
+| `--pm7-success-dark` | `#166534` | `var(--pm7-success)` | Success header color |
+| `--pm7-warning` | `#f59e0b` | `#f59e0b` | Warning variant border |
+| `--pm7-warning-light` | `#fef3c7` | `rgba(245, 158, 11, 0.1)` | Warning variant background |
+| `--pm7-warning-dark` | `#92400e` | `var(--pm7-warning)` | Warning header color |
+| `--pm7-error` | `#ef4444` | `#ef4444` | Error variant border |
+| `--pm7-error-light` | `#fee2e2` | `rgba(239, 68, 68, 0.1)` | Error variant background |
+| `--pm7-error-dark` | `#991b1b` | `var(--pm7-error)` | Error header color |
+
+### Customization Example
+```css
+/* Custom callout styling */
+.my-app {
+  --pm7-info-light: #e0f2fe;
+  --pm7-success-light: #f0fdf4;
+  --pm7-warning-light: #fefce8;
+  --pm7-error-light: #fef2f2;
+}
+
+/* Rounded callouts */
+.rounded-callout {
+  --pm7-radius: 1rem;
+}
+
+/* Gradient borders */
+.gradient-callout.pm7-callout--info {
+  border-image: linear-gradient(45deg, #3b82f6, #60a5fa) 1;
+}
+```
+
+## Cross-Component Dependencies
+
+### Works With
+- **Icons**: Callout headers often include icons
+- **Links**: Callouts frequently contain action links
+- **Lists**: Structured content in callout bodies
+- **Code**: Inline code snippets in technical callouts
+
+### Conflicts With
+- **Toast**: Both provide feedback; use Toast for transient messages
+- **Dialog**: Use Dialog for critical actions requiring user response
 
 ## Accessibility
 
-- Semantic HTML headings required
-- Color not sole indicator of meaning
-- Icons are decorative only
-- Links maintain proper contrast
+- **Color**: Color is used to convey meaning, but it is not the sole indicator. Ensure important messages are also conveyed through text.
+- **Semantic HTML**: Use appropriate heading levels (`h3`, `h4`) within the callout header for screen reader navigation.
+- **Icons**: Icons are primarily decorative. Ensure any critical information conveyed by an icon is also present in the text.
 
-## Framework Usage
+## Complete Example: Dashboard Notifications
 
-### React
-```jsx
-<div className="pm7-callout pm7-callout--info">
-  <h4 className="pm7-callout-header">{title}</h4>
-  <div className="pm7-callout-body">
-    {content}
+SCENARIO: Displaying various system notifications and tips on a dashboard.
+
+```html
+<div style="display: grid; gap: 1rem; max-width: 800px; margin: 2rem auto;">
+  <div class="pm7-callout pm7-callout--info">
+    <div class="pm7-callout-body">
+      <p>Welcome back, John! Check out the new analytics features.</p>
+    </div>
+  </div>
+
+  <div class="pm7-callout pm7-callout--warning pm7-callout--pulse">
+    <h4 class="pm7-callout-header">
+      <svg class="pm7-callout-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+      </svg>
+      Action Required
+    </h4>
+    <div class="pm7-callout-body">
+      <p>Your subscription is expiring in 7 days. <a href="#">Renew now</a> to avoid service interruption.</p>
+    </div>
+  </div>
+
+  <div class="pm7-callout pm7-callout--success">
+    <div class="pm7-callout-body">
+      <p>All systems are operational. No issues detected.</p>
+    </div>
+  </div>
+
+  <div class="pm7-callout pm7-callout--tip pm7-callout--no-border">
+    <h4 class="pm7-callout-header">
+      <svg class="pm7-callout-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+      </svg>
+      Pro Tip
+    </h4>
+    <div class="pm7-callout-body">
+      <p>You can customize your dashboard layout by dragging and dropping widgets.</p>
+    </div>
   </div>
 </div>
 ```
-
-### Vue
-```vue
-<template>
-  <div class="pm7-callout pm7-callout--info">
-    <h4 class="pm7-callout-header">{{ title }}</h4>
-    <div class="pm7-callout-body">
-      {{ content }}
-    </div>
-  </div>
-</template>
-```
-
-## Related Components
-
-- Card: For general content containers
-- Toast: For temporary notifications
-- Dialog: For modal alerts

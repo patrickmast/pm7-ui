@@ -62,6 +62,15 @@ This is a CSS-only component. It does **NOT** have a JavaScript API.
 - **No methods**: No `.open()`, `.close()`, etc.
 - **No events**: No `pm7:input:change` events are dispatched. Rely on standard DOM events (`input`, `change`, `blur`).
 
+## Attributes
+
+See /docs/ATTRIBUTES.md for cross-component attribute relationships.
+
+| Attribute | Component(s) | Values | Required | Effect |
+|---|---|---|---|---|
+| `aria-invalid` | Input | `true`, `false` | NO | Indicates that the value of an input is not valid. |
+| `aria-describedby` | Input | ID of descriptive element | NO | Links an element to an element that describes it. |
+
 ## CSS Classes
 
 | Class | Required | When | Effect |
@@ -199,12 +208,79 @@ Screen readers will not announce that the field has an error or what the error m
 
 ## CSS Variables
 
-| Variable | Default | Usage |
-|----------|---------|-------|
-| `--pm7-input-height` | `2.5rem` | Default height |
-| `--pm7-input-border-radius` | `0.375rem` | Border radius |
-| `--pm7-input-focus-ring-color` | `var(--pm7-primary)` | Focus color |
-| `--pm7-input-font-size` | `0.875rem` | Default font size |
+### Component-Specific Variables
+
+| Variable | Light Mode | Dark Mode | Usage |
+|----------|------------|-----------|--------|
+| `--pm7-input` | `#ffffff` | `#1e1e1e` | Input background color |
+| `--pm7-input-radius` | `var(--pm7-radius)` | `var(--pm7-radius)` | Input border radius |
+| `--pm7-input-border-width` | `1px` | `1px` | Border width |
+| `--pm7-input-padding-x` | `var(--pm7-spacing-3)` | `var(--pm7-spacing-3)` | Horizontal padding |
+| `--pm7-input-padding-y` | `var(--pm7-spacing-2)` | `var(--pm7-spacing-2)` | Vertical padding |
+| `--pm7-input-font-size` | `var(--pm7-text-base)` | `var(--pm7-text-base)` | Font size |
+| `--pm7-input-font-weight` | `var(--pm7-font-normal)` | `var(--pm7-font-normal)` | Font weight |
+| `--pm7-input-line-height` | `var(--pm7-leading-normal)` | `var(--pm7-leading-normal)` | Line height |
+
+### Required Global Variables
+
+| Variable | Light Mode | Dark Mode | Usage in Input |
+|----------|------------|-----------|----------------|
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Input text color |
+| `--pm7-muted` | `#f5f5f5` | `#2d2d2d` | Disabled background |
+| `--pm7-muted-foreground` | `#333333` | `#e6e6e6` | Placeholder, helper text |
+| `--pm7-border` | `#e0e0e0` | `#444` | Default border color |
+| `--pm7-border-hover` | `#c0c0c0` | `#666666` | Hover border color |
+| `--pm7-ring` | `#1C86EF` | `#3b9eff` | Focus border color |
+| `--pm7-focus-shadow` | `0 0 0 3px rgba(28, 134, 239, 0.2)` | `0 0 0 3px rgba(59, 158, 255, 0.2)` | Focus shadow |
+| `--pm7-error` | `#ef4444` | `#ef4444` | Error state color |
+| `--pm7-error-focus-shadow` | `0 0 0 3px rgba(239, 68, 68, 0.2)` | `0 0 0 3px rgba(239, 68, 68, 0.2)` | Error focus shadow |
+| `--pm7-success` | `#22c55e` | `#22c55e` | Success state color |
+| `--pm7-success-focus-shadow` | `0 0 0 3px rgba(34, 197, 94, 0.2)` | `0 0 0 3px rgba(34, 197, 94, 0.2)` | Success focus shadow |
+| `--pm7-primary` | `#1C86EF` | `#3b9eff` | Checkbox/radio checked background |
+| `--pm7-primary-foreground` | `#ffffff` | `#ffffff` | Checkbox checkmark color |
+| `--pm7-background` | `#ffffff` | `#121212` | Switch thumb background |
+| `--pm7-shadow-sm` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | `0 1px 2px 0 rgb(0 0 0 / 0.1)` | Switch thumb shadow |
+| `--pm7-font-medium` | `500` | `500` | Label font weight |
+| `--pm7-font-normal` | `400` | `400` | Input font weight |
+| `--pm7-text-sm` | `0.875rem` | `0.875rem` | Label, helper text size |
+| `--pm7-text-lg` | `1.125rem` | `1.125rem` | Large input size |
+| `--pm7-spacing-2` | `0.5rem` | `0.5rem` | Various spacing |
+| `--pm7-spacing-4` | `1rem` | `1rem` | Form group spacing |
+| `--pm7-radius` | `0.375rem` | `0.375rem` | Default border radius |
+| `--pm7-radius-sm` | `0.125rem` | `0.125rem` | Checkbox border radius |
+| `--pm7-radius-full` | `9999px` | `9999px` | Radio/switch border radius |
+
+### Customization Example
+```css
+/* Custom input styling */
+.my-app {
+  --pm7-input: #f8f9fa;
+  --pm7-border: #ced4da;
+  --pm7-ring: #0066cc;
+  --pm7-input-radius: 0.5rem;
+  --pm7-input-padding-x: 1rem;
+}
+
+/* Dark mode overrides */
+.my-app.dark {
+  --pm7-input: #2a2a2a;
+  --pm7-border: #555;
+  --pm7-ring: #66b3ff;
+  --pm7-muted-foreground: #aaa;
+}
+```
+
+## Cross-Component Dependencies
+
+### Works With
+- **Label**: Use `.pm7-label` for form labels
+- **Button**: Often used in input groups with buttons
+- **Icons**: Input icons for visual context
+- **Form Group**: `.pm7-form-group` for proper spacing
+
+### Conflicts With
+- **Menu**: Don't use Menu component for select dropdowns (use native select)
+- **Dialog**: Form inputs are commonly used in dialogs
 
 ## Accessibility
 

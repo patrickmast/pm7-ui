@@ -1,275 +1,381 @@
-# Framework Integration Guide
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
 
-PM7 integration patterns for React, Vue, Angular
-
-<!-- AI-ONLY DOCUMENTATION -->
-<!-- 
+---
+type: ai-agent-documentation
+version: 2.0
 audience: ai-coding-agents-only
 style: exact-patterns
-documentation-rules:
-  - NO storytelling
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Copy-paste ready code blocks
--->
+human-readable: false
+attributes-reference: /docs/ATTRIBUTES.md
+---
 
-## Timing Issues
+# Framework Integration Guide
 
-PM7 auto-initializes on `DOMContentLoaded`.
-Frameworks render AFTER this event.
+DEFINITION: This guide provides exact patterns and rules for integrating PM7-UI components into modern JavaScript frameworks like React, Vue, and Angular. It addresses common challenges such as timing, state synchronization, and event handling.
 
-### Solution Pattern
+## Installation
 
-IF React/Vue/Angular THEN initialize after render:
+```bash
+npm install @pm7/core
+```
+
+### CSS & JavaScript Import
+
+REQUIRED: Import both the CSS and the main JavaScript file.
 
 ```javascript
-// React - NEW: Use initFramework() for better timing
+// ES modules
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core'; // Imports and initializes all components
+
+// HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+<script src="node_modules/@pm7/core/dist/pm7.js" defer></script>
+```
+
+## Initialization in Frameworks
+
+PM7-UI components auto-initialize on `DOMContentLoaded`. However, frameworks often render their components after this event. Use `window.PM7.initFramework()` to ensure proper initialization and self-healing.
+
+### Pattern: Standard Framework Initialization
+
+WHEN: Initializing PM7-UI in a framework's root component or layout.
+
+```javascript
+// React (in a root component's useEffect hook)
+import { useEffect } from 'react';
+
 useEffect(() => {
-  window.PM7?.initFramework(); // Handles timing + healing automatically
-  // OR with custom options:
-  window.PM7?.init(document, { delay: 50, heal: true });
+  window.PM7?.initFramework(); // Handles timing and enables self-healing
 }, []);
 
-// Vue
-mounted() {
-  this.$nextTick(() => {
-    window.PM7?.initFramework();
-  });
-}
+// Vue (in a root component's mounted hook)
+import { onMounted } from 'vue';
 
-// Angular
-ngAfterViewInit() {
+onMounted(() => {
   window.PM7?.initFramework();
+});
+
+// Angular (in a root component's ngAfterViewInit hook)
+import { AfterViewInit } from '@angular/core';
+
+export class AppComponent implements AfterViewInit {
+  ngAfterViewInit() {
+    window.PM7?.initFramework();
+  }
 }
 ```
 
-### PM7.init() Options (v2.7.0+)
+### Pattern: Dynamic Component Addition
+
+WHEN: Adding PM7-UI components to the DOM after initial page load (e.g., via conditional rendering or AJAX).
 
 ```javascript
-PM7.init(container, {
-  delay: 0,      // Milliseconds to wait before init (default: 0)
-  force: false,  // Force re-init even if already initialized (default: false)
-  heal: true     // Run self-healing after init (default: true)
-});
+// After adding new PM7-UI elements to the DOM
+window.PM7?.init();
+```
 
-// Convenience method for frameworks
-PM7.initFramework(); // Same as init() with { delay: 50, heal: true }
+## Self-Healing Components (v2.5.0+)
+
+All interactive PM7-UI components automatically detect and recover from framework re-renders. This eliminates the need for manual re-initialization workarounds.
+
+### How Self-Healing Works
+1.  Components detect when their DOM elements have been re-rendered by a framework.
+2.  Their internal state (e.g., open/closed, active tab) is automatically preserved.
+3.  Event listeners are cleaned up and re-attached to the new DOM elements.
+4.  The component restores its previous state, ensuring seamless user experience.
+
+### Manual Healing (for advanced use cases)
+
+```javascript
+// Heal all components of all types
+window.PM7.heal();
+
+// Heal specific component types
+window.PM7.healMenus();
+window.PM7.healAccordions();
+window.PM7.healTabSelectors();
+window.PM7.healTooltips();
+window.PM7.healSidebars();
 ```
 
 ## State Synchronization
 
-PM7 manages its own DOM state.
-Frameworks have separate state systems.
-These MUST be synchronized.
+PM7-UI components manage their own internal DOM state. When integrating with frameworks, it is CRITICAL to synchronize the framework's state with the component's DOM state.
 
-### Dialog State Sync Pattern
+### Pattern: Dialog State Synchronization
 
-IF PM7 dialog used in React/Vue THEN sync with MutationObserver:
+WHEN: Using PM7-UI Dialogs in a framework where the framework's state controls dialog visibility.
 
 ```jsx
-// React
-const dialogRef = useRef();
+// React Example
+import React, { useState, useEffect, useRef } from 'react';
 
-useEffect(() => {
-  if (!dialogRef.current) return;
-  
-  const observer = new MutationObserver(() => {
-    const state = dialogRef.current.getAttribute('data-state');
-    if (state === 'closed' && isOpen) {
-      setIsOpen(false); // Sync React state
+function MyDialogComponent({ isOpen, onClose }) {
+  const dialogRef = useRef(null);
+
+  // Effect to open/close PM7 dialog based on React's isOpen state
+  useEffect(() => {
+    if (isOpen) {
+      window.openDialog?.('my-dialog-id');
+    } else {
+      window.closeDialog?.('my-dialog-id');
     }
-  });
-  
-  observer.observe(dialogRef.current, { 
-    attributes: true,
-    attributeFilter: ['data-state']
-  });
-  
-  return () => observer.disconnect();
-}, [isOpen]);
+  }, [isOpen]);
 
-// Control dialog
-useEffect(() => {
-  if (isOpen) {
-    window.openDialog('dialog-id');
-  } else {
-    window.closeDialog('dialog-id');
-  }
-}, [isOpen]);
-```
-
-## Event Handler Issues
-
-### Problem: Dialog Footer Buttons
-
-PM7 dialogs transform DOM structure.
-React event handlers break.
-
-IF button in `data-pm7-footer` THEN use global functions:
-
-```jsx
-// WRONG
-<div data-pm7-footer>
-  <button onClick={handleSave}>Save</button>
-</div>
-
-// CORRECT
-useEffect(() => {
-  window.handleSave = () => {
-    // Your logic
-    onSave();
-  };
-  return () => delete window.handleSave;
-}, [onSave]);
-
-<div data-pm7-footer dangerouslySetInnerHTML={{
-  __html: `<button onclick="window.handleSave()">Save</button>`
-}} />
-```
-
-## Dynamic Content
-
-### Adding PM7 Components
-
-IF component added after page load THEN reinitialize:
-
-```javascript
-// After adding new PM7 elements
-window.PM7?.init(containerElement);
-
-// Or specific component
-const menu = new window.PM7.Menu(menuElement);
-```
-
-### Removing Components
-
-PM7 adds event listeners.
-Clean up when removing:
-
-```javascript
-// No built-in destroy, but:
-element.remove(); // Removes element and listeners
-```
-
-## Common Patterns
-
-### React Hook for PM7
-
-```javascript
-function usePM7Dialog(dialogId) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dialogRef = useRef();
-  
-  // Sync state
+  // Effect to synchronize React's isOpen state with PM7's internal state
+  // This handles cases where PM7 dialog is closed by ESC key or overlay click
   useEffect(() => {
     if (!dialogRef.current) return;
-    
+
     const observer = new MutationObserver(() => {
-      const state = dialogRef.current.getAttribute('data-state');
-      if (state === 'closed' && isOpen) {
-        setIsOpen(false);
+      const pm7State = dialogRef.current.getAttribute('data-state');
+      if (pm7State === 'closed' && isOpen) {
+        onClose(); // Call framework's onClose to update its state
       }
     });
-    
+
     observer.observe(dialogRef.current, {
       attributes: true,
       attributeFilter: ['data-state']
     });
-    
+
     return () => observer.disconnect();
-  }, [isOpen]);
-  
-  // Control dialog
+  }, [isOpen, onClose]);
+
+  // CRITICAL: Conditionally render the dialog. Return null when not open.
+  if (!isOpen) return null;
+
+  return (
+    <div data-pm7-dialog="my-dialog-id" ref={dialogRef}>
+      <div data-pm7-header>My Dialog</div>
+      <div data-pm7-body>Content</div>
+      <div data-pm7-footer>
+        <button onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
+}
+```
+
+## Event Handling
+
+PM7-UI components attach their own event listeners. When using frameworks, avoid attaching duplicate event listeners or relying on framework-specific event delegation for PM7-UI's internal elements.
+
+### Pattern: Dialog Footer Buttons with `onClick`
+
+WHEN: Placing buttons in a `data-pm7-footer` section of a dialog, where direct framework `onClick` handlers might not work due to DOM manipulation.
+
+```jsx
+// React Example
+import React, { useEffect } from 'react';
+
+function MyDialogWithAction({ onConfirm }) {
   useEffect(() => {
-    if (isOpen) {
-      window.openDialog(dialogId);
-    } else {
-      window.closeDialog(dialogId);
-    }
-  }, [isOpen, dialogId]);
-  
-  return { isOpen, setIsOpen, dialogRef };
+    // Expose a global function that can be called from inline HTML
+    window.handleDialogConfirm = () => {
+      onConfirm();
+      window.closeDialog?.('my-action-dialog');
+    };
+    // Clean up the global function when component unmounts
+    return () => delete window.handleDialogConfirm;
+  }, [onConfirm]);
+
+  return (
+    <div data-pm7-dialog="my-action-dialog">
+      <div data-pm7-header>Confirm Action</div>
+      <div data-pm7-body>Are you sure?</div>
+      <div data-pm7-footer>
+        <button onClick={() => window.closeDialog?.('my-action-dialog')}>Cancel</button>
+        {/* Use dangerouslySetInnerHTML to render HTML with inline onclick */}
+        <div dangerouslySetInnerHTML={{
+          __html: '<button class="pm7-button pm7-button--primary" onclick="window.handleDialogConfirm()">Confirm</button>'
+        }} />
+      </div>
+    </div>
+  );
 }
 ```
 
-### Vue Composable
+## Anti-Patterns
 
+### NEVER: Manually re-initialize components after every render
 ```javascript
-function usePM7Dialog(dialogId) {
-  const isOpen = ref(false);
-  const dialogRef = ref(null);
-  
-  watch(isOpen, (newVal) => {
-    if (newVal) {
-      window.openDialog(dialogId);
-    } else {
-      window.closeDialog(dialogId);
-    }
-  });
-  
-  onMounted(() => {
-    if (!dialogRef.value) return;
-    
-    const observer = new MutationObserver(() => {
-      const state = dialogRef.value.getAttribute('data-state');
-      if (state === 'closed' && isOpen.value) {
-        isOpen.value = false;
-      }
-    });
-    
-    observer.observe(dialogRef.value, {
-      attributes: true,
-      attributeFilter: ['data-state']
-    });
-  });
-  
-  return { isOpen, dialogRef };
-}
-```
-
-## Troubleshooting
-
-IF component not working THEN check:
-
-1. PM7 loaded: `console.log(window.PM7)`
-2. CSS loaded: Check element has PM7 styles
-3. Initialized: Element has `data-pm7-*-initialized` attribute
-4. Timing: Initialize AFTER framework render
-5. ID match: `data-pm7-dialog="foo"` matches `openDialog('foo')`
-
-IF still not working THEN:
-```javascript
-// Debug initialization
-console.log('PM7:', window.PM7);
-console.log('Element:', document.querySelector('[data-pm7-dialog]'));
-console.log('State:', element.getAttribute('data-state'));
-
-// Force reinit
-window.PM7?.reinit();
-```
-
-## Common Issues & Solutions
-
-### Dialog won't open in React
-
-**SOLUTION**: Call after render
-```javascript
+// React Example
 useEffect(() => {
-  window.PM7?.autoInitDialogs();
+  // NEVER do this after every render
+  window.PM7?.init();
+});
+
+// BECAUSE
+This is inefficient and can lead to duplicate event listeners or unexpected behavior. PM7-UI's self-healing handles re-renders automatically.
+
+// INSTEAD
+// Use `window.PM7.initFramework()` once in the root component's mount hook.
+useEffect(() => {
+  window.PM7?.initFramework();
 }, []);
 ```
 
-### X/ESC closes dialog but won't reopen
+### NEVER: Omit conditional rendering for interactive components
+```jsx
+// React Example
+function MyComponent({ showDialog }) {
+  return (
+    <>
+      {/* NEVER render the dialog element if showDialog is false */}
+      <div data-pm7-dialog="my-dialog" style={{ display: showDialog ? 'block' : 'none' }}>
+        ...
+      </div>
+    </>
+  );
+}
 
-**SOLUTION**: Sync state with MutationObserver (see pattern above)
+// BECAUSE
+PM7-UI components are designed to be added/removed from the DOM. Simply hiding them with CSS breaks their lifecycle, focus management, and self-healing.
 
-### onClick not working in dialog footer
+// INSTEAD
+function MyComponent({ showDialog }) {
+  if (!showDialog) return null; // CRITICAL: Return null when not visible
+  return (
+    <div data-pm7-dialog="my-dialog">
+      ...
+    </div>
+  );
+}
+```
 
-**SOLUTION**: Use global functions with dangerouslySetInnerHTML (see pattern above)
+## Rules
 
-### Dialog flashes on page load
+### ALWAYS
+- **ALWAYS**: Call `window.PM7.initFramework()` once in the root component's mount lifecycle hook (e.g., `useEffect` for React, `onMounted` for Vue, `ngAfterViewInit` for Angular).
+- **ALWAYS**: Conditionally render interactive PM7-UI components in frameworks (return `null` or `v-if="false"` when the component should not be visible).
+- **ALWAYS**: Synchronize framework state with PM7-UI's internal DOM state for interactive components (e.g., using `MutationObserver` for dialogs).
 
-**SOLUTION**: Ensure PM7 CSS loads before content
-```html
-<link rel="stylesheet" href="@pm7/core/dist/pm7.css">
+### NEVER
+- **NEVER**: Manually call `window.PM7.init()` or component-specific `init` methods on every framework render.
+- **NEVER**: Use framework-specific event handlers directly on PM7-UI's internal elements if they are dynamically manipulated by PM7-UI (e.g., dialog footer buttons).
+- **NEVER**: Attempt to control PM7-UI component visibility or state using framework-specific CSS classes or inline styles.
+
+## Troubleshooting
+
+### Problem: PM7-UI component not working in framework
+
+- **CAUSE**: PM7-UI JavaScript not initialized or initialized at the wrong time.
+- **FIX**: Ensure `window.PM7?.initFramework()` is called in the framework's root component's mount lifecycle hook.
+
+### Problem: Dialog closes via ESC/overlay but framework state is out of sync
+
+- **CAUSE**: Framework state is not being updated when PM7-UI internally closes the dialog.
+- **FIX**: Implement a `MutationObserver` to watch for `data-state="closed"` on the dialog element and update the framework's state accordingly (see `Pattern: Dialog State Synchronization`).
+
+### Problem: `onClick` handlers on dialog/menu items not firing in React
+
+- **CAUSE**: React's event delegation is bypassed when PM7-UI dynamically manipulates the DOM structure of the dialog/menu.
+- **FIX**: Use global functions with `dangerouslySetInnerHTML` for `onClick` handlers on such elements (see `Pattern: Dialog Footer Buttons with onClick`).
+
+### Problem: Components not self-healing after re-render
+
+- **CAUSE**: `window.PM7.initFramework()` was not called, or an older version of PM7-UI is being used.
+- **FIX**: Update to PM7-UI v2.5.0+ and ensure `window.PM7.initFramework()` is called correctly.
+
+## Complete Example: React Application with PM7-UI Dialog
+
+SCENARIO: A React application that uses a PM7-UI Dialog for user confirmation, demonstrating proper state synchronization and event handling.
+
+```jsx
+import React, { useState, useEffect, useRef } from 'react';
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core'; // Imports PM7-UI core and initializes components
+
+function ConfirmDialog({ message, onConfirm, onCancel, isOpen }) {
+  const dialogRef = useRef(null);
+
+  // Effect to open/close PM7 dialog based on React's isOpen state
+  useEffect(() => {
+    if (isOpen) {
+      window.openDialog?.('confirm-dialog');
+    } else {
+      window.closeDialog?.('confirm-dialog');
+    }
+  }, [isOpen]);
+
+  // Effect to synchronize React's isOpen state with PM7's internal state
+  // This handles cases where PM7 dialog is closed by ESC key or overlay click
+  useEffect(() => {
+    if (!dialogRef.current) return;
+
+    const observer = new MutationObserver(() => {
+      const pm7State = dialogRef.current.getAttribute('data-state');
+      if (pm7State === 'closed' && isOpen) {
+        onCancel(); // Call framework's onClose to update its state
+      }
+    });
+
+    observer.observe(dialogRef.current, {
+      attributes: true,
+      attributeFilter: ['data-state']
+    });
+
+    return () => observer.disconnect();
+  }, [isOpen, onCancel]);
+
+  // CRITICAL: Conditionally render the dialog. Return null when not open.
+  if (!isOpen) return null;
+
+  return (
+    <div data-pm7-dialog="confirm-dialog" ref={dialogRef}>
+      <div data-pm7-header>Confirmation</div>
+      <div data-pm7-body>
+        <p>{message}</p>
+      </div>
+      <div data-pm7-footer>
+        <button onClick={onCancel}>Cancel</button>
+        {/* Use dangerouslySetInnerHTML for the confirm button to ensure event fires */}
+        <div dangerouslySetInnerHTML={{
+          __html: '<button class="pm7-button pm7-button--primary" onclick="window.handleConfirmAction()">Confirm</button>'
+        }} />
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  // Expose global function for dialog's inline onclick
+  useEffect(() => {
+    window.handleConfirmAction = () => {
+      alert('Action Confirmed!');
+      setShowConfirm(false);
+    };
+    return () => delete window.handleConfirmAction;
+  }, []);
+
+  // Initialize PM7-UI for the entire application
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>PM7-UI React Integration Demo</h1>
+      <button className="pm7-button pm7-button--primary" onClick={() => setShowConfirm(true)}>
+        Perform Action
+      </button>
+
+      <ConfirmDialog
+        message="Are you sure you want to perform this action?"
+        isOpen={showConfirm}
+        onConfirm={() => setShowConfirm(false)}
+        onCancel={() => setShowConfirm(false)}
+      />
+    </div>
+  );
+}
+
+export default App;
 ```

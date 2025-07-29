@@ -1,20 +1,27 @@
-<!-- AI-CODING-AGENT ONLY DOCUMENTATION -->
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
 type: ai-agent-documentation
+version: 2.0
+component: Tooltip
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO simple syntax examples
-  - ONLY working structured syntax
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+category: feedback
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
 ---
 
-# Component: Tooltip (AI-CODING-AGENT ONLY)
+# Component: Tooltip
 
-**⚠️ CRITICAL FOR AI AGENTS: This documentation shows ONLY the working syntax. Do NOT use simplified syntax.**
+DEFINITION: The Tooltip component provides a small, contextual popover that displays descriptive information when a user hovers over or focuses on an element. It is automatically positioned and managed.
 
 ## Installation
 
@@ -22,427 +29,323 @@ documentation-rules:
 npm install @pm7/core
 ```
 
-### CSS Import
+### CSS & JavaScript Import
+
+REQUIRED: Import both the CSS and the main JavaScript file.
 
 ```javascript
 // ES modules
 import '@pm7/core/dist/pm7.css';
+import '@pm7/core'; // Imports and initializes all components
 
 // HTML
 <link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+<script src="node_modules/@pm7/core/dist/pm7.js" defer></script>
 ```
 
-### JavaScript Setup
+## Required Structure
+
+The Tooltip component requires a main container with `data-pm7-tooltip`, a trigger element (`.pm7-tooltip-trigger`), a content element (`.pm7-tooltip-content`), and an arrow element (`.pm7-tooltip-arrow`) inside the content.
+
+```html
+<!-- EXACT pattern - NO deviations allowed -->
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Hover me</button>
+  <div class="pm7-tooltip-content">
+    Tooltip text here.
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
+### Structural Rules
+- **ALWAYS**: The main container MUST have `data-pm7-tooltip`.
+- **ALWAYS**: The trigger element MUST have the class `.pm7-tooltip-trigger`.
+- **ALWAYS**: The tooltip content MUST be wrapped in a `div` with the class `.pm7-tooltip-content`.
+- **ALWAYS**: The `.pm7-tooltip-content` MUST contain a `div` with the class `.pm7-tooltip-arrow` as its last child.
+- **NEVER**: Omit any of the required elements or classes.
+
+## JavaScript API
+
+### Initialization
+Initialization is automatic when `@pm7/core` is imported. For dynamically added components, re-initialization is required.
 
 ```javascript
-// ES modules - adds PM7 to window
-import '@pm7/core';
-
-// Dynamic import (Next.js)
-import('@pm7/core').then(() => {
-  window.PM7.init();
-});
-
-// TypeScript declarations
-declare global {
-  interface Window {
-    PM7: {
-      init: () => void;
-      initTooltips?: () => void;
-      Tooltip?: new (element: Element) => any;
-    }
-  }
-}
-```
-
-## WORKING STRUCTURE - USE THIS EXACTLY
-
-### ✅ CORRECT: Full Structured Tooltip (COPY THIS)
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">
-    Trigger
-  </button>
-  <div class="pm7-tooltip-content">
-    Content
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### ❌ DO NOT USE: Simple syntax (may not work)
-```html
-<!-- NEVER USE THIS -->
-<button data-pm7-tooltip="Tooltip content">
-  Trigger
-</button>
-```
-
-## WORKING EXAMPLES - COPY EXACTLY
-
-### Example: Basic Tooltip
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">
-    Hover me
-  </button>
-  <div class="pm7-tooltip-content">
-    Tooltip text here
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Bottom Placement
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Hover</button>
-  <div class="pm7-tooltip-content" data-side="bottom">
-    Bottom tooltip
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Right Placement
-```html
-<div data-pm7-tooltip>
-  <span class="pm7-tooltip-trigger">?</span>
-  <div class="pm7-tooltip-content" data-side="right">
-    Help text
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Start Alignment
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Align Start</button>
-  <div class="pm7-tooltip-content" data-side="top" data-align="start">
-    Aligned to start
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Small Tooltip
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Small</button>
-  <div class="pm7-tooltip-content pm7-tooltip-content--sm">
-    Brief text
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Large Tooltip
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Large</button>
-  <div class="pm7-tooltip-content pm7-tooltip-content--lg">
-    Extended information with more space
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Light Theme
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Light</button>
-  <div class="pm7-tooltip-content pm7-tooltip-content--light">
-    Light themed tooltip
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Multiline Content
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">Multiline</button>
-  <div class="pm7-tooltip-content pm7-tooltip-content--multiline">
-    Line one of text
-    Line two of text
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: With Delays
-```html
-<div data-pm7-tooltip data-open-delay="600" data-close-delay="100">
-  <button class="pm7-tooltip-trigger">Delayed</button>
-  <div class="pm7-tooltip-content">
-    Opens after 600ms, closes after 100ms
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Icon Button
-```html
-<div data-pm7-tooltip>
-  <button class="pm7-button pm7-button--icon pm7-tooltip-trigger" aria-label="Settings">
-    <svg width="16" height="16">...</svg>
-  </button>
-  <div class="pm7-tooltip-content" data-side="bottom">
-    Settings
-    <div class="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-### Example: Form Field Help
-```html
-<div style="display: flex; align-items: center; gap: 0.5rem;">
-  <input type="email" class="pm7-input" placeholder="Email">
-  <div data-pm7-tooltip>
-    <svg class="pm7-tooltip-trigger" width="16" height="16">...</svg>
-    <div class="pm7-tooltip-content" data-side="right">
-      We'll never share your email
-      <div class="pm7-tooltip-arrow"></div>
-    </div>
-  </div>
-</div>
-```
-
-## Attributes
-
-| Attribute | Values | Effect |
-|-----------|---------|---------|
-| `data-pm7-tooltip` | presence only | Auto-initializes tooltip container |
-| `data-side` | `top`, `bottom`, `left`, `right` | Placement side |
-| `data-align` | `start`, `center`, `end` | Alignment on side |
-| `data-delay` | number | General delay (ms) |
-| `data-open-delay` | number | Show delay (ms) |
-| `data-close-delay` | number | Hide delay (ms) |
-| `data-sticky` | `true`, `false` | Keep open on hover |
-| `data-state` | `open`, `closed` | Visibility state |
-
-## REQUIRED CSS Classes
-
-| Class | Required | Usage |
-|-------|----------|-------|
-| `.pm7-tooltip` | AUTO | Container (added by JS) |
-| `.pm7-tooltip-trigger` | **YES** | Trigger element |
-| `.pm7-tooltip-content` | **YES** | Content container |
-| `.pm7-tooltip-arrow` | **YES** | Arrow element |
-| `.pm7-tooltip-content--sm` | NO | Small size (200px) |
-| `.pm7-tooltip-content--lg` | NO | Large size (400px) |
-| `.pm7-tooltip-content--light` | NO | Light theme |
-| `.pm7-tooltip-content--multiline` | NO | Multiline spacing |
-
-## JavaScript Control
-
-### Manual initialization
-```javascript
-const element = document.querySelector('[data-pm7-tooltip]');
-const tooltip = new PM7.Tooltip(element);
-
-// Methods
-tooltip.show();
-tooltip.hide();
-tooltip.updatePosition();
-tooltip.destroy();
-
-// Events
-element.addEventListener('pm7:tooltip:show', (e) => {
-  // e.detail = { tooltip: PM7Tooltip }
-});
-```
-
-### Dynamic Tooltip Addition
-```javascript
-// Add tooltip HTML - MUST use full structure
-document.getElementById('container').innerHTML = `
-  <div data-pm7-tooltip>
-    <button class="pm7-tooltip-trigger">
-      Hover for info
-    </button>
-    <div class="pm7-tooltip-content">
-      Dynamic tooltip content
-      <div class="pm7-tooltip-arrow"></div>
-    </div>
-  </div>
-`;
-
-// MUST initialize PM7 components
+// For components added after initial page load
 window.PM7.init();
 ```
 
-### Next.js Implementation
-```jsx
-'use client'
-
-import { useEffect } from 'react'
-
-export default function TooltipDemo() {
-  useEffect(() => {
-    import('@pm7/core').then(() => {
-      if (window.PM7?.initTooltips) {
-        window.PM7.initTooltips();
-      }
-    });
-  }, []);
-
-  return (
-    <div data-pm7-tooltip>
-      <button className="pm7-tooltip-trigger">
-        Hover me
-      </button>
-      <div className="pm7-tooltip-content">
-        Next.js tooltip
-        <div className="pm7-tooltip-arrow"></div>
-      </div>
-    </div>
-  );
-}
-```
-
-### React Implementation
-```jsx
-<div data-pm7-tooltip>
-  <button className="pm7-tooltip-trigger">
-    Info
-  </button>
-  <div className="pm7-tooltip-content">
-    React structured tooltip
-    <div className="pm7-tooltip-arrow"></div>
-  </div>
-</div>
-```
-
-## Initialization Rules
-
-IF tooltip in DOM at page load THEN auto-initialized
-IF tooltip added dynamically THEN MUST call `window.PM7.init()`
-IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
-IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
-IF manual init THEN `new PM7.Tooltip(element)`
-IF Next.js THEN dynamic import with optional chaining
-
-## Self-Healing (v2.6.0+)
-
-Tooltip components automatically detect and recover from framework re-renders:
+### Instance Access
 
 ```javascript
-// React - Components self-heal automatically
-useEffect(() => {
-  PM7.initFramework(); // Includes automatic healing
-}, []);
-
-// Manual healing if needed
-PM7.healTooltips(); // Heal only tooltips
-PM7.heal();         // Heal all components
+const element = document.querySelector('[data-pm7-tooltip]');
+const instance = element.PM7Tooltip;
 ```
 
-## Critical Anti-Patterns
+### Methods
 
-### ❌ NEVER: Missing Required Structure
+| Method | Parameters | Return Type | Description |
+|---|---|---|---|
+| `show` | `(none)` | `void` | Displays the tooltip. |
+| `hide` | `(none)` | `void` | Hides the tooltip. |
+| `updatePosition` | `(none)` | `void` | Recalculates and adjusts the tooltip's position. |
+| `destroy` | `(none)` | `void` | Removes all event listeners and cleans up the instance. |
+
+### Events
+
+| Event | When | Detail | Bubbles |
+|---|---|---|---|---|
+| `pm7:tooltip:show` | After the tooltip becomes visible | `{ tooltip: PM7TooltipInstance }` | YES |
+| `pm7:tooltip:hide` | After the tooltip becomes hidden | `{ tooltip: PM7TooltipInstance }` | YES |
+
+## Attributes
+
+See /docs/ATTRIBUTES.md for cross-component attribute relationships.
+
+| Attribute | Component(s) | Values | Required | Effect |
+|---|---|---|---|---|
+| `data-pm7-tooltip` | Tooltip | presence | YES | Initializes Tooltip component. |
+| `data-side` | Tooltip | `top`, `bottom`, `left`, `right` | NO | Sets the primary placement side of the tooltip. |
+| `data-align` | Tooltip | `start`, `center`, `end` | NO | Aligns the tooltip along its primary axis. |
+| `data-open-delay` | Tooltip | number (ms) | NO | Delay before tooltip opens on hover. |
+| `data-close-delay` | Tooltip | number (ms) | NO | Delay before tooltip closes on hover out. |
+| `data-state` | Tooltip | `open`, `closed` | AUTO | Managed by JS to reflect component's open/closed state. |
+| `aria-label` | Tooltip | string | YES (icon-only) | Provides an accessible name for an element when no visible text is available. |
+| `aria-describedby` | Tooltip | ID of descriptive element | NO | Links an element to an element that describes it. |
+| `role` | Tooltip | `tooltip` | AUTO | Defines the purpose or nature of an element. |
+
+## CSS Classes
+
+| Class | Required | When | Effect |
+|---|---|---|---|
+| `.pm7-tooltip` | AUTO | Applied by JS to the main container | Base styling for the tooltip container. |
+| `.pm7-tooltip-trigger` | YES | On the element that triggers the tooltip | Styles the trigger element. |
+| `.pm7-tooltip-content` | YES | On the element containing the tooltip text | Styles the tooltip popover content. |
+| `.pm7-tooltip-arrow` | YES | Inside `.pm7-tooltip-content` | Creates the visual arrow pointing to the trigger. |
+| `.pm7-tooltip-content--sm` | NO | For a smaller tooltip width | Sets max-width to 200px. |
+| `.pm7-tooltip-content--lg` | NO | For a larger tooltip width | Sets max-width to 400px. |
+| `.pm7-tooltip-content--light` | NO | For a light-themed tooltip | Applies a light background and dark text. |
+| `.pm7-tooltip-content--multiline` | NO | For multiline text wrapping | Adjusts line-height and text alignment for multiline content. |
+
+## Patterns
+
+### Pattern: Basic Tooltip
 ```html
-<!-- NEVER - Missing container -->
-<button class="pm7-tooltip-trigger">
-  Trigger
-</button>
-<div class="pm7-tooltip-content">
-  Content
-</div>
-
-<!-- ALWAYS - Full structure -->
 <div data-pm7-tooltip>
-  <button class="pm7-tooltip-trigger">
-    Trigger
-  </button>
+  <button class="pm7-tooltip-trigger">Hover over me</button>
   <div class="pm7-tooltip-content">
-    Content
+    This is a basic tooltip.
     <div class="pm7-tooltip-arrow"></div>
   </div>
 </div>
 ```
 
-### ❌ NEVER: Missing Arrow
+### Pattern: Tooltip with Custom Placement
+Use `data-side` for `top`, `bottom`, `left`, `right` and `data-align` for `start`, `center`, `end`.
+
+```html
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Top-End Tooltip</button>
+  <div class="pm7-tooltip-content" data-side="top" data-align="end">
+    This tooltip appears at the top-end.
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
+### Pattern: Tooltip with Custom Delays
+Use `data-open-delay` and `data-close-delay` attributes on the `data-pm7-tooltip` container.
+
+```html
+<div data-pm7-tooltip data-open-delay="500" data-close-delay="200">
+  <button class="pm7-tooltip-trigger">Delayed Tooltip</button>
+  <div class="pm7-tooltip-content">
+    Opens after 500ms, closes after 200ms.
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
+```
+
+## Anti-Patterns
+
+### NEVER: Use simplified `data-pm7-tooltip="Tooltip text"` syntax
 ```html
 <!-- NEVER -->
-<div class="pm7-tooltip-content">
-  Tooltip text
-</div>
+<button data-pm7-tooltip="This is a simplified tooltip.">Hover me</button>
 
-<!-- ALWAYS -->
-<div class="pm7-tooltip-content">
-  Tooltip text
-  <div class="pm7-tooltip-arrow"></div>
+<!-- BECAUSE -->
+This simplified syntax is not supported by the PM7 Tooltip component. It will not initialize or display correctly.
+
+<!-- INSTEAD -->
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Hover me</button>
+  <div class="pm7-tooltip-content">
+    This is the correct structured tooltip.
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
 </div>
 ```
 
-### ❌ NEVER: Dynamic Tooltip Without Init
-```javascript
-// NEVER - tooltip won't work
-document.body.innerHTML += `
-  <div data-pm7-tooltip>...</div>
-`;
-// Tooltip is not interactive
+### NEVER: Omit the `.pm7-tooltip-arrow` element
+```html
+<!-- NEVER -->
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Trigger</button>
+  <div class="pm7-tooltip-content">
+    No arrow here.
+  </div>
+</div>
 
-// ALWAYS - initialize after adding
-document.body.innerHTML += `
-  <div data-pm7-tooltip>...</div>
-`;
-window.PM7.init(); // REQUIRED
+<!-- BECAUSE -->
+The arrow element is crucial for visual positioning and styling. Without it, the tooltip may look broken or misaligned.
+
+<!-- INSTEAD -->
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Trigger</button>
+  <div class="pm7-tooltip-content">
+    Arrow is present.
+    <div class="pm7-tooltip-arrow"></div>
+  </div>
+</div>
 ```
 
-## Absolute Rules for AI Agents
+### NEVER: Manually control tooltip visibility with CSS
+```html
+<!-- NEVER -->
+<div data-pm7-tooltip>
+  <button class="pm7-tooltip-trigger">Trigger</button>
+  <div class="pm7-tooltip-content" style="display: block;">...</div>
+</div>
 
-- **ALWAYS**: Use full structured syntax with all required elements
-- **ALWAYS**: Include `.pm7-tooltip-trigger` class on trigger
-- **ALWAYS**: Include `.pm7-tooltip-content` class on content
-- **ALWAYS**: Include `.pm7-tooltip-arrow` element inside content
-- **ALWAYS**: Initialize with `PM7.init()` after dynamic addition
-- **NEVER**: Use simplified `data-pm7-tooltip="text"` syntax
-- **NEVER**: Omit any required wrapper divs or classes
-- **NEVER**: Forget the arrow element
-- **NEVER**: Expect tooltips to work without initialization
+<!-- BECAUSE -->
+The Tooltip component manages its own visibility, positioning, and event listeners. Manual CSS control will interfere with its functionality and animations.
 
-## Size Specifications
+<!-- INSTEAD -->
+// Let the component handle visibility automatically on hover/focus, or use the JavaScript API methods `show()` and `hide()`.
+```
 
-| Size | Class | Max Width |
-|------|-------|-----------|
-| Small | `pm7-tooltip-content--sm` | 200px |
-| Default | (no class) | 250px |
-| Large | `pm7-tooltip-content--lg` | 400px |
+## Rules
 
-## Delay Recommendations
+### ALWAYS
+- **ALWAYS**: Use the full structured HTML pattern for the Tooltip component.
+- **ALWAYS**: Ensure the trigger element is focusable (e.g., `<button>`, `<a>`, or an element with `tabindex="0"`).
+- **ALWAYS**: Include the `.pm7-tooltip-arrow` element inside the `.pm7-tooltip-content`.
+- **ALWAYS**: Call `window.PM7.init()` after dynamically adding tooltips to the DOM.
 
-| Use Case | Open Delay | Close Delay |
-|----------|------------|-------------|
-| Navigation | 200ms | 0ms |
-| Form fields | 600ms | 100ms |
-| Icon buttons | 300ms | 0ms |
-| Detailed info | 800ms | 200ms |
+### NEVER
+- **NEVER**: Use the simplified `data-pm7-tooltip="text"` syntax.
+- **NEVER**: Omit any of the required HTML elements or classes from the `Required Structure`.
+- **NEVER**: Manually control the `display` or `visibility` of the tooltip content with CSS or JavaScript.
+- **NEVER**: Use tooltips for critical information that requires user interaction or cannot be missed.
 
-## Touch Device Behavior
+## CSS Variables
 
-IF touch device THEN:
-- Show on tap instead of hover
-- Hide when tapping outside
-- No show on focus events
+### Component-Specific Variables
 
-## Keyboard Support
+| Variable | Light Mode | Dark Mode | Usage |
+|----------|------------|-----------|--------|
+| `--pm7-tooltip-bg` | `rgba(0, 0, 0, 0.9)` | `rgba(255, 255, 255, 0.9)` | Tooltip background color |
+| `--pm7-tooltip-color` | `#ffffff` | `#000000` | Tooltip text color |
+| `--pm7-tooltip-delay` | `200ms` | `200ms` | Delay before showing tooltip |
 
-- Tab: Focus shows tooltip
-- Escape: Close tooltip
-- Blur: Hide tooltip
+### Required Global Variables
+
+| Variable | Light Mode | Dark Mode | Usage in Tooltip |
+|----------|------------|-----------|------------------|
+| `--pm7-background` | `#ffffff` | `#121212` | Light theme tooltip background |
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Light theme tooltip text |
+| `--pm7-border` | `#e0e0e0` | `#444` | Light theme tooltip border |
+| `--pm7-color-focus` | `var(--pm7-primary)` | `var(--pm7-primary)` | Focus outline color |
+| `--pm7-radius-sm` | `0.125rem` | `0.125rem` | Focus outline radius |
+| `--pm7-radius-md` | `0.5rem` | `0.5rem` | Tooltip border radius |
+| `--pm7-font-size-sm` | `0.875rem` | `0.875rem` | Default tooltip text size |
+| `--pm7-font-size-xs` | `0.75rem` | `0.75rem` | Small tooltip text size |
+| `--pm7-line-height-sm` | `1.5` | `1.5` | Tooltip text line height |
+| `--pm7-shadow-lg` | `0 10px 15px -3px rgb(0 0 0 / 0.1)` | `0 10px 15px -3px rgb(0 0 0 / 0.3)` | Tooltip shadow |
+| `--pm7-transition-fast` | `150ms ease` | `150ms ease` | Animation duration |
+
+### Customization Example
+```css
+/* Custom tooltip styling */
+.my-app {
+  --pm7-tooltip-bg: #2c3e50;
+  --pm7-tooltip-color: #ecf0f1;
+  --pm7-tooltip-delay: 300ms;
+  --pm7-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Colorful tooltips */
+.tooltip-success {
+  --pm7-tooltip-bg: #27ae60;
+  --pm7-tooltip-color: #ffffff;
+}
+
+.tooltip-error {
+  --pm7-tooltip-bg: #e74c3c;
+  --pm7-tooltip-color: #ffffff;
+}
+```
+
+## Cross-Component Dependencies
+
+### Works With
+- **Button**: Icon buttons often need tooltips for clarity
+- **Icons**: Tooltips provide text labels for icon-only interfaces
+- **Form Elements**: Help text for form fields
+- **Menu**: Tooltips can explain menu items
+
+### Conflicts With
+- **Dialog**: Don't show tooltips inside modal dialogs (z-index issues)
+- **Menu**: Tooltips should not overlap with open menus
+- **Toast**: Both are temporary UI elements, avoid showing simultaneously
 
 ## Accessibility
 
-- Role: `tooltip`
-- ARIA: `aria-describedby` links trigger to tooltip
-- Live region announcements
-- Focus management preserved
+- **Focus**: Tooltips appear on hover and focus. When the trigger is focused, the tooltip becomes visible.
+- **Keyboard**: Tooltips are accessible via keyboard navigation (Tab to trigger, Escape to hide).
+- **ARIA**: The component automatically manages `role="tooltip"` and links the trigger to the tooltip content using `aria-describedby`.
+- **Screen reader**: Tooltip content is announced by screen readers when the trigger is focused.
 
-## Related Components
+## Complete Example: Form Field Help Tooltips
 
-- Menu: For dropdown menus
-- Dialog: For modal interactions
-- Toast: For notifications
+SCENARIO: Providing contextual help for form fields using tooltips.
+
+```html
+<div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 400px; margin: 2rem auto;">
+  <div class="pm7-form-group">
+    <label for="username" class="pm7-label">Username</label>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <input type="text" id="username" class="pm7-input" placeholder="Enter your username">
+      <div data-pm7-tooltip>
+        <button class="pm7-tooltip-trigger pm7-button pm7-button--icon pm7-button--ghost" aria-label="Username help">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 15h2v2h-2zm0-8h2v6h-2z"/>
+          </svg>
+        </button>
+        <div class="pm7-tooltip-content" data-side="right">
+          Your username must be unique and contain only letters, numbers, and underscores.
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm7-form-group">
+    <label for="password" class="pm7-label">Password</label>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <input type="password" id="password" class="pm7-input" placeholder="Enter your password">
+      <div data-pm7-tooltip>
+        <button class="pm7-tooltip-trigger pm7-button pm7-button--icon pm7-button--ghost" aria-label="Password help">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 15h2v2h-2zm0-8h2v6h-2z"/>
+          </svg>
+        </button>
+        <div class="pm7-tooltip-content" data-side="right">
+          Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and symbols.
+          <div class="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```

@@ -1,40 +1,27 @@
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
-# MANDATORY METADATA
 type: ai-agent-documentation
 version: 2.0
 component: Menu
 status: stable
 audience: ai-coding-agents-only
 human-readable: false
-
-# COMPONENT METADATA
 category: navigation
-dependencies:
-  - component: button (for triggers)
-  - component: icon (for menu icons)
-  - external: none
 framework-support:
   - vanilla: true
   - react: true
   - vue: true
   - angular: true
   - svelte: true
-
-# IMPLEMENTATION METADATA
-initialization:
-  auto: true
-  manual: true
-  import-required: true
-css-prefix: pm7-menu
-data-attribute: data-pm7-menu
-javascript-class: PM7.Menu
 ---
 
 # Component: Menu
 
-DEFINITION: Menu = HTML div element with data-pm7-menu attribute containing trigger and content
-PURPOSE: Display contextual options on trigger click
-IMPORT: window.PM7 via @pm7/core
+DEFINITION: The Menu component provides accessible, keyboard-navigable dropdown menus for contextual actions or navigation. It consists of a trigger and a content panel with menu items.
 
 ## Installation
 
@@ -42,231 +29,120 @@ IMPORT: window.PM7 via @pm7/core
 npm install @pm7/core
 ```
 
-THEN:
-```html
-<script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
-<link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
-```
+### CSS & JavaScript Import
 
-OR:
+REQUIRED: Import both the CSS and the main JavaScript file.
+
 ```javascript
-import '@pm7/core'
-import '@pm7/core/dist/pm7.min.css'
+// ES modules
+import '@pm7/core/dist/pm7.css';
+import '@pm7/core'; // Imports and initializes all components
+
+// HTML
+<link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
+<script src="node_modules/@pm7/core/dist/pm7.js" defer></script>
 ```
 
 ## Required Structure
 
-MINIMAL:
+The Menu component requires a main container with `data-pm7-menu`, a trigger button (`.pm7-menu-trigger`), and a content container (`.pm7-menu-content`) holding the menu items.
+
 ```html
+<!-- EXACT pattern - NO deviations allowed -->
 <div data-pm7-menu>
-  <button class="pm7-menu-trigger">Trigger</button>
+  <button class="pm7-menu-trigger">Open Menu</button>
   <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Item</button>
+    <button class="pm7-menu-item">Menu Item 1</button>
+    <button class="pm7-menu-item">Menu Item 2</button>
   </div>
 </div>
 ```
 
-COMPLETE:
-```html
-<div 
-  data-pm7-menu
-  data-position="bottom-start|bottom-end|top-start|top-end|left-start|left-end|right-start|right-end"
-  class="pm7-menu pm7-menu--flat pm7-menu--flat-hover">
-  <button 
-    class="pm7-menu-trigger pm7-button pm7-button--[variant]"
-    type="button"
-    aria-label="Menu trigger"
-    aria-haspopup="true"
-    aria-expanded="false">
-    Trigger Text
-  </button>
-  <div class="pm7-menu-content">
-    <div class="pm7-menu-label">Label</div>
-    <button 
-      class="pm7-menu-item pm7-menu-item--[checkbox|radio|switch|destructive|has-submenu]"
-      type="button"
-      data-checked="true|false"
-      data-name="group-name"
-      data-value="item-value"
-      disabled>
-      <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-      Item Text
-      <span class="pm7-menu-shortcut">⌘K</span>
-    </button>
-    <div class="pm7-menu-separator"></div>
-    <div class="pm7-menu-section-title">Section</div>
-    <div class="pm7-submenu">
-      <button class="pm7-menu-item">Submenu Item</button>
-    </div>
-  </div>
-</div>
+### Structural Rules
+- **ALWAYS**: The main menu container MUST have `data-pm7-menu`.
+- **ALWAYS**: The trigger MUST be a `<button>` with class `.pm7-menu-trigger`.
+- **ALWAYS**: All interactive menu items MUST be `<button>` elements with class `.pm7-menu-item`.
+- **ALWAYS**: All menu items MUST be contained within a `div` with class `.pm7-menu-content`.
+- **NEVER**: Use `<div>` or `<span>` elements as interactive menu items. They lack proper accessibility and keyboard support.
+
+## JavaScript API
+
+### Initialization
+Initialization is automatic when `@pm7/core` is imported. For dynamically added components, re-initialization is required.
+
+```javascript
+// For components added after initial page load
+window.PM7.init();
 ```
 
-## Initialization
+### Instance Access
 
-IF auto-init:
-  CONDITION: window.PM7 loaded AND DOMContentLoaded fired
-  TRIGGER: DOMContentLoaded
-  ACTION: Finds all [data-pm7-menu]
-  RESULT: Automatically initialized
-
-IF manual-init:
-  ```javascript
-  const element = document.querySelector('[data-pm7-menu]')
-  const instance = new PM7.Menu(element)
-  ```
-
-IF dynamic-content:
-  ```javascript
-  // After adding new menu to DOM
-  window.PM7.init()
-  // OR specifically for menus
-  window.PM7.initMenus()
-  ```
-
-IF framework-usage:
-  ```javascript
-  // React/Vue/Angular - in lifecycle hook
-  useEffect(() => {
-    window.PM7.initFramework()
-  }, [])
-  ```
-
-NEVER:
-  - Initialize same element twice
-  - Use jQuery selectors
-  - Call init() after only updating menu content
-  - Forget to initialize after dynamic addition
-
-## Rules
-
-### Rule: Container Structure
-IF creating menu
-THEN use exact structure: div[data-pm7-menu] > button.pm7-menu-trigger + div.pm7-menu-content
-ELSE menu will not initialize
-
-EXAMPLE:
-```html
-<!-- IF creating menu -->
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Trigger</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Item</button>
-  </div>
-</div>
+```javascript
+const element = document.querySelector('[data-pm7-menu]');
+const instance = element.PM7Menu;
 ```
 
-### Rule: Menu Items
-IF interactive element
-THEN use <button class="pm7-menu-item">
-ELSE use <div> for non-interactive (separator, label)
+### Methods
 
-EXAMPLE:
-```html
-<!-- IF interactive -->
-<button class="pm7-menu-item">Click Me</button>
+| Method | Parameters | Return Type | Description |
+|---|---|---|---|
+| `open` | `(none)` | `void` | Opens the menu dropdown. |
+| `close` | `(none)` | `void` | Closes the menu dropdown. |
+| `toggle` | `(none)` | `void` | Toggles the menu's open/closed state. |
+| `adjustPosition` | `(none)` | `void` | Recalculates and adjusts the menu's position based on viewport. |
+| `destroy` | `(none)` | `void` | Removes all event listeners and cleans up the instance. |
 
-<!-- ELSE non-interactive -->
-<div class="pm7-menu-separator"></div>
-<div class="pm7-menu-label">Section Label</div>
-```
+### Events
 
-### Rule: Checkbox Items
-IF checkbox behavior needed
-THEN add class="pm7-menu-item pm7-menu-item--checkbox" AND data-checked="true|false"
+| Event | When | Detail | Bubbles |
+|---|---|---|---|---|
+| `pm7:menu:select` | When a menu item is clicked | `{ item: HTMLElement, text: string, value: string | null }` | YES |
+| `pm7:menu:open` | After the menu opens | `(none)` | YES |
+| `pm7:menu:close` | After the menu closes | `(none)` | YES |
 
-EXAMPLE:
-```html
-<!-- IF checkbox -->
-<button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
-  Option Enabled
-</button>
-```
+## Attributes
 
-### Rule: Radio Items
-IF radio group needed
-THEN add class="pm7-menu-item pm7-menu-item--radio" AND data-name="group" AND data-checked on selected
+See /docs/ATTRIBUTES.md for cross-component attribute relationships.
 
-EXAMPLE:
-```html
-<!-- IF radio group -->
-<button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-checked="true">Light</button>
-<button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">Dark</button>
-```
+| Attribute | Component(s) | Values | Required | Effect |
+|---|---|---|---|---|
+| `data-pm7-menu` | Menu | presence | YES | Initializes Menu component. |
+| `data-position` | Menu | `bottom-start`, `bottom-end`, `top-start`, `top-end`, `left-start`, `left-end`, `right-start`, `right-end` | NO | Sets the dropdown/popover position relative to the trigger. |
+| `data-checked` | Menu | `true`, `false` | NO | Indicates the checked state for checkbox/radio/switch menu items. |
+| `data-name` | Menu | string | YES (radio) | Groups radio menu items for mutual exclusion. |
+| `data-value` | Menu | string | NO | Custom value associated with a menu item, returned on `pm7:menu:select`. |
+| `data-state` | Menu | `open`, `closed` | AUTO | Managed by JS to reflect component's open/closed state. |
+| `aria-controls` | Menu | ID of controlled element | YES | Links a control to the element it controls. |
+| `aria-expanded` | Menu | `true`, `false` | AUTO | Indicates whether a collapsible element is currently expanded or collapsed. |
+| `aria-haspopup` | Menu | `true` | AUTO | Indicates the availability of a pop-up menu or dialog. |
+| `aria-label` | Menu | string | YES (icon-only) | Provides an accessible name for an element when no visible text is available. |
+| `role` | Menu | `menu`, `menuitem` | AUTO | Defines the purpose or nature of an element. |
 
-### Rule: Switch Items
-IF toggle switch needed
-THEN add class="pm7-menu-item pm7-menu-item--switch" AND data-checked="true|false"
+## CSS Classes
 
-EXAMPLE:
-```html
-<!-- IF switch -->
-<button class="pm7-menu-item pm7-menu-item--switch" data-checked="true">
-  Feature Enabled
-</button>
-```
-
-### Rule: Icon-Only Triggers
-IF trigger has no visible text
-THEN add aria-label="descriptive text"
-
-EXAMPLE:
-```html
-<!-- IF icon-only -->
-<button class="pm7-menu-trigger pm7-button pm7-button--icon" aria-label="More options">
-  <svg width="16" height="16">...</svg>
-</button>
-```
-
-### Rule: Submenu Structure
-IF submenu needed
-THEN parent item gets class="pm7-menu-item pm7-menu-item--has-submenu" AND submenu div follows immediately
-
-EXAMPLE:
-```html
-<!-- IF submenu -->
-<button class="pm7-menu-item pm7-menu-item--has-submenu">
-  Parent Item
-  <svg class="pm7-menu-submenu-icon" width="16" height="16">...</svg>
-</button>
-<div class="pm7-submenu">
-  <button class="pm7-menu-item">Submenu Item</button>
-</div>
-```
-
-### Rule: Menu Bar
-IF multiple menus in horizontal bar
-THEN wrap all menus in div.pm7-menu-bar
-
-EXAMPLE:
-```html
-<!-- IF menu bar -->
-<div class="pm7-menu-bar">
-  <div data-pm7-menu>
-    <button class="pm7-menu-trigger">File</button>
-    <div class="pm7-menu-content">
-      <button class="pm7-menu-item">New</button>
-    </div>
-  </div>
-  <div data-pm7-menu>
-    <button class="pm7-menu-trigger">Edit</button>
-    <div class="pm7-menu-content">
-      <button class="pm7-menu-item">Undo</button>
-    </div>
-  </div>
-</div>
-```
+| Class | Required | When | Effect |
+|---|---|---|---|
+| `.pm7-menu` | YES | ALWAYS on the main container | Base styling for the menu. |
+| `.pm7-menu-trigger` | YES | ALWAYS on the button that opens the menu | Styles the clickable trigger. |
+| `.pm7-menu-content` | YES | ALWAYS for the dropdown content wrapper | Styles the container for menu items. |
+| `.pm7-menu-item` | YES | ALWAYS for each interactive menu item | Styles an individual menu item. |
+| `.pm7-menu-item--checkbox` | NO | For a checkbox-like menu item | Adds a checkbox indicator. |
+| `.pm7-menu-item--radio` | NO | For a radio-button-like menu item | Adds a radio button indicator. |
+| `.pm7-menu-item--switch` | NO | For a toggle switch menu item | Adds a switch indicator. |
+| `.pm7-menu-item--destructive` | NO | For a destructive action | Styles the item with a red text color. |
+| `.pm7-menu-item--has-submenu` | NO | For items that open a submenu | Adds an arrow icon and indicates a submenu. |
+| `.pm7-menu-separator` | NO | To visually separate groups of items | Creates a horizontal divider. |
+| `.pm7-menu-label` | NO | For non-interactive descriptive text | Styles a non-clickable label. |
+| `.pm7-menu-shortcut` | NO | For displaying keyboard shortcuts | Styles text to appear right-aligned as a shortcut. |
+| `.pm7-menu-item-icon` | NO | For icons within menu items | Styles an icon to appear left-aligned. |
+| `.pm7-submenu` | NO | For the content of a submenu | Styles the container for nested menu items. |
 
 ## Patterns
 
-### Pattern: Basic Menu
-WHEN: Need simple dropdown menu
-USE:
+### Pattern: Basic Dropdown Menu
 ```html
 <div data-pm7-menu>
-  <button class="pm7-menu-trigger pm7-button pm7-button--outline">
-    Options
-  </button>
+  <button class="pm7-menu-trigger pm7-button">Actions</button>
   <div class="pm7-menu-content">
     <button class="pm7-menu-item">Edit</button>
     <button class="pm7-menu-item">Duplicate</button>
@@ -276,843 +152,219 @@ USE:
 </div>
 ```
 
-RESULT: Dropdown menu with edit, duplicate, and delete options
-
-### Pattern: Icon Menu Items
-WHEN: Need icons in menu items
-USE:
+### Pattern: Menu with Checkbox Items
 ```html
 <div data-pm7-menu>
-  <button class="pm7-menu-trigger pm7-button pm7-button--primary">
-    Actions
-  </button>
+  <button class="pm7-menu-trigger pm7-button">View Options</button>
   <div class="pm7-menu-content">
-    <button class="pm7-menu-item">
-      <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-      Edit
-    </button>
-    <button class="pm7-menu-item">
-      <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-      Copy
-    </button>
+    <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">Show Toolbar</button>
+    <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="false">Show Sidebar</button>
   </div>
 </div>
 ```
 
-RESULT: Menu items with left-aligned icons
-
-### Pattern: Checkbox Menu
-WHEN: Need toggleable options
-USE:
+### Pattern: Menu with Submenu
 ```html
 <div data-pm7-menu>
-  <button class="pm7-menu-trigger">View</button>
+  <button class="pm7-menu-trigger pm7-button">File</button>
   <div class="pm7-menu-content">
-    <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
-      Show Toolbar
-    </button>
-    <button class="pm7-menu-item pm7-menu-item--checkbox">
-      Show Sidebar
-    </button>
-  </div>
-</div>
-```
-
-RESULT: Menu with independently toggleable checkboxes
-
-### Pattern: Radio Menu
-WHEN: Need mutually exclusive options
-USE:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Theme</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-checked="true">
-      Light
-    </button>
-    <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">
-      Dark
-    </button>
-    <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">
-      System
-    </button>
-  </div>
-</div>
-```
-
-RESULT: Menu with radio group for theme selection
-
-### Pattern: Menu with Shortcuts
-WHEN: Need to display keyboard shortcuts
-USE:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">File</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">
-      New
-      <span class="pm7-menu-shortcut">⌘N</span>
-    </button>
-    <button class="pm7-menu-item">
-      Save
-      <span class="pm7-menu-shortcut">⌘S</span>
-    </button>
-  </div>
-</div>
-```
-
-RESULT: Menu items with right-aligned keyboard shortcuts
-
-## Anti-Patterns
-
-### Anti-Pattern: Missing Content Wrapper
-NEVER:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Menu</button>
-  <button class="pm7-menu-item">Option</button>
-  <button class="pm7-menu-item">Another Option</button>
-</div>
-```
-
-BECAUSE: Menu items must be wrapped in pm7-menu-content div for proper positioning and styling
-INSTEAD:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Menu</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Option</button>
-    <button class="pm7-menu-item">Another Option</button>
-  </div>
-</div>
-```
-
-### Anti-Pattern: Non-Button Menu Items
-NEVER:
-```html
-<div class="pm7-menu-content">
-  <div class="pm7-menu-item" onclick="doSomething()">Clickable Div</div>
-  <a href="#" class="pm7-menu-item">Link Item</a>
-  <span class="pm7-menu-item" tabindex="0">Span Item</span>
-</div>
-```
-
-BECAUSE: Non-button elements lack proper keyboard support, ARIA semantics, and focus management
-INSTEAD:
-```html
-<div class="pm7-menu-content">
-  <button class="pm7-menu-item" onclick="doSomething()">Proper Button</button>
-  <button class="pm7-menu-item" onclick="navigate()">Navigate Action</button>
-  <button class="pm7-menu-item">Keyboard Accessible</button>
-</div>
-```
-
-### Anti-Pattern: Radio Items Without Group Name
-NEVER:
-```html
-<button class="pm7-menu-item pm7-menu-item--radio">Small</button>
-<button class="pm7-menu-item pm7-menu-item--radio">Medium</button>
-<button class="pm7-menu-item pm7-menu-item--radio">Large</button>
-```
-
-BECAUSE: Radio items need data-name attribute to form a mutually exclusive group
-INSTEAD:
-```html
-<button class="pm7-menu-item pm7-menu-item--radio" data-name="size" data-checked="true">Small</button>
-<button class="pm7-menu-item pm7-menu-item--radio" data-name="size">Medium</button>
-<button class="pm7-menu-item pm7-menu-item--radio" data-name="size">Large</button>
-```
-
-### Anti-Pattern: Missing Trigger Button
-NEVER:
-```html
-<div data-pm7-menu>
-  <span>Click me</span>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Option</button>
-  </div>
-</div>
-```
-
-BECAUSE: Menu requires button.pm7-menu-trigger for proper activation and accessibility
-INSTEAD:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Click me</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Option</button>
-  </div>
-</div>
-```
-
-### Anti-Pattern: Custom Positioning Styles
-NEVER:
-```html
-<div data-pm7-menu style="position: relative;">
-  <button class="pm7-menu-trigger">Menu</button>
-  <div class="pm7-menu-content" style="position: absolute; top: 100%; left: 0;">
-    <button class="pm7-menu-item">Option</button>
-  </div>
-</div>
-```
-
-BECAUSE: Menu component handles positioning automatically based on viewport constraints
-INSTEAD:
-```html
-<div data-pm7-menu data-position="bottom-start">
-  <button class="pm7-menu-trigger">Menu</button>
-  <div class="pm7-menu-content">
-    <button class="pm7-menu-item">Option</button>
-  </div>
-</div>
-```
-
-### Anti-Pattern: Nested Menus Without Proper Structure
-NEVER:
-```html
-<div class="pm7-menu-content">
-  <button class="pm7-menu-item">Parent</button>
-  <div data-pm7-menu>
-    <button class="pm7-menu-trigger">Nested trigger</button>
-    <div class="pm7-menu-content">...</div>
-  </div>
-</div>
-```
-
-BECAUSE: Nested menus require specific submenu structure, not nested data-pm7-menu
-INSTEAD:
-```html
-<div class="pm7-menu-content">
-  <button class="pm7-menu-item pm7-menu-item--has-submenu">
-    Parent
-    <svg class="pm7-menu-submenu-icon" width="16" height="16">...</svg>
-  </button>
-  <div class="pm7-submenu">
-    <button class="pm7-menu-item">Submenu Item</button>
-  </div>
-</div>
-```
-
-## Required Structure for Submenu
-
-WHEN: Submenu needed
-STRUCTURE:
-```html
-<div data-pm7-menu>
-  <button class="pm7-menu-trigger">Menu</button>
-  <div class="pm7-menu-content">
+    <button class="pm7-menu-item">New File</button>
     <button class="pm7-menu-item pm7-menu-item--has-submenu">
-      Parent Item
+      Export
       <svg class="pm7-menu-submenu-icon" width="16" height="16">...</svg>
     </button>
     <div class="pm7-submenu">
-      <button class="pm7-menu-item">Submenu Item 1</button>
-      <button class="pm7-menu-item">Submenu Item 2</button>
+      <button class="pm7-menu-item">Export as PDF</button>
+      <button class="pm7-menu-item">Export as CSV</button>
     </div>
   </div>
 </div>
 ```
 
-REQUIREMENTS:
-- Parent item MUST have class="pm7-menu-item pm7-menu-item--has-submenu"
-- Submenu container MUST immediately follow parent item
-- Submenu container MUST have class="pm7-submenu"
-- Arrow icon SHOULD have class="pm7-menu-submenu-icon"
+## Anti-Patterns
 
-## Attributes
-
-| Attribute | Type | Values | Default | Required | Effect |
-|-----------|------|--------|---------|----------|---------|
-| `data-pm7-menu` | boolean | presence | - | YES | Enables menu initialization |
-| `data-position` | string | `bottom-start`\|`bottom-end`\|`top-start`\|`top-end`\|`left-start`\|`left-end`\|`right-start`\|`right-end` | `bottom-start` | NO | Sets dropdown position relative to trigger |
-| `data-checked` | string | `true`\|`false` | `false` | NO | Sets checkable item state (checkbox/radio/switch) |
-| `data-name` | string | any string | - | YES for radio | Groups radio items for mutual exclusion |
-| `data-value` | string | any string | - | NO | Custom value passed in select event |
-| `disabled` | boolean | presence | - | NO | Disables menu item interaction |
-| `aria-label` | string | any string | - | YES for icon-only | Accessibility label for icon triggers |
-| `aria-haspopup` | string | `true` | `false` | AUTO | Added automatically to trigger |
-| `aria-expanded` | string | `true`\|`false` | `false` | AUTO | Updated automatically on open/close |
-
-> **Note**: For complete PM7 data attribute reference, see [ATTRIBUTES.md](../../ATTRIBUTES.md).
-
-## CSS Classes
-
-| Class | Purpose | Combinable | Parent Required |
-|-------|---------|------------|-----------------|
-| .pm7-menu | Base menu styles (auto-added) | YES | NO |
-| .pm7-menu-trigger | Trigger button styles | YES | data-pm7-menu |
-| .pm7-menu-content | Content container styles | NO | data-pm7-menu |
-| .pm7-menu-item | Menu item styles | YES | .pm7-menu-content |
-| .pm7-menu--flat | Removes menu shadows | YES | .pm7-menu |
-| .pm7-menu--flat-hover | Removes hover shadows | YES | .pm7-menu |
-| .pm7-menu-item--checkbox | Checkbox item appearance | NO | .pm7-menu-item |
-| .pm7-menu-item--radio | Radio item appearance | NO | .pm7-menu-item |
-| .pm7-menu-item--switch | Switch item appearance | NO | .pm7-menu-item |
-| .pm7-menu-item--destructive | Red text for danger | YES | .pm7-menu-item |
-| .pm7-menu-item--has-submenu | Has submenu indicator | YES | .pm7-menu-item |
-| .pm7-menu-separator | Horizontal divider | NO | .pm7-menu-content |
-| .pm7-menu-label | Non-interactive label | NO | .pm7-menu-content |
-| .pm7-menu-section-title | Section header | NO | .pm7-menu-content |
-| .pm7-menu-item-icon | Icon in menu item | NO | .pm7-menu-item |
-| .pm7-menu-shortcut | Keyboard shortcut | NO | .pm7-menu-item |
-| .pm7-submenu | Submenu container | NO | .pm7-menu-content |
-| .pm7-menu-submenu-icon | Submenu arrow icon | NO | .pm7-menu-item |
-| .pm7-menu-bar | Horizontal menu container | YES | NO |
-| .pm7-menu-bar--borderless | No border/background | YES | .pm7-menu-bar |
-| .pm7-menu-bar--flat | No shadows | YES | .pm7-menu-bar |
-| .pm7-menu-bar--flat-hover | No hover shadows | YES | .pm7-menu-bar |
-
-## JavaScript API
-
-### Methods
-
-| Method | Parameters | Returns | Throws | Description |
-|--------|------------|---------|--------|-------------|
-| `open()` | none | `void` | never | Opens the menu dropdown |
-| `close()` | none | `void` | never | Closes the menu dropdown |
-| `toggle()` | none | `void` | never | Toggles menu open/closed state |
-| `adjustPosition()` | none | `void` | never | Recalculates menu position based on viewport |
-| `destroy()` | none | `void` | never | Removes event listeners and cleans up instance |
-
-#### Method Details
-
-**open()**
-```javascript
-// Opens the menu programmatically
-const menu = element.PM7Menu;
-menu.open();
-```
-
-**close()**
-```javascript
-// Closes the menu programmatically
-menu.close();
-```
-
-**toggle()**
-```javascript
-// Toggles between open and closed states
-menu.toggle();
-```
-
-**adjustPosition()**
-```javascript
-// Useful after dynamic content changes
-menu.adjustPosition();
-```
-
-**destroy()**
-```javascript
-// Clean up before removing from DOM
-menu.destroy();
-```
-
-### Properties
-
-| Property | Type | Readonly | Default | Description |
-|----------|------|----------|---------|-------------|
-| `isOpen` | `boolean` | YES | `false` | Current open state of the menu |
-| `element` | `HTMLElement` | YES | - | The menu container element |
-| `trigger` | `HTMLElement` | YES | - | The trigger button element |
-| `content` | `HTMLElement` | YES | - | The menu content container |
-
-### Events
-
-| Event | Bubbles | Cancelable | Detail Schema | Description |
-|-------|---------|------------|---------------|-------------|
-| `pm7-menu-select` | YES | NO | `{item: HTMLElement, text: string, value: string\|null}` | Fired when menu item is selected |
-| `pm7-menu-open` | YES | NO | `null` | Fired when menu opens |
-| `pm7-menu-close` | YES | NO | `null` | Fired when menu closes |
-
-#### Event Usage Examples
-
-**pm7-menu-select**
-```javascript
-element.addEventListener('pm7-menu-select', (e) => {
-  const { item, text, value } = e.detail;
-  console.log('Selected:', text);
-  
-  // For checkable items
-  if (item.classList.contains('pm7-menu-item--checkbox')) {
-    const isChecked = item.dataset.checked === 'true';
-    console.log('Checkbox state:', isChecked);
-  }
-});
-```
-
-**pm7-menu-open**
-```javascript
-element.addEventListener('pm7-menu-open', (e) => {
-  console.log('Menu opened');
-  // Track analytics, update UI state, etc.
-});
-```
-
-**pm7-menu-close**
-```javascript
-element.addEventListener('pm7-menu-close', (e) => {
-  console.log('Menu closed');
-  // Clean up temporary states
-});
-```
-
-### Instance Access
-
-```javascript
-// Get instance from element
-const element = document.querySelector('[data-pm7-menu]')
-const menu = element.PM7Menu
-
-// Direct instantiation
-const menu = new PM7.Menu(element)
-```
-
-## Framework Integration
-
-### React
-```jsx
-IF functional component:
-  useEffect(() => {
-    window.PM7?.initFramework()
-    return () => { /* auto cleanup */ }
-  }, [])
-
-IF class component:
-  componentDidMount() { window.PM7?.initFramework() }
-  componentWillUnmount() { /* auto cleanup */ }
-```
-
-### Vue
-```vue
-IF Vue 3:
-  onMounted(() => { window.PM7?.initFramework() })
-  onUnmounted(() => { /* auto cleanup */ })
-
-IF Vue 2:
-  mounted() { window.PM7?.initFramework() }
-  beforeDestroy() { /* auto cleanup */ }
-```
-
-### Angular
-```typescript
-IF Angular:
-  ngAfterViewInit() { window.PM7?.initFramework() }
-  ngOnDestroy() { /* auto cleanup */ }
-```
-
-## Complete Examples in Context
-
-### Example: Application Header with Multiple Menus
-SCENARIO: Complete app header with logo, navigation menus, and user menu
+### NEVER: Use non-button elements for interactive menu items
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
-  <title>App with Menu Bar</title>
-</head>
-<body>
-  <header class="pm7-header">
-    <div class="pm7-container">
-      <div style="display: flex; align-items: center; justify-content: space-between;">
-        <!-- Logo and main navigation -->
-        <div style="display: flex; align-items: center; gap: 2rem;">
-          <a href="/" class="pm7-logo">MyApp</a>
-          
-          <!-- Main menu bar -->
-          <nav class="pm7-menu-bar">
-            <div data-pm7-menu>
-              <button class="pm7-menu-trigger">File</button>
-              <div class="pm7-menu-content">
-                <button class="pm7-menu-item">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  New Project
-                  <span class="pm7-menu-shortcut">⌘N</span>
-                </button>
-                <button class="pm7-menu-item">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  Open
-                  <span class="pm7-menu-shortcut">⌘O</span>
-                </button>
-                <div class="pm7-menu-separator"></div>
-                <button class="pm7-menu-item">
-                  Save
-                  <span class="pm7-menu-shortcut">⌘S</span>
-                </button>
-              </div>
-            </div>
-            
-            <div data-pm7-menu>
-              <button class="pm7-menu-trigger">Edit</button>
-              <div class="pm7-menu-content">
-                <button class="pm7-menu-item" disabled>
-                  Undo
-                  <span class="pm7-menu-shortcut">⌘Z</span>
-                </button>
-                <button class="pm7-menu-item">
-                  Redo
-                  <span class="pm7-menu-shortcut">⌘⇧Z</span>
-                </button>
-                <div class="pm7-menu-separator"></div>
-                <button class="pm7-menu-item">
-                  Cut
-                  <span class="pm7-menu-shortcut">⌘X</span>
-                </button>
-                <button class="pm7-menu-item">
-                  Copy
-                  <span class="pm7-menu-shortcut">⌘C</span>
-                </button>
-                <button class="pm7-menu-item">
-                  Paste
-                  <span class="pm7-menu-shortcut">⌘V</span>
-                </button>
-              </div>
-            </div>
-            
-            <div data-pm7-menu>
-              <button class="pm7-menu-trigger">View</button>
-              <div class="pm7-menu-content">
-                <div class="pm7-menu-label">Layout</div>
-                <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
-                  Show Sidebar
-                </button>
-                <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="true">
-                  Show Toolbar
-                </button>
-                <div class="pm7-menu-separator"></div>
-                <div class="pm7-menu-section-title">Theme</div>
-                <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme" data-checked="true">
-                  Light
-                </button>
-                <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">
-                  Dark
-                </button>
-                <button class="pm7-menu-item pm7-menu-item--radio" data-name="theme">
-                  System
-                </button>
-              </div>
-            </div>
-          </nav>
-        </div>
-        
-        <!-- User menu -->
-        <div data-pm7-menu data-position="bottom-end">
-          <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon" aria-label="User menu">
-            <img src="/avatar.jpg" alt="User" style="width: 32px; height: 32px; border-radius: 50%;">
-          </button>
-          <div class="pm7-menu-content">
-            <div class="pm7-menu-label">john.doe@example.com</div>
-            <div class="pm7-menu-separator"></div>
-            <button class="pm7-menu-item">
-              <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-              Profile Settings
-            </button>
-            <button class="pm7-menu-item pm7-menu-item--has-submenu">
-              <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-              Preferences
-              <svg class="pm7-menu-submenu-icon" width="16" height="16">...</svg>
-            </button>
-            <div class="pm7-submenu">
-              <button class="pm7-menu-item pm7-menu-item--switch" data-checked="true">
-                Email Notifications
-              </button>
-              <button class="pm7-menu-item pm7-menu-item--switch">
-                Desktop Notifications
-              </button>
-              <div class="pm7-menu-separator"></div>
-              <button class="pm7-menu-item">
-                Advanced Settings
-              </button>
-            </div>
-            <div class="pm7-menu-separator"></div>
-            <button class="pm7-menu-item pm7-menu-item--destructive">
-              <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
-  <script>
-    // Handle menu selections
-    document.addEventListener('pm7-menu-select', (e) => {
-      const { text, value, item } = e.detail;
-      console.log('Menu item selected:', text);
-      
-      // Handle specific actions
-      switch(text) {
-        case 'New Project':
-          createNewProject();
-          break;
-        case 'Sign Out':
-          signOut();
-          break;
-        // ... handle other menu items
-      }
-    });
-  </script>
-</body>
-</html>
+<!-- NEVER -->
+<div class="pm7-menu-content">
+  <a href="#" class="pm7-menu-item">Link Item</a>
+  <div class="pm7-menu-item">Div Item</div>
+</div>
+
+<!-- BECAUSE -->
+Non-button elements lack native keyboard support, ARIA semantics, and proper focus management, making the menu inaccessible.
+
+<!-- INSTEAD -->
+<div class="pm7-menu-content">
+  <button class="pm7-menu-item">Button Item</button>
+  <button class="pm7-menu-item">Another Button Item</button>
+</div>
 ```
 
-RESULT: Complete application header with menu bar navigation and user dropdown menu
-
-### Example: Context Menu for Data Table
-SCENARIO: Right-click context menu for table rows with dynamic options
+### NEVER: Omit `data-name` for radio menu items
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
-  <title>Data Table with Context Menu</title>
-  <style>
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .data-table th,
-    .data-table td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid var(--pm7-border);
-    }
-    .data-table tr:hover {
-      background-color: var(--pm7-hover);
-    }
-    .context-menu-wrapper {
-      position: fixed;
-      z-index: 1000;
-    }
-  </style>
-</head>
-<body>
-  <div class="pm7-container">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Last Modified</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-id="1">
-          <td>Project Alpha</td>
-          <td><span class="pm7-badge pm7-badge--success">Active</span></td>
-          <td>2 hours ago</td>
-          <td>
-            <div data-pm7-menu>
-              <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon" aria-label="Actions">
-                <svg width="16" height="16">...</svg>
-              </button>
-              <div class="pm7-menu-content">
-                <button class="pm7-menu-item" data-action="view">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  View Details
-                </button>
-                <button class="pm7-menu-item" data-action="edit">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  Edit
-                </button>
-                <button class="pm7-menu-item" data-action="duplicate">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  Duplicate
-                </button>
-                <div class="pm7-menu-separator"></div>
-                <button class="pm7-menu-item pm7-menu-item--destructive" data-action="delete">
-                  <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <!-- More rows... -->
-      </tbody>
-    </table>
-  </div>
-  
-  <!-- Context menu (positioned dynamically) -->
-  <div class="context-menu-wrapper" style="display: none;">
-    <div data-pm7-menu id="context-menu">
-      <button class="pm7-menu-trigger" style="display: none;"></button>
-      <div class="pm7-menu-content">
-        <button class="pm7-menu-item" data-action="view">
-          <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-          Open
-        </button>
-        <button class="pm7-menu-item" data-action="edit">
-          <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-          Edit
-        </button>
-        <button class="pm7-menu-item" data-action="duplicate">
-          <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-          Duplicate
-        </button>
-        <div class="pm7-menu-separator"></div>
-        <button class="pm7-menu-item pm7-menu-item--checkbox" data-checked="false">
-          Mark as Favorite
-        </button>
-        <div class="pm7-menu-separator"></div>
-        <button class="pm7-menu-item pm7-menu-item--destructive" data-action="delete">
-          <svg class="pm7-menu-item-icon" width="16" height="16">...</svg>
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
-  <script>
-    // Initialize context menu
-    let contextMenu;
-    let currentRow;
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      const contextMenuEl = document.getElementById('context-menu');
-      contextMenu = new PM7.Menu(contextMenuEl);
-      
-      // Right-click handler for table rows
-      document.querySelector('.data-table tbody').addEventListener('contextmenu', (e) => {
-        const row = e.target.closest('tr');
-        if (!row) return;
-        
-        e.preventDefault();
-        currentRow = row;
-        
-        // Position and show context menu
-        const wrapper = document.querySelector('.context-menu-wrapper');
-        wrapper.style.display = 'block';
-        wrapper.style.left = e.clientX + 'px';
-        wrapper.style.top = e.clientY + 'px';
-        
-        // Open menu programmatically
-        contextMenu.open();
-      });
-      
-      // Hide context menu on click outside
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.context-menu-wrapper')) {
-          document.querySelector('.context-menu-wrapper').style.display = 'none';
-          contextMenu.close();
-        }
-      });
-      
-      // Handle menu actions
-      document.addEventListener('pm7-menu-select', (e) => {
-        const action = e.detail.item.dataset.action;
-        const rowId = currentRow?.dataset.id;
-        
-        if (action && rowId) {
-          console.log(`Action: ${action} on row ID: ${rowId}`);
-          // Perform the action
-          switch(action) {
-            case 'view':
-              window.location.href = `/projects/${rowId}`;
-              break;
-            case 'edit':
-              openEditDialog(rowId);
-              break;
-            case 'delete':
-              if (confirm('Are you sure?')) {
-                deleteRow(rowId);
-              }
-              break;
-          }
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+<!-- NEVER -->
+<button class="pm7-menu-item pm7-menu-item--radio" data-checked="true">Option A</button>
+<button class="pm7-menu-item pm7-menu-item--radio">Option B</button>
+
+<!-- BECAUSE -->
+Without a `data-name` attribute, radio items will not function as a mutually exclusive group.
+
+<!-- INSTEAD -->
+<button class="pm7-menu-item pm7-menu-item--radio" data-name="my-group" data-checked="true">Option A</button>
+<button class="pm7-menu-item pm7-menu-item--radio" data-name="my-group">Option B</button>
 ```
 
-RESULT: Data table with both action buttons and right-click context menu functionality
+### NEVER: Manually position the menu content
+```html
+<!-- NEVER -->
+<div data-pm7-menu>
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content" style="position: absolute; top: 100px; left: 50px;">...</div>
+</div>
 
-## Validation Checklist
+<!-- BECAUSE -->
+The Menu component automatically handles positioning based on the trigger, viewport, and `data-position` attribute. Manual positioning will conflict and break responsiveness.
 
-STRUCTURE:
-- [ ] Has data-pm7-menu attribute
-- [ ] Has button.pm7-menu-trigger
-- [ ] Has div.pm7-menu-content wrapper
-- [ ] All interactive items are buttons
-- [ ] Radio items have data-name
-- [ ] Icon-only triggers have aria-label
+<!-- INSTEAD -->
+<div data-pm7-menu data-position="bottom-end">
+  <button class="pm7-menu-trigger">Menu</button>
+  <div class="pm7-menu-content">...</div>
+</div>
+```
 
-STYLING:
-- [ ] Includes pm7.min.css
-- [ ] Uses only documented classes
-- [ ] No inline positioning styles
+## Rules
 
-BEHAVIOR:
-- [ ] Initializes without errors
-- [ ] Opens/closes on trigger click
-- [ ] Keyboard navigation works
-- [ ] Events fire correctly
-- [ ] Framework re-renders handled
+### ALWAYS
+- **ALWAYS**: Use a `<button>` element for the menu trigger and all interactive menu items.
+- **ALWAYS**: Ensure the `.pm7-menu-content` `div` is a direct sibling of the `.pm7-menu-trigger`.
+- **ALWAYS**: For radio menu items, use the `data-name` attribute to group them.
+- **ALWAYS**: Add `aria-label` to icon-only menu triggers for accessibility.
 
-ACCESSIBILITY:
-- [ ] Focus trap when open
-- [ ] Escape key closes
-- [ ] Arrow keys navigate
-- [ ] Screen reader compatible
+### NEVER
+- **NEVER**: Use `<div>` or `<span>` for interactive menu items.
+- **NEVER**: Manually control the `display` or `position` of the menu content.
+- **NEVER**: Nest a `data-pm7-menu` component inside another `data-pm7-menu` component (use the `pm7-submenu` structure instead).
+- **NEVER**: Forget to call `window.PM7.init()` if you add a menu to the page dynamically after initial page load.
+
+## CSS Variables
+
+### Component-Specific Variables
+
+| Variable | Light Mode | Dark Mode | Usage |
+|----------|------------|-----------|--------|
+| `--pm7-menu-bg` | `var(--pm7-surface)` | `#1e1e1e` | Menu dropdown background |
+| `--pm7-menu-hover` | `var(--pm7-primary)` | `var(--pm7-primary)` | Item hover background |
+| `--pm7-menu-hover-text` | `var(--pm7-primary-foreground)` | `var(--pm7-primary-foreground)` | Item hover text color |
+| `--pm7-menu-hover-shadow` | `rgba(0, 0, 0, 0.08) 0px 5px 15px 0px, rgba(25, 28, 33, 0.2) 0px 15px 35px -5px` | `rgba(255, 255, 255, 0.05) 0px 5px 15px 0px, rgba(255, 255, 255, 0.1) 0px 15px 35px -5px` | Hover effect shadow |
+| `--pm7-menu-radius` | `var(--pm7-radius)` | `var(--pm7-radius)` | Menu border radius |
+| `--pm7-menu-shadow` | `var(--pm7-shadow-lg)` | `var(--pm7-shadow-lg)` | Dropdown shadow |
+| `--pm7-menu-font-size` | `var(--pm7-text-sm)` | `var(--pm7-text-sm)` | Menu item text size |
+| `--pm7-menu-font-weight` | `var(--pm7-font-normal)` | `var(--pm7-font-normal)` | Menu item font weight |
+| `--pm7-menu-line-height` | `var(--pm7-leading-normal)` | `var(--pm7-leading-normal)` | Menu item line height |
+| `--pm7-menu-padding-x` | `var(--pm7-spacing-4)` | `var(--pm7-spacing-4)` | Horizontal padding |
+| `--pm7-menu-padding-y` | `var(--pm7-spacing-2)` | `var(--pm7-spacing-2)` | Vertical padding |
+| `--pm7-menu-item-gap` | `var(--pm7-spacing-2)` | `var(--pm7-spacing-2)` | Gap between icon and text |
+
+### Required Global Variables
+
+| Variable | Light Mode | Dark Mode | Usage in Menu |
+|----------|------------|-----------|---------------|
+| `--pm7-surface` | `#ffffff` | `#1e1e1e` | Menu bar background |
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Menu item text color |
+| `--pm7-primary` | `#1C86EF` | `#3b9eff` | Active/selected item background |
+| `--pm7-primary-foreground` | `#ffffff` | `#ffffff` | Active/selected item text |
+| `--pm7-muted` | `#f5f5f5` | `#2d2d2d` | Switch background when off |
+| `--pm7-muted-foreground` | `#333333` | `#e6e6e6` | Label text, shortcuts |
+| `--pm7-destructive-foreground` | `#ef4444` | `#ef4444` | Destructive item hover text |
+| `--pm7-border` | `#e0e0e0` | `#444` | Menu borders, separators |
+| `--pm7-background` | `#ffffff` | `#121212` | Switch thumb background |
+| `--pm7-ring` | `#1C86EF` | `#3b9eff` | Focus ring color |
+| `--pm7-shadow-sm` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | `0 1px 2px 0 rgb(0 0 0 / 0.1)` | Switch thumb shadow |
+| `--pm7-spacing-4` | `1rem` | `1rem` | Mobile menu margins |
+| `--pm7-spacing-2` | `0.5rem` | `0.5rem` | Various gaps and margins |
+
+### Customization Example
+```css
+/* Custom flat menu without shadows */
+.my-app {
+  --pm7-menu-shadow: none;
+  --pm7-menu-hover-shadow: none;
+  --pm7-menu-hover: #e3f2fd;
+  --pm7-menu-hover-text: #1976d2;
+}
+
+/* Custom dark theme menu */
+.my-app.dark {
+  --pm7-menu-bg: #2c2c2c;
+  --pm7-menu-hover: #424242;
+  --pm7-menu-hover-text: #ffffff;
+  --pm7-border: #616161;
+}
+```
 
 ## Cross-Component Dependencies
 
-### Required for Common Patterns
+### Works With
+- **Button**: Menu triggers are often styled as buttons
+- **Dialog**: Menu items can trigger dialogs via `onclick`
+- **Toast**: Show feedback after menu actions
+- **Icons**: Menu items frequently include icons
 
-| Pattern | Required Components | Example |
-|---------|-------------------|---------|
-| Menu Trigger | pm7-button | `<button class="pm7-menu-trigger pm7-button pm7-button--outline">` |
-| Icon Triggers | pm7-icon | `<svg class="pm7-menu-item-icon" width="16" height="16">` |
-| Menu Bar | pm7-menu-bar | `<div class="pm7-menu-bar">` |
-| Status Indicators | pm7-badge | Used in menu items to show status |
-| Grouped Items | Native radio/checkbox behavior | Built into menu item variants |
+### Conflicts With
+- **Tooltip**: NEVER use tooltips on menu triggers or items (accessibility conflicts)
+- **Dropdown**: If using a separate dropdown component, don't mix with Menu
 
-### CSS Variable Dependencies
+## Accessibility
 
-Menus inherit these CSS variables from the PM7 theme:
-- `--pm7-menu-background`: Menu dropdown background
-- `--pm7-menu-foreground`: Text color
-- `--pm7-border`: Border color
-- `--pm7-radius`: Border radius
-- `--pm7-menu-shadow`: Dropdown shadow
-- `--pm7-hover`: Hover state background
-- `--pm7-destructive`: Destructive action color
+- **Focus**: Focus is managed automatically. When the menu opens, focus moves to the first item. When it closes, focus returns to the trigger.
+- **Keyboard**: `Enter` or `Space` to open/select. `Escape` to close. `Up`/`Down` arrows to navigate items. `Left`/`Right` arrows for submenus.
+- **ARIA**: The component automatically manages `role="menu"`, `role="menuitem"`, `aria-haspopup`, `aria-expanded`, `aria-checked`, and `aria-current` attributes.
+- **Screen reader**: Fully accessible to screen readers, announcing menu states and item types.
 
-### JavaScript Dependencies
+## Complete Example: User Profile Menu
 
-Menu component requires:
-- PM7 core library loaded (`window.PM7`)
-- DOM ready for auto-initialization
-- Event delegation for dynamic content
+SCENARIO: A user dropdown menu in a header with profile settings, preferences, and sign-out options.
 
-### Positioning Dependencies
+```html
+<div data-pm7-menu data-position="bottom-end">
+  <button class="pm7-menu-trigger pm7-button pm7-button--ghost pm7-button--icon" aria-label="User menu">
+    <img src="https://via.placeholder.com/32" alt="User Avatar" style="border-radius: 50%;">
+  </button>
+  <div class="pm7-menu-content">
+    <div class="pm7-menu-label">john.doe@example.com</div>
+    <div class="pm7-menu-separator"></div>
+    <button class="pm7-menu-item">
+      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      Profile Settings
+    </button>
+    <button class="pm7-menu-item pm7-menu-item--has-submenu">
+      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+      Preferences
+      <svg class="pm7-menu-submenu-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="pm7-submenu">
+      <button class="pm7-menu-item pm7-menu-item--switch" data-checked="true">
+        Email Notifications
+      </button>
+      <button class="pm7-menu-item pm7-menu-item--switch" data-checked="false">
+        Desktop Notifications
+      </button>
+    </div>
+    <div class="pm7-menu-separator"></div>
+    <button class="pm7-menu-item pm7-menu-item--destructive">
+      <svg class="pm7-menu-item-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="17 16 22 12 17 8"></polyline><line x1="22" y1="12" x2="10" y2="12"></line></svg>
+      Sign Out
+    </button>
+  </div>
+</div>
 
-Menu positioning relies on:
-- CSS position calculations
-- Viewport boundary detection
-- Scroll position monitoring
-- Parent container constraints
-
-### Accessibility Dependencies
-
-Full accessibility requires:
-- Proper ARIA attributes (auto-managed)
-- Focus management (built-in)
-- Keyboard event handling (built-in)
-- Screen reader announcements (auto-managed)
-
-## Related Components
-
-- **Button**: Primary component for menu triggers
-- **Icon**: For menu item icons and submenu indicators
-- **Badge**: For status indicators in menu items
-- **Dialog**: Menus can trigger modal dialogs
-- **Tooltip**: For additional context on menu items
-- **Tab Selector**: Alternative navigation pattern
-- **Command Palette**: For command-based menus
+<script>
+  document.querySelector('[data-pm7-menu]').addEventListener('pm7:menu:select', (e) => {
+    console.log('Selected:', e.detail.text);
+    if (e.detail.text === 'Sign Out') {
+      alert('Signing out...');
+    }
+  });
+</script>
+```

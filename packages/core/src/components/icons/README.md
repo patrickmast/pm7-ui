@@ -1,20 +1,27 @@
-<!-- AI-ONLY DOCUMENTATION -->
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
 type: ai-agent-documentation
+version: 2.0
+component: Icons
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO storytelling or explanations
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+category: utility
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
 ---
 
 # Component: Icons
 
-SVG icon library with JavaScript API.
+DEFINITION: The Icons component provides a set of SVG icons and helper functions for their integration. It is a CSS-only component for styling, with optional JavaScript helpers for dynamic creation.
 
 ## Installation
 
@@ -23,6 +30,7 @@ npm install @pm7/core
 ```
 
 ### CSS Import
+REQUIRED: Import CSS from `@pm7/core/dist/pm7.css`
 
 ```javascript
 // ES modules
@@ -32,262 +40,229 @@ import '@pm7/core/dist/pm7.css';
 <link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
 ```
 
-## JavaScript APIs
+## Required Structure
 
-### API: createHamburgerIconElement(options)
+Icons are typically SVG elements. The most basic structure is an inline SVG. Specific helper classes are used for styling and positioning.
 
-Creates DOM element.
-
-```javascript
-import { createHamburgerIconElement } from '@pm7/core';
-
-// Default
-const icon = createHamburgerIconElement();
-
-// Custom
-const icon = createHamburgerIconElement({
-  width: 24,
-  height: 20,
-  color: '#1C86EF',
-  className: 'my-icon'
-});
+```html
+<!-- EXACT pattern - NO deviations allowed -->
+<svg class="pm7-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+</svg>
 ```
 
-### API: createHamburgerIcon(options)
+### Structural Rules
+- **ALWAYS**: Use an `<svg>` element for icons.
+- **ALWAYS**: Set `width` and `height` attributes on the `<svg>` element.
+- **ALWAYS**: Use `fill="currentColor"` or `stroke="currentColor"` to allow CSS to control the icon's color.
+- **NEVER**: Hardcode `fill` or `stroke` colors directly in the SVG if you intend to change them via CSS.
 
-Returns HTML string.
+## JavaScript API
 
-```javascript
-import { createHamburgerIcon } from '@pm7/core';
-
-const html = createHamburgerIcon({
-  width: 16,
-  height: 13,
-  color: 'black',
-  className: 'menu-icon'
-});
-```
-
-### API: getHamburgerIconDataURI(color)
-
-Returns data URI.
+### Functions
 
 ```javascript
-import { getHamburgerIconDataURI } from '@pm7/core';
-
-const dataURI = getHamburgerIconDataURI('%231C86EF');
-element.style.backgroundImage = `url(${dataURI})`;
+import { createHamburgerIconElement, createHamburgerIcon, getHamburgerIconDataURI } from '@pm7/core';
 ```
 
-## API Options
+| Function | Parameters | Return Type | Description |
+|---|---|---|---|
+| `createHamburgerIconElement` | `options: object` | `HTMLElement` | Creates and returns an SVG `HTMLElement` for the hamburger icon. |
+| `createHamburgerIcon` | `options: object` | `string` | Returns an HTML string representation of the hamburger icon SVG. |
+| `getHamburgerIconDataURI` | `color: string` | `string` | Returns a Data URI string for the hamburger icon, suitable for CSS `background-image`. |
 
-| Option | Type | Default | Usage |
-|--------|------|---------|-------|
-| `width` | number | 18 | Icon width (px) |
-| `height` | number | 15 | Icon height (px) |
-| `color` | string | 'currentColor' | CSS color |
-| `className` | string | '' | CSS classes |
+### Parameter Details (`options` for `createHamburgerIconElement` and `createHamburgerIcon`)
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `width` | `number` | `18` | The width of the icon in pixels. |
+| `height` | `number` | `15` | The height of the icon in pixels. |
+| `color` | `string` | `'currentColor'` | The CSS color value for the icon's fill/stroke. |
+| `className` | `string` | `''` | Additional CSS classes to apply to the SVG element. |
+
+## Attributes
+
+See /docs/ATTRIBUTES.md for cross-component attribute relationships.
+
+| Attribute | Component(s) | Values | Required | Effect |
+|---|---|---|---|---|
+| `aria-label` | Icons | string | YES (icon-only) | Provides an accessible name for an element when no visible text is available. |
+| `aria-hidden` | Icons | `true` | AUTO | Indicates that an element is not visible or perceivable to any user. |
 
 ## CSS Classes
 
-| Class | Usage |
-|-------|-------|
-| `.pm7-icon` | Icon container |
-| `.pm7-icon--inline` | Inline with text |
-| `.pm7-icon--spin` | Rotation animation |
+| Class | Required | When | Effect |
+|---|---|---|---|
+| `.pm7-icon` | NO | For general icon styling | Applies base icon styles (e.g., `vertical-align`). |
+| `.pm7-icon--inline` | NO | When an icon is inline with text | Adjusts vertical alignment for text flow. |
+| `.pm7-icon--spin` | NO | For a spinning animation | Applies a continuous rotation animation. |
+| `.pm7-input-icon` | NO | For icons inside input fields | Positions and sizes icons within input wrappers. |
+| `.pm7-button-icon` | NO | For icons inside buttons with text | Provides correct spacing for icons next to text in buttons. |
 
 ## Patterns
 
-### Pattern: Button with Icon
+### Pattern: Icon in a Button
 ```html
 <button class="pm7-button pm7-button--primary">
-  <svg width="16" height="16">...</svg>
-  Menu
+  <svg class="pm7-button-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+  </svg>
+  <span>Click Me</span>
 </button>
 ```
 
-### Pattern: Icon-only Button
+### Pattern: Icon-Only Button
 ```html
-<button class="pm7-button pm7-button--icon" aria-label="Open menu">
-  <svg width="18" height="15">...</svg>
+<button class="pm7-button pm7-button--icon" aria-label="Settings">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+  </svg>
 </button>
 ```
 
-### Pattern: With JavaScript
-```javascript
-const button = document.querySelector('.menu-button');
-const icon = createHamburgerIconElement({ width: 20, height: 16 });
-button.appendChild(icon);
-```
-
-### Pattern: Inline Icon
+### Pattern: Inline Icon with Text
 ```html
 <span class="pm7-icon--inline">
-  <svg width="14" height="14">...</svg>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+  </svg>
 </span>
-Text content
-```
-
-### Pattern: Spinning Icon
-```html
-<span class="pm7-icon--spin">
-  <svg width="16" height="16">...</svg>
-</span>
-```
-
-### Pattern: Icon in Input
-```html
-<div class="pm7-input-group">
-  <span class="pm7-input-icon">
-    <svg width="16" height="16">...</svg>
-  </span>
-  <input class="pm7-input pm7-input--icon-left" />
-</div>
-```
-
-### Pattern: Data URI Background
-```javascript
-import { getHamburgerIconDataURI } from '@pm7/core';
-
-const button = document.querySelector('.button');
-button.style.backgroundImage = `url(${getHamburgerIconDataURI('%23000000')})`;
-button.style.backgroundRepeat = 'no-repeat';
-button.style.backgroundPosition = 'center';
+  Some text content.
 ```
 
 ## Anti-Patterns
 
-### Anti-Pattern: No Accessible Text
+### NEVER: Use an icon as a standalone interactive element
+```html
+<!-- NEVER -->
+<svg onclick="doSomething()" width="24" height="24">...</svg>
+
+<!-- BECAUSE -->
+SVG elements are not inherently interactive or keyboard-focusable. This creates accessibility issues.
+
+<!-- INSTEAD -->
+<button onclick="doSomething()">
+  <svg width="24" height="24">...</svg>
+</button>
+```
+
+### NEVER: Omit `aria-label` for icon-only interactive elements
 ```html
 <!-- NEVER -->
 <button class="pm7-button pm7-button--icon">
-  <svg>...</svg>
+  <svg width="20" height="20">...</svg>
 </button>
 
-<!-- ALWAYS -->
-<button class="pm7-button pm7-button--icon" aria-label="Open menu">
-  <svg>...</svg>
+<!-- BECAUSE -->
+Screen readers cannot convey the purpose of an icon without descriptive text. This makes the interface inaccessible.
+
+<!-- INSTEAD -->
+<button class="pm7-button pm7-button--icon" aria-label="Open Menu">
+  <svg width="20" height="20">...</svg>
 </button>
-```
-
-### Anti-Pattern: Icon as Interactive Element
-```html
-<!-- NEVER -->
-<svg onclick="doSomething()">...</svg>
-
-<!-- ALWAYS -->
-<button onclick="doSomething()">
-  <svg>...</svg>
-</button>
-```
-
-### Anti-Pattern: Conflicting Sizes
-```html
-<!-- NEVER -->
-<svg width="24" height="24" style="width: 32px;">
-
-<!-- ALWAYS - pick one method -->
-<svg width="24" height="24">
-```
-
-### Anti-Pattern: Unencoded Colors in URLs
-```javascript
-// NEVER
-getHamburgerIconDataURI('#1C86EF');
-
-// ALWAYS
-getHamburgerIconDataURI('%231C86EF');
-```
-
-### Anti-Pattern: Missing Container
-```html
-<!-- NEVER -->
-<svg>...</svg> Text
-
-<!-- ALWAYS -->
-<span class="pm7-icon--inline">
-  <svg>...</svg>
-</span> Text
 ```
 
 ## Rules
 
-- ALWAYS: Include aria-label on icon-only buttons
-- ALWAYS: URL-encode colors for data URIs
-- ALWAYS: Use buttons for interactive icons
-- ALWAYS: Default to currentColor for flexibility
-- NEVER: Use icons as standalone interactive elements
-- NEVER: Mix sizing methods (attributes vs CSS)
-- NEVER: Omit accessible text alternatives
-- NEVER: Use raw # in data URI colors
+### ALWAYS
+- **ALWAYS**: Use `<svg>` elements for icons.
+- **ALWAYS**: Set `width` and `height` attributes on the `<svg>` element.
+- **ALWAYS**: Use `fill="currentColor"` or `stroke="currentColor"` in the SVG to allow color control via CSS.
+- **ALWAYS**: Provide an `aria-label` for interactive elements that contain only an icon.
 
-## Icon Specifications
+### NEVER
+- **NEVER**: Hardcode `fill` or `stroke` colors directly in the SVG if you intend to change them via CSS.
+- **NEVER**: Use an icon as a standalone interactive element; always wrap it in a semantic interactive element like `<button>` or `<a>`.
+- **NEVER**: Use unencoded `#` characters in colors when generating Data URIs for `background-image` (e.g., `getHamburgerIconDataURI('%231C86EF')`).
 
-### Hamburger Icon
-- Default: 18×15px
-- Bar height: 2.5px
-- Bar spacing: 3.75px
-- Corner radius: 1.25px
-- Fill: currentColor
+## CSS Variables
 
-## Framework Usage
+### Component-Specific Variables
 
-### React
-```jsx
-import { createHamburgerIcon } from '@pm7/core';
+Icons do not define their own CSS variables. They inherit color from their parent elements using `currentColor`.
 
-function MenuButton() {
-  return (
-    <button 
-      className="pm7-button pm7-button--icon"
-      aria-label="Menu"
-      dangerouslySetInnerHTML={{ 
-        __html: createHamburgerIcon({ width: 20, height: 16 }) 
-      }}
-    />
-  );
+### Required Global Variables
+
+| Variable | Light Mode | Dark Mode | Usage in Icons |
+|----------|------------|-----------|----------------|
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Default icon color via currentColor |
+| `--pm7-muted-foreground` | `#333333` | `#e6e6e6` | Muted icon color |
+| `--pm7-primary` | `#1C86EF` | `#3b9eff` | Primary action icons |
+| `--pm7-destructive` | `#ef4444` | `#ef4444` | Delete/danger icons |
+| `--pm7-success` | `#22c55e` | `#22c55e` | Success/check icons |
+| `--pm7-warning` | `#f59e0b` | `#f59e0b` | Warning icons |
+| `--pm7-info` | `#3b82f6` | `#3b82f6` | Info icons |
+
+### Customization Example
+```css
+/* Custom icon colors */
+.my-app {
+  color: var(--pm7-foreground); /* Icons inherit this */
+}
+
+/* Specific icon colors */
+.icon-primary {
+  color: var(--pm7-primary);
+}
+
+.icon-danger {
+  color: var(--pm7-destructive);
+}
+
+/* Icon animations */
+.pm7-icon--spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 ```
 
-### Vue
-```vue
-<template>
-  <button 
-    class="pm7-button pm7-button--icon"
-    aria-label="Menu"
-    v-html="iconHtml"
-  />
-</template>
+## Cross-Component Dependencies
 
-<script>
-import { createHamburgerIcon } from '@pm7/core';
+### Works With
+- **Button**: Icons commonly used in buttons
+- **Input**: Icons for input field decoration
+- **Menu**: Icons in menu items
+- **Sidebar**: Icons in navigation items
+- **Tab Selector**: Icons in tab triggers
+- **Toast**: Icons for toast message types
 
-export default {
-  computed: {
-    iconHtml() {
-      return createHamburgerIcon({ width: 20, height: 16 });
-    }
-  }
-}
-</script>
-```
-
-## Performance
-
-- SVG icons scale without quality loss
-- Data URIs eliminate HTTP requests
-- currentColor reduces style calculations
-- Inline SVG allows CSS manipulation
+### Conflicts With
+- **None**: Icons are designed to work within all components
 
 ## Accessibility
 
-- Icons hidden with aria-hidden="true"
-- Parent element provides context
-- currentColor ensures contrast
-- Keyboard navigation on parent
+- **Focus**: Icons themselves are generally not focusable. Their parent interactive elements (buttons, links) should be.
+- **Keyboard**: Keyboard navigation is handled by the parent interactive element.
+- **ARIA**: For decorative icons, `aria-hidden="true"` should be used. For interactive icons, the parent element (e.g., `<button>`) should have an `aria-label`.
+- **Screen reader**: Ensure icons have a text alternative or are hidden from screen readers if purely decorative.
 
-## Related Components
+## Complete Example: Navigation Bar with Icons
 
-- Button: Icon container
-- Input: Icon placement
-- Menu: Primary use case
+SCENARIO: A responsive navigation bar featuring icons for common actions.
+
+```html
+<nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--pm7-card); border-bottom: 1px solid var(--pm7-border);">
+  <a href="/" style="font-weight: bold; font-size: 1.2rem;">My App</a>
+  <div style="display: flex; gap: 0.5rem;">
+    <button class="pm7-button pm7-button--icon" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </button>
+    <button class="pm7-button pm7-button--icon" aria-label="Notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V9c0-3.07-1.63-5.64-4.5-6.32V4c0-.55-.45-1-1-1s-1 .45-1 1v.68C7.63 3.36 6 5.93 6 9v7l-2 2v1h16v-1l-2-2zm-2 1H8V9c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v8z"/>
+      </svg>
+    </button>
+    <button class="pm7-button pm7-button--icon" aria-label="User Profile">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.29-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.93-3.5 3.22-6 3.22z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+```

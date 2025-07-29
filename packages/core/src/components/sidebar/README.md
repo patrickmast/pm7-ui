@@ -1,20 +1,27 @@
-<!-- AI-ONLY DOCUMENTATION -->
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
 type: ai-agent-documentation
+version: 2.0
+component: Sidebar
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO storytelling or explanations
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+category: navigation
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
 ---
 
 # Component: Sidebar
 
-Navigation panel component with static and interactive modes.
+DEFINITION: The Sidebar component provides a collapsible or static navigation panel, typically used for primary application navigation or supplementary content. It supports both CSS-only static and JavaScript-driven interactive modes.
 
 ## Installation
 
@@ -22,126 +29,114 @@ Navigation panel component with static and interactive modes.
 npm install @pm7/core
 ```
 
-### CSS Import
+### CSS & JavaScript Import
+
+REQUIRED: Import both the CSS and the main JavaScript file.
 
 ```javascript
 // ES modules
 import '@pm7/core/dist/pm7.css';
+import '@pm7/core'; // Imports and initializes all components
 
 // HTML
 <link rel="stylesheet" href="node_modules/@pm7/core/dist/pm7.css">
-```
-
-### JavaScript Setup
-
-```javascript
-// ES modules - adds PM7 to window
-import '@pm7/core';
-
-// Dynamic import (Next.js)
-import('@pm7/core').then(() => {
-  window.PM7.init();
-});
-
-// TypeScript declarations
-declare global {
-  interface Window {
-    PM7: {
-      init: () => void;
-      initSidebars?: () => void;
-      Sidebar?: new (element: Element) => any;
-    }
-  }
-}
+<script src="node_modules/@pm7/core/dist/pm7.js" defer></script>
 ```
 
 ## Required Structure
 
-### Static Sidebar (No JavaScript)
+For an interactive sidebar, the main container (`<aside>`) requires `data-pm7-sidebar` and a unique `id`. It should contain a `.pm7-sidebar-content` wrapper for its main content.
+
 ```html
-<aside class="pm7-sidebar">
+<!-- EXACT pattern for an interactive sidebar - NO deviations allowed -->
+<aside class="pm7-sidebar" data-pm7-sidebar id="my-sidebar">
   <div class="pm7-sidebar-content">
     <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item">Link</a>
+      <a href="#" class="pm7-sidebar-item">Dashboard</a>
+      <a href="#" class="pm7-sidebar-item">Settings</a>
     </nav>
   </div>
 </aside>
+
+<!-- Trigger button to open the sidebar -->
+<button data-pm7-sidebar-trigger="my-sidebar">Open Sidebar</button>
 ```
 
-### Interactive Sidebar (JavaScript Required)
-```html
-<aside class="pm7-sidebar" data-pm7-sidebar id="sidebar-1">
-  <div class="pm7-sidebar-header">
-    <h3 class="pm7-sidebar-title">Title</h3>
-    <button class="pm7-sidebar-close">×</button>
-  </div>
-  <div class="pm7-sidebar-content">
-    <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item">Link</a>
-    </nav>
-  </div>
-</aside>
+### Structural Rules
+- **ALWAYS**: The main sidebar container MUST be an `<aside>` element with the class `.pm7-sidebar`.
+- **ALWAYS**: For interactive sidebars, the `<aside>` MUST have `data-pm7-sidebar` and a unique `id`.
+- **ALWAYS**: All main content within the sidebar MUST be wrapped in a `div` with the class `.pm7-sidebar-content`.
+- **ALWAYS**: Trigger buttons to open an interactive sidebar MUST have `data-pm7-sidebar-trigger="sidebar-id"` matching the sidebar's `id`.
+- **NEVER**: Omit the `.pm7-sidebar-content` wrapper for sidebar content.
+
+## JavaScript API
+
+### Initialization
+Initialization is automatic for sidebars present in the DOM when `@pm7/core` is imported. For dynamically added interactive sidebars, re-initialization is required.
+
+```javascript
+// For interactive sidebars added after initial page load
+window.PM7.init();
 ```
+
+### Instance Access
+
+```javascript
+const element = document.querySelector('[data-pm7-sidebar]');
+const instance = element.PM7Sidebar;
+```
+
+### Methods
+
+| Method | Parameters | Return Type | Description |
+|---|---|---|---|
+| `open` | `(none)` | `void` | Opens the interactive sidebar. |
+| `close` | `(none)` | `void` | Closes the interactive sidebar. |
+| `toggle` | `(none)` | `void` | Toggles the interactive sidebar's open/closed state. |
+| `destroy` | `(none)` | `void` | Removes all event listeners and cleans up the instance. |
+
+### Events
+
+| Event | When | Detail | Bubbles |
+|---|---|---|---|---|
+| `pm7:sidebar:open` | After the sidebar opens | `{ sidebar: HTMLElement }` | YES |
+| `pm7:sidebar:close` | After the sidebar closes | `{ sidebar: HTMLElement }` | YES |
 
 ## Attributes
 
-| Attribute | Values | Effect |
-|-----------|---------|---------|
-| `data-pm7-sidebar` | presence | Makes sidebar interactive (hidden by default) |
-| `data-pm7-sidebar-trigger` | sidebar ID | Opens specific sidebar |
-| `data-state` | `open`, `closed` | Current sidebar state |
+See /docs/ATTRIBUTES.md for cross-component attribute relationships.
+
+| Attribute | Component(s) | Values | Required | Effect |
+|---|---|---|---|---|
+| `data-pm7-sidebar` | Sidebar | presence | YES | Initializes interactive Sidebar component. |
+| `data-pm7-sidebar-trigger` | Sidebar | sidebar ID | YES | Links a button to open/close a specific sidebar. |
+| `data-state` | Sidebar | `open`, `closed` | AUTO | Managed by JS to reflect component's open/closed state. |
+| `aria-expanded` | Sidebar | `true`, `false` | AUTO | Indicates whether a collapsible element is currently expanded or collapsed. |
+| `aria-modal` | Sidebar | `true` | AUTO | Indicates that an element is a modal dialog and disables interaction with other content. |
+| `role` | Sidebar | `dialog` | AUTO | Defines the purpose or nature of an element. |
 
 ## CSS Classes
 
-| Class | Required | Usage |
-|-------|----------|-------|
-| `.pm7-sidebar` | YES | Base container |
-| `.pm7-sidebar-static` | NO | Always visible sidebar |
-| `.pm7-sidebar-header` | NO | Header section |
-| `.pm7-sidebar-title` | NO | Header title |
-| `.pm7-sidebar-close` | NO | Close button |
-| `.pm7-sidebar-content` | NO | Content wrapper |
-| `.pm7-sidebar-nav` | NO | Navigation container |
-| `.pm7-sidebar-item` | NO | Navigation item |
-| `.pm7-sidebar-item--active` | NO | Active navigation item |
-| `.pm7-sidebar-section` | NO | Content section |
-| `.pm7-sidebar-section-title` | NO | Section title |
-| `.pm7-sidebar--right` | NO | Right-aligned sidebar |
-| `.pm7-sidebar--push` | NO | Push content instead of overlay |
-| `.pm7-sidebar--mini` | NO | Collapsed sidebar with icons |
+| Class | Required | When | Effect |
+|---|---|---|---|
+| `.pm7-sidebar` | YES | ALWAYS on the `<aside>` element | Applies base sidebar styling (width, background, shadow). |
+| `.pm7-sidebar-content` | YES | ALWAYS | Provides internal padding and scrollability for sidebar content. |
+| `.pm7-sidebar-static` | NO | For a non-interactive, always-visible sidebar | Removes JavaScript-controlled behavior and makes it always visible. |
+| `.pm7-sidebar--right` | NO | To position the sidebar on the right | Aligns the sidebar to the right side of the viewport. |
+| `.pm7-sidebar--push` | NO | To make the sidebar push content | Instead of overlaying, the sidebar pushes the main content. |
+| `.pm7-sidebar--mini` | NO | For a collapsed, icon-only sidebar | Reduces width and hides text, showing only icons. |
+| `.pm7-sidebar-header` | NO | For a distinct header section | Styles a header area within the sidebar. |
+| `.pm7-sidebar-title` | NO | For the main title in the header | Styles the primary heading within the sidebar header. |
+| `.pm7-sidebar-close` | NO | For a close button within the sidebar | Styles a button to close the sidebar. |
+| `.pm7-sidebar-nav` | NO | For a navigation list within the sidebar | Styles a container for navigation items. |
+| `.pm7-sidebar-item` | NO | For individual navigation links | Styles a navigation link within the sidebar. |
+| `.pm7-sidebar-item-icon` | NO | For icons within navigation items | Styles an icon to appear next to navigation text. |
 
 ## Patterns
 
-### Pattern: Static Documentation Sidebar
+### Pattern: Static Sidebar (CSS-only)
 ```html
 <aside class="pm7-sidebar pm7-sidebar-static">
-  <div class="pm7-sidebar-content">
-    <div class="pm7-sidebar-section">
-      <h3 class="pm7-sidebar-section-title">Documentation</h3>
-      <nav class="pm7-sidebar-nav">
-        <a href="/docs" class="pm7-sidebar-item pm7-sidebar-item--active">
-          Getting Started
-        </a>
-        <a href="/docs/api" class="pm7-sidebar-item">
-          API Reference
-        </a>
-      </nav>
-    </div>
-  </div>
-</aside>
-```
-
-### Pattern: Interactive Mobile Menu
-```html
-<!-- Trigger -->
-<button data-pm7-sidebar-trigger="mobile-menu">Menu</button>
-
-<!-- Sidebar -->
-<aside class="pm7-sidebar" data-pm7-sidebar id="mobile-menu">
-  <div class="pm7-sidebar-header">
-    <h3 class="pm7-sidebar-title">Menu</h3>
-    <button class="pm7-sidebar-close">×</button>
-  </div>
   <div class="pm7-sidebar-content">
     <nav class="pm7-sidebar-nav">
       <a href="#" class="pm7-sidebar-item">Home</a>
@@ -151,306 +146,224 @@ declare global {
 </aside>
 ```
 
-### Pattern: With Icons
+### Pattern: Interactive Sidebar with Header and Close Button
 ```html
-<aside class="pm7-sidebar" data-pm7-sidebar>
+<button data-pm7-sidebar-trigger="app-sidebar">Open App Menu</button>
+
+<aside class="pm7-sidebar" data-pm7-sidebar id="app-sidebar">
+  <div class="pm7-sidebar-header">
+    <h3 class="pm7-sidebar-title">Application Menu</h3>
+    <button class="pm7-sidebar-close">×</button>
+  </div>
   <div class="pm7-sidebar-content">
     <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item">
-        <svg class="pm7-sidebar-item-icon" width="20" height="20">...</svg>
-        <span class="pm7-sidebar-item-text">Dashboard</span>
-      </a>
+      <a href="#" class="pm7-sidebar-item">Dashboard</a>
+      <a href="#" class="pm7-sidebar-item">Users</a>
     </nav>
   </div>
 </aside>
 ```
 
-### Pattern: Mini Sidebar
+### Pattern: Sidebar Pushing Content
+Add `pm7-sidebar--push` to the sidebar. The main content area should be a sibling to the sidebar.
+
 ```html
-<aside class="pm7-sidebar pm7-sidebar--mini" data-pm7-sidebar>
-  <div class="pm7-sidebar-content">
-    <nav class="pm7-sidebar-nav">
-      <a href="#" class="pm7-sidebar-item" title="Dashboard">
-        <svg class="pm7-sidebar-item-icon" width="20" height="20">...</svg>
-      </a>
-    </nav>
-  </div>
-</aside>
-```
-
-### Pattern: JavaScript Control
-```javascript
-// Manual initialization
-const sidebar = document.querySelector('[data-pm7-sidebar]');
-const instance = new PM7.Sidebar(sidebar);
-
-// Methods
-instance.open();
-instance.close();
-instance.toggle();
-
-// Check state
-const isOpen = sidebar.getAttribute('data-state') === 'open';
-
-// Events
-sidebar.addEventListener('pm7-sidebar-open', (e) => {
-  // e.detail = { sidebar: HTMLElement }
-});
-
-sidebar.addEventListener('pm7-sidebar-close', (e) => {
-  // e.detail = { sidebar: HTMLElement }
-});
-```
-
-### Pattern: Dynamic Sidebar Addition
-WHEN: Adding interactive sidebar after page load
-```javascript
-// Add sidebar HTML
-document.body.insertAdjacentHTML('beforeend', `
-  <aside class="pm7-sidebar pm7-sidebar--right" data-pm7-sidebar>
-    <button class="pm7-sidebar-toggle" aria-label="Toggle sidebar">
-      <svg>...</svg>
-    </button>
-    <div class="pm7-sidebar-content">
-      <h2>Dynamic Sidebar</h2>
-    </div>
+<div style="display: flex;">
+  <aside class="pm7-sidebar pm7-sidebar--push" data-pm7-sidebar id="push-sidebar">
+    <div class="pm7-sidebar-content">...</div>
   </aside>
-`);
-
-// MUST initialize PM7 components
-window.PM7.init();
-```
-
-### Pattern: Next.js Implementation
-```jsx
-'use client'
-
-export default function Layout({ children }) {
-  return (
-    <>
-      <aside className="pm7-sidebar pm7-sidebar-static">
-        <div className="pm7-sidebar-content">
-          <nav className="pm7-sidebar-nav">
-            <Link href="/" className="pm7-sidebar-item">
-              Home
-            </Link>
-          </nav>
-        </div>
-      </aside>
-      <main>{children}</main>
-    </>
-  );
-}
-```
-
-### Pattern: Layout Integration
-```html
-<!-- Documentation Layout -->
-<div class="pm7-docs-layout">
-  <aside class="pm7-sidebar pm7-sidebar-static">
-    <!-- sidebar content -->
-  </aside>
-  <main class="pm7-docs-content">
-    <!-- main content -->
+  <main style="flex-grow: 1; padding: 1rem;">
+    <h1>Main Content Area</h1>
+    <p>This content will be pushed by the sidebar.</p>
   </main>
 </div>
 ```
 
-## JavaScript API
-
-### Initialization
-
-IF static sidebar THEN no JavaScript needed
-IF interactive sidebar in DOM at page load THEN auto-initialized
-IF interactive sidebar added dynamically THEN MUST call `window.PM7.init()`
-IF React component THEN MUST call `window.PM7.initFramework()` in useEffect (v2.7.0+)
-IF Vue component THEN MUST call `window.PM7.initFramework()` in onMounted (v2.7.0+)
-IF manual control THEN `new PM7.Sidebar(element)`
-
-### Self-Healing (v2.6.0+)
-
-Sidebar components automatically detect and recover from framework re-renders:
-
-```javascript
-// React - Components self-heal automatically
-useEffect(() => {
-  PM7.initFramework(); // Includes automatic healing
-}, []);
-
-// Manual healing if needed
-PM7.healSidebars(); // Heal only sidebars
-PM7.heal();         // Heal all components
-```
-
-#### How Self-Healing Works:
-1. Component detects it was re-rendered by framework
-2. Open/closed state is preserved
-3. Collapsible section states are maintained
-4. Event listeners are cleaned up and re-attached
-5. No manual re-initialization needed
-
-#### When Self-Healing Activates:
-- React re-renders component tree
-- Vue updates virtual DOM
-- Angular change detection cycles
-- Any framework that replaces DOM elements
-
-### Methods
-
-| Method | Parameters | Returns | Usage |
-|--------|------------|---------|--------|
-| `open()` | none | void | `sidebar.open()` |
-| `close()` | none | void | `sidebar.close()` |
-| `toggle()` | none | void | `sidebar.toggle()` |
-| `destroy()` | none | void | `sidebar.destroy()` |
-
-### Events
-
-| Event | When Fired | Detail |
-|-------|------------|---------|
-| `pm7-sidebar-open` | On open | `{ sidebar: HTMLElement }` |
-| `pm7-sidebar-close` | On close | `{ sidebar: HTMLElement }` |
-
 ## Anti-Patterns
 
-### Anti-Pattern: Wrong Structure
+### NEVER: Omit `data-pm7-sidebar` for interactive sidebars
 ```html
 <!-- NEVER -->
-<div class="sidebar">
-  <nav>Links</nav>
-</div>
+<aside class="pm7-sidebar" id="my-sidebar">
+  <!-- Content -->
+</aside>
 
-<!-- ALWAYS -->
-<aside class="pm7-sidebar">
-  <div class="pm7-sidebar-content">
-    <nav class="pm7-sidebar-nav">Links</nav>
-  </div>
+<!-- BECAUSE -->
+Without `data-pm7-sidebar`, the component's JavaScript will not initialize, and the sidebar will not open/close interactively.
+
+<!-- INSTEAD -->
+<aside class="pm7-sidebar" data-pm7-sidebar id="my-sidebar">
+  <!-- Content -->
 </aside>
 ```
 
-### Anti-Pattern: Direct Method Calls
-```javascript
-// NEVER
-window.PM7.initSidebars();
-
-// ALWAYS
-if (window.PM7?.initSidebars) {
-  window.PM7.initSidebars();
-}
-```
-
-### Anti-Pattern: Inline Styles for Layout
+### NEVER: Manually control sidebar visibility with CSS `display` or `transform`
 ```html
 <!-- NEVER -->
-<aside class="pm7-sidebar" style="width: 280px; background: #f3f4f6;">
+<aside class="pm7-sidebar" style="transform: translateX(0);">...</aside>
 
-<!-- ALWAYS -->
-<aside class="pm7-sidebar">
+<!-- BECAUSE -->
+The Sidebar component manages its own visibility, animations, and focus trapping. Manual CSS control will interfere with its functionality.
+
+<!-- INSTEAD -->
+// Use the `data-pm7-sidebar-trigger` button or the JavaScript API methods `open()`/`close()`.
 ```
 
-### Anti-Pattern: Missing Trigger Association
+### NEVER: Nest interactive sidebars
 ```html
 <!-- NEVER -->
-<button onclick="openSidebar()">Menu</button>
+<aside class="pm7-sidebar" data-pm7-sidebar id="outer-sidebar">
+  <div class="pm7-sidebar-content">
+    <aside class="pm7-sidebar" data-pm7-sidebar id="inner-sidebar">...</aside>
+  </div>
+</aside>
 
-<!-- ALWAYS -->
-<button data-pm7-sidebar-trigger="sidebar-id">Menu</button>
-```
+<!-- BECAUSE -->
+Nesting interactive sidebars can lead to conflicting event listeners, focus management issues, and unpredictable behavior.
 
-### Anti-Pattern: PM7 Layout Classes Not Documented
-```html
-<!-- NEVER - these don't exist in PM7 -->
-<div class="pm7-layout pm7-layout-sidebar">
-
-<!-- ALWAYS - use custom CSS for layouts -->
-<div style="display: flex;">
-  <aside class="pm7-sidebar">...</aside>
-  <main style="flex: 1;">...</main>
-</div>
-```
-
-### Anti-Pattern: Dynamic Interactive Sidebar Without Init
-```javascript
-// NEVER - toggle won't work
-document.body.innerHTML += `<aside data-pm7-sidebar>...</aside>`;
-// Sidebar toggle is not functional
-
-// ALWAYS - initialize after adding
-document.body.innerHTML += `<aside data-pm7-sidebar>...</aside>`;
-window.PM7.init(); // REQUIRED for interactive features
-// Toggle now works
+<!-- INSTEAD -->
+// Use a single sidebar with nested navigation, or consider a different component for nested content.
 ```
 
 ## Rules
 
-- ALWAYS: Use `<aside>` element for sidebars
-- ALWAYS: Include `pm7-sidebar` class
-- ALWAYS: Check PM7 exists before calling methods
-- ALWAYS: Use `data-pm7-sidebar-trigger` for trigger buttons
-- ALWAYS: Call `window.PM7.init()` after adding interactive sidebars dynamically
-- NEVER: Use role attributes (auto-applied)
-- NEVER: Apply manual transform or visibility styles
-- NEVER: Nest interactive sidebars
-- NEVER: Initialize sidebars multiple times
-- NEVER: Expect toggle functionality without PM7.init() for dynamic content
+### ALWAYS
+- **ALWAYS**: Use an `<aside>` element as the root for the sidebar.
+- **ALWAYS**: Wrap the main content of the sidebar in a `div` with the class `.pm7-sidebar-content`.
+- **ALWAYS**: For interactive sidebars, provide a unique `id` and the `data-pm7-sidebar` attribute.
+- **ALWAYS**: Use `data-pm7-sidebar-trigger="sidebar-id"` on buttons that should open/close the sidebar.
+
+### NEVER
+- **NEVER**: Manually control the `display` or `transform` properties of an interactive sidebar.
+- **NEVER**: Nest interactive sidebars within each other.
+- **NEVER**: Forget to call `window.PM7.init()` if you add an interactive sidebar to the DOM dynamically after initial page load.
 
 ## CSS Variables
 
-| Variable | Default Light | Default Dark | Usage |
-|----------|---------------|--------------|--------|
-| `--pm7-sidebar-width` | `280px` | `280px` | Sidebar width |
-| `--pm7-sidebar-bg` | `#f3f4f6` | `#1E1E1E` | Background color |
-| `--pm7-sidebar-item-hover` | `#ffffff` | `var(--pm7-surface-hover)` | Item hover background |
-| `--pm7-sidebar-active` | `var(--pm7-primary)` | `#2a2a2a` | Active item background |
+### Component-Specific Variables
 
-## State Management
+| Variable | Light Mode | Dark Mode | Usage |
+|----------|------------|-----------|--------|
+| `--pm7-sidebar-width` | `280px` | `280px` | Default sidebar width |
+| `--pm7-sidebar-bg` | `var(--pm7-background)` | `var(--pm7-card)` | Sidebar background |
+| `--pm7-sidebar-item-hover-bg` | `transparent` | `transparent` | Item hover background |
 
-IF `data-pm7-sidebar` THEN hidden by default with `transform: translateX(-100%)`
-IF `data-state="open"` THEN visible with `transform: translateX(0)`
-IF static sidebar THEN always visible, no transform
+### Required Global Variables
 
-## Keyboard Navigation
+| Variable | Light Mode | Dark Mode | Usage in Sidebar |
+|----------|------------|-----------|------------------|
+| `--pm7-background` | `#ffffff` | `#121212` | Default sidebar background |
+| `--pm7-card` | `#ffffff` | `#1e1e1e` | Dark mode sidebar background |
+| `--pm7-foreground` | `#000000` | `#e0e0e0` | Text color, item hover color |
+| `--pm7-muted-foreground` | `#333333` | `#e6e6e6` | Default item text, section titles |
+| `--pm7-border` | `#e0e0e0` | `#444` | Sidebar border, dividers |
+| `--pm7-muted` | `#f5f5f5` | `#2d2d2d` | Trigger hover, close button hover |
+| `--pm7-primary` | `#1C86EF` | `#3b9eff` | Active item background |
+| `--pm7-ring` | `var(--pm7-primary)` | `var(--pm7-primary)` | Focus ring color |
+| `--pm7-radius` | `0.375rem` | `0.375rem` | Item border radius |
+| `--pm7-radius-lg` | `0.75rem` | `0.75rem` | Floating variant radius |
+| `--pm7-shadow-lg` | `0 10px 15px -3px rgb(0 0 0 / 0.1)` | `0 10px 15px -3px rgb(0 0 0 / 0.3)` | Floating variant shadow |
+| `--pm7-font-size-sm` | `0.875rem` | `0.875rem` | Item text size |
+| `--pm7-font-size-xs` | `0.75rem` | `0.75rem` | Section titles, compact mode |
+| `--pm7-spacing-1` | `0.25rem` | `0.25rem` | Nav item gap, section margin |
+| `--pm7-spacing-2` | `0.5rem` | `0.5rem` | Item padding, nav padding |
+| `--pm7-spacing-3` | `0.75rem` | `0.75rem` | Item icon gap, compact padding |
+| `--pm7-spacing-4` | `1rem` | `1rem` | Header/content padding, item padding |
+| `--pm7-spacing-8` | `2rem` | `2rem` | Nested nav padding |
 
-- Escape: Close sidebar
-- Tab: Navigate through sidebar items
-- Enter/Space: Activate focused item
+### Customization Example
+```css
+/* Custom sidebar styling */
+.my-app {
+  --pm7-sidebar-width: 320px;
+  --pm7-sidebar-bg: #f8f9fa;
+  --pm7-sidebar-item-hover-bg: #e9ecef;
+}
+
+/* Narrow sidebar */
+.narrow-sidebar {
+  --pm7-sidebar-width: 240px;
+}
+
+/* Custom active item color */
+.custom-sidebar {
+  --pm7-primary: #10b981; /* Green active items */
+}
+```
+
+## Cross-Component Dependencies
+
+### Works With
+- **Icons**: Sidebar items often include icons
+- **Button**: Trigger buttons and close buttons
+- **Navigation**: Sidebar provides primary navigation
+- **Accordion**: Can contain collapsible sections
+
+### Conflicts With
+- **Dialog**: Both manage focus, avoid simultaneous use
+- **Menu**: Don't use menus inside sidebars on mobile
+- **Toast**: Ensure proper z-index layering
 
 ## Accessibility
 
-- Focus trap when open
-- ARIA attributes auto-applied
-- Keyboard navigation enabled
-- Screen reader announcements
+- **Focus**: When an interactive sidebar opens, focus is trapped within it. On close, focus returns to the trigger.
+- **Keyboard**: `Escape` key closes the sidebar. `Tab` and `Shift+Tab` navigate within the sidebar.
+- **ARIA**: The component automatically applies `role="dialog"` (for overlay mode), `aria-modal="true"`, and manages `aria-hidden` and `aria-expanded` attributes.
+- **Screen reader**: Fully accessible to screen readers, announcing the sidebar's state and content.
 
-## Framework Usage
+## Complete Example: Responsive Application Layout
 
-### React
-```jsx
-'use client'
+SCENARIO: A common application layout with a main content area and a sidebar that is static on desktop and interactive on mobile.
 
-<aside className="pm7-sidebar" data-pm7-sidebar id="react-sidebar">
-  <div className="pm7-sidebar-content">
-    <nav className="pm7-sidebar-nav">
-      <Link href="/" className="pm7-sidebar-item">Home</Link>
-    </nav>
-  </div>
-</aside>
-```
-
-### Vue
-```vue
-<template>
-  <aside class="pm7-sidebar" data-pm7-sidebar id="vue-sidebar">
+```html
+<div style="display: flex; min-height: 100vh;">
+  <!-- Sidebar - Static on desktop, interactive on mobile -->
+  <aside class="pm7-sidebar pm7-sidebar-static" data-pm7-sidebar id="app-layout-sidebar">
+    <div class="pm7-sidebar-header">
+      <h3 class="pm7-sidebar-title">Application</h3>
+      <button class="pm7-sidebar-close" style="display: none;">×</button> <!-- Hidden on desktop -->
+    </div>
     <div class="pm7-sidebar-content">
       <nav class="pm7-sidebar-nav">
-        <router-link to="/" class="pm7-sidebar-item">Home</router-link>
+        <a href="#" class="pm7-sidebar-item">Dashboard</a>
+        <a href="#" class="pm7-sidebar-item">Analytics</a>
+        <a href="#" class="pm7-sidebar-item">Reports</a>
+        <a href="#" class="pm7-sidebar-item">Settings</a>
       </nav>
     </div>
   </aside>
-</template>
+
+  <!-- Main content area -->
+  <main style="flex-grow: 1; padding: 1.5rem;">
+    <button data-pm7-sidebar-trigger="app-layout-sidebar" class="pm7-button" style="display: none;">Open Menu</button> <!-- Hidden on desktop -->
+    <h1>Welcome to the Dashboard</h1>
+    <p>This is the main content area of your application.</p>
+    <p>The sidebar on the left is static on larger screens and becomes a mobile menu on smaller screens.</p>
+  </main>
+</div>
+
+<style>
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+    .pm7-sidebar-static {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 1000;
+      transform: translateX(-100%); /* Hidden by default on mobile */
+      transition: transform 0.3s ease-out;
+    }
+    .pm7-sidebar-static[data-state="open"] {
+      transform: translateX(0);
+    }
+    .pm7-sidebar-static .pm7-sidebar-close {
+      display: block !important; /* Show close button on mobile */
+    }
+    main > .pm7-button[data-pm7-sidebar-trigger] {
+      display: block !important; /* Show trigger button on mobile */
+      margin-bottom: 1rem;
+    }
+  }
+</style>
 ```
-
-## Related Components
-
-- Menu: For dropdown navigation
-- Button: For trigger elements

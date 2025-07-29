@@ -1,7 +1,7 @@
 <!-- AI-ONLY DOCUMENTATION v2.0 -->
 <!-- This documentation is EXCLUSIVELY for AI coding agents -->
 <!-- NO human-friendly content allowed -->
-<!-- Reference: /docs/README-AI-Documentation-Standard.md -->
+<!-- Reference: /README-AI-HowToDocument.md -->
 
 ---
 type: ai-agent-documentation

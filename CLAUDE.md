@@ -102,4 +102,4 @@ For detailed information, see the specialized documentation files:
 - `packages/core/rollup.config.js` - Library build configuration
 - `packages/core/postcss.config.js` - CSS processing configuration
 - `AI-README.md` - Technical documentation for AI assistance
-- `AI-AGENT.md` - Complete HTML attribute reference
+- `docs/ATTRIBUTES.md` - Complete HTML attribute reference

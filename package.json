@@ -31,7 +31,8 @@
     "test:all": "npm run lint && npm run test && npm run test:e2e",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy:docs": "gh-pages -d docs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -42,6 +43,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^6.3.0",
     "husky": "^8.0.3",
     "playwright": "^1.54.1",
     "postcss-import": "^16.1.1",
