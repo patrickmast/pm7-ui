@@ -1,20 +1,27 @@
-<!-- AI-ONLY DOCUMENTATION -->
+<!-- AI-ONLY DOCUMENTATION v2.0 -->
+<!-- This documentation is EXCLUSIVELY for AI coding agents -->
+<!-- NO human-friendly content allowed -->
+<!-- Reference: /README-AI-HowToDocument.md -->
+
 ---
 type: ai-agent-documentation
+version: 2.0
+component: Input
+status: stable
 audience: ai-coding-agents-only
-style: exact-patterns
 human-readable: false
-documentation-rules:
-  - NO storytelling or explanations
-  - ONLY exact code patterns
-  - Binary IF/THEN decisions
-  - Explicit anti-patterns with NEVER/ALWAYS
-  - Copy-paste ready code blocks
+category: forms
+framework-support:
+  - vanilla: true
+  - react: true
+  - vue: true
+  - angular: true
+  - svelte: true
 ---
 
 # Component: Input
 
-Form input components for user data entry.
+DEFINITION: The Input component provides styled, accessible, and framework-agnostic form controls. It is a CSS-only component, meaning it relies on standard HTML elements and CSS classes for styling and behavior.
 
 ## Installation
 
@@ -23,6 +30,8 @@ npm install @pm7/core
 ```
 
 ### CSS Import
+REQUIRED: Import CSS from `@pm7/core/dist/pm7.css`
+NEVER: Import from `@pm7/core/dist/index.css`
 
 ```javascript
 // ES modules
@@ -34,115 +43,52 @@ import '@pm7/core/dist/pm7.css';
 
 ## Required Structure
 
-### Text Input
+The most basic implementation of a PM7 Input requires a standard HTML `<input>` element with the `.pm7-input` class.
+
 ```html
+<!-- EXACT pattern - NO deviations allowed -->
 <input type="text" class="pm7-input">
 ```
 
-### Input with Label
+### Structural Rules
+- **ALWAYS**: For accessible forms, wrap the input and its corresponding `<label>` in a `div` with the class `.pm7-form-group`.
+- **ALWAYS**: Associate labels with inputs using the `for` attribute on the label and a matching `id` attribute on the input.
+- **NEVER**: Use a `placeholder` attribute as a replacement for a `<label>`.
+
+## JavaScript API
+
+This is a CSS-only component. It does **NOT** have a JavaScript API.
+- **No initialization**: No `data-pm7-input` attribute or `new PM7Input()` constructor.
+- **No methods**: No `.open()`, `.close()`, etc.
+- **No events**: No `pm7:input:change` events are dispatched. Rely on standard DOM events (`input`, `change`, `blur`).
+
+## CSS Classes
+
+| Class | Required | When | Effect |
+|-------|----------|------|--------|
+| `.pm7-input` | YES | ALWAYS for `<input>` and `<textarea>` | Applies base styling. |
+| `.pm7-select` | YES | ALWAYS for `<select>` | Applies base styling for select dropdowns. |
+| `.pm7-checkbox` | YES | ALWAYS for checkbox container | Base class for custom checkboxes. |
+| `.pm7-radio` | YES | ALWAYS for radio button container | Base class for custom radio buttons. |
+| `.pm7-switch` | YES | ALWAYS for switch container | Base class for custom toggle switches. |
+| `.pm7-form-group` | NO | Recommended | Wraps a label and input for correct spacing. |
+| `.pm7-label` | NO | Recommended | Styles the form label. |
+| `.pm7-input--sm` | NO | For smaller inputs | Decreases input height and font size. |
+| `.pm7-input--lg` | NO | For larger inputs | Increases input height and font size. |
+| `.pm7-input--error` | NO | For validation error state | Applies a red border and focus ring. |
+| `.pm7-input--success` | NO | For validation success state | Applies a green border and focus ring. |
+| `.pm7-input--with-icon-left` | NO | When an icon is on the left | Adds padding-left for the icon. |
+| `.pm7-input--with-icon-right`| NO | When an icon is on the right | Adds padding-right for the icon. |
+| `.pm7-input-icon-wrapper` | NO | When using icons | A wrapper to position icons over the input. |
+| `.pm7-input-group` | NO | For addons/buttons | Groups an input with another element. |
+
+## Patterns
+
+### Pattern: Input with Label (Recommended)
 ```html
 <div class="pm7-form-group">
   <label for="input-id" class="pm7-label">Label</label>
   <input type="text" id="input-id" class="pm7-input">
-</div>
-```
-
-### Textarea
-```html
-<textarea class="pm7-input" rows="4"></textarea>
-```
-
-### Select
-```html
-<select class="pm7-select">
-  <option value="">Choose</option>
-  <option value="1">Option 1</option>
-</select>
-```
-
-### Checkbox
-```html
-<label class="pm7-checkbox">
-  <input type="checkbox">
-  <span class="pm7-checkbox-indicator"></span>
-  <span class="pm7-checkbox-label">Label</span>
-</label>
-```
-
-### Radio
-```html
-<label class="pm7-radio">
-  <input type="radio" name="group">
-  <span class="pm7-radio-indicator"></span>
-  <span class="pm7-radio-label">Label</span>
-</label>
-```
-
-### Switch
-```html
-<label class="pm7-switch">
-  <input type="checkbox">
-  <span class="pm7-switch-track">
-    <span class="pm7-switch-thumb"></span>
-  </span>
-  <span class="pm7-switch-label">Label</span>
-</label>
-```
-
-## CSS Classes
-
-| Class | Required | Usage |
-|-------|----------|-------|
-| `.pm7-input` | YES | Base input/textarea class |
-| `.pm7-input--sm` | NO | Small size |
-| `.pm7-input--lg` | NO | Large size |
-| `.pm7-input--error` | NO | Error state |
-| `.pm7-input--success` | NO | Success state |
-| `.pm7-input--with-icon-left` | NO | Left icon padding |
-| `.pm7-input--with-icon-right` | NO | Right icon padding |
-| `.pm7-input--no-resize` | NO | Disable textarea resize |
-| `.pm7-select` | YES | Select element |
-| `.pm7-select--sm` | NO | Small select |
-| `.pm7-select--lg` | NO | Large select |
-| `.pm7-checkbox` | YES | Checkbox container |
-| `.pm7-checkbox-indicator` | YES | Checkbox visual |
-| `.pm7-checkbox-label` | YES | Checkbox text |
-| `.pm7-radio` | YES | Radio container |
-| `.pm7-radio-indicator` | YES | Radio visual |
-| `.pm7-radio-label` | YES | Radio text |
-| `.pm7-switch` | YES | Switch container |
-| `.pm7-switch-track` | YES | Switch background |
-| `.pm7-switch-thumb` | YES | Switch toggle |
-| `.pm7-switch-label` | YES | Switch text |
-| `.pm7-form-group` | NO | Field container |
-| `.pm7-label` | NO | Label element |
-| `.pm7-label--required` | NO | Required indicator |
-| `.pm7-helper-text` | NO | Helper text |
-| `.pm7-helper-text--error` | NO | Error text |
-| `.pm7-helper-text--success` | NO | Success text |
-| `.pm7-input-icon-wrapper` | NO | Icon container |
-| `.pm7-input-icon` | NO | Icon styling |
-| `.pm7-input-icon--left` | NO | Left icon |
-| `.pm7-input-icon--right` | NO | Right icon |
-| `.pm7-input-group` | NO | Addon container |
-| `.pm7-input-addon` | NO | Addon element |
-
-## Patterns
-
-### Pattern: Required Field
-```html
-<div class="pm7-form-group">
-  <label for="name" class="pm7-label pm7-label--required">Name</label>
-  <input type="text" id="name" class="pm7-input" required>
-</div>
-```
-
-### Pattern: Field with Helper Text
-```html
-<div class="pm7-form-group">
-  <label for="email" class="pm7-label">Email</label>
-  <input type="email" id="email" class="pm7-input">
-  <p class="pm7-helper-text">We'll never share your email</p>
 </div>
 ```
 
@@ -155,36 +101,11 @@ import '@pm7/core/dist/pm7.css';
 </div>
 ```
 
-### Pattern: Success State
-```html
-<div class="pm7-form-group">
-  <label for="email-verify" class="pm7-label">Email</label>
-  <input type="email" id="email-verify" class="pm7-input pm7-input--success" value="user@example.com">
-  <p class="pm7-helper-text pm7-helper-text--success">Email verified!</p>
-</div>
-```
-
 ### Pattern: Input with Left Icon
 ```html
 <div class="pm7-input-icon-wrapper">
   <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16">...</svg>
   <input type="search" class="pm7-input pm7-input--with-icon-left" placeholder="Search...">
-</div>
-```
-
-### Pattern: Input with Right Icon
-```html
-<div class="pm7-input-icon-wrapper">
-  <input type="password" class="pm7-input pm7-input--with-icon-right" placeholder="Password">
-  <svg class="pm7-input-icon pm7-input-icon--right" width="16" height="16">...</svg>
-</div>
-```
-
-### Pattern: Input Group with Addon
-```html
-<div class="pm7-input-group">
-  <span class="pm7-input-addon">https://</span>
-  <input type="text" class="pm7-input" placeholder="yoursite.com">
 </div>
 ```
 
@@ -196,291 +117,142 @@ import '@pm7/core/dist/pm7.css';
 </div>
 ```
 
-### Pattern: Checkbox Group
+### Pattern: Checkbox
+```html
+<label class="pm7-checkbox">
+  <input type="checkbox">
+  <span class="pm7-checkbox-indicator"></span>
+  <span class="pm7-checkbox-label">Label</span>
+</label>
+```
+
+### Pattern: Select
 ```html
 <div class="pm7-form-group">
-  <p class="pm7-label">Select options:</p>
-  <label class="pm7-checkbox">
-    <input type="checkbox" checked>
-    <span class="pm7-checkbox-indicator"></span>
-    <span class="pm7-checkbox-label">Option 1</span>
-  </label>
-  <label class="pm7-checkbox">
-    <input type="checkbox">
-    <span class="pm7-checkbox-indicator"></span>
-    <span class="pm7-checkbox-label">Option 2</span>
-  </label>
-</div>
-```
-
-### Pattern: Radio Group
-```html
-<div class="pm7-form-group">
-  <p class="pm7-label">Choose one:</p>
-  <label class="pm7-radio">
-    <input type="radio" name="choice" value="1" checked>
-    <span class="pm7-radio-indicator"></span>
-    <span class="pm7-radio-label">Option 1</span>
-  </label>
-  <label class="pm7-radio">
-    <input type="radio" name="choice" value="2">
-    <span class="pm7-radio-indicator"></span>
-    <span class="pm7-radio-label">Option 2</span>
-  </label>
-</div>
-```
-
-### Pattern: Switch Group
-```html
-<div class="pm7-form-group">
-  <p class="pm7-label">Settings</p>
-  <label class="pm7-switch">
-    <input type="checkbox" checked>
-    <span class="pm7-switch-track">
-      <span class="pm7-switch-thumb"></span>
-    </span>
-    <span class="pm7-switch-label">Email notifications</span>
-  </label>
-  <label class="pm7-switch">
-    <input type="checkbox">
-    <span class="pm7-switch-track">
-      <span class="pm7-switch-thumb"></span>
-    </span>
-    <span class="pm7-switch-label">SMS notifications</span>
-  </label>
-</div>
-```
-
-### Pattern: Non-resizable Textarea
-```html
-<textarea class="pm7-input pm7-input--no-resize" rows="4"></textarea>
-```
-
-### Pattern: Complete Form
-```html
-<form>
-  <div class="pm7-form-group">
-    <label for="form-name" class="pm7-label pm7-label--required">Name</label>
-    <input type="text" id="form-name" class="pm7-input" required>
-  </div>
-  
-  <div class="pm7-form-group">
-    <label for="form-email" class="pm7-label pm7-label--required">Email</label>
-    <input type="email" id="form-email" class="pm7-input" required>
-    <p class="pm7-helper-text">We'll never share your email</p>
-  </div>
-  
-  <div class="pm7-form-group">
     <label for="form-country" class="pm7-label">Country</label>
     <select id="form-country" class="pm7-select">
       <option value="">Select country</option>
       <option value="us">United States</option>
-      <option value="uk">United Kingdom</option>
     </select>
-  </div>
-  
-  <div class="pm7-form-group">
-    <label for="form-bio" class="pm7-label">Bio</label>
-    <textarea id="form-bio" class="pm7-input" rows="4"></textarea>
-  </div>
-  
-  <div class="pm7-form-group">
-    <label class="pm7-checkbox">
-      <input type="checkbox" required>
-      <span class="pm7-checkbox-indicator"></span>
-      <span class="pm7-checkbox-label">I agree to the terms</span>
-    </label>
-  </div>
-  
-  <button type="submit" class="pm7-button pm7-button--primary">Submit</button>
-</form>
-```
-
-## Input Types
-
-IF type="text" THEN standard text input
-IF type="email" THEN email validation
-IF type="password" THEN masked input
-IF type="number" THEN numeric input
-IF type="tel" THEN telephone input
-IF type="url" THEN URL validation
-IF type="search" THEN search input
-IF type="date" THEN date picker
-
-## Anti-Patterns
-
-### Anti-Pattern: Missing Form Group
-```html
-<!-- NEVER -->
-<label class="pm7-label">Email</label>
-<input type="email" class="pm7-input">
-
-<!-- ALWAYS -->
-<div class="pm7-form-group">
-  <label for="email" class="pm7-label">Email</label>
-  <input type="email" id="email" class="pm7-input">
 </div>
 ```
 
-### Anti-Pattern: Multiple Size Classes
-```html
-<!-- NEVER -->
-<input class="pm7-input pm7-input--sm pm7-input--lg">
+## Anti-Patterns
 
-<!-- ALWAYS -->
-<input class="pm7-input pm7-input--lg">
-```
-
-### Anti-Pattern: Missing Label Association
-```html
-<!-- NEVER -->
-<label class="pm7-label">Email</label>
-<input type="email" class="pm7-input">
-
-<!-- ALWAYS -->
-<label for="user-email" class="pm7-label">Email</label>
-<input type="email" id="user-email" class="pm7-input">
-```
-
-### Anti-Pattern: Placeholder as Label
+### NEVER: Use placeholder as a label
 ```html
 <!-- NEVER -->
 <input type="text" class="pm7-input" placeholder="Full Name">
 
-<!-- ALWAYS -->
+<!-- BECAUSE -->
+Placeholders disappear on input, have low contrast, and are not a substitute for a persistent, accessible label.
+
+<!-- INSTEAD -->
 <div class="pm7-form-group">
   <label for="name" class="pm7-label">Full Name</label>
-  <input type="text" id="name" class="pm7-input" placeholder="Enter your full name">
+  <input type="text" id="name" class="pm7-input">
 </div>
 ```
 
-### Anti-Pattern: Wrong Checkbox Structure
+### NEVER: Omit `for` and `id` attributes
 ```html
 <!-- NEVER -->
-<label class="pm7-checkbox">
-  <input type="checkbox">
-  Agree to terms
-</label>
+<label class="pm7-label">Email</label>
+<input type="email" class="pm7-input">
 
-<!-- ALWAYS -->
-<label class="pm7-checkbox">
-  <input type="checkbox">
-  <span class="pm7-checkbox-indicator"></span>
-  <span class="pm7-checkbox-label">Agree to terms</span>
-</label>
+<!-- BECAUSE -->
+The label is not programmatically associated with the input. This breaks accessibility for screen readers and prevents users from clicking the label to focus the input.
+
+<!-- INSTEAD -->
+<label for="user-email" class="pm7-label">Email</label>
+<input type="email" id="user-email" class="pm7-input">
 ```
 
-### Anti-Pattern: Missing ARIA for Errors
+### NEVER: Forget ARIA attributes for errors
 ```html
 <!-- NEVER -->
 <input type="email" class="pm7-input pm7-input--error">
+<p class="pm7-helper-text pm7-helper-text--error">Invalid email</p>
 
-<!-- ALWAYS -->
+<!-- BECAUSE -->
+Screen readers will not announce that the field has an error or what the error message is.
+
+<!-- INSTEAD -->
 <input type="email" class="pm7-input pm7-input--error" aria-invalid="true" aria-describedby="email-error">
 <p id="email-error" class="pm7-helper-text pm7-helper-text--error">Invalid email</p>
 ```
 
 ## Rules
 
-- ALWAYS: Use `pm7-form-group` to wrap field elements
-- ALWAYS: Associate labels with inputs using `for` and `id`
-- ALWAYS: Include all required spans for checkbox/radio/switch
-- ALWAYS: Add `aria-invalid` and `aria-describedby` for errors
-- ALWAYS: Use semantic HTML5 input types
-- NEVER: Use placeholder as the only label
-- NEVER: Mix multiple size modifier classes
-- NEVER: Style states without proper ARIA attributes
-- NEVER: Omit required structure elements
+### ALWAYS
+- **ALWAYS**: Use `.pm7-form-group` to wrap a label and its corresponding input for correct spacing and semantic grouping.
+- **ALWAYS**: Associate labels with inputs using matching `for` and `id` attributes.
+- **ALWAYS**: For custom controls like `.pm7-checkbox`, `.pm7-radio`, and `.pm7-switch`, include all required child `<span>` elements as shown in the patterns.
+- **ALWAYS**: When applying an error state (`.pm7-input--error`), also set `aria-invalid="true"` and link to the error message via `aria-describedby`.
+- **ALWAYS**: Use the correct semantic HTML element (`<input>`, `<textarea>`, `<select>`).
+
+### NEVER
+- **NEVER**: Use a `placeholder` as the only label for an input.
+- **NEVER**: Apply multiple size modifiers (e.g., `.pm7-input--sm` and `.pm7-input--lg`) to the same element.
+- **NEVER**: Omit the required `<span>` structure for checkboxes, radios, or switches.
+- **NEVER**: Manually style error states without using the provided classes and ARIA attributes.
 
 ## CSS Variables
 
 | Variable | Default | Usage |
 |----------|---------|-------|
 | `--pm7-input-height` | `2.5rem` | Default height |
-| `--pm7-input-height-sm` | `2rem` | Small height |
-| `--pm7-input-height-lg` | `3rem` | Large height |
 | `--pm7-input-border-radius` | `0.375rem` | Border radius |
-| `--pm7-input-border-width` | `1px` | Border width |
-| `--pm7-input-padding-x` | `0.75rem` | Horizontal padding |
-| `--pm7-input-focus-ring-width` | `2px` | Focus ring width |
 | `--pm7-input-focus-ring-color` | `var(--pm7-primary)` | Focus color |
 | `--pm7-input-font-size` | `0.875rem` | Default font size |
-| `--pm7-input-font-size-sm` | `0.8125rem` | Small font size |
-| `--pm7-input-font-size-lg` | `1rem` | Large font size |
-
-## Attributes
-
-| Attribute | Usage |
-|-----------|-------|
-| `type` | Input type |
-| `placeholder` | Placeholder text |
-| `disabled` | Disabled state |
-| `readonly` | Read-only state |
-| `required` | Required field |
-| `pattern` | Validation pattern |
-| `min`/`max` | Numeric limits |
-| `minlength`/`maxlength` | Character limits |
-| `rows` | Textarea rows |
-| `aria-invalid` | Error state |
-| `aria-describedby` | Helper text ID |
 
 ## Accessibility
 
-- Label association via `for` and `id`
-- Required fields marked with `required` attribute
-- Error states with `aria-invalid="true"`
-- Helper text linked with `aria-describedby`
-- Keyboard navigation preserved
-- Focus states visible
+- **Focus**: Focus management is handled by the browser. PM7 provides clear, visible focus states.
+- **Keyboard**: All inputs are keyboard accessible using standard browser behavior (Tab, Shift+Tab, Space, Arrow keys).
+- **ARIA**: It is **MANDATORY** to apply `aria-invalid` and `aria-describedby` for validation states.
+- **Screen reader**: Correctly structured forms with associated labels are fully accessible.
 
-## Framework Usage
+## Complete Example: User Registration Form
 
-### React
-```jsx
-'use client'
+SCENARIO: A complete, accessible, and responsive registration form demonstrating various input types, validation states, and layout patterns.
 
-<div className="pm7-form-group">
-  <label htmlFor="react-input" className="pm7-label">Label</label>
-  <input type="text" id="react-input" className="pm7-input" />
-</div>
-```
-
-### Vue
-```vue
-<template>
+```html
+<form class="registration-form" id="registration">
+  <h1>Create Account</h1>
+  
   <div class="pm7-form-group">
-    <label for="vue-input" class="pm7-label">Label</label>
-    <input type="text" id="vue-input" class="pm7-input" v-model="value">
+    <label for="first-name" class="pm7-label pm7-label--required">First Name</label>
+    <input type="text" id="first-name" name="firstName" class="pm7-input" required>
   </div>
-</template>
+  
+  <div class="pm7-form-group">
+    <label for="email" class="pm7-label pm7-label--required">Email</label>
+    <div class="pm7-input-icon-wrapper">
+      <svg class="pm7-input-icon pm7-input-icon--left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m22 7-10 5L2 7"></path>
+      </svg>
+      <input type="email" id="email" name="email" class="pm7-input pm7-input--with-icon-left" required aria-describedby="email-error" placeholder="you@example.com">
+    </div>
+    <p id="email-error" class="pm7-helper-text pm7-helper-text--error" style="display: none;"></p>
+  </div>
+  
+  <div class="pm7-form-group">
+    <label for="password" class="pm7-label pm7-label--required">Password</label>
+    <input type="password" id="password" name="password" class="pm7-input" required minlength="8">
+  </div>
+  
+  <div class="pm7-form-group">
+    <label class="pm7-checkbox">
+      <input type="checkbox" name="terms" required>
+      <span class="pm7-checkbox-indicator"></span>
+      <span class="pm7-checkbox-label">
+        I agree to the <a href="#">Terms of Service</a>
+      </span>
+    </label>
+  </div>
+  
+  <button type="submit" class="pm7-button pm7-button--primary">Create Account</button>
+</form>
 ```
-
-### Next.js
-```jsx
-'use client'
-
-export default function Form() {
-  return (
-    <form>
-      <div className="pm7-form-group">
-        <label htmlFor="name" className="pm7-label pm7-label--required">
-          Name
-        </label>
-        <input 
-          type="text" 
-          id="name" 
-          className="pm7-input" 
-          required 
-        />
-      </div>
-    </form>
-  );
-}
-```
-
-## Related Components
-
-- Button: Form submission
-- Card: Form containers
-- Dialog: Form in modals
-- Toast: Form feedback

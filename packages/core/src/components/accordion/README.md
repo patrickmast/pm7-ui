@@ -328,6 +328,8 @@ USE:
 
 RESULT: FAQ with spaced items, multiple can be open
 
+## Anti-Patterns
+
 ### Anti-Pattern: Missing Inner Wrapper
 NEVER:
 ```html
@@ -366,6 +368,92 @@ NEVER:
 BECAUSE: Event handling and state management conflicts
 INSTEAD: Use separate accordions at same level
 
+### Anti-Pattern: Custom Open/Close Animations
+NEVER:
+```css
+/* Custom CSS animations on accordion items */
+.pm7-accordion-content {
+  transition: max-height 0.5s ease-in-out !important;
+}
+
+.pm7-accordion-item[data-state="open"] .pm7-accordion-content {
+  max-height: 500px !important;
+}
+```
+
+BECAUSE: 
+- Breaks built-in JavaScript-controlled animations
+- Fixed max-height can cut off content
+- !important overrides cause specificity conflicts
+- Custom timings conflict with JavaScript state management
+
+INSTEAD: Use configuration options:
+```javascript
+const accordion = new PM7.Accordion(element, {
+  animation: true,
+  duration: 300  // Customize duration via options
+})
+```
+
+### Anti-Pattern: Manual State Management
+NEVER:
+```javascript
+// Manually toggling classes
+accordionItem.addEventListener('click', () => {
+  accordionItem.classList.toggle('open')
+  accordionItem.setAttribute('data-state', 'open')
+  accordionContent.style.display = 'block'
+})
+```
+
+BECAUSE:
+- Conflicts with PM7's internal state management
+- Breaks keyboard navigation
+- Events won't fire correctly
+- Animation timing issues
+
+INSTEAD: Use the JavaScript API:
+```javascript
+const accordion = element.PM7Accordion
+accordion.toggle(0)  // Use built-in methods
+```
+
+### Anti-Pattern: Incorrect Icon Markup
+NEVER:
+```html
+<!-- Icon outside the button -->
+<div class="pm7-accordion-item">
+  <svg class="pm7-accordion-icon">...</svg>
+  <button class="pm7-accordion-trigger">Title</button>
+</div>
+
+<!-- Icon without proper class -->
+<button class="pm7-accordion-trigger">
+  <span>Title</span>
+  <svg width="16" height="16">...</svg>
+</button>
+
+<!-- Multiple icons -->
+<button class="pm7-accordion-trigger">
+  <svg class="pm7-accordion-icon">...</svg>
+  <span>Title</span>
+  <svg class="pm7-accordion-icon">...</svg>
+</button>
+```
+
+BECAUSE:
+- Icon must be inside button for proper click handling
+- Missing class breaks rotation animation
+- Multiple icons cause conflicting animations
+
+INSTEAD: Use correct icon structure:
+```html
+<button class="pm7-accordion-trigger">
+  <span>Title</span>
+  <svg class="pm7-accordion-icon" width="16" height="16">...</svg>
+</button>
+```
+
 ## Attributes
 
 | Attribute | Type | Values | Default | Required | Effect |
@@ -394,30 +482,33 @@ INSTEAD: Use separate accordions at same level
 
 ### Methods
 
-| Method | Parameters | Returns | Throws | Usage |
-|--------|------------|---------|--------|--------|
-| open() | index: number | void | Error if invalid index | accordion.open(0) |
-| close() | index: number | void | Error if invalid index | accordion.close(0) |
-| toggle() | index: number | void | Error if invalid index | accordion.toggle(0) |
-| openAll() | none | void | never | accordion.openAll() |
-| closeAll() | none | void | never | accordion.closeAll() |
-| isOpen() | index: number | boolean | Error if invalid index | if (accordion.isOpen(0)) |
-| destroy() | none | void | never | accordion.destroy() |
+| Method | Parameters | Type | Default | Required | Returns | Throws | Description |
+|--------|------------|------|---------|----------|---------|--------|-------------|
+| open() | index | number | - | YES | void | Error if invalid index | Opens accordion item at specified index |
+| close() | index | number | - | YES | void | Error if invalid index | Closes accordion item at specified index |
+| toggle() | index | number | - | YES | void | Error if invalid index | Toggles accordion item at specified index |
+| openAll() | - | - | - | - | void | never | Opens all accordion items (requires allowMultiple) |
+| closeAll() | - | - | - | - | void | never | Closes all accordion items |
+| isOpen() | index | number | - | YES | boolean | Error if invalid index | Returns true if item at index is open |
+| destroy() | - | - | - | - | void | never | Removes all event listeners and cleans up |
 
 ### Properties
 
-| Property | Type | Readonly | Default | Usage |
-|----------|------|----------|---------|--------|
-| element | HTMLElement | YES | - | accordion.element |
-| items | NodeList | YES | - | accordion.items |
-| options | object | YES | {} | accordion.options |
+| Property | Type | Readonly | Default | Description |
+|----------|------|----------|---------|-------------|
+| element | HTMLElement | YES | - | The accordion container element |
+| items | NodeList | YES | - | All accordion item elements |
+| options | object | YES | {} | Configuration options passed during initialization |
+| allowMultiple | boolean | YES | false | Whether multiple items can be open |
 
 ### Events
 
-| Event | Bubbles | Cancelable | Detail | Usage |
-|-------|---------|------------|--------|--------|
-| pm7-accordion-open | YES | NO | {index: number, item: HTMLElement} | element.addEventListener('pm7-accordion-open', handler) |
-| pm7-accordion-close | YES | NO | {index: number, item: HTMLElement} | element.addEventListener('pm7-accordion-close', handler) |
+| Event | Bubbles | Cancelable | Detail | When Fired |
+|-------|---------|------------|--------|------------|
+| pm7-accordion-open | YES | NO | {index: number, item: HTMLElement} | After an item opens |
+| pm7-accordion-close | YES | NO | {index: number, item: HTMLElement} | After an item closes |
+| pm7-accordion-beforeopen | YES | YES | {index: number, item: HTMLElement} | Before an item opens (preventable) |
+| pm7-accordion-beforeclose | YES | YES | {index: number, item: HTMLElement} | Before an item closes (preventable) |
 
 ### Instance Access
 
@@ -426,8 +517,13 @@ INSTEAD: Use separate accordions at same level
 const element = document.querySelector('[data-pm7-accordion]')
 const accordion = element.PM7Accordion
 
-// Direct instantiation
-const accordion = new PM7.Accordion(element, options)
+// Direct instantiation with options
+const accordion = new PM7.Accordion(element, {
+  allowMultiple: false,  // Only one item open at a time
+  defaultOpen: 0,        // Index of initially open item
+  animation: true,       // Enable/disable animations
+  duration: 300         // Animation duration in ms
+})
 ```
 
 ## Framework Integration
@@ -472,143 +568,390 @@ IF Svelte:
   })
 ```
 
-## Complete Examples
+## Complete Examples in Context
 
-### Example: Basic FAQ
-SCENARIO: FAQ section with single open item
+### Example: Settings Page with Accordion Sections
+SCENARIO: Application settings organized in collapsible sections
 ```html
 <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
+  <style>
+    .settings-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="pm7-accordion" data-pm7-accordion>
-    <div class="pm7-accordion-item">
-      <button class="pm7-accordion-trigger">
-        <span>What is PM7?</span>
-        <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
-      <div class="pm7-accordion-content">
-        <div class="pm7-accordion-content-inner">
-          <p>PM7 is a modern component library for web applications.</p>
+  <div class="settings-container">
+    <h1>Application Settings</h1>
+    
+    <div class="pm7-accordion pm7-accordion--bordered" data-pm7-accordion data-default-open="0">
+      <!-- General Settings -->
+      <div class="pm7-accordion-item">
+        <button class="pm7-accordion-trigger">
+          <svg class="pm7-accordion-icon pm7-accordion-icon--start" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span>General Settings</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <div class="setting-row">
+              <label for="language">Language</label>
+              <select id="language" class="pm7-select">
+                <option>English</option>
+                <option>Nederlands</option>
+                <option>Deutsch</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <label for="theme">Theme</label>
+              <select id="theme" class="pm7-select">
+                <option>Light</option>
+                <option>Dark</option>
+                <option>System</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <label for="timezone">Timezone</label>
+              <select id="timezone" class="pm7-select">
+                <option>UTC</option>
+                <option>Europe/Amsterdam</option>
+                <option>America/New_York</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="pm7-accordion-item">
-      <button class="pm7-accordion-trigger">
-        <span>How do I install it?</span>
-        <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
-      <div class="pm7-accordion-content">
-        <div class="pm7-accordion-content-inner">
-          <p>Run: npm install @pm7/core</p>
+      
+      <!-- Privacy Settings -->
+      <div class="pm7-accordion-item">
+        <button class="pm7-accordion-trigger">
+          <svg class="pm7-accordion-icon pm7-accordion-icon--start" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span>Privacy & Security</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <div class="setting-row">
+              <label for="analytics">Allow analytics</label>
+              <input type="checkbox" id="analytics" class="pm7-checkbox">
+            </div>
+            <div class="setting-row">
+              <label for="2fa">Two-factor authentication</label>
+              <button class="pm7-button pm7-button--small">Configure</button>
+            </div>
+            <div class="setting-row">
+              <label for="sessions">Active sessions</label>
+              <button class="pm7-button pm7-button--small pm7-button--secondary">View All</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Notification Settings -->
+      <div class="pm7-accordion-item">
+        <button class="pm7-accordion-trigger">
+          <svg class="pm7-accordion-icon pm7-accordion-icon--start" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span>Notifications</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <div class="setting-row">
+              <label for="email-notifications">Email notifications</label>
+              <input type="checkbox" id="email-notifications" class="pm7-checkbox" checked>
+            </div>
+            <div class="setting-row">
+              <label for="push-notifications">Push notifications</label>
+              <input type="checkbox" id="push-notifications" class="pm7-checkbox">
+            </div>
+            <div class="setting-row">
+              <label for="notification-sound">Notification sound</label>
+              <select id="notification-sound" class="pm7-select">
+                <option>Default</option>
+                <option>Ding</option>
+                <option>None</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Advanced Settings -->
+      <div class="pm7-accordion-item">
+        <button class="pm7-accordion-trigger">
+          <svg class="pm7-accordion-icon pm7-accordion-icon--start" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span>Advanced</span>
+        </button>
+        <div class="pm7-accordion-content">
+          <div class="pm7-accordion-content-inner">
+            <div class="setting-row">
+              <label>Export data</label>
+              <button class="pm7-button pm7-button--small">Download</button>
+            </div>
+            <div class="setting-row">
+              <label>Clear cache</label>
+              <button class="pm7-button pm7-button--small pm7-button--destructive">Clear</button>
+            </div>
+            <div class="setting-row">
+              <label>Developer mode</label>
+              <input type="checkbox" id="dev-mode" class="pm7-checkbox">
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   
   <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+  <script>
+    // Save settings on change
+    document.querySelectorAll('select, input').forEach(input => {
+      input.addEventListener('change', (e) => {
+        console.log('Setting changed:', e.target.id, e.target.value || e.target.checked)
+        // Save to backend/localStorage
+      })
+    })
+  </script>
 </body>
 </html>
 ```
 
-RESULT: FAQ with click-to-expand sections, only one open at a time
+RESULT: Organized settings page with collapsible sections, first section open by default
 
-### Example: React Accordion Component
-SCENARIO: Reusable accordion for React apps
-```jsx
-import { useEffect } from 'react'
-import '@pm7/core/dist/pm7.min.css'
-
-export function AccordionFAQ({ items }) {
-  useEffect(() => {
-    import('@pm7/core').then(() => {
-      window.PM7?.initFramework()
-    })
-  }, [])
-  
-  return (
-    <div className="pm7-accordion pm7-accordion--spaced" data-pm7-accordion data-allow-multiple="true">
-      {items.map((item, index) => (
-        <div key={index} className="pm7-accordion-item">
-          <button className="pm7-accordion-trigger">
-            <span>{item.question}</span>
-            <svg className="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+### Example: FAQ Page with Search and Categories
+SCENARIO: Searchable FAQ with categorized questions
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
+  <style>
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .faq-search {
+      margin-bottom: 2rem;
+    }
+    .faq-category {
+      margin-bottom: 2rem;
+    }
+    .faq-category h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--pm7-foreground);
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--pm7-muted-foreground);
+    }
+    .highlight {
+      background-color: var(--pm7-accent);
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="faq-container">
+    <h1>Frequently Asked Questions</h1>
+    
+    <!-- Search Box -->
+    <div class="faq-search">
+      <input 
+        type="text" 
+        id="faq-search" 
+        class="pm7-input" 
+        placeholder="Search FAQ..."
+        autocomplete="off"
+      >
+    </div>
+    
+    <!-- Getting Started Category -->
+    <div class="faq-category" data-category="getting-started">
+      <h2>Getting Started</h2>
+      <div class="pm7-accordion pm7-accordion--spaced" data-pm7-accordion data-allow-multiple="true">
+        <div class="pm7-accordion-item" data-searchable>
+          <button class="pm7-accordion-trigger">
+            <span>How do I create an account?</span>
+            <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <div className="pm7-accordion-content">
-            <div className="pm7-accordion-content-inner">
-              <p>{item.answer}</p>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>To create an account:</p>
+              <ol>
+                <li>Click the "Sign Up" button in the top right corner</li>
+                <li>Enter your email address and choose a password</li>
+                <li>Verify your email by clicking the link we send you</li>
+                <li>Complete your profile information</li>
+              </ol>
+              <p>After verification, you'll have full access to all features.</p>
             </div>
           </div>
         </div>
-      ))}
-    </div>
-  )
-}
-```
-
-RESULT: Dynamic accordion with multiple items allowed open
-
-### Example: Programmatic Control
-SCENARIO: Control accordion via JavaScript
-```javascript
-// Add accordion to page
-document.getElementById('content').innerHTML = `
-  <div class="pm7-accordion" data-pm7-accordion id="my-accordion">
-    <div class="pm7-accordion-item">
-      <button class="pm7-accordion-trigger">
-        <span>Step 1: Install</span>
-        <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
-      <div class="pm7-accordion-content">
-        <div class="pm7-accordion-content-inner">
-          <p>Installation instructions here</p>
+        
+        <div class="pm7-accordion-item" data-searchable>
+          <button class="pm7-accordion-trigger">
+            <span>What are the system requirements?</span>
+            <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>Minimum requirements:</p>
+              <ul>
+                <li>Modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)</li>
+                <li>JavaScript enabled</li>
+                <li>Stable internet connection</li>
+                <li>Screen resolution of 1024x768 or higher</li>
+              </ul>
+              <p>For the best experience, we recommend using the latest version of Chrome or Firefox.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="pm7-accordion-item">
-      <button class="pm7-accordion-trigger">
-        <span>Step 2: Configure</span>
-        <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
-      <div class="pm7-accordion-content">
-        <div class="pm7-accordion-content-inner">
-          <p>Configuration details here</p>
+    
+    <!-- Billing Category -->
+    <div class="faq-category" data-category="billing">
+      <h2>Billing & Payments</h2>
+      <div class="pm7-accordion pm7-accordion--spaced" data-pm7-accordion data-allow-multiple="true">
+        <div class="pm7-accordion-item" data-searchable>
+          <button class="pm7-accordion-trigger">
+            <span>What payment methods do you accept?</span>
+            <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>We accept the following payment methods:</p>
+              <ul>
+                <li>Credit cards (Visa, MasterCard, American Express)</li>
+                <li>Debit cards with Visa/MasterCard logo</li>
+                <li>PayPal</li>
+                <li>Bank transfer (for annual plans)</li>
+                <li>iDEAL (Netherlands)</li>
+                <li>SEPA Direct Debit (EU)</li>
+              </ul>
+              <p>All payments are processed securely through our payment partners.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pm7-accordion-item" data-searchable>
+          <button class="pm7-accordion-trigger">
+            <span>Can I get a refund?</span>
+            <svg class="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="pm7-accordion-content">
+            <div class="pm7-accordion-content-inner">
+              <p>Yes, we offer a 30-day money-back guarantee for all new subscriptions.</p>
+              <p>To request a refund:</p>
+              <ol>
+                <li>Contact our support team within 30 days of purchase</li>
+                <li>Provide your order number and reason for refund</li>
+                <li>We'll process your refund within 5-7 business days</li>
+              </ol>
+              <p>Note: Refunds are not available for add-on services or after the 30-day period.</p>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+    
+    <!-- No results message -->
+    <div class="no-results" style="display: none;">
+      <p>No questions found matching your search.</p>
     </div>
   </div>
-`
-
-// Initialize and get instance
-window.PM7.init()
-const accordion = document.getElementById('my-accordion').PM7Accordion
-
-// Programmatic control
-accordion.open(0)  // Open first item
-setTimeout(() => {
-  accordion.close(0)  // Close first item
-  accordion.open(1)   // Open second item
-}, 2000)
-
-// Listen for events
-document.getElementById('my-accordion').addEventListener('pm7-accordion-open', (e) => {
-  console.log('Opened item:', e.detail.index)
-})
+  
+  <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+  <script>
+    // Search functionality
+    const searchInput = document.getElementById('faq-search')
+    const categories = document.querySelectorAll('.faq-category')
+    const noResults = document.querySelector('.no-results')
+    
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase()
+      let hasResults = false
+      
+      categories.forEach(category => {
+        const items = category.querySelectorAll('[data-searchable]')
+        let categoryHasResults = false
+        
+        items.forEach(item => {
+          const text = item.textContent.toLowerCase()
+          const matches = text.includes(searchTerm)
+          
+          // Show/hide items based on search
+          item.style.display = matches || !searchTerm ? '' : 'none'
+          
+          if (matches || !searchTerm) {
+            categoryHasResults = true
+            hasResults = true
+          }
+          
+          // Highlight search terms
+          if (searchTerm && matches) {
+            const trigger = item.querySelector('.pm7-accordion-trigger span')
+            const originalText = trigger.textContent
+            const regex = new RegExp(`(${searchTerm})`, 'gi')
+            trigger.innerHTML = originalText.replace(regex, '<span class="highlight">$1</span>')
+          } else {
+            const trigger = item.querySelector('.pm7-accordion-trigger span')
+            trigger.innerHTML = trigger.textContent
+          }
+        })
+        
+        // Show/hide entire category
+        category.style.display = categoryHasResults || !searchTerm ? '' : 'none'
+      })
+      
+      // Show no results message
+      noResults.style.display = hasResults || !searchTerm ? 'none' : 'block'
+    })
+    
+    // Track FAQ analytics
+    document.addEventListener('pm7-accordion-open', (e) => {
+      const question = e.detail.item.querySelector('.pm7-accordion-trigger span').textContent
+      console.log('FAQ viewed:', question)
+      // Send to analytics
+    })
+  </script>
+</body>
+</html>
 ```
 
-RESULT: Accordion with programmatic step-by-step progression
+RESULT: Searchable FAQ with highlighted search terms, categorized questions, and analytics tracking
 
 ## Validation Checklist
 
@@ -641,7 +984,65 @@ ACCESSIBILITY:
 - [ ] Focus visible
 - [ ] Screen reader compatible
 
+## Cross-Component Dependencies
+
+### Accordion with PM7 Buttons
+When using PM7 buttons inside accordion content:
+```html
+<div class="pm7-accordion-content">
+  <div class="pm7-accordion-content-inner">
+    <p>Content with action buttons</p>
+    <div class="pm7-button-group">
+      <button class="pm7-button pm7-button--primary">Save Changes</button>
+      <button class="pm7-button pm7-button--secondary">Cancel</button>
+    </div>
+  </div>
+</div>
+```
+
+NOTE: Buttons inside accordions automatically inherit proper focus management
+
+### Accordion with PM7 Forms
+For forms inside accordions:
+```html
+<div class="pm7-accordion-content">
+  <div class="pm7-accordion-content-inner">
+    <form class="pm7-form">
+      <div class="pm7-form-group">
+        <label class="pm7-label">Setting Name</label>
+        <input type="text" class="pm7-input">
+      </div>
+      <button type="submit" class="pm7-button pm7-button--primary">Save</button>
+    </form>
+  </div>
+</div>
+```
+
+IMPORTANT: Form validation states are preserved during accordion open/close
+
+### Accordion with PM7 Icons
+See Icons component for additional icon options:
+```html
+<!-- Using PM7 icon component -->
+<button class="pm7-accordion-trigger">
+  <i class="pm7-icon pm7-icon--settings pm7-accordion-icon--start"></i>
+  <span>Settings</span>
+  <svg class="pm7-accordion-icon">...</svg>
+</button>
+```
+
+## Attribute Reference
+
+For comprehensive attribute documentation including:
+- Global PM7 attributes (data-pm7-*)
+- State attributes (data-state, aria-*)
+- Configuration attributes
+- Framework-specific attributes
+
+See: [ATTRIBUTES.md](../../ATTRIBUTES.md)
+
 ## Related Components
 
 - Tab Selector: For horizontal content switching
 - Dialog: For modal content display
+- Card: For static collapsible content sections

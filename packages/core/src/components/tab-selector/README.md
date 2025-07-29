@@ -338,6 +338,8 @@ USE:
 
 RESULT: Tabs with numeric badges
 
+## Anti-Patterns
+
 ### Anti-Pattern: Missing aria-controls
 NEVER:
 ```html
@@ -364,6 +366,136 @@ NEVER:
 
 BECAUSE: PM7 handles all interactions
 INSTEAD: Use aria-controls linking
+
+### Anti-Pattern: Nested Tab Selectors
+NEVER:
+```html
+<div class="pm7-tab-selector" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="outer-1">Tab 1</button>
+  </div>
+  <div class="pm7-tab-content" id="outer-1">
+    <!-- Nested tabs inside tab content -->
+    <div class="pm7-tab-selector" data-pm7-tab-selector>
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="inner-1">Nested Tab</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+BECAUSE:
+- Event bubbling conflicts
+- Keyboard navigation breaks
+- Focus management issues
+- Confusing user experience
+
+INSTEAD: Use accordion inside tabs or separate tab groups:
+```html
+<!-- Better: Accordion inside tab -->
+<div class="pm7-tab-content" id="settings">
+  <div class="pm7-accordion" data-pm7-accordion>
+    <!-- Sub-sections as accordion items -->
+  </div>
+</div>
+```
+
+### Anti-Pattern: Missing Panel IDs
+NEVER:
+```html
+<div class="pm7-tab-selector" data-pm7-tab-selector>
+  <div class="pm7-tab-list">
+    <button class="pm7-tab-trigger" aria-controls="panel-1">Tab 1</button>
+    <button class="pm7-tab-trigger" aria-controls="panel-2">Tab 2</button>
+  </div>
+  <!-- Missing id attributes on panels -->
+  <div class="pm7-tab-content">Content 1</div>
+  <div class="pm7-tab-content">Content 2</div>
+</div>
+```
+
+BECAUSE:
+- aria-controls has no target
+- Panel switching fails
+- Accessibility violations
+
+INSTEAD: Always match aria-controls with panel id:
+```html
+<button class="pm7-tab-trigger" aria-controls="panel-1">Tab 1</button>
+<div class="pm7-tab-content" id="panel-1">Content 1</div>
+```
+
+### Anti-Pattern: Custom Active State Management
+NEVER:
+```javascript
+// Manual active state toggling
+tabTriggers.forEach((trigger, index) => {
+  trigger.addEventListener('click', () => {
+    // Remove all active states
+    tabTriggers.forEach(t => t.classList.remove('active'))
+    tabPanels.forEach(p => p.classList.remove('active'))
+    
+    // Add active state
+    trigger.classList.add('active')
+    tabPanels[index].classList.add('active')
+  })
+})
+```
+
+BECAUSE:
+- Conflicts with PM7's state management
+- Breaks built-in keyboard navigation
+- Events don't fire properly
+- ARIA attributes not updated
+
+INSTEAD: Use PM7's JavaScript API:
+```javascript
+const tabs = element.PM7TabSelector
+tabs.selectTabByIndex(1)
+
+// Or listen to built-in events
+element.addEventListener('pm7-tab-change', (e) => {
+  console.log('Tab changed to:', e.detail.index)
+})
+```
+
+### Anti-Pattern: Incorrect Badge Placement
+NEVER:
+```html
+<!-- Badge before text -->
+<button class="pm7-tab-trigger" aria-controls="messages">
+  <span class="pm7-tab-trigger-badge">5</span>
+  Messages
+</button>
+
+<!-- Badge as separate element -->
+<button class="pm7-tab-trigger" aria-controls="notifications">
+  Notifications
+</button>
+<span class="pm7-tab-trigger-badge">3</span>
+
+<!-- Multiple badges -->
+<button class="pm7-tab-trigger" aria-controls="updates">
+  Updates
+  <span class="pm7-tab-trigger-badge">2</span>
+  <span class="pm7-tab-trigger-badge">New</span>
+</button>
+```
+
+BECAUSE:
+- Breaks expected visual hierarchy
+- Badge positioning CSS assumes specific structure
+- Screen readers announce in wrong order
+- Click target issues
+
+INSTEAD: Place badge after text:
+```html
+<button class="pm7-tab-trigger" aria-controls="messages">
+  Messages
+  <span class="pm7-tab-trigger-badge">5</span>
+</button>
+```
 
 ## Attributes
 
@@ -395,28 +527,32 @@ INSTEAD: Use aria-controls linking
 
 ### Methods
 
-| Method | Parameters | Returns | Throws | Usage |
-|--------|------------|---------|--------|--------|
-| selectTabByIndex() | index: number | void | Error if invalid index | tabs.selectTabByIndex(1) |
-| selectTabById() | panelId: string | void | Error if invalid ID | tabs.selectTabById('panel-2') |
-| getActiveTab() | none | HTMLElement | never | const tab = tabs.getActiveTab() |
-| getActiveIndex() | none | number | never | const index = tabs.getActiveIndex() |
-| destroy() | none | void | never | tabs.destroy() |
+| Method | Parameters | Type | Default | Required | Returns | Throws | Description |
+|--------|------------|------|---------|----------|---------|--------|-------------|
+| selectTabByIndex() | index | number | - | YES | void | Error if invalid index | Selects tab at specified index |
+| selectTabById() | panelId | string | - | YES | void | Error if invalid ID | Selects tab by panel ID |
+| getActiveTab() | - | - | - | - | HTMLElement | never | Returns active tab trigger element |
+| getActiveIndex() | - | - | - | - | number | never | Returns index of active tab |
+| enableTab() | index | number | - | YES | void | Error if invalid index | Enables a disabled tab |
+| disableTab() | index | number | - | YES | void | Error if invalid index | Disables a tab |
+| destroy() | - | - | - | - | void | never | Removes all event listeners and cleans up |
 
 ### Properties
 
-| Property | Type | Readonly | Default | Usage |
-|----------|------|----------|---------|--------|
-| element | HTMLElement | YES | - | tabs.element |
-| triggers | NodeList | YES | - | tabs.triggers |
-| panels | NodeList | YES | - | tabs.panels |
-| activeIndex | number | YES | 0 | tabs.activeIndex |
+| Property | Type | Readonly | Default | Description |
+|----------|------|----------|---------|-------------|
+| element | HTMLElement | YES | - | The tab selector container element |
+| triggers | NodeList | YES | - | All tab trigger buttons |
+| panels | NodeList | YES | - | All tab content panels |
+| activeIndex | number | YES | 0 | Current active tab index |
+| tabList | HTMLElement | YES | - | The tab list container |
 
 ### Events
 
-| Event | Bubbles | Cancelable | Detail | Usage |
-|-------|---------|------------|--------|--------|
-| pm7-tab-change | YES | NO | {tab: HTMLElement, panel: HTMLElement, index: number} | element.addEventListener('pm7-tab-change', handler) |
+| Event | Bubbles | Cancelable | Detail | When Fired |
+|-------|---------|------------|--------|------------|
+| pm7-tab-change | YES | NO | {tab: HTMLElement, panel: HTMLElement, index: number, previousIndex: number} | After tab change |
+| pm7-tab-beforechange | YES | YES | {tab: HTMLElement, panel: HTMLElement, index: number, previousIndex: number} | Before tab change (preventable) |
 
 ### Instance Access
 
@@ -425,8 +561,13 @@ INSTEAD: Use aria-controls linking
 const element = document.querySelector('[data-pm7-tab-selector]')
 const tabs = element.PM7TabSelector
 
-// Direct instantiation
-const tabs = new PM7.TabSelector(element)
+// Direct instantiation with options
+const tabs = new PM7.TabSelector(element, {
+  animation: true,        // Enable/disable animations
+  keyboard: true,         // Enable/disable keyboard navigation
+  autoActivate: true,     // Auto-activate on focus
+  loop: false            // Loop keyboard navigation
+})
 ```
 
 ## Framework Integration
@@ -471,154 +612,442 @@ IF Svelte:
   })
 ```
 
-## Complete Examples
+## Complete Examples in Context
 
-### Example: Settings Interface
-SCENARIO: Multi-section settings page
+### Example: E-commerce Product Page with Tab Details
+SCENARIO: Product details organized in tabs with dynamic content
 ```html
 <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
+  <style>
+    .product-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .product-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .product-details {
+      margin-top: 2rem;
+    }
+    .review-item {
+      padding: 1rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    .review-item:last-child {
+      border-bottom: none;
+    }
+    .specifications-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .specifications-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--pm7-border);
+    }
+    .specifications-table td:first-child {
+      font-weight: 600;
+      width: 30%;
+    }
+  </style>
 </head>
 <body>
-  <div class="pm7-tab-selector pm7-tab-selector--solid" data-pm7-tab-selector>
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="general" data-state="active">General</button>
-      <button class="pm7-tab-trigger" aria-controls="privacy">Privacy</button>
-      <button class="pm7-tab-trigger" aria-controls="notifications">
-        Notifications
-        <span class="pm7-tab-trigger-badge">2</span>
-      </button>
-      <button class="pm7-tab-trigger" aria-controls="advanced">Advanced</button>
+  <div class="product-container">
+    <div class="product-header">
+      <div class="product-image">
+        <img src="/product.jpg" alt="Product" style="width: 100%;">
+      </div>
+      <div class="product-info">
+        <h1>Professional Wireless Headphones</h1>
+        <p class="price" style="font-size: 2rem; color: var(--pm7-primary);">$299.99</p>
+        <button class="pm7-button pm7-button--primary pm7-button--large">Add to Cart</button>
+      </div>
     </div>
-    <div class="pm7-tab-content" id="general" data-state="active">
-      <h3>General Settings</h3>
-      <p>Configure your basic preferences</p>
-    </div>
-    <div class="pm7-tab-content" id="privacy">
-      <h3>Privacy Settings</h3>
-      <p>Manage your privacy options</p>
-    </div>
-    <div class="pm7-tab-content" id="notifications">
-      <h3>Notification Settings</h3>
-      <p>2 new notification types available</p>
-    </div>
-    <div class="pm7-tab-content" id="advanced">
-      <h3>Advanced Settings</h3>
-      <p>Configure advanced options</p>
+    
+    <!-- Product Details Tabs -->
+    <div class="product-details">
+      <div class="pm7-tab-selector pm7-tab-selector--solid" data-pm7-tab-selector>
+        <div class="pm7-tab-list">
+          <button class="pm7-tab-trigger" aria-controls="description" data-state="active">
+            Description
+          </button>
+          <button class="pm7-tab-trigger" aria-controls="specifications">
+            Specifications
+          </button>
+          <button class="pm7-tab-trigger" aria-controls="reviews">
+            Reviews
+            <span class="pm7-tab-trigger-badge">47</span>
+          </button>
+          <button class="pm7-tab-trigger" aria-controls="shipping">
+            Shipping & Returns
+          </button>
+        </div>
+        
+        <!-- Description Tab -->
+        <div class="pm7-tab-content" id="description" data-state="active">
+          <h3>Product Description</h3>
+          <p>Experience premium audio quality with our Professional Wireless Headphones. Featuring advanced noise cancellation technology and 30-hour battery life.</p>
+          <ul>
+            <li>Active Noise Cancellation (ANC)</li>
+            <li>30-hour battery life</li>
+            <li>Premium leather ear cushions</li>
+            <li>Foldable design with carrying case</li>
+            <li>Multi-device connectivity</li>
+          </ul>
+        </div>
+        
+        <!-- Specifications Tab -->
+        <div class="pm7-tab-content" id="specifications">
+          <h3>Technical Specifications</h3>
+          <table class="specifications-table">
+            <tr>
+              <td>Driver Size</td>
+              <td>40mm dynamic drivers</td>
+            </tr>
+            <tr>
+              <td>Frequency Response</td>
+              <td>20Hz - 20kHz</td>
+            </tr>
+            <tr>
+              <td>Battery Life</td>
+              <td>30 hours (ANC on), 40 hours (ANC off)</td>
+            </tr>
+            <tr>
+              <td>Charging Time</td>
+              <td>2 hours (USB-C fast charging)</td>
+            </tr>
+            <tr>
+              <td>Bluetooth Version</td>
+              <td>5.2 with multipoint connectivity</td>
+            </tr>
+            <tr>
+              <td>Weight</td>
+              <td>250g</td>
+            </tr>
+            <tr>
+              <td>Included Accessories</td>
+              <td>Carrying case, USB-C cable, 3.5mm audio cable, airplane adapter</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- Reviews Tab -->
+        <div class="pm7-tab-content" id="reviews">
+          <h3>Customer Reviews (47)</h3>
+          <div class="review-summary" style="margin-bottom: 2rem;">
+            <p style="font-size: 2rem; margin: 0;">4.5 / 5.0</p>
+            <p style="color: var(--pm7-muted-foreground);">Based on 47 reviews</p>
+          </div>
+          
+          <div class="review-list">
+            <div class="review-item">
+              <strong>John D.</strong> - ⭐⭐⭐⭐⭐
+              <p>Excellent sound quality and comfort. The noise cancellation is top-notch!</p>
+            </div>
+            <div class="review-item">
+              <strong>Sarah M.</strong> - ⭐⭐⭐⭐
+              <p>Great headphones overall. Battery life is amazing. Wish they were a bit lighter.</p>
+            </div>
+            <div class="review-item">
+              <strong>Mike R.</strong> - ⭐⭐⭐⭐⭐
+              <p>Best headphones I've owned. Perfect for long flights and work calls.</p>
+            </div>
+          </div>
+          
+          <button class="pm7-button pm7-button--secondary" style="margin-top: 1rem;">Load More Reviews</button>
+        </div>
+        
+        <!-- Shipping Tab -->
+        <div class="pm7-tab-content" id="shipping">
+          <h3>Shipping Information</h3>
+          <ul>
+            <li>Free standard shipping on orders over $50</li>
+            <li>Express shipping available (2-3 business days)</li>
+            <li>International shipping to select countries</li>
+          </ul>
+          
+          <h3>Return Policy</h3>
+          <ul>
+            <li>30-day money-back guarantee</li>
+            <li>Free returns within the US</li>
+            <li>Products must be in original condition with all accessories</li>
+            <li>Refund processed within 5-7 business days</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   
   <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+  <script>
+    // Track tab views for analytics
+    document.querySelector('[data-pm7-tab-selector]').addEventListener('pm7-tab-change', (e) => {
+      console.log('Product tab viewed:', e.detail.panel.id)
+      // Send to analytics
+      
+      // Load dynamic content when needed
+      if (e.detail.panel.id === 'reviews' && !e.detail.panel.dataset.loaded) {
+        // Fetch and display all reviews
+        e.detail.panel.dataset.loaded = 'true'
+      }
+    })
+  </script>
 </body>
 </html>
 ```
 
-RESULT: Settings interface with tabbed sections and notification badge
+RESULT: Product page with organized information tabs, review count badge, and analytics tracking
 
-### Example: React Tab Component
-SCENARIO: Reusable tab component for React
-```jsx
-import { useEffect } from 'react'
-import '@pm7/core/dist/pm7.min.css'
-
-export function TabPanel({ tabs, defaultActive = 0 }) {
-  useEffect(() => {
-    import('@pm7/core').then(() => {
-      window.PM7?.initFramework()
-    })
-  }, [])
-  
-  return (
-    <div className="pm7-tab-selector" data-pm7-tab-selector>
-      <div className="pm7-tab-list">
-        {tabs.map((tab, index) => (
-          <button 
-            key={tab.id}
-            className="pm7-tab-trigger" 
-            aria-controls={tab.id}
-            data-state={index === defaultActive ? 'active' : undefined}>
-            {tab.icon && (
-              <svg className="pm7-tab-trigger-icon" width="16" height="16">
-                {tab.icon}
-              </svg>
-            )}
-            {tab.label}
-            {tab.badge && (
-              <span className="pm7-tab-trigger-badge">{tab.badge}</span>
-            )}
-          </button>
-        ))}
+### Example: Dashboard with Data Views
+SCENARIO: Analytics dashboard with different data visualizations
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.min.css">
+  <style>
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--pm7-primary);
+    }
+    .metric-label {
+      color: var(--pm7-muted-foreground);
+      margin-top: 0.5rem;
+    }
+    .chart-container {
+      background: var(--pm7-card);
+      border: 1px solid var(--pm7-border);
+      border-radius: var(--pm7-radius);
+      padding: 2rem;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pm7-muted-foreground);
+    }
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>Analytics Dashboard</h1>
+      <div class="pm7-button-group">
+        <button class="pm7-button pm7-button--secondary pm7-button--small">Export</button>
+        <button class="pm7-button pm7-button--primary pm7-button--small">Refresh</button>
       </div>
-      {tabs.map((tab, index) => (
-        <div 
-          key={tab.id}
-          className="pm7-tab-content" 
-          id={tab.id}
-          data-state={index === defaultActive ? 'active' : undefined}>
-          {tab.content}
+    </div>
+    
+    <!-- Time Period Tabs -->
+    <div class="pm7-tab-selector pm7-tab-selector--pills pm7-tab-selector--full-width" data-pm7-tab-selector id="analytics-tabs">
+      <div class="pm7-tab-list">
+        <button class="pm7-tab-trigger" aria-controls="today" data-state="active">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Today
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="week">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          This Week
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="month">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          This Month
+        </button>
+        <button class="pm7-tab-trigger" aria-controls="year">
+          <svg class="pm7-tab-trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          This Year
+        </button>
+      </div>
+      
+      <!-- Today's Data -->
+      <div class="pm7-tab-content" id="today" data-state="active">
+        <div class="data-grid">
+          <div class="metric-card">
+            <div class="metric-value">1,234</div>
+            <div class="metric-label">Visitors Today</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$5,678</div>
+            <div class="metric-label">Revenue Today</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">89</div>
+            <div class="metric-label">New Customers</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">4.2%</div>
+            <div class="metric-label">Conversion Rate</div>
+          </div>
         </div>
-      ))}
-    </div>
-  )
-}
-```
-
-RESULT: Flexible React component supporting icons and badges
-
-### Example: Programmatic Tab Control
-SCENARIO: Control tabs via JavaScript
-```javascript
-// Add tab selector to page
-document.getElementById('app').innerHTML = `
-  <div class="pm7-tab-selector pm7-tab-selector--pills" data-pm7-tab-selector id="status-tabs">
-    <div class="pm7-tab-list">
-      <button class="pm7-tab-trigger" aria-controls="pending" data-state="active">
-        Pending
-        <span class="pm7-tab-trigger-badge">5</span>
-      </button>
-      <button class="pm7-tab-trigger" aria-controls="processing">
-        Processing
-        <span class="pm7-tab-trigger-badge">2</span>
-      </button>
-      <button class="pm7-tab-trigger" aria-controls="completed">
-        Completed
-      </button>
-    </div>
-    <div class="pm7-tab-content" id="pending" data-state="active">
-      <p>5 items pending</p>
-    </div>
-    <div class="pm7-tab-content" id="processing">
-      <p>2 items processing</p>
-    </div>
-    <div class="pm7-tab-content" id="completed">
-      <p>All completed items</p>
+        <div class="chart-container">
+          <p>Hourly Traffic Chart (Today)</p>
+        </div>
+      </div>
+      
+      <!-- Week's Data -->
+      <div class="pm7-tab-content" id="week">
+        <div class="data-grid">
+          <div class="metric-card">
+            <div class="metric-value">8,456</div>
+            <div class="metric-label">Visitors This Week</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$42,890</div>
+            <div class="metric-label">Revenue This Week</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">623</div>
+            <div class="metric-label">New Customers</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">3.8%</div>
+            <div class="metric-label">Avg Conversion Rate</div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <p>Daily Traffic Chart (This Week)</p>
+        </div>
+      </div>
+      
+      <!-- Month's Data -->
+      <div class="pm7-tab-content" id="month">
+        <div class="data-grid">
+          <div class="metric-card">
+            <div class="metric-value">34,567</div>
+            <div class="metric-label">Visitors This Month</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$198,234</div>
+            <div class="metric-label">Revenue This Month</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">2,456</div>
+            <div class="metric-label">New Customers</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">4.1%</div>
+            <div class="metric-label">Avg Conversion Rate</div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <p>Weekly Traffic Chart (This Month)</p>
+        </div>
+      </div>
+      
+      <!-- Year's Data -->
+      <div class="pm7-tab-content" id="year">
+        <div class="data-grid">
+          <div class="metric-card">
+            <div class="metric-value">412,890</div>
+            <div class="metric-label">Visitors This Year</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$2.4M</div>
+            <div class="metric-label">Revenue This Year</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">28,456</div>
+            <div class="metric-label">New Customers</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">3.9%</div>
+            <div class="metric-label">Avg Conversion Rate</div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <p>Monthly Traffic Chart (This Year)</p>
+        </div>
+      </div>
     </div>
   </div>
-`
-
-// Initialize and control
-window.PM7.init()
-const tabs = document.getElementById('status-tabs').PM7TabSelector
-
-// Listen for changes
-document.getElementById('status-tabs').addEventListener('pm7-tab-change', (e) => {
-  console.log('Switched to:', e.detail.panel.id)
   
-  // Update badges based on active tab
-  if (e.detail.panel.id === 'pending') {
-    // Check for new pending items
-  }
-})
-
-// Programmatically switch tabs
-setTimeout(() => {
-  tabs.selectTabById('processing') // Switch to processing tab
-}, 3000)
+  <script src="/node_modules/@pm7/core/dist/pm7.min.js"></script>
+  <script>
+    // Lazy load chart data when tab changes
+    const analyticsTabsEl = document.getElementById('analytics-tabs')
+    const loadedTabs = new Set(['today']) // Today is loaded by default
+    
+    analyticsTabsEl.addEventListener('pm7-tab-change', (e) => {
+      const tabId = e.detail.panel.id
+      
+      if (!loadedTabs.has(tabId)) {
+        // Simulate loading chart data
+        const chartContainer = e.detail.panel.querySelector('.chart-container')
+        chartContainer.innerHTML = '<p>Loading chart data...</p>'
+        
+        setTimeout(() => {
+          chartContainer.innerHTML = `<p>${tabId.charAt(0).toUpperCase() + tabId.slice(1)} Chart Loaded</p>`
+          loadedTabs.add(tabId)
+        }, 500)
+      }
+      
+      // Track analytics view
+      console.log('Dashboard view:', tabId)
+    })
+    
+    // Auto-refresh current tab data
+    setInterval(() => {
+      const tabs = analyticsTabsEl.PM7TabSelector
+      const activePanel = tabs.panels[tabs.activeIndex]
+      console.log('Refreshing data for:', activePanel.id)
+      // Refresh data for active tab
+    }, 30000) // Every 30 seconds
+  </script>
+</body>
+</html>
 ```
 
-RESULT: Status tabs with programmatic control and event handling
+RESULT: Analytics dashboard with time-based data views, lazy loading, and auto-refresh functionality
 
 ## Validation Checklist
 
@@ -649,8 +1078,85 @@ ACCESSIBILITY:
 - [ ] Focus indicators visible
 - [ ] Screen reader compatible
 
+## Cross-Component Dependencies
+
+### TabSelector with PM7 Cards
+When using cards inside tab panels:
+```html
+<div class="pm7-tab-content" id="overview">
+  <div class="pm7-card">
+    <div class="pm7-card-header">
+      <h3 class="pm7-card-title">Overview Stats</h3>
+    </div>
+    <div class="pm7-card-content">
+      <!-- Card content -->
+    </div>
+  </div>
+</div>
+```
+
+NOTE: Cards inside tabs maintain their own scroll context
+
+### TabSelector with PM7 Forms
+For forms spanning multiple tabs:
+```html
+<form class="pm7-form" id="multi-step-form">
+  <div class="pm7-tab-selector" data-pm7-tab-selector>
+    <div class="pm7-tab-list">
+      <button type="button" class="pm7-tab-trigger" aria-controls="step-1">Step 1</button>
+      <button type="button" class="pm7-tab-trigger" aria-controls="step-2">Step 2</button>
+    </div>
+    <div class="pm7-tab-content" id="step-1">
+      <!-- Form fields for step 1 -->
+    </div>
+    <div class="pm7-tab-content" id="step-2">
+      <!-- Form fields for step 2 -->
+    </div>
+  </div>
+</form>
+```
+
+IMPORTANT: Use type="button" on tab triggers inside forms to prevent submission
+
+### TabSelector with PM7 Tables
+For data tables in tabs:
+```html
+<div class="pm7-tab-content" id="data-view">
+  <div class="pm7-table-container">
+    <table class="pm7-table">
+      <!-- Table content -->
+    </table>
+  </div>
+</div>
+```
+
+NOTE: Table containers handle overflow scrolling independently
+
+### TabSelector with PM7 Dialogs
+When triggering dialogs from tabs:
+```javascript
+// Listen for tab changes to show related dialogs
+element.addEventListener('pm7-tab-change', (e) => {
+  if (e.detail.panel.id === 'settings' && showWelcome) {
+    const dialog = document.querySelector('[data-pm7-dialog="welcome"]')
+    dialog.PM7Dialog.open()
+  }
+})
+```
+
+## Attribute Reference
+
+For comprehensive attribute documentation including:
+- Global PM7 attributes (data-pm7-*)
+- State attributes (data-state, aria-*)
+- Configuration attributes
+- Framework-specific attributes
+
+See: [ATTRIBUTES.md](../../ATTRIBUTES.md)
+
 ## Related Components
 
 - Button: Tab triggers are specialized buttons
 - Card: Often used within tab panels
 - Accordion: Alternative for vertical content switching
+- Menu: For dropdown navigation alternatives

@@ -1,7 +1,7 @@
 ---
 # MANDATORY METADATA
 type: ai-agent-documentation
-version: 1.0
+version: 2.0
 component: Card
 status: stable
 audience: ai-coding-agents-only
@@ -10,7 +10,8 @@ human-readable: false
 # COMPONENT METADATA
 category: layout
 dependencies:
-  - component: none
+  - component: button (for actions)
+  - component: grid (for layout)
   - external: none
 framework-support:
   - vanilla: true
@@ -346,16 +347,29 @@ USE:
 
 RESULT: Card with minimal padding
 
+## Anti-Patterns
+
 ### Anti-Pattern: Missing Content Wrapper
 NEVER:
 ```html
 <div class="pm7-card">
-  Direct content without wrapper
+  <h3>Direct heading without wrapper</h3>
+  <p>Direct content without pm7-card-content wrapper</p>
 </div>
 ```
 
-BECAUSE: Padding and spacing rely on content wrapper
-INSTEAD: See Pattern: Basic Card
+BECAUSE: Padding and spacing calculations rely on content wrapper structure
+INSTEAD:
+```html
+<div class="pm7-card">
+  <div class="pm7-card-header">
+    <h3 class="pm7-card-title">Properly wrapped heading</h3>
+  </div>
+  <div class="pm7-card-content">
+    <p>Content inside proper wrapper</p>
+  </div>
+</div>
+```
 
 ### Anti-Pattern: Nested Cards
 NEVER:
@@ -363,30 +377,121 @@ NEVER:
 <div class="pm7-card">
   <div class="pm7-card-content">
     <div class="pm7-card">
-      Nested card
+      <div class="pm7-card-content">
+        Nested card creates visual confusion
+      </div>
     </div>
   </div>
 </div>
 ```
 
-BECAUSE: Creates visual confusion and spacing issues
-INSTEAD: Use flat card structure
-
-### Anti-Pattern: Multiple Variants
-NEVER:
+BECAUSE: Creates visual confusion, double borders, and incorrect spacing accumulation
+INSTEAD:
 ```html
-<div class="pm7-card pm7-card--outlined pm7-card--elevated">
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <div class="pm7-section">
+      <h4>Use sections for nested content</h4>
+      <p>Or use pm7-card--ghost for subtle separation</p>
+    </div>
+  </div>
+</div>
 ```
 
-BECAUSE: Conflicting styles create undefined behavior
-INSTEAD: Choose one variant
+### Anti-Pattern: Multiple Conflicting Variants
+NEVER:
+```html
+<div class="pm7-card pm7-card--outlined pm7-card--elevated pm7-card--ghost">
+  <!-- Don't combine mutually exclusive variants -->
+</div>
+```
+
+BECAUSE: Conflicting CSS properties create unpredictable rendering behavior
+INSTEAD:
+```html
+<!-- Choose ONE visual variant -->
+<div class="pm7-card pm7-card--elevated">
+  <!-- Elevated OR outlined OR ghost, never multiple -->
+</div>
+```
+
+### Anti-Pattern: Card as Form Container
+NEVER:
+```html
+<form class="pm7-card">
+  <input type="text" placeholder="Don't do this">
+  <button type="submit">Submit</button>
+</form>
+```
+
+BECAUSE: Card is not a semantic form element and lacks form-specific styling
+INSTEAD:
+```html
+<form>
+  <div class="pm7-card">
+    <div class="pm7-card-content">
+      <div class="pm7-form-group">
+        <input type="text" class="pm7-input" placeholder="Proper form structure">
+      </div>
+    </div>
+    <div class="pm7-card-footer">
+      <button type="submit" class="pm7-button pm7-button--primary">Submit</button>
+    </div>
+  </div>
+</form>
+```
+
+### Anti-Pattern: Improper Image Usage
+NEVER:
+```html
+<div class="pm7-card">
+  <div class="pm7-card-content">
+    <img src="image.jpg" alt="Wrong placement">
+    <!-- Image inside content wrapper -->
+  </div>
+</div>
+```
+
+BECAUSE: Card images need special styling that only works as direct children
+INSTEAD:
+```html
+<div class="pm7-card">
+  <img src="image.jpg" alt="Correct placement" class="pm7-card-image">
+  <div class="pm7-card-content">
+    <!-- Content after image -->
+  </div>
+</div>
+```
+
+### Anti-Pattern: Custom Padding/Margin
+NEVER:
+```html
+<div class="pm7-card" style="padding: 2rem;">
+  <div class="pm7-card-content" style="margin: -1rem;">
+    Don't override card spacing
+  </div>
+</div>
+```
+
+BECAUSE: Breaks the consistent spacing system and responsive behavior
+INSTEAD:
+```html
+<!-- Use modifier classes -->
+<div class="pm7-card pm7-card--compact">
+  <div class="pm7-card-content">
+    Use compact modifier for less padding
+  </div>
+</div>
+```
 
 ## Attributes
 
 | Attribute | Type | Values | Default | Required | Effect |
 |-----------|------|--------|---------|----------|--------|
 | class | string | pm7-card [variants] | - | YES | Applies card styling |
-| href | string | URL | - | NO | When using a element |
+| href | string | URL | - | NO | When using a element for clickable cards |
+
+> **Note**: Card component uses standard HTML attributes only. For PM7-specific data attributes used by other components, see [ATTRIBUTES.md](../../ATTRIBUTES.md).
 
 ## CSS Classes
 
@@ -503,147 +608,277 @@ IF with inputs:
   </div>
 ```
 
-## Complete Examples
+## Complete Examples in Context
 
-### Example: Product Card Grid
-SCENARIO: E-commerce product listing
+### Example: Product Listing with pm7-grid
+SCENARIO: E-commerce product grid with filters and sorting
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.css">
+  <title>Product Listing</title>
 </head>
 <body>
-  <div class="pm7-card-grid">
-    <a href="/product/1" class="pm7-card pm7-card--interactive">
-      <img src="/products/laptop.jpg" alt="Laptop" class="pm7-card-image">
-      <div class="pm7-card-header">
-        <h3 class="pm7-card-title">Professional Laptop</h3>
-      </div>
+  <div class="pm7-container">
+    <!-- Filter bar -->
+    <div class="pm7-card pm7-card--ghost" style="margin-bottom: 2rem;">
       <div class="pm7-card-content">
-        <p>High-performance laptop for professionals</p>
-        <strong>$1,299</strong>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <select class="pm7-select">
+            <option>All Categories</option>
+            <option>Electronics</option>
+            <option>Accessories</option>
+          </select>
+          <select class="pm7-select">
+            <option>Sort by Price</option>
+            <option>Sort by Name</option>
+          </select>
+        </div>
       </div>
-    </a>
-    
-    <a href="/product/2" class="pm7-card pm7-card--interactive">
-      <img src="/products/monitor.jpg" alt="Monitor" class="pm7-card-image">
-      <div class="pm7-card-header">
-        <h3 class="pm7-card-title">4K Monitor</h3>
-      </div>
-      <div class="pm7-card-content">
-        <p>Ultra HD display for creative work</p>
-        <strong>$599</strong>
-      </div>
-    </a>
+    </div>
+
+    <!-- Product grid using pm7-grid -->
+    <div class="pm7-grid pm7-grid--responsive">
+      <a href="/product/laptop-pro" class="pm7-card pm7-card--interactive">
+        <img src="/images/laptop-pro.jpg" alt="Professional Laptop" class="pm7-card-image">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">Professional Laptop</h3>
+        </div>
+        <div class="pm7-card-content">
+          <p class="pm7-text-muted">High-performance Intel i9, 32GB RAM</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+            <strong style="font-size: 1.25rem;">$1,299</strong>
+            <span class="pm7-badge pm7-badge--success">In Stock</span>
+          </div>
+        </div>
+        <div class="pm7-card-footer">
+          <button class="pm7-button pm7-button--primary pm7-button--block">
+            Add to Cart
+          </button>
+        </div>
+      </a>
+
+      <a href="/product/4k-monitor" class="pm7-card pm7-card--interactive">
+        <img src="/images/monitor-4k.jpg" alt="4K Monitor" class="pm7-card-image">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">4K HDR Monitor</h3>
+        </div>
+        <div class="pm7-card-content">
+          <p class="pm7-text-muted">32" IPS display, 144Hz refresh rate</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+            <strong style="font-size: 1.25rem;">$599</strong>
+            <span class="pm7-badge pm7-badge--warning">Low Stock</span>
+          </div>
+        </div>
+        <div class="pm7-card-footer">
+          <button class="pm7-button pm7-button--primary pm7-button--block">
+            Add to Cart
+          </button>
+        </div>
+      </a>
+
+      <a href="/product/wireless-mouse" class="pm7-card pm7-card--interactive">
+        <img src="/images/mouse-wireless.jpg" alt="Wireless Mouse" class="pm7-card-image">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">Ergonomic Wireless Mouse</h3>
+        </div>
+        <div class="pm7-card-content">
+          <p class="pm7-text-muted">Bluetooth 5.0, 6-month battery life</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+            <strong style="font-size: 1.25rem;">$49</strong>
+            <span class="pm7-badge pm7-badge--success">In Stock</span>
+          </div>
+        </div>
+        <div class="pm7-card-footer">
+          <button class="pm7-button pm7-button--primary pm7-button--block">
+            Add to Cart
+          </button>
+        </div>
+      </a>
+    </div>
   </div>
 </body>
 </html>
 ```
 
-RESULT: Grid of clickable product cards with images
+RESULT: Complete product listing page with responsive grid layout and interactive product cards
 
-### Example: React Card Component
-SCENARIO: Reusable card component
-```jsx
-import '@pm7/core/dist/pm7.css'
-
-export function Card({ 
-  title, 
-  description, 
-  image, 
-  imageAlt,
-  variant,
-  compact,
-  interactive,
-  href,
-  children,
-  actions
-}) {
-  const classNames = [
-    'pm7-card',
-    variant && `pm7-card--${variant}`,
-    compact && 'pm7-card--compact',
-    interactive && 'pm7-card--interactive'
-  ].filter(Boolean).join(' ')
-  
-  const CardWrapper = href ? 'a' : 'div'
-  const wrapperProps = href ? { href } : {}
-  
-  return (
-    <CardWrapper className={classNames} {...wrapperProps}>
-      {image && (
-        <img src={image} alt={imageAlt || ''} className="pm7-card-image" />
-      )}
-      {(title || description) && (
-        <div className="pm7-card-header">
-          {title && <h3 className="pm7-card-title">{title}</h3>}
-          {description && <p className="pm7-card-description">{description}</p>}
-        </div>
-      )}
-      <div className="pm7-card-content">
-        {children}
-      </div>
-      {actions && (
-        <div className="pm7-card-footer">
-          {actions}
-        </div>
-      )}
-    </CardWrapper>
-  )
-}
-
-// Usage
-<Card 
-  title="Welcome"
-  description="Get started with our platform"
-  variant="elevated"
-  actions={
-    <button className="pm7-button pm7-button--primary">Get Started</button>
-  }>
-  <p>Create your first project in minutes</p>
-</Card>
-```
-
-RESULT: Flexible React component supporting all card features
-
-### Example: Dashboard Cards
-SCENARIO: Admin dashboard with stats
+### Example: Dashboard with Mixed Card Types
+SCENARIO: Admin dashboard combining stats, charts, and actions
 ```html
-<div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-  <div class="pm7-card">
-    <div class="pm7-card-header">
-      <h3 class="pm7-card-title">Total Users</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/node_modules/@pm7/core/dist/pm7.css">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <div class="pm7-container">
+    <h1 class="pm7-heading pm7-heading--h1">Dashboard</h1>
+    
+    <!-- Stats row using pm7-grid -->
+    <div class="pm7-grid pm7-grid--4" style="margin-bottom: 2rem;">
+      <div class="pm7-card pm7-card--elevated">
+        <div class="pm7-card-content">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <p class="pm7-text-muted" style="margin-bottom: 0.5rem;">Total Revenue</p>
+              <div style="font-size: 2rem; font-weight: bold;">$45,678</div>
+              <p style="color: var(--pm7-success); font-size: 0.875rem;">
+                ↑ 12% from last month
+              </p>
+            </div>
+            <div class="pm7-icon pm7-icon--large" style="color: var(--pm7-primary);">
+              <!-- Revenue icon SVG -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm7-card pm7-card--elevated">
+        <div class="pm7-card-content">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <p class="pm7-text-muted" style="margin-bottom: 0.5rem;">Active Users</p>
+              <div style="font-size: 2rem; font-weight: bold;">1,234</div>
+              <p style="color: var(--pm7-success); font-size: 0.875rem;">
+                ↑ 8% from last week
+              </p>
+            </div>
+            <div class="pm7-icon pm7-icon--large" style="color: var(--pm7-info);">
+              <!-- Users icon SVG -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm7-card pm7-card--elevated">
+        <div class="pm7-card-content">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <p class="pm7-text-muted" style="margin-bottom: 0.5rem;">Conversion Rate</p>
+              <div style="font-size: 2rem; font-weight: bold;">3.2%</div>
+              <p style="color: var(--pm7-danger); font-size: 0.875rem;">
+                ↓ 2% from last week
+              </p>
+            </div>
+            <div class="pm7-icon pm7-icon--large" style="color: var(--pm7-warning);">
+              <!-- Chart icon SVG -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm7-card pm7-card--elevated">
+        <div class="pm7-card-content">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <p class="pm7-text-muted" style="margin-bottom: 0.5rem;">Support Tickets</p>
+              <div style="font-size: 2rem; font-weight: bold;">89</div>
+              <p style="color: var(--pm7-muted-foreground); font-size: 0.875rem;">
+                12 pending response
+              </p>
+            </div>
+            <div class="pm7-icon pm7-icon--large" style="color: var(--pm7-secondary);">
+              <!-- Ticket icon SVG -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pm7-card-content">
-      <div style="font-size: 2rem; font-weight: bold;">1,234</div>
-      <p style="color: var(--pm7-muted-foreground);">+12% from last month</p>
+
+    <!-- Main content area with 2-column layout -->
+    <div class="pm7-grid pm7-grid--sidebar">
+      <!-- Recent Activity -->
+      <div class="pm7-card">
+        <div class="pm7-card-header">
+          <h3 class="pm7-card-title">Recent Activity</h3>
+          <p class="pm7-card-description">Latest user actions and system events</p>
+        </div>
+        <div class="pm7-card-content">
+          <div class="pm7-list">
+            <div class="pm7-list-item">
+              <div class="pm7-list-item-content">
+                <strong>New user registered</strong>
+                <p class="pm7-text-muted">john.doe@example.com joined</p>
+              </div>
+              <span class="pm7-text-muted">2 min ago</span>
+            </div>
+            <div class="pm7-list-item">
+              <div class="pm7-list-item-content">
+                <strong>Order #1234 completed</strong>
+                <p class="pm7-text-muted">$599 revenue added</p>
+              </div>
+              <span class="pm7-text-muted">15 min ago</span>
+            </div>
+            <div class="pm7-list-item">
+              <div class="pm7-list-item-content">
+                <strong>Server maintenance completed</strong>
+                <p class="pm7-text-muted">All systems operational</p>
+              </div>
+              <span class="pm7-text-muted">1 hour ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="pm7-card-footer">
+          <a href="/activity" class="pm7-button pm7-button--secondary pm7-button--block">
+            View All Activity
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div>
+        <div class="pm7-card pm7-card--compact" style="margin-bottom: 1rem;">
+          <div class="pm7-card-header">
+            <h3 class="pm7-card-title">Quick Actions</h3>
+          </div>
+          <div class="pm7-card-content">
+            <div style="display: grid; gap: 0.5rem;">
+              <button class="pm7-button pm7-button--primary pm7-button--block">
+                Create New Product
+              </button>
+              <button class="pm7-button pm7-button--secondary pm7-button--block">
+                Export Reports
+              </button>
+              <button class="pm7-button pm7-button--secondary pm7-button--block">
+                Manage Users
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="pm7-card pm7-card--outlined">
+          <div class="pm7-card-header">
+            <h3 class="pm7-card-title">System Status</h3>
+          </div>
+          <div class="pm7-card-content">
+            <div class="pm7-list pm7-list--compact">
+              <div class="pm7-list-item">
+                <span>API Server</span>
+                <span class="pm7-badge pm7-badge--success">Operational</span>
+              </div>
+              <div class="pm7-list-item">
+                <span>Database</span>
+                <span class="pm7-badge pm7-badge--success">Operational</span>
+              </div>
+              <div class="pm7-list-item">
+                <span>CDN</span>
+                <span class="pm7-badge pm7-badge--warning">Degraded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <div class="pm7-card">
-    <div class="pm7-card-header">
-      <h3 class="pm7-card-title">Revenue</h3>
-    </div>
-    <div class="pm7-card-content">
-      <div style="font-size: 2rem; font-weight: bold;">$45,678</div>
-      <p style="color: var(--pm7-muted-foreground);">+8% from last month</p>
-    </div>
-  </div>
-  
-  <div class="pm7-card">
-    <div class="pm7-card-header">
-      <h3 class="pm7-card-title">Active Projects</h3>
-    </div>
-    <div class="pm7-card-content">
-      <div style="font-size: 2rem; font-weight: bold;">89</div>
-      <p style="color: var(--pm7-muted-foreground);">12 completed this week</p>
-    </div>
-  </div>
-</div>
+</body>
+</html>
 ```
 
-RESULT: Dashboard with stat cards in responsive grid
+RESULT: Complete dashboard layout demonstrating various card types and layouts working together
 
 ## Validation Checklist
 
@@ -671,9 +906,57 @@ ACCESSIBILITY:
 - [ ] Interactive cards keyboard accessible
 - [ ] Focus indicators visible
 
+## Cross-Component Dependencies
+
+### Required for Common Patterns
+
+| Pattern | Required Components | Example |
+|---------|-------------------|---------|
+| Card Grid Layout | pm7-grid | `<div class="pm7-grid pm7-grid--responsive">` |
+| Card Actions | pm7-button | `<button class="pm7-button pm7-button--primary">` |
+| Card Status | pm7-badge | `<span class="pm7-badge pm7-badge--success">` |
+| Card Lists | pm7-list | `<div class="pm7-list">` |
+| Card Forms | pm7-input, pm7-form-group | See form integration patterns |
+
+### CSS Variable Dependencies
+
+Cards inherit these CSS variables from the PM7 theme:
+- `--pm7-card-background`: Background color
+- `--pm7-card-foreground`: Text color  
+- `--pm7-border`: Border color
+- `--pm7-radius`: Border radius
+- `--pm7-card-shadow`: Shadow definition
+- `--pm7-muted-foreground`: Secondary text color
+
+### JavaScript Integration Points
+
+While Card is CSS-only, it commonly contains interactive components:
+- Dialogs triggered from card actions
+- Tooltips on card elements
+- Dropdown menus in card headers
+- Form validation in card forms
+
+### Responsive Behavior Dependencies
+
+Cards rely on parent containers for responsive layout:
+```html
+<!-- Cards adapt to grid container breakpoints -->
+<div class="pm7-grid pm7-grid--responsive">
+  <div class="pm7-card">...</div>
+</div>
+
+<!-- Cards adapt to container queries -->
+<div class="pm7-container">
+  <div class="pm7-card">...</div>
+</div>
+```
+
 ## Related Components
 
-- Button: For card actions
-- Grid: For card layouts
-- Dialog: Cards in modals
-- Accordion: Expandable card-like sections
+- **Button**: For card actions and CTAs
+- **Grid**: For responsive card layouts
+- **Badge**: For status indicators
+- **List**: For structured content in cards
+- **Dialog**: Cards often appear in modals
+- **Form Elements**: For card-based forms
+- **Icons**: For visual indicators

@@ -2,9 +2,13 @@
 
 ## CRITICAL: This is AI-Only Documentation
 
+⚠️ **MANDATORY**: All documentation MUST follow v2.0 standard at `/docs/README-AI-Documentation-Standard.md`
+
 All component documentation in `/packages/core/src/components/*/README.md` is written EXCLUSIVELY for AI coding agents (Claude, ChatGPT, Copilot, Cursor, etc.).
 
 ### Documentation Rules for AI Agents
+
+📋 **ATTRIBUTES REFERENCE**: See `/docs/ATTRIBUTES.md` for all data-pm7-* attributes
 
 When reading or writing PM7-UI documentation, follow these rules:
 

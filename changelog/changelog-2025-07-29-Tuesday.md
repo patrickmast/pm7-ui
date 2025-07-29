@@ -1,5 +1,49 @@
 # Changelog - Tuesday, July 29, 2025
 
+## 09:38 - Updated Four Key Components to v2.0 Documentation Standard
+- **Wat**: Card, Menu, Dialog, en Button componenten volledig geüpdatet naar nieuwe v2.0 documentatie standaard
+- **Hoe**: 
+  - Metadata versie geüpdatet naar v2.0 met component dependencies
+  - "Complete Examples in Context" sectie toegevoegd met 2+ realistische voorbeelden per component
+  - "Anti-Patterns" sectie uitgebreid naar 5-6 items met gedetailleerde BECAUSE/INSTEAD uitleg
+  - JavaScript API tabellen verfijnd met exacte parameter details en method descriptions
+  - "Cross-Component Dependencies" sectie toegevoegd met tabel format
+  - Cross-references naar ATTRIBUTES.md toegevoegd in Attributes secties
+  - Button component kreeg specifiek anti-pattern over block elements
+- **Bestanden**: 
+  - Modified: `/packages/core/src/components/card/README.md`
+  - Modified: `/packages/core/src/components/menu/README.md`
+  - Modified: `/packages/core/src/components/dialog/README.md`
+  - Modified: `/packages/core/src/components/button/README.md`
+- **Reden**: Deze vier componenten zijn de meest gebruikte in PM7-UI en moesten perfect voorbeelden zijn van de nieuwe v2.0 standaard met volledige context en duidelijke anti-patterns
+
+## 09:22 - PM7-UI Documentation Standard Upgraded to v2.0
+- **Wat**: Documentation standaard geüpgraded naar versie 2.0 met strengere AI-focused requirements
+- **Hoe**: 
+  - Created `/docs/README-AI-Documentation-Standard.md` met verplichte nieuwe secties
+  - Created `/docs/ATTRIBUTES.md` als centrale referentie voor alle data-pm7-* attributes
+  - Updated `COMPONENT-TEMPLATE.md` met v2.0 structure en alle mandatory sections
+  - Nieuwe verplichte secties: "Complete Examples in Context" (min 2) en "Anti-Patterns" (min 3 met BECAUSE/INSTEAD)
+  - Stricter JavaScript API table format met Parameter Details voor complexe methods
+  - Cross-Component Dependencies sectie toegevoegd
+- **Bestanden**: 
+  - Created: `/docs/README-AI-Documentation-Standard.md`
+  - Created: `/docs/ATTRIBUTES.md`
+  - Modified: `/COMPONENT-TEMPLATE.md`
+- **Reden**: v1.0 was niet streng genoeg - AI agents hadden nog steeds moeite met implementaties. v2.0 forceert complete realistische voorbeelden en expliciete anti-patterns met redenen
+
+## 08:18 - PM7-UI Website Deployed to Production
+- **Wat**: PM7-UI documentation website gedeployed naar production environment
+- **Hoe**: 
+  - Build uitgevoerd met `npm run build` (packages + docs)
+  - Deployment naar Vercel met `vercel --prod`
+  - Production URL: https://pm7-ui.dev
+  - Vercel deployment URL: https://pm7-1rc60wb4k-pm7-projects.vercel.app
+- **Bestanden**:
+  - Build output: `docs/` directory (203 files)
+  - Deployment configuratie: `vercel.json`
+- **Reden**: Website deployment om de nieuwe documentatie updates en demo system verbeteringen live te zetten
+
 ## 06:28 - Transformed Icons Component Documentation to AI Format
 - **Wat**: Icons component README.md getransformeerd naar AI-only documentatie formaat
 - **Hoe**: 
