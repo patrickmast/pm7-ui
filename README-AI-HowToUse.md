@@ -16,9 +16,23 @@ attributes-reference: /docs/ATTRIBUTES.md
 
 DEFINITION: PM7-UI is a framework-agnostic UI component library built with pure CSS and vanilla JavaScript, offering full TypeScript support. It is optimized for AI agents to generate UI components efficiently.
 
+## 🚨 CRITICAL USAGE RULE: NPM PACKAGE ONLY
+
+**MANDATORY**: You MUST use PM7-UI EXCLUSIVELY via the official npm package `@pm7/core`.
+
+**FORBIDDEN ACTIONS**:
+- ❌ NEVER use local file paths like `file:../../../pm7-ui`
+- ❌ NEVER import from local PM7-UI development folders
+- ❌ NEVER access PM7-UI source files directly
+- ❌ NEVER assume you have access to the PM7-UI repository
+
+**REQUIRED MINDSET**: You are a 3rd party developer with NO access to PM7-UI source code. You can ONLY use what is publicly available via npm.
+
+**ENFORCEMENT**: Any attempt to use local PM7-UI files is a CRITICAL ERROR that must be immediately corrected by installing the npm package instead.
+
 ## Installation
 
-### NPM/Yarn/PNPM
+### NPM/Yarn/PNPM (ONLY APPROVED METHOD)
 
 ```bash
 npm install @pm7/core
@@ -27,6 +41,8 @@ yarn add @pm7/core
 # or  
 pnpm add @pm7/core
 ```
+
+**IMPORTANT**: If you see `"@pm7/core": "file:..."` in package.json, this is WRONG and must be replaced with the npm version.
 
 ### CDN
 
