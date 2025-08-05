@@ -170,6 +170,129 @@ Variant classes (primary, secondary, destructive, etc.) are mutually exclusive a
 <button type="button" class="pm7-button">Click Me</button>
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### Event Handling in React
+
+PM7-UI buttons work seamlessly with React event handlers since they don't have internal event delegation like menus or dialogs:
+
+```jsx
+function MyButton() {
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+
+  return (
+    <button type="button" className="pm7-button pm7-button--primary" onClick={handleClick}>
+      Click Me
+    </button>
+  );
+}
+```
+
+### Loading State Management
+
+When managing loading states in React, ensure proper synchronization between state and DOM attributes:
+
+```jsx
+function SaveButton() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSave = async () => {
+    setIsLoading(true);
+    try {
+      await saveData();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      className="pm7-button pm7-button--primary"
+      onClick={handleSave}
+      disabled={isLoading}
+      data-state={isLoading ? 'loading' : undefined}
+    >
+      {isLoading ? (
+        <>
+          <svg className="pm7-spinner" width="16" height="16" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          <span>Saving...</span>
+        </>
+      ) : (
+        'Save'
+      )}
+    </button>
+  );
+}
+```
+
+### Button Groups with State
+
+For button groups that represent a selection, manage the active state in React:
+
+```jsx
+function ViewSelector() {
+  const [view, setView] = useState('grid');
+
+  return (
+    <div className="pm7-button-group">
+      <button
+        type="button"
+        className={`pm7-button pm7-button--outline ${view === 'grid' ? 'pm7-button--active' : ''}`}
+        onClick={() => setView('grid')}
+      >
+        Grid
+      </button>
+      <button
+        type="button"
+        className={`pm7-button pm7-button--outline ${view === 'list' ? 'pm7-button--active' : ''}`}
+        onClick={() => setView('list')}
+      >
+        List
+      </button>
+    </div>
+  );
+}
+```
+
+### Dynamic Button Rendering
+
+When rendering buttons dynamically, PM7 styles will apply automatically:
+
+```jsx
+function ActionButtons({ actions }) {
+  return (
+    <div className="flex gap-2">
+      {actions.map((action) => (
+        <button
+          key={action.id}
+          type="button"
+          className={`pm7-button ${action.variant ? `pm7-button--${action.variant}` : ''}`}
+          onClick={action.handler}
+          disabled={action.disabled}
+        >
+          {action.icon && <span className="pm7-button-icon">{action.icon}</span>}
+          {action.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### Key Points for React:
+- Regular React onClick handlers work perfectly with PM7 buttons
+- Manage loading states with both `disabled` attribute and `data-state`
+- Use conditional classes for active states in button groups
+- PM7 button styles are applied via CSS classes, no JavaScript initialization needed
+
 ## Rules
 
 ### ALWAYS

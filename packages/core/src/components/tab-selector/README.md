@@ -182,6 +182,212 @@ This bypasses the component's built-in logic, breaking keyboard navigation, acce
 instance.selectTabById('panel-2');
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### State Management in React
+
+PM7-UI TabSelector can be used as either controlled or uncontrolled component in React:
+
+### Uncontrolled TabSelector (Let PM7 Manage State)
+
+```jsx
+function TabsExample() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div className="pm7-tab-selector" data-pm7-tab-selector>
+      <div className="pm7-tab-list" role="tablist">
+        <button className="pm7-tab-trigger" role="tab" aria-controls="panel-1" aria-selected="true">
+          Overview
+        </button>
+        <button className="pm7-tab-trigger" role="tab" aria-controls="panel-2">
+          Features
+        </button>
+        <button className="pm7-tab-trigger" role="tab" aria-controls="panel-3">
+          Pricing
+        </button>
+      </div>
+      <div className="pm7-tab-content" role="tabpanel" id="panel-1" data-state="active">
+        <h3>Overview Content</h3>
+        <p>This is the overview tab content.</p>
+      </div>
+      <div className="pm7-tab-content" role="tabpanel" id="panel-2" data-state="inactive">
+        <h3>Features Content</h3>
+        <p>This is the features tab content.</p>
+      </div>
+      <div className="pm7-tab-content" role="tabpanel" id="panel-3" data-state="inactive">
+        <h3>Pricing Content</h3>
+        <p>This is the pricing tab content.</p>
+      </div>
+    </div>
+  );
+}
+```
+
+### Controlled TabSelector (React Manages State)
+
+```jsx
+function ControlledTabs() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Listen for PM7 tab change events
+    const handleTabChange = (e) => {
+      setActiveTab(e.detail.index);
+    };
+
+    document.addEventListener('pm7:tab:change', handleTabChange);
+    return () => document.removeEventListener('pm7:tab:change', handleTabChange);
+  }, []);
+
+  const handleTabClick = (index) => {
+    // Update React state
+    setActiveTab(index);
+    
+    // Also update PM7 TabSelector
+    const tabSelector = document.querySelector('[data-pm7-tab-selector]')?.PM7TabSelector;
+    if (tabSelector) {
+      tabSelector.selectTabByIndex(index);
+    }
+  };
+
+  return (
+    <div>
+      <p>Active Tab: {activeTab}</p>
+      <div className="pm7-tab-selector" data-pm7-tab-selector>
+        <div className="pm7-tab-list" role="tablist">
+          {['Overview', 'Features', 'Pricing'].map((label, index) => (
+            <button
+              key={index}
+              className="pm7-tab-trigger"
+              role="tab"
+              aria-controls={`panel-${index}`}
+              aria-selected={activeTab === index}
+              onClick={() => handleTabClick(index)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        {['Overview Content', 'Features Content', 'Pricing Content'].map((content, index) => (
+          <div
+            key={index}
+            className="pm7-tab-content"
+            role="tabpanel"
+            id={`panel-${index}`}
+            data-state={activeTab === index ? 'active' : 'inactive'}
+          >
+            <h3>{content}</h3>
+            <p>This is the content for tab {index + 1}.</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+### Dynamic Tabs with React
+
+```jsx
+function DynamicTabs({ tabs }) {
+  const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    // Re-initialize PM7 when tabs change
+    window.PM7?.init();
+  }, [tabs]);
+
+  useEffect(() => {
+    const handleTabChange = (e) => {
+      setActiveTab(e.detail.index);
+    };
+
+    document.addEventListener('pm7:tab:change', handleTabChange);
+    return () => document.removeEventListener('pm7:tab:change', handleTabChange);
+  }, []);
+
+  return (
+    <div className="pm7-tab-selector" data-pm7-tab-selector>
+      <div className="pm7-tab-list" role="tablist">
+        {tabs.map((tab, index) => (
+          <button
+            key={tab.id}
+            className="pm7-tab-trigger"
+            role="tab"
+            aria-controls={`panel-${tab.id}`}
+            aria-selected={index === activeTab}
+          >
+            {tab.icon && <span className="mr-2">{tab.icon}</span>}
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {tabs.map((tab, index) => (
+        <div
+          key={tab.id}
+          className="pm7-tab-content"
+          role="tabpanel"
+          id={`panel-${tab.id}`}
+          data-state={index === activeTab ? 'active' : 'inactive'}
+        >
+          {tab.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Tab Navigation with URL State
+
+```jsx
+function TabsWithRouting() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab') || 'overview';
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Select tab based on URL
+    const tabIndex = ['overview', 'features', 'pricing'].indexOf(activeTab);
+    if (tabIndex >= 0) {
+      const tabSelector = document.querySelector('[data-pm7-tab-selector]')?.PM7TabSelector;
+      tabSelector?.selectTabByIndex(tabIndex);
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
+    const handleTabChange = (e) => {
+      const tabLabels = ['overview', 'features', 'pricing'];
+      setSearchParams({ tab: tabLabels[e.detail.index] });
+    };
+
+    document.addEventListener('pm7:tab:change', handleTabChange);
+    return () => document.removeEventListener('pm7:tab:change', handleTabChange);
+  }, [setSearchParams]);
+
+  return (
+    <div className="pm7-tab-selector" data-pm7-tab-selector>
+      {/* Tab content */}
+    </div>
+  );
+}
+```
+
+### Key Points for React:
+- TabSelector can work as both controlled and uncontrolled component
+- Use `pm7:tab:change` event to sync with React state
+- Call `PM7.init()` when dynamically adding tabs
+- Let PM7 handle the `aria-selected` and `data-state` updates
+- For controlled components, update both React state and PM7 instance
+
 ## Rules
 
 ### ALWAYS

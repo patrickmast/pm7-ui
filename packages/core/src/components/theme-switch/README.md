@@ -213,6 +213,192 @@ Placing the script after stylesheets will cause a brief flash of the default (li
 </head>
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### Theme State Management in React
+
+PM7-UI ThemeSwitch works well with React context for global theme state:
+
+### Basic Integration
+
+```jsx
+function App() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div>
+      <header>
+        <nav>
+          {/* ThemeSwitch auto-generates its internal structure */}
+          <div data-pm7-theme-switch></div>
+        </nav>
+      </header>
+      <main>{/* Your app content */}</main>
+    </div>
+  );
+}
+```
+
+### Syncing with React Context
+
+```jsx
+// ThemeContext.js
+const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(() => {
+    // Check localStorage or system preference
+    return localStorage.getItem('pm7-theme') || 
+           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Listen for PM7 theme changes
+    const handleThemeChange = (e) => {
+      setTheme(e.detail.theme);
+    };
+
+    document.addEventListener('pm7:theme-switch:change', handleThemeChange);
+    return () => document.removeEventListener('pm7:theme-switch:change', handleThemeChange);
+  }, []);
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// App.js
+function App() {
+  const { theme } = useContext(ThemeContext);
+
+  return (
+    <div className={`app ${theme}`}>
+      <header>
+        <div data-pm7-theme-switch></div>
+      </header>
+      <main>
+        <p>Current theme: {theme}</p>
+      </main>
+    </div>
+  );
+}
+```
+
+### Programmatic Theme Control
+
+```jsx
+function ThemeControls() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Listen for theme changes
+    const handleThemeChange = (e) => {
+      setTheme(e.detail.theme);
+    };
+
+    document.addEventListener('pm7:theme-switch:change', handleThemeChange);
+    return () => document.removeEventListener('pm7:theme-switch:change', handleThemeChange);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    
+    // Update PM7 ThemeSwitch
+    const themeSwitch = document.querySelector('[data-pm7-theme-switch]')?.PM7ThemeSwitch;
+    if (themeSwitch) {
+      themeSwitch.setTheme(newTheme);
+    }
+  };
+
+  return (
+    <div>
+      <div data-pm7-theme-switch></div>
+      <button onClick={toggleTheme} className="pm7-button">
+        Toggle Theme Programmatically
+      </button>
+      <p>Current theme: {theme}</p>
+    </div>
+  );
+}
+```
+
+### Custom Theme Switch with Label
+
+```jsx
+function LabeledThemeSwitch() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    const handleThemeChange = (e) => {
+      setIsDark(e.detail.theme === 'dark');
+    };
+
+    document.addEventListener('pm7:theme-switch:change', handleThemeChange);
+    return () => document.removeEventListener('pm7:theme-switch:change', handleThemeChange);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2">
+      <label htmlFor="theme-switch" className="text-sm">
+        {isDark ? '🌙 Dark Mode' : '☀️ Light Mode'}
+      </label>
+      <div id="theme-switch" data-pm7-theme-switch></div>
+    </div>
+  );
+}
+```
+
+### Multiple Theme Switches
+
+```jsx
+function MultipleThemeSwitches() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <>
+      {/* Header theme switch */}
+      <header>
+        <div data-pm7-theme-switch></div>
+      </header>
+
+      {/* Settings panel theme switch */}
+      <div className="settings-panel">
+        <h3>Appearance</h3>
+        <div className="setting-item">
+          <span>Dark Mode</span>
+          <div data-pm7-theme-switch className="pm7-theme-switch--sm"></div>
+        </div>
+      </div>
+
+      {/* Fixed position theme switch */}
+      <div className="pm7-theme-switch--fixed-icon" data-pm7-theme-switch></div>
+    </>
+  );
+}
+```
+
+### Key Points for React:
+- ThemeSwitch auto-generates its internal DOM structure
+- Never manually create the switch HTML - just provide the container
+- Use `pm7:theme-switch:change` event to sync with React state
+- PM7 handles localStorage persistence automatically
+- Multiple theme switches on the same page stay synchronized
+- The `dark` class is automatically applied to `<html>` element
+
 ## Rules
 
 ### ALWAYS

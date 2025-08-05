@@ -257,6 +257,164 @@ This can lead to conflicting event listeners, keyboard navigation issues, and un
 // Consider using a single accordion with more detailed content, or a different component for nested information.
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### ⚠️ State Management in React
+
+PM7-UI accordions have their own internal state management. When using with React, you need to synchronize states properly:
+
+1. **Controlled vs Uncontrolled**: PM7 accordions manage their own open/closed state internally
+2. **Event Listeners**: Use PM7 events to sync with React state when needed
+3. **ARIA Attributes**: Let PM7 handle `aria-expanded` and `data-state` updates
+
+### Basic React Implementation
+
+```jsx
+function AccordionExample() {
+  // PM7 will manage the open/closed state internally
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div className="pm7-accordion" data-pm7-accordion>
+      <div className="pm7-accordion-item">
+        <button className="pm7-accordion-trigger" aria-controls="acc-1">
+          <span>Section 1</span>
+          <svg className="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+        </button>
+        <div className="pm7-accordion-content" id="acc-1" data-state="closed">
+          <div className="pm7-accordion-content-inner">
+            <p>Content for section 1.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Syncing with React State
+
+If you need to track which items are open in React state:
+
+```jsx
+function ControlledAccordion() {
+  const [openItems, setOpenItems] = useState([]);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Listen for PM7 accordion events
+    const handleOpen = (e) => {
+      const index = e.detail.index;
+      setOpenItems(prev => [...prev, index]);
+    };
+
+    const handleClose = (e) => {
+      const index = e.detail.index;
+      setOpenItems(prev => prev.filter(i => i !== index));
+    };
+
+    document.addEventListener('pm7:accordion:open', handleOpen);
+    document.addEventListener('pm7:accordion:close', handleClose);
+
+    return () => {
+      document.removeEventListener('pm7:accordion:open', handleOpen);
+      document.removeEventListener('pm7:accordion:close', handleClose);
+    };
+  }, []);
+
+  return (
+    <div>
+      <p>Open items: {openItems.join(', ')}</p>
+      <div className="pm7-accordion" data-pm7-accordion data-pm7-accordion-options='{"multiple": true}'>
+        {/* Accordion items */}
+      </div>
+    </div>
+  );
+}
+```
+
+### Dynamic Accordion Items
+
+When rendering accordion items dynamically:
+
+```jsx
+function DynamicAccordion({ items }) {
+  useEffect(() => {
+    // Re-initialize when items change
+    window.PM7?.init();
+  }, [items]);
+
+  return (
+    <div className="pm7-accordion" data-pm7-accordion>
+      {items.map((item, index) => (
+        <div key={item.id} className="pm7-accordion-item">
+          <button 
+            className="pm7-accordion-trigger" 
+            aria-controls={`acc-${item.id}`}
+          >
+            <span>{item.title}</span>
+            <svg className="pm7-accordion-icon" width="16" height="16" viewBox="0 0 24 24">
+              <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" fill="none" />
+            </svg>
+          </button>
+          <div 
+            className="pm7-accordion-content" 
+            id={`acc-${item.id}`} 
+            data-state="closed"
+          >
+            <div className="pm7-accordion-content-inner">
+              {item.content}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Programmatic Control from React
+
+```jsx
+function AccordionWithControls() {
+  const accordionRef = useRef(null);
+
+  const openAll = () => {
+    const accordion = accordionRef.current?.PM7Accordion;
+    if (accordion) {
+      // Get all items and open them
+      const itemCount = accordionRef.current.querySelectorAll('.pm7-accordion-item').length;
+      for (let i = 0; i < itemCount; i++) {
+        accordion.open(i);
+      }
+    }
+  };
+
+  return (
+    <>
+      <button onClick={openAll} className="pm7-button">Open All</button>
+      <div ref={accordionRef} className="pm7-accordion" data-pm7-accordion data-pm7-accordion-options='{"multiple": true}'>
+        {/* Accordion items */}
+      </div>
+    </>
+  );
+}
+```
+
+### Key Points for React:
+- Let PM7 manage the accordion state internally
+- Use event listeners to sync with React state when needed
+- Don't manually update `aria-expanded` or `data-state` attributes
+- Call `PM7.init()` when dynamically adding new accordion items
+- Use the PM7Accordion API for programmatic control
+
 ## Rules
 
 ### ALWAYS

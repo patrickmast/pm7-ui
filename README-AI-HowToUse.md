@@ -30,6 +30,28 @@ DEFINITION: PM7-UI is a framework-agnostic UI component library built with pure 
 
 **ENFORCEMENT**: Any attempt to use local PM7-UI files is a CRITICAL ERROR that must be immediately corrected by installing the npm package instead.
 
+## 🚨🚨🚨 CRITICAL VERSION REQUIREMENT 🚨🚨🚨
+
+**MANDATORY FIRST STEP**: ALWAYS check and update to the LATEST version of @pm7/core before ANY debugging or implementation!
+
+```bash
+# ALWAYS run this FIRST when working with PM7-UI:
+npm list @pm7/core     # Check current version
+npm update @pm7/core   # Update to latest version
+# or
+npm install @pm7/core@latest
+```
+
+**WHY THIS IS CRITICAL**:
+- Old versions may lack essential features (e.g., `initFramework()` was added in v2.x)
+- Bug fixes and improvements are released regularly
+- Framework integration features evolve rapidly
+- Using an outdated version WILL cause problems that waste hours of debugging
+
+**REAL EXAMPLE**: A dialog rendering issue that took hours to debug was instantly solved by updating from v1.1.4 to v2.7.1.
+
+**RULE**: If ANY PM7-UI component doesn't work as documented, your FIRST action must be to check and update the version!
+
 ## Installation
 
 ### NPM/Yarn/PNPM (ONLY APPROVED METHOD)

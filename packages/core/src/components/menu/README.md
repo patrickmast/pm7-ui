@@ -233,6 +233,151 @@ The Menu component automatically handles positioning based on the trigger, viewp
 </div>
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### ⚠️ CRITICAL: Event Handling in React
+
+PM7-UI menus require special handling in React due to event system conflicts:
+
+1. **NEVER use React event handlers (onClick) on PM7 menu items**
+   - React's synthetic events conflict with PM7's menu event handling
+   - Use `dangerouslySetInnerHTML` with lowercase `onclick` attributes for custom menu actions
+
+2. **The onclick vs onClick Problem**
+   - React filters out lowercase HTML attributes like `onclick`
+   - PM7 menu items use internal event delegation that conflicts with React's event system
+   - Solution: Use `dangerouslySetInnerHTML` for custom menu items or handle events via PM7's event system
+
+3. **Use PM7 Events for Menu Interactions**
+   ```jsx
+   useEffect(() => {
+     const handleMenuSelect = (e) => {
+       console.log('Menu item selected:', e.detail);
+       // Handle menu selection in React
+     };
+     
+     document.addEventListener('pm7:menu:select', handleMenuSelect);
+     return () => document.removeEventListener('pm7:menu:select', handleMenuSelect);
+   }, []);
+   ```
+
+### Complete React Example
+
+```jsx
+function AppMenu() {
+  const [selectedSort, setSelectedSort] = useState('name');
+  const [showGrid, setShowGrid] = useState(true);
+
+  // Initialize PM7
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  // Listen for PM7 menu events
+  useEffect(() => {
+    const handleMenuSelect = (e) => {
+      const { value, menuId } = e.detail;
+      
+      if (menuId === 'sort-menu') {
+        setSelectedSort(value);
+      }
+    };
+    
+    const handleMenuChange = (e) => {
+      const { checked, menuId } = e.detail;
+      
+      if (menuId === 'view-menu') {
+        setShowGrid(checked);
+      }
+    };
+    
+    document.addEventListener('pm7:menu:select', handleMenuSelect);
+    document.addEventListener('pm7:menu:change', handleMenuChange);
+    
+    return () => {
+      document.removeEventListener('pm7:menu:select', handleMenuSelect);
+      document.removeEventListener('pm7:menu:change', handleMenuChange);
+    };
+  }, []);
+
+  return (
+    <div data-pm7-menu data-pm7-menu-align="bottom-end">
+      <button className="pm7-menu-trigger">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+      </button>
+      <div 
+        className="pm7-menu-content"
+        dangerouslySetInnerHTML={{
+          __html: `
+            <p class="pm7-menu-label">Sort By</p>
+            <button class="pm7-menu-item" data-type="radio" data-name="sort" data-value="name" ${selectedSort === 'name' ? 'data-checked="true"' : ''} data-menu-id="sort-menu">
+              Name
+            </button>
+            <button class="pm7-menu-item" data-type="radio" data-name="sort" data-value="date" ${selectedSort === 'date' ? 'data-checked="true"' : ''} data-menu-id="sort-menu">
+              Date
+            </button>
+            <button class="pm7-menu-item" data-type="radio" data-name="sort" data-value="size" ${selectedSort === 'size' ? 'data-checked="true"' : ''} data-menu-id="sort-menu">
+              Size
+            </button>
+            <div class="pm7-menu-separator"></div>
+            <p class="pm7-menu-label">View Options</p>
+            <button class="pm7-menu-item" data-type="switch" ${showGrid ? 'data-checked="true"' : ''} data-menu-id="view-menu">
+              <span class="pm7-menu-switch-label">Show Grid</span>
+            </button>
+          `
+        }}
+      />
+    </div>
+  );
+}
+```
+
+### Handling Submenus in React
+
+For complex menus with submenus, the structure must be maintained exactly:
+
+```jsx
+function ComplexMenu() {
+  return (
+    <div data-pm7-menu>
+      <button className="pm7-menu-trigger">File</button>
+      <div 
+        className="pm7-menu-content"
+        dangerouslySetInnerHTML={{
+          __html: `
+            <button class="pm7-menu-item">New File</button>
+            <button class="pm7-menu-item">Open...</button>
+            <div class="pm7-submenu">
+              <button class="pm7-menu-item">
+                Recent Files
+                <svg class="pm7-submenu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              <div class="pm7-menu-content">
+                <button class="pm7-menu-item">project.json</button>
+                <button class="pm7-menu-item">README.md</button>
+              </div>
+            </div>
+          `
+        }}
+      />
+    </div>
+  );
+}
+```
+
+### Key Points for React:
+- Always use `dangerouslySetInnerHTML` for menu content to preserve PM7's event handling
+- Listen to PM7 menu events (`pm7:menu:select`, `pm7:menu:change`) for state updates
+- Do not use React onClick handlers on menu items
+- Maintain the exact DOM structure for submenus
+- See [Framework Integration Guide](../../../../../../README-Framework-Integration.md) for more details
+
 ## Rules
 
 ### ALWAYS
@@ -246,6 +391,7 @@ The Menu component automatically handles positioning based on the trigger, viewp
 - **NEVER**: Manually control the `display` or `position` of the menu content.
 - **NEVER**: Nest a `data-pm7-menu` component inside another `data-pm7-menu` component (use the `pm7-submenu` structure instead).
 - **NEVER**: Forget to call `window.PM7.init()` if you add a menu to the page dynamically after initial page load.
+- **NEVER**: Use React onClick handlers on PM7 menu items (use `dangerouslySetInnerHTML` with PM7 event system instead).
 
 ## CSS Variables
 

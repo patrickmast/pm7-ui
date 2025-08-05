@@ -16,10 +16,30 @@ attributes-reference: /docs/ATTRIBUTES.md
 
 DEFINITION: This guide provides exact patterns and rules for integrating PM7-UI components into modern JavaScript frameworks like React, Vue, and Angular. It addresses common challenges such as timing, state synchronization, and event handling.
 
+## 🚨 CRITICAL: VERSION REQUIREMENT
+
+**BEFORE ANYTHING ELSE**: Ensure you have the LATEST version of @pm7/core!
+
+```bash
+# CHECK VERSION FIRST - ALWAYS!
+npm list @pm7/core
+
+# If not latest, UPDATE IMMEDIATELY:
+npm install @pm7/core@latest
+```
+
+**MINIMUM REQUIRED VERSION**: 2.5.0+ (for `initFramework()` and self-healing features)
+
+**WARNING**: Older versions (< 2.x) lack critical framework integration features and WILL cause issues like:
+- Dialogs appearing inline instead of as modals
+- Components not initializing after framework renders
+- Missing `initFramework()` method
+- No self-healing capabilities
+
 ## Installation
 
 ```bash
-npm install @pm7/core
+npm install @pm7/core@latest  # ALWAYS specify @latest!
 ```
 
 ### CSS & JavaScript Import

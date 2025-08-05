@@ -225,6 +225,285 @@ Nesting interactive sidebars can lead to conflicting event listeners, focus mana
 // Use a single sidebar with nested navigation, or consider a different component for nested content.
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### State Management in React
+
+PM7-UI Sidebar can be controlled from React while maintaining its internal state management:
+
+### Basic Interactive Sidebar
+
+```jsx
+function AppSidebar() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <>
+      <button data-pm7-sidebar-trigger="main-sidebar" className="pm7-button">
+        Open Menu
+      </button>
+      
+      <aside className="pm7-sidebar" data-pm7-sidebar id="main-sidebar">
+        <div className="pm7-sidebar-header">
+          <h3 className="pm7-sidebar-title">App Menu</h3>
+          <button className="pm7-sidebar-close">×</button>
+        </div>
+        <div className="pm7-sidebar-content">
+          <nav className="pm7-sidebar-nav">
+            <a href="#dashboard" className="pm7-sidebar-item">Dashboard</a>
+            <a href="#settings" className="pm7-sidebar-item">Settings</a>
+          </nav>
+        </div>
+      </aside>
+    </>
+  );
+}
+```
+
+### Syncing with React State
+
+```jsx
+function ControlledSidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    // Listen for PM7 sidebar events
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
+    const sidebar = sidebarRef.current;
+    if (sidebar) {
+      sidebar.addEventListener('pm7:sidebar:open', handleOpen);
+      sidebar.addEventListener('pm7:sidebar:close', handleClose);
+    }
+
+    return () => {
+      if (sidebar) {
+        sidebar.removeEventListener('pm7:sidebar:open', handleOpen);
+        sidebar.removeEventListener('pm7:sidebar:close', handleClose);
+      }
+    };
+  }, []);
+
+  return (
+    <>
+      <p>Sidebar is {isOpen ? 'open' : 'closed'}</p>
+      <button data-pm7-sidebar-trigger="app-sidebar" className="pm7-button">
+        Toggle Menu
+      </button>
+      
+      <aside 
+        ref={sidebarRef}
+        className="pm7-sidebar" 
+        data-pm7-sidebar 
+        id="app-sidebar"
+      >
+        {/* Sidebar content */}
+      </aside>
+    </>
+  );
+}
+```
+
+### Programmatic Control
+
+```jsx
+function ProgrammaticSidebar() {
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  const openSidebar = () => {
+    const sidebar = sidebarRef.current?.PM7Sidebar;
+    if (sidebar) {
+      sidebar.open();
+    }
+  };
+
+  const closeSidebar = () => {
+    const sidebar = sidebarRef.current?.PM7Sidebar;
+    if (sidebar) {
+      sidebar.close();
+    }
+  };
+
+  return (
+    <>
+      <div className="flex gap-2">
+        <button onClick={openSidebar} className="pm7-button">
+          Open Programmatically
+        </button>
+        <button onClick={closeSidebar} className="pm7-button pm7-button--secondary">
+          Close Programmatically
+        </button>
+      </div>
+      
+      <aside 
+        ref={sidebarRef}
+        className="pm7-sidebar" 
+        data-pm7-sidebar 
+        id="prog-sidebar"
+      >
+        {/* Sidebar content */}
+      </aside>
+    </>
+  );
+}
+```
+
+### Dynamic Navigation Items
+
+```jsx
+function DynamicSidebar({ navItems, user }) {
+  useEffect(() => {
+    // Re-initialize when items change
+    window.PM7?.init();
+  }, [navItems]);
+
+  return (
+    <aside className="pm7-sidebar" data-pm7-sidebar id="dynamic-sidebar">
+      <div className="pm7-sidebar-header">
+        <h3 className="pm7-sidebar-title">{user.name}</h3>
+        <button className="pm7-sidebar-close">×</button>
+      </div>
+      <div className="pm7-sidebar-content">
+        <nav className="pm7-sidebar-nav">
+          {navItems.map((item) => (
+            <a 
+              key={item.id}
+              href={item.href} 
+              className="pm7-sidebar-item"
+            >
+              {item.icon && (
+                <span className="pm7-sidebar-item-icon">{item.icon}</span>
+              )}
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </aside>
+  );
+}
+```
+
+### Responsive Sidebar Pattern
+
+```jsx
+function ResponsiveSidebar() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <>
+      {isMobile && (
+        <button data-pm7-sidebar-trigger="responsive-sidebar" className="pm7-button">
+          ☰ Menu
+        </button>
+      )}
+      
+      <aside 
+        className={`pm7-sidebar ${!isMobile ? 'pm7-sidebar-static' : ''}`}
+        data-pm7-sidebar={isMobile ? true : undefined}
+        id="responsive-sidebar"
+      >
+        <div className="pm7-sidebar-header">
+          <h3 className="pm7-sidebar-title">My App</h3>
+          {isMobile && <button className="pm7-sidebar-close">×</button>}
+        </div>
+        <div className="pm7-sidebar-content">
+          <nav className="pm7-sidebar-nav">
+            <a href="#home" className="pm7-sidebar-item">Home</a>
+            <a href="#about" className="pm7-sidebar-item">About</a>
+            <a href="#contact" className="pm7-sidebar-item">Contact</a>
+          </nav>
+        </div>
+      </aside>
+    </>
+  );
+}
+```
+
+### Sidebar with React Router
+
+```jsx
+import { NavLink } from 'react-router-dom';
+
+function RouterSidebar() {
+  const location = useLocation();
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    const sidebar = sidebarRef.current?.PM7Sidebar;
+    if (sidebar && window.innerWidth < 768) {
+      sidebar.close();
+    }
+  }, [location]);
+
+  return (
+    <aside 
+      ref={sidebarRef}
+      className="pm7-sidebar" 
+      data-pm7-sidebar 
+      id="router-sidebar"
+    >
+      <div className="pm7-sidebar-content">
+        <nav className="pm7-sidebar-nav">
+          <NavLink 
+            to="/dashboard" 
+            className={({ isActive }) => 
+              `pm7-sidebar-item ${isActive ? 'pm7-sidebar-item--active' : ''}`
+            }
+          >
+            Dashboard
+          </NavLink>
+          <NavLink 
+            to="/users" 
+            className={({ isActive }) => 
+              `pm7-sidebar-item ${isActive ? 'pm7-sidebar-item--active' : ''}`
+            }
+          >
+            Users
+          </NavLink>
+        </nav>
+      </div>
+    </aside>
+  );
+}
+```
+
+### Key Points for React:
+- Sidebar manages its own open/closed state internally
+- Use `pm7:sidebar:open` and `pm7:sidebar:close` events to sync with React state
+- Call `PM7.init()` when dynamically adding sidebars
+- Use the PM7Sidebar API for programmatic control
+- For responsive patterns, conditionally apply `pm7-sidebar-static` class
+- Close sidebar on route changes for better mobile UX
+
 ## Rules
 
 ### ALWAYS

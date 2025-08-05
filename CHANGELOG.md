@@ -6,6 +6,10 @@ All notable changes to this project will be documented in daily changelog files.
 
 ### 2025
 
+#### August
+- [Tuesday, August 5, 2025](changelog/changelog-2025-08-05-Tuesday.md)
+- [Monday, August 4, 2025](changelog/changelog-2025-08-04-Monday.md)
+
 #### July
 - [Tuesday, July 29, 2025](changelog/changelog-2025-07-29-Tuesday.md)
 - [Monday, July 28, 2025](changelog/changelog-2025-07-28-Monday.md)

@@ -259,6 +259,99 @@ function MyDialog({ isOpen }) {
 }
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### ⚠️ CRITICAL: Event Handling in React
+
+PM7-UI dialogs require special handling in React due to event system conflicts:
+
+1. **NEVER use React event handlers (onClick) on PM7 internal elements**
+   - React's synthetic events conflict with PM7's event handling
+   - Use `dangerouslySetInnerHTML` with lowercase `onclick` attributes instead
+
+2. **The onclick vs onClick Problem**
+   - React filters out lowercase HTML attributes like `onclick`
+   - Only PascalCase attributes like `onClick` are passed through
+   - Solution: Use `dangerouslySetInnerHTML` for buttons in dialogs
+
+3. **Use Global Functions for Event Handling**
+   ```jsx
+   // Define global functions in your app initialization
+   useEffect(() => {
+     window.handleDialogCancel = () => {
+       window.closeDialog('my-dialog');
+       // Update your React state here
+     };
+   }, []);
+   ```
+
+### Complete React Example
+
+```jsx
+function App() {
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState('');
+
+  // Initialize PM7 and global functions
+  useEffect(() => {
+    window.PM7?.initFramework();
+    
+    // Global functions for dialog buttons
+    window.handleDialogCancel = () => {
+      window.closeDialog('my-dialog');
+      setShowDialog(false);
+    };
+    
+    window.handleDialogConfirm = () => {
+      window.closeDialog('my-dialog');
+      setShowDialog(false);
+      // Process the dialog result
+    };
+  }, []);
+
+  // Manage dialog visibility
+  useEffect(() => {
+    if (showDialog) {
+      window.openDialog('my-dialog');
+    }
+  }, [showDialog]);
+
+  return (
+    <>
+      <button onClick={() => setShowDialog(true)}>Open Dialog</button>
+      
+      {/* Dialog must always be rendered, PM7 controls visibility */}
+      <div data-pm7-dialog="my-dialog" data-pm7-dialog-size="md">
+        <div data-pm7-header>Dialog Title</div>
+        <div data-pm7-body>{dialogContent}</div>
+        <div 
+          data-pm7-footer
+          dangerouslySetInnerHTML={{ 
+            __html: `
+              <button class="pm7-button pm7-button--ghost" onclick="handleDialogCancel()">
+                Cancel
+              </button>
+              <button class="pm7-button pm7-button--primary" onclick="handleDialogConfirm()">
+                Confirm
+              </button>
+            `
+          }}
+        />
+      </div>
+    </>
+  );
+}
+```
+
+### Key Points for React:
+- Always render the dialog in the DOM (PM7 handles visibility)
+- Use `dangerouslySetInnerHTML` for footer buttons with `onclick`
+- Define global functions for event handling
+- Synchronize React state with PM7 dialog state
+- See [Framework Integration Guide](../../../../../../README-Framework-Integration.md) for more details
+
 ## Rules
 
 ### ALWAYS
@@ -272,6 +365,7 @@ function MyDialog({ isOpen }) {
 - **NEVER**: Use duplicate `data-pm7-dialog` IDs.
 - **NEVER**: Manually control dialog visibility using CSS `display` properties.
 - **NEVER**: Forget to call `window.PM7.init()` if you add dialogs to the DOM dynamically after initial page load.
+- **NEVER**: Use React onClick handlers on PM7 dialog buttons (use `dangerouslySetInnerHTML` with `onclick` instead).
 
 ## CSS Variables
 

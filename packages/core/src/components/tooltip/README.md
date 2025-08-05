@@ -224,6 +224,265 @@ The Tooltip component manages its own visibility, positioning, and event listene
 // Let the component handle visibility automatically on hover/focus, or use the JavaScript API methods `show()` and `hide()`.
 ```
 
+## React Integration
+
+> **📚 Framework Integration Guide**: For Vue, Angular, and other framework integrations, see the comprehensive [Framework Integration Guide](https://raw.githubusercontent.com/patrickmast/pm7-ui/main/README-Framework-Integration.md)
+
+### Basic Tooltip Usage in React
+
+PM7-UI Tooltips work seamlessly in React applications:
+
+```jsx
+function TooltipExample() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div data-pm7-tooltip>
+      <button className="pm7-tooltip-trigger pm7-button">
+        Hover for info
+      </button>
+      <div className="pm7-tooltip-content">
+        This is helpful information about the button.
+        <div className="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Dynamic Tooltip Content
+
+When tooltip content changes dynamically, ensure PM7 updates the positioning:
+
+```jsx
+function DynamicTooltip({ message, isLoading }) {
+  const tooltipRef = useRef(null);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  useEffect(() => {
+    // Update position when content changes
+    const tooltip = tooltipRef.current?.PM7Tooltip;
+    if (tooltip) {
+      tooltip.updatePosition();
+    }
+  }, [message]);
+
+  return (
+    <div data-pm7-tooltip ref={tooltipRef}>
+      <button className="pm7-tooltip-trigger pm7-button">
+        Status Info
+      </button>
+      <div className="pm7-tooltip-content">
+        {isLoading ? 'Loading...' : message}
+        <div className="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Icon Buttons with Tooltips
+
+Common pattern for icon-only buttons that need text labels:
+
+```jsx
+function IconButton({ icon, label, onClick }) {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div data-pm7-tooltip>
+      <button 
+        className="pm7-tooltip-trigger pm7-button pm7-button--icon"
+        onClick={onClick}
+        aria-label={label}
+      >
+        {icon}
+      </button>
+      <div className="pm7-tooltip-content">
+        {label}
+        <div className="pm7-tooltip-arrow"></div>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<IconButton 
+  icon={<EditIcon />} 
+  label="Edit this item" 
+  onClick={handleEdit} 
+/>
+```
+
+### Form Field Help Tooltips
+
+Providing contextual help for form fields:
+
+```jsx
+function FormFieldWithHelp({ label, helpText, ...inputProps }) {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div className="pm7-form-group">
+      <label className="pm7-label">{label}</label>
+      <div className="flex items-center gap-2">
+        <input className="pm7-input" {...inputProps} />
+        {helpText && (
+          <div data-pm7-tooltip>
+            <button 
+              className="pm7-tooltip-trigger pm7-button pm7-button--icon pm7-button--ghost"
+              aria-label={`Help for ${label}`}
+            >
+              <HelpIcon />
+            </button>
+            <div className="pm7-tooltip-content" data-side="right">
+              {helpText}
+              <div className="pm7-tooltip-arrow"></div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+### Programmatic Tooltip Control
+
+```jsx
+function ProgrammaticTooltip() {
+  const tooltipRef = useRef(null);
+  const [isShown, setIsShown] = useState(false);
+
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  const showTooltip = () => {
+    const tooltip = tooltipRef.current?.PM7Tooltip;
+    if (tooltip) {
+      tooltip.show();
+      setIsShown(true);
+    }
+  };
+
+  const hideTooltip = () => {
+    const tooltip = tooltipRef.current?.PM7Tooltip;
+    if (tooltip) {
+      tooltip.hide();
+      setIsShown(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button onClick={showTooltip} className="pm7-button">
+          Show Tooltip
+        </button>
+        <button onClick={hideTooltip} className="pm7-button pm7-button--secondary">
+          Hide Tooltip
+        </button>
+      </div>
+      
+      <div data-pm7-tooltip ref={tooltipRef}>
+        <span className="pm7-tooltip-trigger" tabIndex={0}>
+          Target element (Status: {isShown ? 'Shown' : 'Hidden'})
+        </span>
+        <div className="pm7-tooltip-content">
+          This tooltip is controlled programmatically.
+          <div className="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+### Tooltip List Items
+
+When rendering multiple tooltips in a list:
+
+```jsx
+function TooltipList({ items }) {
+  useEffect(() => {
+    // Re-initialize when items change
+    window.PM7?.init();
+  }, [items]);
+
+  return (
+    <div className="grid grid-cols-4 gap-2">
+      {items.map((item) => (
+        <div key={item.id} data-pm7-tooltip>
+          <button className="pm7-tooltip-trigger pm7-button pm7-button--icon">
+            <img src={item.icon} alt={item.name} />
+          </button>
+          <div className="pm7-tooltip-content">
+            <strong>{item.name}</strong>
+            <br />
+            {item.description}
+            <div className="pm7-tooltip-arrow"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Custom Delay Configuration
+
+```jsx
+function CustomDelayTooltips() {
+  useEffect(() => {
+    window.PM7?.initFramework();
+  }, []);
+
+  return (
+    <div className="flex gap-4">
+      {/* Fast tooltip */}
+      <div data-pm7-tooltip data-open-delay="0" data-close-delay="0">
+        <button className="pm7-tooltip-trigger pm7-button">
+          Instant
+        </button>
+        <div className="pm7-tooltip-content">
+          No delay on hover
+          <div className="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+
+      {/* Slow tooltip */}
+      <div data-pm7-tooltip data-open-delay="1000" data-close-delay="500">
+        <button className="pm7-tooltip-trigger pm7-button">
+          Delayed
+        </button>
+        <div className="pm7-tooltip-content">
+          1 second open delay, 0.5 second close delay
+          <div className="pm7-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Key Points for React:
+- Tooltips are fully declarative - just provide the HTML structure
+- Use `PM7.init()` when dynamically adding tooltips
+- Update tooltip position when content changes with `updatePosition()`
+- Tooltips handle their own event listeners and positioning
+- Always include the arrow element for proper rendering
+- Use `tabIndex={0}` on non-interactive triggers to ensure keyboard accessibility
+
 ## Rules
 
 ### ALWAYS
